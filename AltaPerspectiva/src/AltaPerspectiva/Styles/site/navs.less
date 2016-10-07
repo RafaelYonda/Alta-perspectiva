@@ -1,0 +1,56 @@
+﻿@import (reference) "../../bower_components/bootstrap/less/variables.less";
+
+.nav {
+    > li {
+        > form > a {
+            position: relative;
+            display: block;
+            padding: @nav-link-padding;
+
+            &:hover,
+            &:focus {
+                text-decoration: none;
+                background-color: @nav-link-hover-bg;
+            }
+        }
+        // Disabled state sets text to gray and nukes hover/tab effects
+        &.disabled > form > a {
+            color: @nav-disabled-link-color;
+
+            &:hover,
+            &:focus {
+                color: @nav-disabled-link-hover-color;
+                text-decoration: none;
+                background-color: transparent;
+                cursor: @cursor-disabled;
+            }
+        }
+    }
+    // Open dropdowns
+    .open > form > a {
+        &,
+        &:hover,
+        &:focus {
+            background-color: @nav-link-hover-bg;
+            border-color: @link-color;
+        }
+    }
+}
+
+// Give the tabs something to sit on
+.nav-tabs {
+
+    > li {
+        // Actual tabs (as links)
+        > a {
+            margin-right: 2px;
+            font-family: "Open Sans Condensed",sans-serif;
+            color: #333;
+            font-size: 13px;
+            vertical-align: middle;
+            font-weight: 700;
+               
+        }
+      
+    }
+}

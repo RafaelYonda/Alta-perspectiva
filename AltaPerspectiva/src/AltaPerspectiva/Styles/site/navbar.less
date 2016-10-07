@@ -1,0 +1,143 @@
+﻿@import (reference) "../../bower_components/bootstrap/less/variables.less";
+
+.navbar {
+    position: fixed;
+    height: 40px;
+    min-height: 40px;
+    border-radius: 0;
+    z-index: 9999;
+}
+
+.navbar-default .navbar-nav {
+    > li > form > a {
+        color: #777;
+    }
+}
+
+
+.navbar-default {
+    display: block;
+    background-color: #fafafa;
+
+    .navbar-nav {
+        > li > form > a {
+            color: @navbar-default-link-color;
+
+            &:hover,
+            &:focus {
+                color: @navbar-default-link-hover-color;
+                background-color: @navbar-default-link-hover-bg;
+            }
+        }
+
+        > .active > form > a {
+            &,
+            &:hover,
+            &:focus {
+                color: @navbar-default-link-active-color;
+                background-color: @navbar-default-link-active-bg;
+            }
+        }
+
+        > .disabled > form > a {
+            &,
+            &:hover,
+            &:focus {
+                color: @navbar-default-link-disabled-color;
+                background-color: @navbar-default-link-disabled-bg;
+            }
+        }
+    }
+
+    .navbar-toggle {
+        border: none;
+        margin: 0 15px;
+
+
+
+        .button-label {
+            display: inline-block;
+        }
+
+        .button-icon-bar {
+            display: inline-block;
+        }
+    }
+}
+
+.navbar-brand {
+    height: 40px;
+    padding: 5px 15px;
+
+    .logo {
+        width: 61px;
+        height: auto;
+    }
+}
+
+
+.navbar-nav {
+
+    > li {
+        > a {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+
+    > li > form > a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        line-height: @line-height-computed;
+    }
+    // Uncollapse the nav
+    @media (min-width: @grid-float-breakpoint) {
+        float: left;
+        margin: 0;
+
+        > li {
+            float: left;
+
+            > form > a {
+                padding-top: @navbar-padding-vertical;
+                padding-bottom: @navbar-padding-vertical;
+            }
+        }
+    }
+
+
+    &.user-menu {
+        font-family: "Open Sans Condensed",sans-serif;
+        color: #333;
+        font-size: 13px;
+        vertical-align: middle;
+        font-weight: 700;
+
+        .dropdown {
+
+            .dropdown-menu {
+                font-weight: 700;
+            }
+        }
+    }
+
+    .login {
+        display: inline-block;
+        width: 30px;
+        height: 23px;
+        margin-top: -5px;
+        margin-bottom: -5px;
+        background: transparent url('images/login-button.png') top left no-repeat;
+        background-size: 30px 23px;
+    }
+}
+
+.navbar-collapse.collapsing {
+    background-color: white;
+       border-bottom: 1px solid #777;
+}
+
+.navbar-collapse.in {
+    background-color: white;
+       border-bottom: 1px solid #777;
+}
