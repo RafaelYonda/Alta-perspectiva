@@ -42,7 +42,7 @@ gulp.task("copy:bower-components", function () {
                     "./dist/fonts/*.*"
                 ]
             },
-            'font-awesome': {
+            'fontawesome': {
                 main: [
                     "./css/font-awesome.css",
                     "./fonts/*.*"

@@ -3,3 +3,6 @@ AltaPerspectiva/src/AltaPerspectiva/bower_components/
 AltaPerspectiva/src/AltaPerspectiva/obj/Debug/netcoreapp1.0/.IncrementalCache
 AltaPerspectiva/src/AltaPerspectiva/obj/
 AltaPerspectiva/src/AltaPerspectiva/bin/
+AltaPerspectiva/src/AltaPerspectiva/wwwroot/lib
+AltaPerspectiva/src/AltaPerspectiva/wwwroot/css
+AltaPerspectiva/src/AltaPerspectiva/wwwroot/js
