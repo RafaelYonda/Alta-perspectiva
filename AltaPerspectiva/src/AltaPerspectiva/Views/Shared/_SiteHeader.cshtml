@@ -1,20 +1,27 @@
-﻿<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Alta Perspectiva</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-            </ul>
+﻿<div class="navbar navbar-inverse navbar-fixed-top nav-background">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand logo">
+                    <img class="navbar-brand logo" src="~/images/LOGO CUADRADO.png" />
+                </div>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="nav-seperator"><a asp-area="" asp-controller="Home" asp-action="Index">Alta Perspectiva</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Contact</a></li>
+                </ul>
+                <div class="collapse navbar-collapse" id="site-navbar-collapse">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+    
         </div>
     </div>
-</div>
