@@ -23,7 +23,9 @@ gulp.task("scriptsNStyles", () => {
     ], {
         cwd: "node_modules/**"
     })
-        .pipe(gulp.dest("./libs"));
+        .pipe(gulp.dest("wwwroot/libs/"));
+
+    gulp.src('Scripts/**/**/*.*').pipe(gulp.dest("wwwroot/Scripts/"));
 });
 
 var tsProject = ts.createProject('tsScripts/tsconfig.json', {
