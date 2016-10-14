@@ -5,7 +5,8 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AltaPerspectiva</title>
-    
+
+    <script src="~/js/main.js"></script>
     <!-- 1. Load libraries -->
     <!-- Polyfill(s) for older browsers -->
 
@@ -15,9 +16,9 @@
     <script src="~/libs/systemjs/dist/system.src.js"></script>
 
     <!-- 2. Configure SystemJS -->
-    <script src="~/Scripts/systemjs.config.js"></script>
+    <script src="~/js/systemjs.config.js"></script>
     <script>
-        System.import('../Scripts/main').catch(function (err)
+        System.import('../js/main').catch(function (err)
         {
             console.error(err);
         });

@@ -2,6 +2,6 @@
 
 @Component({
     selector: 'app',
-    templateUrl: 'scripts/app/app.component.html'
+    templateUrl: 'js/app/app.component.html'
 })
 export class AppComponent { }
