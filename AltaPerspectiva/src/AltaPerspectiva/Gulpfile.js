@@ -26,7 +26,7 @@ gulp.task("scriptsNStyles", () => {
         .pipe(gulp.dest("wwwroot/libs/"));
 
     gulp.src([
-            'Scripts/**/**/*.*',
+            'Scripts/*.js',
             'tsScripts/**/**/*.html'
             ]).pipe(gulp.dest("wwwroot/js/"));
 });

@@ -5,7 +5,7 @@
     "module": "commonjs",
     "noEmitOnError": true,
     "noImplicitAny": false,
-    "outDir": "../Scripts/",
+    "outDir": "../wwwroot/js",
     "removeComments": false,
     "sourceMap": true,
     "target": "es5",
