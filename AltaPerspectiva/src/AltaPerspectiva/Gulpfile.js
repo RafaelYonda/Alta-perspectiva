@@ -26,6 +26,8 @@ gulp.task("scriptsNStyles", () => {
         .pipe(gulp.dest("wwwroot/libs/"));
 
     gulp.src('Scripts/**/**/*.*').pipe(gulp.dest("wwwroot/Scripts/"));
+    //move htmls
+    gulp.src('tsScripts/**/*.*').pipe(gulp.dest("wwwroot/Scripts/"));
 });
 
 var tsProject = ts.createProject('tsScripts/tsconfig.json', {

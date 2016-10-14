@@ -2,8 +2,6 @@
 
 @Component({
     selector: 'app',
-    template: `    
-    <div>Loading...</div>
-  `
+    templateUrl: 'scripts/app/app.component.html'
 })
 export class AppComponent { }
