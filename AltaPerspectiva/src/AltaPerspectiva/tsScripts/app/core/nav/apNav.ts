@@ -2,8 +2,6 @@
 
 @Component({
     selector: 'ap-nav',
-    template: `    
-    <p>Place for Alta Perspectiva nav</p>
-  `
+    templateUrl: 'js/app/core/nav/apnav.html'
 })
 export class ApNav { }
