@@ -26,6 +26,7 @@
     background-color: #fafafa;
 
     .navbar-nav {
+        border-top:5px !important;
         > li > form > a {
             color: @alta-navbar-default-link-color;
 
@@ -72,7 +73,7 @@
 .navbar-brand {
     color: @alta-navbar-default-link-color !important;
     height: 40px;
-    padding: 5px 15px;
+    padding: 0px 0px;
 
     .logo {
         width: 61px;
@@ -148,6 +149,9 @@
         background: transparent url('images/login-button.png') top left no-repeat;
         background-size: 30px 23px;
     }
+}
+.navbar-collapse{
+    margin-top:5px;
 }
 
 .navbar-collapse.collapsing {
