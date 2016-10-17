@@ -1,25 +1,78 @@
-﻿/// <binding Clean='clean' />
-"use strict";
+﻿var ts = require('gulp-typescript');
+var gulp = require('gulp');
+var clean = require('gulp-clean');
+
+var destPath = './libs/';
+
+// Delete the dist directory
+gulp.task('clean', function () {
+    return gulp.src(destPath)
+        .pipe(clean());
+});
+
+gulp.task("scriptsNStyles", () => {
+    gulp.src([
+            'core-js/client/**',
+            'systemjs/dist/system.src.js',
+            'reflect-metadata/**',
+            'rxjs/**',
+            'zone.js/dist/**',
+            '@angular/**',
+            'jquery/dist/jquery.*js',
+            'bootstrap/dist/js/bootstrap.*js'
+    ], {
+        cwd: "node_modules/**"
+    })
+        .pipe(gulp.dest("wwwroot/libs/"));
+
+    gulp.src([
+            'Scripts/*.js',
+            'tsScripts/**/**/*.html'
+            ]).pipe(gulp.dest("wwwroot/js/"));
+});
+
+var tsProject = ts.createProject('tsScripts/tsconfig.json', {
+    typescript: require('typescript')
+});
+
+gulp.task('ts', function (done) {
+    //var tsResult = tsProject.src()
+    var tsResult = gulp.src([
+            "tsScripts/*.ts"
+    ])
+        .pipe(ts(tsProject), undefined, ts.reporter.fullReporter());
+    return tsResult.js.pipe(gulp.dest('./Scripts'));
+});
+
+gulp.task('watch', ['watch.ts']);
+
+gulp.task('watch.ts', ['ts'], function () {
+    return gulp.watch('tsScripts/*.ts', ['ts']);
+});
+
+gulp.task('default', ['scriptsNStyles', 'watch']);
+
+
+
+//===========lib files like:bower component and others=============
+
 var gulp = require("gulp"),
     concat = require("gulp-concat"),
-    filter = require("gulp-filter"),
     less = require("gulp-less"),
+    filter = require("gulp-filter"),
     rename = require("gulp-rename"),
     cssmin = require("gulp-cssmin"),
     uglify = require("gulp-uglify"),
     bower = require("gulp-bower"),
     del = require("del"),
     mainBowerFiles = require("main-bower-files");
-
 var paths = {
     wwwLib: "./wwwroot/lib/",
     wwwStyles: "./wwwroot/css/"
 };
-
-//===========lib files like:bower component and others=============
-
 //Clean all from wwwroot/lib
-gulp.task("clean:lib", function () {
+
+gulp.task("bowerclean", function () {
     del([paths.wwwLib]);
 });
 
@@ -42,7 +95,7 @@ gulp.task("copy:bower-components", function () {
                     "./dist/fonts/*.*"
                 ]
             },
-            'font-awesome': {
+            'fontawesome': {
                 main: [
                     "./css/font-awesome.css",
                     "./fonts/*.*"
@@ -68,7 +121,7 @@ gulp.task("copy:bower-components", function () {
         .pipe(fontsFilter.restore);
 });
 
-//=============Custom file=================
+//=============Custom styles=================
 
 //
 // Delete all custom stylesheets from /www/css directory
