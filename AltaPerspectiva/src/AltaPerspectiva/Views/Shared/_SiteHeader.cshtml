@@ -33,75 +33,153 @@
         </div>
     </div>
 </div>
+<div class="container">
 
-@* ====================== *@
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
+    @* =======Search============ *@
+    @* ===Bootstrap override for search========= *@
 
-        @* =======Search============ *@
-        <div class="row">
-            <div class="col-md-12">
-                <div class="input-group" id="adv-search">
-                    <input type="text" class="form-control" placeholder="Search for snippets" />
-                    <div class="input-group-btn">
-                        <div class="btn-group" role="group">
-                            <div class="dropdown dropdown-lg">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                                <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label for="filter">Filter by</label>
-                                            <select class="form-control">
-                                                <option value="0" selected>All Snippets</option>
-                                                <option value="1">Featured</option>
-                                                <option value="2">Most popular</option>
-                                                <option value="3">Top rated</option>
-                                                <option value="4">Most commented</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="contain">Author</label>
-                                            <input class="form-control" type="text" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="contain">Contains the words</label>
-                                            <input class="form-control" type="text" />
-                                        </div>
-                                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                    </form>
-                                </div>
+    <style>
+        .bottom-float {
+            position: absolute;
+            bottom: 48%;
+            left: 33%;
+        }
+
+        .fixed-height {
+            height: 45px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .dropdown.dropdown-lg .dropdown-menu {
+            margin-top: -1px;
+            padding: 6px 20px;
+        }
+
+        .input-group-btn .btn-group {
+            display: flex !important;
+        }
+
+        .btn-primary {
+            background-color: #F6912B;
+            border-color: #F6912B;
+        }
+
+            .btn-primary:hover {
+                background-color: #F6912B;
+                border-color: #F6912B;
+            }
+
+        .btn-group .btn {
+            border-radius: 0;
+            margin-left: -1px;
+        }
+
+            .btn-group .btn:last-child {
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+
+        .btn-group .form-horizontal .btn[type="submit"] {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .form-horizontal .form-group {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .form-group .form-control:last-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        @@media screen and (min-width: 768px) {
+            #adv-search {
+                width: 500px;
+                margin: 0 auto;
+            }
+
+            .dropdown.dropdown-lg {
+                position: static !important;
+            }
+
+                .dropdown.dropdown-lg .dropdown-menu {
+                    min-width: 500px;
+                }
+        }
+    </style>
+
+    @* ========== *@
+
+    <div class="row bottom-float">
+        <div class="col-md-12">
+            <div class="input-group" id="adv-search">
+                <input type="text" class="form-control fixed-height" placeholder="Search for snippets" />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label for="filter">Filter by</label>
+                                        <select class="form-control">
+                                            <option value="0" selected>All Snippets</option>
+                                            <option value="1">Featured</option>
+                                            <option value="2">Most popular</option>
+                                            <option value="3">Top rated</option>
+                                            <option value="4">Most commented</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contain">Author</label>
+                                        <input class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contain">Contains the words</label>
+                                        <input class="form-control" type="text" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                </form>
                             </div>
-                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                         </div>
+                        <button type="button" class="btn btn-primary fixed-height"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span style="padding-left:5px">Search</span></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        @* ====================== *@
+</div>
+@* ====================== *@
+@* ====================== *@
+<div class="navbar navbar-inverse navbar-fixed-top">
 
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <div asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand logo">
-                <img class="navbar-brand logo" src="~/images/LOGO CUADRADO.png" />
-            </div>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="border-right"><a asp-area="" asp-controller="Home" asp-action="Index">Alta Perspectiva</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">About</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">Contact</a></li>
-            </ul>
-            <div class="collapse navbar-collapse" id="site-navbar-collapse">
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
 
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand logo">
+            <img class="navbar-brand logo" src="~/images/LOGO CUADRADO.png" />
+        </div>
     </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="border-right"><a asp-area="" asp-controller="Home" asp-action="Index">Alta Perspectiva</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Index">About</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Index">Contact</a></li>
+        </ul>
+        <div class="collapse navbar-collapse" id="site-navbar-collapse">
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+
 </div>
