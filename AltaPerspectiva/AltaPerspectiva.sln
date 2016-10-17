@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AltaPerspectiva", "src\AltaPerspectiva\AltaPerspectiva.xproj", "{42480F23-10B6-46F3-AB62-3BD9BD507958}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AltaPerspectiva.Web", "src\AltaPerspectiva\AltaPerspectiva.Web.xproj", "{42480F23-10B6-46F3-AB62-3BD9BD507958}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
