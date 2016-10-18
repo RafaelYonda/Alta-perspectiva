@@ -1,4 +1,5 @@
-﻿var ts = require('gulp-typescript');
+﻿/// <binding BeforeBuild='copyHtml' />
+var ts = require('gulp-typescript');
 var gulp = require('gulp');
 var clean = require('gulp-clean');
 
@@ -35,13 +36,15 @@ var tsProject = ts.createProject('tsScripts/tsconfig.json', {
     typescript: require('typescript')
 });
 
-gulp.task('ts', function (done) {
-    //var tsResult = tsProject.src()
-    var tsResult = gulp.src([
-            "tsScripts/*.ts"
-    ])
-        .pipe(ts(tsProject), undefined, ts.reporter.fullReporter());
-    return tsResult.js.pipe(gulp.dest('./Scripts'));
+gulp.task('copyHtmlCss', function () {
+    gulp.src([
+        'Scripts/*.js',
+        'tsScripts/**/**/*.html'
+    ]).pipe(gulp.dest("wwwroot/js/"));
+    gulp.src([
+        'Scripts/*.js',
+        'tsScripts/**/**/*.css'
+    ]).pipe(gulp.dest("wwwroot/js/"));
 });
 
 gulp.task('watch', ['watch.ts']);
@@ -51,8 +54,6 @@ gulp.task('watch.ts', ['ts'], function () {
 });
 
 gulp.task('default', ['scriptsNStyles', 'watch']);
-
-
 
 //===========lib files like:bower component and others=============
 
