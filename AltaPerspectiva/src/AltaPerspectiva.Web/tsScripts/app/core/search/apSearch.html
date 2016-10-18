@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
         </button>
         <div asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand logo">
-            <img class="navbar-brand logo" src="../images/LOGO CUADRADO.png" />
+            <img class="navbar-brand logo" src="~/images/LOGO CUADRADO.png" />
         </div>
     </div>
     <div class="navbar-collapse collapse">
@@ -18,7 +18,7 @@
             <li><a asp-area="" asp-controller="Home" asp-action="Index">Contact</a></li>
         </ul>
         <div class="collapse navbar-collapse" id="site-navbar-collapse">
-            <!--@Html.Partial("_LoginPartial")-->
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
 </div>
