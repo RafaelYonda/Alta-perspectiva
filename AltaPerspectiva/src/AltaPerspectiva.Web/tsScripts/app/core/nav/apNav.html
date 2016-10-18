@@ -1,41 +1,4 @@
-﻿<div class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img class="half-size" src="~/images/background-hd-3.jpg" alt="Chania">
-            <div class="carousel-caption">
-                <h3>Chania</h3>
-                <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
-            </div>
-        </div>
-
-        <div class="item">
-            <img src="~/images/background-hd-3.jpg" alt="Chania">
-            <div class="carousel-caption">
-                <h3>Chania</h3>
-                <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
-            </div>
-        </div>
-
-        <div class="item">
-            <img src="~/images/background-hd-3.jpg" alt="Flower">
-            <div class="carousel-caption">
-                <h3>Flowers</h3>
-                <p>Beatiful flowers in Kolymbari, Crete.</p>
-            </div>
-        </div>
-
-        <div class="item">
-            <img src="~/images/background-hd-3.jpg" alt="Flower">
-            <div class="carousel-caption">
-                <h3>Flowers</h3>
-                <p>Beatiful flowers in Kolymbari, Crete.</p>
-            </div>
-        </div>
-    </div>
-
-</div>
-@* ====================== *@
-<div class="navbar navbar-inverse navbar-fixed-top nav-background">
+﻿<div class="navbar navbar-inverse navbar-fixed-top nav-background">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -50,10 +13,10 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="border-right"><a asp-area="" asp-controller="Home" asp-action="Index">Alta Perspectiva</a></li>
-                <li><a routerLink="/proyectos" routerLinkActive="active">Proyectos</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">About</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">Contact</a></li>
+                <li class="border-right"><a routerLink="/">Alta Perspectiva</a></li>
+                <li><a routerLink="/question" routerLinkActive="active">Question</a></li>
+                <li><a routerLink="/learn" >Learning</a></li>
+                <li><a routerLink="/project" >Project</a></li>
             </ul>
             <div class="collapse navbar-collapse" id="site-navbar-collapse">
                 @Html.Partial("_LoginPartial")

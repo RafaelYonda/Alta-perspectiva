@@ -1,16 +1,22 @@
-﻿/// <reference path="proyectos-detail.ts" />
+﻿/// <reference path="../learning/learnhome.ts" />
+/// <reference path="../project/projecthome.ts" />
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ApNav } from './nav/apnav';
-import { ProyectosDetail } from './proyectos-detail';
+import { QuestionHome } from '../questions/questionhome';
+import { LearnHome } from '../learning/learnHome';
+import { ProjectHome } from '../project/projectHome';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
-            { path: 'proyectos', component: ProyectosDetail },
+            { path: '', redirectTo: '/question', pathMatch: 'full' },
+            { path: 'question', component: QuestionHome },
+            { path: 'learn', component: LearnHome },
+            { path: 'project', component: ProjectHome },
         ])
     ],
-    declarations: [ApNav, ProyectosDetail],
-    exports: [ApNav, ProyectosDetail]
+    declarations: [ApNav, QuestionHome, LearnHome, ProjectHome,],
+    exports: [ApNav, QuestionHome, LearnHome, ProjectHome, RouterModule]
 })
 export class CoreModule { }
