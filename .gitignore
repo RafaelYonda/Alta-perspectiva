@@ -23,3 +23,9 @@ AltaPerspectiva/.vs/AltaPerspectiva/v14/.suo
 /AltaPerspectiva/src/AltaPerspectiva.Core/obj/Debug/netstandard1.6/dotnet-compile-csc.rsp
 /AltaPerspectiva/src/AltaPerspectiva.Core/obj/Debug/netstandard1.6/dotnet-compile.assemblyinfo.cs
 /AltaPerspectiva/src/AltaPerspectiva.Core/obj/Debug/netstandard1.6/dotnet-compile.rsp
+AltaPerspectiva/src/Questions.Query/obj/
+AltaPerspectiva/src/Questions.Query/bin/
+AltaPerspectiva/src/Questions.Command/bin/
+AltaPerspectiva/src/AltaPerspectiva.Web/bin/
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/js/
+AltaPerspectiva/src/Questions.Command/obj/
