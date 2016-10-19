@@ -5,4 +5,8 @@
     templateUrl: 'js/app/core/search/apSearch.component.html',
     styleUrls: ['js/app/core/search/search.css']
 })
-export class ApSearchComponent { }
+export class ApSearchComponent {
+    public search = () => {
+        location.replace('/question');
+    }
+}
