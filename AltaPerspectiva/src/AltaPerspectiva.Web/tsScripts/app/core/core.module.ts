@@ -1,13 +1,20 @@
 ﻿import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { ApNav } from './nav/apnav';
+
+//====core components============
 import { HomeComponent } from './home.component';
+import { ApNav } from './nav/apnav';
+import { ApBannerComponent } from './banner/apbanner.component';
+import { ApSearchComponent } from './search/apSearch.component';
+//================
+
 import { QuestionHome } from '../questions/questionhome';
 import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 
 @NgModule({
-    imports: [
+    imports: [BrowserModule,
         RouterModule.forRoot([
             { path: '', component: HomeComponent },
             { path: 'question', component: QuestionHome },
@@ -15,7 +22,10 @@ import { ProjectHome } from '../project/projectHome';
             { path: 'project', component: ProjectHome },
         ])
     ],
-    declarations: [ApNav, HomeComponent, QuestionHome, LearnHome, ProjectHome,],
-    exports: [ApNav, HomeComponent, QuestionHome, LearnHome, ProjectHome, RouterModule]
+    declarations: [HomeComponent,ApNav,ApBannerComponent, ApSearchComponent,     //Core Components
+        QuestionHome, LearnHome, ProjectHome,],
+    exports: [RouterModule,
+        HomeComponent,ApNav,ApBannerComponent, ApSearchComponent,    //Core Components
+        QuestionHome, LearnHome, ProjectHome, ]
 })
 export class CoreModule { }
