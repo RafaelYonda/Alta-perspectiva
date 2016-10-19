@@ -9,3 +9,9 @@ AltaPerspectiva/src/AltaPerspectiva.Web/bin/
 AltaPerspectiva/src/AltaPerspectiva.Web/obj/
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/
 AltaPerspectiva/src/Questions.Command/obj/
+AltaPerspectiva/src/AltaPerspectiva/bower_components/
+AltaPerspectiva/src/AltaPerspectiva/node_modules/
+AltaPerspectiva/src/Questions.Query/Questions.Query.xproj.user
+AltaPerspectiva/src/AltaPerspectiva.Core/AltaPerspectiva.Core.xproj.user
+AltaPerspectiva/src/AltaPerspectiva.Web/AltaPerspectiva.Web.xproj.user
+AltaPerspectiva/src/Questions.Command/Questions.Command.xproj.user
