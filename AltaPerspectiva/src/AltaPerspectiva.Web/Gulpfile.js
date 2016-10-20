@@ -133,3 +133,17 @@ gulp.task("copy:css", function () {
         .pipe(less())
         .pipe(gulp.dest(paths.wwwStyles));
 });
+
+//=====ts ==
+var ts = require('gulp-typescript');
+
+//var tsProject = ts.createProject('tsScripts/tsconfig.json', {
+//    typescript: require('typescript')
+//});
+var tsProject = ts.createProject('tsScripts/tsconfig.json', { typescript: require('typescript') });
+
+gulp.task("tsCompile", function () {
+    var tsResult = tsProject.src()
+        .pipe(ts(tsProject));
+    return tsResult.pipe(gulp.dest('wwwroot/js'));
+});
