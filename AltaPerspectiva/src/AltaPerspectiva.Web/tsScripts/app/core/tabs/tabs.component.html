@@ -1,5 +1,5 @@
 ﻿<ul class="nav nav-pills">
-    <li *ngFor="let category of catagories" [ngClass]="{category:tab.active}"  [routerLink]="[category.id]">
-        {{category.name}} {{category.icon}}
+    <li *ngFor="let category of catagories" [ngClass]="[category.active]"  >
+        <a href="#" (click)="selectTab(category.id)">{{category.name}} {{category.icon}}</a>
     </li>
 </ul>
