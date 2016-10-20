@@ -25,11 +25,6 @@ gulp.task("scriptsNStyles", () => {
         cwd: "node_modules/**"
     })
         .pipe(gulp.dest("wwwroot/libs/"));
-
-    gulp.src([
-            'Scripts/*.js',
-            'tsScripts/**/**/*.html'
-            ]).pipe(gulp.dest("wwwroot/js/"));
 });
 
 var tsProject = ts.createProject('tsScripts/tsconfig.json', {
@@ -137,4 +132,18 @@ gulp.task("copy:css", function () {
     return gulp.src(["./Styles/site.less"])
         .pipe(less())
         .pipe(gulp.dest(paths.wwwStyles));
+});
+
+//=====ts ==
+var ts = require('gulp-typescript');
+
+//var tsProject = ts.createProject('tsScripts/tsconfig.json', {
+//    typescript: require('typescript')
+//});
+var tsProject = ts.createProject('tsScripts/tsconfig.json', { typescript: require('typescript') });
+
+gulp.task("tsCompile", function () {
+    var tsResult = tsProject.src()
+        .pipe(ts(tsProject));
+    return tsResult.pipe(gulp.dest('wwwroot/js'));
 });
