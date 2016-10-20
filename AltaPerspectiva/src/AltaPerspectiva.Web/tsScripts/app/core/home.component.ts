@@ -1,7 +1,6 @@
-﻿/// <reference path="category.ts" />
-import { Component } from '@angular/core';
-import { CategoryService } from './services/category.service'
-import { Category } from './category'
+﻿import { Component } from '@angular/core';
+import { CategoryService } from '../services/category.service'
+import { Category } from '../services/category'
 
 @Component({
     templateUrl: 'js/app/core/home.component.html',
