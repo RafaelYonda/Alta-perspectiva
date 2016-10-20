@@ -9,7 +9,7 @@ export class CategoryService{
             { id: 2, name: 'categoty2', icon:'icon2' },
             { id: 3, name: 'categoty3', icon:'icon3' },
             { id: 4, name: 'categoty4', icon:'icon4' },
-            { id: 5, name: 'categoty5', icon:'icon5' },
+            { id: 5, name: 'categoty5', icon:'icon5' }
         ];
     }
 }

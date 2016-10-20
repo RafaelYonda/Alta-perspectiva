@@ -8,11 +8,10 @@ import { Category } from './category'
     providers: [CategoryService]
 })
 export class HomeComponent {
+    testText: string;
     categories: Category[];
 
-    constructor(private categoryService: CategoryService) { }
-
-    getCategories(): void {
+    constructor(private categoryService: CategoryService) {
         this.categories = this.categoryService.getCategories();
     }
 }

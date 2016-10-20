@@ -1,4 +1,16 @@
 ﻿<ap-banner></ap-banner>
 <ap-nav></ap-nav>
 <ap-search></ap-search>
-<div>Question summary {{categories}}</div>
+<ul>
+    <li *ngFor="let category of categories">
+        <div>
+            {{category.id}}
+        </div>
+        <div>
+            {{category.name}}
+        </div>
+        <div>
+            {{category.icon}}
+        </div>
+    </li>
+</ul>
