@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Diary.CQRS.Commands
+namespace AltaPerspectiva.Core
 {
     public interface ICommand
     {

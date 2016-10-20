@@ -1,7 +1,7 @@
 ﻿using System;
-using Diary.CQRS.Commands;
+using AltaPerspectiva.Core;
 
-namespace Diary.CQRS.Messaging
+namespace AltaPerspectiva.Core
 {
     public interface ICommandBus
     {

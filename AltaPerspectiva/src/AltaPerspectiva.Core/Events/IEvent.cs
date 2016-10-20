@@ -5,8 +5,8 @@ using System.Text;
 
 namespace AltaPerspectiva.Core
 {
-    public class ConcurrencyException : Exception
+    public interface IEvent
     {
-        public ConcurrencyException(string message) : base(message) { }
+        Guid Id { get; }
     }
 }

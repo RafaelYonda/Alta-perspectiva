@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Diary.CQRS.Exceptions
+namespace AltaPerspectiva.Core
 {
     public class UnregisteredDomainEventException : Exception
     {

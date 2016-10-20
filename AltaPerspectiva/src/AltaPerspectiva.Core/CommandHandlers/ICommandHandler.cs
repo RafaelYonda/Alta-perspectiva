@@ -1,6 +1,6 @@
-﻿using Diary.CQRS.Commands;
+﻿using AltaPerspectiva.Core;
 
-namespace Diary.CQRS.CommandHandlers
+namespace AltaPerspectiva.Core
 {
     public interface ICommandHandler<TCommand> where TCommand : Command
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Diary.CQRS.Commands
+namespace AltaPerspectiva.Core
 {
-    //[Serializable]
+    
     public class Command : ICommand
     {
         public Guid Id { get; private set; }

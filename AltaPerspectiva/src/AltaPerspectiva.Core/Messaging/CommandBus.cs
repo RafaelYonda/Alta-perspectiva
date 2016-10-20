@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Diary.CQRS.Commands;
-using Diary.CQRS.Exceptions;
-using Diary.CQRS.Utils;
+using AltaPerspectiva.Core;
 
-namespace Diary.CQRS.Messaging
+
+
+namespace AltaPerspectiva.Core
 {
     public class CommandBus:ICommandBus
     {

@@ -5,8 +5,8 @@ using System.Text;
 
 namespace AltaPerspectiva.Core
 {
-    public class ConcurrencyException : Exception
+    public interface ICommandHandlerFactory
     {
-        public ConcurrencyException(string message) : base(message) { }
+        ICommandHandler<T> GetHandler<T>() where T : Command;
     }
 }

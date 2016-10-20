@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Diary.CQRS.Events;
-using Diary.CQRS.Exceptions;
-using Diary.CQRS.Utils;
+using AltaPerspectiva.Core;
 
-namespace Diary.CQRS.Messaging
+namespace AltaPerspectiva.Core
 {
     public class EventBus:IEventBus
     {

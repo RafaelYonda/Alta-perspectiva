@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Collections;
 
 namespace AltaPerspectiva.Core
 {
-    public interface IHandleCommand<TCommand>
+    public interface IEventHandlerFactory
     {
-        IEnumerable Handle(TCommand c);
+        IEnumerable<IEventHandler<T>> GetHandlers<T>() where T : Event;
     }
 }
