@@ -1,14 +1,18 @@
 {
   "version": "1.0.0-*",
 
-  "dependencies": {
+  "dependencies": {    
+    "Microsoft.Extensions.DependencyInjection": "1.0.0",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
     "NETStandard.Library": "1.6.0",
-    "System.Collections.NonGeneric": "4.0.1"
+    "System.Collections.NonGeneric": "4.0.1",
+    "System.Reflection.TypeExtensions": "4.1.0"
   },
 
   "frameworks": {
     "netstandard1.6": {
-      "imports": "dnxcore50"
+      "imports": "dnxcore50",
+      "dependencies": { "System.Runtime": "4.0.21-beta-23516" }
     }
   }
 }
