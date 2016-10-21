@@ -25,10 +25,10 @@ import { ProjectHome } from '../project/projectHome';
             { path: 'category/:id', component: TabPanelComponent },
         ])
     ],
-    declarations: [HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent,     //Core Components
+    declarations: [HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent, TabPanelComponent,     //Core Components
         QuestionHome, LearnHome, ProjectHome,],
     exports: [RouterModule,
-        HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent,    //Core Components
+        HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent, TabPanelComponent,   //Core Components
         QuestionHome, LearnHome, ProjectHome ]
 })
 export class CoreModule { }
