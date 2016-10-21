@@ -9,7 +9,8 @@ export class CategoryService{
             { id: 2, name: 'categoty2', icon: 'icon2', active: '' },
             { id: 3, name: 'categoty3', icon: 'icon3', active: '' },
             { id: 4, name: 'categoty4', icon: 'icon4', active: '' },
-            { id: 5, name: 'categoty5', icon: 'icon5', active: '' }
+            { id: 5, name: 'categoty5', icon: 'icon5', active: '' },
+            { id: 6, name: 'categoty6', icon: 'icon6', active: '' }
         ];
     }
 }

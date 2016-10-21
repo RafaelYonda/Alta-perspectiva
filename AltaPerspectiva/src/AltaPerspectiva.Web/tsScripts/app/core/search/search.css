@@ -1,7 +1,7 @@
 ﻿.bottom-float {
             position: absolute;
             bottom: 48%;
-            left: 33%;
+            left: 20%;
         }
 
         .fixed-height {
@@ -58,7 +58,7 @@
 
         @media screen and (min-width: 768px) {
             #adv-search {
-                width: 500px;
+                width: 850px;
                 margin: 0 auto;
             }
 
