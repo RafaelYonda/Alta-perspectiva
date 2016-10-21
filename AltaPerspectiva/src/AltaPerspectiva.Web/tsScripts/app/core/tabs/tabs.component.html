@@ -33,12 +33,15 @@
     .tab-header-col-md-10 {
         width: 96%;
         float: left;
+        overflow:hidden;        /* used for carousel*/
     }
     .tabs-container {
         width: 4000px;
+        transform: translateX(-54px);   /*used for dynamic carousel*/
     }
 
     .tabs > .tab {
+        display:block;
         float: left;
         line-height: 45px;
         background-color: #ededed;
