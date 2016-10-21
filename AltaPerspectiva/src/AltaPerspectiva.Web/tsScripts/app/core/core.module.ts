@@ -8,6 +8,7 @@ import { ApNav } from './nav/apnav';
 import { ApBannerComponent } from './banner/apbanner.component';
 import { ApSearchComponent } from './search/apSearch.component';
 import { TabsComponent } from './tabs/tabs.component';
+import { TabPanelComponent } from './tabs/tab-panel.component'
 //================
 
 import { QuestionHome } from '../questions/questionhome';
@@ -17,16 +18,23 @@ import { ProjectHome } from '../project/projectHome';
 @NgModule({
     imports: [BrowserModule, 
         RouterModule.forRoot([
-            { path: '', component: HomeComponent },
+            {
+                path: '', component: HomeComponent,
+                children: [
+                    { path: '', redirectTo: '/category/1', pathMatch: 'full' },
+                    { path: 'category/1', component: TabPanelComponent },
+                    { path: 'category/:id', component: TabPanelComponent},
+                ]
+            },
             { path: 'question', component: QuestionHome },
             { path: 'learn', component: LearnHome },
             { path: 'project', component: ProjectHome },
         ])
     ],
-    declarations: [HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent,     //Core Components
+    declarations: [HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent, TabPanelComponent,     //Core Components
         QuestionHome, LearnHome, ProjectHome,],
     exports: [RouterModule,
-        HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent,    //Core Components
+        HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent, TabPanelComponent,   //Core Components
         QuestionHome, LearnHome, ProjectHome ]
 })
 export class CoreModule { }
