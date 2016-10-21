@@ -1,20 +1,22 @@
 ﻿import { Component } from '@angular/core';
+import { CategoryService } from '../../services/category.service'
+import { Category } from '../../services/category'
 
 @Component({
     selector:'ap-tabs',
     templateUrl: 'js/app/core/tabs/tabs.component.html',
+    providers: [CategoryService]
 })
 export class TabsComponent {
-    catagories: any = [
-        { id: 1, name: 'categoty1', icon: 'icon1', active:'active' },
-        { id: 2, name: 'categoty2', icon: 'icon2',active:''},
-        { id: 3, name: 'categoty3', icon: 'icon3',active:''},
-        { id: 4, name: 'categoty4', icon: 'icon4',active:''},
-        { id: 5, name: 'categoty5', icon: 'icon5',active:''}
-    ];
+    categories: Category[];
+
+    constructor(private categoryService: CategoryService) {
+        this.categories = this.categoryService.getCategories();
+    }
+
     selectTab(id){
         console.log(id);
-        this.catagories.forEach(element => {
+        this.categories.forEach(element => {
             if(element.id==id){
                 element.active='active';
             }
