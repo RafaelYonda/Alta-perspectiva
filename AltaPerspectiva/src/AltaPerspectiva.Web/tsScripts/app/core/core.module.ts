@@ -8,6 +8,7 @@ import { ApNav } from './nav/apnav';
 import { ApBannerComponent } from './banner/apbanner.component';
 import { ApSearchComponent } from './search/apSearch.component';
 import { TabsComponent } from './tabs/tabs.component';
+import { TabPanelComponent } from './tabs/tab-panel.component'
 //================
 
 import { QuestionHome } from '../questions/questionhome';
@@ -21,6 +22,7 @@ import { ProjectHome } from '../project/projectHome';
             { path: 'question', component: QuestionHome },
             { path: 'learn', component: LearnHome },
             { path: 'project', component: ProjectHome },
+            { path: 'category/:id', component: TabPanelComponent },
         ])
     ],
     declarations: [HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent,     //Core Components
