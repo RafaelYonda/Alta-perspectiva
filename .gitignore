@@ -15,3 +15,10 @@ AltaPerspectiva/src/Questions.Query/Questions.Query.xproj.user
 AltaPerspectiva/src/AltaPerspectiva.Core/AltaPerspectiva.Core.xproj.user
 AltaPerspectiva/src/AltaPerspectiva.Web/AltaPerspectiva.Web.xproj.user
 AltaPerspectiva/src/Questions.Command/Questions.Command.xproj.user
+/AltaPerspectiva/src/AltaPerspectiva.Identity/Properties
+/AltaPerspectiva/src/AltaPerspectiva.Identity/bin/Debug/netstandard1.6
+/AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Debug/netstandard1.6/.IncrementalCache
+/AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Debug/netstandard1.6/.SDKVersion
+/AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Debug/netstandard1.6/dotnet-compile-csc.rsp
+/AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Debug/netstandard1.6/dotnet-compile.assemblyinfo.cs
+/AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Debug/netstandard1.6/dotnet-compile.rsp
