@@ -35,9 +35,15 @@
         float: left;
         overflow:hidden;        /* used for carousel*/
     }
+    .tab-carousel {
+        transition: all 1.5s ease;
+    }
+    .tab-carousel:hover{
+    transform: translateX(-150px);
+  }
     .tabs-container {
         width: 4000px;
-        transform: translateX(-54px);   /*used for dynamic carousel*/
+        /*transform: translateX(-54px);*/   /*used for dynamic carousel*/
     }
 
     .tabs > .tab {
@@ -80,9 +86,9 @@
     }
 </style>
 <div class="tab-panel-container" style="border: 1px solid">
-    <div class="tab-header-col-md-1" style="border:1px solid red"> <a href="#" class="arrow-sign"><</a></div>
+    <div class="tab-header-col-md-1" style="border:1px solid red"> <a  class="arrow-sign" (click)="leftclick()"><</a></div>
     <div class="tab-header-col-md-10" style="border:1px solid red">
-        <div class="tabs-container">
+        <div class="tabs-container" [ngStyle]="{'transition': 'all 1.5s ease','transform':translate}">
             <div class="tabs">
                 <div class="tab" *ngFor="let category of categories" [ngClass]="[category.active]">
                     <a routerLink="category/{{category.id}}" (click)="selectTab(category.id)">{{category.name}} {{category.icon}}</a>
@@ -90,6 +96,6 @@
             </div>
         </div>
     </div>
-    <div class="tab-header-col-md-1" style="border:1px solid red"><a href="#" class="arrow-sign">></a></div>
+    <div class="tab-header-col-md-1" style="border:1px solid red"><a  class="arrow-sign" (click)="rightclick()">></a></div>
 </div>
 <router-outlet></router-outlet>

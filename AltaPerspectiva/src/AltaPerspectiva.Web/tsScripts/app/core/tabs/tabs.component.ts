@@ -8,12 +8,30 @@ import { Category } from '../../services/category'
     providers: [CategoryService]
 })
 export class TabsComponent {
-    categories: Category[];
 
+    categories: Category[];
+    transform: number;
+    translate: string;
     constructor(private categoryService: CategoryService) {
         this.categories = this.categoryService.getCategories();
+        this.transform = 0;
+    }
+    leftclick() {
+        console.log("Left click");
+        this.transform = this.transform - 170;
+        this.translate = 'translateX(' + this.transform + 'px)';
+        console.log(this.translate);
     }
 
+    rightclick() {
+        console.log("right click");
+        this.transform = this.transform + 170;
+        this.translate = 'translateX(' + this.transform + 'px)';
+        console.log(this.translate);
+    }
+    getTransform() {
+        return this.translate;
+    }
     selectTab(id){
         console.log(id);
         this.categories.forEach(element => {
