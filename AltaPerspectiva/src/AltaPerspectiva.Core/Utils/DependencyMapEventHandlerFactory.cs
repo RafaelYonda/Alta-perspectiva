@@ -24,11 +24,7 @@ namespace AltaPerspectiva.Core
 
             var handlers = typeof(IEventHandler<>).GetTypeInfo().Assembly.GetExportedTypes()
                .Where(x => x.GetInterfaces()
-                   .Any(a => a.IsGenericParameter && a.GetGenericTypeDefinition() == typeof(IEventHandler<>))).Where(h => h.GetInterfaces().Any(ii => ii.GetGenericArguments().Any(aa => aa == typeof(T)))).ToList();
-
-            //var handlers = typeof(IEventHandler<>).AssemblyQualifiedName.GetExportedTypes()
-            //    .Where(x => x.GetInterfaces()
-            //        .Any(a => a. && a.GetGenericTypeDefinition() == typeof(IEventHandler<>))).Where(h => h.GetInterfaces().Any(ii => ii.GetGenericArguments().Any(aa => aa == typeof(T)))).ToList();
+                   .Any(a => a.IsGenericParameter && a.GetGenericTypeDefinition() == typeof(IEventHandler<>))).Where(h => h.GetInterfaces().Any(ii => ii.GetGenericArguments().Any(aa => aa == typeof(T)))).ToList();            
 
 
             return handlers;

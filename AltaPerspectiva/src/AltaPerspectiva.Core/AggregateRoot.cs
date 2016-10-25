@@ -10,7 +10,7 @@ namespace AltaPerspectiva.Core
     /// Aggregate base class, which factors out some common infrastructure that
     /// all aggregates have (ID and event application).
     /// </summary>
-    public abstract class AggregateRoot : IEventProvider
+    public abstract class AggregateRoot 
     {
         private readonly List<Event> _changes;
 
