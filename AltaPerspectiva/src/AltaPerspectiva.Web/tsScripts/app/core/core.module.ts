@@ -20,11 +20,11 @@ import { ProjectHome } from '../project/projectHome';
         RouterModule.forRoot([
             {
                 path: '', component: HomeComponent,
-                children: [
-                    { path: '', redirectTo: '/category/1', pathMatch: 'full' },
-                    { path: 'category/1', component: TabPanelComponent },
-                    { path: 'category/:id', component: TabPanelComponent},
-                ]
+                //children: [
+                //    { path: '', redirectTo: '/category/1', pathMatch: 'full' },
+                //    { path: 'category/1', component: TabPanelComponent },
+                //    { path: 'category/:id', component: TabPanelComponent},
+                //]
             },
             { path: 'question', component: QuestionHome },
             { path: 'learn', component: LearnHome },

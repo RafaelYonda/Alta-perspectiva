@@ -1,97 +1,18 @@
-﻿<style>
-    .tab-panel-container {
-        padding-right: 15px;
-        padding-left: 15px;
-        margin-right: auto;
-        margin-left: auto;
-        margin-top: 25px;
-    }
-
-    @media (min-width: 768px) {
-        .tab-panel-container {
-            width: 750px;
-        }
-    }
-
-    @media (min-width: 992px) {
-        .tab-panel-container {
-            width: 970px;
-        }
-    }
-
-    @media (min-width: 1200px) {
-        .tab-panel-container {
-            width: 1097px;
-        }
-    }
-
-    .tab-header-col-md-1 {
-        width: 2%;
-        float: left;
-    }
-
-    .tab-header-col-md-10 {
-        width: 96%;
-        float: left;
-        overflow:hidden;        /* used for carousel*/
-    }
-    .tab-carousel {
-        transition: all 1.5s ease;
-    }
-    .tabs-container {
-        width: 4000px;
-    }
-
-    .tabs > .tab {
-        display:block;
-        float: left;
-        line-height: 45px;
-        background-color: #ededed;
-        margin: 0 10px;
-        min-width: 150px;
-        text-align:center;
-    }
-
-    ul {
-        list-style-type: none;
-    }
-    .arrow-sign {
-        font-size: 23px;
-        font-weight: 600;
-        background-color: white;
-        padding: 0;
-    }
-     a {
-        color: #706f6f;
-        text-decoration: none;
-        cursor: pointer;
-        line-height: 65px;
-
-    }
-    .tab-inside {
-        border-radius: 0;
-        background-color: #ededed;
-        margin: 0 10px;
-        min-width: 150px;
-    }
-    .tabs > .active, .tabs > .active:hover, .tabs > .active:focus {
-        background-color: #fdbc1e;
-    }
-    .tabs > .active>a, .tabs>.active>a:hover, .tabs>.active>a:focus {
-        color:white;
-    }
-</style>
-<div class="tab-panel-container" style="border: 1px solid">
-    <div class="tab-header-col-md-1" style="border:1px solid red"> <a  class="arrow-sign" (click)="leftclick()"><</a></div>
-    <div class="tab-header-col-md-10" style="border:1px solid red">
+﻿<div class="tab-panel-container">
+    <div class="tab-header-col-md-1"> <a class="arrow-sign" (click)="leftclick()"><span class="icon-arrow-left"></span></a></div>
+    <div class="tab-header-col-md-10">
         <div class="tabs-container" [ngStyle]="{'transition': 'all 1.5s ease','transform':translate}">
             <div class="tabs">
                 <div class="tab" *ngFor="let category of categories" [ngClass]="[category.active]">
-                    <a routerLink="category/{{category.id}}" (click)="selectTab(category.id)">{{category.name}} {{category.icon}}</a>
+                    <a routerLink="category/{{category.id}}" (click)="selectTab(category.id)">
+                        <span class="icon-dice"><span class="tab-text">Estrategia</span> </span>
+                        <!--<p>Estrategia</p>--> 
+                        <!--{{category.name}} {{category.icon}}-->
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="tab-header-col-md-1" style="border:1px solid red"><a  class="arrow-sign" (click)="rightclick()">></a></div>
+    <div class="tab-header-col-md-1"><a class="arrow-sign" (click)="rightclick()"><span class="icon-arrow-right"></span></a></div>
 </div>
-<router-outlet></router-outlet>
+<!--<router-outlet></router-outlet>-->

@@ -11,9 +11,9 @@ export class ApBannerComponent {
     public images = IMAGES;
 }
 var IMAGES: Image[] = [
-    { "title": "We are covered", "url": "../images/background.png" },
-    { "title": "Generation Gap", "url": "../images/background.png" },
-    { "title": "Potter Me", "url": "../images/background.png" },
-    { "title": "Pre-School Kids", "url": "../images/background.png" },
+    { "title": "iHaz tu preguntas sobre negocios!", "url": "../images/background.png" },
+    { "title": "iHaz tu preguntas sobre negocios!", "url": "../images/background.png" },
+    { "title": "iHaz tu preguntas sobre negocios!", "url": "../images/background.png" },
+    { "title": "iHaz tu preguntas sobre negocios!", "url": "../images/background.png" },
 ];
 
