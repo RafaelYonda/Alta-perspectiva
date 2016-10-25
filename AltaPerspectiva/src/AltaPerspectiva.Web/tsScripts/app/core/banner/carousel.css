@@ -1,49 +1,71 @@
-﻿.carousel{
-    overflow:hidden;
-    width:100%;
-}
-.slides{
-    list-style:none;
-    position:relative;
-    width:400%; /* Number of panes * 100% */
-    overflow:hidden; /* Clear floats */
-        /* Slide effect Animations*/
-    -moz-animation:carousel 10s infinite;
-    -webkit-animation:carousel 10s infinite;
-    animation:carousel 10s infinite;
-}
-ul {
-    padding:0;
-}
-.slides > li{
-    position:relative;
-    float:left;
-    width: 25%; /* 100 / number of panes */
-}
-.carousel img{
-    display:block;
-    width:100%;
-    max-width:100%;
-}
-.carousel h2{
-    margin-bottom: 0;
-    font-size:1em;
-    padding:1.5em 0.5em 1.5em 0.5em;
-    position:absolute;
-    right:0px;
-    bottom:0px;
-    left:0px;
-    text-align:center;
-    color:#fff;
-    background-color:rgba(0,0,0,0.75);
-    text-transform: uppercase;
+﻿.carousel {
+    overflow: hidden;
+    width: 100%;
 }
 
-@keyframes carousel{
-    0%    { left:-0%; }
-    25%    { left:-100%; }
-    35%    { left:-100%; }
-    65%    { left:-200%; }
-    75%    { left:-200%; }
-    100%    { left:-300%; }
+.slides {
+    list-style: none;
+    position: relative;
+    width: 400%; /* Number of panes * 100% */
+    overflow: hidden; /* Clear floats */
+    /* Slide effect Animations*/
+    -moz-animation: carousel 10s infinite;
+    -webkit-animation: carousel 10s infinite;
+    animation: carousel 10s infinite;
+}
+
+ul {
+    padding: 0;
+}
+
+.slides > li {
+    position: relative;
+    float: left;
+    width: 25%; /* 100 / number of panes */
+}
+
+.carousel img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+.carousel h2 {
+    margin-bottom: 6px;
+    font-size: 2em;
+    padding: 1.5em 0.5em 1.5em 0.5em;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    text-align: center;
+    color: #fff;
+    font-family: myriadpro-regular;
+    text-shadow: 2px 2px 5px black;
+}
+
+@keyframes carousel {
+    0% {
+        left: -0%;
+    }
+
+    25% {
+        left: -100%;
+    }
+
+    35% {
+        left: -100%;
+    }
+
+    65% {
+        left: -200%;
+    }
+
+    75% {
+        left: -200%;
+    }
+
+    100% {
+        left: -300%;
+    }
 }

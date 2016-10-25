@@ -1,72 +1,76 @@
 ﻿.bottom-float {
-            position: absolute;
-            bottom: 48%;
-            left: 20%;
-        }
+    position: absolute;
+    bottom: 48%;
+    left: 20%;
+}
 
-        .fixed-height {
-            height: 45px;
-        }
+.fixed-height {
+    height: 45px;
+}
 
-        .form-control {
-            border-radius: 10px;
-        }
+.searc-box {
+    background-color: #f5f5f5;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.dropdown.dropdown-lg .dropdown-menu {
+    margin-top: -1px;
+    padding: 6px 20px;
+}
+
+.input-group-btn .btn-group {
+    display: flex !important;
+}
+
+.btn-primary {
+    background-color: #F6912B;
+    border-color: #F6912B;
+}
+
+    .btn-primary:hover {
+        background-color: #F6912B;
+        border-color: #F6912B;
+    }
+
+.btn-group .btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+
+    .btn-group .btn:last-child {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+.btn-group .form-horizontal .btn[type="submit"] {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.form-group .form-control:last-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    #adv-search {
+        width: 850px;
+        margin: 0 auto;
+    }
+
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
 
         .dropdown.dropdown-lg .dropdown-menu {
-            margin-top: -1px;
-            padding: 6px 20px;
+            min-width: 500px;
         }
-
-        .input-group-btn .btn-group {
-            display: flex !important;
-        }
-
-        .btn-primary {
-            background-color: #F6912B;
-            border-color: #F6912B;
-        }
-
-            .btn-primary:hover {
-                background-color: #F6912B;
-                border-color: #F6912B;
-            }
-
-        .btn-group .btn {
-            border-radius: 0;
-            margin-left: -1px;
-        }
-
-            .btn-group .btn:last-child {
-                border-top-right-radius: 10px;
-                border-bottom-right-radius: 10px;
-            }
-
-        .btn-group .form-horizontal .btn[type="submit"] {
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-        }
-
-        .form-horizontal .form-group {
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        .form-group .form-control:last-child {
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-        }
-
-        @media screen and (min-width: 768px) {
-            #adv-search {
-                width: 850px;
-                margin: 0 auto;
-            }
-
-            .dropdown.dropdown-lg {
-                position: static !important;
-            }
-
-                .dropdown.dropdown-lg .dropdown-menu {
-                    min-width: 500px;
-                }
-        }
+}

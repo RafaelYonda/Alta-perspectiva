@@ -26,6 +26,7 @@
     background-color: #fafafa;
 
     .navbar-nav {
+        margin: 10px 0px;
         border-top:5px !important;
         > li > form > a {
             color: @alta-navbar-default-link-color;
@@ -69,11 +70,17 @@
         }
     }
 }
-
+/*.border-right{
+    
+}
+.nav-firstChild{
+    
+}*/
 .navbar-brand {
     color: @alta-navbar-default-link-color !important;
     height: 40px;
     padding: 0px 0px;
+    margin-left: 5px;
 
     .logo {
         width: 61px;
@@ -83,12 +90,11 @@
 }
 
 .navbar-nav {
+    font-family: myriadpro-regular;
     > li {
         &:first-child {
-             .sep:after {
-                content: " | ";
-                padding: 0 10px;
-            }
+             border-right:1px solid white;
+             font-family: typogroteskrounded;
         }
 
         > a {
