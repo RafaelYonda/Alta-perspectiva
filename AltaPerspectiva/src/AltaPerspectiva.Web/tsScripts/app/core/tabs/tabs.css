@@ -4,10 +4,13 @@
     margin-right: auto;
     margin-left: auto;
     margin-top: 25px;
+    margin-bottom: 130px;
 }
+
 span {
-    display:block;
+    display: block;
 }
+
 @media (min-width: 768px) {
     .tab-panel-container {
         width: 750px;
@@ -29,6 +32,8 @@ span {
 .tab-header-col-md-1 {
     width: 2%;
     float: left;
+    min-height: 66px;
+    padding-top: 19px;
 }
 
 .tab-header-col-md-10 {
@@ -47,7 +52,7 @@ span {
 
 .tabs > .tab {
     padding: 12px;
-    font-size:1.5em;
+    font-size: 1.5em;
     display: block;
     float: left;
     line-height: 45px;
@@ -56,9 +61,11 @@ span {
     min-width: 150px;
     text-align: center;
 }
+
 .tab-text {
-    font-family:myriadpro-regular;
+    font-family: myriadpro-regular;
 }
+
 ul {
     list-style-type: none;
 }
@@ -75,6 +82,7 @@ a {
     text-decoration: none;
     cursor: pointer;
     line-height: 65px;
+    outline: 0;
 }
 
 .tab-inside {

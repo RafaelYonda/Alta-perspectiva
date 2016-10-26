@@ -2,7 +2,8 @@
 
 @Component({
     selector: 'ap-tab-panel',
-    templateUrl: 'js/app/core/tabs/tab-panel.component.html'
+    templateUrl: 'js/app/core/tabs/tab-panel.component.html',
+    styleUrls: ['js/app/core/tabs/tab-panel.css'],
 })
 
 export class TabPanelComponent {
