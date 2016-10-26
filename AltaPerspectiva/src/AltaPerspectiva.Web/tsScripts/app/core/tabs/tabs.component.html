@@ -85,7 +85,7 @@
         <div class="tabs-container">
             <div class="tabs">
                 <div class="tab" *ngFor="let category of categories" [ngClass]="[category.active]">
-                    <a routerLink="category/{{category.id}}" (click)="selectTab(category.id)">{{category.name}} {{category.icon}}</a>
+                    <a routerLink="tab/{{category.id}}" (click)="selectTab(category.id)">{{category.name}} {{category.icon}}</a>
                 </div>
             </div>
         </div>
