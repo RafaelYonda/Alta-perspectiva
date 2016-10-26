@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AltaPerspectiva.Core
 {
-    public class StructureMapCommandHandlerFactory : ICommandHandlerFactory
+    public class DependencyMapCommandHandlerFactory : ICommandHandlerFactory
     {
         public ICommandHandler<T> GetHandler<T>() where T : Command
         {
