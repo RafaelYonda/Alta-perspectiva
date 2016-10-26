@@ -1,18 +1,141 @@
-﻿<div class="tab-panel-container">
-    <div class="tab-header-col-md-1"> <a class="arrow-sign" (click)="leftclick()"><span class="icon-arrow-left"></span></a></div>
-    <div class="tab-header-col-md-10">
-        <div class="tabs-container" [ngStyle]="{'transition': 'all 1.5s ease','transform':translate}">
-            <div class="tabs">
-                <div class="tab" *ngFor="let category of categories" [ngClass]="[category.active]">
-                    <a routerLink="category/{{category.id}}" (click)="selectTab(category.id)">
-                        <span class="icon-dice"><span class="tab-text">Estrategia</span> </span>
-                        <!--<p>Estrategia</p>--> 
-                        <!--{{category.name}} {{category.icon}}-->
-                    </a>
+﻿<div class="row">
+    <div class="tab-panel-container">
+        <div class="tab-header-col-md-1"> <a class="arrow-sign" (click)="leftclick()"><span class="icon-arrow-left"></span></a></div>
+        <div class="tab-header-col-md-10">
+            <div class="tabs-container" [ngStyle]="{'transition': 'all 1.5s ease','transform':translate}">
+                <div class="tabs">
+                    <div class="tab" *ngFor="let category of categories" [ngClass]="[category.active]">
+                        <a routerLink="category/{{category.id}}" (click)="selectTab(category.id)">
+                            <span class="icon-dice"><span class="tab-text">Estrategia</span> </span>
+                            <!--<p>Estrategia</p>-->
+                            <!--{{category.name}} {{category.icon}}-->
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="tab-header-col-md-1"><a class="arrow-sign" (click)="rightclick()"><span class="icon-arrow-right"></span></a></div>
     </div>
-    <div class="tab-header-col-md-1"><a class="arrow-sign" (click)="rightclick()"><span class="icon-arrow-right"></span></a></div>
+
 </div>
-<!--<router-outlet></router-outlet>-->
+<router-outlet></router-outlet>
+
+<!--<style>
+    .arrow_box {
+        position: relative;
+        background: #88b7d5;
+    }
+
+        .arrow_box:after {
+            bottom: 100%;
+            left: 50%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-color: rgba(136, 183, 213, 0);
+            border-bottom-color: #88b7d5;
+            border-width: 30px;
+            margin-left: -30px;
+        }
+
+    .left-footer {
+        float: left;
+        padding-top: 2px;
+        padding-bottom: 14px;
+    }
+
+    .right-footer {
+        float: right;
+        padding-top: 2px;
+        padding-bottom: 14px;
+    }
+
+    .image-border {
+        position: absolute;
+        right: -4px;
+height: 128px;
+    }
+    .left-gap{
+        border: 1px solid transparent;
+    }
+
+    h4 {
+        font-size: 14px;
+        font-family: myriadpro-regular;
+        display: inline-block;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-family: myriadpro-regular;
+        margin-top:0;
+    }
+    p {
+    font-size: 17px;
+    font-family: myriadpro-regular;
+}
+    .panel-article {
+        margin-right: 8%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .article-footer {
+        border-bottom: 1px solid #d2cece;
+        padding: 0 15px;
+    }
+
+    .counter-box {
+        position: relative;
+        background: #107ebf;
+        display: inline-block;
+        border-radius: 2px;
+        height: 23px;
+        width: 32px;
+        text-align: center;
+    }
+
+        .counter-box:after {
+            bottom: 100%;
+            right: 55%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-color: rgba(136, 183, 213, 0);
+            border-bottom-color: #107ebf;
+            border-width: 1px 5px 10px;
+            margin-left: -30px;
+        }
+   
+</style>
+<div class="panel-article">
+    <div class="row">
+        <div class="col-sm-1 left-gap" >
+            <img class="image-border" src="../../../../images/border.png" />
+        </div>
+        <div class="col-sm-11">
+            <h2>Lorem Ipsum Dolor sit amet</h2>
+            <h4>Usrio,Descripcion deusuario </h4>
+            <p>
+                Lorem Ipusm ;djf;adk.ajsd;asjd asidaskdja asdjasdj as;dja ;sjfda asjhasdf.asposal,asp da.asj ;.asjdjaksjdf asdlas d./askdjas;jas;l as;lda; sda;sdjla;s ldja;sldja;sldj a;j
+            </p>
+            <div class="row article-footer">
+                <div class="left-footer" >
+                    <h4>Tema hora</h4>
+                </div>
+                <div class="right-footer" >
+                    <h4> Requestas</h4>
+                    <span class="counter-box">103</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>-->

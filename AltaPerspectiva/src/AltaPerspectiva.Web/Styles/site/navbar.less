@@ -27,7 +27,8 @@
 
     .navbar-nav {
         margin: 10px 0px;
-        border-top:5px !important;
+        border-top: 5px !important;
+
         > li > form > a {
             color: @alta-navbar-default-link-color;
 
@@ -70,12 +71,7 @@
         }
     }
 }
-/*.border-right{
-    
-}
-.nav-firstChild{
-    
-}*/
+
 .navbar-brand {
     color: @alta-navbar-default-link-color !important;
     height: 40px;
@@ -89,14 +85,15 @@
     }
 }
 
+.nav-home {
+    border-right: 1px solid white;
+    font-family: typogroteskrounded;
+}
+
 .navbar-nav {
     font-family: myriadpro-regular;
-    > li {
-        &:first-child {
-             border-right:1px solid white;
-             font-family: typogroteskrounded;
-        }
 
+    > li {
         > a {
             color: @alta-navbar-default-link-color !important;
             padding-top: 10px;
@@ -156,8 +153,9 @@
         background-size: 30px 23px;
     }
 }
-.navbar-collapse{
-    margin-top:5px;
+
+.navbar-collapse {
+    margin-top: 5px;
 }
 
 .navbar-collapse.collapsing {
