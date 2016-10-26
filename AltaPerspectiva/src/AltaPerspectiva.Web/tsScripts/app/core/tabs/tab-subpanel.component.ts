@@ -7,6 +7,7 @@ import { Question } from '../../services/question';
 @Component({
     selector: 'ap-tab-subpanel',
     templateUrl: 'js/app/core/tabs/tab-subpanel.component.html',
+    styleUrls: ['js/app/core/tabs/tab-panel.css'],
     providers: [QuestionAnswerService]
 })
 export class TabSubpanelComponent {
