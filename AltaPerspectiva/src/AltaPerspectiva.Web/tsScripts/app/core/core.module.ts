@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { TabRoutingModule } from './tabs/tab-routing.module'
 
 //====core components============
 import { HomeComponent } from './home.component';
@@ -41,10 +40,35 @@ import { ProjectHome } from '../project/projectHome';
             { path: 'project', component: ProjectHome },
         ])
     ],
-    declarations: [HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent, TabPanelComponent, TabSubpanelComponent,  //Core Components
-        QuestionHome, LearnHome, ProjectHome,],
-    exports: [RouterModule,
-        HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent, TabPanelComponent, TabSubpanelComponent, //Core Components
-        QuestionHome, LearnHome, ProjectHome ]
+    declarations: [
+        //Core Components
+        HomeComponent,
+        ApNav,
+        ApBannerComponent,
+        ApSearchComponent,
+        TabsComponent,
+        TabPanelComponent,
+        TabSubpanelComponent,  
+        
+        QuestionHome,
+        LearnHome,
+        ProjectHome,
+    ],
+    exports: [
+        RouterModule,
+
+        //Core Components
+        HomeComponent,
+        ApNav,
+        ApBannerComponent,
+        ApSearchComponent,
+        TabsComponent,
+        TabPanelComponent,
+        TabSubpanelComponent, 
+
+        QuestionHome,
+        LearnHome,
+        ProjectHome
+    ]
 })
 export class CoreModule { }
