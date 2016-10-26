@@ -136,7 +136,7 @@ gulp.task("copy:css", function () {
 
 gulp.task("copy:fonts", function () {
     var fontsFilter = filter(["**/*.woff2", "**/*.eot", "**/*.svg", "**/*.ttf", "**/*.woff"], { restore: true });
-    return gulp.src(["./Styles/alta-font/css/*.css", "./Styles/alta-font/font/*.otf", "./Styles/alta-font/font-icon/**.*"])
+    return gulp.src(["./Styles/alta-font/css/*.css", "./Styles/alta-font/font/**.*", "./Styles/alta-font/font-icon/**.*"])
         .pipe(gulp.dest("./wwwroot/css/fonts"));
 });
 //=====ts ==

@@ -1,18 +1,21 @@
-﻿<div class="tab-panel-container">
-    <div class="tab-header-col-md-1"> <a class="arrow-sign" (click)="leftclick()"><span class="icon-arrow-left"></span></a></div>
-    <div class="tab-header-col-md-10">
-        <div class="tabs-container" [ngStyle]="{'transition': 'all 1.5s ease','transform':translate}">
-            <div class="tabs">
-                <div class="tab" *ngFor="let category of categories" [ngClass]="[category.active]">
-                    <a routerLink="category/{{category.id}}" (click)="selectTab(category.id)">
-                        <span class="icon-dice"><span class="tab-text">Estrategia</span> </span>
-                        <!--<p>Estrategia</p>--> 
-                        <!--{{category.name}} {{category.icon}}-->
-                    </a>
+﻿<div class="row">
+    <div class="tab-panel-container">
+        <div class="tab-header-col-md-1"> <a class="arrow-sign" (click)="leftclick()"><span class="icon-arrow-left"></span></a></div>
+        <div class="tab-header-col-md-10">
+            <div class="tabs-container" [ngStyle]="{'transition': 'all 1.5s ease','transform':translate}">
+                <div class="tabs">
+                    <div class="tab" *ngFor="let category of categories" [ngClass]="[category.active]">
+                        <a routerLink="tab/{{category.id}}" (click)="selectTab(category.id)">
+                            <span class="{{category.icon}}"><span class="tab-text">{{category.name}}</span> </span>
+                            <!--<p>Estrategia</p>-->
+                            <!--{{category.name}} {{category.icon}}-->
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="tab-header-col-md-1"><a class="arrow-sign" (click)="rightclick()"><span class="icon-arrow-right"></span></a></div>
     </div>
-    <div class="tab-header-col-md-1"><a class="arrow-sign" (click)="rightclick()"><span class="icon-arrow-right"></span></a></div>
+
 </div>
-<!--<router-outlet></router-outlet>-->
+<router-outlet></router-outlet>

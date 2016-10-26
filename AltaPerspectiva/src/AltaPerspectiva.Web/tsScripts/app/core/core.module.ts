@@ -1,4 +1,5 @@
-﻿import { NgModule } from '@angular/core';
+﻿/// <reference path="tabs/tab-subpanel.component.ts" />
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -8,7 +9,9 @@ import { ApNav } from './nav/apnav';
 import { ApBannerComponent } from './banner/apbanner.component';
 import { ApSearchComponent } from './search/apSearch.component';
 import { TabsComponent } from './tabs/tabs.component';
-import { TabPanelComponent } from './tabs/tab-panel.component'
+import { TabPanelComponent } from './tabs/tab-panel.component';
+import { TabSubpanelComponent } from './tabs/tab-subpanel.component';
+
 //================
 
 import { QuestionHome } from '../questions/questionhome';
@@ -18,23 +21,54 @@ import { ProjectHome } from '../project/projectHome';
 @NgModule({
     imports: [BrowserModule, 
         RouterModule.forRoot([
+            { path: '', redirectTo: 'home', pathMatch:'full' },
             {
-                path: '', component: HomeComponent,
-                //children: [
-                //    { path: '', redirectTo: '/category/1', pathMatch: 'full' },
-                //    { path: 'category/1', component: TabPanelComponent },
-                //    { path: 'category/:id', component: TabPanelComponent},
-                //]
+                path: 'home', component: HomeComponent,
+                children: [
+                    { path: '', redirectTo: 'tab', pathMatch: 'full'},
+                    {
+                        path: 'tab', component: TabPanelComponent,
+                        children: [
+                            { path: '', redirectTo: '1', pathMatch:'full' },
+                            { path: ':id', component: TabSubpanelComponent },
+                        ]
+                    }
+                ]
             },
             { path: 'question', component: QuestionHome },
             { path: 'learn', component: LearnHome },
             { path: 'project', component: ProjectHome },
         ])
     ],
-    declarations: [HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent, TabPanelComponent,     //Core Components
-        QuestionHome, LearnHome, ProjectHome,],
-    exports: [RouterModule,
-        HomeComponent, ApNav, ApBannerComponent, ApSearchComponent, TabsComponent, TabPanelComponent,   //Core Components
-        QuestionHome, LearnHome, ProjectHome ]
+    declarations: [
+        //Core Components
+        HomeComponent,
+        ApNav,
+        ApBannerComponent,
+        ApSearchComponent,
+        TabsComponent,
+        TabPanelComponent,
+        TabSubpanelComponent,  
+        
+        QuestionHome,
+        LearnHome,
+        ProjectHome,
+    ],
+    exports: [
+        RouterModule,
+
+        //Core Components
+        HomeComponent,
+        ApNav,
+        ApBannerComponent,
+        ApSearchComponent,
+        TabsComponent,
+        TabPanelComponent,
+        TabSubpanelComponent, 
+
+        QuestionHome,
+        LearnHome,
+        ProjectHome
+    ]
 })
 export class CoreModule { }
