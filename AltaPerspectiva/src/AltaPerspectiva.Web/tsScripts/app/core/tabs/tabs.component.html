@@ -5,7 +5,7 @@
             <div class="tabs-container" [ngStyle]="{'transition': 'all 1.5s ease','transform':translate}">
                 <div class="tabs">
                     <div class="tab" *ngFor="let category of categories" [ngClass]="[category.active]">
-                        <a routerLink="category/{{category.id}}" (click)="selectTab(category.id)">
+                        <a routerLink="tab/{{category.id}}" (click)="selectTab(category.id)">
                             <span class="icon-dice"><span class="tab-text">Estrategia</span> </span>
                             <!--<p>Estrategia</p>-->
                             <!--{{category.name}} {{category.icon}}-->
