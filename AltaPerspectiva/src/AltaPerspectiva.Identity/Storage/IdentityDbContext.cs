@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AltaPerspectiva.Identity.Storage
+namespace AltaPerspectiva.Identity
 {
-    public class IdentityDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationUserDbContext : IdentityDbContext<ApplicationUser>
     {
         protected override void OnModelCreating(ModelBuilder builder)
         {
