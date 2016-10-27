@@ -12,8 +12,8 @@ export class QuestionAnswerService{
                 {
                     id: '1',
                     title: 'lorem ipsum dolor sit amet title-1',
-                    subTitle: 'subTitle-1',
-                    questionBody: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur. Nam sem sem, tincidunt sit amet congue et, venenatis in massa. Nunc massa lectus, vulputate in diam vel, euismod ornare purus. Curabitur vitae turpis quis quam imperdiet facilisis. In lacinia interdum velit, vel tempus mauris tempus id. Vestibulum ullamcorper lacus id dictum scelerisque. Fusce id nulla accumsan, tincidunt mi vel, facilisis diam. Nullam rhoncus, nibh eget tempus posuere',
+                    subTitle: 'Usuario, Descripcion de usuario',
+                    questionBody: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur. Nam sem sem, tincidunt sit amet congue et, venenatis in massa. Nunc massa lectus, vulputate in diam vel, euismod ornare purus. Curabitur vitae turpis quis quam imperdiet facilisis. In lacinia interdum velit, vel tempus mauris tempus id. Vestibulum ullamcorper lacus id dictum scelerisque. Fusce id nulla accumsan, tincidunt mi vel, facilisis diam. Nullam rhoncus, nibh eget tempus posuere. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur. Nam sem sem, tincidunt sit amet congue et, venenatis in massa. Nunc massa lectus, vulputate in diam vel, euismod ornare purus. Curabitur vitae turpis quis quam imperdiet facilisis. In lacinia interdum velit, vel tempus mauris tempus id. Vestibulum ullamcorper lacus id dictum scelerisque. Fusce id nulla accumsan, tincidunt mi vel, facilisis diam. Nullam rhoncus, nibh eget tempus posuere',
                     questionTime: 'questionTime-1',
                     responseCount: '100',
                     answers: [
@@ -26,7 +26,21 @@ export class QuestionAnswerService{
                 {
                     id: '2',
                     title: 'lorem ipsum dolor sit amet title-2',
-                    subTitle: 'subTitle-2',
+                    subTitle: 'Usuario, Descripcion de usuario ',
+                    questionBody: 'questionBody-2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur. Nam sem sem, tincidunt sit amet congue et, venenatis in massa. Nunc massa lectus, vulputate in diam vel, euismod ornare purus. Curabitur vitae turpis quis quam imperdiet facilisis. In lacinia interdum velit, vel tempus mauris tempus id. Vestibulum ullamcorper lacus id dictum scelerisque. Fusce id nulla accumsan, tincidunt mi vel, facilisis diam. Nullam rhoncus, nibh eget tempus posuere',
+                    questionTime: 'questionTime-2',
+                    responseCount: '100',
+                    answers: [
+                        { answerid: 'answerid-4', questionid: '2', title: 'title-1', answer: 'answer-1' },
+                        { answerid: 'answerid-5', questionid: '2', title: 'title-2', answer: 'answer-2' },
+                        { answerid: 'answerid-6', questionid: '2', title: 'title-3', answer: 'answer-3' }
+                    ],
+                    questioner: { userid: 'userid', name: 'questioner-name-2', title: 'title', icon: 'icon' }
+                },
+                {
+                    id: '100',
+                    title: 'lorem ipsum dolor sit amet title-2',
+                    subTitle: 'Usuario, Descripcion de usuario ',
                     questionBody: 'questionBody-2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur. Nam sem sem, tincidunt sit amet congue et, venenatis in massa. Nunc massa lectus, vulputate in diam vel, euismod ornare purus. Curabitur vitae turpis quis quam imperdiet facilisis. In lacinia interdum velit, vel tempus mauris tempus id. Vestibulum ullamcorper lacus id dictum scelerisque. Fusce id nulla accumsan, tincidunt mi vel, facilisis diam. Nullam rhoncus, nibh eget tempus posuere',
                     questionTime: 'questionTime-2',
                     responseCount: '100',
@@ -44,7 +58,7 @@ export class QuestionAnswerService{
                 {
                     id: '3',
                     title: 'lorem ipsum dolor sit amet title-3',
-                    subTitle: 'subTitle-3',
+                    subTitle: 'Usuario, Descripcion de usuario',
                     questionBody: 'questionBody-3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur. Nam sem sem, tincidunt sit amet congue et, venenatis in massa. Nunc massa lectus, vulputate in diam vel, euismod ornare purus. Curabitur vitae turpis quis quam imperdiet facilisis. In lacinia interdum velit, vel tempus mauris tempus id. Vestibulum ullamcorper lacus id dictum scelerisque. Fusce id nulla accumsan, tincidunt mi vel, facilisis diam. Nullam rhoncus, nibh eget tempus posuere',
                     questionTime: 'questionTime-3',
                     responseCount: '100',
@@ -58,7 +72,7 @@ export class QuestionAnswerService{
                 {
                     id: '4',
                     title: 'lorem ipsum dolor sit amet title-4',
-                    subTitle: 'subTitle-4 ',
+                    subTitle: 'Usuario, Descripcion de usuario',
                     questionBody: 'questionBody-4 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur. Nam sem sem, tincidunt sit amet congue et, venenatis in massa. Nunc massa lectus, vulputate in diam vel, euismod ornare purus. Curabitur vitae turpis quis quam imperdiet facilisis. In lacinia interdum velit, vel tempus mauris tempus id. Vestibulum ullamcorper lacus id dictum scelerisque. Fusce id nulla accumsan, tincidunt mi vel, facilisis diam. Nullam rhoncus, nibh eget tempus posuere',
                     questionTime: 'questionTime-4',
                     responseCount: '150',
