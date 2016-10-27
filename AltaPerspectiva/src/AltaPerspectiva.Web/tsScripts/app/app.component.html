@@ -1,4 +1,59 @@
 ﻿<div>
     <router-outlet></router-outlet>
 </div>
+<style>
+    .borrder-circle {
+        border: 2px solid white;
+        display: inline-block;
+        text-align: center;
+        height: 38px;
+        width: 38px;
+        padding: 4px;
+        border-radius: 18px;
+    }
 
+    .footer {
+        height: 60px;
+        width: 100%;
+        background-color: darkgray;
+        color: white;
+    }
+
+    .footer-left {
+        float: left;
+        margin-top: 11px;
+    }
+
+    .footer-right {
+        float: right;
+        font-family: myriadpro-regular;
+        font-size: 14px;
+    }
+
+    .footer-container {
+        width: 85%;
+        margin: 0 auto;
+    }
+</style>
+<div class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            <div class="borrder-circle">
+                <i class="fa fa-facebook fa-2x"></i>
+            </div>
+            <div class="borrder-circle">
+                <i class="fa fa-twitter fa-2x"></i>
+            </div>
+            <div class="borrder-circle">
+                <i class="fa fa-instagram fa-2x"></i>
+            </div>
+        </div>
+        <div class="footer-right">
+            <div>nostros</div>
+            <div>Terminos de usos</div>
+            <div>Contactenos</div>
+        </div>
+
+    </div>
+
+</div>
