@@ -1,30 +1,17 @@
 ﻿<div class="bottom-float">
-    <div class="col-md-12">
+    <!--<div class="col-md-12">-->
         <div class="input-group" id="adv-search">
             <input type="text" class="form-control searc-box fixed-height" placeholder="Search for snippets" />
+            <div class="search-icon"><span class="{{icon}}"></span></div>
             <div class="input-group-btn">
                 <div class="btn-group" role="group">
                     <div class="dropdown dropdown-lg">
                         <button type="button" class="btn btn-default dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                         <div class="dropdown-menu dropdown-menu-right" role="menu">
                             <form class="form-horizontal" role="form">
-                                <div class="form-group">
-                                    <label for="contain" style="cursor:pointer"> Ver todas </label>
-                                </div>
-                                <div class="form-group">
-                                    <label for="contain" style="cursor:pointer">Finanzas</label>
-                                </div>
-                                <div class="form-group">
-                                    <label for="contain" style="cursor:pointer">Gestión humana</label>
-                                </div>
-                                <div class="form-group">
-                                    <label for="contain" style="cursor:pointer">Liderazgo</label>
-                                </div>
-                                <div class="form-group">
-                                    <label for="contain" style="cursor:pointer">Procesos</label>
-                                </div>
-                                <div class="form-group">
-                                    <label for="contain" style="cursor:pointer">Estrategia</label>
+                                <div class="form-group" (click)="selectCategory(category.icon)" *ngFor="let category of categories">
+                                    <div class="lef-column padding-middle"><span class="{{category.icon}}"></span></div>
+                                    <a for="contain" data-toggle="dropdown" class="padding-middle"> {{category.name}} </a>
                                 </div>
                             </form>
                         </div>
@@ -33,5 +20,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!--</div>-->
 </div>
