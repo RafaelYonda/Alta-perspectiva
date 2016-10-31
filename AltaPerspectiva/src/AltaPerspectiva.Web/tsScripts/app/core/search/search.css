@@ -44,7 +44,7 @@ a {
 
 .bottom-float {
     position: absolute;
-    bottom: 48%;
+    bottom: -3%;
     left: 20%;
     overflow: visible;
 }

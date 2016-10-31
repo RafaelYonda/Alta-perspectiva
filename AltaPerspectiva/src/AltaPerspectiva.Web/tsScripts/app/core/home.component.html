@@ -1,5 +1,22 @@
-﻿<ap-banner></ap-banner>
-<ap-nav></ap-nav>
-<ap-search></ap-search>
-<ap-tabs></ap-tabs>
+﻿<style>
+    .banner-container {
+        position: relative;
+        z-index: 9999999;
+    }
+    .fixed-top {
+        position: fixed;
+        top: 0;
+    }
+    
+
+    
+</style>
+<div class="banner-container">
+    <ap-banner></ap-banner>
+    <ap-nav></ap-nav>
+    <ap-search></ap-search>
+</div>
+<div>
+    <ap-tabs></ap-tabs>
+</div>
 

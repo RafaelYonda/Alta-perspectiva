@@ -40,6 +40,9 @@ import { ProjectHome } from '../project/projectHome';
             { path: 'project', component: ProjectHome },
         ])
     ],
+    providers: [
+        { provide: 'Window', useValue: window }
+    ],
     declarations: [
         //Core Components
         HomeComponent,
