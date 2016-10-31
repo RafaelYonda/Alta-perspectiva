@@ -1,6 +1,9 @@
-﻿namespace AltaPerspectiva.Core
+﻿namespace DataModel.Core
 {
-	public interface ICommand
-	{
-	}
+    using System;
+    public interface ICommand
+    {
+        Guid Id { get; }
+
+    }
 }
