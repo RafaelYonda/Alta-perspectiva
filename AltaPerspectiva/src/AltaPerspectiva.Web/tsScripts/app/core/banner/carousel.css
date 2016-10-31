@@ -3,11 +3,15 @@
     width: 100%;
 }
 
+.fixed-height {     /*for scrol top*/
+        height: 135px;
+    }
 .slides {
     list-style: none;
     position: relative;
     width: 400%; /* Number of panes * 100% */
     overflow: hidden; /* Clear floats */
+    
     /* Slide effect Animations*/
     -moz-animation: carousel 10s infinite;
     -webkit-animation: carousel 10s infinite;
@@ -16,6 +20,7 @@
 
 ul {
     padding: 0;
+    margin-bottom: 0;
 }
 
 .slides > li {
