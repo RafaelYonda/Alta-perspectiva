@@ -2,8 +2,8 @@
     <div class="tab-panel-container">
         <div class="tab-header-col-md-1"> <a class="arrow-sign" (click)="leftclick()"><span class="icon-arrow-left"></span></a></div>
         <div class="tab-header-col-md-10">
-            <div class="tabs-container" [ngStyle]="{'transition': 'all 1.5s ease','transform':translate}">
-                <div class="tabs">
+            <div class="tabs-container" >
+                <div class="tabs" [ngStyle]="{'transition': 'all 1.5s ease','transform':translate}">
                     <div class="tab" *ngFor="let category of categories" [ngClass]="[category.active]">
                         <a routerLink="tab/{{category.id}}" (click)="selectTab(category.id)">
                             <span class="{{category.icon}}"><span class="tab-text">{{category.name}}</span> </span>

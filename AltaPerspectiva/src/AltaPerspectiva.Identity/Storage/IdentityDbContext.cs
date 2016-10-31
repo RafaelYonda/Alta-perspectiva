@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using OpenIddict;
 
 namespace AltaPerspectiva.Identity
 {
-    public class ApplicationUserDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationUserDbContext : OpenIddictDbContext<ApplicationUser, ApplicationRole, string>
     {
         protected override void OnModelCreating(ModelBuilder builder)
         {

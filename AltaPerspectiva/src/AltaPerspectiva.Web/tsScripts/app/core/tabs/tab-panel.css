@@ -33,15 +33,17 @@
 .image-border {
     position: absolute;
     right: -4px;
-    height: 128px;
+    height: 167px;
 }
 
 .left-gap {
     border: 1px solid transparent;
 }
-
+.subtitle{
+    font-style: italic;
+}
 h4 {
-    font-size: 14px;
+    font-size: 15px;
     font-family: myriadpro-regular;
     display: inline-block;
 }
@@ -50,17 +52,23 @@ h2 {
     font-size: 24px;
     font-family: myriadpro-regular;
     margin-top: 0;
+    margin-bottom: 0;
 }
 
 p {
     font-size: 17px;
     font-family: myriadpro-regular;
+    margin:0;
+    height: 78px;
+    overflow:hidden;
+    color: #7b7474;
 }
 
 .panel-article {
     margin-right: 8%;
     margin-top: 20px;
     margin-bottom: 20px;
+    max-height: 194px;
 }
 
 .article-footer {
@@ -74,8 +82,9 @@ p {
     display: inline-block;
     border-radius: 2px;
     height: 23px;
-    width: 32px;
+    width: 40px;
     text-align: center;
+    color:white;
 }
 
 .counter-box:after {

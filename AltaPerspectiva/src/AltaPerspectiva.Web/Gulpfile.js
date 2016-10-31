@@ -132,6 +132,12 @@ gulp.task("copy:css", function () {
     return gulp.src(["./Styles/site.less"])
         .pipe(less())
         .pipe(gulp.dest(paths.wwwStyles));
+    return gulp.src(["./Styles/images/**.*"])
+        .pipe(gulp.dest("./wwwroot/images"));
+});
+gulp.task("copy:images", function () {
+    return gulp.src(["./Styles/images/**.*"])
+        .pipe(gulp.dest("./wwwroot/images"));
 });
 
 gulp.task("copy:fonts", function () {
