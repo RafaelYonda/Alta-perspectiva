@@ -1,4 +1,48 @@
-﻿.bottom-float {
+﻿.search-icon{
+    background: transparent;
+    position: absolute;
+    right: 15%;
+    z-index: 99999999;
+    padding-top: 10px;
+    height: 43px;
+}
+a {
+    color: #706f6f;
+    text-decoration: none;
+    outline: 0;
+    border-left: 1px solid #e0d3d3;
+    padding-left: 10px;
+}
+
+.form-group {
+    margin: 0;
+    padding: 3px 0px;
+}
+.padding-middle {
+    padding: 7px 22px;
+
+}
+    .form-group:hover {
+        cursor: pointer;
+        background-color: #c7c7c7 !important;
+        border-top: 1px solid #9e9393;
+        border-bottom: 1px solid #9e9393;
+    }
+
+.dropdown-menu {
+    padding: 0 !important;
+    min-width: 300px!important;
+}
+.dropdown-menu-right {
+    right: 88px;
+}
+.lef-column {
+    margin-right: 10px;
+    display: inline-block;
+    width: 15px;
+}
+
+.bottom-float {
     position: absolute;
     bottom: 48%;
     left: 20%;
