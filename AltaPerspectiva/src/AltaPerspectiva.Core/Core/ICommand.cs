@@ -1,4 +1,4 @@
-﻿namespace DataModel.Core
+﻿namespace AltaPerspectiva.Core
 {
     using System;
     public interface ICommand

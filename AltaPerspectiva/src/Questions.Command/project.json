@@ -4,7 +4,6 @@
   "dependencies": {
     "AltaPerspectiva.Core": "1.0.0-*",
     "AltaPerspectiva.Identity": "1.0.0-*",
-    "AltaPerspectiva.Infrastructure": "1.0.0-*",
     "NETStandard.Library": "1.6.0"
   },
 

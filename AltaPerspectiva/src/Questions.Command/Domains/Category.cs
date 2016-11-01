@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Questions.Command.Domains
+﻿namespace Questions.Command
 {
-    public class Category
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AltaPerspectiva.Core.Infrastructure;
+    public class Category:Entity
     {
-
+        public string Name { get; set; }
     }
 }

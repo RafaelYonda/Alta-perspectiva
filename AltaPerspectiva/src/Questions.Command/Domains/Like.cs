@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Questions.Command
+﻿namespace Questions.Command
 {
+    using System;
+    using AltaPerspectiva.Core;
+    using AltaPerspectiva.Identity;
+
     public class Like
     {
+        ApplicationUser user;
+        Question question;
     }
 }

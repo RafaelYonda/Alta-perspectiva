@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
-
-namespace AltaPerspectiva.Infrastructure
+﻿namespace AltaPerspectiva.Core.Infrastructure
 {
+    using System;
     /// <summary>
     /// Aggregate base class, which factors out some common infrastructure that
     /// all aggregates have (ID and event application).
     /// </summary>
-    public abstract class Entity 
+    public abstract class Entity: Auditable
     {
         Guid _Id;
         public virtual Guid Id

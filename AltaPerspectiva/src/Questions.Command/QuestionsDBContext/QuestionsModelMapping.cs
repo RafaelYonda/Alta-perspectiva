@@ -1,4 +1,4 @@
-﻿namespace Questions.Command
+﻿namespace Questions.Command.DbContext
 {
     using Microsoft.EntityFrameworkCore;
 

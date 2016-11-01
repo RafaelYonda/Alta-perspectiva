@@ -2733,20 +2733,6 @@
         "runtime": {
           "netstandard1.6/AltaPerspectiva.Identity.dll": {}
         }
-      },
-      "AltaPerspectiva.Infrastructure/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v1.6",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "1.0.0",
-          "NETStandard.Library": "1.6.0"
-        },
-        "compile": {
-          "netstandard1.6/AltaPerspectiva.Infrastructure.dll": {}
-        },
-        "runtime": {
-          "netstandard1.6/AltaPerspectiva.Infrastructure.dll": {}
-        }
       }
     }
   },
@@ -7770,18 +7756,12 @@
       "type": "project",
       "path": "../AltaPerspectiva.Identity/project.json",
       "msbuildProject": "../AltaPerspectiva.Identity/AltaPerspectiva.Identity.xproj"
-    },
-    "AltaPerspectiva.Infrastructure/1.0.0": {
-      "type": "project",
-      "path": "../AltaPerspectiva.Infrastructure/project.json",
-      "msbuildProject": "../AltaPerspectiva.Infrastructure/AltaPerspectiva.Infrastructure.xproj"
     }
   },
   "projectFileDependencyGroups": {
     "": [
       "AltaPerspectiva.Core >= 1.0.0-*",
       "AltaPerspectiva.Identity >= 1.0.0-*",
-      "AltaPerspectiva.Infrastructure >= 1.0.0-*",
       "NETStandard.Library >= 1.6.0"
     ],
     ".NETStandard,Version=v1.6": []

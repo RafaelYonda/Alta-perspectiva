@@ -29,3 +29,9 @@ AltaPerspectiva/src/AltaPerspectiva.Identity/project.lock.json
 /AltaPerspectiva/src/AltaPerspectiva.Infrastructure/obj/Debug/netstandard1.6/*.IncrementalCache
 /AltaPerspectiva/src/AltaPerspectiva.Infrastructure/obj/Debug/netstandard1.6/*.SDKVersion
 /AltaPerspectiva/src/AltaPerspectiva.Infrastructure/obj/Debug/netstandard1.6/dotnet-compile.assemblyinfo.cs
+/AltaPerspectiva/src/AltaPerspectiva.Identity/bin/Release/netstandard1.6/AltaPerspectiva.Identity.deps.json
+/AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Release/netstandard1.6/.IncrementalCache
+/AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Release/netstandard1.6/.SDKVersion
+/AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Release/netstandard1.6/dotnet-compile-csc.rsp
+/AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Release/netstandard1.6/dotnet-compile.assemblyinfo.cs
+/AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Release/netstandard1.6/dotnet-compile.rsp
