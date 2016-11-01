@@ -21,7 +21,7 @@ import { QuestionHomeComponent } from './question-home.component';
         //Core Components
     ],
     exports: [
-        RouterModule,
+        //RouterModule,
 
         //Core Components
     ]

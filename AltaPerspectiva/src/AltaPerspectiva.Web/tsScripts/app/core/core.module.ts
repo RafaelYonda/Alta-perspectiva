@@ -1,5 +1,4 @@
-﻿/// <reference path="tabs/tab-subpanel.component.ts" />
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -11,10 +10,9 @@ import { ApSearchComponent } from './search/apSearch.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabPanelComponent } from './tabs/tab-panel.component';
 import { TabSubpanelComponent } from './tabs/tab-subpanel.component';
-
 //================
 
-import { QuestionHome } from '../questions/questionhome';
+import { QuestionHomeComponent } from '../questions/question-home.component';
 import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 
@@ -35,7 +33,7 @@ import { ProjectHome } from '../project/projectHome';
                     }
                 ]
             },
-            { path: 'question', component: QuestionHome },
+            { path: 'question', component: QuestionHomeComponent },
             { path: 'learn', component: LearnHome },
             { path: 'project', component: ProjectHome },
         ])
@@ -52,8 +50,9 @@ import { ProjectHome } from '../project/projectHome';
         TabsComponent,
         TabPanelComponent,
         TabSubpanelComponent,  
-        
-        QuestionHome,
+
+        //other app component
+        QuestionHomeComponent,
         LearnHome,
         ProjectHome,
     ],
@@ -69,7 +68,8 @@ import { ProjectHome } from '../project/projectHome';
         TabPanelComponent,
         TabSubpanelComponent, 
 
-        QuestionHome,
+        //other app component
+        QuestionHomeComponent,
         LearnHome,
         ProjectHome
     ]

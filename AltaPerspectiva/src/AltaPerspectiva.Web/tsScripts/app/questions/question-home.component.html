@@ -1,5 +1,25 @@
-﻿<div>SRA</div>
-<ap-banner></ap-banner>
-<ap-nav></ap-nav>
-<ap-search></ap-search>
-<ap-tabs></ap-tabs>
+﻿<style>
+    .banner-container {
+        position: relative;
+        z-index: 9999999;
+    }
+
+    .fixed-top {
+        position: fixed;
+        top: 0;
+    }
+
+    :host(.background-set) {
+      min-height: 66px !important;
+        background-image: url(../images/background.png);
+}
+
+    /*.navbar {
+        min-height: 66px;
+        background-image: url(../images/background.png);
+    }*/
+</style>
+<div class="banner-container">
+    <ap-nav [className]="'backgroundset'"></ap-nav>
+    <ap-search></ap-search>
+</div>
