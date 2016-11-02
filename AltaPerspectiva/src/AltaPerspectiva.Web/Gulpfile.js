@@ -31,16 +31,16 @@ var tsProject = ts.createProject('tsScripts/tsconfig.json', {
     typescript: require('typescript')
 });
 
-gulp.task('copyHtmlCss', function () {
-    gulp.src([
-        'Scripts/*.js',
-        'tsScripts/**/**/*.html'
-    ]).pipe(gulp.dest("wwwroot/js/"));
-    gulp.src([
-        'Scripts/*.js',
-        'tsScripts/**/**/*.css'
-    ]).pipe(gulp.dest("wwwroot/js/"));
-});
+//gulp.task('copyHtmlCss', function () {
+//    gulp.src([
+//        'Scripts/*.js',
+//        'tsScripts/**/**/*.html'
+//    ]).pipe(gulp.dest("wwwroot/js/"));
+//    gulp.src([
+//        'Scripts/*.js',
+//        'tsScripts/**/**/*.css'
+//    ]).pipe(gulp.dest("wwwroot/js/"));
+//});
 
 gulp.task('watch', ['watch.ts']);
 
@@ -123,37 +123,51 @@ gulp.task("copy:bower-components", function () {
 // Delete all custom stylesheets from /www/css directory
 //
 gulp.task("clean:css", function () {
+    //clear CSS
     del([paths.wwwStyles]);
 });
 //
 // Compile style sheets 
 //
 gulp.task("copy:css", function () {
-    return gulp.src(["./Styles/site.less"])
+    //clear CSS
+    //del([paths.wwwStyles]);
+    //copy CSS
+    gulp.src(["./Styles/site.less"])
         .pipe(less())
         .pipe(gulp.dest(paths.wwwStyles));
-    return gulp.src(["./Styles/images/**.*"])
-        .pipe(gulp.dest("./wwwroot/images"));
+    var fontsFilter = filter(["**/*.woff2", "**/*.eot", "**/*.svg", "**/*.ttf", "**/*.woff"], { restore: true });
+    //copy fonts
+    return gulp.src(["./Styles/alta-font/css/*.css", "./Styles/alta-font/font/**.*", "./Styles/alta-font/font-icon/**.*"])
+        .pipe(gulp.dest("./wwwroot/css/fonts"));
 });
+
 gulp.task("copy:images", function () {
     return gulp.src(["./Styles/images/**.*"])
         .pipe(gulp.dest("./wwwroot/images"));
 });
 
-gulp.task("copy:fonts", function () {
-    var fontsFilter = filter(["**/*.woff2", "**/*.eot", "**/*.svg", "**/*.ttf", "**/*.woff"], { restore: true });
-    return gulp.src(["./Styles/alta-font/css/*.css", "./Styles/alta-font/font/**.*", "./Styles/alta-font/font-icon/**.*"])
-        .pipe(gulp.dest("./wwwroot/css/fonts"));
-});
+//gulp.task("copy:fonts", function () {
+//    var fontsFilter = filter(["**/*.woff2", "**/*.eot", "**/*.svg", "**/*.ttf", "**/*.woff"], { restore: true });
+//    return gulp.src(["./Styles/alta-font/css/*.css", "./Styles/alta-font/font/**.*", "./Styles/alta-font/font-icon/**.*"])
+//        .pipe(gulp.dest("./wwwroot/css/fonts"));
+//});
 //=====ts ==
 var ts = require('gulp-typescript');
 
-//var tsProject = ts.createProject('tsScripts/tsconfig.json', {
-//    typescript: require('typescript')
-//});
 var tsProject = ts.createProject('tsScripts/tsconfig.json', { typescript: require('typescript') });
 
 gulp.task("tsCompile", function () {
+    //========Copy html CSS=====
+    gulp.src([
+        'Scripts/*.js',
+        'tsScripts/**/**/*.html'
+    ]).pipe(gulp.dest("wwwroot/js/"));
+    gulp.src([
+        'Scripts/*.js',
+        'tsScripts/**/**/*.css'
+    ]).pipe(gulp.dest("wwwroot/js/"));
+    //========Type script compile=========
     var tsResult = tsProject.src()
         .pipe(ts(tsProject));
     return tsResult.pipe(gulp.dest('wwwroot/js'));

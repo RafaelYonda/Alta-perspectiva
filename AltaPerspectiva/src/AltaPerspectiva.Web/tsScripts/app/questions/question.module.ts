@@ -5,25 +5,21 @@ import { RouterModule } from '@angular/router';
 //====core components============
 
 import { QuestionHomeComponent } from './question-home.component';
-
+import { AnswerPanelComponent } from './answer-panel/answer-panel.component';
 //================
 
+
 @NgModule({
-    imports: [BrowserModule, 
-        //RouterModule.forRoot([
-        //    { path: '', redirectTo: 'home', pathMatch:'full' },
-        //    { path: 'question', component: QuestionHome },
-        //    { path: 'learn', component: LearnHome },
-        //    { path: 'project', component: ProjectHome },
-        //])
-    ],
+    imports: [BrowserModule, RouterModule.forRoot([
+        { path: 'question', component: QuestionHomeComponent }])],    
     declarations: [
         //Core Components
+        QuestionHomeComponent
     ],
     exports: [
-        RouterModule,
-
+        //RouterModule,
+QuestionHomeComponent
         //Core Components
     ]
 })
-export class CoreModule { }
+export class QuestionModule { }
