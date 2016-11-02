@@ -1,5 +1,4 @@
-﻿/// <reference path="../questions/question.module.ts" />
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -13,9 +12,7 @@ import { TabPanelComponent } from './tabs/tab-panel.component';
 import { TabSubpanelComponent } from './tabs/tab-subpanel.component';
 //================
 
-// import { QuestionHomeComponent } from '../questions/question-home.component';
 import { QuestionModule } from '../questions/question.module';
-// import { QuestionHomeComponent } from 'QuestionModule';
 import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 
