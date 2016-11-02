@@ -122,13 +122,16 @@ gulp.task("copy:bower-components", function () {
 //
 // Delete all custom stylesheets from /www/css directory
 //
-
+gulp.task("clean:css", function () {
+    //clear CSS
+    del([paths.wwwStyles]);
+});
 //
 // Compile style sheets 
 //
 gulp.task("copy:css", function () {
     //clear CSS
-    del([paths.wwwStyles]);
+    //del([paths.wwwStyles]);
     //copy CSS
     gulp.src(["./Styles/site.less"])
         .pipe(less())

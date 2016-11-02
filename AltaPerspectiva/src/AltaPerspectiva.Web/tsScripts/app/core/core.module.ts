@@ -1,4 +1,5 @@
-﻿import { NgModule } from '@angular/core';
+﻿/// <reference path="../questions/question.module.ts" />
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -12,12 +13,14 @@ import { TabPanelComponent } from './tabs/tab-panel.component';
 import { TabSubpanelComponent } from './tabs/tab-subpanel.component';
 //================
 
-import { QuestionHomeComponent } from '../questions/question-home.component';
+// import { QuestionHomeComponent } from '../questions/question-home.component';
+import { QuestionModule } from '../questions/question.module';
+// import { QuestionHomeComponent } from 'QuestionModule';
 import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 
 @NgModule({
-    imports: [BrowserModule, 
+    imports: [BrowserModule, QuestionModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch:'full' },
             {
@@ -33,7 +36,7 @@ import { ProjectHome } from '../project/projectHome';
                     }
                 ]
             },
-            { path: 'question', component: QuestionHomeComponent },
+            { path: 'question', loadChildren: '../questions/question.module#QuestionModule' },
             { path: 'learn', component: LearnHome },
             { path: 'project', component: ProjectHome },
         ])
@@ -52,13 +55,13 @@ import { ProjectHome } from '../project/projectHome';
         TabSubpanelComponent,  
 
         //other app component
-        QuestionHomeComponent,
+        //QuestionHomeComponent,
         LearnHome,
         ProjectHome,
     ],
     exports: [
         RouterModule,
-
+QuestionModule,
         //Core Components
         HomeComponent,
         ApNav,
@@ -69,7 +72,7 @@ import { ProjectHome } from '../project/projectHome';
         TabSubpanelComponent, 
 
         //other app component
-        QuestionHomeComponent,
+        //QuestionHomeComponent,
         LearnHome,
         ProjectHome
     ]

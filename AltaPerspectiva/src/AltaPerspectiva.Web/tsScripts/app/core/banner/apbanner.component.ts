@@ -25,16 +25,16 @@ export class ApBannerComponent {
         if (this._window.scrollY > 200) {
             console.debug(this._el.nativeElement.parentNode);
             console.debug(((this._el.nativeElement.parentNode).parentNode).parentNode);
-            console.debug(this._el.nativeElement.childNodes[1]);
+            console.debug(this._el.nativeElement);
 
             this._el.nativeElement.parentNode.classList.add("fixed-top");
             ((this._el.nativeElement.parentNode).parentNode).parentNode.classList.add("parent-padding");
-            this._el.nativeElement.childNodes[1].classList.add("fixed-height");
+            this._el.nativeElement.childNodes[0].classList.add("fixed-height");
         }
         else {
             this._el.nativeElement.parentNode.classList.remove("fixed-top");
             ((this._el.nativeElement.parentNode).parentNode).parentNode.classList.remove("parent-padding");
-            this._el.nativeElement.childNodes[1].classList.remove("fixed-height");
+            this._el.nativeElement.childNodes[0].classList.remove("fixed-height");
         }
             
         // see http://juristr.com/blog/2016/01/learning-ng2-dynamic-styles/

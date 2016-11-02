@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, Input } from '@angular/core';
 import { CategoryService } from '../../services/category.service'
 import { Category } from '../../services/category'
 
@@ -9,6 +9,8 @@ import { Category } from '../../services/category'
     providers: [CategoryService]
 })
 export class ApSearchComponent {
+    //@Input() placeBottom: string;
+    @Input() placeBottom: string = 'bottom-float';
     public icon: string;
     public visible = false;
     categories: Category[];
