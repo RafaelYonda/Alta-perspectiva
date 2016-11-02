@@ -5,10 +5,14 @@
     using DbContext;
     using System.Diagnostics;
     using System.Linq;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Routing;
 
     /// <summary>
     ///     Create new inactive user
     /// </summary>
+    /// 
+ 
     public class AddQuestionCommandHandler : EFCommandHandlerBase<AddQuestionCommand, QuestionsDbContext>,
 		ICommandHandler<AddQuestionCommand>
 	{

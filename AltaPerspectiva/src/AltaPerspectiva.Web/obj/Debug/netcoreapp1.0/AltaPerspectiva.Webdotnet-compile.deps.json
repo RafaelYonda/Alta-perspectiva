@@ -16,6 +16,7 @@
     ".NETCoreApp,Version=v1.0": {
       "AltaPerspectiva.Web/1.0.0": {
         "dependencies": {
+          "AltaPerspectiva.Core": "1.0.0",
           "AltaPerspectiva.Identity": "1.0.0",
           "AspNet.Security.OAuth.Introspection": "1.0.0-alpha2-final",
           "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-final",
@@ -35,7 +36,8 @@
           "Microsoft.NETCore.App": "1.0.1",
           "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
           "OpenIddict": "1.0.0-beta1-0470",
-          "OpenIddict.Mvc": "1.0.0-beta1-0470"
+          "OpenIddict.Mvc": "1.0.0-beta1-0470",
+          "Questions.Command": "1.0.0"
         },
         "compile": {
           "AltaPerspectiva.Web.dll": {}
@@ -3036,6 +3038,20 @@
           "System.Xml.XPath": "4.0.1"
         }
       },
+      "AltaPerspectiva.Core/1.0.0": {
+        "dependencies": {
+          "System.Runtime": "4.1.0",
+          "Microsoft.Extensions.DependencyInjection": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "1.0.0",
+          "NETStandard.Library": "1.6.0",
+          "System.Collections.NonGeneric": "4.0.1",
+          "System.Reflection.TypeExtensions": "4.1.0"
+        },
+        "compile": {
+          "AltaPerspectiva.Core.dll": {}
+        }
+      },
       "AltaPerspectiva.Identity/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
@@ -3050,11 +3066,24 @@
         "compile": {
           "AltaPerspectiva.Identity.dll": {}
         }
+      },
+      "Questions.Command/1.0.0": {
+        "dependencies": {
+          "AltaPerspectiva.Core": "1.0.0",
+          "AltaPerspectiva.Identity": "1.0.0",
+          "Microsoft.AspNetCore.Authorization": "1.0.0",
+          "Microsoft.AspNetCore.Routing": "1.0.1",
+          "NETStandard.Library": "1.6.0"
+        },
+        "compile": {
+          "Questions.Command.dll": {}
+        }
       }
     },
     ".NETCoreApp,Version=v1.0/": {
       "AltaPerspectiva.Web/1.0.0": {
         "dependencies": {
+          "AltaPerspectiva.Core": "1.0.0",
           "AltaPerspectiva.Identity": "1.0.0",
           "AspNet.Security.OAuth.Introspection": "1.0.0-alpha2-final",
           "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-final",
@@ -3074,7 +3103,8 @@
           "Microsoft.NETCore.App": "1.0.1",
           "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
           "OpenIddict": "1.0.0-beta1-0470",
-          "OpenIddict.Mvc": "1.0.0-beta1-0470"
+          "OpenIddict.Mvc": "1.0.0-beta1-0470",
+          "Questions.Command": "1.0.0"
         },
         "runtime": {
           "AltaPerspectiva.Web.dll": {}
@@ -5964,6 +5994,20 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
+      "AltaPerspectiva.Core/1.0.0": {
+        "dependencies": {
+          "System.Runtime": "4.1.0",
+          "Microsoft.Extensions.DependencyInjection": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "1.0.0",
+          "NETStandard.Library": "1.6.0",
+          "System.Collections.NonGeneric": "4.0.1",
+          "System.Reflection.TypeExtensions": "4.1.0"
+        },
+        "runtime": {
+          "AltaPerspectiva.Core.dll": {}
+        }
+      },
       "AltaPerspectiva.Identity/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
@@ -5977,6 +6021,18 @@
         },
         "runtime": {
           "AltaPerspectiva.Identity.dll": {}
+        }
+      },
+      "Questions.Command/1.0.0": {
+        "dependencies": {
+          "AltaPerspectiva.Core": "1.0.0",
+          "AltaPerspectiva.Identity": "1.0.0",
+          "Microsoft.AspNetCore.Authorization": "1.0.0",
+          "Microsoft.AspNetCore.Routing": "1.0.1",
+          "NETStandard.Library": "1.6.0"
+        },
+        "runtime": {
+          "Questions.Command.dll": {}
         }
       }
     }
@@ -7102,7 +7158,17 @@
       "serviceable": true,
       "sha512": "sha512-FLhdYJx4331oGovQypQ8JIw2kEmNzCsjVOVYY/16kZTUoquZG85oVn7yUhBE2OZt1yGPSXAL0HTEfzjlbNpM7Q=="
     },
+    "AltaPerspectiva.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "AltaPerspectiva.Identity/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Questions.Command/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

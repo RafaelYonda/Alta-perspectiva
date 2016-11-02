@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "AltaPerspectiva.Core": "1.0.0-*",
     "AltaPerspectiva.Identity": "1.0.0-*",
     "AspNet.Security.OAuth.Introspection": "1.0.0-alpha2-final",
     "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-final",
@@ -26,7 +27,8 @@
     },
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "OpenIddict": "1.0.0-*",
-    "OpenIddict.Mvc": "1.0.0-*"
+    "OpenIddict.Mvc": "1.0.0-*",
+    "Questions.Command": "1.0.0-*"
   },
 
   "tools": {

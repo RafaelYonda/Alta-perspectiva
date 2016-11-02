@@ -4,6 +4,9 @@
   "dependencies": {
     "AltaPerspectiva.Core": "1.0.0-*",
     "AltaPerspectiva.Identity": "1.0.0-*",
+    "Microsoft.AspNetCore.Authorization": "1.0.0",
+    "Microsoft.AspNetCore.Routing": "1.0.1",
+    "Microsoft.AspNetCore.Routing.Abstractions": "1.0.1",
     "NETStandard.Library": "1.6.0"
   },
 

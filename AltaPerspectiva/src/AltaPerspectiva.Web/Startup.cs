@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using AltaPerspectiva.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using OpenIddict;
+using AltaPerspectiva.Core;
+using Questions.Command;
 
 namespace AltaPerspectiva
 {
@@ -39,6 +41,8 @@ namespace AltaPerspectiva
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddCors();  
+
+
 
             services.AddMvc();
             
@@ -82,8 +86,8 @@ namespace AltaPerspectiva
                 // This method should only be used during development.
                 .AddEphemeralSigningKey();
 
-
-
+            services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
+            services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
