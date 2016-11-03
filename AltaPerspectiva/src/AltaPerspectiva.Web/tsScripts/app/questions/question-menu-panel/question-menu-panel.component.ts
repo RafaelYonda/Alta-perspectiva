@@ -2,9 +2,7 @@
 
 @Component({
     selector: 'question-panel',
-    template: `    
-    <p>Question panel</p>
-  `
+    templateUrl: 'js/app/questions/question-menu-panel/question-menu-panel.component.html',
 })
 export class QuestionMenuPanelComponent {
     isbackGround = false;

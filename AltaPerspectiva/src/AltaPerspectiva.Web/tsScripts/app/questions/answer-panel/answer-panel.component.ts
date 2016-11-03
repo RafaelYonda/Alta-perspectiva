@@ -1,9 +1,29 @@
 ﻿import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { QuestionAnswerService } from '../../services/questionAnswer.service';
+import { Question } from '../../services/question';
 
 @Component({
     selector: "answer-panel",
-    template: `    
-    <p>Answer panel</p>
-  `
+    templateUrl: 'js/app/questions/answer-panel/answer-panel.component.html',
+    providers: [QuestionAnswerService]
 })
-export class AnswerPanelComponent { }
+export class AnswerPanelComponent {
+    id: number;
+    private sub: any;
+    questions: Question[];
+    constructor(private route: ActivatedRoute, private questionAnswerService: QuestionAnswerService) {
+        this.questions = this.questionAnswerService.getQuestionByCategory('');
+    }
+
+    ngOnInit() {
+        this.sub = this.route.params.subscribe(params => {
+            this.id = +params['id']; // (+) converts string 'id' to a number
+            this.questions = this.questionAnswerService.getQuestionByCategory(params['id']);
+        });
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
+}
