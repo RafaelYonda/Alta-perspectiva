@@ -29,5 +29,4 @@ export class TabSubpanelComponent {
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
-
 }

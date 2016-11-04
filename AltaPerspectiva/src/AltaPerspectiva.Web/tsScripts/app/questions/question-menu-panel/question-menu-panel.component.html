@@ -18,13 +18,11 @@
     }
 </style>
 <div class="menu-container">
-    <div class="row">
+    <div  class="row">
         <div >
             <div class="question-title">Related Question</div>
             <div class="question-list">
-                <p>&iquest;What is the future of the bill?</p>
-                <p>&iquest;What is the way  to create performance measurement  system on startup?</p>
-                <p>&iquest;What is stratigy?</p>
+                <p *ngFor="let question of questionMenuList">&iquest;{{question.questiontext}}?</p>
             </div>
         </div>
     </div>
@@ -32,9 +30,7 @@
         <div >
             <div class="question-title">Related Content</div>
             <div class="question-list">
-                <p>&iquest;What is the future of the bill?</p>
-                <p>&iquest;What is the way  to create performance measurement  system on startup?</p>
-                <p>&iquest;What is stratigy?</p>
+                <p *ngFor="let question of questionMenuList">&iquest;{{question.questiontext}}?</p>
             </div>
         </div>
     </div>
