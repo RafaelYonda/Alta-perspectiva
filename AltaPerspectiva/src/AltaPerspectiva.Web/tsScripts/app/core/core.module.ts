@@ -1,6 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 //====core components============
 import { HomeComponent } from './home.component';
@@ -23,11 +24,11 @@ import { ProjectHome } from '../project/projectHome';
             {
                 path: 'home', component: HomeComponent,
                 children: [
-                    { path: '', redirectTo: 'tab', pathMatch: 'full'},
+                    { path: '', redirectTo: 'tab'},
                     {
                         path: 'tab', component: TabPanelComponent,
                         children: [
-                            { path: '', redirectTo: '1', pathMatch:'full' },
+                            { path: '', redirectTo: 'tab' },
                             { path: ':id', component: TabSubpanelComponent },
                         ]
                     }
@@ -36,7 +37,7 @@ import { ProjectHome } from '../project/projectHome';
             { path: 'question', loadChildren: '../questions/question.module#QuestionModule' },
             { path: 'learn', component: LearnHome },
             { path: 'project', component: ProjectHome },
-        ])
+        ], { useHash: true })
     ],
     providers: [
         { provide: 'Window', useValue: window }

@@ -1,4 +1,5 @@
 ﻿import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'ap-tab-panel',
@@ -7,4 +8,11 @@
 })
 
 export class TabPanelComponent {
+    _router: any;
+    constructor(private router: Router) {
+        this._router = router;
+    }
+    ngOnInit() {
+        this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
+    }
 }
