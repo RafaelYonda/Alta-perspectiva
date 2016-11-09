@@ -4,8 +4,10 @@ using OpenIddict;
 
 namespace AltaPerspectiva.Identity
 {
-    public class ApplicationUserDbContext : OpenIddictDbContext<ApplicationUser, ApplicationRole, string>
+    public class ApplicationUserDbContext : OpenIddictDbContext<ApplicationUser, ApplicationRole>
     {
+        public ApplicationUserDbContext(DbContextOptions options)
+            : base(options) { }             
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -15,6 +17,7 @@ namespace AltaPerspectiva.Identity
 
             // Set database schema
             builder.HasDefaultSchema("Identity");
+
         }
     }
 }

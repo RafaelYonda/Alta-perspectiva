@@ -35,3 +35,9 @@ AltaPerspectiva/src/AltaPerspectiva.Identity/project.lock.json
 /AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Release/netstandard1.6/dotnet-compile-csc.rsp
 /AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Release/netstandard1.6/dotnet-compile.assemblyinfo.cs
 /AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Release/netstandard1.6/dotnet-compile.rsp
+/AltaPerspectiva/src/AltaPerspectiva.Identity/bin/Debug/netcoreapp1.0
+/AltaPerspectiva/src/AltaPerspectiva.Identity/obj/Debug/netcoreapp1.0
+/AltaPerspectiva/src/Altaperspectiva.OpenID.Web/bin/Debug/netcoreapp1.0
+/AltaPerspectiva/src/Altaperspectiva.OpenID.Web/bin/src/AltaPerspectiva.Identity/obj/Debug/netstandard1.6
+/AltaPerspectiva/src/Altaperspectiva.OpenID.Web/obj/Debug/netcoreapp1.0
+/AltaPerspectiva/src/Altaperspectiva.OpenID.Web/wwwroot
