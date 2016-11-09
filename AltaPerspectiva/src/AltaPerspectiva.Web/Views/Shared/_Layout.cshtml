@@ -18,21 +18,20 @@
     <!-- 2. Configure SystemJS -->
     <script src="~/js/systemjs.config.js"></script>
     <script>
-        System.import('../js/main').catch(function (err)
-        {
+        System.import('../js/main').catch(function (err) {
             console.error(err);
         });
     </script>
     <style>
         .body-minHeight {
-            min-height: 91vh;
+            min-height: 86vh;
         }
     </style>
     <environment names="Development">
         <link href="~/css/fonts/alta-fonts.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/fontawesome/css/font-awesome.css" />
-        <link rel="stylesheet" href="~/css/site.css" />        
+        <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment names="Staging,Production">
         <link href="~/css/fonts/alta-fonts.css" rel="stylesheet" />
@@ -47,100 +46,93 @@
 
 <body>
     <div class="body-minHeight">
-        <div class="navbar-collapse collapse">
-             <ul class="nav navbar-nav">
-                <li><a href="/signin">Log in</a></li>
-                <li><a href="http://localhost:38182/Account/Register">Register</a></li>
-             </ul>
-        </div>
-        
-                <app>Loading ...</app>
+        <app>Loading ...</app>
+    </div>
 
-        </div>
+    <style>
+        .borrder-circle {
+            border: 2px solid white;
+            display: inline-block;
+            text-align: center;
+            height: 38px;
+            width: 38px;
+            padding: 4px;
+            border-radius: 18px;
+        }
 
-        <style>
-            .borrder-circle {
-                border: 2px solid white;
-                display: inline-block;
-                text-align: center;
-                height: 38px;
-                width: 38px;
-                padding: 4px;
-                border-radius: 18px;
-            }
+        .parent-padding {
+            padding-top: 135px;
+        }
 
-            .parent-padding {
-                padding-top: 135px;
-            }
+        .footer {
+            height: 63px;
+            width: 100%;
+            background-color: darkgray;
+            color: white;
+            /*position: absolute;*/
+            bottom: 0;
+        }
 
-            .footer {
-                height: 60px;
-                width: 100%;
-                background-color: darkgray;
-                color: white;
-                /*position: absolute;*/
-                bottom: 0;
-            }
+        .footer-left {
+            float: left;
+            margin-top: 11px;
+        }
 
-            .footer-left {
-                float: left;
-                margin-top: 11px;
-            }
+        .footer-right {
+            float: right;
+            font-family: myriadpro-regular;
+            font-size: 14px;
+            text-align: right;
+        }
 
-            .footer-right {
-                float: right;
-                font-family: myriadpro-regular;
-                font-size: 14px;
-            }
-
-            .footer-container {
-                width: 85%;
-                margin: 0 auto;
-            }
-        </style>
-        <div class="footer">
-            <div class="footer-container">
-                <div class="footer-left">
-                    <div class="borrder-circle">
-                        <i class="fa fa-facebook fa-2x"></i>
-                    </div>
-                    <div class="borrder-circle">
-                        <i class="fa fa-twitter fa-2x"></i>
-                    </div>
-                    <div class="borrder-circle">
-                        <i class="fa fa-instagram fa-2x"></i>
-                    </div>
+        .footer-container {
+            width: 85%;
+            margin: 0 auto;
+        }
+    </style>
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <div class="borrder-circle">
+                    <i class="fa fa-facebook fa-2x"></i>
                 </div>
-                <div class="footer-right">
-                    <div>nostros</div>
-                    <div>Terminos de usos</div>
-                    <div>Contactenos</div>
+                <div class="borrder-circle">
+                    <i class="fa fa-twitter fa-2x"></i>
                 </div>
-
+                <div class="borrder-circle">
+                    <i class="fa fa-instagram fa-2x"></i>
+                </div>
+            </div>
+            <div class="footer-right">
+                <div>nostros</div>
+                <div>Terminos de usos</div>
+                <div>Contactenos</div>
             </div>
 
         </div>
-        <div>
-            @RenderBody()
-        </div>
 
-        <environment names="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment names="Staging,Production">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-            </script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-        </environment>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
 
-        @RenderSection("scripts", required: false)
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
 </body>
 </html>

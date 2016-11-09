@@ -1,0 +1,55 @@
+﻿
+<style>
+    .user-image {
+        height: 40px;
+        width: 40px;
+        border-radius: 20px;
+    }
+
+    .answer-text {
+        font-size: 16px;
+        color: #797575;
+    }
+
+    .image-border {
+        height: 300px;
+        width: 3px;
+    }
+
+    .left-border {
+        float: left;
+    }
+
+    .header-info {
+        font-size: 12px;
+    }
+
+    .article-details {
+        float: left;
+        width: 98%;
+        padding-left: 2%;
+    }
+
+    hr {
+        width: 150%;
+        margin-left: -30%;
+    }
+    h1{
+        margin-left: -17px;
+    }
+</style>
+<h1>&iquest;What is balanced score card?</h1>
+<div *ngFor="let answer of answerList">
+    <div class="row">
+        <div class="left-border">
+            <img class="image-border" src="../../../../images/border.png" />
+        </div>
+        <div class="article-details">
+            <img class="user-image" src="../../../../images/avatar.png" />
+            <div class="header-info">{{answer.user.name}},{{answer.user.occupassion}}</div>
+            <div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>
+            <p class="answer-text">{{answer.answerText}}</p>
+        </div>
+    </div>
+    <hr />
+</div>

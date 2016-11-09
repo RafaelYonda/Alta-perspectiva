@@ -1,0 +1,24 @@
+﻿<div>
+    <!--<div class="col-md-12">-->
+        <div class="input-group" id="adv-search">
+            <input type="text" class="form-control searc-box fixed-height" placeholder="Search for snippets" />
+            <div class="search-icon"><span class="{{icon}}"></span></div>
+            <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                    <div class="dropdown dropdown-lg">
+                        <button type="button" class="btn btn-default dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group" (click)="selectCategory(category.icon)" *ngFor="let category of categories">
+                                    <div class="lef-column padding-middle"><span class="{{category.icon}}"></span></div>
+                                    <a for="contain" data-toggle="dropdown" class="padding-middle"> {{category.name}} </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary fixed-height" (click)="search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span style="padding-left:5px">Search</span></button>
+                </div>
+            </div>
+        </div>
+    <!--</div>-->
+</div>

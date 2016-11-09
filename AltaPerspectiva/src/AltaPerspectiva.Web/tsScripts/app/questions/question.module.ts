@@ -2,10 +2,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
-//====core components============
+//====question components============
 
+import { QuestionSearchComponent } from './search/question-search.component';
+import { questionNav } from './nav/question-nav.component';
 import { QuestionHomeComponent } from './question-home.component';
 import { AnswerPanelComponent } from './answer-panel/answer-panel.component';
+import { QuestionMenuPanelComponent } from './question-menu-panel/question-menu-panel.component';
+
 //================
 
 
@@ -14,7 +18,7 @@ import { AnswerPanelComponent } from './answer-panel/answer-panel.component';
         { path: 'question', component: QuestionHomeComponent }])],    
     declarations: [
         //Core Components
-        QuestionHomeComponent
+        AnswerPanelComponent, QuestionHomeComponent, questionNav, QuestionSearchComponent, QuestionMenuPanelComponent
     ],
     exports: [
         //RouterModule,

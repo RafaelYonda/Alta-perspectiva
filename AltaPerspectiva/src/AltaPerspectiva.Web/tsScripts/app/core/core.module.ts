@@ -1,7 +1,7 @@
-﻿/// <reference path="../questions/question.module.ts" />
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 //====core components============
 import { HomeComponent } from './home.component';
@@ -13,9 +13,7 @@ import { TabPanelComponent } from './tabs/tab-panel.component';
 import { TabSubpanelComponent } from './tabs/tab-subpanel.component';
 //================
 
-// import { QuestionHomeComponent } from '../questions/question-home.component';
 import { QuestionModule } from '../questions/question.module';
-// import { QuestionHomeComponent } from 'QuestionModule';
 import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 
@@ -26,11 +24,11 @@ import { ProjectHome } from '../project/projectHome';
             {
                 path: 'home', component: HomeComponent,
                 children: [
-                    { path: '', redirectTo: 'tab', pathMatch: 'full'},
+                    { path: '', redirectTo: 'tab'},
                     {
                         path: 'tab', component: TabPanelComponent,
                         children: [
-                            { path: '', redirectTo: '1', pathMatch:'full' },
+                            { path: '', redirectTo: 'tab' },
                             { path: ':id', component: TabSubpanelComponent },
                         ]
                     }
@@ -39,7 +37,7 @@ import { ProjectHome } from '../project/projectHome';
             { path: 'question', loadChildren: '../questions/question.module#QuestionModule' },
             { path: 'learn', component: LearnHome },
             { path: 'project', component: ProjectHome },
-        ])
+        ], { useHash: true })
     ],
     providers: [
         { provide: 'Window', useValue: window }

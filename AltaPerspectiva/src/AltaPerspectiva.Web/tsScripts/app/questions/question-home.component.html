@@ -1,5 +1,4 @@
-﻿<h1>Question Module</h1>
-<!--<style>
+﻿<style>
     .banner-container {
         position: relative;
         z-index: 9999999;
@@ -11,19 +10,38 @@
     }
 
     :host(.background-set) {
-      min-height: 66px !important;
+        min-height: 66px !important;
         background-image: url(../images/background.png);
-}
-    .body-padding {
-        padding-top:135px;
     }
-    h1{
-            margin-left: 33%;
+
+    .body-padding {
+        padding-top: 66px;
+    }
+
+    h2 {
+        margin-left: 33%;
     }
 </style>
-<div class="banner-container">
-    <ap-nav [className]="'backgroundset'"></ap-nav>
+<div class="row  body-padding">
+    <apq-nav></apq-nav>
+    <h2>iAsk question about business</h2>
+    <apq-search></apq-search>
     
+    <div class="col-md-3">
+        <question-panel></question-panel>
+    </div>
+    <div class="col-md-6">
+        <answer-panel></answer-panel>
+    </div>
+    <div class="col-md-3">
+        Advertisement
+    </div>
+</div>
+
+
+<!--<div >
+    <ap-nav [className]="'backgroundset'"></ap-nav>
+
 </div>
 <div class="row body-padding">
     <h1>iAsk question about business</h1>

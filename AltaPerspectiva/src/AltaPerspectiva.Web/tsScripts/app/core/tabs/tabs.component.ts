@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { CategoryService } from '../../services/category.service'
 import { Category } from '../../services/category'
+import { Router } from '@angular/router';
 
 @Component({
     selector:'ap-tabs',
@@ -13,7 +14,9 @@ export class TabsComponent {
     tabLength=6;
     transform: number;
     translate: string;
-    constructor(private categoryService: CategoryService) {
+    _router: Router;
+    constructor(private categoryService: CategoryService, route: Router) {
+        this._router = route;
         this.categories = this.categoryService.getCategories();
         this.tabLength=this.categories.length-6;
         this.transform = 0;
@@ -46,5 +49,6 @@ export class TabsComponent {
             }
             else element.active='';
         });
+        this._router.navigateByUrl('home/tab/'+id, { skipLocationChange: true });
     }
 }
