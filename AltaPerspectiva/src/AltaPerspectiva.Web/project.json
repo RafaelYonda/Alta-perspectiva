@@ -1,11 +1,13 @@
 {
   "dependencies": {
     "AltaPerspectiva.Core": "1.0.0-*",
-    "AltaPerspectiva.Identity": "1.0.0-*",
     "AspNet.Security.OAuth.Introspection": "1.0.0-alpha2-final",
     "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-final",
     "Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
+    "Microsoft.AspNetCore.Authentication.OpenIdConnect": "1.0.0",
+    "Microsoft.AspNetCore.Authorization": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
+    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.1",
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview2-final",
@@ -21,11 +23,13 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+    "Microsoft.IdentityModel.Protocols.OpenIdConnect": "2.0.0",
     "Microsoft.NETCore.App": {
       "version": "1.0.1",
       "type": "platform"
     },
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
+    "NWebsec.AspNetCore.Middleware": "1.0.0-gamma1-15",
     "OpenIddict": "1.0.0-*",
     "OpenIddict.Mvc": "1.0.0-*",
     "Questions.Command": "1.0.0-*"

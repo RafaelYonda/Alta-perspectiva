@@ -6,7 +6,8 @@
 
     public class Like
     {
-        ApplicationUser user;
-        Question question;
+        public ApplicationUser user { get; set; }
+        public Guid? QuestionId { get; set; } 
+        public Question Question { get; set; }
     }
 }

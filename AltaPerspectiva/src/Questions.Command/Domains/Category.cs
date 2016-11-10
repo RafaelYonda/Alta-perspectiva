@@ -7,6 +7,7 @@
     using AltaPerspectiva.Core.Infrastructure;
     public class Category:Entity
     {
-        public string Name { get; set; }
+        public string Name { get; set; }               
+        public virtual ICollection<QuestionCategory> Questions { get; set; }
     }
 }

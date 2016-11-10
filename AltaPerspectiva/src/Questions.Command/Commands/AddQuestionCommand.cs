@@ -26,18 +26,7 @@
             Comment = _comment;
             Like = _like;
         }
-
-        public AddQuestionCommand(string v, DateTime dateTime, object p1, object p2, object p3, object p4, object p5)
-        {
-            this.v = v;
-            this.dateTime = dateTime;
-            this.p1 = p1;
-            this.p2 = p2;
-            this.p3 = p3;
-            this.p4 = p4;
-            this.p5 = p5;
-        }
-
+    
         public string Title { get; protected set; }
         public string Body { get; protected set; }
         public DateTime Date { get; protected set; }

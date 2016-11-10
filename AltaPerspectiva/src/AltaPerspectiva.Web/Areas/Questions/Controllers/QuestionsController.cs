@@ -42,7 +42,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost]
         public void Post([FromBody]string value)
         {
-            AddQuestionCommand cmd = new AddQuestionCommand("Title",new DateTime(2016,11,2), null, null, null, null, null );
+            AddQuestionCommand cmd = new AddQuestionCommand("Title","Body",new DateTime(2016,11,2), null, null, null, null );
             commandsFactory.ExecuteQuery(cmd);
 
             Guid customerId = cmd.Id;

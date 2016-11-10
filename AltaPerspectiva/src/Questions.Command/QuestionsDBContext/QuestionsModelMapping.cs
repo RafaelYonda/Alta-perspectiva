@@ -6,54 +6,39 @@
     {
         public static void ConfigureMappings(this ModelBuilder model)
         {
-            // widgets
+            // questions
             model.Entity<Question>(e =>
             {
-                e.ToTable("Question");
+                e.ToTable("Questions");
 
-                e.HasKey(w => w.Id);
+                e.HasKey(q => q.Id);
 
-                e.Property(w => w.Id)
-                    .HasColumnName("Id").IsRequired();
+                e.Property(q => q.Title)
+                    .HasColumnName("Title").IsRequired();
 
-               
+                e.Property(q => q.Body)
+                    .HasColumnName("Body").IsRequired();
 
-                //e.Property(w => w.Template)
-                //    .HasColumnName("Template").IsRequired();
+                e.HasMany<Answer>(a => a.Answers).WithOne(q => q.Question).HasForeignKey(a => a.QuestionId);
 
-                //e.Property(w => w.Heading)
-                //    .HasColumnName("Heading");
+                e.HasMany<Comment>(c => c.Comments).WithOne(q => q.Question).HasForeignKey(c => c.QuestionID);
 
-                //e.Property(w => w.Section)
-                //    .HasColumnName("Section").IsRequired();
+                e.HasMany<Like>(l => l.Likes).WithOne(q => q.Question).HasForeignKey(l => l.QuestionId);
 
-                //e.Property(w => w.Type)
-                //    .HasColumnName("Type").IsRequired();
-
-                //e.Property(w => w.IsEnabled)
-                //    .HasColumnName("IsEnabled").IsRequired();
+                e.HasMany<QuestionCategory>(c => c.Categories).WithOne(q => q.Question).HasForeignKey(qc => qc.QuestionId);
 
             });
 
-            // user widgets
-            //model.Entity<UserWidget>(e =>
-            //{
-            //    e.ToTable("UserWidgets");
+            // answers
+            model.Entity<Answer>(e =>
+            {
+                e.ToTable("Answers");
 
-            //    e.HasKey(w => new { w.UserId, w.WidgetId });
+                e.HasKey(a => a.Id);
 
-            //    e.Property(w => w.IsExpanded)
-            //        .HasColumnName("IsExpanded");
+                e.Property(a => a.Text);              
 
-            //    e.Property(w => w.IsEnabled)
-            //        .HasColumnName("IsEnabled");
-
-            //    e.Property(w => w.IsDraggable)
-            //        .HasColumnName("IsDraggable").IsRequired();
-
-
-
-            //});
+            });
         }
     }
 }
