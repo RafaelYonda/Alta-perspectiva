@@ -8,7 +8,7 @@ using AltaPerspectiva.Identity;
 using Altaperspectiva.OpenID.Web.Services;
 using Altaperspectiva.OpenID.Web.Manage;
 
-namespace Mvc.Server.Controllers {
+namespace Altaperspectiva.OpenID.Web.Controllers {
     [Authorize]
     public class ManageController : Controller {
         private readonly UserManager<ApplicationUser> _userManager;

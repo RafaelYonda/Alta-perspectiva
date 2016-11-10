@@ -16,12 +16,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OpenIddict;
 using AltaPerspectiva.Identity;
-using Altaperspectiva.OpenID.Web.Models;
 using Altaperspectiva.OpenID.Web.Shared;
 using Altaperspectiva.OpenID.Web.Authorization;
 
 
-namespace Mvc.Server {
+namespace Altaperspectiva.OpenID.Web.Controllers
+{
     public class AuthorizationController : Controller {
         private readonly OpenIddictApplicationManager<OpenIddictApplication> _applicationManager;
         private readonly SignInManager<ApplicationUser> _signInManager;

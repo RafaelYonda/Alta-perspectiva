@@ -53,8 +53,8 @@
             <li><a routerLink="/project">Project</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
-            <li><a href="#">Log in</a></li>
-            <li><a href="#">Register</a></li>
+            <li><a href="/signin">Log in</a></li>
+            <li><a href="http://localhost:38182/Account/Register">Register</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="_logObj.isLoggedIn">
             <li><a href="#"><i class="fa fa-bell notification-font"> </i> <span class="badge">{{_logObj.notifyCount}}</span></a></li>

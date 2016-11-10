@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Mvc.Server.Controllers {
+namespace Altaperspectiva.OpenID.Web.Controllers
+{
     public class HomeController : Controller {
         public IActionResult Index() {
             return View();

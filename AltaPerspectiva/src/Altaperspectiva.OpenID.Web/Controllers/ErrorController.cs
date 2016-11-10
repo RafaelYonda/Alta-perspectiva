@@ -8,7 +8,7 @@ using AspNet.Security.OpenIdConnect.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Altaperspectiva.OpenID.Web.Shared;
 
-namespace Mvc.Server {
+namespace Altaperspectiva.OpenID.Web.Controllers {
     public class ErrorController : Controller {
         [HttpGet, HttpPost, Route("~/error")]
         public IActionResult Error(OpenIdConnectResponse response) {

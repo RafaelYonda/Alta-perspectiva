@@ -13,7 +13,6 @@ using Altaperspectiva.OpenID.Web.Models;
 using AltaPerspectiva.Identity;
 using Altaperspectiva.OpenID.Web.Services;
 using Altaperspectiva.OpenID.Web.Models.AccountViewModels;
-using Mvc.Server.Controllers;
 
 namespace Altaperspectiva.OpenID.Web.Controllers
 {

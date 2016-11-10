@@ -71,11 +71,11 @@ namespace AltaPerspectiva
                 app.UseExceptionHandler("/Home/Error");
             }         
 
-            app.UseCors(builder => 
-                builder.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowAnyOrigin()
-            );
+            //app.UseCors(builder => 
+            //    builder.AllowAnyHeader()
+            //            .AllowAnyMethod()
+            //            .AllowAnyOrigin()
+            //);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -105,7 +105,7 @@ namespace AltaPerspectiva
                 // the different endpoints URIs or the token validation parameters explicitly.
                 Authority = "http://localhost:38182/",
 
-                Scope = { "email", "roles" }
+                Scope = { "email", "roles", "offline_access" }
             });
 
             app.UseMvc(routes =>

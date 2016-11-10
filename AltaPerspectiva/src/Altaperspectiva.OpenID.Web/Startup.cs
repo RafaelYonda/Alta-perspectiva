@@ -128,6 +128,7 @@ namespace Altaperspectiva.OpenID.Web
 
             app.UseApplicationInsightsExceptionTelemetry();
 
+
             app.UseStaticFiles();
 
             // Add a middleware used to validate access
@@ -173,12 +174,7 @@ namespace Altaperspectiva.OpenID.Web
 
             app.UseOpenIddict();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
 
             using (var context = new ApplicationUserDbContext(
                app.ApplicationServices.GetRequiredService<DbContextOptions<ApplicationUserDbContext>>()))
