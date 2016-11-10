@@ -8,6 +8,12 @@ export class User {
     userid: number;
     name: string;
     occupassion: string;
+    imageUrl: string;
+}
+export class LogInObj {
+    notifyCount: number;
+    user: User;
+    isLoggedIn: boolean;
 }
 export class Answer {
     id: number;

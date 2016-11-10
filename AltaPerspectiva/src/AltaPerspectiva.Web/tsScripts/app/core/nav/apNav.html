@@ -1,8 +1,36 @@
 ﻿<style>
-/*======set back ground for question home page.=======*/
+    /*======set back ground for question home page.=======*/
     .backgroundset {
         min-height: 66px !important;
         background-image: url(../images/background.png);
+    }
+
+    .notification-font {
+        font-size: 20px;
+        padding-top: 5px;
+    }
+
+    .user-image {
+        height: 30px;
+        width: 30px;
+        border-radius: 20px;
+    }
+
+    .badge {
+        /*display: block;*/
+        position: absolute;
+        top: 7px;
+        right: 7px;
+        line-height: 16px;
+        height: 16px;
+        padding: 0 5px;
+        font-family: Arial, sans-serif;
+        color: white;
+        text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+        border: 1px solid;
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px rgba(0, 0, 0, 0.08);
+        box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px rgba(0, 0, 0, 0.08);
     }
 </style>
 <div class="navbar navbar-inverse navbar-fixed-top" [ngClass]="className">
@@ -24,9 +52,17 @@
             <li><a routerLink="/learn">Learn</a></li>
             <li><a routerLink="/project">Project</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="/signin">Log in</a></li>
-            <li><a href="http://localhost:38182/Account/Register">Register</a></li>
+        <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
+            <li><a href="#">Log in</a></li>
+            <li><a href="#">Register</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" *ngIf="_logObj.isLoggedIn">
+            <li><a href="#"><i class="fa fa-bell notification-font"> </i> <span class="badge">{{_logObj.notifyCount}}</span></a></li>
+            <li>
+                <a href="#">
+                    <img class="user-image" src="{{_logObj.user.imageUrl}}" />{{_logObj.user.name}}
+                </a>
+            </li>
         </ul>
     </div>
 </div>

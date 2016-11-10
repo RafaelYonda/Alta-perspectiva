@@ -37,7 +37,7 @@ import { ProjectHome } from '../project/projectHome';
             { path: 'question', loadChildren: '../questions/question.module#QuestionModule' },
             { path: 'learn', component: LearnHome },
             { path: 'project', component: ProjectHome },
-        ], { useHash: true })
+        ])
     ],
     providers: [
         { provide: 'Window', useValue: window }

@@ -9,9 +9,9 @@
                         <button type="button" class="btn btn-default dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                         <div class="dropdown-menu dropdown-menu-right" role="menu">
                             <form class="form-horizontal" role="form">
-                                <div class="form-group" (click)="selectCategory(category.icon)" *ngFor="let category of categories">
+                                <div class="form-group" (click)="selectCategory(category.icon)" *ngFor="let category of categories" data-toggle="dropdown">
                                     <div class="lef-column padding-middle"><span class="{{category.icon}}"></span></div>
-                                    <a for="contain" data-toggle="dropdown" class="padding-middle"> {{category.name}} </a>
+                                    <a for="contain"  class="padding-middle"> {{category.name}} </a>
                                 </div>
                             </form>
                         </div>
