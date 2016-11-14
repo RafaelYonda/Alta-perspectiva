@@ -46,3 +46,5 @@ AltaPerspectiva/src/AltaPerspectiva.Identity/project.lock.json
 /AltaPerspectiva/src/Mvc.Server/node_modules/
 /AltaPerspectiva/src/Mvc.Server/wwwroot/lib/
 
+obj
+bin
