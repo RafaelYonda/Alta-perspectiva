@@ -1,12 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div class="jumbotron">
+@*<div class="jumbotron">*@
+    
     @if (User?.Identity?.IsAuthenticated ?? false)
     {
-        <h1>Welcome, @User.Identity.Name</h1>
-
-        <p>
+        @*<h1>Welcome, @User.Identity.Name</h1>
+        <h1>Welcome, @User.</h1>*@
+        <div class="body-minHeight">
+            <app username="'@User.Identity.Name'">Loading ...</app>
+        </div>
+        <p style="margin-left:50px;">
             @foreach (var claim in Context.User.Claims)
             {
                 <div>@claim.Type: <b>@claim.Value</b></div>
@@ -27,7 +31,33 @@
 
     else
     {
+        <div class="body-minHeight">
+            <app username="">Loading ...</app>
+        </div>
         <h1>Welcome, anonymous</h1>
         <a class="btn btn-lg btn-success" href="/signin">Sign in</a>
     }
+@*</div>*@
+
+<div class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            <div class="borrder-circle">
+                <i class="fa fa-facebook fa-2x"></i>
+            </div>
+            <div class="borrder-circle">
+                <i class="fa fa-twitter fa-2x"></i>
+            </div>
+            <div class="borrder-circle">
+                <i class="fa fa-instagram fa-2x"></i>
+            </div>
+        </div>
+        <div class="footer-right">
+            <div>nostros</div>
+            <div>Terminos de usos</div>
+            <div>Contactenos</div>
+        </div>
+
+    </div>
+
 </div>

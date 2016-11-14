@@ -5,13 +5,15 @@ import {LogInObj, User} from './models';
 export class AuthenticationService{
 
     getLoggedinObj(): LogInObj {
-        var isLoggedin = false;//       get from remote server.
+        var isLoggedin = false;// 
+        if (localStorage.getItem('currentUser'))
+            isLoggedin = true;
         var logObj: LogInObj = {
             user: {
                 userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png"
             },
             notifyCount: 3,
-            isLoggedIn: true
+            isLoggedIn: isLoggedin
         }
         if (isLoggedin)
             return logObj;

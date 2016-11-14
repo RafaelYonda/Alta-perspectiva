@@ -59,9 +59,25 @@
         <ul class="nav navbar-nav navbar-right" *ngIf="_logObj.isLoggedIn">
             <li><a href="#"><i class="fa fa-bell notification-font"> </i> <span class="badge">{{_logObj.notifyCount}}</span></a></li>
             <li>
-                <a href="#">
+                <a href="#" class="dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false">
                     <img class="user-image" src="{{_logObj.user.imageUrl}}" />{{_logObj.user.name}}
                 </a>
+                <!-- ======= -->
+
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="lef-column padding-middle"><span class="fa fa-user"></span></div>
+                            <a for="contain" data-toggle="dropdown" class="padding-middle"> Profile </a>
+                        </div>
+                        <div class="form-group">
+                            <div class="lef-column padding-middle"><span class="fa fa-sign-out"></span></div>
+                            <a href="/signout" for="contain"  class="padding-middle" (click)="LogOut()"> Sign Out </a>
+                        </div>
+                    </form>
+                </div>
+                <!-- ======== -->
+
             </li>
         </ul>
     </div>
