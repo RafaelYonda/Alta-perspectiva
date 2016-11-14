@@ -61,15 +61,15 @@ namespace AltaPerspectiva
 
             app.UseApplicationInsightsRequestTelemetry();
 
-            if (env.IsDevelopment())
-            {
+            //if (env.IsDevelopment())
+            //{
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }         
+                //app.UseBrowserLink();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //}         
 
             //app.UseCors(builder => 
             //    builder.AllowAnyHeader()
@@ -103,7 +103,7 @@ namespace AltaPerspectiva
                 // Note: setting the Authority allows the OIDC client middleware to automatically
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
-                Authority = "http://localhost:38182/",
+                Authority = "http://localhost:54540",
 
                 Scope = { "email", "roles", "offline_access" }
             });

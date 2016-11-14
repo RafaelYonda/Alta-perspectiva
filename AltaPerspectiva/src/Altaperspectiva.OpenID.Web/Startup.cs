@@ -121,10 +121,10 @@ namespace Altaperspectiva.OpenID.Web
                 app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //}
 
             app.UseApplicationInsightsExceptionTelemetry();
 

@@ -58,8 +58,8 @@ namespace Altaperspectiva.OpenID.Web.Controllers
                 Scope = request.Scope
             });
         }
-
-        [Authorize, HttpPost("~/connect/authorize/accept"), ValidateAntiForgeryToken]
+        [Authorize, FormValueRequired("submit.Accept")]
+        [HttpPost("~/connect/authorize"), ValidateAntiForgeryToken]
         public async Task<IActionResult> Accept(OpenIdConnectRequest request) {
             // Retrieve the profile of the logged in user.
             var user = await _userManager.GetUserAsync(User);
@@ -76,8 +76,8 @@ namespace Altaperspectiva.OpenID.Web.Controllers
             // Returning a SignInResult will ask OpenIddict to issue the appropriate access/identity tokens.
             return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
         }
-
-        [Authorize, HttpPost("~/connect/authorize/deny"), ValidateAntiForgeryToken]
+        [Authorize, FormValueRequired("submit.Deny")]
+        [HttpPost("~/connect/authorize"), ValidateAntiForgeryToken]
         public IActionResult Deny() {
             // Notify OpenIddict that the authorization grant has been denied by the resource owner
             // to redirect the user agent to the client application using the appropriate response_mode.
