@@ -37,9 +37,10 @@ namespace AltaPerspectiva.Controllers
             return View();
         }
 
-        [Authorize, HttpPost("~/")]
+        [Authorize, HttpGet("~/")]
         public async Task<ActionResult> Index(CancellationToken cancellationToken)
         {
+            
             using (var client = new HttpClient())
             {
                 var token = await HttpContext.Authentication.GetTokenAsync("access_token");
@@ -55,7 +56,7 @@ namespace AltaPerspectiva.Controllers
                 var response = await client.SendAsync(request, cancellationToken);
                 response.EnsureSuccessStatusCode();
 
-                return View("Home", model: await response.Content.ReadAsStringAsync());
+                return View("Index", model: token);
             }
         }
     }
