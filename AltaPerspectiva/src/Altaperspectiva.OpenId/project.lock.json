@@ -4120,7 +4120,7 @@
       ]
     },
     "AspNet.Security.OAuth.Validation/1.0.0-alpha2-final": {
-      "sha512": "pB37hv0/9b3g6NenHwP6yzTiFRCSH/oLWYIc6mZIorBTNL3ndNfLMQeO+MfI5rfzB74fD0aXA7mlAT3x0caQeg==",
+      "sha512": "XQrl3Yf4KkyhWEGw8dLHMHrRPpFQI57WSDoXGxysu4/8aO2aTvV7k3Dax9V0M2ASfMIe8Nix2xLsDuYweF7MPA==",
       "type": "package",
       "path": "AspNet.Security.OAuth.Validation/1.0.0-alpha2-final",
       "files": [
