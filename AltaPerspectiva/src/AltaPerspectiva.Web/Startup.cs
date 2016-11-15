@@ -14,6 +14,8 @@ using AltaPerspectiva.Core;
 using Questions.Command;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.EntityFrameworkCore;
+using Questions.Command.DbContext;
 
 namespace AltaPerspectiva
 {
@@ -36,7 +38,6 @@ namespace AltaPerspectiva
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddAuthentication(options => {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
@@ -45,7 +46,10 @@ namespace AltaPerspectiva
 
             services.AddCors();  
 
-            services.AddMvc();         
+            services.AddMvc();
+
+            services.AddDbContext<QuestionsDbContext>(options =>
+                            options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
@@ -63,8 +67,8 @@ namespace AltaPerspectiva
 
             //if (env.IsDevelopment())
             //{
-                app.UseDeveloperExceptionPage();
-                //app.UseBrowserLink();
+            app.UseDeveloperExceptionPage();
+            //app.UseBrowserLink();
             //}
             //else
             //{
@@ -83,7 +87,7 @@ namespace AltaPerspectiva
                 AutomaticChallenge = true,
                 LoginPath = new PathString("/signin")
             });
-            
+
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 // Note: these settings must match the application details
@@ -115,7 +119,12 @@ namespace AltaPerspectiva
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            
+
+            using (var context = new QuestionsDbContext(
+                app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
+            {
+                context.Database.EnsureCreated();
+            }
         }
     }
 }

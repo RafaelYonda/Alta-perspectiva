@@ -1,14 +1,12 @@
 ﻿namespace Questions.Command
 {
     using System;
-    using AltaPerspectiva.Core;
-    using AltaPerspectiva.Identity;
+    using AltaPerspectiva.Core.Infrastructure;
 
-    public class Like
+
+    public class Like:Entity
     {
-        public Guid UserId { get; set; }
-        public virtual ApplicationUser user { get; set; }
-
+        public Guid UserId { get; set; }        
         public Guid? QuestionId { get; set; } 
         public virtual Question Question { get; set; }
 

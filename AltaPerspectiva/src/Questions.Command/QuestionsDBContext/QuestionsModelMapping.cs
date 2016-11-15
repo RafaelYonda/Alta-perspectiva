@@ -20,7 +20,8 @@
                 e.Property(q => q.Body)
                     .HasColumnName("Body").IsRequired();
 
-                e.HasOne<ApplicationUser>(a => a.User).WithOne();
+                e.Property(p => p.UserId)
+                    .HasColumnName("UserId").IsRequired();               
 
                 e.HasMany<Answer>(a => a.Answers).WithOne(q => q.Question).HasForeignKey(a => a.QuestionId);
 
@@ -43,7 +44,8 @@
 
                 e.Property(a => a.AnswerDate);
 
-                e.HasOne<ApplicationUser>(a => a.User);
+                e.Property(p => p.UserId)
+                   .HasColumnName("UserId").IsRequired();
 
                 e.HasOne<Question>(q=>q.Question).WithMany(a=>a.Answers).HasForeignKey(a=>a.QuestionId);
 
@@ -59,7 +61,6 @@
                 e.HasKey(c => c.Id);
             });
 
-
             // categories
             model.Entity<Category>(e =>
             {
@@ -73,7 +74,6 @@
                 
             });
 
-
             // comments
             model.Entity<Comment>(e =>
             {
@@ -85,7 +85,8 @@
 
                 e.Property(c => c.CommentDate);
 
-                e.HasOne<ApplicationUser>(a => a.User).WithOne();
+                e.Property(p=> p.UserID)
+                   .HasColumnName("UserId").IsRequired();
 
             });
 
@@ -94,7 +95,10 @@
             {
                 e.ToTable("Likes");
 
-                e.HasOne<ApplicationUser>(a => a.user).WithOne();      
+                e.HasKey(a => a.Id);
+
+                e.Property(p => p.UserId)
+                    .HasColumnName("UserId").IsRequired();
 
             });
         }
