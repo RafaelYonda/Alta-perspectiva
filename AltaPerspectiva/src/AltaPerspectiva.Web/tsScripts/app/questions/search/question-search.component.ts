@@ -1,6 +1,7 @@
 ﻿import { Component, Input } from '@angular/core';
-import { CategoryService } from '../../services/category.service'
-import { Category } from '../../services/category'
+import { CategoryService } from '../../services/category.service';
+import { Category } from '../../services/category';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'apq-search',
@@ -9,16 +10,18 @@ import { Category } from '../../services/category'
     providers: [CategoryService]
 })
 export class QuestionSearchComponent {
+    _router: Router;
     //@Input() placeBottom: string;
     @Input() placeBottom: string = 'bottom-float';
     public icon: string;
     public visible = false;
     categories: Category[];
-    constructor(private categoryService: CategoryService) {
+    constructor(private categoryService: CategoryService, route: Router) {
+        this._router = route;
         this.categories = this.categoryService.getCategories();
     }
     public search = () => {
-        location.replace('/question');
+        this._router.navigateByUrl('/question');
     }
     public selectCategory = (icon) => {
         this.icon = icon;

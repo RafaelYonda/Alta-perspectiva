@@ -1,23 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div class="jumbotron">
-    
-    @if (User?.Identity?.IsAuthenticated ?? false)
-    {
-        if (!string.IsNullOrEmpty(Model) && !string.IsNullOrEmpty(User.Identity.Name))
-        {
-            <div class="body-minHeight">
-                <app username="'@User.Identity.Name'+'#'+'@Model'">Loading ...</app>
-            </div>
-        }
 
-    }
-
-    else
+@if (User?.Identity?.IsAuthenticated ?? false)
+{
+    if (!string.IsNullOrEmpty(Model) && !string.IsNullOrEmpty(User.Identity.Name))
     {
         <div class="body-minHeight">
-            <app username="">Loading ...</app>
+            <app username="'@User.Identity.Name'+'#'+'@Model'">Loading ...</app>
         </div>
     }
-</div>
+
+}
+
+else
+{
+    <div class="body-minHeight">
+        <app username="">Loading ...</app>
+    </div>
+}

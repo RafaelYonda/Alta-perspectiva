@@ -1,4 +1,5 @@
-﻿import { NgModule } from '@angular/core';
+﻿/// <reference path="core.route.ts" />
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
@@ -16,28 +17,10 @@ import { TabSubpanelComponent } from './tabs/tab-subpanel.component';
 import { QuestionModule } from '../questions/question.module';
 import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
+import { routing } from './core.route';
 
 @NgModule({
-    imports: [BrowserModule, QuestionModule,
-        RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch:'full' },
-            {
-                path: 'home', component: HomeComponent,
-                children: [
-                    { path: '', redirectTo: 'tab'},
-                    {
-                        path: 'tab', component: TabPanelComponent,
-                        children: [
-                            { path: '', redirectTo: 'tab' },
-                            { path: ':id', component: TabSubpanelComponent },
-                        ]
-                    }
-                ]
-            },
-            { path: 'question', loadChildren: '../questions/question.module#QuestionModule' },
-            { path: 'learn', component: LearnHome },
-            { path: 'project', component: ProjectHome },
-        ])
+    imports: [BrowserModule, QuestionModule,routing
     ],
     providers: [
         { provide: 'Window', useValue: window }
