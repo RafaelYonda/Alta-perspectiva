@@ -6,8 +6,13 @@
 
     public class Like
     {
-        public ApplicationUser user { get; set; }
+        public Guid UserId { get; set; }
+        public virtual ApplicationUser user { get; set; }
+
         public Guid? QuestionId { get; set; } 
-        public Question Question { get; set; }
+        public virtual Question Question { get; set; }
+
+        public Guid? AnswerId { get; set; }
+        public virtual Answer Answer { get; set; }
     }
 }
