@@ -12,6 +12,7 @@ import { ApSearchComponent } from './search/apSearch.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabPanelComponent } from './tabs/tab-panel.component';
 import { TabSubpanelComponent } from './tabs/tab-subpanel.component';
+import { FormsModule } from '@angular/forms';
 //================
 
 import { QuestionModule } from '../questions/question.module';
@@ -20,7 +21,7 @@ import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
 
 @NgModule({
-    imports: [BrowserModule, QuestionModule,routing
+    imports: [BrowserModule, QuestionModule,FormsModule,routing
     ],
     providers: [
         { provide: 'Window', useValue: window }

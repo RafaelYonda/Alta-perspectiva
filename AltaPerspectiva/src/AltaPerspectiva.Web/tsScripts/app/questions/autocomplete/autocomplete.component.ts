@@ -1,34 +1,13 @@
-﻿import { Component, Input, ElementRef } from '@angular/core';
-import { CategoryService } from '../../services/category.service'
-import { Category } from '../../services/category'
-
+﻿import { Component, ElementRef } from '@angular/core';
 @Component({
-    selector: 'ap-search',
-    templateUrl: 'js/app/core/search/apSearch.component.html',
-    styleUrls: ['js/app/core/search/search.css'],
-    providers: [CategoryService]
+    selector: 'autocomplete',
+    host: {
+        '(document:click)': 'handleClick($event)',
+    },
+    templateUrl: 'js/app/questions/autocomplete/autocomplete.component.html',
 })
-export class ApSearchComponent {
-    //@Input() placeBottom: string;
-    @Input() placeBottom: string = 'bottom-float';
-    public icon: string;
-    public visible = false;
-    categories: Category[];
-    constructor(private categoryService: CategoryService, myElement: ElementRef) {
-        this.elementRef = myElement;
-        this.categories = this.categoryService.getCategories();
-    }
-    public search = () => {
-        location.replace('/question');
-    }
-    public selectCategory = (icon) => {
-        this.icon = icon;
-        this.visible = true;
-        console.log(event);
-    }
-
-    //=============Autocomplete Codesd===================
-     public query = '';
+export class AutocompleteComponent {
+    public query = '';
     public countries = ["Albania", "Andorra", "Armenia", "Austria", "Azerbaijan", "Belarus",
         "Belgium", "Bosnia & Herzegovina", "Bulgaria", "Croatia", "Cyprus",
         "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Georgia",
@@ -39,6 +18,10 @@ export class ApSearchComponent {
         "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "United Kingdom", "Vatican City"];
     public filteredList = [];
     public elementRef;
+
+    constructor(myElement: ElementRef) {
+        this.elementRef = myElement;
+    }
 
     filter() {
         if (this.query !== "") {

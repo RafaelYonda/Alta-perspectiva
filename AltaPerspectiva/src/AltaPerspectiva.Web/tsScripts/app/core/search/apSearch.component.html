@@ -1,7 +1,23 @@
 ﻿<div [ngClass]="placeBottom">
     <!--<div class="col-md-12">-->
         <div class="input-group" id="adv-search">
-            <input type="text" class="form-control searc-box fixed-height" placeholder="Search for snippets" />
+
+
+            <input  type="text" class="form-control searc-box fixed-height" placeholder="Search for snippets" 
+
+                   id="country" [(ngModel)]=query (keyup)=filter() />
+            <!-- ===========Autocomplete=========== -->
+            <div class="container">
+                <div class="suggestions" *ngIf="filteredList.length > 0">
+                    <ul *ngFor="let item of filteredList">
+                        <li>
+                            <a (click)="select(item)">{{item}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+            <!-- ============================= -->
+
             <div class="search-icon"><span class="{{icon}}"></span></div>
             <div class="input-group-btn">
                 <div class="btn-group" role="group">
