@@ -156,6 +156,13 @@ gulp.task("copy:images", function () {
 var ts = require('gulp-typescript');
 
 var tsProject = ts.createProject('tsScripts/tsconfig.json', { typescript: require('typescript') });
+gulp.task("htmlCompile", function () {
+    del(['wwwroot/js/**/*.html']);
+    gulp.src([
+        'Scripts/*.js',
+        'tsScripts/**/**/*.html'
+    ]).pipe(gulp.dest("wwwroot/js/"));
+});
 
 gulp.task("tsCompile", function () {
     //========Copy html CSS=====
