@@ -11,8 +11,9 @@ using Questions.Command;
 
 namespace AltaPerspectiva.Web.Area.Questions
 {
+    //http://localhost:5273/questions/api/questions
     [Area("Questions")]
-    [Route("api/[controller]")]
+    [Route("questions/api/[controller]")]
     public class QuestionsController : Controller
     {
         ICommandsFactory commandsFactory;

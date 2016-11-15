@@ -51,6 +51,9 @@ namespace AltaPerspectiva
             services.AddDbContext<QuestionsDbContext>(options =>
                             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
+            services.AddTransient<ICommandsFactory, CommandFactory>(serviceProvider => new CommandFactory(x=> (object[]) serviceProvider.GetRequiredService(x)));
+            services.AddTransient<IQueryFactory, QueryFactory>(serviceProvider => new QueryFactory(x => (object[])serviceProvider.GetRequiredService(x)));
+                       
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
         }
@@ -114,6 +117,12 @@ namespace AltaPerspectiva
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "Questions",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
