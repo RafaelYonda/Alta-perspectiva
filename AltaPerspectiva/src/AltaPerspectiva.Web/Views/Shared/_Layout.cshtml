@@ -22,11 +22,6 @@
             console.error(err);
         });
     </script>
-    <style>
-        .body-minHeight {
-            min-height: 86vh;
-        }
-    </style>
     <environment names="Development">
         <link href="~/css/fonts/alta-fonts.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -48,6 +43,9 @@
     
 
     <style>
+        .body-minHeight {
+            min-height: 86vh;
+        }
         .borrder-circle {
             border: 2px solid white;
             display: inline-block;
@@ -88,6 +86,7 @@
             margin: 0 auto;
         }
     </style>
+    
     <div>
         @RenderBody()
     </div>
