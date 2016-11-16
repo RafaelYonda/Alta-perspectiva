@@ -1,4 +1,4 @@
-﻿.search-icon{
+﻿.search-icon {
     background: transparent;
     position: absolute;
     right: 15%;
@@ -6,36 +6,46 @@
     padding-top: 10px;
     height: 43px;
 }
+
 a {
+    cursor: pointer;
     color: #706f6f;
     text-decoration: none;
     outline: 0;
-    border-left: 1px solid #e0d3d3;
-    padding-left: 10px;
+    display:block;
+    margin-bottom:5px;
 }
+
+.question-List {
+    list-style: none;
+}
+
 
 .form-group {
     margin: 0;
     padding: 3px 0px;
 }
+
 .padding-middle {
     padding: 7px 22px;
-
 }
-    .form-group:hover {
-        cursor: pointer;
-        background-color: #c7c7c7 !important;
-        border-top: 1px solid #9e9393;
-        border-bottom: 1px solid #9e9393;
-    }
+
+.form-group:hover {
+    cursor: pointer;
+    background-color: #c7c7c7 !important;
+    border-top: 1px solid #9e9393;
+    border-bottom: 1px solid #9e9393;
+}
 
 .dropdown-menu {
     padding: 0 !important;
-    min-width: 300px!important;
+    min-width: 300px !important;
 }
+
 .dropdown-menu-right {
     right: 88px;
 }
+
 .lef-column {
     margin-right: 10px;
     display: inline-block;
@@ -55,6 +65,7 @@ a {
 
 .searc-box {
     background-color: #f5f5f5;
+    width: 900px;
 }
 
 .form-control {
@@ -118,4 +129,41 @@ a {
         .dropdown.dropdown-lg .dropdown-menu {
             min-width: 500px;
         }
+}
+
+.suggestions {
+    max-width: 50%;
+    border: 1px solid;
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    border-radius: 5px;
+    padding: 7px;
+}
+
+.btn-group {
+    display: block;
+}
+
+.question-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }

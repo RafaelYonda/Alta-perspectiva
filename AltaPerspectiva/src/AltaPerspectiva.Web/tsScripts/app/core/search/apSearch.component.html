@@ -1,4 +1,4 @@
-﻿<div [ngClass]="placeBottom">
+﻿<div class="bottom-float">
     <!--<div class="col-md-12">-->
         <div class="input-group" id="adv-search">
 
@@ -7,21 +7,29 @@
 
                    id="country" [(ngModel)]=query (keyup)=filter() />
             <!-- ===========Autocomplete=========== -->
-            <div class="container">
+            <!--<div class="container">
                 <div class="suggestions" *ngIf="filteredList.length > 0">
-                    <ul *ngFor="let item of filteredList">
-                        <li>
+                    <ul >
+                        <li *ngFor="let item of filteredList">
                             <a (click)="select(item)">{{item}}</a>
                         </li>
                     </ul>
                 </div>
-            </div> 
+            </div>--> 
             <!-- ============================= -->
-
-            <div class="search-icon"><span class="{{icon}}"></span></div>
+                <div class="suggestions" *ngIf="filteredList.length > 0">
+                    <ul class="question-List">
+                        <li *ngFor="let item of filteredList">
+                            <a (click)="select(item)">{{item}}</a>
+                        </li>
+                    </ul>
+                </div>
+            <!--<div class="search-icon"><span class="{{icon}}"></span></div>-->
             <div class="input-group-btn">
-                <div class="btn-group" role="group">
-                    <div class="dropdown dropdown-lg">
+                
+                <button type="button" class="btn btn-primary fixed-height" (click)="search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span style="padding-left:5px">Search</span></button>
+                <!--<div class="btn-group" role="group">
+                    <div class="">
                         <button type="button" class="btn btn-default dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                         <div class="dropdown-menu dropdown-menu-right" role="menu">
                             <form class="form-horizontal" role="form">
@@ -31,9 +39,10 @@
                                 </div>
                             </form>
                         </div>
+                         
                     </div>
-                    <button type="button" class="btn btn-primary fixed-height" (click)="search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span style="padding-left:5px">Search</span></button>
-                </div>
+                    
+                </div>-->
             </div>
         </div>
     <!--</div>-->
