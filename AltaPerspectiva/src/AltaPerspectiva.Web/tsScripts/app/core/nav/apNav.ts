@@ -6,7 +6,8 @@ import { Http, Headers, Response } from '@angular/http';
     selector: 'ap-nav',
     encapsulation: ViewEncapsulation.None,
     providers: [AuthenticationService],
-    templateUrl: 'js/app/core/nav/apnav.html'
+    templateUrl: 'js/app/core/nav/apnav.html',
+    styleUrls: ['js/app/core/nav/apNav.css'],
 })
 export class ApNav {
     @Input() className: string;

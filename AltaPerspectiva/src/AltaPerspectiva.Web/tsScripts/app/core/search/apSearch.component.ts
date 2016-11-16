@@ -12,7 +12,7 @@ export class ApSearchComponent {
     //@Input() placeBottom: string;
     @Input() placeBottom: string = 'bottom-float';
     public icon: string;
-    public visible = false;
+    public visible = true;
     categories: Category[];
     constructor(private categoryService: CategoryService, myElement: ElementRef) {
         this.elementRef = myElement;
@@ -21,12 +21,16 @@ export class ApSearchComponent {
     public search = () => {
         location.replace('/question');
     }
+    public filteredList = [];
+    public elementRef;
     public selectCategory = (icon) => {
         this.icon = icon;
         this.visible = true;
-        console.log(event);
     }
-
+    showPanel() {
+        console.log("Drop down");
+        this.filteredList = [];
+    }
     //=============Autocomplete Codesd===================
      public query = '';
      public countries = ["What are some amazing pictures one has to see twice to understand?",
@@ -45,8 +49,7 @@ export class ApSearchComponent {
          "Why is BMW successful?",
          "Which is the worst car ever made?"
      ];
-    public filteredList = [];
-    public elementRef;
+
 
     filter() {
         if (this.query !== "") {

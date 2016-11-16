@@ -13,7 +13,6 @@ export class TabPanelComponent {
         this._router = router;
     }
     ngOnInit() {
-        console.log(localStorage.getItem('currentUser'));
         this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
     }
 }
