@@ -128,12 +128,12 @@ namespace Altaperspectiva.OpenId {
                 ClientSecret = "n2Q-GEw9RQjzcRbU3qhfTj8f"
             });
 
-            app.UseTwitterAuthentication(new TwitterOptions {
-                ConsumerKey = "6XaCTaLbMqfj6ww3zvZ5g",
-                ConsumerSecret = "Il2eFzGIrYhz6BWjYhVXBPQSfZuS4xoHpSSyD9PI"
-            });
+            //app.UseTwitterAuthentication(new TwitterOptions {
+            //    ConsumerKey = "6XaCTaLbMqfj6ww3zvZ5g",
+            //    ConsumerSecret = "Il2eFzGIrYhz6BWjYhVXBPQSfZuS4xoHpSSyD9PI"
+            //});
 
-            app.UseStatusCodePagesWithReExecute("/error");
+           // app.UseStatusCodePagesWithReExecute("/error");
 
             app.UseOpenIddict();
 
@@ -159,7 +159,7 @@ namespace Altaperspectiva.OpenId {
                         ClientId = "myClient",
                         ClientSecret = Crypto.HashPassword("secret_secret_secret"),
                         DisplayName = "My client application",
-                        LogoutRedirectUri = "http://localhost:53507/",
+                        LogoutRedirectUri = "http://localhost:53507",
                         RedirectUri = "http://localhost:53507/signin-oidc",
                         Type = OpenIddictConstants.ClientTypes.Confidential
                     });

@@ -13,9 +13,26 @@ namespace AltaPerspectiva.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        [HttpGet("~/")]
+        public async Task<ActionResult> Index()
         {
-            return View();
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                    using (var client = new HttpClient())
+                    {
+                        var token = await HttpContext.Authentication.GetTokenAsync("access_token");
+                        if (string.IsNullOrEmpty(token))
+                        {
+                            throw new InvalidOperationException("The access token cannot be found in the authentication ticket. " +
+                                                               "Make sure that SaveTokens is set to true in the OIDC options.");
+                        }                 
+                   
+
+                        return View("Index", model: token);
+                    }
+               }
+
+                return View();
         }
 
         public IActionResult About()
@@ -37,7 +54,7 @@ namespace AltaPerspectiva.Controllers
             return View();
         }
 
-        [Authorize, HttpGet("~/")]
+        [Authorize, HttpPost("~/")]
         public async Task<ActionResult> Index(CancellationToken cancellationToken)
         {
             
@@ -50,11 +67,11 @@ namespace AltaPerspectiva.Controllers
                                                         "Make sure that SaveTokens is set to true in the OIDC options.");
                 }
 
-                var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:54540/api/message");
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                //var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:54540/api/message");
+                //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                var response = await client.SendAsync(request, cancellationToken);
-                response.EnsureSuccessStatusCode();
+                //var response = await client.SendAsync(request, cancellationToken);
+                //response.EnsureSuccessStatusCode();
 
                 return View("Index", model: token);
             }

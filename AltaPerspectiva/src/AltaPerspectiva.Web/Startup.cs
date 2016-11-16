@@ -97,7 +97,8 @@ namespace AltaPerspectiva
                 // inserted in the database at the server level.
                 ClientId = "localhost",
                 ClientSecret = "aLtaseCreT!@#",
-                PostLogoutRedirectUri = "http://localhost:5273/",
+                 PostLogoutRedirectUri = "http://localhost:5273/",
+                //PostLogoutRedirectUri = "http://altap.azurewebsites.net/",
 
                 RequireHttpsMetadata = false,
                 GetClaimsFromUserInfoEndpoint = true,
@@ -110,7 +111,9 @@ namespace AltaPerspectiva
                 // Note: setting the Authority allows the OIDC client middleware to automatically
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
-                Authority = "http://localhost:54540",
+                //Authority = "http://localhost:54540",
+
+                Authority = "http://altaauth.azurewebsites.net",
 
                 Scope = { "email", "roles", "offline_access" }
             });
