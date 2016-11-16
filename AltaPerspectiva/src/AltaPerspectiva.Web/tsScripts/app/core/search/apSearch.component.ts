@@ -29,14 +29,22 @@ export class ApSearchComponent {
 
     //=============Autocomplete Codesd===================
      public query = '';
-    public countries = ["Albania asdfasda asdfasda asdas asd as asd as ", "Andorra asdf asfasdf asfasf asf a ", "Armenia", "Austria", "Azerbaijan", "Belarus",
-        "Belgium", "Bosnia & Herzegovina", "Bulgaria", "Croatia", "Cyprus",
-        "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Georgia",
-        "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo",
-        "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Malta",
-        "Moldova", "Monaco", "Montenegro", "Netherlands", "Norway", "Poland",
-        "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia",
-        "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "United Kingdom", "Vatican City"];
+     public countries = ["What are some amazing pictures one has to see twice to understand?",
+         "What is x2−−√x2 equal to?",
+         "If you were on death row, and were given the chance to listen to one last song before your execution, what would it be?",
+         "What is the most satisfying passive-aggressive thing you have ever done to a really mean or rude person?",
+         "What is the biggest mistake made by a multi-billion dollar company?",
+         "What song do you currently play on repeat?",
+         "What movie can you watch all the time and never get tired of watching?",
+         "What medical condition do you have that you thought was absolutely normal?",
+         "What is the biggest mistake that a big company has made?",
+         "What is the best song to listen to after a stressful day at work?",
+         "What is the toughest coding question that you faced in an interview?",
+         "What song would you choose to go out to?",
+         "What are some plane hacks?",
+         "Why is BMW successful?",
+         "Which is the worst car ever made?"
+     ];
     public filteredList = [];
     public elementRef;
 
