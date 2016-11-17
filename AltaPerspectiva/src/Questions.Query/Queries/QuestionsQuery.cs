@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using  Microsoft.EntityFrameworkCore;
 using System.Linq;
-using AltaPerspectiva.Core;
+using Questions.Domain;
 using AltaPerspectiva.Core.Infrastructure;
+using Questions.Query.DbContext;
 
-namespace EFDataAccess.Queries
+
+namespace Questions.Query
 {
 	public class QuestionsQuery : EFQueryBase<QuestionsQueryDbContext>, IQuestionsQuery
     {
@@ -12,12 +15,10 @@ namespace EFDataAccess.Queries
 		{
 		}
 
-		//public IEnumerable<Questions> Execute()
-		//{
-		//	return DbContext
-		//		.Users
-		//		.Where(x => x.IsActive)
-		//		.ToArray();
-		//}
-	}
+        public IEnumerable<Question> Execute()
+        {
+            return DbContext
+                .Questions.ToList();
+        }
+    }
 }

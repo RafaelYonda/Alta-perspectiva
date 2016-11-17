@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AltaPerspectiva.Core;
 using Questions.Command;
-
+using Questions.Query;
+using AltaPerspectiva.Web.Areas.Questions.Models;
+using Questions.Domain;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,9 +28,10 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         // GET: api/questions
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Question> Get()
         {
-            return new string[] { "value1", "value2" };
+            return queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+           
         }
 
         // GET api/questions/5
@@ -41,9 +44,9 @@ namespace AltaPerspectiva.Web.Area.Questions
         // POST api/questions
         [Route("/add")]
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post(QuestionViewModel question)
         {
-            AddQuestionCommand cmd = new AddQuestionCommand("Title","Body",new DateTime(2016,11,2), null, null, null, null );
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title,question.Body,new DateTime(2016,11,2), null, null, null, null );
             commandsFactory.ExecuteQuery(cmd);
 
             Guid customerId = cmd.Id;

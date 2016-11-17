@@ -16,6 +16,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.EntityFrameworkCore;
 using Questions.Command.DbContext;
+using System.IO;
+using Questions.Query;
+using Questions.Query.DbContext;
 
 namespace AltaPerspectiva
 {
@@ -50,10 +53,13 @@ namespace AltaPerspectiva
 
             services.AddDbContext<QuestionsDbContext>(options =>
                             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+            services.AddDbContext<QuestionsQueryDbContext>(options =>
+                            options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             services.AddTransient<ICommandsFactory, CommandFactory>(serviceProvider => new CommandFactory(x=> (object[]) serviceProvider.GetRequiredService(x)));
-            services.AddTransient<IQueryFactory, QueryFactory>(serviceProvider => new QueryFactory(x => (object[])serviceProvider.GetRequiredService(x)));
-                       
+            services.AddTransient<IQueryFactory, QueryFactory>(serviceProvider => new QueryFactory(x =>  serviceProvider.GetRequiredService(x)));
+
+            services.AddTransient<IQuestionsQuery, QuestionsQuery>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
         }
@@ -61,6 +67,17 @@ namespace AltaPerspectiva
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.Use(async (context, next) =>
+            {
+                await next();
+
+                if (context.Response.StatusCode == 404
+                    && !Path.HasExtension(context.Request.Path.Value))
+                {
+                    context.Request.Path = "~/";
+                    await next();
+                }
+            });
             app.UseDefaultFiles();
             app.UseStaticFiles();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -95,10 +112,11 @@ namespace AltaPerspectiva
             {
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
-                ClientId = "localhost",
+                //ClientId = "localhost", // for localhost
+                ClientId = "azure",       // for azure deploy 
                 ClientSecret = "aLtaseCreT!@#",
-                 PostLogoutRedirectUri = "http://localhost:5273/",
-                //PostLogoutRedirectUri = "http://altap.azurewebsites.net/",
+                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+                //PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
 
                 RequireHttpsMetadata = false,
                 GetClaimsFromUserInfoEndpoint = true,
@@ -111,7 +129,7 @@ namespace AltaPerspectiva
                 // Note: setting the Authority allows the OIDC client middleware to automatically
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
-                //Authority = "http://localhost:54540",
+                
 
                 Authority = "http://altaauth.azurewebsites.net",
 

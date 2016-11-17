@@ -13,7 +13,7 @@ namespace AltaPerspectiva.Controllers
 {
     public class HomeController : Controller
     {
-        [HttpGet("~/")]
+        //[HttpGet("~/")]
         public async Task<ActionResult> Index()
         {
             if (User?.Identity?.IsAuthenticated ?? false)

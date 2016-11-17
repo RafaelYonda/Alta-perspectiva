@@ -1,6 +1,11 @@
-﻿namespace EFDataAccess.Queries
+﻿using AltaPerspectiva.Core;
+using Questions.Domain;
+using System.Collections.Generic;
+
+namespace Questions.Query
 {
-    internal interface IQuestionsQuery
+    public interface IQuestionsQuery:IQuery
     {
+        IEnumerable<Question> Execute();
     }
 }

@@ -2780,6 +2780,21 @@
         "runtime": {
           "netstandard1.6/AltaPerspectiva.Identity.dll": {}
         }
+      },
+      "Questions.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.6",
+        "dependencies": {
+          "AltaPerspectiva.Core": "1.0.0",
+          "AltaPerspectiva.Identity": "1.0.0",
+          "NETStandard.Library": "1.6.0"
+        },
+        "compile": {
+          "netstandard1.6/Questions.Domain.dll": {}
+        },
+        "runtime": {
+          "netstandard1.6/Questions.Domain.dll": {}
+        }
       }
     }
   },
@@ -7842,6 +7857,11 @@
       "type": "project",
       "path": "../AltaPerspectiva.Identity/project.json",
       "msbuildProject": "../AltaPerspectiva.Identity/AltaPerspectiva.Identity.xproj"
+    },
+    "Questions.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Questions.Domain/project.json",
+      "msbuildProject": "../Questions.Domain/Questions.Domain.xproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -7852,7 +7872,8 @@
       "Microsoft.AspNetCore.Routing >= 1.0.1",
       "Microsoft.AspNetCore.Routing.Abstractions >= 1.0.1",
       "Microsoft.EntityFrameworkCore.Relational >= 1.0.0",
-      "NETStandard.Library >= 1.6.0"
+      "NETStandard.Library >= 1.6.0",
+      "Questions.Domain >= 1.0.0-*"
     ],
     ".NETStandard,Version=v1.6": []
   },

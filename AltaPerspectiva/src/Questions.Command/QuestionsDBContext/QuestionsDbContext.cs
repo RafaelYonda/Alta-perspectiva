@@ -1,11 +1,11 @@
 ﻿namespace Questions.Command.DbContext
 {
     using Microsoft.EntityFrameworkCore;
-    using AltaPerspectiva.Identity;
+    using Questions.Domain;
 
     public class QuestionsDbContext:DbContext
     {
-        public QuestionsDbContext(DbContextOptions<QuestionsDbContext> options)
+       public QuestionsDbContext(DbContextOptions<QuestionsDbContext> options)
         : base(options)
         {
         }     

@@ -7,12 +7,13 @@
     using System.Linq;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Routing;
+    using Domain;
 
     /// <summary>
     ///     Create new inactive user
     /// </summary>
     /// 
- 
+
     public class AddQuestionCommandHandler : EFCommandHandlerBase<AddQuestionCommand, QuestionsDbContext>,
 		ICommandHandler<AddQuestionCommand>
 	{

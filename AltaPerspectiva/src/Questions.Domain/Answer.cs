@@ -1,4 +1,4 @@
-﻿namespace Questions.Command
+﻿namespace Questions.Domain
 {
     using System;
     using System.Collections.Generic;
@@ -11,8 +11,7 @@
     {
         public string Text { get; set; }
         public DateTime AnswerDate { get; set; }
-        public Guid UserId { get; set; }      
-
+        public Guid UserId { get; set; }
         public Guid? QuestionId { get; set; }
         public virtual Question Question { get; set; }
         

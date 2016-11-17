@@ -1,6 +1,6 @@
 ﻿namespace Questions.Command.DbContext
 {
-    using AltaPerspectiva.Identity;
+    using Questions.Domain;
     using Microsoft.EntityFrameworkCore;
 
     public static class ModelMappings

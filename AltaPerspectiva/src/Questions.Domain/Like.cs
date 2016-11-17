@@ -1,4 +1,4 @@
-﻿namespace Questions.Command
+﻿namespace Questions.Domain
 {
     using System;
     using AltaPerspectiva.Core.Infrastructure;

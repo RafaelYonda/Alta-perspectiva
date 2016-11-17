@@ -3,9 +3,8 @@
 
   "dependencies": {
     "AltaPerspectiva.Core": "1.0.0-*",
-    "NETStandard.Library": "1.6.0",
-    "Questions.Domain": "1.0.0-*",
-    "System.Linq.Expressions": "4.3.0-preview1-24530-04"
+    "AltaPerspectiva.Identity": "1.0.0-*",
+    "NETStandard.Library": "1.6.0"
   },
 
   "frameworks": {
