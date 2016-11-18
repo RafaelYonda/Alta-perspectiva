@@ -15,8 +15,9 @@
             /// notification for  question list page using signalR
             /// notifications for category wise questions list
             /// if category subscription of user, 
+            /// return CommandResult or ExceptionResult
 			Console.WriteLine("		\"Question added\" notifincation sent: ");
-			Console.WriteLine("		{0} {1} {2} {3}", command.Id, command.Title, command.User.Id, command.Date.ToString());
+			Console.WriteLine("		{0} {1} {2} {3}", command.Id, command.Title, null, command.Date.ToString());
 		}
 
 		public void Dispose()

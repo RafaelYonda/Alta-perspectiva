@@ -56,28 +56,29 @@ namespace AltaPerspectiva
             services.AddDbContext<QuestionsQueryDbContext>(options =>
                             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
-            services.AddTransient<ICommandsFactory, CommandFactory>(serviceProvider => new CommandFactory(x=> (object[]) serviceProvider.GetRequiredService(x)));
+            services.AddTransient<ICommandsFactory, CommandFactory>(serviceProvider => new CommandFactory(x=>  serviceProvider.GetServices(x).ToArray()));
             services.AddTransient<IQueryFactory, QueryFactory>(serviceProvider => new QueryFactory(x =>  serviceProvider.GetRequiredService(x)));
 
             services.AddTransient<IQuestionsQuery, QuestionsQuery>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
-        }
+        }     
 
+       
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.Use(async (context, next) =>
-            {
-                await next();
+            //app.Use(async (context, next) =>
+            //{
+            //    await next();
 
-                if (context.Response.StatusCode == 404
-                    && !Path.HasExtension(context.Request.Path.Value))
-                {
-                    context.Request.Path = "~/";
-                    await next();
-                }
-            });
+            //    if (context.Response.StatusCode == 404
+            //        && !Path.HasExtension(context.Request.Path.Value))
+            //    {
+            //        context.Request.Path = "~/";
+            //        await next();
+            //    }
+            //});
             app.UseDefaultFiles();
             app.UseStaticFiles();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
