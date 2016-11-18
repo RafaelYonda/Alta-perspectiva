@@ -129,13 +129,15 @@ a {
 }
 
 .suggestions {
-    max-width: 50%;
+    max-width: 85%;
     border: 1px solid;
     position: absolute;
     background-color: white;
     top: 100%;
     border-radius: 5px;
     padding: 7px;
+    z-index: 99;
+    margin-top: 7px;
 }
 
 .btn-group {
