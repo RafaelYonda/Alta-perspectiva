@@ -1,4 +1,4 @@
-﻿.search-icon{
+﻿.search-icon {
     background: transparent;
     position: absolute;
     right: 15%;
@@ -6,36 +6,43 @@
     padding-top: 10px;
     height: 43px;
 }
+
 a {
+    cursor: pointer;
     color: #706f6f;
     text-decoration: none;
     outline: 0;
-    border-left: 1px solid #e0d3d3;
-    padding-left: 10px;
+    display: block;
+    margin-bottom: 5px;
 }
+
+.question-List {
+    list-style-image: url(../images/question-mark.jpg);
+}
+
 
 .form-group {
     margin: 0;
     padding: 3px 0px;
 }
+
 .padding-middle {
     padding: 7px 22px;
-
 }
-    .form-group:hover {
-        cursor: pointer;
-        background-color: #c7c7c7 !important;
-        border-top: 1px solid #9e9393;
-        border-bottom: 1px solid #9e9393;
-    }
 
-.dropdown-menu {
-    padding: 0 !important;
-    min-width: 300px!important;
+.form-group:hover {
+    cursor: pointer;
+    background-color: #c7c7c7 !important;
+    border-top: 1px solid #9e9393;
+    border-bottom: 1px solid #9e9393;
 }
+
+
+
 .dropdown-menu-right {
     right: 88px;
 }
+
 .lef-column {
     margin-right: 10px;
     display: inline-block;
@@ -53,15 +60,16 @@ a {
     height: 45px;
 }
 
-.searc-box {
+.search-input {
     background-color: #f5f5f5;
+    width: 100%;
 }
 
 .form-control {
     border-radius: 10px;
 }
 
-.dropdown.dropdown-lg .dropdown-menu {
+.dropdown.dropdown-lg .search-dropdown-menu {
     margin-top: -1px;
     padding: 6px 20px;
 }
@@ -115,7 +123,43 @@ a {
         position: static !important;
     }
 
-        .dropdown.dropdown-lg .dropdown-menu {
-            min-width: 500px;
-        }
+    .dropdown.dropdown-lg .search-dropdown-menu {
+        min-width: 500px;
+    }
+}
+
+.suggestions {
+    max-width: 50%;
+    border: 1px solid;
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    border-radius: 5px;
+    padding: 7px;
+}
+
+.btn-group {
+    display: block;
+}
+
+.question-components {
+    margin: 20px;
+}
+
+.catagory-dropdown {
+    width: 80%;
+}
+
+.question-text {
+    border-radius: 5px;
+}
+
+label {
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.search-menu {
+     min-width:761px;
+    margin-top:6px;
 }

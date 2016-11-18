@@ -5,10 +5,11 @@ import {QuestionMenu, Answer, DateName} from '../../services/models';
 
 @Component({
     selector: "answer-panel",
-    templateUrl: 'js/app/questions/answer-panel/answer-panel.component.html',
+    templateUrl: 'js/app/questions/question-panel/question-panel.component.html',
+    styleUrls: ['js/app/questions/question-panel/questoin-panel.css'],
     providers: [QuestionAnswerService]
 })
-export class AnswerPanelComponent {
+export class QuestionPanelComponent {
     date: DateName;
     id: number;
     private sub: any;

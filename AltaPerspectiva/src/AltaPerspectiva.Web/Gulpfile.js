@@ -159,7 +159,7 @@ var tsProject = ts.createProject('tsScripts/tsconfig.json', { typescript: requir
 gulp.task("htmlCompile", function () {
     del(['wwwroot/js/**/*.html']);
     gulp.src([
-        'Scripts/*.js',
+        'tsScripts/**/**/*.css',
         'tsScripts/**/**/*.html'
     ]).pipe(gulp.dest("wwwroot/js/"));
 });
