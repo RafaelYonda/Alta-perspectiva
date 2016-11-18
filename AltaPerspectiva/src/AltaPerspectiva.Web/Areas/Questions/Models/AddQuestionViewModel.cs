@@ -10,19 +10,19 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
 {
     public class QuestionViewModel
     {
-        public QuestionViewModel()
-        {           
-            Answers = new List<Answer>();
-            Comments = new List<Comment>();
-            Likes = new List<Like>();
-        }
+        //public QuestionViewModel()
+        //{
+        //    Answers = new List<Answer>();
+        //    Comments = new List<Comment>();
+        //    Likes = new List<Like>();
+        //}
 
-        public string Title { get; protected set; }
-        public string Body { get; protected set; }
-        public DateTime Date { get; protected set; }
+        public string Title { get; set; }
+        public string Body { get;  set; }
+        public DateTime Date { get; set; }
         public Guid Id { get; set; }       
-        public List<Answer> Answers { get; protected set; }
-        public List<Comment> Comments { get; protected set; }
-        public List<Like> Likes { get; protected set; }
+        //public List<Answer> Answers { get; set; }
+        //public List<Comment> Comments { get; set; }
+        //public List<Like> Likes { get; set; }
     }
 }

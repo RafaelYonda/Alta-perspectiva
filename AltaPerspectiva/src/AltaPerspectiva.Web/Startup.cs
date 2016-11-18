@@ -116,8 +116,8 @@ namespace AltaPerspectiva
                 //ClientId = "localhost", // for localhost
                 ClientId = "azure",       // for azure deploy 
                 ClientSecret = "aLtaseCreT!@#",
-                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
-                //PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
+                //PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+                PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
 
                 RequireHttpsMetadata = false,
                 GetClaimsFromUserInfoEndpoint = true,
