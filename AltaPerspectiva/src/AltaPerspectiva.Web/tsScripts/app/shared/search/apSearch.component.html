@@ -1,6 +1,6 @@
 ﻿<div [ngClass]="placeBottom">
     <div class="input-group" id="adv-search">
-        <input type="text" class="form-control search-input fixed-height" placeholder="Search for snippets"
+        <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Search for snippets"
                id="country" [(ngModel)]=query (keyup)=filter() />
         <div class="suggestions" *ngIf="filteredList.length > 0">
             <ul class="question-List">
@@ -12,7 +12,7 @@
         <div class="input-group-btn">
             <div class="btn-group" role="group">
                 <div class="dropdown dropdown-lg">
-                    <button type="button" class="btn btn-default  fixed-height" data-toggle="dropdown" (click)="showPanel" aria-expanded="false"><span  class="caret"></span></button>
+                    <button type="button" class="btn btn-default  fixed-height" data-toggle="dropdown" (click)="showPanel(searchText)" aria-expanded="false"><span  class="caret"></span></button>
                     <div class="dropdown-menu dropdown-menu-right search-menu" role="menu">
                         <form class="form-horizontal" role="form">
                             <div class="question-components">

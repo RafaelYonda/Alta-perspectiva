@@ -20,7 +20,7 @@ import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
 
 @NgModule({
-    imports: [BrowserModule, SharedModule, QuestionModule,FormsModule,routing
+    imports: [BrowserModule, SharedModule, QuestionModule, FormsModule, routing
     ],
     providers: [
         { provide: 'Window', useValue: window }
@@ -33,7 +33,7 @@ import { routing } from './core.route';
         //ApSearchComponent,
         TabsComponent,
         TabPanelComponent,
-        TabSubpanelComponent,  
+        TabSubpanelComponent,
 
         //other app component
         //QuestionHomeComponent,
@@ -42,14 +42,14 @@ import { routing } from './core.route';
     ],
     exports: [
         RouterModule,
-QuestionModule,
+        QuestionModule,
         //Core Components
         HomeComponent,
         ApNav,
         ApBannerComponent,
         TabsComponent,
         TabPanelComponent,
-        TabSubpanelComponent, 
+        TabSubpanelComponent,
 
         //other app component
         LearnHome,
