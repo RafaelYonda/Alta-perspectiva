@@ -43,7 +43,7 @@
             width: 100%;
             background-color: darkgray;
             color: white;
-            /*position: absolute;*/
+            position: absolute;
             bottom: 0;
         }
 
@@ -69,10 +69,43 @@
             height: auto;
             background: url('../../images/logo cuadrado.png');
         }
+/*=============Log in  CSS*/
+ h2 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    input {
+        max-width: 100%;
+    }
+
+    .form-horizontal {
+        position: relative;
+        padding: 10px;
+        background-color: #ededed;
+        margin-top: 40px;
+        height: 305px;
+    }
+
+    .left-border {
+        background-image: url('../../images/border.png');
+        width: 4px;
+        margin-top: 40px;
+        position: absolute;
+        right: 0;
+        margin-right: -15px;
+        height: 305px;
+    }
+
+    .btn {
+        min-width: 100px;
+        background-color:#f7a30c;
+        color:white;
+    }
     </style>
 </head>
 
-<body>
+<body class="body-minHeight">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -96,17 +129,17 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <div class="footer">
-            <div class="footer-container">
-                <div class="footer-right">
-                    <div>nostros</div>
-                    <div>Terminos de usos</div>
-                    <div>Contactenos</div>
-                </div>
+        
+    </div>
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-right">
+                <div>nostros</div>
+                <div>Terminos de usos</div>
+                <div>Contactenos</div>
             </div>
         </div>
     </div>
-
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
