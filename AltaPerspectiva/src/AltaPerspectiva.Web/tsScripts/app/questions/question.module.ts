@@ -23,7 +23,7 @@ import { SharedModule } from '../shared/shared.module';
     ],
     exports: [
         //RouterModule,
-QuestionHomeComponent
+//QuestionHomeComponent
         //Core Components
     ]
 })

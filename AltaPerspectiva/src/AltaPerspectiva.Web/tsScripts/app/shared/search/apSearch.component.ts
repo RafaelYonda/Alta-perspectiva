@@ -27,8 +27,9 @@ export class ApSearchComponent {
         this.icon = icon;
         this.visible = true;
     }
-    showPanel() {
+    showPanel(input: HTMLInputElement) {
         console.log("Drop down");
+        input.value = null;
         this.filteredList = [];
     }
     //=============Autocomplete Codesd===================

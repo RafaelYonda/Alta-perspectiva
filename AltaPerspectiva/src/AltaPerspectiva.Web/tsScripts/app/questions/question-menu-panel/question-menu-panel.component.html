@@ -1,9 +1,9 @@
 ﻿<div class="menu-container">
     <div  class="row">
         <div >
-            <div class="question-title">Related Question</div>
+            <div class="question-title">Related Topics</div>
             <div class="question-list">
-                <p *ngFor="let question of questionMenuList">&iquest;{{question.questiontext}}?</p>
+                <p *ngFor="let category of categories">{{category.name}}</p>
             </div>
         </div>
     </div>
