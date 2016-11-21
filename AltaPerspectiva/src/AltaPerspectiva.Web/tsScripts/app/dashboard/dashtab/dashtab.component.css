@@ -1,11 +1,34 @@
 ﻿
-.tab-bar{
-    margin-top:66px;
+.tab-bar {
+    width: 100%;
+    margin-top: 66px;
     background-color: #ededed;
-    position: relative;
-    position: absolute;
-
+    position: fixed;
+    top: 0;
 }
+
+.navbar-tab > li > a {
+    padding: 0 10px;
+    color: black !important;
+}
+
+a:hover {
+    color: aqua;
+}
+
+.navbar-tab {
+    margin-left: 22%;
+}
+
+    .navbar-tab > li {
+        margin: 10px 0;
+        border-right: 1px solid #cdcdcd;
+    }
+
+    .navbar-tab :last-child {
+        border: none;
+    }
+
 .navbar-right {
     padding-right: 10px;
 }
