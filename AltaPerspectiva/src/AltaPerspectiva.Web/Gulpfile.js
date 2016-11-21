@@ -82,13 +82,13 @@ gulp.task("copy:bower-components", function () {
     var fontsFilter = filter(["**/*.woff2", "**/*.eot", "**/*.svg", "**/*.ttf", "**/*.woff"], { restore: true });
 
     return gulp.src(mainBowerFiles({
-        overrides: {
+        overrides: {            
             'bootstrap': {
                 main: [
                     "./dist/js/bootstrap.js",
                     "./dist/css/*.css",
                     "./dist/*.css",
-                    "./dist/fonts/*.*"
+                    "./dist/fonts/*.*"                   
                 ]
             },
             'fontawesome': {
@@ -96,7 +96,7 @@ gulp.task("copy:bower-components", function () {
                     "./css/font-awesome.css",
                     "./fonts/*.*"
                 ]
-            }
+            }           
         }
     }),
         { base: "./bower_components" })
@@ -163,7 +163,13 @@ gulp.task("htmlCompile", function () {
         'tsScripts/**/**/*.html'
     ]).pipe(gulp.dest("wwwroot/js/"));
 });
-
+gulp.task('CopytinyMce', function () {
+    gulp.src(['tinymce/**'],
+    {
+        cwd: "bower_components/**"
+    })
+    .pipe(gulp.dest("./wwwroot/lib/"));
+});
 gulp.task("tsCompile", function () {
     //========Copy html CSS=====
     gulp.src([

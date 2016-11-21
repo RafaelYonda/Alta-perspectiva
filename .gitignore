@@ -41,10 +41,4 @@ AltaPerspectiva/src/AltaPerspectiva.Identity/project.lock.json
 /AltaPerspectiva/src/Altaperspectiva.OpenID.Web/bin/src/AltaPerspectiva.Identity/obj/Debug/netstandard1.6
 /AltaPerspectiva/src/Altaperspectiva.OpenID.Web/obj/Debug/netcoreapp1.0
 /AltaPerspectiva/src/Altaperspectiva.OpenID.Web/wwwroot
-/AltaPerspectiva/src/Mvc.Server/bin/
-/AltaPerspectiva/src/Mvc.Server/obj/
-/AltaPerspectiva/src/Mvc.Server/node_modules/
-/AltaPerspectiva/src/Mvc.Server/wwwroot/lib/
-
-obj
-bin
+/AltaPerspectiva/src/AltaPerspectiva.Web/node_modules
