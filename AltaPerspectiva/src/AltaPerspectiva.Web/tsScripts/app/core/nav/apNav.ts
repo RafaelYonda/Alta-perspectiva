@@ -1,6 +1,7 @@
 ﻿import { Component, ViewEncapsulation, Input } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Http, Headers, Response } from '@angular/http';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'ap-nav',
@@ -11,6 +12,7 @@ import { Http, Headers, Response } from '@angular/http';
 })
 export class ApNav {
     @Input() className: string;
+    _router: Router;
     isbackGround = false;
     _logObj: any;
     _authService: AuthenticationService;
@@ -25,7 +27,11 @@ export class ApNav {
     //} LogOut() {
     //    this._authService.logout();
     //}
+    goToDashBoard() {
+        this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
+    }
 }
+
 
 export class LogInObj {
     notifyCount: number;

@@ -1,12 +1,100 @@
-﻿<ap-navdashboard></ap-navdashboard>
+﻿<style>
+    .dash-panel {
+        margin-top: 200px;
+    }
+
+    .status-list > .row > ul > li {
+        float: left;
+        padding-left: 10px;
+    }
+</style>
+<ap-navdashboard></ap-navdashboard>
 <dash-tab></dash-tab>
 <div class="row dash-panel">
-    <div class="col-lg-2">.</div>
+    <div class="col-lg-2"> space</div>
 
-    <div class="col-lg-2">Left Menu</div>
-    <div class="col-lg-6">Detail</div>
+    <div class="col-lg-2">
+        <div class="profile-pic">
+            <img src="../images/userAdd.png" />
+        </div>
+        <div class="profile-border">
+            <hr />
+        </div>
+        <div class="menu-list">
+            <ul>
+                <li>Contact info</li>
+                <li>Biography</li>
+                <li>Education</li>
+                <li>Experience</li>
+                <li>Skills</li>
+                <li>Practice Areas</li>
+                <li>Insight</li>
 
-    <div class="col-lg-2">.</div>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="description">
+            <h1>User</h1>
+            <p>
+                Conceptually ksdjfklsdf sdlfjksldkjfj sdfjsd sdjfsd fsdjfpsdjf spdjds pfjsdpfosjd fojsdpofjsdofjsp dofjpsodj psodfpsdojfpsdfjspdfojsdsdp jfspdf sdspdo jfpsdojf psdjf psdfjspdfjspdofjspdofjspdojfpsdofjpsdofjspdofjpsdjfsdpfj
+            </p>
+        </div>
+        <div class="progresstitle">
+            your profile is 70% complete
+        </div>
+        <div class="progress-image">
+            <!-- ====Need to change later=== -->
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
+                     aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                    50% Complete (info)
+                </div>
+            </div>
+            <!-- ======== -->
+        </div>
+        <div class="status-list">
+            <div class="row">
+                <ul>
+                    <li>Contact info</li>
+                    <li>Biography</li>
+                    <li>Education</li>
+                    <li>Experience</li>
+                </ul>
+            </div>
+            <div class="row">
+                <ul>
+                    <li>Experience</li>
+                    <li>Skills</li>
+                    <li>Practice Areas</li>
+                    <li>Insight</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-form">
+            <div class="panel panel-default">
+                <div class="panel-heading">Panel Heading</div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="email">Tag Line</label>
+                            <input type="text" class="form-control" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">About Me</label>
+                            <textarea class="form-control" rows="5" id="comment"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="submit" class="btn btn-default">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2">Space</div>
 </div>
 
 
