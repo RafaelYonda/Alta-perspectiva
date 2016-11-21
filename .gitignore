@@ -42,3 +42,10 @@ AltaPerspectiva/src/AltaPerspectiva.Identity/project.lock.json
 /AltaPerspectiva/src/Altaperspectiva.OpenID.Web/obj/Debug/netcoreapp1.0
 /AltaPerspectiva/src/Altaperspectiva.OpenID.Web/wwwroot
 /AltaPerspectiva/src/AltaPerspectiva.Web/node_modules
+/AltaPerspectiva/src/AltaPerspectiva.Web/bower_components/tinymce
+/AltaPerspectiva/src/Altaperspectiva.OpenId/bin/
+/AltaPerspectiva/src/Altaperspectiva.OpenId/obj/
+/AltaPerspectiva/src/Questions.Domain/bin/
+/AltaPerspectiva/src/Altaperspectiva.OpenId/node_modules
+/AltaPerspectiva/src/Questions.Domain/obj
+
