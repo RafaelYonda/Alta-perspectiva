@@ -7,6 +7,61 @@
         float: left;
         padding-left: 10px;
     }
+    .progress-value{
+        color:#f29200;
+    }
+/*=========Buttons========*/
+ul {
+        list-style: none;
+        padding:0;
+    }
+     .menu-button {
+        padding: 4px 12px;
+        font-family: typogroteskrounded;
+        font-weight:600;
+        min-width: 175px;
+        margin: 5px 0;
+        background-color: #ededed;
+        border: none;
+        border-radius:10px;
+
+    }
+    .menu-button:hover,:focus{
+        background-color:#f29200;
+        border:none;
+        outline:none;
+        outline-offset:0;
+    }
+    
+/*=================*/
+
+/*======Image======*/
+.profile-pic{
+    text-align:center;
+}
+    .profile-img{
+        height:150px;
+        width:150px;
+        border-radius:50px;
+    }
+
+    .title{
+        text-align:center;
+        font-family:arial;
+        margin-top:3px;
+    }
+/*=============Status Lis=======*/
+.status-list{
+    margin:20px 10px;
+
+}
+   .status-list>.row>.col-md-3{
+       margin-top:10px;
+       font-family:arial;
+   }
+    .inactive {
+        color:#bdbdbd;
+    }
 </style>
 <ap-navdashboard></ap-navdashboard>
 <dash-tab></dash-tab>
@@ -15,20 +70,21 @@
 
     <div class="col-lg-2">
         <div class="profile-pic">
-            <img src="../images/userAdd.png" />
+            <img class="profile-img" src="../images/userAdd.png" />
+            <div class="row title">Photo Edit</div>
         </div>
         <div class="profile-border">
             <hr />
         </div>
         <div class="menu-list">
             <ul>
-                <li>Contact info</li>
-                <li>Biography</li>
-                <li>Education</li>
-                <li>Experience</li>
-                <li>Skills</li>
-                <li>Practice Areas</li>
-                <li>Insight</li>
+                <li><button class="btn btn-default menu-button">Contact info</button> </li>
+                <li><button class="btn btn-default menu-button">Biography</button> </li>
+                <li><button class="btn btn-default menu-button">Education</button></li>
+                <li><button class="btn btn-default menu-button">Experience</button></li>
+                <li><button class="btn btn-default menu-button">Skills</button></li>
+                <li><button class="btn btn-default menu-button">Practice Areas</button></li>
+                <li><button class="btn btn-default menu-button">Insight</button></li>
 
             </ul>
         </div>
@@ -41,7 +97,7 @@
             </p>
         </div>
         <div class="progresstitle">
-            your profile is 70% complete
+            your profile is <span class="progress-value">70%</span> complete
         </div>
         <div class="progress-image">
             <!-- ====Need to change later=== -->
@@ -55,20 +111,14 @@
         </div>
         <div class="status-list">
             <div class="row">
-                <ul>
-                    <li>Contact info</li>
-                    <li>Biography</li>
-                    <li>Education</li>
-                    <li>Experience</li>
-                </ul>
-            </div>
-            <div class="row">
-                <ul>
-                    <li>Experience</li>
-                    <li>Skills</li>
-                    <li>Practice Areas</li>
-                    <li>Insight</li>
-                </ul>
+                <div class="col-md-3 inactive">(&#x2716;)Contact info</div>
+                <div class="col-md-3">(&#10004;)Biography</div>
+                <div class="col-md-3">(&#10004;)Education</div>
+                <div class="col-md-3 inactive">(&#x2716;)Experience</div>
+                <div class="col-md-3">(&#10004;)Experience</div>
+                <div class="col-md-3 inactive">(&#x2716;)Skills</div>
+                <div class="col-md-3">(&#10004;)Practice Areas</div>
+                <div class="col-md-3 inactive">(&#x2716;)Insight</div>
             </div>
         </div>
 
@@ -86,8 +136,8 @@
                             <textarea class="form-control" rows="5" id="comment"></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-default">Submit</button>
-                        <button type="submit" class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-default menu-button">Submit</button>
+                        <button type="submit" class="btn btn-default menu-button">Cancel</button>
                     </form>
                 </div>
             </div>

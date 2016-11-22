@@ -1,15 +1,13 @@
-﻿/// <reference path="question-panel/question-panel.component.ts" />
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 //====question components============
-import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { questionNav } from './nav/question-nav.component';
 import { QuestionHomeComponent } from './question-home.component';
-import { QuestionPanelComponent } from './question-panel/question-panel.component';
-import { QuestionMenuPanelComponent } from './question-menu-panel/question-menu-panel.component';
+import { QuestionPanelComponent } from './question-body/question-body.component';
+import { QuestionMenuPanelComponent } from './question-left-menu/question-left-menu.component';
 import { SharedModule } from '../shared/shared.module';
 //================
 
@@ -19,7 +17,7 @@ import { SharedModule } from '../shared/shared.module';
         { path: 'question', component: QuestionHomeComponent }])],    
     declarations: [
         //Core Components
-        QuestionPanelComponent, QuestionHomeComponent, questionNav,QuestionMenuPanelComponent, AutocompleteComponent
+        QuestionPanelComponent, QuestionHomeComponent, questionNav,QuestionMenuPanelComponent
     ],
     exports: [
         //RouterModule,
