@@ -163,13 +163,6 @@ gulp.task("htmlCompile", function () {
         'tsScripts/**/**/*.html'
     ]).pipe(gulp.dest("wwwroot/js/"));
 });
-gulp.task('CopytinyMce', function () {
-    gulp.src(['tinymce/**'],
-    {
-        cwd: "bower_components/**"
-    })
-    .pipe(gulp.dest("./wwwroot/lib/"));
-});
 gulp.task("tsCompile", function () {
     //========Copy html CSS=====
     gulp.src([
