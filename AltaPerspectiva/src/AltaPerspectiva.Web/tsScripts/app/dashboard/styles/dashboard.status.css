@@ -1,0 +1,12 @@
+﻿.status-list {
+    margin: 20px 10px;
+}
+
+.status-list > .row > .col-md-3 {
+    margin-top: 10px;
+    font-family: arial;
+}
+
+.inactive {
+    color: #bdbdbd;
+}

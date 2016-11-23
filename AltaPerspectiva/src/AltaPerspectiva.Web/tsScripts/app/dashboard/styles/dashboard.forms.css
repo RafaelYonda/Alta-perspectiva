@@ -1,0 +1,21 @@
+﻿.panel {
+    background-color: #f6f6f6;
+    border-radius: 0;
+}
+
+.panel-heading {
+    color: #ffffff;
+    background-color: #f29200;
+    border: none;
+    border-radius: 0;
+}
+
+.profile-form {
+    background-color: #ededed;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    background-color: none;
+}

@@ -1,0 +1,19 @@
+﻿.profile-pic {
+    text-align: center;
+}
+
+.profile-img {
+    height: 150px;
+    width: 150px;
+    border-radius: 75px;
+}
+
+.title {
+    text-align: center;
+    font-family: arial;
+    margin-top: 3px;
+}
+
+.profile-border {
+    width: 100%;
+}

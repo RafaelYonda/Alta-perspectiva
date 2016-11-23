@@ -1,0 +1,22 @@
+﻿.progress-image {
+    position: relative;
+    overflow: hidden;
+    height: 10px;
+}
+
+.progress-background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    border-radius: 10px;
+}
+
+.progress-bar-img {
+    width: 70%;
+    float: left;
+    height: 100%;
+    border-radius: 10px;
+}
