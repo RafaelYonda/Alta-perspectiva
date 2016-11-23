@@ -4,9 +4,9 @@ import { QuestionAnswerService } from '../../services/questionAnswer.service';
 import {QuestionMenu, Answer, DateName} from '../../services/models';
 
 @Component({
-    selector: "answer-panel",
-    templateUrl: 'js/app/questions/question-panel/question-panel.component.html',
-    styleUrls: ['js/app/questions/question-panel/questoin-panel.css'],
+    selector: "question-body",
+    templateUrl: 'js/app/questions/question-body/question-body.component.html',
+    styleUrls: ['js/app/questions/question-body/questoin-panel.css'],
     providers: [QuestionAnswerService]
 })
 export class QuestionPanelComponent {

@@ -5,9 +5,9 @@ import { Category } from '../../services/category'
 import {QuestionMenu, Answer, DateName} from '../../services/models';
 
 @Component({
-    selector: 'question-panel',
-    templateUrl: 'js/app/questions/question-menu-panel/question-menu-panel.component.html',
-    styleUrls: ['js/app/questions/question-menu-panel/question-menu-panel.css'],
+    selector: 'question-left-menu',
+    templateUrl: 'js/app/questions/question-left-menu/question-left-menu.component.html',
+    styleUrls: ['js/app/questions/question-left-menu/question-left-menu.css'],
     providers: [QuestionAnswerService, CategoryService]
 })
 export class QuestionMenuPanelComponent {

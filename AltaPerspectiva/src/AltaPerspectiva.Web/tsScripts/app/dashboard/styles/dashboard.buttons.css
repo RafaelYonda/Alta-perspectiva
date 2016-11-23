@@ -1,0 +1,29 @@
+﻿ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-button {
+    padding: 4px 12px;
+    font-family: typogroteskrounded;
+    font-weight: 600;
+    width: 100%;
+    margin: 5px 0;
+    background-color: #ededed;
+    border: none;
+    border-radius: 10px;
+}
+
+.menu-button:focus, .submit-panel > .menu-button:focus, .submit-panel > .menu-button:hover {
+    background-color: #f29200;
+    border: none;
+    outline: none;
+    outline-offset: 0;
+}
+
+
+.submit-panel > .menu-button {
+    max-width: 100px;
+    float: right;
+    margin-left: 15px;
+}
