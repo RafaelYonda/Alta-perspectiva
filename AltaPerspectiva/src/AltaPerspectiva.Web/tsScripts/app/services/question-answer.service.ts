@@ -1,12 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
-import { Category } from './category';
-import { Question } from './question';
-import { QuestionerUser } from './questioneruser';
-import { QuestionAnswer } from './questionanswer';
-import {QuestionMenu, User, Answer} from './models';
+import {QuestionMenu, Category, Question, User, Answer} from './models';
 
 @Injectable()
-export class QuestionAnswerService{
+export class QuestionAnswerService {
     //getQuestionByCategory(categoryId: string): Question[] {
     //    if (categoryId == '1') {
     //        return [

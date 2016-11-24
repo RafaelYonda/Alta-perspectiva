@@ -1,8 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { QuestionAnswerService } from '../../services/questionAnswer.service';
-import {QuestionMenu, Answer, DateName} from '../../services/models';
-import {Question} from '../../services/question';
+import { QuestionAnswerService } from '../../services/question-answer.service';
+import {QuestionMenu, Question,Answer, DateName} from '../../services/models';
 
 @Component({
     selector: "question-details",

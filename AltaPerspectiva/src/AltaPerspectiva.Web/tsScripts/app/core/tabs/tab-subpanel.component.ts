@@ -1,8 +1,7 @@
-﻿/// <reference path="../../services/question.ts" />
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { QuestionAnswerService } from '../../services/questionAnswer.service';
-import { Question } from '../../services/question';
+import { QuestionAnswerService } from '../../services/question-answer.service';
+import { Question } from '../../services/models';
 
 @Component({
     selector: 'ap-tab-subpanel',

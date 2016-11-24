@@ -1,7 +1,7 @@
 ﻿import { Component} from '@angular/core';
-import { QuestionAnswerService} from '../../services/questionanswer.service';
+import { QuestionAnswerService} from '../../services/question-answer.service';
 import { CategoryService } from '../../services/category.service';
-import { Category } from '../../services/category'
+import { Category } from '../../services/models';
 import {QuestionMenu, Answer, DateName} from '../../services/models';
 
 @Component({
