@@ -1,15 +1,37 @@
 ﻿<div *ngFor="let answer of answerList">
     <h1>&iquest;What is balanced score card?</h1>
-    <div class="row">
-        <div class="left-border">
-            <img class="image-border" src="../../../../images/border.png" />
+    <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Answer</button>
+        <div class="row">
+            <div class="left-border">
+                <img class="image-border" src="../../../../images/border.png" />
+            </div>
+            <div class="article-details">
+                <img class="user-image" src="../../../../images/avatar.png" />
+                <div class="header-info">{{answer.user.name}},{{answer.user.occupassion}}</div>
+                <div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>
+                <p class="answer-text">{{answer.answerText}}</p>
+            </div>
         </div>
-        <div class="article-details">
-            <img class="user-image" src="../../../../images/avatar.png" />
-            <div class="header-info">{{answer.user.name}},{{answer.user.occupassion}}</div>
-            <div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>
-            <p class="answer-text">{{answer.answerText}}</p>
+        <hr />
+</div>
+
+<!-- ==========Modal======= -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
+
     </div>
-    <hr />
 </div>

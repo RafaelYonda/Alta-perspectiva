@@ -1,17 +1,4 @@
-﻿.modal-dialog {
-    width: 600px;
-    margin: 250px auto;
-}
-.btn{
-    padding: 2px 12px;
-    border: 1px solid #bbcadc;
-    background-color: #f1f8fb;
-    color: #506db6;
-}
- .btn:hover{
-     border-color:#2865a1;
- }
-.user-image {
+﻿.user-image {
     height: 40px;
     width: 40px;
     border-radius: 20px;
