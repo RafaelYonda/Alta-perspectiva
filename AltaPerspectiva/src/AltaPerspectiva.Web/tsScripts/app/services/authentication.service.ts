@@ -3,7 +3,6 @@ import {LogInObj, User} from './models';
 
 @Injectable()
 export class AuthenticationService{
-
     getLoggedinObj(): LogInObj {
         var isLoggedin = false;// 
         if (localStorage.getItem('currentUser'))

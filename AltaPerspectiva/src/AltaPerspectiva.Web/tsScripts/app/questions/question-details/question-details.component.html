@@ -1,7 +1,5 @@
 ﻿<h1>&iquest;{{question.title}}?</h1>
 <div class="row">
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
     <div class="left-border">
         <img class="image-border" src="../../../../images/border.png" />
     </div>
@@ -13,8 +11,7 @@
     </div>
 </div>
 <hr />
-<!--<div *ngFor="let answer of answerList">
-    <h1>&iquest;What is balanced score card?</h1>
+<div *ngFor="let answer of question.answers">
     <div class="row">
         <div class="left-border">
             <img class="image-border" src="../../../../images/border.png" />
@@ -27,4 +24,4 @@
         </div>
     </div>
     <hr />
-</div>-->
+</div>

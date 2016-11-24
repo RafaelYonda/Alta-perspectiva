@@ -29,7 +29,8 @@ export class Question {
     questionTime: string;
     date: Date;
     responseCount: string;
-    user: User
+    user: User;
+    answers: Answer[];
 }
 export class Answer {
     id: number;
