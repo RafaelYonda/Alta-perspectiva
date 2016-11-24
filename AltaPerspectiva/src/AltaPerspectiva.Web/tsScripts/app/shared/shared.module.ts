@@ -8,7 +8,7 @@ import { AppCkEditorComponent } from './apCkEditor.component';
 
 
 @NgModule({
-    imports: [BrowserModule, FormsModule],
+    imports: [BrowserModule, FormsModule, CKEditorModule],
     providers: [
         { provide: 'Window', useValue: window }
     ],

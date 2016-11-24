@@ -1,7 +1,7 @@
 ﻿
 // Imports
 import { ModuleWithProviders }  from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Resolve,ActivatedRouteSnapshot} from '@angular/router';
 import { LearnHome } from './app/learning/learnHome';
 import { ProjectHome } from './app/project/projectHome';
 // Route Configuration

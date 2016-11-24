@@ -1,4 +1,5 @@
 ﻿import { Component, Input, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CategoryService } from '../../services/category.service'
 import { Category } from '../../services/category'
 
@@ -9,17 +10,18 @@ import { Category } from '../../services/category'
     providers: [CategoryService]
 })
 export class ApSearchComponent {
+   
     //@Input() placeBottom: string;
     @Input() placeBottom: string = '';
     public icon: string;
     public visible = true;
     categories: Category[];
-    constructor(private categoryService: CategoryService, myElement: ElementRef) {
+    constructor(private router: Router,private categoryService: CategoryService, myElement: ElementRef) {
         this.elementRef = myElement;
         this.categories = this.categoryService.getCategories();
     }
     public search = () => {
-        location.replace('/question');
+        this.router.navigate(['/question']);
     }
     public filteredList = [];
     public elementRef;
@@ -28,8 +30,7 @@ export class ApSearchComponent {
         this.visible = true;
     }
     showPanel(input: HTMLInputElement) {
-        console.log("Drop down");
-        input.value = null;
+        console.log("Drop down");        
         this.filteredList = [];
     }
     //=============Autocomplete Codesd===================

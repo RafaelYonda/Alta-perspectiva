@@ -12,8 +12,8 @@
         <div class="input-group-btn">
             <div class="btn-group" role="group">
                 <div class="dropdown dropdown-lg">
-                    <button type="button" class="btn btn-default  fixed-height" data-toggle="dropdown" (click)="showPanel(searchText)" aria-expanded="false"><span  class="caret"></span></button>
-                    <div class="dropdown-menu dropdown-menu-right search-menu" role="menu">
+                    <button type="button" class="btn btn-default  fixed-height" data-toggle="collapse" data-target="#question-details" (click)="showPanel(searchText)" aria-expanded="false"><span  class="caret"></span></button>
+                    <div id="question-details" class="dropdown-menu dropdown-menu-right search-menu" role="menu">
                         <form class="form-horizontal" role="form">
                             <div class="question-components">
                                 <label> Categories</label>
@@ -24,12 +24,12 @@
                                 </select>
                             </div>
                             <div class="question-components">
-                                <textarea placeholder="Add question details" class="question-text" cols="80" rows="3"></textarea>
+                                <ck-editor></ck-editor>
                             </div>
                         </form>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary fixed-height" (click)="search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span style="padding-left:5px">Search</span></button>
+                <button type="button" class="btn btn-primary fixed-height" (click)="search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span style="padding-left:5px">Ask</span></button>
             </div>
         </div>
     </div>

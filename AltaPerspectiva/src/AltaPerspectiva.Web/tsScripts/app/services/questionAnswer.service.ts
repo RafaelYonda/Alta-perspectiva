@@ -1,4 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { Category } from './category';
 import { Question } from './question';
 import { QuestionerUser } from './questioneruser';
