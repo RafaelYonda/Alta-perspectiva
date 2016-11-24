@@ -2,6 +2,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { QuestionAnswerService } from '../../services/questionAnswer.service';
 import {QuestionMenu, Answer, DateName} from '../../services/models';
+import { Router } from '@angular/router';
 
 @Component({
     selector: "question-body",
@@ -10,13 +11,19 @@ import {QuestionMenu, Answer, DateName} from '../../services/models';
     providers: [QuestionAnswerService]
 })
 export class QuestionPanelComponent {
+    _router: any;
     date: DateName;
     id: number;
     private sub: any;
     answerList: Answer[];
-    constructor(questionService: QuestionAnswerService) {
+    constructor(questionService: QuestionAnswerService, router: Router) {
+        this._router = router;
         this.answerList = questionService.getAnswersByQuestion(2);
         console.log(this.answerList);
         this.date= new DateName();
+    }
+
+    GoToQuestionDetails() {
+        this._router.navigateByUrl('questionDetail', { skipLocationChange: true });
     }
 }

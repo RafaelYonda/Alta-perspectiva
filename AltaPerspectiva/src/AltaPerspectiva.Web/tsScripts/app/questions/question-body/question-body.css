@@ -1,4 +1,8 @@
-﻿.btn{
+﻿.modal-dialog {
+    width: 600px;
+    margin: 250px auto;
+}
+.btn{
     padding: 2px 12px;
     border: 1px solid #bbcadc;
     background-color: #f1f8fb;

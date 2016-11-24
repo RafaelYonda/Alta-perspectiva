@@ -16,13 +16,13 @@ export class TabSubpanelComponent {
     questions: Question[];
 
     constructor(private route: ActivatedRoute, private questionAnswerService: QuestionAnswerService) {
-        this.questions = this.questionAnswerService.getQuestionByCategory('');
+        //this.questions = this.questionAnswerService.getQuestionByCategory('');
     }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id']; // (+) converts string 'id' to a number
-            this.questions = this.questionAnswerService.getQuestionByCategory(params['id']);
+            //this.questions = this.questionAnswerService.getQuestionByCategory(params['id']);
         });
     }
 
