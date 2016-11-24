@@ -1,7 +1,7 @@
 ﻿import { Component, Input, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CategoryService } from '../../services/category.service'
-import { Category } from '../../services/category'
+import { Category } from '../../services/models';
 
 @Component({
     selector: 'ap-search',

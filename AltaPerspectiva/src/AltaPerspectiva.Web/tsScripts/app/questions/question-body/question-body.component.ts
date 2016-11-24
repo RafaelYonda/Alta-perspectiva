@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { QuestionAnswerService } from '../../services/questionAnswer.service';
+import { QuestionAnswerService } from '../../services/question-answer.service';
 import {QuestionMenu, Answer, DateName} from '../../services/models';
 import { Router } from '@angular/router';
 

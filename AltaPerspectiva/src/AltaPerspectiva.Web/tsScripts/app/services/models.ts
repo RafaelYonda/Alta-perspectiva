@@ -15,6 +15,23 @@ export class LogInObj {
     user: User;
     isLoggedIn: boolean;
 }
+export class Category {
+    id: number;
+    name: string;
+    icon: string;
+    active: string;
+}
+export class Question {
+    id: string;
+    title: string;
+    subTitle: string;
+    questionBody: string;
+    questionTime: string;
+    date: Date;
+    responseCount: string;
+    user: User;
+    answers: Answer[];
+}
 export class Answer {
     id: number;
     questionId: number;
@@ -53,9 +70,9 @@ export class Experience { }
 export class Skills { }
 export class PracticeArea { }
 export class Insight { }
+//================..Profile Objects..
 
 
-//================
 export class DateName {
     getMonthName(month: number):string {
        var  monthNames = ["January", "February", "March", "April", "May", "June",
