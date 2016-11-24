@@ -1,7 +1,11 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { CKEditorModule } from 'ng2-ckeditor';
+
 import { ApSearchComponent } from './search/apsearch.component';
+import { AppCkEditorComponent } from './apCkEditor.component';
+
 
 @NgModule({
     imports: [BrowserModule, FormsModule],
@@ -9,10 +13,10 @@ import { ApSearchComponent } from './search/apsearch.component';
         { provide: 'Window', useValue: window }
     ],
     declarations: [
-        ApSearchComponent,
+        ApSearchComponent, AppCkEditorComponent
     ],
     exports: [
-        ApSearchComponent,
+        ApSearchComponent, AppCkEditorComponent
     ]
 })
 export class SharedModule { }
