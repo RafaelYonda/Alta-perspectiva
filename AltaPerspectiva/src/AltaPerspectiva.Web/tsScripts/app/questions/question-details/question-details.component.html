@@ -1,0 +1,15 @@
+﻿<div *ngFor="let answer of answerList">
+    <h1>&iquest;What is balanced score card?</h1>
+    <div class="row">
+        <div class="left-border">
+            <img class="image-border" src="../../../../images/border.png" />
+        </div>
+        <div class="article-details">
+            <img class="user-image" src="../../../../images/avatar.png" />
+            <div class="header-info">{{answer.user.name}},{{answer.user.occupassion}}</div>
+            <div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>
+            <p class="answer-text">{{answer.answerText}}</p>
+        </div>
+    </div>
+    <hr />
+</div>
