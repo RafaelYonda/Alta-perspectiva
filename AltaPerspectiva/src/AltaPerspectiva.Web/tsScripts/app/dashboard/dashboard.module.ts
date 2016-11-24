@@ -1,5 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule }   from '@angular/forms';
 import { ModuleWithProviders }  from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -31,15 +32,14 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
 
 
 @NgModule({
-    imports: [BrowserModule, dashboardRouting
+    imports: [BrowserModule, FormsModule, dashboardRouting
         //RouterModule.forRoot([
         //{ path: 'dashboard', component: DashBoardComponent }])
     ],
     declarations: [
         DashBoardComponent, EditProfileComponent, NavDashboard, DashTab, ContactFormComponent, BiographyFormComponent
     ],
-    exports: [DashBoardComponent
-    ]
+    exports: [DashBoardComponent]
 })
 export class DashBoardModule { }
 
