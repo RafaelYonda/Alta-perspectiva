@@ -23,6 +23,39 @@ export class Answer {
     date: Date;
     topics: string;
 }
+//========Profile Objects===========
+export class Profile {
+    contact: Contact;
+    biography: Biography;
+    education: Education;
+    experience: Experience;
+    skills: Skills;
+    practiceArea: PracticeArea;
+    insight: Insight;
+}
+export class Contact {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    address1: string;
+    address2: string;
+    country: string;
+    region: string;
+    city: string;
+}
+export class Biography {
+    tagLine: string;
+    aboutMe: string;
+}
+export class Education { }
+export class Experience { }
+export class Skills { }
+export class PracticeArea { }
+export class Insight { }
+
+
+//================
 export class DateName {
     getMonthName(month: number):string {
        var  monthNames = ["January", "February", "March", "April", "May", "June",
