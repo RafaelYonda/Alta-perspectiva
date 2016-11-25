@@ -1,8 +1,7 @@
 ﻿import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
-import {QuestionMenu, Answer, DateName} from '../../services/models';
-import { Router } from '@angular/router';
+import {QuestionMenu,Question, Answer, DateName} from '../../services/models';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: "question-body",
@@ -12,15 +11,27 @@ import { Router } from '@angular/router';
 })
 export class QuestionBodyComponent {
     _router: any;
+    route: any;
     date: DateName;
     id: number;
     private sub: any;
+
     answerList: Answer[];
-    constructor(questionService: QuestionAnswerService, router: Router) {
+    questionList: Question[];
+
+    error: any;
+    constructor(questionService: QuestionAnswerService, router: Router ,route:ActivatedRoute) {
         this._router = router;
-        this.answerList = questionService.getAnswersByQuestion(2);
+        this.answerList = questionService.getAnswersByQuestion(2);  
         console.log(this.answerList);
         this.date= new DateName();
+    }
+
+    ngOnInit() {
+        this.route.data
+            .subscribe(res => this.questionList = res, error => this.error = error).flatmaplates();
+        console.log("Route resolve data:");
+
     }
 
     GoToQuestionDetails() {
