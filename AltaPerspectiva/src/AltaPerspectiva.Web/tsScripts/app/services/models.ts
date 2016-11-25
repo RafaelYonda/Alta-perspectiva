@@ -21,6 +21,11 @@ export class Category {
     icon: string;
     active: string;
 }
+export class Comment {
+    id: number;
+    user: User;
+    commentText: string;
+}
 export class Question {
     id: string;
     title: string;
