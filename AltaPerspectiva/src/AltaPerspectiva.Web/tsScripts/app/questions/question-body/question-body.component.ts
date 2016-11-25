@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
     styleUrls: ['js/app/questions/question-body/question-body.css'],
     providers: [QuestionAnswerService]
 })
-export class QuestionPanelComponent {
+export class QuestionBodyComponent {
     _router: any;
     date: DateName;
     id: number;

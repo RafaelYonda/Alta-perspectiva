@@ -9,6 +9,7 @@ export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', loadChildren: './core/core.module#CoreModule'},
     { path: 'question', loadChildren: './questions/question.module#QuestionModule' },
+    { path: 'questionDetails', loadChildren: './questions/question.module#QuestionModule' },
     { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashBoardModule' },
     { path: 'learn', component: LearnHome },
     { path: 'project', component: ProjectHome }

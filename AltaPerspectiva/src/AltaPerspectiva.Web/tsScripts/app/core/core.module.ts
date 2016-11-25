@@ -2,6 +2,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {HttpModule  } from '@angular/http';
+
 
 //====core components============
 import { HomeComponent } from './home.component';
@@ -20,7 +22,7 @@ import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
 
 @NgModule({
-    imports: [BrowserModule, SharedModule, QuestionModule, FormsModule, routing
+    imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing
     ],
     providers: [
         { provide: 'Window', useValue: window }

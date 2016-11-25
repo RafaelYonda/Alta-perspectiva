@@ -21,7 +21,7 @@ export class ApSearchComponent {
         this.categories = this.categoryService.getCategories();
     }
     public search = () => {
-        this.router.navigate(['/question']);
+        this.router.navigate(['/question/home']);
     }
     public filteredList = [];
     public elementRef;
