@@ -8,7 +8,7 @@
     if (!string.IsNullOrEmpty(Model) && !string.IsNullOrEmpty(User.Identity.Name))
     {
         <div class="body-minHeight">
-            <app username="'@User.Identity.Name'+'#'+'@Model'">Loading ...</app>
+            <app username="'@User.Identity.Name'" token="'@Model'">Loading ...</app>
         </div>
     }
 }

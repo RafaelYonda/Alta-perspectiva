@@ -1,5 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions  } from '@angular/http';
+import { Observable }     from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 import {QuestionMenu, Category, Question, User, Answer} from './models';
 
 @Injectable()
@@ -44,40 +48,45 @@ export class QuestionAnswerService {
         question.answers = answers;
         return question;
     }
+    
+    constructor(private _http: Http) {
+
+        let headers = new Headers({ 'Content-Type': 'application/json' });        
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('auth_token'));
+
+        let options = new RequestOptions({ headers: headers });
+    }   
 
 
-    constructor(private _http: Http) { }
-
-    loadData(): Promise<Question[]> {
-        return this._http.get('/api/persons')
-            .toPromise()
-            .then(response => this.extractArray(response))
-            .catch(this.handleErrorPromise);
+    getQuestions(): Observable<Question[]> {
+        return this._http.get('/questions/api/questions')
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
-    protected extractArray(res: Response, showprogress: boolean = true) {
-        let data = res.json();
-        return data || [];
+    addQuestions(question: Question): Observable<Question> {
+
+        return this._http.post('/questions/api/questions', question)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
-    protected handleErrorPromise(error: any): Promise<void> {
-        try {
-            error = JSON.parse(error._body);
-        } catch (e) {
+    private extractData(res: Response) {
+        let body = res.json();
+        return body.data || {};
+    }
+    private handleError(error: Response | any) {
+        // In a real world app, we might use a remote logging infrastructure
+        let errMsg: string;
+        if (error instanceof Response) {
+            const body = error.json() || '';
+            const err = body.error || JSON.stringify(body);
+            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+        } else {
+            errMsg = error.message ? error.message : error.toString();
         }
-
-        let errMsg = error.errorMessage
-            ? error.errorMessage
-            : error.message
-                ? error.message
-                : error._body
-                    ? error._body
-                    : error.status
-                        ? `${error.status} - ${error.statusText}`
-                        : 'unknown server error';
-
         console.error(errMsg);
-        return Promise.reject(errMsg);
+        return Observable.throw(errMsg);
     }
 
 }
