@@ -1,4 +1,19 @@
-﻿.user-image {
+﻿.social-icon{
+    float:right;
+}
+.status-line{
+    display:inline-block;
+    font-size:12px;
+}
+.like-border{
+    border-right:1px solid #cccccc;
+    height:10px;
+}
+.like-logo {
+    height: 30px;
+    padding: 0px 0px;
+}
+.user-image {
     height: 40px;
     width: 40px;
     border-radius: 20px;
