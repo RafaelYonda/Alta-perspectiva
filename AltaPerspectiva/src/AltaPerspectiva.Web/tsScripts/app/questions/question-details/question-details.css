@@ -1,4 +1,42 @@
-﻿.social-icon{
+﻿a{
+    cursor:pointer;
+}
+.btn-default{
+    background-color:#f5f5f5;
+}
+.btn-primary {
+    background-color: #F6912B;
+    border-color: #F6912B;
+}
+.card-block{
+    clear:both;
+}
+.modal-dialog {
+    margin: 175px auto;
+}
+.comment-input>.form-control{
+    width:78%;
+    display:inline-block;
+}
+.status-panel>hr{
+    width:100%;
+    margin-left:0;
+}
+.social-image{
+    height: 22px;
+    width: 22px;
+    border-radius: 11px;
+    cursor: pointer;
+}
+.comment-panel{
+    margin-left:2%;
+    margin-top:10px;
+
+}
+.comment-container{
+    display:inline-block;
+}
+.social-icon{
     float:right;
 }
 .status-line{
@@ -17,6 +55,10 @@
     height: 40px;
     width: 40px;
     border-radius: 20px;
+}
+.comment-img{
+    float:left;
+    margin-right:3px;
 }
 
 .answer-text {
