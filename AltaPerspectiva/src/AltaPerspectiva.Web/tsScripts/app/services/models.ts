@@ -25,6 +25,7 @@ export class Comment {
     id: number;
     user: User;
     commentText: string;
+    time: Date;
 }
 export class Question {
     id: string;
@@ -32,6 +33,9 @@ export class Question {
     subTitle: string;
     questionBody: string;
     questionTime: string;
+    likeCount: number;
+    commentCount: number;
+    comments: Comment[];
     date: Date;
     responseCount: string;
     user: User;
@@ -44,6 +48,9 @@ export class Answer {
     answerText: string;
     date: Date;
     topics: string;
+    likeCount: number;
+    commentCount: number;
+    comments: Comment[];
 }
 //========Profile Objects===========
 export class Profile {

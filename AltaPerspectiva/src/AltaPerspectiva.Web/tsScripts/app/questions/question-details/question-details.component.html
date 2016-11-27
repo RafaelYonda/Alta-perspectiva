@@ -1,5 +1,32 @@
 ﻿<!-- =========Questions========== -->
 <h1>&iquest;{{question.title}}?</h1>
+<div class="header-info">{{date.getMonthName(question.date.getMonth())}} {{question.date.getFullYear()}}</div>
+<button class="btn btn-default" data-toggle="modal" data-target="#myModal">Answer</button>
+
+<!-- ===================== -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Ask</h4>
+            </div>
+            <div class="modal-body">
+                <ck-editor></ck-editor>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- =============== -->
+
+
+<h3>{{question.answers.length}} Answers</h3>
 <div class="row">
     <div class="left-border">
         <img class="image-border" src="../../../../images/border.png" />
@@ -7,38 +34,41 @@
     <div class="article-details">
         <img class="user-image" src="../../../../images/avatar.png" />
         <div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>
-        <div class="header-info">{{question.subTitle}},{{date.getMonthName(question.date.getMonth())}} {{question.date.getDate()}} {{question.date.getFullYear()}}</div>
+        <div class="header-info">{{date.getMonthName(question.date.getMonth())}} {{question.date.getFullYear()}}</div>
         <p class="answer-text">{{question.questionBody}}</p>
-        <hr />
-        <img class="like-logo" src="../images/LOGO CUADRADO.png" />
-        <div class="status-line">2</div>
-        <div class="status-line">Like</div>
-        <div class="status-line like-border"></div>
-        <div class="status-line">2</div>
-        <div class="status-line">Leidos</div>
-        <!-- social media icon -->
-        <div class="social-icon">
-            <i class="fa fa-facebook-square"></i>
-            <i class="fa fa-twitter-square"></i>
-            <i class="fa fa-external-link"></i>
+        <div class="status-panel">
+            <hr />
+            <img class="like-logo" src="../images/fade-logo.png" />
+            <div class="status-line">{{question.likeCount}}</div>
+            <div class="status-line">Like</div>
+            <div class="status-line like-border"></div>
+            <div class="status-line">{{question.commentCount}}</div>
+            <div class="status-line">Leidos</div>
+            <a data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                3 comments
+            </a>
+            <!-- social media icon -->
+            <div class="social-icon">
+                <img class="social-image" src="../images/facebooklogo.jpg" />
+                <img class="social-image" src="../images/twitter.png" />
+                <img class="social-image" src="../images/icon-external-link.png" />
+            </div>
         </div>
-        <hr />
-        <p>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                3comments, Show
-            </button>
-        </p>
-        <div class="collapse" id="collapseExample">
+        <!-- ======Question Comment==== -->
+        <div class="collapse comment-panel" id="collapseExample">
+            <div class="comment-input">
+                <img class="user-image comment-img" src="../../../../images/avatar.png" />
+                <input class="form-control" />
+                <button class="btn btn-info">comment</button>
+            </div>
             <div class="card card-block">
-                <div *ngFor="let answer of question.answers">
+                <div *ngFor="let comment of question.comments">
                     <div class="row">
-
                         <div class="article-details">
-                            <img class="user-image" src="../../../../images/avatar.png" />
-                            <div class="header-info">{{answer.user.name}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>
-                            <p class="answer-text">{{answer.answerText}}</p>
+                            <img class="user-image comment-img" src="../../../../images/avatar.png" />
+                            <div class="header-info">{{comment.user.name}},{{date.getMonthName(comment.time.getMonth())}} {{comment.time.getDate()}} {{comment.time.getFullYear()}}</div>
+                            <p class="answer-text">{{comment.commentText}}</p>
                         </div>
-
                     </div>
                     <hr />
                 </div>
@@ -54,25 +84,51 @@
             <img class="image-border" src="../../../../images/border.png" />
         </div>
         <div class="article-details">
-            <img class="user-image" src="../../../../images/avatar.png" />
+            <img class="user-image " src="../../../../images/avatar.png" />
             <div class="header-info">{{answer.user.name}},{{answer.user.occupassion}}</div>
             <div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>
             <p class="answer-text">{{answer.answerText}}</p>
-            <hr />
-            <img class="like-logo" src="../images/LOGO CUADRADO.png" />
-            <div class="status-line">2</div>
-            <div class="status-line">Like</div>
-            <div class="status-line like-border"></div>
-            <div class="status-line">2</div>
-            <div class="status-line">Leidos</div>
-            <!-- social media icon -->
-            <div class="social-icon">
-                <i class="fa fa-facebook-square"></i>
-                <i class="fa fa-twitter-square"></i>
-                <i class="fa fa-external-link"></i>
+            <div class="status-panel">
+                <hr />
+                <img class="like-logo" src="../images/fade-logo.png" />
+                <div class="status-line">{{answer.likeCount}}</div>
+                <div class="status-line">Like</div>
+                <div class="status-line like-border"></div>
+                <div class="status-line">{{answer.commentCount}}</div>
+                <div class="status-line">Leidos</div>
+                <a data-toggle="collapse" attr.data-target="#answerComment{{answer.id}}" aria-expanded="false" aria-controls="collapseExample">
+                    3 comments
+                </a>
+                <!-- social media icon -->
+                <div class="social-icon">
+                    <img class="social-image" src="../images/facebooklogo.jpg" />
+                    <img class="social-image" src="../images/twitter.png" />
+                    <img class="social-image" src="../images/icon-external-link.png" />
+
+                </div>
+            </div>
+            <!-- ======Answer Comment==== -->
+            <div class="collapse comment-panel" id="answerComment{{answer.id}}">
+                <div class="comment-input">
+                    <img class="user-image comment-img" src="../../../../images/avatar.png" />
+                    <input class="form-control" />
+                    <button class="btn btn-info">comment</button>
+                </div>
+                <div class="card card-block">
+                    <div *ngFor="let comment of answer.comments">
+                        <div class="row">
+                            <div class="article-details">
+                                <img class="user-image comment-img" src="../../../../images/avatar.png" />
+                                <div class="header-info">{{comment.user.name}},{{date.getMonthName(comment.time.getMonth())}} {{comment.time.getDate()}} {{comment.time.getFullYear()}}</div>
+                                <p class="answer-text">{{comment.commentText}}</p>
+                            </div>
+
+                        </div>
+                        <hr />
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
     <hr />
 </div>
