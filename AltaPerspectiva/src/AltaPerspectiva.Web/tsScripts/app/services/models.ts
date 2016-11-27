@@ -37,6 +37,19 @@ export class Question {
     user: User;
     answers: Answer[];
 }
+
+export class AskQuestionViewModel {
+    title: string;
+    details: string;
+    categoryId: string;
+
+    constructor(_title: string, _detials: string, _categoryId: string) {
+        this.title = _title;
+        this.details = _detials;
+        this.categoryId = _categoryId;
+    }
+}
+
 export class Answer {
     id: number;
     questionId: number;

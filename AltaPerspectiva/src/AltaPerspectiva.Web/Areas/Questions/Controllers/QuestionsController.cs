@@ -45,7 +45,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost]
         public void Post([FromBody]QuestionViewModel question)
         {
-            AddQuestionCommand cmd = new AddQuestionCommand("Some title", "Body bidy body", new DateTime(2016, 11, 2), null, null, null, null);
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, null, null, null, null);
             commandsFactory.ExecuteQuery(cmd);
 
             Guid customerId = cmd.Id;

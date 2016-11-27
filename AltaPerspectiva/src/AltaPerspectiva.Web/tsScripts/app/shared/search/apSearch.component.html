@@ -1,36 +1,52 @@
 ﻿<div [ngClass]="placeBottom">
     <div class="input-group" id="adv-search">
-        <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Search for snippets"
-               id="country" [(ngModel)]=query (keyup)=filter() />
-        <div class="suggestions" *ngIf="filteredList.length > 0">
-            <ul class="question-List">
-                <li *ngFor="let item of filteredList">
-                    <a (click)="select(item)">{{item}}</a>
-                </li>
-            </ul>
-        </div>
-        <div class="input-group-btn">
-            <div class="btn-group" role="group">
-                <div class="dropdown dropdown-lg">
-                    <button type="button" class="btn btn-default  fixed-height" data-toggle="collapse" data-target="#question-details" (click)="showPanel(searchText)" aria-expanded="false"><span  class="caret"></span></button>
-                    <div id="question-details" class="dropdown-menu dropdown-menu-right search-menu" role="menu">
-                        <form class="form-horizontal" role="form">
+        
+        <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="form-horizontal" role="form">
+
+            
+
+            <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Ask here" id="title" 
+               [(ngModel)]="questionVM.title" required name="title"  #title="ngModel"  (keyup)=filterQuestions() />
+
+            <div [hidden]="title.valid || title.pristine"
+                 class="alert alert-danger">
+                Please type your question and then click ask!!
+            </div>
+
+            <div class="suggestions" *ngIf="filteredQuestionList.length > 0">
+                <ul class="question-List">
+                    <li *ngFor="let item of filteredQuestionList">
+                        <a (click)="selectQuestionDetails(item)">{{item}}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                    <div class="dropdown dropdown-lg">
+                        <button type="button" class="btn btn-default  fixed-height" data-toggle="collapse" data-target="#question-details" (click)="showDetailsQuestionsPanel(searchText)" aria-expanded="false"><span class="caret"></span></button>
+                        <div id="question-details" class="dropdown-menu dropdown-menu-right search-menu" role="menu">
+
                             <div class="question-components">
                                 <label> Categories</label>
-                                <select class="catagory-dropdown">
-                                    <option *ngFor="let category of categories">
+                                <select class="form-control catagory-dropdown" id="Category"  required  [(ngModel)]="questionVM.categoryId" name="category" #category="ngModel">
+                                    <option *ngFor="let category of categories" [value]="category.id">
                                         {{category.name}}
                                     </option>
                                 </select>
+                                <div [hidden]="category.valid || category.pristine" class="alert alert-danger">
+                                    You must select a category for question
+                                </div>
                             </div>
                             <div class="question-components">
-                                <ck-editor></ck-editor>
+                                <ck-editor ckeditorContent="{{questionVM.details}}"  id="details" name="details"></ck-editor>
                             </div>
-                        </form>
+
+                        </div>
                     </div>
+                    <button type="submit" class="btn btn-primary fixed-height" [disabled]="!questionVM.form.valid"  ><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span style="padding-left:5px">Ask</span></button>
                 </div>
-                <button type="button" class="btn btn-primary fixed-height" (click)="search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span style="padding-left:5px">Ask</span></button>
             </div>
-        </div>
+        </form>
     </div>
 </div>

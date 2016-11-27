@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component,Input } from '@angular/core';
 
 @Component({
     selector: 'ck-editor',
@@ -8,7 +8,7 @@
                </ckeditor>`
 })
 export class AppCkEditorComponent {
-    ckeditorContent: string = "";
+    @Input() ckeditorContent: string = "";
     constructor() {
         this.ckeditorContent = "<p>Question details</p>";
     }

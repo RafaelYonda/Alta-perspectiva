@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
+import { Router, ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -7,7 +8,7 @@ import 'rxjs/add/operator/catch';
 import {QuestionMenu, Category, Question, User, Answer} from './models';
 
 @Injectable()
-export class QuestionAnswerService {
+export class QuestionAnswerService implements Resolve<Question> {
 
     getQuestionListByString(searchParam: string): QuestionMenu[] {
         var questionList: QuestionMenu[] = [];
@@ -55,8 +56,13 @@ export class QuestionAnswerService {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('auth_token'));
 
         let options = new RequestOptions({ headers: headers });
-    }   
+    }
 
+    resolve(route: ActivatedRouteSnapshot): Observable<Question> {
+        return this._http.get('/questions/api/questions')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
     getQuestions(): Observable<Question[]> {
         return this._http.get('/questions/api/questions')
