@@ -17,6 +17,7 @@ import { Category, Question, AskQuestionViewModel } from '../../services/models'
 export class ApSearchComponent {
    
     //@Input() placeBottom: string;
+    public filteredQuestionList: any = [];
     @Input() placeBottom: string = '';
     public icon: string;
     public visible = true;
@@ -78,7 +79,7 @@ export class ApSearchComponent {
      ];
 
 
-    public filteredQuestionList = [];
+    
     filterQuestions() {
         if (this.questionVM.title !== "") {
             this.filteredQuestionList = this.countries.filter(function (el) {
