@@ -18,6 +18,7 @@ export class QuestionBodyComponent{
     answerList: Answer[];
     questionList: Question[];
     error: any;
+    answer: string;
 
     constructor(questionService: QuestionAnswerService, router: Router, route: ActivatedRoute) {
         this._router = router;
@@ -26,13 +27,9 @@ export class QuestionBodyComponent{
     }
 
     ngOnInit() {
-
         ///route resolve servivce to get data
         this.route.data
             .subscribe(res => this.questionList = res, error => this.error = error);
-
-        console.log("Route resolve data:");
-
     }
 
     GoToQuestionDetails() {

@@ -22,10 +22,7 @@ export class ApBannerComponent {
         var doc = this._el.nativeElement;
         var nodeBanner = doc.childNodes[0];
         console.debug(this._window.scrollY);
-        if (this._window.scrollY > 200) {
-            console.debug(this._el.nativeElement.parentNode);
-            console.debug(((this._el.nativeElement.parentNode).parentNode).parentNode);
-            console.debug(this._el.nativeElement);
+        if (this._window.scrollY > 200) {          
 
             this._el.nativeElement.parentNode.classList.add("fixed-top");
             ((this._el.nativeElement.parentNode).parentNode).parentNode.classList.add("parent-padding");

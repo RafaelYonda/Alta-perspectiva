@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {HttpModule  } from '@angular/http';
 
+import { CKEditorModule } from 'ng2-ckeditor';
 //====question components============
 import { questionNav } from './nav/question-nav.component';
 import { QuestionHomeComponent } from './question-home.component';
@@ -18,10 +19,10 @@ import { QuestionAnswerService } from '../services/question-answer.service';
 
 @NgModule({
     providers: [ QuestionAnswerService],
-    imports: [BrowserModule, HttpModule, FormsModule, SharedModule, RouterModule.forRoot([
+    imports: [BrowserModule, HttpModule, CKEditorModule, FormsModule, SharedModule, RouterModule.forRoot([
         {
             path: 'question', component: QuestionHomeComponent,
-            children: [
+            children: [               
                 { path: 'home', component: QuestionBodyComponent },
                 { path: 'detail', component: QuestionDetailComponent }]
         }

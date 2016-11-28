@@ -37,11 +37,7 @@ export class ApSearchComponent {
         
     }  
 
-    submitQuestion() {
-        console.log("Form submit");
-        console.log(this.title);
-        console.log(this.categoryID);
-        console.log(this.body);
+    submitQuestion() {      
         
         this.question = new Question();
         this.question.title = this.title;

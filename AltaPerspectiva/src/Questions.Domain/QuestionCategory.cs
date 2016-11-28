@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using AltaPerspectiva.Core.Infrastructure;
-    public class QuestionCategory : Entity
+    public class QuestionCategory :Entity
     {
         public Guid QuestionId { get; set;}
         public virtual Question Question { get; set; }
