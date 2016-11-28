@@ -18,10 +18,8 @@ export class ApBannerComponent {
 
     @HostListener('window:scroll', ['$event'])
     track(event) {
-        //var doc = this._el.nativeElement.offsetParent;
         var doc = this._el.nativeElement;
         var nodeBanner = doc.childNodes[0];
-        console.debug(this._window.scrollY);
         if (this._window.scrollY > 200) {          
 
             this._el.nativeElement.parentNode.classList.add("fixed-top");
