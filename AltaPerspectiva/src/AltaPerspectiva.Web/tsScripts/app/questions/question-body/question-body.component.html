@@ -1,5 +1,5 @@
-﻿<div *ngFor="let answer of answerList">
-    <h1>&iquest;What is balanced score card?</h1>
+﻿<div *ngFor="let question of questions">
+    <h1>&iquest;{{question.title}}?</h1>
     <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Answer</button>
         <div class="row">
             <div class="left-border">
@@ -7,9 +7,11 @@
             </div>
             <div class="article-details">
                 <img class="user-image" src="../../../../images/avatar.png" />
-                <div class="header-info">{{answer.user.name}},{{answer.user.occupassion}}</div>
-                <div class="header-info">{{answer.topics}}</div>
-                <p class="answer-text">{{answer.answerText}}</p>
+
+                <div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>
+                <!--<div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>-->
+                <p class="answer-text">{{question.body}}</p>
+
             </div>
         </div>
         <hr />
@@ -36,6 +38,5 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
-
     </div>
 </div>
