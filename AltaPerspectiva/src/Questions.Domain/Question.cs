@@ -12,7 +12,7 @@
 
         public string Body { get; set; } 
 
-        public Guid UserId { get; set; }        
+        public Guid? UserId { get; set; }        
 
         public virtual ICollection<QuestionCategory> Categories { get; set; }
 
@@ -22,7 +22,7 @@
    
         public virtual ICollection<Like> Likes { get; set; }
 
-        public int ViewCount { get; set; }
+        public int? ViewCount { get; set; }
        
     }
 }

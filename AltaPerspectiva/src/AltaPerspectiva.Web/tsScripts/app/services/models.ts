@@ -31,7 +31,7 @@ export class Question {
     id: string;
     title: string;    
     body: string;
-    category: Category;    
+    categoryId: number;    
     likeCount: number;
     commentCount: number;
     comments: Comment[];

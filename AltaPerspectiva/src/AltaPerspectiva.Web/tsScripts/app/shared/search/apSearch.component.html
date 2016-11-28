@@ -28,7 +28,7 @@
                         <div id="question-details" class="dropdown-menu dropdown-menu-right search-menu" role="menu">
 
                             <div class="question-components">
-                                <label> Categories</label>
+                                <label> Categories {{questionVM.categoryId}} {{ questionVM.title}}</label>
                                 <select class="form-control catagory-dropdown" id="Category" required [(ngModel)]="questionVM.categoryId" name="category" #category="ngModel">
                                     <option *ngFor="let category of categories" [value]="category.id">
                                         {{category.name}}
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                             <div class="question-components">
-                                <ck-editor ckeditorContent="{{questionVM.details}}" id="details" name="details"></ck-editor>
+                                <ck-editor  id="details" name="details" ckeditorContent={{questionVM.body}}></ck-editor>
                             </div>
 
                         </div>

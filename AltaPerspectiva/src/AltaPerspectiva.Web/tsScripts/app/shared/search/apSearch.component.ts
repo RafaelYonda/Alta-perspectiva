@@ -34,10 +34,11 @@ export class ApSearchComponent {
 
     submitQuestion() {
         console.log("Form submit");
+        
         this.question = new Question();
-        this.question.title = "How to call javascript function inside Xamarin.Forms webview?";
-        this.question.body = "How to call javascript function inside Xamarin.Forms webview?";
-        this.question.category = { id: 1, name: 'Ver todas', icon: 'icon-star', active: 'active' };
+        this.question.title = this.questionVM.title;
+        this.question.body = "";
+        this.question.categoryId = this.questionVM.categoryId;
         
         this.questionsService.addQuestions(this.question).subscribe(res => {
             this.question = res;

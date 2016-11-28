@@ -17,8 +17,7 @@ namespace Questions.Query
 
         public IEnumerable<Question> Execute()
         {
-            return DbContext
-                .Questions?.ToList();
+            return DbContext.Questions; 
         }
     }
 }
