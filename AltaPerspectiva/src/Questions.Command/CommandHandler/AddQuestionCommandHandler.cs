@@ -29,6 +29,9 @@
             // 
             Question question = new Question();
             question.GenerateNewIdentity();
+
+            // create new answers. generate id then add to questions
+
             question.Answers = command.Answers;
             question.Title = command.Title;
             question.Body = command.Body;

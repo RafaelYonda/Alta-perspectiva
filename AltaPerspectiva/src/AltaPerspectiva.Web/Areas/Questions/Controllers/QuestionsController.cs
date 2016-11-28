@@ -28,10 +28,10 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         // GET: api/questions
         [HttpGet]
-        public IEnumerable<Question> Get()
+        public IActionResult Get()
         {
-            return queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-           
+            var questionsList = queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+            return Ok(questionsList);         
         }
 
         // GET api/questions/5
@@ -43,13 +43,13 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         // POST api/questions        
         [HttpPost]
-        public void Post([FromBody]QuestionViewModel question)
+        public IActionResult Post([FromBody]QuestionViewModel question)
         {
             AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, null, null, null, null);
             commandsFactory.ExecuteQuery(cmd);
-
-            Guid customerId = cmd.Id;
-
+            Guid createdId = cmd.Id;
+            
+            return Created($"questions/api/questions/{cmd.Id}", question);
         }
 
         // PUT api/questions/5

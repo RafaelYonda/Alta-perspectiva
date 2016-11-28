@@ -17,6 +17,7 @@ import { QuestionAnswerService } from '../services/question-answer.service';
 
 
 @NgModule({
+    providers: [ QuestionAnswerService],
     imports: [BrowserModule, HttpModule, FormsModule, SharedModule, RouterModule.forRoot([
         {
             path: 'question', component: QuestionHomeComponent,

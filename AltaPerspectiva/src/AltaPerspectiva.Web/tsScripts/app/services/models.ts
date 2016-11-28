@@ -29,10 +29,9 @@ export class Comment {
 }
 export class Question {
     id: string;
-    title: string;
-    subTitle: string;
-    questionBody: string;
-    questionTime: string;
+    title: string;    
+    body: string;
+    category: Category;    
     likeCount: number;
     commentCount: number;
     comments: Comment[];
@@ -40,16 +39,17 @@ export class Question {
     responseCount: string;
     user: User;
     answers: Answer[];
+    answerCount: number
 }
 
 export class AskQuestionViewModel {
     title: string;
-    details: string;
-    categoryId: string;
+    body: string;
+    categoryId: number;
 
-    constructor(_title: string, _detials: string, _categoryId: string) {
+    constructor(_title: string, _detials: string, _categoryId: number) {
         this.title = _title;
-        this.details = _detials;
+        this.body = _detials;
         this.categoryId = _categoryId;
     }
 }

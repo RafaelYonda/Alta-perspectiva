@@ -21,23 +21,26 @@ export class ApSearchComponent {
     public icon: string;
     public visible = true;
     categories: Category[];
-    question: Question;
-    questionVM: AskQuestionViewModel;
+    question: Question; 
+    questionVM = new AskQuestionViewModel("", "", -1);                
     result: string;
 
     constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, myElement: ElementRef) {
         this.elementRef = myElement;
         this.categories = this.categoryService.getCategories();
-        this.questionVM = new AskQuestionViewModel("","","");             
+        
     }  
 
     submitQuestion() {
         console.log("Form submit");
-        this.question.title = this.questionVM.title;
-        this.question.questionBody = this.questionVM.details;
-
+        this.question = new Question();
+        this.question.title = "How to call javascript function inside Xamarin.Forms webview?";
+        this.question.body = "How to call javascript function inside Xamarin.Forms webview?";
+        this.question.category = { id: 1, name: 'Ver todas', icon: 'icon-star', active: 'active' };
+        
         this.questionsService.addQuestions(this.question).subscribe(res => {
             this.question = res;
+            console.log(" " + res);
             this.router.navigate(['/question/home']);
         }); 
     }

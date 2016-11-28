@@ -88,8 +88,8 @@ export class QuestionAnswerService implements Resolve<Question> {
         question.title = 'What is balanced score card';
         question.user = { userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png" };
         question.date = new Date();
-        question.questionBody = 'Question...Question ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur. Nam sem sem, tincidunt sit amet congue et, venenatis in massa. Nunc massa lectus, vulputate in diam vel, euismod ornare purus. Curabitur vitae turpis quis quam imperdiet facilisis. In lacinia interdum velit, vel tempus mauris tempus id. Vestibulum ullamcorper lacus id dictum scelerisque. Fusce id nulla accumsan, tincidunt mi vel, facilisis diam. Nullam rhoncus, nibh eget tempus posuere';
-        question.subTitle = 'Strategy';
+        question.body = 'Question...Question ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur. Nam sem sem, tincidunt sit amet congue et, venenatis in massa. Nunc massa lectus, vulputate in diam vel, euismod ornare purus. Curabitur vitae turpis quis quam imperdiet facilisis. In lacinia interdum velit, vel tempus mauris tempus id. Vestibulum ullamcorper lacus id dictum scelerisque. Fusce id nulla accumsan, tincidunt mi vel, facilisis diam. Nullam rhoncus, nibh eget tempus posuere';
+        question.category = { id: 1, name: 'Ver todas', icon: 'icon-star', active: 'active' };
         question.answers = answers;
         question.likeCount = 1
         question.commentCount = 3;
@@ -124,9 +124,15 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
 
-    private extractData(res: Response) {
-        let body = res.json();
-        return body.data || {};
+    private extractData(res: Response) {       
+        let body;
+
+        // check if empty, before call json
+        if (res.text()) {
+            body = res.json();
+        }
+
+        return body || {};
     }
 
     private handleError(error: Response | any) {
