@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import {HttpModule, JsonpModule  } from '@angular/http';
+import {HttpModule  } from '@angular/http';
 
 //====question components============
 import { questionNav } from './nav/question-nav.component';
@@ -21,24 +21,18 @@ import { QuestionAnswerService } from '../services/question-answer.service';
         {
             path: 'question', component: QuestionHomeComponent,
             children: [
-                {
-                    path: 'home', component: QuestionBodyComponent,
-                    resolve: {
-                        questionsList: QuestionAnswerService
-                    }
-                },
-                { path: 'detail', component: QuestionDetailComponent }
-            ]
-        }       
+                { path: 'home', component: QuestionBodyComponent },
+                { path: 'detail', component: QuestionDetailComponent }]
+        }
     ]
-    )],    
+    )],
     declarations: [
         //Core Components
         QuestionBodyComponent, QuestionHomeComponent, questionNav, QuestionMenuPanelComponent, QuestionDetailComponent
     ],
     exports: [
         //RouterModule,
-//QuestionHomeComponent
+        //QuestionHomeComponent
         //Core Components
     ]
 })
