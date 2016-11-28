@@ -17,28 +17,36 @@ import { Category, Question, AskQuestionViewModel } from '../../services/models'
 export class ApSearchComponent {
    
     //@Input() placeBottom: string;
+    ckeditorContent: string;
     public filteredQuestionList: any = [];
     @Input() placeBottom: string = '';
     public icon: string;
     public visible = true;
     categories: Category[];
     question: Question; 
-    questionVM = new AskQuestionViewModel("", "", -1);                
+
+    title: string;
+    categoryID: number;
+    body: string;                 
     result: string;
 
     constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, myElement: ElementRef) {
         this.elementRef = myElement;
         this.categories = this.categoryService.getCategories();
+        this.body = "<p>Question details</p>";
         
     }  
 
     submitQuestion() {
         console.log("Form submit");
+        console.log(this.title);
+        console.log(this.categoryID);
+        console.log(this.body);
         
         this.question = new Question();
-        this.question.title = this.questionVM.title;
-        this.question.body = "";
-        this.question.categoryId = this.questionVM.categoryId;
+        this.question.title = this.title;
+        this.question.body = this.body;
+        this.question.categoryId = this.categoryID;
         
         this.questionsService.addQuestions(this.question).subscribe(res => {
             this.question = res;
@@ -82,9 +90,9 @@ export class ApSearchComponent {
 
     
     filterQuestions() {
-        if (this.questionVM.title !== "") {
+        if (this.title !== "") {
             this.filteredQuestionList = this.countries.filter(function (el) {
-                return el.toLowerCase().indexOf(this.questionVM.questionTitle.toLowerCase()) > -1;
+                return el.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
             }.bind(this));
         } else {
             this.filteredQuestionList = [];
@@ -92,7 +100,7 @@ export class ApSearchComponent {
     }
 
     selectQuestionDetails(item) {
-        this.questionVM.title = item;
+        this.title = item;
         this.filteredQuestionList = [];
     }
 

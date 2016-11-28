@@ -35,7 +35,7 @@
             question.Answers = command.Answers;
             question.Title = command.Title;
             question.Body = command.Body;
-
+            question.UserId = new System.Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             DbContext.Questions.Add(question);
 			DbContext.SaveChanges();
 
