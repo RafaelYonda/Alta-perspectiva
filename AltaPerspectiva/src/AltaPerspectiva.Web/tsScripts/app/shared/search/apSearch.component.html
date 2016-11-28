@@ -29,6 +29,7 @@
 
                             <div class="question-components">
                                 <label> Categories</label>
+                                <select class="form-control catagory-dropdown" id="Category" required [(ngModel)]="questionVM.categoryId" name="category" #category="ngModel">
                                     <option *ngFor="let category of categories" [value]="category.id">
                                         {{category.name}}
                                     </option>
