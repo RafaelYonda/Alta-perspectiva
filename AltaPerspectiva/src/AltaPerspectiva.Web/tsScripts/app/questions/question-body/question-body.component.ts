@@ -29,7 +29,6 @@ export class QuestionBodyComponent{
     }
 
     ngOnInit() {
-
         //=====Question Load======
         this.questionService.getQuestions().subscribe(res => {
             var temques = [];

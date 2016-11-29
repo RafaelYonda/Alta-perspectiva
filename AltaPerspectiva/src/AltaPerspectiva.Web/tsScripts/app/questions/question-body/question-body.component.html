@@ -7,11 +7,9 @@
             </div>
             <div class="article-details">
                 <img class="user-image" src="../../../../images/avatar.png" />
-
                 <div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>
                 <!--<div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>-->
                 <p class="answer-text">{{question.body}}</p>
-
             </div>
         </div>
         <hr />
@@ -25,17 +23,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Type answer below..</h4>
+                <h4 class="modal-title">Modal Header</h4>
             </div>
             <div class="modal-body">
-                <ckeditor [(ngModel)]="answer" [ngModelOptions]="{standalone: true}"
-                          [config]="{ removeButtons : 'Outdent,Indent,About,SpecialChar,Styles,Format,Source,NumberedList,BulletedList,Scayt,Blockquote,Anchor,Table'}"
-                          debounce="500">
-                </ckeditor>
+                <p>Some text in the modal.</p>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary fixed-height" ><span class="glyphicon success" aria-hidden="true"></span><span style="padding-left:5px">Submit</span></button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
