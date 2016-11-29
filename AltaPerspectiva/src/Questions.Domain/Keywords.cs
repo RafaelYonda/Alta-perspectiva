@@ -6,11 +6,11 @@ using AltaPerspectiva.Core.Infrastructure;
 
 namespace Questions.Domain
 {
-    public class Keywords
+    public class Keyword
     {
-        public int Id { get; set; }
-        public string KeyWord { get; set; }
+        public Int64 Id { get; set; }
+        public string Text { get; set; }
         public Guid CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

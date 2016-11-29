@@ -67,7 +67,16 @@
                 return Set<QuestionCategory>().AsNoTracking();
             }
         }
-        
+
+        public IQueryable<Keyword> Keywords
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<Keyword>().AsNoTracking();
+            }
+        }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -79,6 +88,7 @@
             modelBuilder.Entity<Like>().ToTable("Likes");
             modelBuilder.Entity<Comment>().ToTable("Comments");
             modelBuilder.Entity<QuestionCategory>().ToTable("QuestionCategories");
+            modelBuilder.Entity<Keyword>().ToTable("Keywords");
 
         }
 

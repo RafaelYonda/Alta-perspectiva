@@ -15,6 +15,7 @@
        public DbSet<Like> Likes { get; set; }
        public DbSet<Comment> Comments { get; set; }
        public DbSet<QuestionCategory> QuestionCategories { get; set; }
+       public DbSet<Keyword> Keywords { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

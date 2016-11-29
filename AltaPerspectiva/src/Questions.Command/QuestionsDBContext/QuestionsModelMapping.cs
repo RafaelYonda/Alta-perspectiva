@@ -71,7 +71,20 @@
                 e.Property(c => c.Name);
 
                 e.HasMany<QuestionCategory>(q => q.Questions).WithOne(c => c.Category).HasForeignKey(qc => qc.QuestionId);
-                
+
+                e.HasMany<Keyword>(q => q.Keywords).WithOne(k => k.Category).HasForeignKey(k => k.CategoryId);
+
+            });
+
+            //keywords
+            model.Entity<Keyword>(e =>
+            {
+                e.ToTable("Keywords");
+
+                e.HasKey(c => c.Id);
+
+                e.Property(c => c.Text);              
+
             });
 
             // comments

@@ -11,5 +11,6 @@
         public string Icon { get; set; }
         public string Active { get; set; }
         public virtual ICollection<QuestionCategory> Questions { get; set; }
+        public virtual ICollection<Keyword> Keywords { get; set; }
     }
 }
