@@ -24,7 +24,7 @@ export class QuestionBodyComponent{
     constructor(private questionService: QuestionAnswerService, router: Router, route: ActivatedRoute) {
         this._router = router;
         this.route = route;
-        this.answerList = questionService.getAnswersByQuestion(2);        
+        //this.answerList = questionService.getAnswersByQuestion(2);        
         this.questions = [];
     }
 
@@ -36,6 +36,7 @@ export class QuestionBodyComponent{
                 console.log(this);
                 //console.log(el);
                 var question = new Question();
+                question.id=el.id
                 question.body = el.body;
                 question.title = el.title;
                 question.user = {
@@ -44,9 +45,6 @@ export class QuestionBodyComponent{
                 question.responseCount = '1';
                 temques.push(question);
             });
-            console.log(res[0]);
-            console.log(temques);
-
             this.questions = temques;
         }); 
         ///route resolve servivce to get data

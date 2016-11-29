@@ -1,6 +1,6 @@
 ﻿<!-- =========Questions========== -->
 <h1>&iquest;{{question.title}}?</h1>
-<div class="header-info">{{date.getMonthName(question.date.getMonth())}} {{question.date.getFullYear()}}</div>
+<!--<div class="header-info">{{date.getMonthName(question.date.getMonth())}} {{question.date.getFullYear()}}</div>-->
 <button class="btn btn-default" data-toggle="modal" data-target="#myModal">Answer</button>
 
 <!-- ===================== -->
@@ -25,7 +25,6 @@
 </div>
 <!-- =============== -->
 
-
 <h3>{{question.answers.length}} Answers</h3>
 <div class="row">
     <div class="left-border">
@@ -33,9 +32,9 @@
     </div>
     <div class="article-details">
         <img class="user-image" src="../../../../images/avatar.png" />
-        <div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>
-        <div class="header-info">{{date.getMonthName(question.date.getMonth())}} {{question.date.getFullYear()}}</div>
-        <p class="answer-text">{{question.questionBody}}</p>
+        <!--<div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>-->
+        <!--<div class="header-info">{{date.getMonthName(question.date.getMonth())}} {{question.date.getFullYear()}}</div>-->
+        <p class="answer-text">{{question.body}}</p>
         <div class="status-panel">
             <hr />
             <img class="like-logo" src="../images/fade-logo.png" />
@@ -45,7 +44,7 @@
             <div class="status-line">{{question.commentCount}}</div>
             <div class="status-line">Leidos</div>
             <a data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                3 comments
+                {{question.comments.length}} comments
             </a>
             <!-- social media icon -->
             <div class="social-icon">
@@ -64,7 +63,7 @@
             <div class="card card-block">
                 <div *ngFor="let comment of question.comments">
                     <div class="row">
-                        <div class="article-details">
+                        <div class="article-details" *ngIf="comment">
                             <img class="user-image comment-img" src="../../../../images/avatar.png" />
                             <div class="header-info">{{comment.user.name}},{{date.getMonthName(comment.time.getMonth())}} {{comment.time.getDate()}} {{comment.time.getFullYear()}}</div>
                             <p class="answer-text">{{comment.commentText}}</p>
@@ -83,10 +82,10 @@
         <div class="left-border">
             <img class="image-border" src="../../../../images/border.png" />
         </div>
-        <div class="article-details">
+        <div class="article-details" *ngIf="answer">
             <img class="user-image " src="../../../../images/avatar.png" />
             <div class="header-info">{{answer.user.name}},{{answer.user.occupassion}}</div>
-            <div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>
+            <!--<div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>-->
             <p class="answer-text">{{answer.answerText}}</p>
             <div class="status-panel">
                 <hr />
@@ -117,9 +116,9 @@
                 <div class="card card-block">
                     <div *ngFor="let comment of answer.comments">
                         <div class="row">
-                            <div class="article-details">
+                            <div class="article-details" *ngIf="comment">
                                 <img class="user-image comment-img" src="../../../../images/avatar.png" />
-                                <div class="header-info">{{comment.user.name}},{{date.getMonthName(comment.time.getMonth())}} {{comment.time.getDate()}} {{comment.time.getFullYear()}}</div>
+                                <!--<div class="header-info">{{comment.user.name}},{{date.getMonthName(comment.time.getMonth())}} {{comment.time.getDate()}} {{comment.time.getFullYear()}}</div>-->
                                 <p class="answer-text">{{comment.commentText}}</p>
                             </div>
 

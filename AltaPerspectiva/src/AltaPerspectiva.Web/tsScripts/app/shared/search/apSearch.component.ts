@@ -51,7 +51,15 @@ export class ApSearchComponent {
         }); 
     }
 
-
+    ngOnInit() {
+        this.questionsService.getQuestions().subscribe(res => {
+            var resList = [];
+            res.forEach(function (el) {
+                resList.push(el.title);
+            });
+            this.questionList = resList;
+        }); 
+    }
     
     public elementRef;
     public selectCategory = (icon) => {
@@ -66,28 +74,28 @@ export class ApSearchComponent {
 
     //=============Autocomplete Codesd===================
      
-     public countries = ["What are some amazing pictures one has to see twice to understand?",
-         "What is x2−−√x2 equal to?",
-         "If you were on death row, and were given the chance to listen to one last song before your execution, what would it be?",
-         "What is the most satisfying passive-aggressive thing you have ever done to a really mean or rude person?",
-         "What is the biggest mistake made by a multi-billion dollar company?",
-         "What song do you currently play on repeat?",
-         "What movie can you watch all the time and never get tired of watching?",
-         "What medical condition do you have that you thought was absolutely normal?",
-         "What is the biggest mistake that a big company has made?",
-         "What is the best song to listen to after a stressful day at work?",
-         "What is the toughest coding question that you faced in an interview?",
-         "What song would you choose to go out to?",
-         "What are some plane hacks?",
-         "Why is BMW successful?",
-         "Which is the worst car ever made?"
-     ];
+     //public questionList = ["What are some amazing pictures one has to see twice to understand?",
+     //    "What is x2−−√x2 equal to?",
+     //    "If you were on death row, and were given the chance to listen to one last song before your execution, what would it be?",
+     //    "What is the most satisfying passive-aggressive thing you have ever done to a really mean or rude person?",
+     //    "What is the biggest mistake made by a multi-billion dollar company?",
+     //    "What song do you currently play on repeat?",
+     //    "What movie can you watch all the time and never get tired of watching?",
+     //    "What medical condition do you have that you thought was absolutely normal?",
+     //    "What is the biggest mistake that a big company has made?",
+     //    "What is the best song to listen to after a stressful day at work?",
+     //    "What is the toughest coding question that you faced in an interview?",
+     //    "What song would you choose to go out to?",
+     //    "What are some plane hacks?",
+     //    "Why is BMW successful?",
+     //    "Which is the worst car ever made?"
+     //];
 
-
+    public questionList = [];
     
     filterQuestions() {
         if (this.title !== "") {
-            this.filteredQuestionList = this.countries.filter(function (el) {
+            this.filteredQuestionList = this.questionList.filter(function (el) {
                 return el.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
             }.bind(this));
         } else {

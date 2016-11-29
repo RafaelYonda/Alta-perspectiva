@@ -8,7 +8,7 @@
                 Please type your question and then click ask!!
             </div>
 
-            <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Ask here" id="title"
+            <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Ask here" id="title" autocomplete="off"
                    [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
 
             

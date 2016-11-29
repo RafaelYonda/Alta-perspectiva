@@ -1,5 +1,4 @@
-﻿
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -15,16 +14,23 @@ import { QuestionMenuPanelComponent } from './question-left-menu/question-left-m
 import { SharedModule } from '../shared/shared.module';
 //================services=================\
 import { QuestionAnswerService } from '../services/question-answer.service';
+import { QuestionResolver } from '../services/resolve.services/question.resolver';
 
 
 @NgModule({
-    providers: [ QuestionAnswerService],
+    providers: [QuestionAnswerService, QuestionResolver],
     imports: [BrowserModule, HttpModule, CKEditorModule, FormsModule, SharedModule, RouterModule.forRoot([
         {
             path: 'question', component: QuestionHomeComponent,
             children: [               
-                { path: 'home', component: QuestionBodyComponent },
-                { path: 'detail', component: QuestionDetailComponent }]
+                {
+                    path: 'home', component: QuestionBodyComponent,
+                        resolve: { questionList: QuestionAnswerService}
+                },
+                {
+                    path: 'detail/:id', component: QuestionDetailComponent
+                    ,resolve: { question: QuestionResolver }
+                }]
         }
     ]
     )],

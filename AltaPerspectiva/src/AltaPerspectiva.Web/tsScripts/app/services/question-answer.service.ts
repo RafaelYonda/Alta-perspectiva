@@ -61,8 +61,14 @@ export class QuestionAnswerService implements Resolve<Question> {
         }
         return answerList;
     }
-    GetQuestion(id: number) {
-        //=======demo comments======
+    GetQuestion(id: string): Observable<Question> {
+        console.log(id);
+        return this._http.get('/questions/api/questions/' + id)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    getFakeQuestion() {
+       // =======demo comments======
         var comments = [{
             id: 1,
             user: { userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png" },
@@ -84,7 +90,7 @@ export class QuestionAnswerService implements Resolve<Question> {
 
         var answers = this.getAnswersByQuestion(1);
         var question = new Question();
-        question.id = id.toString();
+        question.id = '2';
         question.title = 'What is balanced score card';
         question.user = { userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png" };
         question.date = new Date();
@@ -95,7 +101,9 @@ export class QuestionAnswerService implements Resolve<Question> {
         question.commentCount = 3;
         question.comments = comments;
         return question;
+
     }
+        
 
     constructor(private _http: Http) {
 
