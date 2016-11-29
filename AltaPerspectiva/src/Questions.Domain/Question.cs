@@ -23,6 +23,17 @@
         public virtual ICollection<Like> Likes { get; set; }
 
         public int? ViewCount { get; set; }
+
+        public Question() {
+
+            Categories = new List<QuestionCategory>();
+
+            Answers = new List<Answer>();
+
+            Comments = new List<Comment>();
+
+            Likes = new List<Like>();
+    }
        
     }
 }

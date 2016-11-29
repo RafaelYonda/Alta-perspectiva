@@ -26,7 +26,7 @@ export class ApSearchComponent {
     question: Question; 
 
     title: string;
-    categoryID: number;
+    categoryID: string;
     body: string;                 
     result: string;
 
@@ -42,7 +42,7 @@ export class ApSearchComponent {
         this.question = new Question();
         this.question.title = this.title;
         this.question.body = this.body;
-        this.question.categoryId = this.categoryID;
+        this.question.categoryId.push(this.categoryID);
         
         this.questionsService.addQuestions(this.question).subscribe(res => {
             this.question = res;

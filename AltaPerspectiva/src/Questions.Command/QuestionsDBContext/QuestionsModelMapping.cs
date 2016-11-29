@@ -70,7 +70,7 @@
 
                 e.Property(c => c.Name);
 
-                e.HasMany<QuestionCategory>(q => q.Questions).WithOne(c => c.Category).HasForeignKey(qc => qc.QuestionId);
+                e.HasMany<QuestionCategory>(q => q.Questions).WithOne(c => c.Category).HasForeignKey(qc => qc.CategoryId);
 
                 e.HasMany<Keyword>(q => q.Keywords).WithOne(k => k.Category).HasForeignKey(k => k.CategoryId);
 

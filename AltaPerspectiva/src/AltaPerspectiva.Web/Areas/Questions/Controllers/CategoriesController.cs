@@ -8,6 +8,7 @@ using Questions.Command;
 using Questions.Query;
 using AltaPerspectiva.Web.Areas.Questions.Models;
 using Questions.Domain;
+using System.ServiceModel.Channels;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -49,26 +50,15 @@ namespace AltaPerspectiva.Web.Area.Questions
             var keywords = keyword.Trim().Split(' ');
             var categoryies = queryFactory.ResolveQuery<ICategoryMatchKeywordQuery>().Execute(keywords);
             return Ok(categoryies);
-        }        
-
-        // POST api/questions        
-        [HttpPost]
-        public IActionResult Post([FromBody]QuestionViewModel question)
-        {
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, null, null, null, null);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-            
-            return Created($"questions/api/questions/{cmd.Id}", question);
         }
 
-        // PUT api/questions/5
+        // PUT questions/api/categories/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/questions/5
+        // DELETE questions/api/categories/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

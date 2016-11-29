@@ -46,10 +46,10 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost]
         public IActionResult Post([FromBody]QuestionViewModel question)
         {
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, null, null, null, null);
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, null, question.CategoryIds);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
-            
+
             return Created($"questions/api/questions/{cmd.Id}", question);
         }
 

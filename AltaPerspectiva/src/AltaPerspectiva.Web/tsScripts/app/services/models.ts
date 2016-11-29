@@ -31,7 +31,7 @@ export class Question {
     id: string;
     title: string;    
     body: string;
-    categoryId: number;    
+    categoryId: string[];    
     likeCount: number;
     commentCount: number;
     comments: Comment[];
@@ -40,6 +40,12 @@ export class Question {
     user: User;
     answers: Answer[];
     answerCount: number
+    constructor() {
+        this.user = new User();
+        this.answers = new Array();
+        this.comments = new Array();
+        this.categoryId = new Array();
+    }
 }
 
 export class AskQuestionViewModel {
