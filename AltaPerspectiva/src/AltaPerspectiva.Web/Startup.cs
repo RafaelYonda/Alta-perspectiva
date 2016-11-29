@@ -19,6 +19,7 @@ using Questions.Command.DbContext;
 using System.IO;
 using Questions.Query;
 using Questions.Query.DbContext;
+using Newtonsoft.Json;
 
 namespace AltaPerspectiva
 {
@@ -32,7 +33,7 @@ namespace AltaPerspectiva
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-           
+            
             Configuration = builder.Build();
         }
 
@@ -41,6 +42,10 @@ namespace AltaPerspectiva
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
             services.AddAuthentication(options => {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });

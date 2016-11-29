@@ -21,6 +21,7 @@ namespace Questions.Query
             return DbContext.Questions
                 .Include(q=>q.Answers)
                 .Include(q=>q.Comments)
+                .Include(q=>q.Categories)                
                 .Where(q=>q.Id == id)
                 .SingleOrDefault(); 
         }
