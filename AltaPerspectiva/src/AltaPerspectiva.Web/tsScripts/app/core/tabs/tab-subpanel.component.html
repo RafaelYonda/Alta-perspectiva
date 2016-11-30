@@ -6,8 +6,8 @@
             </div>
             <div class="col-sm-11">
                 <h2>{{question.title}}</h2>
-                    <h4 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}}, </h4>
-                <p>{{question.body}}</p>
+                   Categories: <h4 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}},&nbsp; </h4>
+                <p [innerHTML]="question.body" ></p>
                 <div class="row article-footer">
                     <div class="left-footer">
                         <!--<h4>{{question.user.name}}</h4>-->
