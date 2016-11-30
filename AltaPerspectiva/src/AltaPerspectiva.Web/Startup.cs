@@ -68,7 +68,8 @@ namespace AltaPerspectiva
             services.AddTransient<ICategoriesQuery,CategoriesQuery>();
             services.AddTransient<IKeywordsQuery, KeywordsQuery>();
             services.AddTransient<ICategoryMatchKeywordQuery, CategoryMatchKeywordQuery>(); 
-            services.AddTransient<IQuestionByIdQuery, QuestionByIdQuery>(); 
+            services.AddTransient<IQuestionByIdQuery, QuestionByIdQuery>();
+            services.AddTransient<IQuestionsByCategoryIdQuery, QuestionsByCategoryIdQuery>();
 
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
