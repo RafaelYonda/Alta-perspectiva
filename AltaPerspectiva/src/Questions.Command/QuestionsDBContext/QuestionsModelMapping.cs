@@ -29,7 +29,7 @@
 
                 e.HasMany<Like>(l => l.Likes).WithOne(q => q.Question).HasForeignKey(l => l.QuestionId);
 
-                e.HasMany<QuestionCategory>(c => c.Categories).WithOne(q => q.Question).HasForeignKey(qc => qc.QuestionId);
+                e.HasMany<QuestionCategory>(c => c.Categories).WithOne().HasForeignKey("QuestionId");
 
             });
 
@@ -58,7 +58,7 @@
             {
                 e.ToTable("QuestionCategories");
 
-                e.HasKey(c => c.Id);
+                e.HasKey(c => c.Id);                
             });
 
             // categories

@@ -18,10 +18,12 @@ namespace Questions.Query
 
         public IEnumerable<Question> Execute(Guid id)
         {
+            //var x = DbContext.QuestionCategories.Include(qc=>qc.Category).Where(x=>x.CategoryId == id).Select(q=>q.Question).Include(q=>q.Categories).ToList()
+
             return  DbContext.
                     Questions
                     .Include(q => q.Categories)
-                    .ThenInclude(c => c.Category)
+                        .ThenInclude(c => c.Category)                        
                     .Where(q=>q.Categories.Any(x=>x.CategoryId==id && x.QuestionId==q.Id))
                     .ToList();
         }
