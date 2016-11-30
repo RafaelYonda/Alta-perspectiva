@@ -13,7 +13,7 @@
             Title = _title;
             Body = _body;
             Date = _date;
-            UserId = _userId;
+            UserId = _userId == null ? (new System.Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba")) : _userId;
             CategoryIds = _categoryIds==null? (new List<Guid>()) :_categoryIds;
         }    
         public string Title { get; set; }

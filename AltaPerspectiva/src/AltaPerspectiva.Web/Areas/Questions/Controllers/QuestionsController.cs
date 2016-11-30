@@ -46,7 +46,11 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost]
         public IActionResult Post([FromBody]QuestionViewModel question)
         {
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, null, question.CategoryIds);
+
+            var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+
+            Guid loggedinUser = new Guid(userId.ToString());
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 

@@ -19,11 +19,12 @@ namespace Questions.Query
         public Question Execute(Guid id)
         {
             return DbContext.Questions
-                .Include(q=>q.Answers)
-                .Include(q=>q.Comments)
-                .Include(q=>q.Categories)                
-                .Where(q=>q.Id == id)
-                .SingleOrDefault(); 
+                            .Include(q=>q.Answers)
+                            .Include(q=>q.Comments)
+                            .Include(q=>q.Categories)
+                                .ThenInclude(c=>c.Category)                
+                            .Where(q=>q.Id == id)
+                            .SingleOrDefault(); 
         }
     }
 }
