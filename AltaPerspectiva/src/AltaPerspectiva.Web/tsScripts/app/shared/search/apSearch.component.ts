@@ -32,7 +32,7 @@ export class ApSearchComponent {
 
     constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, myElement: ElementRef) {
         this.elementRef = myElement;
-        this.categories = this.categoryService.getCategories();
+        //this.categories = this.categoryService.getCategories();
         this.body = "<p>Question details</p>";
         
     }  
@@ -46,7 +46,6 @@ export class ApSearchComponent {
         
         this.questionsService.addQuestions(this.question).subscribe(res => {
             this.question = res;
-            console.log(" " + res);
             this.router.navigate(['/question/home']);
         }); 
     }
@@ -55,10 +54,13 @@ export class ApSearchComponent {
         this.questionsService.getQuestions().subscribe(res => {
             var resList = [];
             res.forEach(function (el) {
-                resList.push(el.title);
+                resList.push(el);
             });
             this.questionList = resList;
         }); 
+        this.categoryService.getAllCategories().subscribe(res => {
+            this.categories = res;
+        });
     }
     
     public elementRef;
@@ -94,9 +96,11 @@ export class ApSearchComponent {
     public questionList = [];
     
     filterQuestions() {
+        console.log(this.questionList);
         if (this.title !== "") {
             this.filteredQuestionList = this.questionList.filter(function (el) {
-                return el.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
+                console.log(el);
+                return el.title.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
             }.bind(this));
         } else {
             this.filteredQuestionList = [];
@@ -106,6 +110,8 @@ export class ApSearchComponent {
     selectQuestionDetails(item) {
         this.title = item;
         this.filteredQuestionList = [];
+        this.router.navigate(['/question/detail/'+item.id]);
+        
     }
 
     handleClick(event) {
