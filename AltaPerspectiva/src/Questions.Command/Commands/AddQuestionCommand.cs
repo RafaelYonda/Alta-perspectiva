@@ -8,7 +8,7 @@
 
     public class AddQuestionCommand:ICommand
     {
-        public AddQuestionCommand(string _title, string _body, DateTime _date,Guid? _userId,List<Guid> _categoryIds)
+        public AddQuestionCommand(string _title, string _body, DateTime _date,Guid _userId,List<Guid> _categoryIds)
         {            
             Title = _title;
             Body = _body;
@@ -21,7 +21,7 @@
         public DateTime Date { get; set; }
         public Guid Id { get;  set; }
         public List<Guid> CategoryIds { get; set; }
-        public Guid? UserId { get; set; }      
+        public Guid UserId { get; set; }      
     }
 }
 

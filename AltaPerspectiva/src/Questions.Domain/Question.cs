@@ -12,7 +12,7 @@
 
         public string Body { get; set; } 
 
-        public Guid? UserId { get; set; }        
+        public Guid UserId { get; set; }        
 
         public virtual ICollection<QuestionCategory> Categories { get; set; }
 

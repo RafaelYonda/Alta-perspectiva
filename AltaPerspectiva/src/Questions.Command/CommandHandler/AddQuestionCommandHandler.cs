@@ -37,7 +37,7 @@
             question.Body = command.Body;
             question.UserId = command.UserId;
             question.CreatedOn = command.Date;
-            question.CreatedBy = command.UserId == null ? (new System.Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba")) : command.UserId;
+            question.CreatedBy = command.UserId;
             question.DTS = command.Date;
 
             var keywords = question.Title.TrimEnd('?').Split(' ');

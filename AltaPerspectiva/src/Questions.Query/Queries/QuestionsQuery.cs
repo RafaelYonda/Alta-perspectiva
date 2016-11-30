@@ -17,7 +17,10 @@ namespace Questions.Query
 
         public IEnumerable<Question> Execute()
         {
-            return DbContext.Questions; 
+            return DbContext.
+                    Questions
+                    .Include(q=>q.Categories)
+                    .ThenInclude(c=>c.Category); 
         }
     }
 }

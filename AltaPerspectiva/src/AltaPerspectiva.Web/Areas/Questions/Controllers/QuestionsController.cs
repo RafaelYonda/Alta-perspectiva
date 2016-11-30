@@ -15,7 +15,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 {
     //http://localhost:5273/questions/api/questions
     [Area("Questions")]
-    [Route("questions/api/[controller]")]
+    //[Route("questions/api/[controller]")]
     public class QuestionsController : Controller
     {
         ICommandsFactory commandsFactory;
@@ -27,7 +27,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         // GET: /questions/api/questions
-        [HttpGet]
+        [HttpGet("/questions/api/questions")]
         public IActionResult Get()
         {
             var questionsList = queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
@@ -35,15 +35,15 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         // GET /questions/api/questions/{id}
-        [HttpGet("{id}")]
+        [HttpGet("/questions/api/questions/{id}")]
         public IActionResult Get(Guid id)
         {
             var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(id);
             return Ok(question);
         }
 
-        // POST api/questions        
-        [HttpPost]
+        // POST /questions/api/questions       
+        [HttpPost("/questions/api/questions")]
         public IActionResult Post([FromBody]QuestionViewModel question)
         {
 
@@ -56,6 +56,24 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return Created($"questions/api/questions/{cmd.Id}", question);
         }
+
+
+        // POST /questions/api/question/{id}/answer
+        [HttpPost("/questions/api/question/{id}/answer")]
+        public IActionResult PostAnswer([FromBody]QuestionViewModel question)
+        {
+
+            var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+
+            Guid loggedinUser = new Guid(userId.ToString());
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+
+            return Created($"questions/api/questions/{cmd.Id}", question);
+        }
+
+
 
         // PUT api/questions/5
         [HttpPut("{id}")]
