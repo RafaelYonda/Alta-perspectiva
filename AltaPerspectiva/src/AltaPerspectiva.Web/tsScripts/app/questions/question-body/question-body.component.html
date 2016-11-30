@@ -9,7 +9,7 @@
                 <img class="user-image" src="../../../../images/avatar.png" />
                 <div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>
                 <!--<div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>-->
-                <p class="answer-text">{{question.body}}</p>
+                <p [innerHTML]="question.body" class="answer-text"></p>
             </div>
         </div>
         <hr />
