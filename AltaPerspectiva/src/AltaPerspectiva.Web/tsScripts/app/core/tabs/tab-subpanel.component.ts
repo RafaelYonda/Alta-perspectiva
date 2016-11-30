@@ -10,7 +10,7 @@ import { Question } from '../../services/models';
     providers: [QuestionAnswerService]
 })
 export class TabSubpanelComponent {
-    id: number;
+    id: string;
     private sub: any;
     questions: Question[];
 
@@ -20,8 +20,12 @@ export class TabSubpanelComponent {
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
-            this.id = +params['id']; // (+) converts string 'id' to a number
+            this.id = params['id']; // (+) converts string 'id' to a number 
             //this.questions = this.questionAnswerService.getQuestionByCategory(params['id']);
+            this.questionAnswerService.getQuestionsByCategory(this.id).subscribe(res => {
+                this.questions = res;
+                //console.log(this.questions);
+            });
         });
     }
 

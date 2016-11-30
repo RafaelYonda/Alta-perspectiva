@@ -12,7 +12,7 @@ import { Router, ActivatedRoute, Resolve } from '@angular/router';
 export class QuestionBodyComponent{
     _router: any;
     route: any;   
-    id: number;
+    id: string;
     private sub: any;
     questions: Question[];
 
@@ -29,25 +29,34 @@ export class QuestionBodyComponent{
     }
 
     ngOnInit() {
-        //=====Question Load======
-        this.questionService.getQuestions().subscribe(res => {
-            var temques = [];
-            res.forEach(function (el) {
-                console.log(this);
-                //console.log(el);
-                var question = new Question();
-                question.id=el.id
-                question.body = el.body;
-                question.title = el.title;
-                question.user = {
-                    userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png"
-                };
-                question.responseCount = '1';
-                temques.push(question);
+        //========get questions route param======
+        this.route.params.subscribe(params => {
+            this.id = params['id']; // (+) converts string 'id' to a number 
+            var subs: any;
+            if(this.id=='0')
+                subs = this.questionService.getQuestions();
+            else
+                subs = this.questionService.getQuestionsByCategory(this.id);
+            subs.subscribe(res => {
+                //this.questions = res;
+                var temques = [];
+                res.forEach(function (el) {
+                    var question = new Question();
+                    question.id = el.id
+                    question.body = el.body;
+                    question.title = el.title;
+                    question.user = {
+                        userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png"
+                    };
+                    question.responseCount = '1';
+                    temques.push(question);
+                });
+                this.questions = temques;
+                //console.log(this.questions);
             });
-            this.questions = temques;
-        }); 
-        ///route resolve servivce to get data
+        });
+        
+        //route resolve servivce to get data
         this.route.data
             .subscribe(res => this.questionList = res, error => this.error = error);
     }

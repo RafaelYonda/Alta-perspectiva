@@ -6,15 +6,15 @@
             </div>
             <div class="col-sm-11">
                 <h2>{{question.title}}</h2>
-                <h4 class="subtitle">{{question.subTitle}}</h4>
-                <p>{{question.questionBody}}</p>
+                    <h4 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}}, </h4>
+                <p>{{question.body}}</p>
                 <div class="row article-footer">
                     <div class="left-footer">
-                        <h4>{{question.questioner.name}}</h4>
+                        <!--<h4>{{question.user.name}}</h4>-->
                     </div>
                     <div class="right-footer">
                         <h4>Respuestas</h4>
-                        <span class="counter-box">{{question.responseCount}}+</span>
+                        <span class="counter-box">{{question.viewCount}}+</span>
                     </div>
                 </div>
             </div>

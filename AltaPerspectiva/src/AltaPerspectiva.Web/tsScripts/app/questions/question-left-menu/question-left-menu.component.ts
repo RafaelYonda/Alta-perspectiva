@@ -17,11 +17,16 @@ export class QuestionMenuPanelComponent {
     answerList: Answer[];
     questionService: QuestionAnswerService;
     categories: Category[];
-    constructor(questionService: QuestionAnswerService, categoryService: CategoryService) {
+    constructor(questionService: QuestionAnswerService,private categoryService: CategoryService) {
         this.questionService = questionService;
         this.questionMenuList = questionService.getQuestionListByString("");
         this.answerList = questionService.getAnswersByQuestion(2);
         this.categories = categoryService.getCategories();
     }
 
+    ngOnInit() {
+        this.categoryService.getAllCategories().subscribe(res => {
+            this.categories = res;
+        });
+    }
 }

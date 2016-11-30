@@ -3,7 +3,7 @@
         <div >
             <div class="question-title">Related Topics</div>
             <div class="question-list">
-                <p *ngFor="let category of categories">{{category.name}}</p>
+                <a [routerLink]="['/question/home',category.id]" *ngFor="let category of categories"> {{category.name}}</a>
             </div>
         </div>
     </div>

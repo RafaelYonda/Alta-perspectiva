@@ -108,7 +108,7 @@ export class ApSearchComponent {
     }
 
     selectQuestionDetails(item) {
-        this.title = item;
+        //this.title = item;
         this.filteredQuestionList = [];
         this.router.navigate(['/question/detail/'+item.id]);
         

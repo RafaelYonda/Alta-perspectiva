@@ -124,6 +124,13 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getQuestionsByCategory(categoryId: string): Observable<Question[]> {
+        console.log(categoryId);
+        return this._http.get('/questions/api/questions/category/' + categoryId)
+            .map(this.extractData)
+            .catch(this.handleError);
+        
+    }
 
     addQuestions(question: Question): Observable<Question> {
 

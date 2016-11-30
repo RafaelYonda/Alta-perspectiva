@@ -24,7 +24,7 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
             path: 'question', component: QuestionHomeComponent,
             children: [               
                 {
-                    path: 'home', component: QuestionBodyComponent,
+                    path: 'home/:id', component: QuestionBodyComponent,
                         resolve: { questionList: QuestionAnswerService}
                 },
                 {
