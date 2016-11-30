@@ -42,6 +42,14 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(question);
         }
 
+        // GET /questions/api/questions/category/{id}
+        [HttpGet("/questions/api/questions/category/{id}")]
+        public IActionResult GetQuestionsByCategoryId(Guid id)
+        {
+            var question = queryFactory.ResolveQuery<IQuestionsByCategoryIdQuery>().Execute(id);
+            return Ok(question);
+        }
+
         // POST /questions/api/questions       
         [HttpPost("/questions/api/questions")]
         public IActionResult Post([FromBody]QuestionViewModel question)
@@ -62,10 +70,14 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost("/questions/api/question/{id}/answer")]
         public IActionResult PostAnswer([FromBody]QuestionViewModel question)
         {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
-            var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-
-            Guid loggedinUser = new Guid(userId.ToString());
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+           
             AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
