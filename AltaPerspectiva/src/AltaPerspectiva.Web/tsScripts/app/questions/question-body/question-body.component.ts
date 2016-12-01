@@ -39,20 +39,20 @@ export class QuestionBodyComponent{
                 subs = this.questionService.getQuestionsByCategory(this.id);
             subs.subscribe(res => {
                 //this.questions = res;
-                var temques = [];
-                res.forEach(function (el) {
-                    var question = new Question();
-                    question.id = el.id
-                    question.body = el.body;
-                    question.title = el.title;
-                    question.user = {
-                        userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png"
-                    };
-                    question.responseCount = '1';
-                    temques.push(question);
-                });
-                this.questions = temques;
-                //console.log(this.questions);
+                //var temques = [];
+                //res.forEach(function (el) {
+                //    var question = new Question();
+                //    question.id = el.id
+                //    question.body = el.body;
+                //    question.title = el.title;
+                //    question.user = {
+                //        userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png"
+                //    };
+                //    question.responseCount = '1';
+                //    temques.push(question);
+                //});
+                this.questions = res;
+                console.log(res);
             });
         });
         
