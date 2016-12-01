@@ -66,11 +66,17 @@ export class Answer {
     user: User;
     answerText: string;
     date: Date;
-    topics: string;
     likeCount: number;
     commentCount: number;
     comments: Comment[];
 }
+
+export class AnswerViewModel {
+    text: string;
+    questionId: string;   
+}
+
+
 //========Profile Objects===========
 export class Profile {
     contact: Contact;

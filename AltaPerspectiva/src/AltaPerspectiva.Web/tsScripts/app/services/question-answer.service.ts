@@ -5,105 +5,17 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {QuestionMenu, Category, Question, User, Answer} from './models';
+import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel} from './models';
 
 @Injectable()
 export class QuestionAnswerService implements Resolve<Question> {
-
-
-    getQuestionListByString(searchParam: string): QuestionMenu[] {
-        var questionList: QuestionMenu[] = [];
-        for (var i = 0; i < 4; i++) {
-            var x: QuestionMenu = {
-                id: i,
-                questiontext: 'This is question ' + i,
-                questionDetails: 'This is question Details' + i
-            };
-            questionList.push(x);
-        }
-        return questionList;
-    }
-    getAnswersByQuestion(id: number): Answer[] {
-        //=======demo comments======
-        var comments = [{
-                id: 1,
-                user: { userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png" },
-                time: new Date(),
-                commentText: 'Answer Comment...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur '
-            },
-            {
-                id: 2,
-                user: { userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png" },
-                time: new Date(),
-                commentText: 'Answer Comment...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur '
-            }, {
-                id: 3,
-                user: { userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png" },
-                time: new Date(),
-                commentText: 'Answer Comment...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur '
-            }]
-        //======================
-
-        var answerList: Answer[] = [];
-        for (var i: number = 0; i < 4; i++) {
-            var x: Answer = {
-                id: i,
-                questionId: id,
-                user: { userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png" },
-                answerText: 'Answer for question' + i + 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur. Nam sem sem, tincidunt sit amet congue et, venenatis in massa. Nunc massa lectus, vulputate in diam vel, euismod ornare purus. Curabitur vitae turpis quis quam imperdiet facilisis. In lacinia interdum velit, vel tempus mauris tempus id. Vestibulum ullamcorper lacus id dictum scelerisque. Fusce id nulla accumsan, tincidunt mi vel, facilisis diam. Nullam rhoncus, nibh eget tempus posuere',
-                date: new Date(),
-                topics: 'Strategy',
-                likeCount: i,
-                commentCount: i + 1,
-                comments: comments
-            };
-            answerList.push(x);
-        }
-        return answerList;
-    }
+  
     GetQuestion(id: string): Observable<Question> {
         console.log(id);
         return this._http.get('/questions/api/questions/' + id)
             .map(this.extractData)
             .catch(this.handleError);
-    }
-    getFakeQuestion() {
-       // =======demo comments======
-        var comments = [{
-            id: 1,
-            user: { userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png" },
-            time: new Date(),
-            commentText: 'Question Comment...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur '
-        },
-            {
-                id: 2,
-                user: { userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png" },
-                time: new Date(),
-                commentText: 'Question Comment...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur '
-            }, {
-                id: 3,
-                user: { userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png" },
-                time: new Date(),
-                commentText: 'Question Comment...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur '
-            }]
-        //======================
-
-        var answers = this.getAnswersByQuestion(1);
-        var question = new Question();
-        question.id = '2';
-        question.title = 'What is balanced score card';
-        question.user = { userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png" };
-        question.date = new Date();
-        question.body = 'Question...Question ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam elementum consectetur. Nam sem sem, tincidunt sit amet congue et, venenatis in massa. Nunc massa lectus, vulputate in diam vel, euismod ornare purus. Curabitur vitae turpis quis quam imperdiet facilisis. In lacinia interdum velit, vel tempus mauris tempus id. Vestibulum ullamcorper lacus id dictum scelerisque. Fusce id nulla accumsan, tincidunt mi vel, facilisis diam. Nullam rhoncus, nibh eget tempus posuere';
-        question.categoryId.push("1");
-        question.answers = answers;
-        question.likeCount = 1
-        question.commentCount = 3;
-        question.comments = comments;
-        return question;
-
-    }
-        
+    }    
 
     constructor(private _http: Http) {
 
@@ -124,6 +36,7 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
     getQuestionsByCategory(categoryId: string): Observable<Question[]> {
         console.log(categoryId);
         return this._http.get('/questions/api/questions/category/' + categoryId)
@@ -135,6 +48,13 @@ export class QuestionAnswerService implements Resolve<Question> {
     addQuestions(question: Question): Observable<Question> {
 
         return this._http.post('/questions/api/questions', question)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    addAnswer(answer: AnswerViewModel): Observable<AnswerViewModel> {
+
+        return this._http.post('/questions/api/question/' + answer.questionId + '/answer', answer)
             .map(this.extractData)
             .catch(this.handleError);
     }

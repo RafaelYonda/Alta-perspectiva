@@ -73,6 +73,9 @@ namespace AltaPerspectiva
 
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
+
+            services.AddTransient<ICommandHandler<AddAnswerCommand>, AddAnswerCommandHandler>();
+            services.AddTransient<ICommandHandler<AddAnswerCommand>,AnswerAddedNotificationCommandHandler>();
         }     
 
        

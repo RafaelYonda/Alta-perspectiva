@@ -10,9 +10,10 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
 {
     public class AnswerViewModel
     {      
-        public string Title { get; set; }
-        public string Body { get;  set; }      
+        public string Text { get; set; }        
+        public DateTime AnswerDate { get; set; }
         public Guid Id { get; set; }
+        public Guid UserId { get; set; }
         public Guid QuestionId { get; set; }
     }
 }

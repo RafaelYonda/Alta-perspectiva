@@ -32,15 +32,15 @@
             Answer answer = new Answer();
             answer.GenerateNewIdentity();
             // create new answers. generate id then add to questions
-                        
+
+            answer.QuestionId = answer.QuestionId;            
             answer.Text = command.Text;            
             answer.UserId = command.UserId;
-            answer.CreatedOn = command.Date;
+            answer.CreatedOn = DateTime.Now;
             answer.CreatedBy = command.UserId;
-            answer.DTS = command.Date;
-            question.Answers.Add(answer);
-             
-            DbContext.Questions.Add(question);
+            answer.DTS = DateTime.Now;             
+                        
+            DbContext.Answers.Add(answer);
             DbContext.SaveChanges();
 
 			command.Id = answer.Id;

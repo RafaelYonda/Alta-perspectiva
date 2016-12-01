@@ -1,22 +1,27 @@
 ﻿import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
-import {QuestionMenu, Question,Answer, DateName} from '../../services/models';
-
+import {QuestionMenu, Question, Answer, AnswerViewModel, DateName} from '../../services/models';
+import { QuestionAnswerService } from '../../services/question-answer.service';
 @Component({
     selector: "question-details",
     templateUrl: 'js/app/questions/question-details/question-details.component.html',
     styleUrls: ['js/app/questions/question-details/question-details.css'],
-    providers: [QuestionResolver]
+    providers: [QuestionResolver, QuestionAnswerService]
 })
 export class QuestionDetailComponent {
     date: DateName;
     route: any;
     error: any;
     id: string;
+    answerText: string;
+    answerVM: AnswerViewModel;
+
     private sub: any;
     question: Question;
-    constructor(private _route: ActivatedRoute, private questionService: QuestionResolver) {
+    constructor(private router: Router,private _route: ActivatedRoute, private questionService: QuestionResolver,
+        private answerService: QuestionAnswerService)
+    {
         this.route = _route;
         //this.question = questionService.getFakeQuestion();
         this.date= new DateName();
@@ -24,19 +29,23 @@ export class QuestionDetailComponent {
     ngOnInit() {
         this.route.data
             .subscribe(res => {
-                this.question = res.question;
-                console.log(this.question);
-                console.log(this.question.answers);
-            });
-       
-        //this.sub = this.route.params.subscribe(params => {
-        //    this.id = params['id'] ;
-        //    console.log(params['id']);
+                this.question = res;
+                console.log("question detail data" + this.question);             
+            });      
+    }
+
+    submitAnswer(_id: string) {
+      
+        this.answerVM = new AnswerViewModel();
+        this.answerVM.questionId = _id;
+        this.answerVM.text = this.answerText;
+
+        this.answerService.addAnswer(this.answerVM).subscribe(res => {
             
-        //    this.questionService.GetQuestion(this.id).subscribe(res => {
-        //        this.question = res;
-        //        console.log(this.question );
-        //    });
-        //});
+            this.answerVM = res;
+            this.answerText = "";
+            this.router.navigate(['/question/home/0']);
+        }); 
+        
     }
 }

@@ -18,9 +18,7 @@ export class QuestionMenuPanelComponent {
     questionService: QuestionAnswerService;
     categories: Category[];
     constructor(questionService: QuestionAnswerService,private categoryService: CategoryService) {
-        this.questionService = questionService;
-        this.questionMenuList = questionService.getQuestionListByString("");
-        this.answerList = questionService.getAnswersByQuestion(2);
+        this.questionService = questionService;              
         this.categories = categoryService.getCategories();
     }
 

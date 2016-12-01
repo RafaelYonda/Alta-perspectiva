@@ -55,10 +55,14 @@ namespace AltaPerspectiva.Web.Area.Questions
         public IActionResult Post([FromBody]QuestionViewModel question)
         {
 
-            //var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-
-            //Guid loggedinUser = new Guid(userId.ToString());
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+                        
             AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
@@ -69,7 +73,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         // POST /questions/api/question/{id}/answer
         [HttpPost("/questions/api/question/{id}/answer")]
-        public IActionResult PostAnswer([FromBody]QuestionViewModel question)
+        public IActionResult PostAnswer([FromBody]AnswerViewModel answer)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -79,11 +83,11 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(loggedinUser.ToString());
             }
            
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds);
+            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text,answer.AnswerDate,answer.QuestionId, loggedinUser);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 
-            return Created($"questions/api/questions/{cmd.Id}", question);
+            return Created($"/questions/api/question/{answer.QuestionId}/answer/{answer.Id}", answer);
         }
 
 

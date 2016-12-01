@@ -37,8 +37,8 @@ export class ApSearchComponent {
         
     }  
 
-    submitQuestion() {      
-        
+    submitQuestion() {
+       
         this.question = new Question();
         this.question.title = this.title;
         this.question.body = this.body;
