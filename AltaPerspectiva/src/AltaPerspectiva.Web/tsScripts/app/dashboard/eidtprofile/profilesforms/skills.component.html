@@ -1,10 +1,55 @@
-﻿<div class="row">
-    <div class="col-md-6">
-        <label for="email">Tag Line</label>
-        <input type="text" [(ngModel)]="contact.firstName" class="profile-form" >
+﻿<style>
+    .skil-points {
+        background-color: #ededed;
+        padding: 5px;
+        margin: 5px 0;
+        border-radius: 7px;
+        text-align: center;
+    }
+
+    .button-container {
+        margin-top: 10px;
+    }
+
+    .point-cointeiner {
+        margin: 0 5px;
+    }
+
+    .add-btn {
+        width: 100%;
+        height: 30px;
+        border-radius: 0;
+        border: none;
+    background-color: #efb153;
+    }
+
+    .done-btn {
+        display: block;
+        width: 70px;
+        margin: 5px auto;
+        background-color: #f29200;
+    }
+</style>
+<div class="row">
+    <div class="row">
+        <div class="point-cointeiner">
+            <div class="col-md-4 ">
+                <div class="skil-points">quality mamangement</div>
+            </div>
+            <div class="col-md-4">
+                <div class="skil-points">quality mamangement</div>
+            </div>
+            <div class="col-md-4">
+                <div class="skil-points">quality mamangement</div>
+            </div>
+            <div class="col-md-4">
+                <div class="skil-points">quality mamangement</div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
-        <label for="email">Tag Line</label>
-        <input type="text" [(ngModel)]="contact.lastName" class="profile-form" id="email">
+
+    <div class="col-md-6 col-lg-offset-3 button-container">
+        <button class="btn btn-default add-btn">ADD SKILLS</button>
+        <button class="btn btn-default done-btn">DONE</button>
     </div>
 </div>

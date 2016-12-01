@@ -1,17 +1,17 @@
 ﻿import { Component } from '@angular/core';
+import { Profile, PracticeArea } from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
-import { Profile, Contact } from '../../../services/models';
 @Component({
-    templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/contact.component.html',
+    templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/practice.component.html',
     styleUrls: [
-        'js/app/dashboard/styles/dashboard.forms.css'
+        'js/app/dashboard/styles/dashboard.forms.css',
     ],
     providers: [ProfileService]
 })
-export class ContactFormComponent {
-    contact: Contact;
-    constructor(service: ProfileService) {
-        this.contact = new Contact();
-        service.profile.contact = this.contact;
+export class PracticeFormComponent {
+    practiceArea: PracticeArea;
+    constructor(private service: ProfileService) {
+        this.practiceArea = new PracticeArea();
+        service.profile.practiceArea = this.practiceArea;
     }
 }
