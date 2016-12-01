@@ -1,4 +1,7 @@
-﻿a{
+﻿h4 {
+    display: inline;
+}
+a{
     cursor:pointer;
 }
 .btn-default{

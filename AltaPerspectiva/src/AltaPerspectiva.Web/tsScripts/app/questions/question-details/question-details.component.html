@@ -1,5 +1,8 @@
 ﻿<!-- =========Questions========== -->
 <h1>&iquest;{{question.title}}?</h1>
+<div>
+    Categories: <h4 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}},&nbsp; </h4>
+</div>
 <!--<div class="header-info">{{date.getMonthName(question.date.getMonth())}} {{question.date.getFullYear()}}</div>-->
 <button class="btn btn-default" data-toggle="modal" data-target="#myModal">Answer</button>
 
@@ -34,7 +37,7 @@
         <img class="user-image" src="../../../../images/avatar.png" />
         <!--<div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>-->
         <!--<div class="header-info">{{date.getMonthName(question.date.getMonth())}} {{question.date.getFullYear()}}</div>-->
-        <p class="answer-text">{{question.body}}</p>
+        <p [innerHTML]="question.body" class="answer-text"></p>
         <div class="status-panel">
             <hr />
             <img class="like-logo" src="../images/fade-logo.png" />
@@ -86,7 +89,7 @@
             <img class="user-image " src="../../../../images/avatar.png" />
             <div class="header-info">{{answer.user.name}},{{answer.user.occupassion}}</div>
             <!--<div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>-->
-            <p class="answer-text">{{answer.answerText}}</p>
+            <p [innerHTML]="answer.answerText" class="answer-text"></p>
             <div class="status-panel">
                 <hr />
                 <img class="like-logo" src="../images/fade-logo.png" />
