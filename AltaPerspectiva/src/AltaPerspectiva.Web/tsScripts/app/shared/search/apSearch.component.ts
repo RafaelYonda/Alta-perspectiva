@@ -45,8 +45,9 @@ export class ApSearchComponent {
         this.question.categoryId.push(this.categoryID);
         
         this.questionsService.addQuestions(this.question).subscribe(res => {
+            console.log(res);
             this.question = res;
-            this.router.navigate(['/question/home']);
+            this.router.navigate(['/question/home/0']);
         }); 
     }
 
