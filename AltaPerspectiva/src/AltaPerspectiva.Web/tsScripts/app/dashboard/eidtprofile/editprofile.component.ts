@@ -12,14 +12,12 @@ import { Profile, Contact } from '../../services/models';
     providers: [ProfileService]
 })
 export class EditProfileComponent {
-    profile: Profile;
-    profileService: ProfileService;
-    constructor(service: ProfileService) {
-        this.profileService = service;
-        this.profile = service.profile;
-        this.profile.contact = new Contact();
+    //profile: Profile;
+    constructor(private service: ProfileService) {
+        //ProfileService.profile = this.profile;
     }
     Submit() {
-        this.profileService.SaveProfile();
+        console.log(this.service.profile);
+        //this.service.SaveProfile();
     }
 }

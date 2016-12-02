@@ -12,7 +12,7 @@ export class SkillFormComponent {
     skills: Skills;
     constructor(private service: ProfileService) {
         this.skills = new Skills();
-        service.profile.skills = this.skills;
+        //service.profile.skills = this.skills;
     }
 }
 

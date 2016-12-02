@@ -12,6 +12,6 @@ export class ExperienceFormComponent {
     experience: Experience;
     constructor(private service: ProfileService) {
         this.experience = new Experience();
-        service.profile.experience = this.experience;
+        //service.profile.experience = this.experience;
     }
 }

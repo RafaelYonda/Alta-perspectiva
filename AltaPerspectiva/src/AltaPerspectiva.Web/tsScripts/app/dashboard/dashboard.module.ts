@@ -17,6 +17,8 @@ import { ExperienceFormComponent } from './eidtprofile/profilesforms/experience.
 import { PracticeFormComponent } from './eidtprofile/profilesforms/practice.component';
 import { SkillFormComponent } from './eidtprofile/profilesforms/skills.component';
 
+import { ProfileService } from '../services/profile.service';
+
 const DashBoardroutes: Routes = [
     {
         path: 'dashboard', component: DashBoardComponent,
@@ -51,7 +53,7 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
         DashBoardComponent, EditProfileComponent, NavDashboard, DashTab, ContactFormComponent,
         BiographyFormComponent, EducationFormComponent, ExperienceFormComponent, InsightFormComponent, PracticeFormComponent, SkillFormComponent
     ],
-    exports: [DashBoardComponent]
+    exports: [DashBoardComponent],
 })
 export class DashBoardModule { }
 

@@ -12,6 +12,6 @@ export class InsightFormComponent {
     insight: Insight;
     constructor(private service: ProfileService) {
         this.insight = new Insight();
-        service.profile.insight = this.insight;
+        //service.profile.insight = this.insight;
     }
 }
