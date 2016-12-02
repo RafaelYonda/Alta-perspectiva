@@ -42,7 +42,7 @@ export class ApSearchComponent {
         this.question = new Question();
         this.question.title = this.title;
         this.question.body = this.body;
-        this.question.categoryId.push(this.categoryID);
+        this.question.categoryIds.push(this.categoryID);
         
         this.questionsService.addQuestions(this.question).subscribe(res => {
             console.log(res);
@@ -98,7 +98,7 @@ export class ApSearchComponent {
     
     filterQuestions() {
         console.log(this.questionList);
-        if (this.title !== "") {
+        if (this.title !== "" && this.title.length>2) {
             this.filteredQuestionList = this.questionList.filter(function (el) {
                 console.log(el);
                 return el.title.toLowerCase().indexOf(this.title.toLowerCase()) > -1;

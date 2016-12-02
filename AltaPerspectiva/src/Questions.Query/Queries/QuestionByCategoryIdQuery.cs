@@ -25,7 +25,9 @@ namespace Questions.Query
                     .Include(q => q.Categories)
                         .ThenInclude(c => c.Category)                        
                     .Where(q=>q.Categories.Any(x=>x.CategoryId==id && x.QuestionId==q.Id))
-                    .ToList();
+                    .OrderByDescending(c => c.CreatedOn.Value.Date)
+                         .ThenBy(c => c.CreatedOn.Value.TimeOfDay)
+                .ToList();
         }
     }
 }

@@ -28,7 +28,7 @@
                         <div id="question-details" class="dropdown-menu dropdown-menu-right search-menu" role="menu">
 
                             <div class="question-components">
-                                <label> Categories {{questionVM.categoryId}} {{ questionVM.title}}</label>
+                                <label> Categories &nbsp; </label>
                                 <select class="form-control catagory-dropdown" id="Category" required [(ngModel)]="categoryID" name="category" #category="ngModel">
                                     <option *ngFor="let category of categories" [value]="category.id">
                                         {{category.name}}

@@ -29,8 +29,9 @@ export class QuestionDetailComponent {
     ngOnInit() {
         this.route.data
             .subscribe(res => {
-                this.question = res;
-                console.log("question detail data" + this.question);             
+                this.question = res.question;
+                console.log("res");  
+                console.log(res);             
             });      
     }
 

@@ -20,10 +20,7 @@ namespace Questions.Query
         {
             //return DbContext.Keywords.Include(k=>k.Category).Where(c=>c.Text.Contains(keywords.Any()));
 
-            return (from p in DbContext.Keywords
-                         where keywords.Any(val => p.Text.Contains(val))
-                            select p.Category)
-                                .ToList();
+            return DbContext.Keywords.Where(k=>keywords.Contains(k.Text)).Select(k=>k.Category).ToList();
         }
     }
 }

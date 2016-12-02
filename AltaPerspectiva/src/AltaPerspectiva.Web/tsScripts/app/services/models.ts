@@ -31,7 +31,7 @@ export class Question {
     id: string;
     title: string;    
     body: string;
-    categoryId: string[];    
+    categoryIds: string[];    
     likeCount: number;
     commentCount: number;
     comments: Comment[];
@@ -44,7 +44,7 @@ export class Question {
         this.user = new User();
         this.answers = new Array();
         this.comments = new Array();
-        this.categoryId = new Array();
+        this.categoryIds = new Array();
     }
 }
 
