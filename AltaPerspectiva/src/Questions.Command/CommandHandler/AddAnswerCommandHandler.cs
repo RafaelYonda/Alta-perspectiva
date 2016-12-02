@@ -33,7 +33,7 @@
             answer.GenerateNewIdentity();
             // create new answers. generate id then add to questions
 
-            answer.QuestionId = answer.QuestionId;            
+            answer.QuestionId = command.QuestionId;            
             answer.Text = command.Text;            
             answer.UserId = command.UserId;
             answer.CreatedOn = DateTime.Now;

@@ -19,8 +19,10 @@ namespace Questions.Query
         {
             return DbContext.
                     Questions
-                    .Include(q=>q.Categories)
-                    .ThenInclude(c=>c.Category); 
+                        .Include(q=>q.Categories)
+                            .ThenInclude(c=>c.Category)
+                                .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                    .ThenBy(c => c.CreatedOn.Value.TimeOfDay);
         }
     }
 }

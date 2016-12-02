@@ -40,7 +40,7 @@
             question.CreatedBy = command.UserId;
             question.DTS = command.Date;
 
-            var keywords = question.Title.TrimEnd('?').Split(' ');
+            var keywords = question.Title.Trim('?',',','.',':').Split(' ');
             var ids = GetMatchedCategories(keywords);
             
 
@@ -69,13 +69,9 @@
 
         private List<Guid> GetMatchedCategories(string[] keywords)
         {
-            //return DbContext.Keywords.Include(k=>k.Category).Where(c=>c.Text.Contains(keywords.Any()));
-
-            return (from p in DbContext.Keywords
-                    where keywords.Any(val => p.Text.Contains(val))
-                    select  p.Category.Id)
-                                .Distinct()
-                                .ToList();
+            return DbContext.Keywords
+                .Where(k => keywords.Contains(k.Text))
+                    .Select(k => k.CategoryId)
+                        .ToList();        }
         }
-    }
 }
