@@ -1,9 +1,15 @@
-﻿<div *ngFor="let question of questions">
-    <h1><a [routerLink]="['/question/detail',question.id]" >&iquest;{{question.title}}?</a> </h1>
-    <div>
-        Categories: <h4 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}},&nbsp; </h4>
-    </div>
-    <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Answer</button>
+﻿<div class="loader" *ngIf="loader.isLoading"></div>
+<div     infinite-scroll
+         [infiniteScrollDistance]="scrollDistance"
+         [infiniteScrollThrottle]="throttle"
+         (scrolled)="onScrollDown()">
+
+    <div *ngFor="let question of questions">
+        <h1><a [routerLink]="['/question/detail',question.id]">&iquest;{{question.title}}?</a> </h1>
+        <div>
+            Categories: <h4 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}},&nbsp; </h4>
+        </div>
+        <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Answer</button>
         <div class="row">
             <div class="left-border">
                 <img class="image-border" src="../../../../images/border.png" />
@@ -11,11 +17,11 @@
             <div class="article-details">
                 <img class="user-image" src="../../../../images/avatar.png" />
                 <!--<div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>-->
-                <!--<div class="header-info">{{answer.topics}},{{date.getMonthName(answer.date.getMonth())}} {{answer.date.getDate()}} {{answer.date.getFullYear()}}</div>-->
                 <p [innerHTML]="question.body" class="answer-text"></p>
             </div>
         </div>
         <hr />
+    </div>
 </div>
 
 <!-- ==========Modal======= -->
