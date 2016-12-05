@@ -14,10 +14,9 @@ import { Profile, Contact } from '../../services/models';
 export class EditProfileComponent {
     //profile: Profile;
     constructor(private service: ProfileService) {
-        //ProfileService.profile = this.profile;
     }
     Submit() {
-        console.log(this.service.profile);
-        //this.service.SaveProfile();
+        //console.log(this.service.profile);
+        this.service.SaveProfile();
     }
 }

@@ -12,6 +12,7 @@ export class EducationFormComponent {
     education: Education;
     constructor(private service: ProfileService) {
         this.education = new Education();
-        //service.profile.education = this.education;
+        console.log(service.profile);
+        this.service.profile.education = this.education;
     }
 }

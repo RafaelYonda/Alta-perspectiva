@@ -12,6 +12,7 @@ export class ExperienceFormComponent {
     experience: Experience;
     constructor(private service: ProfileService) {
         this.experience = new Experience();
-        //service.profile.experience = this.experience;
+        console.log(service.profile);
+        this.service.profile.experience = this.experience;
     }
 }
