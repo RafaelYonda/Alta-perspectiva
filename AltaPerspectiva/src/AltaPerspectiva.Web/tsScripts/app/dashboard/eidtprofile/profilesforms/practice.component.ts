@@ -12,6 +12,7 @@ export class PracticeFormComponent {
     practiceArea: PracticeArea;
     constructor(private service: ProfileService) {
         this.practiceArea = new PracticeArea();
-        service.profile.practiceArea = this.practiceArea;
+        console.log(service.profile);
+        this.service.profile.practiceArea = this.practiceArea;
     }
 }

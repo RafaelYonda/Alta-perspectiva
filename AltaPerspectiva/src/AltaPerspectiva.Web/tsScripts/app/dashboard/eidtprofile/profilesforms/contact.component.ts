@@ -10,8 +10,9 @@ import { Profile, Contact } from '../../../services/models';
 })
 export class ContactFormComponent {
     contact: Contact;
-    constructor(service: ProfileService) {
+    constructor(private service: ProfileService) {
         this.contact = new Contact();
-        service.profile.contact = this.contact;
+        console.log(service.profile);
+        this.service.profile.contact = this.contact;
     }
 }

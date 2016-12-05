@@ -86,8 +86,10 @@ export class Profile {
     skills: Skills;
     practiceArea: PracticeArea;
     insight: Insight;
+    completePercent: number;
 }
 export class Contact {
+    userId: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -99,14 +101,48 @@ export class Contact {
     city: string;
 }
 export class Biography {
+    userId: string;
     tagLine: string;
     aboutMe: string;
 }
-export class Education { }
-export class Experience { }
-export class Skills { }
-export class PracticeArea { }
-export class Insight { }
+export class Education {
+    userId: string;
+    institute: string;
+    startDate: Date;
+    endDate: Date;
+    studyStatus: boolean;
+    description: string;
+    especiality: string;
+}
+export class Experience {
+    userId: string;
+    employer: string;
+    positionHeld: string;
+    employerLocation: string;
+    startDate: Date;
+    endDate: Date;
+    currentlyWorking: boolean;
+    description: string;
+}
+export class Skills {
+    userId: string;
+    skillArea: string[];
+    newSkill: string;
+}
+export class PracticeArea {
+    userId: string;
+    practiceArea: string[];
+    newPracticeArea: string;
+}
+export class Insight {
+    userId: string;
+    title: string;
+    publication: string;
+    date: Date;
+    isHyperLink: boolean;
+    isDocument: boolean;
+    description: string;
+}
 //================..Profile Objects..
 
 

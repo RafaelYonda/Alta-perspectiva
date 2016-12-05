@@ -3,14 +3,19 @@ import {Profile} from './models';
 
 @Injectable()
 export class ProfileService {
-    public profile: Profile;
+    static instance: ProfileService;
+    profile: Profile;
     constructor() {
         this.profile = new Profile();
+        return ProfileService.instance = ProfileService.instance || this;
     }
-    getProfileObj(): Profile {
-        return new Profile();
-    }
+    //constructor() {
+    //    this.profile = new Profile();
+    //}
+    //getProfileObj(): Profile {
+    //    return ProfileService.profile;
+    //}
     SaveProfile() {
-        console.log(this.profile);
+        console.log(ProfileService.instance.profile);
     }
 }
