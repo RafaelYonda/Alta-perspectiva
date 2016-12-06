@@ -39,10 +39,11 @@
                                 </div>
                             </div>
                             <div class="question-components">
-                                <ckeditor [(ngModel)]="body" [ngModelOptions]="{standalone: true}"
+                                <textarea [(ngModel)]="body" [ngModelOptions]="{standalone: true}" rows="5" cols="84" ></textarea>
+                                <!--<ckeditor [(ngModel)]="body" [ngModelOptions]="{standalone: true}"
                                           [config]="{ removeButtons : 'Outdent,Indent,About,SpecialChar,Styles,Format,Source,NumberedList,BulletedList,Scayt,Blockquote,Anchor,Table'}"
                                           debounce="500">
-                                </ckeditor>
+                                </ckeditor>-->
                             </div>
 
                         </div>
