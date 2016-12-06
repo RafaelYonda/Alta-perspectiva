@@ -164,12 +164,11 @@ namespace AltaPerspectiva
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-
-            using (var context = new QuestionsDbContext(
-                app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
-            {
-                context.Database.EnsureCreated();
-            }
+            //using (var context = new QuestionsDbContext(
+            //    app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
+            //{
+            //    context.Database.EnsureCreated();
+            //}
         }
     }
 }

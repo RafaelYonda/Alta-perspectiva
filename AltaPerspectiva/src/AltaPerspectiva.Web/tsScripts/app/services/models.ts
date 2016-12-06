@@ -38,7 +38,7 @@ export class Question {
     date: Date;
     responseCount: string;
     user: User;
-    answers: Answer[];
+    answers: AnswerViewModel[];
     answerCount: number
     constructor() {
         this.user = new User();

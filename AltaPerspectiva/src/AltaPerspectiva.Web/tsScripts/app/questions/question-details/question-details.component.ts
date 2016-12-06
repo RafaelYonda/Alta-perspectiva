@@ -29,9 +29,7 @@ export class QuestionDetailComponent {
     ngOnInit() {
         this.route.data
             .subscribe(res => {
-                this.question = res.question;
-                console.log("res");  
-                console.log(res);             
+                this.question = res.question;                        
             });      
     }
 
@@ -45,7 +43,8 @@ export class QuestionDetailComponent {
             
             this.answerVM = res;
             this.answerText = "";
-            this.router.navigate(['/question/home/0']);
+            this.question.answers.push(this.answerVM);
+            //this.router.navigate(['/question/home/0']);
         }); 
         
     }

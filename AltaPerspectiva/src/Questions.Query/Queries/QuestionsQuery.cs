@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using  Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Questions.Domain;
 using AltaPerspectiva.Core.Infrastructure;
 using Questions.Query.DbContext;
-
+using System.Threading.Tasks;
 
 namespace Questions.Query
 {
@@ -15,14 +15,16 @@ namespace Questions.Query
 		{
 		}
 
-        public IEnumerable<Question> Execute()
+        public async Task<IEnumerable<Question>> Execute()
         {
-            return DbContext.
-                    Questions
-                        .Include(q=>q.Categories)
-                            .ThenInclude(c=>c.Category)
-                                .OrderByDescending(c => c.CreatedOn.Value.Date)
-                                    .ThenBy(c => c.CreatedOn.Value.TimeOfDay);
+            return await DbContext.
+                                Questions
+                                    .Include(q=>q.Categories)
+                                        .ThenInclude(c=>c.Category)
+                                            .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                                .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                                    .Take(20)
+                                                        .ToListAsync();
         }
     }
 }

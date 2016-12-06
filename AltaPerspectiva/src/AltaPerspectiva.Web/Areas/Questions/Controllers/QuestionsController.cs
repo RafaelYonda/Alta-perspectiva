@@ -28,9 +28,9 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         // GET: /questions/api/questions
         [HttpGet("/questions/api/questions")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var questionsList = queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+            var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
             return Ok(questionsList);         
         }
 
@@ -44,9 +44,9 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         // GET /questions/api/questions/category/{id}
         [HttpGet("/questions/api/questions/category/{id}")]
-        public IActionResult GetQuestionsByCategoryId(Guid id)
+        public async Task<IActionResult> GetQuestionsByCategoryId(Guid id)
         {
-            var question = queryFactory.ResolveQuery<IQuestionsByCategoryIdQuery>().Execute(id);
+            var question = await queryFactory.ResolveQuery<IQuestionsByCategoryIdQuery>().Execute(id);
             return Ok(question);
         }
 
