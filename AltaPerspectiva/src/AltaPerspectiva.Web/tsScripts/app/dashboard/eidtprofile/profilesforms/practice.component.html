@@ -1,4 +1,7 @@
 ﻿<style>
+    .profile-form{
+        text-align:center;
+    }
     .skil-points {
         background-color: #ededed;
         padding: 5px;
@@ -49,7 +52,7 @@
     </div>
 
     <div class="col-md-6 col-lg-offset-3 button-container">
-        <button class="btn btn-default add-btn">ADD PRACTICE AREA</button>
+        <input type="text" [(ngModel)]="contact.lastName" placeholder="ADD PRACTICE AREA" class="form-control profile-form">
         <button class="btn btn-default done-btn">DONE</button>
     </div>
 </div>

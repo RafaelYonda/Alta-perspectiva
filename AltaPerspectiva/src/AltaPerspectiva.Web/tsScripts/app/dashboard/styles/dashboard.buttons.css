@@ -6,12 +6,13 @@
 .menu-button {
     padding: 4px 12px;
     font-family: typogroteskrounded;
-    font-weight: 600;
+    font-weight: bold;
     width: 100%;
     margin: 5px 0;
     background-color: #ededed;
     border: none;
     border-radius: 10px;
+    font-size: 16px;
 }
 
 .menu-button:focus, .submit-panel > .menu-button:focus, .submit-panel > .menu-button:hover {
@@ -19,6 +20,7 @@
     border: none;
     outline: none;
     outline-offset: 0;
+    color:white;
 }
 
 

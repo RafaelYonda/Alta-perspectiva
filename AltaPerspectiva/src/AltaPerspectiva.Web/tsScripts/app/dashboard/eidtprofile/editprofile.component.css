@@ -19,3 +19,14 @@
     .progress-value {
         color: #f29200;
     }
+    .panel-heading{
+        position:relative;
+    }
+    .header-left{
+        position:absolute;
+        left:5px;
+    }
+    .header-right{
+        position:absolute;
+        right:5px;
+    }

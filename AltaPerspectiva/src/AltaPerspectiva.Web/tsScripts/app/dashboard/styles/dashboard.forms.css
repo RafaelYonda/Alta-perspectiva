@@ -14,8 +14,12 @@
     background-color: #ededed;
     border-radius: 0;
     box-shadow: none;
+    border:1px;
 }
 
 .form-control:focus {
     background-color: none;
+}
+label{
+    font-weight:600;
 }

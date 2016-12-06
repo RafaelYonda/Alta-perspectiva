@@ -119,8 +119,10 @@ export class Experience {
     employer: string;
     positionHeld: string;
     employerLocation: string;
-    startDate: Date;
-    endDate: Date;
+    startMonth: number;
+    startYear: number;
+    endMonth: number;
+    endYear: number;
     currentlyWorking: boolean;
     description: string;
 }
@@ -138,19 +140,16 @@ export class Insight {
     userId: string;
     title: string;
     publication: string;
-    date: Date;
+    dateMonth: number;
+    dateYear: number;
     isHyperLink: boolean;
     isDocument: boolean;
+    documentLink: string;
     description: string;
 }
 //================..Profile Objects..
-
-
 export class DateName {
-    getMonthName(month: number):string {
-       var  monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-       return monthNames[month];
-    }
+     monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
 }

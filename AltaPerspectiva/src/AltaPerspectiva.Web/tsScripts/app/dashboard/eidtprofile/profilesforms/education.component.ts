@@ -14,5 +14,6 @@ export class EducationFormComponent {
         this.education = new Education();
         console.log(service.profile);
         this.service.profile.education = this.education;
+        //var d = this.education.startDate.setFullYear(2016)
     }
 }
