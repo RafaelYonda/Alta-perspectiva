@@ -10,28 +10,26 @@ import { Router } from '@angular/router';
     providers: [CategoryService]
 })
 export class TabsComponent {
-    categories: Category[];
+    categories: Category[];    
     tabLength = 6;
     transform: number;
     translate: string;
     _router: Router;
     constructor(private categoryService: CategoryService, route: Router) {
         this._router = route;
-
+         
         //====
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
-            this.categories.forEach(function (el) {
-                el.active = 'zzz';
-            });
-            this.categories[0].active = 'active';
+            
+
             this.tabLength = this.categories.length - 6;
             this.transform = 0;
         });
     }
     ngOnInit() {
-        
-
+        //console.log('on init');
+        //this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
     }
     leftclick() {
         //return tabs are at its left most position

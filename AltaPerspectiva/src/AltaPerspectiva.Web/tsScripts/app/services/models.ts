@@ -15,12 +15,29 @@ export class LogInObj {
     user: User;
     isLoggedIn: boolean;
 }
+
+
 export class Category {
     id: number;
     name: string;
     icon: string;
     active: string;
+    description: string;
+    sequence: number;   
 }
+
+export class CacheCategory
+{
+    /// cache data for later user
+    _data: Category[];
+    get data() {
+        return this._data;
+    }
+    set data(value) {
+        this._data = value;
+    }
+}
+
 export class Comment {
     id: number;
     user: User;

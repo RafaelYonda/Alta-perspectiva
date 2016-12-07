@@ -27,6 +27,6 @@ export class AppComponent {
             localStorage.removeItem('currentUser');
     }
     ngOnInit() {
-        console.log(this.username);
+       
     }
 }

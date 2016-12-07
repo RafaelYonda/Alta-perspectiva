@@ -17,7 +17,7 @@ namespace Questions.Query
 
         public IEnumerable<Category> Execute()
         {
-            return DbContext.Categories; 
+            return DbContext.Categories.OrderBy(x=>x.Sequence); 
         }
     }
 }

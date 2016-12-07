@@ -4,25 +4,21 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { ApNav } from './nav/apnav';
 import { ApBannerComponent } from './banner/apbanner.component';
-import { ApSearchComponent } from './search/apSearch.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabPanelComponent } from './tabs/tab-panel.component';
-import { TabSubpanelComponent } from './tabs/tab-subpanel.component';
 import { QuestionModule } from '../questions/question.module';
-// Route Configuration
+
 export const routes: Routes = [
     {
         path: 'home', component: HomeComponent,
-            children: [
-                { path: '', redirectTo: 'tab' },
-                {
-                    path: 'tab', component: TabPanelComponent,
-                    children: [
-                        { path: '', redirectTo: 'tab' },
-                        { path: ':id', component: TabSubpanelComponent },
-                    ]
-                }
-            ]
+
+        children: [
+
+            { path: '', redirectTo: 'tab/1' },
+
+            { path: 'tab/:id', component: TabPanelComponent },           
+
+        ]
     },
 ];
 
