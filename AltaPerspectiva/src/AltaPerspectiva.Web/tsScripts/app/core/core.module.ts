@@ -12,7 +12,7 @@ import { ApBannerComponent } from './banner/apbanner.component';
 //import { ApSearchComponent } from './search/apSearch.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabPanelComponent } from './tabs/tab-panel.component';
-import { TabSubpanelComponent } from './tabs/tab-subpanel.component';
+
 import { FormsModule } from '@angular/forms';
 //================
 import { SharedModule } from '../shared/shared.module';
@@ -34,8 +34,7 @@ import { routing } from './core.route';
         ApBannerComponent,
         //ApSearchComponent,
         TabsComponent,
-        TabPanelComponent,
-        TabSubpanelComponent,
+        TabPanelComponent,        
 
         //other app component
         //QuestionHomeComponent,
@@ -50,8 +49,7 @@ import { routing } from './core.route';
         ApNav,
         ApBannerComponent,
         TabsComponent,
-        TabPanelComponent,
-        TabSubpanelComponent,
+        TabPanelComponent,        
 
         //other app component
         LearnHome,

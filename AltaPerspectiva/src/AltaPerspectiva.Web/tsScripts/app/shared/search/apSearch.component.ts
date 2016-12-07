@@ -32,9 +32,6 @@ export class ApSearchComponent {
 
     constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, myElement: ElementRef) {
         this.elementRef = myElement;
-        //this.categories = this.categoryService.getCategories();
-        
-        
     }  
 
     submitQuestion() {
@@ -82,8 +79,7 @@ export class ApSearchComponent {
         console.log(this.questionList);
         if (this.title !== "" && this.title.length>2) {
             this.filteredQuestionList = this.questionList.filter(function (el) {
-                console.log(el);
-                return el.title.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
+               return el.title.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
             }.bind(this));
         } else {
             this.filteredQuestionList = [];

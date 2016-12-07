@@ -68,7 +68,13 @@
 
                 e.HasKey(c => c.Id);
 
-                e.Property(c => c.Name);
+                e.Property(c => c.Name).IsRequired();
+
+                e.Property(c => c.Active);
+
+                e.Property(c => c.Description);
+
+                e.Property(c => c.Sequence);
 
                 e.HasMany<QuestionCategory>(q => q.Questions).WithOne(c => c.Category).HasForeignKey(qc => qc.CategoryId);
 

@@ -38,7 +38,12 @@ export class QuestionAnswerService implements Resolve<Question> {
     }
 
     getQuestionsByCategory(categoryId: string): Observable<Question[]> {
-        console.log(categoryId);
+        if (categoryId === "1")
+            return this._http.get('/questions/api/questions')
+                .map(this.extractData)
+                .catch(this.handleError);
+
+        else
         return this._http.get('/questions/api/questions/category/' + categoryId)
             .map(this.extractData)
             .catch(this.handleError);
