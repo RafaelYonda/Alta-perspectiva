@@ -3,20 +3,23 @@
         float: left;
         margin-top: 10px;
     }
-    .text-panel{
-    margin-top: 7px;
-}
+
+    .text-panel {
+        margin-top: 7px;
+    }
+
     .link-icon {
-    transform: rotate(90deg);
-    font-size: 16px;
-}
-    input[type=radio   ]{
-  display      : inline-block;
-  margin-left  : -28px;
-  padding-left : 28px;
-  background   : url('checks.png') no-repeat 0 0;
-  line-height  : 24px;
-}
+        transform: rotate(90deg);
+        font-size: 16px;
+    }
+
+    input[type=radio ] {
+        display: inline-block;
+        margin-left: -28px;
+        padding-left: 28px;
+        background: url('checks.png') no-repeat 0 0;
+        line-height: 24px;
+    }
 </style>
 <div class="row">
     <div class="form-group col-md-6">
@@ -49,7 +52,7 @@
             <div class="col-md-8">
                 <i class="fa fa-link"> </i>
                 <label class="radio-inline">
-                    
+
                     <input [(ngModel)]="insight.isDocument" type="radio" name="optradio">UPLOAD DOCUMENT
                 </label>
             </div>

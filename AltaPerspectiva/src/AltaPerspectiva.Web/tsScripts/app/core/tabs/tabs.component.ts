@@ -35,6 +35,7 @@ export class TabsComponent {
     }
     leftclick() {
         //return tabs are at its left most position
+        console.log(this.tabLength);
         if (this.tabLength <= 0)
             return;
         this.transform = this.transform - 170;
@@ -43,6 +44,7 @@ export class TabsComponent {
     }
 
     rightclick() {
+        console.log(this.tabLength);
         //return tabs are at its right most position
         if (this.tabLength >= (this.categories.length - 6))
             return;
