@@ -57,7 +57,11 @@ a {
     left: 20%;
     overflow: visible;
 }
-
+.top-fixed {
+    position: fixed;
+    left: 20%;
+    top: 74px;
+}
 .fixed-height {
     height: 45px;
 }
