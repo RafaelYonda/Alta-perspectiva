@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { CategoryService } from '../../services/category.service'
 import { QuestionAnswerService } from '../../services/question-answer.service';
-import { Category, Question, AskQuestionViewModel } from '../../services/models';
+import { Category, Question, Keyword, AskQuestionViewModel } from '../../services/models';
 
 @Component({
     selector: 'ap-search',
@@ -29,6 +29,9 @@ export class ApSearchComponent {
     categoryID: string;
     body: string;                 
     result: string;
+
+    categoryMatched: string ="";
+    keywords: Keyword[];
 
     constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, myElement: ElementRef) {
         this.elementRef = myElement;
@@ -59,6 +62,9 @@ export class ApSearchComponent {
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
         });
+        this.categoryService.getAllKeywords().subscribe(res => {
+            this.keywords = res;
+        });
     }
     
     public elementRef;
@@ -74,14 +80,44 @@ export class ApSearchComponent {
    
 
     public questionList = [];
-    
+
+
+    showMatchedCatogries(title: string)
+    {
+        if(title.length < 3)
+            return;
+
+        var keywordsInQuestionTitle = title.split(' ');
+        console.log('split text');
+        console.log(keywordsInQuestionTitle);
+        if (keywordsInQuestionTitle.length > 1)
+        {
+            this.categoryMatched = "";
+            keywordsInQuestionTitle.forEach(str => {
+
+                var matched = this.keywords.find(x => x.text.toLowerCase() == str.toLocaleLowerCase());
+                if (matched) {
+                    var cat = this.categories.find(c => c.id == matched.categoryId);
+                    this.categoryMatched += (cat == null ? "" : cat.name + " ");
+                }
+                
+            })
+           
+        }
+    }
+
     filterQuestions() {
-        console.log(this.questionList);
+        
+        //search after 3rd letter
+        this.showMatchedCatogries(this.title);        
+
         if (this.title !== "" && this.title.length>2) {
             this.filteredQuestionList = this.questionList.filter(function (el) {
                return el.title.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
             }.bind(this));
-        } else {
+        }
+        else
+        {
             this.filteredQuestionList = [];
         }
     }

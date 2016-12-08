@@ -18,7 +18,7 @@ export class LogInObj {
 
 
 export class Category {
-    id: number;
+    id: string;
     name: string;
     icon: string;
     active: string;
@@ -44,6 +44,7 @@ export class Comment {
     commentText: string;
     time: Date;
 }
+
 export class Question {
     id: string;
     title: string;    
@@ -77,6 +78,12 @@ export class AskQuestionViewModel {
     }
 }
 
+
+export class Keyword {
+    Id: number;
+    text: string;
+    categoryId: string;   
+ }
 export class Answer {
     id: number;
     questionId: number;

@@ -1,10 +1,12 @@
 ﻿import { Injectable } from '@angular/core';
-import { Category } from './models';
+import { Category, Keyword } from './models';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
+import 'rxjs/add/operator/publishReplay';
 
 @Injectable()
 export class CategoryService {
+
     public catagories: Category[]
     constructor(private _http: Http) {
 
@@ -13,10 +15,18 @@ export class CategoryService {
 
         let options = new RequestOptions({ headers: headers });
     }
+
     getAllCategories(): Observable<Category[]> {
         return this._http.get('/questions/api/categories/')
             .map(this.extractData)
             .catch(this.handleError);        
+    }
+    getAllKeywords(): Observable<Keyword[]> {
+        return this._http.get('/questions/api/categories/keywords')
+            .map(this.extractData)
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount();
     }
    
     private extractData(res: Response) {

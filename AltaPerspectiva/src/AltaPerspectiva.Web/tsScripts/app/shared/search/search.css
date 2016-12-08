@@ -139,6 +139,7 @@ a {
     border-radius: 5px;
     padding: 7px;
     margin-top: 7px;
+    z-index:5000;
 }
 
 .btn-group {

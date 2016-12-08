@@ -53,12 +53,17 @@ export class TabsComponent {
     getTransform() {
         return this.translate;
     }
-    selectTab(id) {
+    selectTab(id,sequence) {
         this.categories.forEach(element => {
+
             if (element.id == id) {
                 element.active = 'active';
+               
+                if (sequence == 1)
+                    id = 1; /// to get all latest question
             }
             else element.active = '';
+
         });
         this._router.navigateByUrl('home/tab/' + id, { skipLocationChange: true });
     }

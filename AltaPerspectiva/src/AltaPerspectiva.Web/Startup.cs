@@ -20,6 +20,8 @@ using System.IO;
 using Questions.Query;
 using Questions.Query.DbContext;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Caching.Distributed;
+using System.Text;
 
 namespace AltaPerspectiva
 {
@@ -46,6 +48,9 @@ namespace AltaPerspectiva
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
+
+            services.AddDistributedMemoryCache();
+
             services.AddAuthentication(options => {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
@@ -80,7 +85,7 @@ namespace AltaPerspectiva
 
        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IDistributedCache cache)
         {
             //app.Use(async (context, next) =>
             //{
@@ -164,11 +169,19 @@ namespace AltaPerspectiva
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //using (var context = new QuestionsDbContext(
-            //    app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
-            //{
-            //    context.Database.EnsureCreated();
-            //}
+            using (var context = new QuestionsDbContext(
+                app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
+            {
+                context.Database.EnsureCreated();
+
+                var keywords = context.Keywords.ToList();
+                cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
+                //, new DistributedCacheEntryOptions()
+                //            .SetSlidingExpiration(TimeSpan.FromMinutes(10))
+                //                .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
+                
+
+            }
         }
     }
 }

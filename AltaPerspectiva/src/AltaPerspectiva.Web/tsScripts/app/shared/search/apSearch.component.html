@@ -13,10 +13,13 @@
 
             
 
-            <div class="suggestions" *ngIf="filteredQuestionList.length > 0">
+            <div class="suggestions" *ngIf="(filteredQuestionList.length > 0) || (this.categoryMatched.length > 0)">
                 <ul class="question-List">
                     <li *ngFor="let item of filteredQuestionList">
                         <a (click)="selectQuestionDetails(item)">{{item.title}}</a>
+                    </li>
+                    <li>
+                        Topics: {{categoryMatched}}
                     </li>
                 </ul>
             </div>
