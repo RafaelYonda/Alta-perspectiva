@@ -33,7 +33,7 @@ export class ApSearchComponent {
     categoryMatched: string ="";
     keywords: Keyword[];
 
-    constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, myElement: ElementRef) {
+    constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService,private myElement: ElementRef) {
         this.elementRef = myElement;
     }  
 
@@ -105,7 +105,26 @@ export class ApSearchComponent {
            
         }
     }
+    searchClass: string;
+    showModal() {
 
+        var form = document.getElementById("search-panel");
+        var viewportOffset = form.getBoundingClientRect();
+        // these are relative to the viewport, i.e. the window
+        var top = Math.floor(viewportOffset.top);
+        if (top > 0) {
+            this.searchClass = document.getElementById("search-box").className;
+            document.getElementById("search-box").className = "modal-container z-modal";
+            form.style.marginTop = String(top) + "px";
+        }
+        console.log(top);
+    }
+    removeModal() {
+        document.getElementById("search-box").className = this.placeBottom;
+        var form = document.getElementById("search-panel");
+        form.style.marginTop = '0';
+        console.log("Remove " + this.searchClass);
+    }
     filterQuestions() {
         
         //search after 3rd letter
@@ -115,10 +134,15 @@ export class ApSearchComponent {
             this.filteredQuestionList = this.questionList.filter(function (el) {
                return el.title.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
             }.bind(this));
+            this.showModal();
+
+           
         }
         else
         {
             this.filteredQuestionList = [];
+            console.log("Remove " + this.searchClass);
+            this.removeModal();
         }
     }
 

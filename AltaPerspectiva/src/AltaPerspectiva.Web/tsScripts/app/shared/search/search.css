@@ -16,7 +16,9 @@ a {
 }
 
 .question-List {
-    list-style-image: url(../images/question-mark.jpg);
+    /*list-style-image: url(../images/question-mark.jpg);*/
+    list-style:none;
+    padding-left:5px;
 }
 
 .form-horizontal>.search-input{
@@ -54,12 +56,14 @@ a {
 .bottom-float {
     position: absolute;
     bottom: -3%;
-    left: 20%;
+    left: 0;
+    right: 0;
     overflow: visible;
 }
 .top-fixed {
     position: fixed;
-    left: 20%;
+    left: 0;
+    right:0;
     top: 74px;
 }
 .fixed-height {
@@ -144,6 +148,7 @@ a {
     padding: 7px;
     margin-top: 7px;
     z-index:5000;
+    min-width:91%;
 }
 
 .btn-group {
