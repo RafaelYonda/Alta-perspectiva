@@ -6,9 +6,8 @@
     using System.Threading.Tasks;
     using AltaPerspectiva.Core.Infrastructure;
     using AltaPerspectiva.Identity;
-    public class CategoryFollower
-    {
-        public Int64 Id { get; set; }
+    public class CategoryFollower:Entity
+    {        
         public Guid UserId { get; set; }        
         public Guid CategoryId { get; set; }
         public virtual Category Category { get; set; }        

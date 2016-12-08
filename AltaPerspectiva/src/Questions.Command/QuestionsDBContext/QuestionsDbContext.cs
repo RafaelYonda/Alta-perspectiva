@@ -16,16 +16,14 @@
        public DbSet<Comment> Comments { get; set; }
        public DbSet<QuestionCategory> QuestionCategories { get; set; }
        public DbSet<Keyword> Keywords { get; set; }
+       public DbSet<CategoryFollower> CategoryFollowers { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+       protected override void OnModelCreating(ModelBuilder modelBuilder)
+       {
             // Configure model mappings
             modelBuilder.HasDefaultSchema("Questions");
-
-            base.OnModelCreating(modelBuilder);            
-
-            modelBuilder.ConfigureMappings();                                
-            
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ConfigureMappings();    
         }
     }
 }
