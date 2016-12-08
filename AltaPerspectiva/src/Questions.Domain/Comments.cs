@@ -12,6 +12,6 @@
         public virtual Question  Question { get; set; }
         public Guid? AnswerId { get; set; }
         public virtual Answer Answer { get; set; }
-        public virtual DateTime CommentDate { get; set; }
+        public DateTime CommentDate { get; set; }
     }
 }

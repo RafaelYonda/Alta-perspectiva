@@ -8,11 +8,9 @@
     using AltaPerspectiva.Identity;
     public class CategoryFollower
     {
-        public Guid UserId { get; set; }
-        public string Name { get; set; }
-        public string Icon { get; set; }
-        public string Active { get; set; }
-        public virtual Category Category { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public Int64 Id { get; set; }
+        public Guid UserId { get; set; }        
+        public Guid CategoryId { get; set; }
+        public virtual Category Category { get; set; }        
     }
 }
