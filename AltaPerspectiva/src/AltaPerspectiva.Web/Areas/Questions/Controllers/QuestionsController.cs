@@ -90,6 +90,45 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Created($"/questions/api/question/{answer.QuestionId}/answer/{answer.Id}", answer);
         }
 
+        [HttpPost("/questions/api/question/{id}/comment")]
+        public IActionResult PostQuestionComment([FromBody]CommentViewModel comment)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+
+            //AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser);
+            //commandsFactory.ExecuteQuery(cmd);
+            //Guid createdId = cmd.Id;
+
+            //return Created($"/questions/api/question/{answer.QuestionId}/answer/{answer.Id}", answer);
+
+            return Created("/questions/api/question/123/answer/4567",comment);
+        }
+
+        [HttpPost("/questions/api/question/{id}/answer/{answerId}")]
+        public IActionResult PostAnswerComment([FromBody]CommentViewModel comment)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+
+            //AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser);
+            //commandsFactory.ExecuteQuery(cmd);
+            //Guid createdId = cmd.Id;
+
+            // return Created($"/questions/api/question/{answer.QuestionId}/answer/{answer.Id}", answer);
+            return Created("/questions/api/question/123/answer/4567", comment);
+        }
+
 
 
         // PUT api/questions/5
