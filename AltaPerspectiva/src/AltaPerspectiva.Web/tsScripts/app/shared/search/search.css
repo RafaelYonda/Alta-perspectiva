@@ -1,9 +1,23 @@
-﻿.search-icon {
+﻿.modal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+.search-icon {
     background: transparent;
     position: absolute;
     right: 15%;
     padding-top: 10px;
     height: 43px;
+}
+.search-footer{
+    color:#235da7;;
+}
+hr, ul {
+    margin: 0;
 }
 
 a {
@@ -12,19 +26,22 @@ a {
     text-decoration: none;
     outline: 0;
     display: block;
-    margin-bottom: 5px;
+    margin: 10px 10px;
+    font-family: myriadpro-regular;
+    font-size: 18px;
 }
 
 .question-List {
     /*list-style-image: url(../images/question-mark.jpg);*/
-    list-style:none;
-    padding-left:5px;
+    list-style: none;
+    padding: 10px 0px;
 }
 
-.form-horizontal>.search-input{
+.form-horizontal > .search-input {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
+
 .form-group {
     margin: 0;
     padding: 3px 0px;
@@ -40,8 +57,6 @@ a {
     border-top: 1px solid #9e9393;
     border-bottom: 1px solid #9e9393;
 }
-
-
 
 .dropdown-menu-right {
     right: 88px;
@@ -60,12 +75,14 @@ a {
     right: 0;
     overflow: visible;
 }
+
 .top-fixed {
     position: fixed;
     left: 0;
-    right:0;
+    right: 0;
     top: 74px;
 }
+
 .fixed-height {
     height: 45px;
 }
@@ -133,22 +150,20 @@ a {
         position: static !important;
     }
 
-    .dropdown.dropdown-lg .search-dropdown-menu {
-        min-width: 500px;
-    }
+        .dropdown.dropdown-lg .search-dropdown-menu {
+            min-width: 500px;
+        }
 }
 
 .suggestions {
     max-width: 85%;
-    border: 1px solid;
     position: absolute;
     background-color: white;
     top: 100%;
-    border-radius: 5px;
-    padding: 7px;
+    border-radius: 10px;
     margin-top: 7px;
-    z-index:5000;
-    min-width:91%;
+    z-index: 5000;
+    min-width: 91%;
 }
 
 .btn-group {
@@ -173,6 +188,6 @@ label {
 }
 
 .search-menu {
-     min-width:761px;
-    margin-top:6px;
+    min-width: 761px;
+    margin-top: 6px;
 }
