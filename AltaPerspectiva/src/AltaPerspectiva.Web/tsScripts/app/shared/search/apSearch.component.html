@@ -1,26 +1,14 @@
-﻿<style>
-    .modal-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, 0.3);
-    }
-</style>
-<div [ngClass]="placeBottom" class="z-header" id="search-box" >
+﻿<div [ngClass]="placeBottom" class="z-header" id="search-box" >
     <div class="input-group" id="adv-search">
 
         <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="form-horizontal" role="form" id="search-panel">
 
+            <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Ask here" id="title" autocomplete="off"
+                   [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
             <div [hidden]="titleName.valid || titleName.pristine"
                  class="alert alert-danger">
                 Please type your question and then click ask!!
             </div>
-
-            <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Ask here" id="title" autocomplete="off"
-                   [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
-
             
 
             <div class="suggestions" *ngIf="(filteredQuestionList.length > 0) || (this.categoryMatched.length > 0)">
@@ -30,11 +18,11 @@
                         <hr />
                     </li>
                     <li>
-                        Topics: {{categoryMatched}}
+                       <a><span class="search-footer">Topics:</span>  {{categoryMatched}}</a> 
                         <hr />
                     </li>
                     <li>
-                        Search: {{categoryMatched}}
+                        <a><span class="search-footer">Search:</span>  {{title?title+'?':''}}</a> 
                     </li>
                 </ul>
             </div>
