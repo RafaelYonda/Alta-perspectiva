@@ -39,25 +39,32 @@ export class CacheCategory
 }
 
 export class Comment {
-    id: number;
+    id: string;
+    questionId: string;
+    answerId: string;
     user: User;
-    commentText: string;
-    time: Date;
+    commentText: string;    
+}
+
+export class Like {
+    id: string;
+    questionId: string;
+    answerId: string;
+    userId: string;   
 }
 
 export class Question {
     id: string;
     title: string;    
     body: string;
-    categoryIds: string[];    
-    likeCount: number;
+    categoryIds: string[];
+    likes: Like[];
     commentCount: number;
     comments: Comment[];
-    date: Date;
-    responseCount: string;
+    date: Date;    
     user: User;
     answers: AnswerViewModel[];
-    answerCount: number
+    viewCount: number;    
     constructor() {
         this.user = new User();
         this.answers = new Array();
@@ -83,15 +90,15 @@ export class Keyword {
     Id: number;
     text: string;
     categoryId: string;   
- }
+}
+
 export class Answer {
     id: number;
     questionId: number;
     user: User;
     answerText: string;
     date: Date;
-    likeCount: number;
-    commentCount: number;
+    likes: Like[];    
     comments: Comment[];
 }
 

@@ -5,7 +5,7 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel} from './models';
+import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment } from './models';
 
 @Injectable()
 export class QuestionAnswerService implements Resolve<Question> {
@@ -60,6 +60,20 @@ export class QuestionAnswerService implements Resolve<Question> {
     addAnswer(answer: AnswerViewModel): Observable<AnswerViewModel> {
 
         return this._http.post('/questions/api/question/' + answer.questionId + '/answer', answer)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    addQuestionComment(comment: Comment): Observable<Comment> {
+
+        return this._http.post('"/questions/api/question/' + comment.questionId + '/comment', comment)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    addAnswerComment(comment: Comment): Observable<Comment> {
+
+        return this._http.post('"/questions/api/question/' + comment.questionId + '/answer/' + comment.answerId, comment)
             .map(this.extractData)
             .catch(this.handleError);
     }

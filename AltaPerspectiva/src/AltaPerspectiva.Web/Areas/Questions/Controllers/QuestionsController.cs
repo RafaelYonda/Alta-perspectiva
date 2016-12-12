@@ -119,12 +119,11 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(loggedinUser.ToString());
             }
 
-            //AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser);
-            //commandsFactory.ExecuteQuery(cmd);
-            //Guid createdId = cmd.Id;
+            AddCommentCommand cmd = new AddCommentCommand(comment.CommentText, comment.QuestionId, comment.AnswerId, loggedinUser);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
 
-            // return Created($"/questions/api/question/{answer.QuestionId}/answer/{answer.Id}", answer);
-            return Created("/questions/api/question/123/answer/4567", comment);
+            return Created($"/questions/api/question/{comment.QuestionId}/answer/{comment.AnswerId}/comment/{comment.Id}", comment);
         }
 
 
