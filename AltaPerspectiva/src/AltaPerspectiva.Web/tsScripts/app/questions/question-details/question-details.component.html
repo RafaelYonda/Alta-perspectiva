@@ -20,9 +20,9 @@
                 </div>
                 <div class="modal-body">
                     <ckeditor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}" id="answer"
-                              required name="answerField" #answerField="ngModel"
+                              required name="answerField" #answerField="ngModel"                            
                               [config]="{   filebrowserUploadUrl : '/browser/browse/type/all',
-                                           filebrowserImageUploadUrl : '/browser/browse/type/image',
+                                           filebrowserImageUploadUrl : '/browser/browse/type/image',                                                     
                               removeButtons : 'About,Maximize,TextColor,Styles,Format,Font,FontSize,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Unlink,Anchor,BidiLtr,Language,BidiRtl,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,CreateDiv,Blockquote,Outdent,Indent,BulletedList,NumberedList,CopyFormatting,RemoveFormat,Underline,Strike,Subscript,Superscript,Form,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Scayt,Find,SelectAll,Replace,BGColor,ShowBlocks,Checkbox,Source,Save,Templates,Cut,Undo,Redo,Copy,Paste,PasteText,PasteFromWord,Print,Preview,NewPage,Checkbox'}"
                               debounce="500">
                     </ckeditor>
@@ -57,10 +57,10 @@
         <div class="status-panel">
             <hr />
             <img class="like-logo" src="../images/fade-logo.png" />
-            <div class="status-line">{{question.likeCount}}</div>
+            <div class="status-line">{{question.likes?.length}}</div>
             <a (click)="submitLike(question.id)"><div class="status-line">Like</div></a>
             <div class="status-line like-border"></div>
-            <div class="status-line">{{question.commentCount}}</div>
+            <div class="status-line">{{question.viewCount}}</div>
             <div class="status-line">Leidos</div>
             <a data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                 {{question.comments?.length}} comments

@@ -5,7 +5,7 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment } from './models';
+import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment, Like } from './models';
 
 @Injectable()
 export class QuestionAnswerService implements Resolve<Question> {
@@ -58,22 +58,31 @@ export class QuestionAnswerService implements Resolve<Question> {
     }
 
     addAnswer(answer: AnswerViewModel): Observable<AnswerViewModel> {
-
         return this._http.post('/questions/api/question/' + answer.questionId + '/answer', answer)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     addQuestionComment(comment: Comment): Observable<Comment> {
-
         return this._http.post('/questions/api/question/' + comment.questionId + '/comment', comment)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    addAnswerComment(comment: Comment): Observable<Comment> {
+    addQuestionLike(like: Like): Observable<Like> {       
+        return this._http.post('/questions/api/question/' + like.questionId + '/like', like)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
-        return this._http.post('/questions/api/question/' + comment.questionId + '/answer/' + comment.answerId, comment)
+    addAnswerComment(comment: Comment): Observable<Comment> {
+        return this._http.post('/questions/api/question/' + comment.questionId + '/answer/' + comment.answerId + '/like', comment)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    addAnswerLike(like: Like): Observable<Like> {
+        return this._http.post('/questions/api/question/' + like.questionId + '/answer/' + like.answerId + '/like', like)
             .map(this.extractData)
             .catch(this.handleError);
     }

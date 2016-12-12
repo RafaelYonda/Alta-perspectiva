@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
-import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, DateName} from '../../services/models';
+import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 @Component({
     selector: "question-details",
@@ -14,10 +14,15 @@ export class QuestionDetailComponent {
     route: any;
     error: any;
     id: string;
+
     answerText: string;
     answerVM: AnswerViewModel;
+
     comment: Comment;
     commentText: string;
+
+    like: Like;
+
 
     private sub: any;
     question: Question;
@@ -67,7 +72,12 @@ export class QuestionDetailComponent {
 
     submitLike(questionId: string)
     {
-        console.log(questionId);
+        this.like = new Like();
+        this.like.questionId = questionId;       
+
+        this.dataService.addQuestionLike(this.like).subscribe(res => {
+            this.question.likes.push(this.like);
+        });
     }
 
 

@@ -22,6 +22,7 @@ namespace Questions.Query
                             .Include(q=>q.Answers)
                                 .ThenInclude(a=>a.Comments)
                             .Include(q=>q.Comments)
+                            .Include(q=>q.Likes)
                             .Include(q=>q.Categories)
                                 .ThenInclude(c=>c.Category)                
                             .Where(q=>q.Id == id)
