@@ -46,9 +46,9 @@
 
 
 <div class="row z-ground">
-    <div class="left-border">
+    <!--<div class="left-border">
         <img class="image-border" src="../../../../images/border.png" />
-    </div>
+    </div>-->
     <div class="article-details">
         <img class="user-image" src="../../../../images/avatar.png" />
         <!--<div class="header-info">{{question?.user?.name}},{{question?.user?.occupassion}}</div>-->
@@ -102,9 +102,9 @@
 <!-- =========Answers============== -->
 <div *ngFor="let answer of question.answers">
     <div class="row">
-        <div class="left-border">
+        <!--<div class="left-border">
             <img class="image-border" src="../../../../images/border.png" />
-        </div>
+        </div>-->
         <div class="article-details" *ngIf="answer">
             <img class="user-image " src="../../../../images/avatar.png" />
             <div class="header-info">{{answer.user?.name}},{{answer.user?.occupassion}}</div>           
