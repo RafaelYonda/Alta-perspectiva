@@ -69,7 +69,6 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Created($"questions/api/questions/{cmd.Id}", question);
         }
 
-
         // POST /questions/api/question/{id}/answer
         [HttpPost("/questions/api/question/{id}/answer")]
         public IActionResult PostAnswer([FromBody]AnswerViewModel answer)
@@ -126,7 +125,43 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Created($"/questions/api/question/{comment.QuestionId}/answer/{comment.AnswerId}/comment/{comment.Id}", comment);
         }
 
+        [HttpPost("/questions/api/question/{id}/like")]
+        public IActionResult PostQuestionLike([FromBody]LikeViewModel like)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+
+            AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+
+            return Created($"/questions/api/question/{like.QuestionId}/comment/{like.Id}", like);
+
+        }
+
+        [HttpPost("/questions/api/question/{id}/like")]
+        public IActionResult PostAnswerLike([FromBody]LikeViewModel like)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+
+            AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+
+            return Created($"/questions/api/question/{like.QuestionId}/answer/{like.AnswerId}/comment/{like.Id}", like);
+
+        }
 
         // PUT api/questions/5
         [HttpPut("{id}")]

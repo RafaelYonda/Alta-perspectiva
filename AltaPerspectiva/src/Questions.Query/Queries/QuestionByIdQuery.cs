@@ -20,6 +20,7 @@ namespace Questions.Query
         {
             return DbContext.Questions
                             .Include(q=>q.Answers)
+                                .ThenInclude(a=>a.Comments)
                             .Include(q=>q.Comments)
                             .Include(q=>q.Categories)
                                 .ThenInclude(c=>c.Category)                
