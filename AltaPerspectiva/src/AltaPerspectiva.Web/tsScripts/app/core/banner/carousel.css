@@ -2,7 +2,12 @@
     overflow: hidden;
     width: 100%;
 }
-
+.indicator{
+    margin-left:3px;
+}
+.indicator:active{
+    background-color:white;
+}
 .fixed-height {     /*for scrol top*/
         height: 135px;
     }
@@ -23,10 +28,18 @@ ul {
     margin-bottom: 0;
 }
 
-.slides > li {
+/*.slides > li {
+    position: relative;
+    float: left;
+    width: 25%; 
+    transition:1s;
+}*/
+.slide-item {
     position: relative;
     float: left;
     width: 25%; /* 100 / number of panes */
+    transition:1s;
+    left:0;
 }
 
 .carousel img {
@@ -49,7 +62,7 @@ ul {
     text-shadow: 2px 2px 5px black;
 }
 
-@keyframes carousel {
+/*@keyframes carousel {
     0% {
         left: -0%;
     }
@@ -73,4 +86,4 @@ ul {
     100% {
         left: -300%;
     }
-}
+}*/

@@ -1,7 +1,11 @@
 ﻿<div class="carousel">
+    <ol class="carousel-indicators" >
+        <li data-target="#carousel-example-generic" *ngFor="let image of images;let i = index" data-slide-to="0" class="indicator"  (click)="slideImage(i)"></li>
+    </ol>
     <ul class="slides">
-        <li *ngFor="let image of images">
+        <li class="slide-item" *ngFor="let image of images" [style.left]="moveValue">
             <h2>{{image.title}}</h2>
+            
             <img src="{{image.url}}" alt="">
         </li>
     </ul>

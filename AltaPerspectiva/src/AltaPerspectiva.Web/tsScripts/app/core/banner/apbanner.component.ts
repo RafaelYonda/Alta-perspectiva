@@ -16,6 +16,12 @@ export class ApBannerComponent {
         this._window = window;
     }
 
+    moveValue: string;
+    slideImage(move: number) {
+        console.log(move);
+        this.moveValue = move*(-25)+"%";
+    }
+
     @HostListener('window:scroll', ['$event'])
     track(event) {
         var doc = this._el.nativeElement;
@@ -31,9 +37,12 @@ export class ApBannerComponent {
             ((this._el.nativeElement.parentNode).parentNode).parentNode.classList.remove("parent-padding");
             this._el.nativeElement.childNodes[0].classList.remove("fixed-height");
         }
+
+        
             
         // see http://juristr.com/blog/2016/01/learning-ng2-dynamic-styles/
     }
+    
 }
 var IMAGES: Image[] = [
     { "title": "iHaz tu preguntas sobre negocios!", "url": "../images/background.png" },
