@@ -44,7 +44,7 @@
 .subtitle{
     font-style: italic;
 }
-h4 {
+.details-container>h5 {
     font-size: 15px;
     font-family: myriadpro-regular;
     display: inline-block;
@@ -61,7 +61,6 @@ p {
     font-size: 17px;
     font-family: myriadpro-regular;
     margin:0;
-    height: 78px;
     overflow:hidden;
     color: #7b7474;
 }
