@@ -81,6 +81,13 @@ namespace AltaPerspectiva
 
             services.AddTransient<ICommandHandler<AddAnswerCommand>, AddAnswerCommandHandler>();
             services.AddTransient<ICommandHandler<AddAnswerCommand>,AnswerAddedNotificationCommandHandler>();
+
+            services.AddTransient<ICommandHandler<AddCommentCommand>, AddCommentCommandHandler>();
+            services.AddTransient<ICommandHandler<AddCommentCommand>, CommentAddedNotificationCommandHandler>();
+
+            services.AddTransient<ICommandHandler<AddLikeCommand>, AddLikeCommandHandler>();            
+
+            services.AddTransient<ICommandHandler<FollowCategoryCommand>, FollowCategoryCommandHandler>();           
         }     
 
        

@@ -8,7 +8,7 @@
 
     public class AddLikeCommand : ICommand
     {
-        public AddLikeCommand(string _commentText, DateTime _date,Guid? _questionId,Guid? _answerId,Guid _userId)
+        public AddLikeCommand(Guid? _questionId,Guid? _answerId,Guid _userId)
         {    
             UserId = _userId == null ? (new System.Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba")) : _userId;
             QuestionId = _questionId;

@@ -1,7 +1,8 @@
 ﻿<!-- =========Questions========== -->
 <h1>&iquest;{{question.title}}?</h1>
 <!--<div class="header-info">{{date.getMonthName(question.date.getMonth())}} {{question.date.getFullYear()}}</div>-->
-<button class="btn btn-default" data-toggle="modal" data-target="#myModal">Answer</button>
+
+<button class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Answer</button>
 
 <!-- ===================== -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -22,13 +23,20 @@
                               required name="answerField" #answerField="ngModel"
                               [config]="{   filebrowserUploadUrl : '/browser/browse/type/all',
                                            filebrowserImageUploadUrl : '/browser/browse/type/image',
-                              removeButtons : 'Outdent,Indent,About,SpecialChar,Styles,Format,Source,NumberedList,BulletedList,Scayt,Blockquote,Anchor,Table'}"
+                              removeButtons : 'About,Maximize,TextColor,Styles,Format,Font,FontSize,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Unlink,Anchor,BidiLtr,Language,BidiRtl,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,CreateDiv,Blockquote,Outdent,Indent,BulletedList,NumberedList,CopyFormatting,RemoveFormat,Underline,Strike,Subscript,Superscript,Form,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Scayt,Find,SelectAll,Replace,BGColor,ShowBlocks,Checkbox,Source,Save,Templates,Cut,Undo,Redo,Copy,Paste,PasteText,PasteFromWord,Print,Preview,NewPage,Checkbox'}"
                               debounce="500">
                     </ckeditor>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Save changes</button>
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>                    
+                    <div style="float:left;color:#737373;line-height: 34px;">
+                        <button type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Submit</button>
+                    </div>  
+                    
+                    <div class="social-icon">
+                        <a><img class="social-image" src="../images/facebooklogo.jpg" /></a>
+                        <a><img class="social-image" src="../images/twitter.png" /></a>
+                    </div>
+                                                                   
                 </div>
             </div>
         </form>
@@ -50,7 +58,7 @@
             <hr />
             <img class="like-logo" src="../images/fade-logo.png" />
             <div class="status-line">{{question.likeCount}}</div>
-            <div class="status-line">Like</div>
+            <a (click)="submitLike(question.id)"><div class="status-line">Like</div></a>
             <div class="status-line like-border"></div>
             <div class="status-line">{{question.commentCount}}</div>
             <div class="status-line">Leidos</div>
@@ -59,31 +67,34 @@
             </a>
             <!-- social media icon -->
             <div class="social-icon">
-                <img class="social-image" src="../images/facebooklogo.jpg" />
-                <img class="social-image" src="../images/twitter.png" />
-                <img class="social-image" src="../images/icon-external-link.png" />
+                <a><img class="social-image" src="../images/facebooklogo.jpg" /></a>
+                <a><img class="social-image" src="../images/twitter.png" /></a>
+                <a><img class="social-image" src="../images/icon-external-link.png" /></a>
             </div>
         </div>
         <!-- ======Question Comment==== -->
         <div class="collapse comment-panel" id="collapseExample">
-            <div class="comment-input">
-                <img class="user-image comment-img" src="../../../../images/avatar.png" />
-                <input class="form-control" />
-                <button class="btn btn-info">comment</button>
-            </div>
+            <form #commentForm="ngForm" class="form-horizontal" role="form">
+                <div class="comment-input">
+                    <img class="user-image comment-img" src="../../../../images/avatar.png"  />
+                    <input class="form-control" [(ngModel)]="commentText" [ngModelOptions]="{standalone: true}" id="comment"/>
+                    <button type="button" class="btn btn-primary" (click)="submitComment(question.id)">Submit</button>
+                </div>
+           </form>
             <div class="card card-block">
                 <div *ngFor="let comment of question.comments">
                     <div class="row">
                         <div class="article-details" *ngIf="comment">
                             <img class="user-image comment-img" src="../../../../images/avatar.png" />
-                            <div class="header-info">{{comment.user.name}},{{date.getMonthName(comment.time.getMonth())}} {{comment.time.getDate()}} {{comment.time.getFullYear()}}</div>
+                            <div class="header-info">{{comment?.user?.name}}</div>
+                            <!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
                             <p class="answer-text">{{comment.commentText}}</p>
                         </div>
                     </div>
                     <hr />
                 </div>
             </div>
-        </div>
+</div>
     </div>
 </div>
 <hr />
@@ -107,7 +118,7 @@
                 <div class="status-line">{{answer.comments?.length}}</div>
                 <div class="status-line">Leidos</div>
                 <a data-toggle="collapse" attr.data-target="#answerComment{{answer.id}}" aria-expanded="false" aria-controls="collapseExample">
-                    3 comments
+                    comments
                 </a>
                 <!-- social media icon -->
                 <div class="social-icon">

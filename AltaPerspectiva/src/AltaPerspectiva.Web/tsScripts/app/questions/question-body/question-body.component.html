@@ -12,8 +12,7 @@
             <h1><a [routerLink]="['/question/detail',question.id]">&iquest;{{question.title}}?</a> </h1>
             <div>
                 Categories: <h4 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}},&nbsp; </h4>
-            </div>
-            <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Answer</button>
+            </div>            
             <div class="row ">
 
                 <div class="article-details">

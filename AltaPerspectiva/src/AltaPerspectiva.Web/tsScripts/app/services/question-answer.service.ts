@@ -66,14 +66,14 @@ export class QuestionAnswerService implements Resolve<Question> {
 
     addQuestionComment(comment: Comment): Observable<Comment> {
 
-        return this._http.post('"/questions/api/question/' + comment.questionId + '/comment', comment)
+        return this._http.post('/questions/api/question/' + comment.questionId + '/comment', comment)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     addAnswerComment(comment: Comment): Observable<Comment> {
 
-        return this._http.post('"/questions/api/question/' + comment.questionId + '/answer/' + comment.answerId, comment)
+        return this._http.post('/questions/api/question/' + comment.questionId + '/answer/' + comment.answerId, comment)
             .map(this.extractData)
             .catch(this.handleError);
     }

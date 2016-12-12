@@ -88,8 +88,7 @@ export class ApSearchComponent {
             return;
 
         var keywordsInQuestionTitle = title.split(' ');
-        console.log('split text');
-        console.log(keywordsInQuestionTitle);
+        
         if (keywordsInQuestionTitle.length > 1)
         {
             this.categoryMatched = "";
@@ -134,13 +133,12 @@ export class ApSearchComponent {
             this.filteredQuestionList = this.questionList.filter(function (el) {
                return el.title.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
             }.bind(this));
-            this.showModal();
-
-           
+            this.showModal();           
         }
         else
         {
             this.filteredQuestionList = [];
+            this.categoryMatched = "";
             console.log("Remove " + this.searchClass);
             this.removeModal();
         }
