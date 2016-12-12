@@ -1,22 +1,48 @@
 ﻿<div class="tab" *ngFor="let question of questions">
     <div class="panel-article">
-        <div class="row">
+        <div class="row  ">
             <div class="col-sm-1 left-gap">
-                <img class="image-border" src="../../../../images/border.png" />
+                <!--<img class="image-border" src="../../../../images/border.png" />-->
             </div>
-            <div class="col-sm-11">
-                <h2>{{question.title}}</h2>
-                   Categories: <h4 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}},&nbsp; </h4>
-                <p [innerHTML]="question.body" ></p>
-                <div class="row article-footer">
+            
+            <div class="col-sm-11 questions-container">
+                <div class="left-border">
+                    <img class="image-border" src="../../../../images/border.png" />
+                </div>
+                <div class="details-container">
+                    <h2>{{question.title}}</h2>
+                    Categories: <h4 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}},&nbsp; </h4>
+                    <p [innerHTML]="question.body"></p>
+                    <div class="status-panel">
+                        <hr />
+                        <img class="like-logo" src="../images/fade-logo.png" />
+                        <!--<div class="status-line">{{answer.likes?.length}}</div>-->
+                        <div class="status-line">Like</div>
+                        <div class="status-line like-border"></div>
+                        <!--<div class="status-line">{{answer.comments?.length}}</div>-->
+                        <div class="status-line">Leidos</div>
+                        <a data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">
+                            3 comments
+                        </a>
+                        <!-- social media icon -->
+                        <div class="social-icon">
+                            <img class="social-image" src="../images/facebooklogo.jpg" />
+                            <img class="social-image" src="../images/twitter.png" />
+                            <img class="social-image" src="../images/icon-external-link.png" />
+
+                        </div>
+                    </div>
+                </div>
+                
+                <!--<div class="row article-footer">
                     <div class="left-footer">
-                        <!--<h4>{{question.user.name}}</h4>-->
+                        <h4>{{question.user.name}}</h4>
                     </div>
                     <div class="right-footer">
                         <h4>Respuestas</h4>
                         <span class="counter-box">{{question.viewCount}}+</span>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
