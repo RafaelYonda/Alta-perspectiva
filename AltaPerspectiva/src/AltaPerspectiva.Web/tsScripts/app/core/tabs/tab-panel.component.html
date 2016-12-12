@@ -1,4 +1,22 @@
-﻿<div class="tab" *ngFor="let question of questions">
+﻿<style>
+    .comment-img{
+    float:left;
+    margin-right:3px;
+}
+    .comment-input>.form-control{
+    width:78%;
+    display:inline-block;
+}
+    .comment-panel{
+    margin-left:2%;
+    margin-top:10px;
+
+}
+    .comment-container{
+    display:inline-block;
+}
+</style>
+<div class="tab" *ngFor="let question of questions">
     <div class="panel-article">
         <div class="row  ">
             <div class="col-sm-1 left-gap">
@@ -21,7 +39,7 @@
                         <div class="status-line like-border"></div>
                         <!--<div class="status-line">{{answer.comments?.length}}</div>-->
                         <div class="status-line">Leidos</div>
-                        <a data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">
+                        <a data-toggle="collapse" attr.data-target="#questionComment{{question.id}}" aria-expanded="false" >
                             3 comments
                         </a>
                         <!-- social media icon -->
@@ -33,16 +51,27 @@
                         </div>
                     </div>
                 </div>
-                
-                <!--<div class="row article-footer">
-                    <div class="left-footer">
-                        <h4>{{question.user.name}}</h4>
+                <!-- ======Question Comment==== -->
+                <div class="collapse comment-panel" id="questionComment{{question.id}}">
+                    <div class="comment-input">
+                        <img class="user-image comment-img" src="../../../../images/avatar.png" />
+                        <input class="form-control" />
+                        <button class="btn btn-info">comment</button>
                     </div>
-                    <div class="right-footer">
-                        <h4>Respuestas</h4>
-                        <span class="counter-box">{{question.viewCount}}+</span>
-                    </div>
-                </div>-->
+                    <!--<div class="card card-block">
+                        <div *ngFor="let comment of question.comments">
+                            <div class="row">
+                                <div class="article-details" *ngIf="comment">
+                                    <img class="user-image comment-img" src="../../../../images/avatar.png" />
+                                    <div class="header-info">{{comment.user.name}},{{date.getMonthName(comment.time.getMonth())}} {{comment.time.getDate()}} {{comment.time.getFullYear()}}</div>
+                                    <p class="answer-text">{{comment.commentText}}</p>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>-->
+                </div>
+               
             </div>
         </div>
     </div>
