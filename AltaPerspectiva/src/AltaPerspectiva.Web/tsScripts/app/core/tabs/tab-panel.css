@@ -1,4 +1,7 @@
-﻿.arrow_box {
+﻿.details-container{
+    margin-left:5px;
+}
+.arrow_box {
     position: relative;
     background: #88b7d5;
 }
@@ -30,11 +33,6 @@
     padding-bottom: 14px;
 }
 
-.image-border {
-    position: absolute;
-    right: -4px;
-    height: 167px;
-}
 
 .left-gap {
     border: 1px solid transparent;

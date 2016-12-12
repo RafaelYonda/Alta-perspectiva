@@ -1,5 +1,11 @@
-﻿h4 {
+﻿
+
+h4 {
     display: inline;
+}
+
+.question-contents {
+    padding-left: 10px;
 }
 
 .modal-dialog {
@@ -14,9 +20,9 @@
     color: #506db6;
 }
 
-    .btn:hover {
-        border-color: #2865a1;
-    }
+.btn:hover {
+    border-color: #2865a1;
+}
 
 .user-image {
     height: 40px;
@@ -27,15 +33,6 @@
 .answer-text {
     font-size: 16px;
     color: #797575;
-}
-
-.image-border {
-    height: 300px;
-    width: 3px;
-}
-
-.left-border {
-    float: left;
 }
 
 .header-info {
@@ -49,33 +46,40 @@
 }
 
 hr {
-    width: 150%;
-    margin-left: -30%;
+    width: 98%;
 }
 
-h1 {
-    margin-left: -17px;
-}
+
 .loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid orange;
-  border-right: 16px solid green;
-  border-bottom: 16px solid blue;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-  margin-top:25%;
-  margin-left:25%;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid orange;
+    border-right: 16px solid green;
+    border-bottom: 16px solid blue;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin-top: 25%;
+    margin-left: 25%;
 }
 
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

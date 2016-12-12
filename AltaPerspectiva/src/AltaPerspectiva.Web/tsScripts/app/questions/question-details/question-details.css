@@ -25,12 +25,7 @@ a{
     width:100%;
     margin-left:0;
 }
-.social-image{
-    height: 22px;
-    width: 22px;
-    border-radius: 11px;
-    cursor: pointer;
-}
+
 .comment-panel{
     margin-left:2%;
     margin-top:10px;
@@ -39,26 +34,13 @@ a{
 .comment-container{
     display:inline-block;
 }
-.social-icon{
-    float:right;
-}
-.status-line{
-    display:inline-block;
-    font-size:12px;
-}
+
 .like-border{
     border-right:1px solid #cccccc;
     height:10px;
 }
-.like-logo {
-    height: 30px;
-    padding: 0px 0px;
-}
-.user-image {
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
-}
+
+
 .comment-img{
     float:left;
     margin-right:3px;
@@ -67,15 +49,6 @@ a{
 .answer-text {
     font-size: 16px;
     color: #797575;
-}
-
-.image-border {
-    height: 300px;
-    width: 3px;
-}
-
-.left-border {
-    float: left;
 }
 
 .header-info {

@@ -7,7 +7,7 @@ using AltaPerspectiva.Core;
 using Questions.Command;
 using Questions.Query;
 using AltaPerspectiva.Web.Areas.Questions.Models;
-using Questions.Domain;
+//using Questions.Domain;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

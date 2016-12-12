@@ -4,23 +4,27 @@
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()">
 
-    <div *ngFor="let question of questions">
-        <h1><a [routerLink]="['/question/detail',question.id]">&iquest;{{question.title}}?</a> </h1>
-        <div>
-            Categories: <h4 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}},&nbsp; </h4>
+    <div *ngFor="let question of questions" class="questions-container">
+        <div class="left-border">
+            <img class="image-border" src="../../../../images/border.png" />
         </div>
-        <button class="btn btn-default" data-toggle="modal" data-target="#myModal" ><i class="fa fa-pencil"></i>Answer</button>
-        <div class="row">
-            <div class="left-border">
-                <img class="image-border" src="../../../../images/border.png" />
+        <div class="question-contents">
+            <h1><a [routerLink]="['/question/detail',question.id]">&iquest;{{question.title}}?</a> </h1>
+            <div>
+                Categories: <h4 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}},&nbsp; </h4>
             </div>
-            <div class="article-details">
-                <img class="user-image" src="../../../../images/avatar.png" />
-                <!--<div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>-->
-                <p [innerHTML]="question.body" class="answer-text"></p>
+            <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Answer</button>
+            <div class="row ">
+
+                <div class="article-details">
+                    <img class="user-image" src="../../../../images/avatar.png" />
+                    <!--<div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>-->
+                    <p [innerHTML]="question.body" class="answer-text"></p>
+                </div>
             </div>
+            <hr />
         </div>
-        <hr />
+        
     </div>
 </div>
 
