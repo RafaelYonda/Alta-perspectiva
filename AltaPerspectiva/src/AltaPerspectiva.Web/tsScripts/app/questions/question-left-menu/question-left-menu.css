@@ -2,8 +2,12 @@
     
 }
 
-.question-list {
-    color: #797575;
+.category-list {
+    color: #F6912B;
+}
+
+a{
+    font-weight:600;
 }
 
 .menu-container {
