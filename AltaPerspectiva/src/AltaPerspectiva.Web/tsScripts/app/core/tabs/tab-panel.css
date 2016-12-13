@@ -1,12 +1,13 @@
 ﻿.panel-article [class*="questions-container"] {
   margin-bottom: 0;
-  padding-bottom: 0;
+  padding-bottom: 15px;
 }
+
 .social-icon>h5{
     display:inline;
 }
 .details-container{
-    margin-left:5px;
+    margin-left:10px;
 }
 .arrow_box {
     position: relative;

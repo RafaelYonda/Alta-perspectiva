@@ -12,7 +12,7 @@
     color: black !important;
 }
 
-a:hover {
+.nav-home > a:hover {
     color: aqua;
 }
 
