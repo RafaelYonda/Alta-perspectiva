@@ -119,6 +119,7 @@ export class ApSearchComponent {
         console.log(top);
     }
     removeModal() {
+        this.filteredQuestionList = [];
         document.getElementById("search-box").className = this.placeBottom;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
@@ -148,20 +149,27 @@ export class ApSearchComponent {
         //this.title = item;
         this.filteredQuestionList = [];
         this.router.navigate(['/question/detail/'+item.id]);
-        
     }
 
     handleClick(event) {
-        var clickedComponent = event.target;
-        var inside = false;
-        do {
-            if (clickedComponent === this.elementRef.nativeElement) {
-                inside = true;
-            }
-            clickedComponent = clickedComponent.parentNode;
-        } while (clickedComponent);
-        if (!inside) {
-            this.filteredQuestionList = [];
-        }
+        console.log(event);
+        //console.log(event.srcElement.attributes.id);
+        var idAttr = event.srcElement.attributes.id;
+        var value = idAttr.nodeValue;
+        if (value == 'search-box')
+            this.removeModal();
+        //console.log(value);
+        //var clickedComponent = event.target;
+        //var inside = false;
+        //do {
+        //    if (clickedComponent === this.elementRef.nativeElement) {
+        //        inside = true;
+        //    }
+        //    clickedComponent = clickedComponent.parentNode;
+        //} while (clickedComponent);
+        //if (!inside) {
+        //    console.log("Remove ");
+        //    this.filteredQuestionList = [];
+        //}
     }
 }

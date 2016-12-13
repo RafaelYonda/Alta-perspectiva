@@ -1,6 +1,6 @@
 ﻿<div class="carousel">
     <ol class="carousel-indicators" >
-        <li data-target="#carousel-example-generic" *ngFor="let image of images;let i = index"  class="indicator" [ngClass]="{'active': i==movePosition }" (click)="slideImage(i)">{{i}}</li>
+        <li data-target="#carousel-example-generic" *ngFor="let image of images;let i = index"  class="indicator" [ngClass]="{'active': i==movePosition }" (click)="slideImage(i)"></li>
     </ol>
     <ul class="slides">
         <li class="slide-item" *ngFor="let image of images" [style.left]="moveValue">

@@ -29,7 +29,6 @@ export class ApBannerComponent {
         var doc = this._el.nativeElement;
         var nodeBanner = doc.childNodes[0];
         if (this._window.scrollY > 200) {          
-
             this._el.nativeElement.parentNode.classList.add("fixed-top");
             ((this._el.nativeElement.parentNode).parentNode).parentNode.classList.add("parent-padding");
             this._el.nativeElement.childNodes[0].classList.add("fixed-height");
@@ -39,12 +38,8 @@ export class ApBannerComponent {
             ((this._el.nativeElement.parentNode).parentNode).parentNode.classList.remove("parent-padding");
             this._el.nativeElement.childNodes[0].classList.remove("fixed-height");
         }
-
-        
-            
         // see http://juristr.com/blog/2016/01/learning-ng2-dynamic-styles/
     }
-    
 }
 var IMAGES: Image[] = [
     { "title": "iHaz tu preguntas sobre negocios!", "url": "../images/background.png" },
