@@ -17,7 +17,9 @@ export class ApBannerComponent {
     }
 
     moveValue: string;
+    movePosition: number=0;
     slideImage(move: number) {
+        this.movePosition = move;
         console.log(move);
         this.moveValue = move*(-25)+"%";
     }
