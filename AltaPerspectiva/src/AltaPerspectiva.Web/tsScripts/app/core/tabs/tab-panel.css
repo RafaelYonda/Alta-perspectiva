@@ -1,9 +1,13 @@
 ﻿.panel-article [class*="questions-container"] {
   margin-bottom: 0;
-  padding-bottom: 0;
+  padding-bottom: 15px;
+}
+
+.social-icon>h5{
+    display:inline;
 }
 .details-container{
-    margin-left:5px;
+    margin-left:10px;
 }
 .arrow_box {
     position: relative;
@@ -37,7 +41,6 @@
     padding-bottom: 14px;
 }
 
-
 .left-gap {
     border: 1px solid transparent;
 }
@@ -66,7 +69,6 @@ p {
 }
 
 .panel-article {
-    margin-right: 8%;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -85,6 +87,7 @@ p {
     width: 40px;
     text-align: center;
     color:white;
+    margin-left:2px;
 }
 
 .counter-box:after {
