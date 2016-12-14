@@ -8,9 +8,17 @@ namespace UserProfile.Command.Commands
 {
     public class AddExperienceCommand:ICommand
     {
-        public AddExperienceCommand()
+        public AddExperienceCommand(Guid userId,String employer,String positionHeld,String location,Boolean currentlyWorkingHere,DateTime timePeriodFrom,DateTime timePeriodTo,String description)
         {
-            
+            UserId = userId;
+            Employer = employer;
+            PositionHeld = positionHeld;
+            Location = location;
+            CurrentlyWorkingHere = currentlyWorkingHere;
+
+            TimePeriodFrom = timePeriodFrom;
+            TimePeriodTo = timePeriodTo;
+            Description = description;
         }
         public Guid Id { get; set; }
         public Guid UserId { get; set; }

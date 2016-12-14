@@ -8,9 +8,15 @@ namespace UserProfile.Command.Commands
 {
     public class AddInsightCommand:ICommand
     {
-        public AddInsightCommand()
+        public AddInsightCommand(Guid userId,String title,String publication,DateTime publicationDate,String publicationHyperlink,String publicationDocument,String description)
         {
-            
+            UserId = userId;
+            Title = title;
+            Publication = publication;
+            PublicationDate = publicationDate;
+            PublicationHyperlink = publicationHyperlink;
+            PublicationDocument = publicationDocument;
+            Description = description;
         }
         public Guid Id { get; set; }
         public Guid UserId { get; set; }

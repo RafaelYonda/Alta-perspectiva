@@ -7,5 +7,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
 {
     public class AddPracticeAreaViewModel
     {
+        //public Guid Id { get; set; }
+        //public Guid UserId { get; set; }
+        public String PracticeAreaName { get; set; }
     }
 }

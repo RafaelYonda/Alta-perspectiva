@@ -7,8 +7,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
 {
     public class AddEducationViewModel
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
+        //public Guid Id { get; set; }
+        //public Guid UserId { get; set; }
         public String Institute { get; set; }
         public DateTime TimeFrameFrom { get; set; }
         public DateTime TimeFrameTo { get; set; }

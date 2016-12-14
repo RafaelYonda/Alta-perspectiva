@@ -20,35 +20,20 @@ namespace UserProfile.Command.CommandHandler
         public override void Execute(AddEducationCommand command)
         {
             Debug.WriteLine("AddEducationCommandHandler executed");
-
-            /*Some ID modification*/
-            Education contractInformation = GetEducation(command.Id);
-            // 
-            //Answer answer = new Answer();
-            //answer.GenerateNewIdentity();
-            //// create new answers. generate id then add to questions
-
-            //answer.QuestionId = command.QuestionId;
-            //answer.Text = command.Text;
-            //answer.UserId = command.UserId;
-            //answer.CreatedOn = DateTime.Now;
-            //answer.CreatedBy = command.UserId;
-            //answer.DTS = DateTime.Now;
-
-            //DbContext.Answers.Add(answer);
-            //DbContext.SaveChanges();
-
-            //command.Id = answer.Id;
-        }
-
-        private Education GetEducation(Guid id)
-        {
-            return DbContext
-                    .Education
-                    // .Where(q => q.Id == id)
-                    .SingleOrDefault();
+            Education education=new Education();
+            education.UserId = command.UserId;
+            education.Institute = command.Institute;
+            education.TimeFrameFrom = command.TimeFrameFrom;
+            education.TimeFrameTo = command.TimeFrameTo;
+            education.CompletedStudies = command.CompletedStudies;
+            education.Description = command.Description;
+            education.Especiality = command.Especiality;
+            DbContext.Education.Add(education);
+            DbContext.SaveChanges();
 
         }
+
+        
     
     }
 }

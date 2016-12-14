@@ -21,33 +21,21 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("AddAnswerCommandHandler executed");
 
-            /*Some ID modification*/
-            ContractInformation contractInformation = GetContractInfo(command.Id);
-            // 
-            //Answer answer = new Answer();
-            //answer.GenerateNewIdentity();
-            //// create new answers. generate id then add to questions
+            ContractInformation information=new ContractInformation();
+            information.UserId = command.UserId;
+            information.FirstName = command.FirstName;
+            information.LastName = command.LastName;
+            information.PrefferedEmail = command.PrefferedEmail;
+            information.PhoneNumber = command.PhoneNumber;
+            information.AddressLine1 = command.AddressLine1;
+            information.AddressLine2 = command.AddressLine2;
+            information.Country = command.Region;
+            information.Region = command.Region;
+            information.City = command.City;
 
-            //answer.QuestionId = command.QuestionId;
-            //answer.Text = command.Text;
-            //answer.UserId = command.UserId;
-            //answer.CreatedOn = DateTime.Now;
-            //answer.CreatedBy = command.UserId;
-            //answer.DTS = DateTime.Now;
-
-            //DbContext.Answers.Add(answer);
-            //DbContext.SaveChanges();
-
-            //command.Id = answer.Id;
-        }
-
-        private ContractInformation GetContractInfo(Guid id)
-        {
-            return DbContext
-                    .ContractInformation
-                   // .Where(q => q.Id == id)
-                    .SingleOrDefault();
-
+            DbContext.ContractInformation.Add(information);
+            DbContext.SaveChanges();
+            
         }
     }
 }

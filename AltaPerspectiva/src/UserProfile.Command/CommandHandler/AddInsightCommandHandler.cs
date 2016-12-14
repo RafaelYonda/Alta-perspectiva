@@ -20,35 +20,22 @@ namespace UserProfile.Command.CommandHandler
         public override void Execute(AddInsightCommand command)
         {
             Debug.WriteLine("AddAnswerCommandHandler executed");
+            Insight insight=new Insight();
+            insight.UserId = command.UserId;
+            insight.Title = command.Title;
+            insight.Publication = command.Publication;
+            insight.PublicationDate = command.PublicationDate;
+            insight.PublicationHyperlink = command.PublicationHyperlink;
+            insight.PublicationDocument = command.PublicationDocument;
+            insight.Description = command.Description;
 
-            /*Some ID modification*/
-            ContractInformation contractInformation = GetContractInfo(command.Id);
-            // 
-            //Answer answer = new Answer();
-            //answer.GenerateNewIdentity();
-            //// create new answers. generate id then add to questions
+            DbContext.Insight.Add(insight);
+            DbContext.SaveChanges();
 
-            //answer.QuestionId = command.QuestionId;
-            //answer.Text = command.Text;
-            //answer.UserId = command.UserId;
-            //answer.CreatedOn = DateTime.Now;
-            //answer.CreatedBy = command.UserId;
-            //answer.DTS = DateTime.Now;
-
-            //DbContext.Answers.Add(answer);
-            //DbContext.SaveChanges();
-
-            //command.Id = answer.Id;
-        }
-
-        private ContractInformation GetContractInfo(Guid id)
-        {
-            return DbContext
-                    .ContractInformation
-                    // .Where(q => q.Id == id)
-                    .SingleOrDefault();
 
         }
+
+      
     }
     
     

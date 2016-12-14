@@ -20,35 +20,22 @@ namespace UserProfile.Command.CommandHandler
         public override void Execute(AddExperienceCommand command)
         {
             Debug.WriteLine("AddAnswerCommandHandler executed");
+            Experience experience=new Experience();
+            experience.UserId = command.UserId;
+            experience.Employer = command.Employer;
+            experience.PositionHeld = command.PositionHeld;
+            experience.Location = command.Location;
+            experience.CurrentlyWorkingHere = command.CurrentlyWorkingHere;
+            experience.TimePeriodFrom=command.TimePeriodFrom;
+            experience.TimePeriodTo = command.TimePeriodTo;
+            experience.Description = experience.Description;
 
-            /*Some ID modification*/
-            ContractInformation contractInformation = GetContractInfo(command.Id);
-            // 
-            //Answer answer = new Answer();
-            //answer.GenerateNewIdentity();
-            //// create new answers. generate id then add to questions
-
-            //answer.QuestionId = command.QuestionId;
-            //answer.Text = command.Text;
-            //answer.UserId = command.UserId;
-            //answer.CreatedOn = DateTime.Now;
-            //answer.CreatedBy = command.UserId;
-            //answer.DTS = DateTime.Now;
-
-            //DbContext.Answers.Add(answer);
-            //DbContext.SaveChanges();
-
-            //command.Id = answer.Id;
-        }
-
-        private ContractInformation GetContractInfo(Guid id)
-        {
-            return DbContext
-                    .ContractInformation
-                    // .Where(q => q.Id == id)
-                    .SingleOrDefault();
+            DbContext.Experience.Add(experience);
+            DbContext.SaveChanges();
 
         }
+
+        
     }
     
 }

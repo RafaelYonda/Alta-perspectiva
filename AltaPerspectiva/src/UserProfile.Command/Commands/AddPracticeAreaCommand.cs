@@ -8,9 +8,10 @@ namespace UserProfile.Command.Commands
 {
     public class AddPracticeAreaCommand :ICommand
     {
-        public AddPracticeAreaCommand()
+        public AddPracticeAreaCommand(Guid userId,String practiceAreaName)
         {
-            
+            UserId = userId;
+            PracticeAreaName = practiceAreaName;
         }
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
