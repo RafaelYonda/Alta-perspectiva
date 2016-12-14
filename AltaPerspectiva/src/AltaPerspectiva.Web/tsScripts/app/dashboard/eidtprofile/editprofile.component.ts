@@ -12,11 +12,15 @@ import { Profile, Contact } from '../../services/models';
     providers: [ProfileService]
 })
 export class EditProfileComponent {
+    _headerName: string ='Contact Info';
     //profile: Profile;
     constructor(private service: ProfileService) {
     }
     Submit() {
         //console.log(this.service.profile);
         this.service.SaveProfile();
+    }
+    changeHeader(headerName: string) {
+        this._headerName = headerName;
     }
 }

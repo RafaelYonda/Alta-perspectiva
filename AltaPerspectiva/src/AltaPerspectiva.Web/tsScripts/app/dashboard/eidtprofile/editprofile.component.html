@@ -12,14 +12,13 @@
             <img class="profile-border" src="../images/border-horizontal.png" />
             <div class="menu-list">
                 <ul>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/contact">Contact info</button> </li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/biography">Biography</button> </li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/education">Education</button></li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/experience">Experience</button></li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/skill">Skills</button></li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/practice">Practice Areas</button></li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/insight">Insight</button></li>
-
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Contact Info')" routerLink="/dashboard/editprofile/contact">Contact info</button> </li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Biography')" routerLink="/dashboard/editprofile/biography">Biography</button> </li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Education')" routerLink="/dashboard/editprofile/education">Education</button></li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Experience')" routerLink="/dashboard/editprofile/experience">Experience</button></li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Skills')" routerLink="/dashboard/editprofile/skill">Skills</button></li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Practice Areas')" routerLink="/dashboard/editprofile/practice">Practice Areas</button></li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Insight')" routerLink="/dashboard/editprofile/insight">Insight</button></li>
                 </ul>
             </div>
         </div>
@@ -56,7 +55,7 @@
             <div class="info-form">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="heading">Panel Heading</div>
+                        <div class="heading">{{_headerName}}</div>
                         <div class="pull-right heading">Required(*)</div>
                     </div>
                     <div class="panel-body">

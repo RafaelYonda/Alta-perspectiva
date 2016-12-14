@@ -1,25 +1,4 @@
-﻿    .dash-panel {
-        margin-top: 130px;
-        font-family: 'Myriad Pro';
-    }
-
-    .left-panel {
-        max-width: 150px;
-    }
-
-    .description {
-        font-family: 'arial';
-    }
-
-    .status-list > .row > ul > li {
-        float: left;
-        padding-left: 10px;
-    }
-
-    .progress-value {
-        color: #f29200;
-    }
-    .panel-heading{
+﻿    .panel-heading{
         position:relative;
     }
     .heading{

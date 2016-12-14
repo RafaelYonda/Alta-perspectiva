@@ -3,8 +3,11 @@
     src: url('typogroteskrounded.otf') format('opentype');
 }
 @font-face {
-    font-family: 'myriadpro-regular';
-    src: url('myriadpro-regular.otf') format('opentype');
+   font-family: 'myriadpro-regular';
+    src: url('myriadpro-regular.otf') format('opentype'),
+         url('myriadproregular.eot') format('embedded-opentype'),
+         url('myriadproregular.ttf') format('truetype'),
+         url('myriadproregular.woff') format('woff');
 }
 @font-face {
     font-family: 'arial';
