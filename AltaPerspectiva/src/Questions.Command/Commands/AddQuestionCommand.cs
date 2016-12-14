@@ -19,9 +19,9 @@
         public string Title { get; set; }
         public string Body { get; set; }
         public DateTime Date { get; set; }
-        public Guid Id { get;  set; }
+        public Guid Id { get; set; }
         public List<Guid> CategoryIds { get; set; }
-        public Guid UserId { get; set; }      
+        public Guid UserId { get; set; }                
     }
 }
 

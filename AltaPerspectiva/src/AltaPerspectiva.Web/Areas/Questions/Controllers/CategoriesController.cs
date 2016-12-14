@@ -35,8 +35,8 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("questions/api/categories")]
         public IActionResult Get()
         {
-            var questionsList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
-            return Ok(questionsList);
+            var categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
+            return Ok(categoriesList);
         }
         //questions/api/categories/keywords/{categoryId}
         [HttpGet("questions/api/categories/keywords/{categoryId}")]        
