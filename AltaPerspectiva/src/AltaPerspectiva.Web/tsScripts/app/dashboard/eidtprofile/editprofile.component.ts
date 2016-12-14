@@ -16,10 +16,10 @@ export class EditProfileComponent {
     //profile: Profile;
     constructor(private service: ProfileService) {
     }
-    Submit() {
-        //console.log(this.service.profile);
-        this.service.SaveProfile();
-    }
+    //Submit() {
+    //    //console.log(this.service.profile);
+    //    this.service.SaveProfile();
+    //}
     changeHeader(headerName: string) {
         this._headerName = headerName;
     }

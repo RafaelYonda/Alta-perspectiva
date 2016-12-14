@@ -66,10 +66,13 @@ namespace AltaPerspectiva.Web.Area.Questions
             var keywords = JsonConvert.DeserializeObject<Keyword[]>(cache.GetString("Keywords"));
             return Ok(keywords);
         }
-        public IActionResult Post([FromBody]QuestionViewModel question)
+
+        //Demo post Call
+        [HttpPost("questions/api/categories/contact")]
+        public IActionResult Post(Contact contact)
         {
-            var x = question;
-            return Created($"questions/api/questions/", question);
+            var x = contact;
+            return Created($"questions/api/questions/", contact);
         }
         // PUT questions/api/categories/5
         [HttpPut("{id}")]
@@ -98,16 +101,16 @@ namespace AltaPerspectiva.Web.Area.Questions
     }
     public class Contact
     {
-        public string userId { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string email { get; set; }
-        public string phone { get; set; }
-        public string address1 { get; set; }
-        public string address2 { get; set; }
-        public string country { get; set; }
-        public string region { get; set; }
-        public string city { get; set; }
+        public string UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Country { get; set; }
+        public string Region { get; set; }
+        public string City { get; set; }
     }
     public class Biography
     {

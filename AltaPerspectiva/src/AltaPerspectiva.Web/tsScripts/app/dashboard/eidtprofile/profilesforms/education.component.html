@@ -4,40 +4,56 @@
         margin-top:10px;
     }
 </style>
-<div class="row">
-    <div class="form-group col-md-6">
-        <label>INSTITUTE/UNIVERSITY*</label>
-        <input [(ngModel)]="education.institute" type="text" class="form-control profile-form">
-    </div>
-    <!-- =============== -->
-    <div class="form-group col-md-6">
-        <label>TIME FRAME*</label>
-        <div class="row">
-            <div class="col-md-5">
-                <input [(ngModel)]="education.startDate" type="number" min="1900" max="2099" step="1" value="2016" placeholder="YEAR" class="form-control profile-form">
+<form>
+    <div class="info-form">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="heading">{{_headerName}}</div>
+                <div class="pull-right heading">Required(*)</div>
             </div>
-            <label class="mid-label">TO</label>
-            <div class="col-md-5">
-                <input [(ngModel)]="education.endDate" type="number" min="1900" max="2099" step="1" value="2016" placeholder="YEAR" class="form-control profile-form">
-            </div>
-        </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>INSTITUTE/UNIVERSITY*</label>
+                        <input [(ngModel)]="education.institute" name="institute" type="text" class="form-control profile-form">
+                    </div>
+                    <!-- =============== -->
+                    <div class="form-group col-md-6">
+                        <label>TIME FRAME*</label>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <input [(ngModel)]="education.startDate" name="startDate" type="number" min="1900" max="2099" step="1" value="2016" placeholder="YEAR" class="form-control profile-form">
+                            </div>
+                            <label class="mid-label">TO</label>
+                            <div class="col-md-5">
+                                <input [(ngModel)]="education.endDate" name="endDate" type="number" min="1900" max="2099" step="1" value="2016" placeholder="YEAR" class="form-control profile-form">
+                            </div>
+                        </div>
 
-    </div>
-    <div class="form-group col-md-6">
-        <div class="row">
-            <div class="col-md-6"><label class="mid-label">COMPLETED STUDIES*</label></div>
-            <div class="col-md-2"><input [(ngModel)]="education.studyStatus" type="checkbox" class="form-control profile-form" value=""></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="row">
+                            <div class="col-md-6"><label class="mid-label">COMPLETED STUDIES*</label></div>
+                            <div class="col-md-2"><input [(ngModel)]="education.studyStatus" name="studyStatus" type="checkbox" class="form-control profile-form" value=""></div>
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-7"> </div>
+                    <div class="form-group col-md-6">
+                        <label>DESCRIPTION*</label>
+                        <textarea rows="3" maxlength="3" [(ngModel)]="education.description" name="description" class="form-control profile-form"></textarea>
+                    </div>
+                    <div class="form-group col-md-7"> </div>
+                    <div class="form-group col-md-6">
+                        <label>ESPECIALITY</label>
+                        <input type="text" [(ngModel)]="education.especiality" name="especiality" class="form-control profile-form">
+                    </div>
+                </div>
+            </div>
         </div>
-        
+        <div class="submit-panel">
+            <button class="btn btn-default menu-button">Cancel</button>
+            <button class="btn btn-default menu-button" (click)="Submit()">Submit</button>
+        </div>
     </div>
-    <div class="form-group col-md-7"> </div>
-    <div class="form-group col-md-6">
-        <label>DESCRIPTION*</label>
-        <textarea rows="3" maxlength="3" [(ngModel)]="education.description" class="form-control profile-form"></textarea>
-    </div>
-    <div class="form-group col-md-7"> </div>
-    <div class="form-group col-md-6">
-        <label>ESPECIALITY</label>
-        <input type="text" [(ngModel)]="education.especiality" class="form-control profile-form">
-    </div>
-</div>
+</form>
