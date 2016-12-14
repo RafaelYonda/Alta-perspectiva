@@ -22,6 +22,9 @@ using Questions.Query.DbContext;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text;
+using UserProfile.Query.Queries;
+using UserProfile.Command.Commands;
+using UserProfile.Command.CommandHandler;
 
 namespace AltaPerspectiva
 {
@@ -87,7 +90,13 @@ namespace AltaPerspectiva
 
             services.AddTransient<ICommandHandler<AddLikeCommand>, AddLikeCommandHandler>();            
 
-            services.AddTransient<ICommandHandler<FollowCategoryCommand>, FollowCategoryCommandHandler>();           
+            services.AddTransient<ICommandHandler<FollowCategoryCommand>, FollowCategoryCommandHandler>();
+
+            //UserProfile DepencyInjection 
+            services.AddTransient<IContractInfoesQuery, ContractInfoesQuery>();
+            services.AddTransient<ICommandHandler<AddContractInfoCommand>, AddContractInfoCommandHandler>();
+            
+                  
         }     
 
        
@@ -169,7 +178,9 @@ namespace AltaPerspectiva
                     name: "Questions",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                
+                routes.MapRoute(
+                   name: "UserProfile",
+                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
                     name: "default",

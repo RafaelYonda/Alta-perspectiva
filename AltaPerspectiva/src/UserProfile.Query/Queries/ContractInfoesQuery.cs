@@ -18,7 +18,7 @@ namespace UserProfile.Query.Queries
 
         public IEnumerable<ContractInfo> Execute()
         {
-            return DbContext.ContractInfoes;//.OrderBy(x => x.Sequence);
+            return DbContext.ContractInfoes.OrderBy(x => x.FirstName);
         }
     }
 }

@@ -36,6 +36,9 @@
     "OpenIddict.Mvc": "1.0.0-*",
     "Questions.Command": "1.0.0-*",
     "Questions.Query": "1.0.0-*",
+    "UserProfile.Command": "1.0.0-*",
+    "UserProfile.Query": "1.0.0-*",
+
     "System.ServiceModel.Primitives": "4.0.0"
   },
 
