@@ -138,5 +138,11 @@
 --reference:C:\Users\Akash\.nuget\packages\System.Xml.XDocument\4.0.11\ref\netstandard1.3\System.Xml.XDocument.dll
 --reference:E:\AltaRepo\AltaPerspectiva\src\AltaPerspectiva.Core\bin\Debug\netstandard1.6\AltaPerspectiva.Core.dll
 --reference:E:\AltaRepo\AltaPerspectiva\src\AltaPerspectiva.Identity\bin\Debug\netstandard1.6\AltaPerspectiva.Identity.dll
-E:\AltaRepo\AltaPerspectiva\src\UserProfile.Domain\ContractInfo.cs
+E:\AltaRepo\AltaPerspectiva\src\UserProfile.Domain\Biography.cs
+E:\AltaRepo\AltaPerspectiva\src\UserProfile.Domain\ContractInformation.cs
+E:\AltaRepo\AltaPerspectiva\src\UserProfile.Domain\Education.cs
+E:\AltaRepo\AltaPerspectiva\src\UserProfile.Domain\Experience.cs
+E:\AltaRepo\AltaPerspectiva\src\UserProfile.Domain\Insight.cs
+E:\AltaRepo\AltaPerspectiva\src\UserProfile.Domain\PracticeArea.cs
+E:\AltaRepo\AltaPerspectiva\src\UserProfile.Domain\Skill.cs
 E:\AltaRepo\AltaPerspectiva\src\UserProfile.Domain\Properties\AssemblyInfo.cs

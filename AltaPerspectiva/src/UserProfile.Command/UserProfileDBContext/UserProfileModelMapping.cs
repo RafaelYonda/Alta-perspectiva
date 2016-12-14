@@ -11,17 +11,17 @@ namespace UserProfile.Command.UserProfileDBContext
     {
         public static void ConfigureMappings(this ModelBuilder model)
         {
-            // ContractInfo
-            model.Entity<ContractInfo>(e =>
-            {
-                e.ToTable("ContractInfoes");
+            //No need if no one to many mapping
+            //// ContractInformation
+            //model.Entity<ContractInformation>(e =>
+            //{
+            //    e.ToTable("ContractInformation");
 
-                e.HasKey(q => q.Id);
-                e.Property(q => q.FirstName)
-                    .HasColumnName("FirstName").IsRequired();
+            //    e.HasKey(q => q.Id);
+            //   // e.Property(q => q.FirstName).HasColumnName("FirstName").IsRequired();
 
 
-            });
+            //});
         }
     }
 }

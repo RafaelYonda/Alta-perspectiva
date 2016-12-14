@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace AltaPerspectiva.Web.Areas.UserProfile.Models
 {
-    public class AddContractInfoViewModel
+    public class AddInsightViewModel
     {
-        public String FirstName { get; set; }
     }
 }

@@ -1,14 +1,14 @@
-﻿using AltaPerspectiva.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AltaPerspectiva.Core;
 using UserProfile.Domain;
 
 namespace UserProfile.Query.Queries
 {
-    public interface IContractInfoesQuery: IQuery
+    public interface IBiographyQuery:IQuery
     {
-        IEnumerable<ContractInfo> Execute();
+        IEnumerable<Biography> Execute();
     }
 }

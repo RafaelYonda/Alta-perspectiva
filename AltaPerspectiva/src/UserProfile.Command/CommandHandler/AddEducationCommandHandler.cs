@@ -1,29 +1,28 @@
-﻿using AltaPerspectiva.Core;
-using AltaPerspectiva.Core.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AltaPerspectiva.Core;
+using AltaPerspectiva.Core.Infrastructure;
 using UserProfile.Command.Commands;
 using UserProfile.Command.UserProfileDBContext;
 using UserProfile.Domain;
 
 namespace UserProfile.Command.CommandHandler
 {
-    public class AddContractInfoCommandHandler :EFCommandHandlerBase<AddContractInfoCommand, UserProfileDbContext>,
-		ICommandHandler<AddContractInfoCommand>
+    public class AddEducationCommandHandler : EFCommandHandlerBase<AddEducationCommand, UserProfileDbContext>, ICommandHandler<AddEducationCommand>
     {
-        public AddContractInfoCommandHandler(UserProfileDbContext dbContext)
+        public AddEducationCommandHandler(UserProfileDbContext dbContext)
 			: base(dbContext)
 		{
         }
-        public override void Execute(AddContractInfoCommand command)
+        public override void Execute(AddEducationCommand command)
         {
-            Debug.WriteLine("AddAnswerCommandHandler executed");
+            Debug.WriteLine("AddEducationCommandHandler executed");
 
             /*Some ID modification*/
-            ContractInfo question = GetQuestionById(command.Id);
+            Education contractInformation = GetEducation(command.Id);
             // 
             //Answer answer = new Answer();
             //answer.GenerateNewIdentity();
@@ -42,13 +41,14 @@ namespace UserProfile.Command.CommandHandler
             //command.Id = answer.Id;
         }
 
-        private ContractInfo GetQuestionById(Guid id)
+        private Education GetEducation(Guid id)
         {
             return DbContext
-                    .ContractInfoes
-                    .Where(q => q.Id == id)
+                    .Education
+                    // .Where(q => q.Id == id)
                     .SingleOrDefault();
 
         }
+    
     }
 }

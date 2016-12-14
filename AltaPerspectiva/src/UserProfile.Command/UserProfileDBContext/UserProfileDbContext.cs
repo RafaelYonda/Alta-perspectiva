@@ -13,7 +13,13 @@ namespace UserProfile.Command.UserProfileDBContext
         : base(options)
         {
         }
-        public DbSet<ContractInfo> ContractInfoes { get; set; }
+        public DbSet<Biography> Biography { get; set; }
+        public DbSet<ContractInformation> ContractInformation { get; set; }
+        public DbSet<Education> Education { get; set; }
+        public DbSet<Experience> Experience { get; set; }
+        public DbSet<Insight> Insight { get; set; }
+        public DbSet<PracticeArea> PracticeArea { get; set; }
+        public DbSet<Skill> Skill { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configure model mappings
