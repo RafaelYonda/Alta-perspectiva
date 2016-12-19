@@ -61,3 +61,4 @@ AltaPerspectiva/src/UserProfile.Command/project.lock.json
 AltaPerspectiva/src/UserProfile.Domain/project.lock.json
 AltaPerspectiva/src/UserProfile.Query/project.lock.json
 AltaPerspectiva/src/Altaperspectiva.OpenId/project.lock.json
+AltaPerspectiva/src/Altaperspectiva.OpenId/Altaperspectiva.OpenId.xproj.user
