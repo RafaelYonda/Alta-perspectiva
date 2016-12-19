@@ -20,5 +20,10 @@ export class SkillFormComponent {
         console.log(service.profile);
         this.service.profile.skills = this.skills;
     }
+    Submit() {
+        this.service.SaveSkills(this.skills).subscribe(res => {
+            console.log(res);
+        });
+    }
 }
 

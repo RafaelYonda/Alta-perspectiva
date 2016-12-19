@@ -20,4 +20,9 @@ export class BiographyFormComponent {
         console.log(service.profile);
         this.service.profile.biography = this.biography;
     }
+    Submit() {
+        this.service.SaveBiography(this.biography).subscribe(res => {
+            console.log(res);
+        });
+    }
 }

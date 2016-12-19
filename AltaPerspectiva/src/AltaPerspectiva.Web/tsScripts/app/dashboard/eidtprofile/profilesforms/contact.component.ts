@@ -22,16 +22,8 @@ export class ContactFormComponent {
         this.service.profile.contact = this.contact;
     }
     Submit() {
-        //console.log(this.service.profile);
-        console.log(this.contact);
-        //this.catServ.getAllCategories();
-        //this.catServ.getAllCategories().subscribe(res => {
-        //    console.log(res);
-        //    //this.categories = res;
-        //});
-        this.service.SaveProfile(this.contact).subscribe(res => {
+        this.service.SaveContact(this.contact).subscribe(res => {
             console.log(res);
-            //this.categories = res;
         });
     }
 }

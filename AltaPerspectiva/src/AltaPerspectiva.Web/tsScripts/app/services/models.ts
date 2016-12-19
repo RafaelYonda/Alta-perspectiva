@@ -123,10 +123,10 @@ export class Contact {
     userId: string;
     firstName: string;
     lastName: string;
-    email: string;
-    phone: string;
-    address1: string;
-    address2: string;
+    prefferedEmail: string;
+    phoneNumber: string;
+    addressLine1: string;
+    addressLine2: string;
     country: string;
     region: string;
     city: string;
@@ -139,9 +139,11 @@ export class Biography {
 export class Education {
     userId: string;
     institute: string;
-    startDate: Date;
-    endDate: Date;
-    studyStatus: boolean;
+    startDate: number;
+    endDate: number;
+    timeFrameFrom: Date;
+    timeFrameTo: Date;
+    completedStudies: boolean;
     description: string;
     especiality: string;
 }
@@ -149,23 +151,25 @@ export class Experience {
     userId: string;
     employer: string;
     positionHeld: string;
-    employerLocation: string;
+    location: string;
     startMonth: number;
     startYear: number;
     endMonth: number;
     endYear: number;
-    currentlyWorking: boolean;
+    timePeriodFrom: Date;
+    timePeriodTo: Date;
+    currentlyWorkingHere: boolean;
     description: string;
 }
 export class Skills {
     userId: string;
     skillArea: string[];
-    newSkill: string;
+    skillName: string;
 }
 export class PracticeArea {
     userId: string;
     practiceArea: string[];
-    newPracticeArea: string;
+    PracticeAreaName: string;
 }
 export class Insight {
     userId: string;
@@ -173,10 +177,12 @@ export class Insight {
     publication: string;
     dateMonth: number;
     dateYear: number;
+    publicationDate: Date;
+    publicationHyperlink: string;
+    description: string;
     isHyperLink: boolean;
     isDocument: boolean;
-    documentLink: string;
-    description: string;
+    
 }
 //================..Profile Objects..
 export class DateName {

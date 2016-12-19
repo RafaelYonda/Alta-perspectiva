@@ -26,27 +26,27 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>LOCATION*</label>
-                        <input [(ngModel)]="experience.employerLocation" name="employerLocation" type="text" class="form-control profile-form">
+                        <input [(ngModel)]="experience.location" name="location" type="text" class="form-control profile-form">
                     </div>
                     <!-- =============== -->
                     <div class="form-group col-md-12">
                         <div class="row">
                             <div class="col-md-6"><label class="mid-label">TIME PERIOD*</label></div>
-                            <div class="col-md-1"><input [(ngModel)]="experience.currentlyWorking"  name="currentlyWorking" type="checkbox" class="form-control profile-form" value=""></div>
+                            <div class="col-md-1"><input [(ngModel)]="experience.currentlyWorkingHere"  name="currentlyWorking" type="checkbox" class="form-control profile-form" value=""></div>
                             <div class="col-md-5"><label class="mid-label">CURRENTLY WORK HERE*</label></div>
                         </div>
                     </div>
                     <div class="form-group col-md-12">
                         <div class="row">
                             <div class="col-md-2 date-input">
-                                <input [(ngModel)]="experience.startMonth" name="startMonth" type="number" placeholder="MONTH" class="form-control profile-form">
+                                <input [(ngModel)]="experience.startMonth" name="startMonth" type="number"min="1" max="12" step="1" placeholder="MONTH" class="form-control profile-form">
                             </div>
                             <div class="col-md-2 date-input">
                                 <input [(ngModel)]="experience.startYear" name="startYear" type="number" min="1900" max="2099" step="1" value="2016" placeholder="YEAR" class="form-control profile-form">
                             </div>
                             <label class="mid-label">TO</label>
                             <div class="col-md-2 date-input">
-                                <input [(ngModel)]="experience.endMonth" name="endMonth" type="number" placeholder="MONTH" class="form-control profile-form">
+                                <input [(ngModel)]="experience.endMonth" name="endMonth" type="number" min="1" max="12" step="1" placeholder="MONTH" class="form-control profile-form">
                             </div>
                             <div class="col-md-2 date-input">
                                 <input [(ngModel)]="experience.endYear" name="endYear" type="number" min="1900" max="2099" step="1" value="2016" placeholder="YEAR" class="form-control profile-form">

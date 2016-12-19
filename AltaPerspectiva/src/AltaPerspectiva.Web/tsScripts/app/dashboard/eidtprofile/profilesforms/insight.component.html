@@ -44,7 +44,7 @@
                         <label>DATE</label>
                         <div class="row form-group">
                             <div class="col-md-5">
-                                <input [(ngModel)]="insight.dateMonth" name="dateMonth" type="number" placeholder="MONTH" class="form-control profile-form">
+                                <input [(ngModel)]="insight.dateMonth" name="dateMonth" type="number" min="1" max="12" step="1" placeholder="MONTH" class="form-control profile-form">
                             </div>
 
                             <div class="col-md-5">
@@ -68,7 +68,7 @@
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <input [(ngModel)]="insight.documentLink" name="documentLink" type="text" class="form-control profile-form">
+                                <input [(ngModel)]="insight.publicationHyperlink" name="documentLink" type="text" class="form-control profile-form">
                             </div>
                         </div>
                     </div>
