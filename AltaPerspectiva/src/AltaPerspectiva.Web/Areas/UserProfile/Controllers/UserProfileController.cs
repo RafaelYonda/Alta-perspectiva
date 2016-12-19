@@ -38,7 +38,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
 
         [HttpPost("userprofile/api/setbiography")]
-        public IActionResult SetBiography(AddBiographyViewModel model)
+        public IActionResult SetBiography([FromBody]AddBiographyViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -64,7 +64,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
 
         [HttpPost("userprofile/api/setcontractinformation")]
-        public IActionResult SetContractInformation(AddContractInformationViewModel model)
+        public IActionResult SetContractInformation([FromBody]AddContractInformationViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -91,7 +91,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
 
         [HttpPost("userprofile/api/seteducation")]
-        public IActionResult SetEducation(AddEducationViewModel model)
+        public IActionResult SetEducation([FromBody]AddEducationViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -117,7 +117,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
 
         [HttpPost("userprofile/api/setexperience")]
-        public IActionResult SetExperience(AddExperienceViewModel model)
+        public IActionResult SetExperience([FromBody]AddExperienceViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -144,7 +144,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
 
         [HttpPost("userprofile/api/setinsight")]
-        public IActionResult SetInsight(AddInsightViewModel model)
+        public IActionResult SetInsight([FromBody]AddInsightViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -170,7 +170,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
 
         [HttpPost("userprofile/api/setpracticeArea")]
-        public IActionResult SetPracticeArea(AddPracticeAreaViewModel model)
+        public IActionResult SetPracticeArea([FromBody]AddPracticeAreaViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -196,7 +196,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
 
         [HttpPost("userprofile/api/setskill")]
-        public IActionResult SetSkill(AddSkillViewModel model)
+        public IActionResult SetSkill([FromBody]AddSkillViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
