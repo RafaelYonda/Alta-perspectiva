@@ -7,6 +7,7 @@
 using AspNet.Security.OpenIdConnect.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Altaperspectiva.OpenId.ViewModels.Shared;
+using AspNet.Security.OpenIdConnect.Primitives;
 
 namespace Altaperspectiva.OpenId {
     public class ErrorController : Controller {

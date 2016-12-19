@@ -41,7 +41,8 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "NWebsec.AspNetCore.Middleware": "1.0.0-gamma1-15",
     "OpenIddict": "1.0.0-*",
-    "OpenIddict.Mvc": "1.0.0-*"
+    "OpenIddict.Mvc": "1.0.0-*",
+    "OpenIddict.EntityFramework": "1.0.0-*"
   },
 
   "frameworks": {

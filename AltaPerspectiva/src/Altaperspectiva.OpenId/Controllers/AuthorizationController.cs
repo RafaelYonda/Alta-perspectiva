@@ -18,6 +18,8 @@ using AltaPerspectiva.Identity;
 using Altaperspectiva.OpenId.ViewModels.Authorization;
 using Altaperspectiva.OpenId.ViewModels.Shared;
 using OpenIddict;
+using AspNet.Security.OpenIdConnect.Primitives;
+using OpenIddict.Core;
 
 namespace Altaperspectiva.OpenId {
     public class AuthorizationController : Controller {
@@ -40,7 +42,7 @@ namespace Altaperspectiva.OpenId {
         [Authorize, HttpGet("~/connect/authorize")]
         public async Task<IActionResult> Authorize(OpenIdConnectRequest request) {
             // Retrieve the application details from the database.
-            var application = await _applicationManager.FindByClientIdAsync(request.ClientId);
+            var application = await _applicationManager.FindByClientIdAsync(request.ClientId, HttpContext.RequestAborted);
             if (application == null) {
                 return View("Error", new ErrorViewModel {
                     Error = OpenIdConnectConstants.Errors.InvalidClient,
