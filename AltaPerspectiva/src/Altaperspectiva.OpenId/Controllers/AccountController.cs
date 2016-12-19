@@ -12,6 +12,8 @@ using Altaperspectiva.OpenId.Services;
 using Altaperspectiva.OpenId.ViewModels.Account;
 using Newtonsoft.Json.Linq;
 using OpenIddict;
+using AspNet.Security.OpenIdConnect.Primitives;
+using OpenIddict.Core;
 
 namespace Altaperspectiva.OpenId.Controllers {
     [Authorize]

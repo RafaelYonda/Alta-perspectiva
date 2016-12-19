@@ -9,6 +9,7 @@ using AltaPerspectiva.Identity;
 using Altaperspectiva.OpenId.Services;
 using NWebsec.AspNetCore.Middleware;
 using OpenIddict;
+using OpenIddict.Core;
 
 namespace Altaperspectiva.OpenId {
     public class Startup {
@@ -29,7 +30,7 @@ namespace Altaperspectiva.OpenId {
                 .AddDefaultTokenProviders();
 
             // Register the OpenIddict services, including the default Entity Framework stores.
-            services.AddOpenIddict<ApplicationUserDbContext>()
+            services.AddOpenIddict()
                 // Register the ASP.NET Core MVC binder used by OpenIddict.
                 // Note: if you don't call this method, you won't be able to
                 // bind OpenIdConnectRequest or OpenIdConnectResponse parameters.
