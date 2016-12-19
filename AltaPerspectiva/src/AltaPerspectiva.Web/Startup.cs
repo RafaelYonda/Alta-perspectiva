@@ -22,6 +22,11 @@ using Questions.Query.DbContext;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text;
+using UserProfile.Query.Queries;
+using UserProfile.Command.Commands;
+using UserProfile.Command.CommandHandler;
+using UserProfile.Command.UserProfileDBContext;
+using UserProfile.Query;
 
 namespace AltaPerspectiva
 {
@@ -35,7 +40,7 @@ namespace AltaPerspectiva
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-            
+
             Configuration = builder.Build();
         }
 
@@ -53,13 +58,14 @@ namespace AltaPerspectiva
 
             services.AddDistributedMemoryCache();
 
-            services.AddAuthentication(options => {
+            services.AddAuthentication(options =>
+            {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddCors();  
+            services.AddCors();
 
             services.AddMvc();
 
@@ -67,14 +73,18 @@ namespace AltaPerspectiva
                             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
             services.AddDbContext<QuestionsQueryDbContext>(options =>
                             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+            services.AddDbContext<UserProfileDbContext>(options =>
+                            options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+            services.AddDbContext<UserProfileQueryDbContext>(options =>
+                            options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
-            services.AddTransient<ICommandsFactory, CommandFactory>(serviceProvider => new CommandFactory(x=>  serviceProvider.GetServices(x).ToArray()));
-            services.AddTransient<IQueryFactory, QueryFactory>(serviceProvider => new QueryFactory(x =>  serviceProvider.GetRequiredService(x)));
+            services.AddTransient<ICommandsFactory, CommandFactory>(serviceProvider => new CommandFactory(x => serviceProvider.GetServices(x).ToArray()));
+            services.AddTransient<IQueryFactory, QueryFactory>(serviceProvider => new QueryFactory(x => serviceProvider.GetRequiredService(x)));
 
             services.AddTransient<IQuestionsQuery, QuestionsQuery>();
-            services.AddTransient<ICategoriesQuery,CategoriesQuery>();
+            services.AddTransient<ICategoriesQuery, CategoriesQuery>();
             services.AddTransient<IKeywordsQuery, KeywordsQuery>();
-            services.AddTransient<ICategoryMatchKeywordQuery, CategoryMatchKeywordQuery>(); 
+            services.AddTransient<ICategoryMatchKeywordQuery, CategoryMatchKeywordQuery>();
             services.AddTransient<IQuestionByIdQuery, QuestionByIdQuery>();
             services.AddTransient<IQuestionsByCategoryIdQuery, QuestionsByCategoryIdQuery>();
 
@@ -82,17 +92,42 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
 
             services.AddTransient<ICommandHandler<AddAnswerCommand>, AddAnswerCommandHandler>();
-            services.AddTransient<ICommandHandler<AddAnswerCommand>,AnswerAddedNotificationCommandHandler>();
+            services.AddTransient<ICommandHandler<AddAnswerCommand>, AnswerAddedNotificationCommandHandler>();
 
             services.AddTransient<ICommandHandler<AddCommentCommand>, AddCommentCommandHandler>();
             services.AddTransient<ICommandHandler<AddCommentCommand>, CommentAddedNotificationCommandHandler>();
 
-            services.AddTransient<ICommandHandler<AddLikeCommand>, AddLikeCommandHandler>();            
+            services.AddTransient<ICommandHandler<AddLikeCommand>, AddLikeCommandHandler>();
 
-            services.AddTransient<ICommandHandler<FollowCategoryCommand>, FollowCategoryCommandHandler>();           
-        }     
+            services.AddTransient<ICommandHandler<FollowCategoryCommand>, FollowCategoryCommandHandler>();
 
-       
+            //UserProfile DepencyInjection 
+            //Biography
+            services.AddTransient<IBiographyQuery, BiographyQuery>();
+            services.AddTransient<ICommandHandler<AddBiographyCommand>,AddBiographyCommandHandler>();
+            //Contract
+            services.AddTransient<IContractInformationQuery, ContractInformationQuery>();
+            services.AddTransient<ICommandHandler<AddContractInfomaionCommand>, AddContractInformationCommandHandler>();
+            //Education
+            services.AddTransient<IEducationQuery, EducationQuery>();
+            services.AddTransient<ICommandHandler<AddEducationCommand>, AddEducationCommandHandler>();
+            //Experience
+            services.AddTransient<IExperienceQuery, ExperienceQuery>();
+            services.AddTransient<ICommandHandler<AddExperienceCommand>, AddExperienceCommandHandler>();
+            //Insight
+            services.AddTransient<IInsightQuery, InsightQuery>();
+            services.AddTransient<ICommandHandler<AddInsightCommand>, AddInsightCommandHandler>();
+            //Practice
+            services.AddTransient<IPracticeAreaQuery, PracticeAreaQuery>();
+            services.AddTransient<ICommandHandler<AddPracticeAreaCommand>, AddPracticeAreaCommandHandler>();
+            //Skill
+            services.AddTransient<ISkillQuery, SkillQuery>();
+            services.AddTransient<ICommandHandler<AddSkillCommand>, AddSkillCommandHandler>();
+
+
+        }
+
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IDistributedCache cache)
         {
@@ -135,7 +170,7 @@ namespace AltaPerspectiva
                 // Note: setting the Authority allows the OIDC client middleware to automatically
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
-                
+
 
                 Authority = "http://altaauth.azurewebsites.net",
 
@@ -148,26 +183,33 @@ namespace AltaPerspectiva
                     name: "Questions",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                
+                routes.MapRoute(
+                   name: "UserProfile",
+                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            using (var context = new QuestionsDbContext(
-                app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
+            using (var context = new UserProfileDbContext(app.ApplicationServices.GetRequiredService<DbContextOptions<UserProfileDbContext>>()))
             {
                 context.Database.EnsureCreated();
-
-                var keywords = context.Keywords.ToList();
-                cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
-                //, new DistributedCacheEntryOptions()
-                //            .SetSlidingExpiration(TimeSpan.FromMinutes(10))
-                //                .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
-                
-
             }
+
+            //using (var context = new QuestionsDbContext(
+            //app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
+            //{
+            //    context.Database.EnsureCreated();
+
+            //    var keywords = context.Keywords.ToList();
+            //    cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
+            //    //, new DistributedCacheEntryOptions()
+            //    //            .SetSlidingExpiration(TimeSpan.FromMinutes(10))
+            //    //                .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
+
+
+            //}
         }
     }
 }
