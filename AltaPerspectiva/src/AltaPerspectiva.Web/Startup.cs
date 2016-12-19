@@ -197,19 +197,19 @@ namespace AltaPerspectiva
                 context.Database.EnsureCreated();
             }
 
-            //using (var context = new QuestionsDbContext(
-            //app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
-            //{
-            //    context.Database.EnsureCreated();
+            using (var context = new QuestionsDbContext(
+            app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
+            {
+                context.Database.EnsureCreated();
 
-            //    var keywords = context.Keywords.ToList();
-            //    cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
-            //    //, new DistributedCacheEntryOptions()
-            //    //            .SetSlidingExpiration(TimeSpan.FromMinutes(10))
-            //    //                .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
+                var keywords = context.Keywords.ToList();
+                cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
+                //    //, new DistributedCacheEntryOptions()
+                //    //            .SetSlidingExpiration(TimeSpan.FromMinutes(10))
+                //    //                .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
 
 
-            //}
-        }
+                }
+            }
     }
 }
