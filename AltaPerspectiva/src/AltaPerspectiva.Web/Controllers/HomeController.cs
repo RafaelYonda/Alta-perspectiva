@@ -14,8 +14,8 @@ namespace AltaPerspectiva.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IConfiguration configuration;
-        public HomeController(IConfiguration _configuration)
+        private readonly IConfigurationRoot configuration;
+        public HomeController(IConfigurationRoot _configuration)
         {
             configuration = _configuration;
         }

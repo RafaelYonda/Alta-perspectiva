@@ -49,6 +49,8 @@ namespace AltaPerspectiva
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
+            services.AddSingleton<IConfigurationRoot>(provider => Configuration);
+
             services.AddDistributedMemoryCache();
 
             services.AddAuthentication(options => {
@@ -94,39 +96,16 @@ namespace AltaPerspectiva
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IDistributedCache cache)
         {
-            //app.Use(async (context, next) =>
-            //{
-            //    await next();
-
-            //    if (context.Response.StatusCode == 404
-            //        && !Path.HasExtension(context.Request.Path.Value))
-            //    {
-            //        context.Request.Path = "~/";
-            //        await next();
-            //    }
-            //});
+           
             app.UseDefaultFiles();
             app.UseStaticFiles();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseApplicationInsightsRequestTelemetry();
-
-            //if (env.IsDevelopment())
-            //{
+            app.UseApplicationInsightsRequestTelemetry();          
+           
             app.UseDeveloperExceptionPage();
-            //app.UseBrowserLink();
-            //}
-            //else
-            //{
-            //    app.UseExceptionHandler("/Home/Error");
-            //}         
-
-            //app.UseCors(builder => 
-            //    builder.AllowAnyHeader()
-            //            .AllowAnyMethod()
-            //            .AllowAnyOrigin()
-            //);
+           
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
