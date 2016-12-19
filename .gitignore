@@ -54,3 +54,10 @@ AltaPerspectiva/src/AltaPerspectiva.Identity/project.lock.json
 /AltaPerspectiva/src/Altaperspectiva.OpenId/node_modules
 /AltaPerspectiva/src/Questions.Domain/obj
 
+AltaPerspectiva/src/Questions.Command/project.lock.json
+AltaPerspectiva/src/Questions.Domain/project.lock.json
+AltaPerspectiva/src/Questions.Query/project.lock.json
+AltaPerspectiva/src/UserProfile.Command/project.lock.json
+AltaPerspectiva/src/UserProfile.Domain/project.lock.json
+AltaPerspectiva/src/UserProfile.Query/project.lock.json
+AltaPerspectiva/src/Altaperspectiva.OpenId/project.lock.json
