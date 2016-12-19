@@ -12,6 +12,7 @@
         public string Active { get; set; }
         public string Description { get; set; }
         public int Sequence { get; set; }
+        public string Image { get; set; }
         public virtual ICollection<QuestionCategory> Questions { get; set; }
         public virtual ICollection<Keyword> Keywords { get; set; }
     }

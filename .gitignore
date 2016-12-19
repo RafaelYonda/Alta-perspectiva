@@ -7,9 +7,12 @@ AltaPerspectiva/src/Questions.Query/bin/
 AltaPerspectiva/src/Questions.Command/bin/
 AltaPerspectiva/src/AltaPerspectiva.Web/bin/
 AltaPerspectiva/src/AltaPerspectiva.Web/obj/
-AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/css
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/images
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/js
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/libs/
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/lib/
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/Scripts
 AltaPerspectiva/src/Questions.Command/obj/
 AltaPerspectiva/src/AltaPerspectiva/bower_components/
 AltaPerspectiva/src/AltaPerspectiva/node_modules/
