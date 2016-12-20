@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
-import { Profile, Contact } from '../../services/models';
+import { Profile } from '../../services/models';
 @Component({
     templateUrl: 'js/app/dashboard/eidtprofile/editprofile.component.html',
     styleUrls: ['js/app/dashboard/eidtprofile/editprofile.component.css',

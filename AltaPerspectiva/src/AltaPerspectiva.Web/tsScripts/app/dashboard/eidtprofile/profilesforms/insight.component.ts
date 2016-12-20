@@ -20,4 +20,9 @@ export class InsightFormComponent {
         console.log(service.profile);
         this.service.profile.insight = this.insight;
     }
+    Submit() {
+        this.service.SaveInsight(this.insight).subscribe(res => {
+            console.log(res);
+        });
+    }
 }
