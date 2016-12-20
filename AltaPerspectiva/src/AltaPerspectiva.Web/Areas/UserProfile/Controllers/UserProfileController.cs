@@ -8,6 +8,10 @@ using AltaPerspectiva.Web.Areas.UserProfile.Models;
 using Microsoft.Extensions.Caching.Distributed;
 using UserProfile.Query.Queries;
 using UserProfile.Command.Commands;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,12 +24,16 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         ICommandsFactory commandsFactory;
         IQueryFactory queryFactory;
         IDistributedCache cache;
+        private readonly IConfigurationRoot configuration;
+        private readonly IHostingEnvironment environment;
 
-        public UserProfileController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IDistributedCache _cache)
+        public UserProfileController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IDistributedCache _cache, IConfigurationRoot _configuration, IHostingEnvironment _environment)
         {
             commandsFactory = _commandsFactory;
             queryFactory = _queryFactory;
             cache = _cache;
+            configuration = _configuration;
+            environment = _environment;
         }
         #region Biography
         //http://localhost:5273/userprofile/api    
@@ -231,5 +239,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
         #endregion
 
+        [HttpPost("userprofile/api/fileupload")]
+        public async Task FileUpload(IFormFile file)
+        {
+            var categoryImagepath = configuration["ProfileUpload"];
+            //IHostingEnvironment environment = new HostingEnvironment();
+            String image = file.FileName;
+
+            var webRoot = environment.WebRootPath;
+
+
+            var uploads = Path.Combine(webRoot, categoryImagepath);
+            using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+        }
     }
 }

@@ -52,7 +52,6 @@ export class ProfileService {
         insight.publicationDate = new Date(insight.dateYear, insight.dateMonth);
         return this.SaveProfile(insight, 'userprofile/api/setinsight')
     }
-
     private extractData(res: Response) {
         let body;
 
