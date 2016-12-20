@@ -11,6 +11,7 @@ using Questions.Command.Commands;
 using AltaPerspectiva.Core;
 using Questions.Query;
 using Questions.Domain;
+using Microsoft.Extensions.Configuration;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,15 +20,15 @@ namespace AltaPerspectiva.Web.Areas.Questions.Controllers
     [Area("Questions")]
     public class SaveCategoryController : Controller
     {
-        private readonly IHostingEnvironment _environment;
+        private readonly IConfigurationRoot configuration;
         ICommandsFactory commandsFactory;
         IQueryFactory queryFactory;
 
-        public SaveCategoryController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory,IHostingEnvironment environment)
+        public SaveCategoryController(IConfigurationRoot _configuration,ICommandsFactory _commandsFactory, IQueryFactory _queryFactory)
         {
+            configuration = _configuration;
             commandsFactory = _commandsFactory;
             queryFactory = _queryFactory;
-            _environment = environment;
         }
         // GET: /<controller>/
         public IActionResult Index()
@@ -45,15 +46,16 @@ namespace AltaPerspectiva.Web.Areas.Questions.Controllers
         public JsonResult Delete(Guid Id)
         {
             DeleteCategoryCommand cmd = new DeleteCategoryCommand(Id);
-            commandsFactory.ExecuteQuery(cmd);
+           // commandsFactory.ExecuteQuery(cmd);
             return Json(new { success = "ok" });
         }
         [HttpPost]
         public IActionResult FileUpload(String name, IFormFile file,String description)
         {
+            var categoryImagepath=configuration["CategoryImage"];
             //IHostingEnvironment environment = new HostingEnvironment();
             String image = file.FileName;
-            var uploads = Path.Combine(_environment.WebRootPath, "categories");
+            var uploads = Path.Combine(categoryImagepath, "categories");
             using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
             {
                 file.CopyTo(fileStream);

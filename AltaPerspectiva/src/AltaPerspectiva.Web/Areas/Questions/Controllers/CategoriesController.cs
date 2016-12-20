@@ -11,6 +11,11 @@ using Questions.Domain;
 using System.ServiceModel.Channels;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
+using Questions.Command.Commands;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,12 +29,16 @@ namespace AltaPerspectiva.Web.Area.Questions
         ICommandsFactory commandsFactory;
         IQueryFactory queryFactory;
         IDistributedCache cache;
+        private readonly IConfigurationRoot configuration;
+        private readonly IHostingEnvironment environment;
 
-        public CategoriesController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IDistributedCache _cache)
+        public CategoriesController(IConfigurationRoot _configuration, ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IDistributedCache _cache, IHostingEnvironment _environment)
         {
+            configuration = _configuration;
             commandsFactory = _commandsFactory;
             queryFactory = _queryFactory;
             cache = _cache;
+            environment = _environment;
         }
 
         // GET:/questions/api/categories
@@ -73,10 +82,62 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
         }
 
-        // DELETE questions/api/categories/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        //// DELETE questions/api/categories/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
+        /*FromPost For CategoriesFile*/
+        [HttpGet("questions/getcategory")]
+        public IActionResult GetCategory()
         {
+            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+
+            return View(categoriesList);
+        }
+        
+        [HttpPost]
+        public JsonResult Edit(Guid Id)
+        {
+            return Json(new { success = "ok" });
+        }
+
+        [HttpPost]
+        public JsonResult Delete(Guid Id)
+        {
+            DeleteCategoryCommand cmd = new DeleteCategoryCommand(Id);
+            // commandsFactory.ExecuteQuery(cmd);
+            return Json(new { success = "ok" });
+        }
+        [HttpPost]
+        public IActionResult FileUpload(String name, IFormFile file, String description)
+        {
+            var categoryImagepath = configuration["CategoryUpload"];
+            //IHostingEnvironment environment = new HostingEnvironment();
+            String image = file.FileName;
+
+            var webRoot = environment.WebRootPath;
+
+
+            var uploads = Path.Combine(webRoot, categoryImagepath);
+            using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+            int maxSequnce = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().OrderByDescending(x => x.Sequence).Select(x => x.Sequence).FirstOrDefault();
+            //int maxSequnce=
+            AddCategoryCommand cmd = new AddCategoryCommand(loggedinUser, name, "icon-dice", null, description, maxSequnce + 1, image);
+            //commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+            return View();
         }
     }
 

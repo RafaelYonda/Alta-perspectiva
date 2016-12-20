@@ -7,8 +7,8 @@
         <img class="left-border" src="~/images/border.png" />
 
         <section>
-
-            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+            @using(Html.BeginForm("FileUpload","SaveCategory",FormMethod.Post,new { area = "Questions",enctype="multipart/form-data",@class= "form-horizontal",@role= "form" }))
+            {
                 <h2>Add Category</h2>
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-md-10">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-md-10">
-                        <input type="file" id="file" placeholder="file" class="form-control-file" minlength="2" accept=".jpg" />
+                        <input type="file" id="file" placeholder="file" class="form-control-file" minlength="2" accept=".jpg" name="file"/>
                     </div>
                 </div>
                 <br />
@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-            </form>
+                }
         </section>
     </div>
     
@@ -40,52 +40,39 @@
 <div class="row">     
     <div class="panel-body">
             
-                <table class="table table-hover table-striped table-bordered">
+                <table class="table  table-bordered" id="myTable">
                     <thead>
                         <tr>
-                            <th class="hidden">
-                                ID
-                            </th>
-                            <th>
+                           <th style="width:1%">
                                 Name
+                            </th>                           
+                            <th style="width:10%">
+                              
                             </th>
-                            <th style="width:10px">
-                                Description
-                            </th>
-                            <th>
-                                Action
+                            <th style="width:10%">
+
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td class="hidden">
-                                    @Html.DisplayFor(modelItem => item.Id)
-                                </td>
-                                <td>
+                            <tr>                               
+                                <td >
+                                    @Html.HiddenFor(modelItem => item.Id)
                                     @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    <div class="col-xs-6">
-                                        @Html.DisplayFor(modelItem => item.Description)
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <button id="btnEdit" type="button" class="btn btn-collapse btnEdit">
-                                                <span class="glyphicon glyphicon-ok"></span> Edit
-                                            </button>
-                                        </div>
-                                        <div class="col-xs-1">
-                                            <button id="brnDelete" type="button" class="btn btn-danger btnDelete">
-                                                <span class="glyphicon glyphicon-trash"></span> Delete
-                                            </button>
-                                        </div>
-                                    </div>
+                                </td>                               
+                                <td >
+                                       
+                                    <button id="btnEdit" type="button" class="btn btn-collapse btnEdit">
+                                        <span class="glyphicon glyphicon-ok"></span> Edit
+                                    </button>                 
 
+                                </td>
+                                <td >
+                                    <button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
+    <span class="glyphicon glyphicon-trash"></span> Delete
+</button>
                                 </td>
                             </tr>
                         }
@@ -115,7 +102,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Description</label>
-                    <input id="pDescription" type="text" class="form-control" placeholder="Name">
+                    <input id="pDescription" type="text" class="form-control" placeholder="No Description !!">
                 </div>
             </div>
             <div class="modal-footer">
@@ -129,9 +116,55 @@
 </div>
 
 <script>
+    function deleteCategory(element, Id) {
+        var url = '@Url.Action("Delete", "SaveCategory", new { Area = "Questions" })';
+        var obj = {};
+        obj.Id = Id;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                if (respText.success == 'ok') {
+                    alert('Deleted Successfully')
+                    document.getElementById("myTable").deleteRow(element.parentNode.parentNode.rowIndex);
+
+                }else
+                {
+                     alert('Error');
+
+                }
+                
+                
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                alert('error ..Check log for details');
+                console.log(textStatus, errorThrown);
+                var msg = '';
+                if (jqXhr.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXhr.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXhr.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (errorThrown === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (errorThrown === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (errorThrown === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXhr.responseText;
+                }
+                console.log(msg);
+            }
+        });
+    }
+
     $(function () {
         
-
         $('.btnEdit').on('click', function () {
             var Id =$.trim( $(this).closest('tr').find('td:eq(0)').text());
             $('#Id').val(Id);
@@ -190,49 +223,7 @@
             });
         });
 
-        $('.btnDelete').on('click', function () {
-            var Id = $.trim($(this).closest('tr').find('td:eq(0)').text());
-            console.log('De;ete Button Clicked'+Id);
-            var currentTr = $(this).closest('tr');
-
-           // var url = '/Questions/SaveCategory/Delete';
-            var url = '@Url.Action("Delete", "SaveCategory", new { Area = "Questions" })';
-            var obj = {};
-            obj.Id = Id;
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: obj,
-                async: false,
-                success: function (respText) {
-                    console.log(respText);
-                   // alert('Deleted Successfullt');
-                    currentTr.remove();
-                },
-                error: function (jqXhr, textStatus, errorThrown) {
-                    alert('error ..Check log for details');
-                    console.log(textStatus, errorThrown);
-                    var msg = '';
-                    if (jqXhr.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXhr.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXhr.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (errorThrown === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (errorThrown === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (errorThrown === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXhr.responseText;
-                    }
-                    console.log(msg);
-                }
-            });
-
-        });
+        
 
     })
 </script>
