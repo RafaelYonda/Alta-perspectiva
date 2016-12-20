@@ -5,10 +5,12 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment, Like } from './models';
+import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment, Like, Config } from './models';
 
 @Injectable()
 export class QuestionAnswerService implements Resolve<Question> {
+
+    
   
     GetQuestion(id: string): Observable<Question> {
         console.log(id);
@@ -30,6 +32,8 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+   
 
     getQuestions(): Observable<Question[]> {
         return this._http.get('/questions/api/questions')

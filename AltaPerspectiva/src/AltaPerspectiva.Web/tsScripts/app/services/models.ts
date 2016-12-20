@@ -21,6 +21,7 @@ export class Category {
     id: string;
     name: string;
     icon: string;
+    image: string;
     active: string;
     description: string;
     sequence: number;   
@@ -46,11 +47,16 @@ export class Comment {
     commentText: string;    
 }
 
+export class Config {
+    categoryImage: string;
+    profileImage: string;    
+}
+
 export class Like {
     id: string;
     questionId: string;
     answerId: string;
-    userId: string;   
+    userId: string;
 }
 
 export class Question {

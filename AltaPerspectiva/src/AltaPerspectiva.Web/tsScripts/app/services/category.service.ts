@@ -19,7 +19,9 @@ export class CategoryService {
     getAllCategories(): Observable<Category[]> {
         return this._http.get('/questions/api/categories/')
             .map(this.extractData)
-            .catch(this.handleError);        
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount();        
     }
     getAllKeywords(): Observable<Keyword[]> {
         return this._http.get('/questions/api/categories/keywords')

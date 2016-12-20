@@ -1,7 +1,8 @@
 ﻿import { Component } from '@angular/core';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { CategoryService } from '../../services/category.service';
-import {QuestionMenu, Question, Answer, Category, DateName} from '../../services/models';
+import { ConfigService } from '../../services/config.service';
+import {QuestionMenu, Question, Answer, Category, DateName, Config} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
 
 export interface ILoader {
@@ -12,7 +13,7 @@ export interface ILoader {
     selector: "question-body",
     templateUrl: 'js/app/questions/question-body/question-body.component.html',
     styleUrls: ['js/app/questions/question-body/question-body.css'],
-    providers: [QuestionAnswerService, CategoryService]
+    providers: [QuestionAnswerService, CategoryService, ConfigService]
 })
 export class QuestionBodyComponent{
 
@@ -28,12 +29,13 @@ export class QuestionBodyComponent{
     error: any;
     answer: string;
     categories: Category[];
-    categorySelected: string;
+    categorySelected: Category;
     
 
     scrollPage: number = 0;
+    config: Config;
 
-    constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, router: Router, route: ActivatedRoute) {
+    constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute) {
         this._router = router;
         this.route = route;
 
@@ -45,17 +47,22 @@ export class QuestionBodyComponent{
         
     }
 
-    ngOnInit() {        
+    ngOnInit() {     
+
+        this.configService.getConfig().subscribe(r => {
+            this.config = r;
+        });
 
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
 
             if (this.id == '0')
-                this.categorySelected = this.categories.find(x => x.sequence == 1).name;
+                this.categorySelected = this.categories.find(x => x.sequence == 1);
             else
-                this.categorySelected = this.categories.find(x => x.id == this.id).name;
+                this.categorySelected = this.categories.find(x => x.id == this.id);
 
-            
+            if (this.categorySelected && this.categorySelected.image)
+                this.categorySelected.image = this.config.categoryImage.concat(this.categorySelected.image); 
         });
         
 
@@ -71,11 +78,12 @@ export class QuestionBodyComponent{
             }
             else {
                 subs = this.questionService.getQuestionsByCategory(this.id);
-                this.categorySelected = this.categories.find(x => x.id == this.id).name;
+                this.categorySelected = this.categories.find(x => x.id == this.id);
+                this.categorySelected.image = this.config.categoryImage.concat(this.categorySelected.image); 
             }
 
             subs.subscribe(res => {               
-                this.questions = res;   
+                this.questions = res;               
                 this.hideLoader();    
             });
         });        

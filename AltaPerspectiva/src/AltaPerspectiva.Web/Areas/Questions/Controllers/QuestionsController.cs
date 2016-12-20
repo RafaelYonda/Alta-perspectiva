@@ -7,6 +7,7 @@ using AltaPerspectiva.Core;
 using Questions.Command;
 using Questions.Query;
 using AltaPerspectiva.Web.Areas.Questions.Models;
+using Microsoft.Extensions.Configuration;
 //using Questions.Domain;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,10 +20,22 @@ namespace AltaPerspectiva.Web.Area.Questions
     {
         ICommandsFactory commandsFactory;
         IQueryFactory queryFactory;
+        private readonly IConfigurationRoot configuration;
 
-        public QuestionsController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory) {
+        public QuestionsController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IConfigurationRoot _configuration) {
             commandsFactory = _commandsFactory;
             queryFactory = _queryFactory;
+            configuration = _configuration;
+        }
+
+
+        [HttpGet("/questions/api/questions/config")]
+        public IActionResult GetConfig()
+        {
+            var config = new Config();
+            config.ProfileImage = configuration["ProfileImage"];
+            config.CategoryImage = configuration["CategoryImage"];           
+            return Ok(config);
         }
 
         // GET: /questions/api/questions
