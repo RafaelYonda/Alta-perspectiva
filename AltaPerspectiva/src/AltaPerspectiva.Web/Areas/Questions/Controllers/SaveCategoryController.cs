@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting.Internal;
 using Questions.Command.Commands;
 using AltaPerspectiva.Core;
 using Questions.Query;
+using Questions.Domain;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,7 +32,21 @@ namespace AltaPerspectiva.Web.Areas.Questions.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View();
+            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+
+            return View(categoriesList);
+        }
+        [HttpPost]
+        public JsonResult Edit(Guid Id,String Name)
+        {
+            return Json(new { success = "ok" });
+        }
+        [HttpPost]
+        public JsonResult Delete(Guid Id)
+        {
+            DeleteCategoryCommand cmd = new DeleteCategoryCommand(Id);
+            commandsFactory.ExecuteQuery(cmd);
+            return Json(new { success = "ok" });
         }
         [HttpPost]
         public IActionResult FileUpload(String name, IFormFile file,String description)
