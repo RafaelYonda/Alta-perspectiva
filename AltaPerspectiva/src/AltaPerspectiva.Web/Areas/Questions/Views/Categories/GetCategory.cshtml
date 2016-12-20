@@ -8,11 +8,11 @@
             @using (Html.BeginForm("FileUpload", "Categories", FormMethod.Post, new { area = "Questions", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
             {
                 <h2>Add Category</h2>
-                        <div class="form-group">
-                            <div class="col-sm-offset-1 col-md-10">
-                                <input type="text" id="name" name="name" placeholder="Name" class="form-control" minlength="2" required />
-                            </div>
-                        </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-md-10">
+                        <input type="text" id="name" name="name" placeholder="Name" class="form-control" minlength="2" required />
+                    </div>
+                </div>
                         <div class="form-group">
                             <div class="col-sm-offset-1 col-md-10">
                                 <input type="text" id="description" name="description" placeholder="Description" class="form-control" minlength="2" required />
@@ -33,9 +33,21 @@
             }
         </section>
         @* =============== *@
+
+
+
+    </div>
+
+
+</div>
+<div class="row">
+    <div class="col-md-4">
+        .
+    </div>
+    <div class="col-md-4">
         <div class="panel-body">
 
-            <table class="table  " id="myTable">
+            <table class="table" id="myTable">
                 <thead>
                     <tr>
                         <th style="width:1%">
@@ -58,11 +70,9 @@
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-
-                                <button id="btnEdit" type="button" class="btn btn-collapse btnEdit" onclick="editCategory(this,'@item.Id')">
+                                <button id="brnDelete" type="button" class="btn btn-danger" onclick="editCategory(this,'@item.Id')">
                                     <span class="glyphicon glyphicon-ok"></span> Edit
                                 </button>
-
                             </td>
                             <td>
                                 <button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
@@ -76,10 +86,7 @@
             </table>
 
         </div>
-
-
     </div>
-    
 </div>
 <!-- approveProjectModal Modal -->
 <div class="modal fade" id="approveProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -90,7 +97,7 @@
                 <h4 class="modal-title">Final Approval</h4>
             </div>
             <div class="modal-body">
-                <input type="text" id="Id"  />
+                <input type="text" id="Id" />
                 <div class="form-group">
                     <label class="control-label">Name</label>
                     <input id="pName" type="text" class="form-control" placeholder="Name">
@@ -107,7 +114,7 @@
                             <img id="image" src="" style="width:75px;height:75px;" class="img-rounded">
                         </div>
                         <div>
-                            <input  type="file" name="chagedImage"/>
+                            <input type="file" name="chagedImage" />
                         </div>
                     </div>
 
@@ -122,55 +129,13 @@
         </div>
     </div>
 </div>
-
 <script>
-    function deleteCategory(element, Id) {
-        var url = '@Url.Action("Delete", "SaveCategory", new { Area = "Questions" })';
-        var obj = {};
-        obj.Id = Id;
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: obj,
-            async: false,
-            success: function (respText) {
-                console.log(respText);
-                if (respText.success == 'ok') {
-                    alert('Deleted Successfully')
-                    document.getElementById("myTable").deleteRow(element.parentNode.parentNode.rowIndex);
-                }else
-                {
-                     alert('Error');
-                }
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-                alert('error ..Check log for details');
-                console.log(textStatus, errorThrown);
-                var msg = '';
-                if (jqXhr.status === 0) {
-                    msg = 'Not connect.\n Verify Network.';
-                } else if (jqXhr.status == 404) {
-                    msg = 'Requested page not found. [404]';
-                } else if (jqXhr.status == 500) {
-                    msg = 'Internal Server Error [500].';
-                } else if (errorThrown === 'parsererror') {
-                    msg = 'Requested JSON parse failed.';
-                } else if (errorThrown === 'timeout') {
-                    msg = 'Time out error.';
-                } else if (errorThrown === 'abort') {
-                    msg = 'Ajax request aborted.';
-                } else {
-                    msg = 'Uncaught Error.\n' + jqXhr.responseText;
-                }
-                console.log(msg);
-            }
-        });
-    }
     function editCategory(element, Id) {
-
         var url = '@Url.Action("Edit", "Categories", new { Area = "Questions" })';
         var obj = {};
         obj.Id = Id;
+        console.log(obj);
+        console.log(url);
         $.ajax({
             url: url,
             type: 'GET',
@@ -212,7 +177,50 @@
             }
         });
 
+
     }
+    function deleteCategory(element, Id) {
+        var url = '@Url.Action("Delete", "Categories", new { Area = "Questions" })';
+        var obj = {};
+        obj.Id = Id;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                if (respText.success == 'ok') {
+                    alert('Deleted Successfully')
+                    document.getElementById("myTable").deleteRow(element.parentNode.parentNode.rowIndex);
+                } else {
+                    alert('Error');
+                }
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                alert('error ..Check log for details');
+                console.log(textStatus, errorThrown);
+                var msg = '';
+                if (jqXhr.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXhr.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXhr.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (errorThrown === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (errorThrown === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (errorThrown === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXhr.responseText;
+                }
+                console.log(msg);
+            }
+        });
+    }
+
     function confirmCategory() {
         var Id = $('#Id').val();
         var obj = {};
@@ -255,41 +263,6 @@
             }
         });
     }
-    $(function () {
 
-        $('.btnEdddit').on('click', function () {
-            var Id =$.trim( $(this).closest('tr').find('td:eq(0)').text());
-            $('#Id').val(Id);
-
-            $('#pName').val($.trim($(this).closest('tr').find('td:eq(1)').text()));
-            $('#pDescription').val($.trim($(this).closest('tr').find('td:eq(2)').text()));
-            $('#approveProjectModal').modal({
-                show: true,
-                backdrop: 'static'
-            });
-
-
-
-        });
-        $('#btnCondxdfirm').on('click', function () {
-            var Id = $('#Id').val();
-            var updatedName = $('#pName').val();
-            var updatedDescription=$('#pDescription').val()
-
-            var obj = {};
-            obj.Id = Id;
-            obj.Name = updatedName;
-            obj.Description = updatedDescription;
-            console.log(obj);
-           
-        });
-
-
-
-    })
 </script>
-@section Scripts {
-    @*@{ Html.RenderPartial("~/Views/Shared/_ValidationScriptsPartial"); }*@
 
-
-}
