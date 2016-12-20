@@ -9,6 +9,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Questions.Command.Commands;
 using AltaPerspectiva.Core;
+using Questions.Query;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -50,7 +51,9 @@ namespace AltaPerspectiva.Web.Areas.Questions.Controllers
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(loggedinUser.ToString());
             }
-            AddCategoryCommand cmd = new AddCategoryCommand(loggedinUser, name, null, null, description, 1, image);
+            int maxSequnce  = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().OrderByDescending(x=>x.Sequence).Select(x=>x.Sequence).FirstOrDefault();
+            //int maxSequnce=
+            AddCategoryCommand cmd = new AddCategoryCommand(loggedinUser, name, "icon-dice", null, description, maxSequnce+1, image);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
             return View();
