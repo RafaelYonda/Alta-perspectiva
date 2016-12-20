@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Category, Keyword, Contact } from './models';
+import { Category, Keyword } from './models';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/publishReplay';
@@ -30,13 +30,7 @@ export class CategoryService {
             .publishReplay(1)
             .refCount();
     }
-    SaveProfile(contact: Contact): Observable<Keyword[]> {
-        console.log(contact);
-        //return this._http.post('/questions/api/categories/contact', contact)
-        return this._http.get('/questions/api/categories/keywords')
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+
     private extractData(res: Response) {
         let body;
 

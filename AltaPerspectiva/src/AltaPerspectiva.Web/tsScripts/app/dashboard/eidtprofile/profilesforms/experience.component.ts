@@ -23,4 +23,9 @@ export class ExperienceFormComponent {
         console.log(service.profile);
         this.service.profile.experience = this.experience;
     }
+    Submit() {
+        this.service.SaveExperience(this.experience).subscribe(res => {
+            console.log(res);
+        });
+    }
 }

@@ -31,6 +31,7 @@ namespace Questions.Command.CommandHandler
             category.Sequence = command.Sequence;
             category.Image = command.Image;
 
+         
             DbContext.Categories.Add(category);
             try
             {

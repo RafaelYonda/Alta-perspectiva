@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import {Profile, Contact, Keyword} from './models';
+import {Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword} from './models';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -9,9 +9,6 @@ import 'rxjs/add/operator/catch';
 export class ProfileService {
     static instance: ProfileService;
     profile: Profile;
-    //constructor() {
-       
-    //}
     constructor(private _http: Http) {
 
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -21,21 +18,40 @@ export class ProfileService {
         this.profile = new Profile();
         return ProfileService.instance = ProfileService.instance || this;
     }
-    //constructor() {
-    //    this.profile = new Profile();
-    //}
-    //getProfileObj(): Profile {
-    //    return ProfileService.profile;
-    //}questions/api/categories/keywords
-    SaveProfile(contact: Contact): Observable<Contact> {
-        console.log(contact);
-        return this._http.post('/questions/api/categories/contact', contact)
-        //return this._http.get('/questions/api/categories/keywords')
+
+    SaveProfile(profileObj: any,url:string): Observable<any> {
+        console.log(profileObj); 
+        return this._http.post(url, profileObj)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-
+    SaveContact(contact: Contact) {
+        return this.SaveProfile(contact, 'userprofile/api/setcontractinformation')
+    }
+    SaveBiography(biography: Biography) {
+        return this.SaveProfile(biography, 'userprofile/api/setbiography')
+    }
+    SaveEducation(education: Education) {
+        education.timeFrameFrom = new Date(education.startDate, 1);
+        education.timeFrameTo = new Date(education.endDate, 1);
+        return this.SaveProfile(education, 'userprofile/api/seteducation')
+    }
+    SaveExperience(experience: Experience) {
+        experience.timePeriodFrom = new Date(experience.startYear, experience.startMonth);
+        experience.timePeriodTo = new Date(experience.endYear, experience.endMonth);
+        return this.SaveProfile(experience, 'userprofile/api/setexperience')
+    }
+    SaveSkills(skills: Skills) {
+        return this.SaveProfile(skills, 'userprofile/api/setskill')
+    }
+    SavePracticeArea(praqcticeArea: PracticeArea) {
+        return this.SaveProfile(praqcticeArea, 'userprofile/api/setpracticeArea')
+    }
+    SaveInsight(insight: Insight) {
+        insight.publicationDate = new Date(insight.dateYear, insight.dateMonth);
+        return this.SaveProfile(insight, 'userprofile/api/setinsight')
+    }
     private extractData(res: Response) {
         let body;
 

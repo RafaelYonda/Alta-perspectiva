@@ -27,6 +27,8 @@ using UserProfile.Command.Commands;
 using UserProfile.Command.CommandHandler;
 using UserProfile.Command.UserProfileDBContext;
 using UserProfile.Query;
+using Questions.Command.Commands;
+using Questions.Command.CommandHandler;
 
 namespace AltaPerspectiva
 {
@@ -125,6 +127,11 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddSkillCommand>, AddSkillCommandHandler>();
 
 
+            //CategoryCommand
+            services.AddTransient<ICommandHandler<AddCategoryCommand>, AddCategoryCommandHandler>();
+
+            //Delete
+            services.AddTransient<ICommandHandler<DeleteCategoryCommand>, DeleteCategoryCommandHandler>();
         }
 
 

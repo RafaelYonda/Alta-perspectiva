@@ -20,4 +20,9 @@ export class PracticeFormComponent {
         console.log(service.profile);
         this.service.profile.practiceArea = this.practiceArea;
     }
+    Submit() {
+        this.service.SavePracticeArea(this.practiceArea).subscribe(res => {
+            console.log(res);
+        });
+    }
 }

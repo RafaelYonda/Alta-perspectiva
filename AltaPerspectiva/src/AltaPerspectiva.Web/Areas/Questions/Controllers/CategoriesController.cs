@@ -11,6 +11,11 @@ using Questions.Domain;
 using System.ServiceModel.Channels;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
+using Questions.Command.Commands;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,12 +29,16 @@ namespace AltaPerspectiva.Web.Area.Questions
         ICommandsFactory commandsFactory;
         IQueryFactory queryFactory;
         IDistributedCache cache;
+        private readonly IConfigurationRoot configuration;
+        private readonly IHostingEnvironment environment;
 
-        public CategoriesController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IDistributedCache _cache)
+        public CategoriesController(IConfigurationRoot _configuration, ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IDistributedCache _cache, IHostingEnvironment _environment)
         {
+            configuration = _configuration;
             commandsFactory = _commandsFactory;
             queryFactory = _queryFactory;
             cache = _cache;
+            environment = _environment;
         }
 
         // GET:/questions/api/categories
@@ -66,104 +75,86 @@ namespace AltaPerspectiva.Web.Area.Questions
             var keywords = JsonConvert.DeserializeObject<Keyword[]>(cache.GetString("Keywords"));
             return Ok(keywords);
         }
-
-        //Demo post Call
-        [HttpPost("questions/api/categories/contact")]
-        public IActionResult Post(Contact contact)
-        {
-            var x = contact;
-            return Created($"questions/api/questions/", contact);
-        }
+        
         // PUT questions/api/categories/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE questions/api/categories/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        //// DELETE questions/api/categories/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
+        /*FromPost For CategoriesFile*/
+        [HttpGet("questions/getcategory")]
+        public IActionResult GetCategory()
         {
+            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+
+            return View(categoriesList);
+        }
+        [HttpGet]
+        public IActionResult Edit(Guid Id)
+        {
+            Category category = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().FirstOrDefault(x => x.Id == Id);
+            var categoryImagepath = configuration["CategoryUpload"];
+            //IHostingEnvironment environment = new HostingEnvironment();
+            String image = category.Image;
+
+            var webRoot = environment.WebRootPath;
+
+
+            var uploads = Path.Combine(webRoot, categoryImagepath);
+
+            category.Image = "/"+categoryImagepath+image;
+            return Ok(category);
+        }
+
+        [HttpPost]
+        public JsonResult Edit(AddCategoryViewModel model)
+        {
+            return Json(new { success = "ok" });
+        }
+
+        [HttpPost]
+        public JsonResult Delete(Guid Id)
+        {
+            DeleteCategoryCommand cmd = new DeleteCategoryCommand(Id);
+            // commandsFactory.ExecuteQuery(cmd);
+            return Json(new { success = "ok" });
+        }
+        [HttpPost]
+        public IActionResult FileUpload(String name, IFormFile file, String description)
+        {
+            var categoryImagepath = configuration["CategoryUpload"];
+            //IHostingEnvironment environment = new HostingEnvironment();
+            String image = file.FileName;
+
+            var webRoot = environment.WebRootPath;
+
+
+            var uploads = Path.Combine(webRoot, categoryImagepath);
+            using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+            int maxSequnce = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().OrderByDescending(x => x.Sequence).Select(x => x.Sequence).FirstOrDefault();
+            //int maxSequnce=
+            AddCategoryCommand cmd = new AddCategoryCommand(loggedinUser, name, "icon-dice", null, description, maxSequnce + 1, image);
+            //commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+            return View();
         }
     }
-
-    #region=======Profile=============
-    public class Profile
-    {
-        public Contact contact { get; set; }
-        public Biography biography { get; set; }
-        public Education education { get; set; }
-        public Experience experience { get; set; }
-        public Skills skills { get; set; }
-        public PracticeArea practiceArea { get; set; }
-        public Insight insight { get; set; }
-        public int completePercent { get; set; }
-    }
-    public class Contact
-    {
-        public string UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string Country { get; set; }
-        public string Region { get; set; }
-        public string City { get; set; }
-    }
-    public class Biography
-    {
-        public string userId { get; set; }
-        public string tagLine { get; set; }
-        public string aboutMe { get; set; }
-    }
-    public class Education
-    {
-        public string userId { get; set; }
-        public string institute { get; set; }
-        public DateTime startDate { get; set; }
-        public DateTime endDate { get; set; }
-        public bool studyStatus { get; set; }
-        public string description { get; set; }
-        public string especiality { get; set; }
-    }
-    public class Experience
-    {
-        public string userId { get; set; }
-        public string employer { get; set; }
-        public string positionHeld { get; set; }
-        public string employerLocation { get; set; }
-        public int startMonth { get; set; }
-        public int startYear { get; set; }
-        public int endMonth { get; set; }
-        public int endYear { get; set; }
-        public bool currentlyWorking { get; set; }
-        public string description { get; set; }
-    }
-    public class Skills
-    {
-        public string userId { get; set; }
-        public string skillArea { get; set; }
-        public string newSkill { get; set; }
-    }
-    public class PracticeArea
-    {
-        public string userId { get; set; }
-        public string[] practiceArea { get; set; }
-    }
-    public class Insight
-    {
-        public string userId { get; set; }
-        public string title { get; set; }
-        public string publication { get; set; }
-        public string dateMonth { get; set; }
-        public string dateYear { get; set; }
-        public bool isHyperLink { get; set; }
-        public bool isDocument { get; set; }
-        public string documentLink { get; set; }
-        public string description { get; set; }
-    }
-    #endregion
 
 }
