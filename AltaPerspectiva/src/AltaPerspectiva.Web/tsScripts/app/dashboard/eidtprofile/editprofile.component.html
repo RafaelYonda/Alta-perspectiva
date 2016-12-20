@@ -10,6 +10,7 @@
                 <div class="row title">Photo Edit</div>
             </div>
             <img class="profile-border" src="../images/border-horizontal.png" />
+                <input type="file" name="documents" class="custom-file-input" (change)="onChange($event)" [(ngModel)]="doc" #documents="ngModel">
             <div class="menu-list">
                 <ul>
                     <li><button class="btn btn-default menu-button" (click)="changeHeader('Contact Info')" routerLink="/dashboard/editprofile/contact">Contact info</button> </li>
