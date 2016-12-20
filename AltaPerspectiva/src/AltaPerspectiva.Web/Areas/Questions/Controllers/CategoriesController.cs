@@ -95,9 +95,25 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return View(categoriesList);
         }
-        
+        [HttpGet]
+        public IActionResult Edit(Guid Id)
+        {
+            Category category = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().FirstOrDefault(x => x.Id == Id);
+            var categoryImagepath = configuration["CategoryUpload"];
+            //IHostingEnvironment environment = new HostingEnvironment();
+            String image = category.Image;
+
+            var webRoot = environment.WebRootPath;
+
+
+            var uploads = Path.Combine(webRoot, categoryImagepath);
+
+            category.Image = "/"+categoryImagepath+image;
+            return Ok(category);
+        }
+
         [HttpPost]
-        public JsonResult Edit(Guid Id)
+        public JsonResult Edit(AddCategoryViewModel model)
         {
             return Json(new { success = "ok" });
         }

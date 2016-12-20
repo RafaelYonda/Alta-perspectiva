@@ -1,8 +1,6 @@
 ﻿@model List<Questions.Domain.Category>
 <div class="row">
-    <div class="col-xm-4">
-        .
-    </div>
+    <div class="col-md-4">.</div>
     <div class="col-md-4">
         <img class="left-border" src="~/images/border.png" />
 
@@ -10,78 +8,78 @@
             @using (Html.BeginForm("FileUpload", "Categories", FormMethod.Post, new { area = "Questions", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
             {
                 <h2>Add Category</h2>
-                <div class="form-group">
-                    <div class="col-sm-offset-1 col-md-10">
-                        <input type="text" id="name" name="name" placeholder="Name" class="form-control" minlength="2" required />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-1 col-md-10">
-                        <input type="text" id="description" name="description" placeholder="Description" class="form-control" minlength="2" required />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-1 col-md-10">
-                        <input type="file" id="file" placeholder="file" class="form-control-file" minlength="2" accept=".jpg" name="file" />
-                    </div>
-                </div>
-                <br />
-                <div class="form-group">
-                    <div class="col-sm-offset-1 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default">
-                    </div>
-                </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-md-10">
+                                <input type="text" id="name" name="name" placeholder="Name" class="form-control" minlength="2" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-md-10">
+                                <input type="text" id="description" name="description" placeholder="Description" class="form-control" minlength="2" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-md-10">
+                                <input type="file" id="file" placeholder="file" class="form-control-file" minlength="2" accept=".jpg" name="file" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default">
+                            </div>
+                        </div>
 
             }
         </section>
-    </div>
+        @* =============== *@
+        <div class="panel-body">
 
-</div>
-
-<div class="row">
-    <div class="panel-body">
-
-        <table class="table  table-bordered" id="myTable">
-            <thead>
-                <tr>
-                    <th style="width:1%">
-                        Name
-                    </th>
-                    <th style="width:10%">
-
-                    </th>
-                    <th style="width:10%">
-
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+            <table class="table  " id="myTable">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.HiddenFor(modelItem => item.Id)
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
+                        <th style="width:1%">
+                            CategoryName
+                        </th>
+                        <th style="width:10%">
 
-                            <button id="btnEdit" type="button" class="btn btn-collapse btnEdit" onclick="editCategory(this,'@item.Id')">
-                                <span class="glyphicon glyphicon-ok"></span> Edit
-                            </button>
+                        </th>
+                        <th style="width:10%">
 
-                        </td>
-                        <td>
-                            <button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
-                                <span class="glyphicon glyphicon-trash"></span> Delete
-                            </button>
-                        </td>
+                        </th>
                     </tr>
-                }
-            </tbody>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(modelItem => item.Id)
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
 
-        </table>
+                                <button id="btnEdit" type="button" class="btn btn-collapse btnEdit" onclick="editCategory(this,'@item.Id')">
+                                    <span class="glyphicon glyphicon-ok"></span> Edit
+                                </button>
+
+                            </td>
+                            <td>
+                                <button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
+                                    <span class="glyphicon glyphicon-trash"></span> Delete
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+
 
     </div>
+    
 </div>
 <!-- approveProjectModal Modal -->
 <div class="modal fade" id="approveProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -92,11 +90,7 @@
                 <h4 class="modal-title">Final Approval</h4>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label class="control-label">Id</label>
-                    <input id="Id" type="text" class="form-control" placeholder="Id" disabled>
-                </div>
-
+                <input type="text" id="Id"  />
                 <div class="form-group">
                     <label class="control-label">Name</label>
                     <input id="pName" type="text" class="form-control" placeholder="Name">
@@ -105,10 +99,23 @@
                     <label class="control-label">Description</label>
                     <input id="pDescription" type="text" class="form-control" placeholder="No Description !!">
                 </div>
+                <div class="form-group">
+                    <label class="control-label">CategoryImage</label>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <img id="image" src="" style="width:75px;height:75px;" class="img-rounded">
+                        </div>
+                        <div>
+                            <input  type="file" name="chagedImage"/>
+                        </div>
+                    </div>
+
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="btnConfirm" type="button" class="btn btn-success">Confirm</button>
+                <button id="btnConfirm" type="button" class="btn btn-success" onclick="confirmCategory()">Confirm</button>
 
 
             </div>
@@ -161,7 +168,92 @@
     }
     function editCategory(element, Id) {
 
+        var url = '@Url.Action("Edit", "Categories", new { Area = "Questions" })';
+        var obj = {};
+        obj.Id = Id;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                $('#Id').val(obj.Id);
+                $("#image").attr("src", respText.image);
+                $('#pName').val(respText.name);
+                $('#pDescription').val(respText.description);
+                $('#approveProjectModal').modal({
+                    show: true,
+                    backdrop: 'static'
+                });
 
+
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                alert('error ..Check log for details');
+                console.log(textStatus, errorThrown);
+                var msg = '';
+                if (jqXhr.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXhr.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXhr.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (errorThrown === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (errorThrown === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (errorThrown === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXhr.responseText;
+                }
+                console.log(msg);
+            }
+        });
+
+    }
+    function confirmCategory() {
+        var Id = $('#Id').val();
+        var obj = {};
+        obj.Id = Id;
+        obj.name = $('#pName').val();
+        obj.description = $('#pDescription').val();
+
+        console.log(obj);
+        var url = '@Url.Action("Edit", "Categories", new { Area = "Questions" })';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                alert('Saved Successfully');
+                $('#approveProjectModal').modal('hide');
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                alert('error ..Check log for details');
+                console.log(textStatus, errorThrown);
+                var msg = '';
+                if (jqXhr.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXhr.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXhr.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (errorThrown === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (errorThrown === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (errorThrown === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXhr.responseText;
+                }
+                console.log(msg);
+            }
+        });
     }
     $(function () {
 
@@ -179,48 +271,17 @@
 
 
         });
-        $('#btnConddfirm').on('click', function () {
+        $('#btnCondxdfirm').on('click', function () {
             var Id = $('#Id').val();
             var updatedName = $('#pName').val();
             var updatedDescription=$('#pDescription').val()
-            var url = '@Url.Action("Edit", "SaveCategory", new { Area = "Questions" })';
+
             var obj = {};
             obj.Id = Id;
             obj.Name = updatedName;
             obj.Description = updatedDescription;
             console.log(obj);
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: obj,
-                async: false,
-                success: function (respText) {
-                    console.log(respText);
-                    alert('Saved Successfully');
-                    $('#approveProjectModal').modal('hide');
-                },
-                error: function (jqXhr, textStatus, errorThrown) {
-                    alert('error ..Check log for details');
-                    console.log(textStatus, errorThrown);
-                    var msg = '';
-                    if (jqXhr.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXhr.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXhr.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (errorThrown === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (errorThrown === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (errorThrown === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXhr.responseText;
-                    }
-                    console.log(msg);
-                }
-            });
+           
         });
 
 
