@@ -192,6 +192,23 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             Guid createdId = cmd.Id;
             return Ok();
         }
+        [HttpGet("userprofile/api/deleteskill")]
+        public IActionResult DeletePracticeArea([FromBody]AddPracticeAreaViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+
+            String practiceAreaName = model.PracticeAreaName;
+            //AddSkillCommand cmd = new AddSkillCommand(loggedinUser, model.SkillName);
+            //commandsFactory.ExecuteQuery(cmd);
+            //Guid createdId = cmd.Id;
+            return Ok();
+        }
         #endregion
         #region Skill
         //http://localhost:5273/userprofile/api    
@@ -202,6 +219,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             var skills = queryFactory.ResolveQuery<ISkillQuery>().Execute();
             return Ok(skills);
         }
+       
 
         [HttpPost("userprofile/api/setskill")]
         public IActionResult SetSkill([FromBody]AddSkillViewModel model)
@@ -237,6 +255,25 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
              
              */
         }
+
+        //Delete
+        [HttpGet("userprofile/api/deleteskill")]
+        public IActionResult DeleteSkill([FromBody]AddSkillViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+
+            String skillName = model.SkillName;
+            //AddSkillCommand cmd = new AddSkillCommand(loggedinUser, model.SkillName);
+            //commandsFactory.ExecuteQuery(cmd);
+            //Guid createdId = cmd.Id;
+            return Ok();
+        }
         #endregion
 
         [HttpPost("userprofile/api/fileupload")]
@@ -255,5 +292,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 file.CopyTo(fileStream);
             }
         }
+
+
+
     }
 }
