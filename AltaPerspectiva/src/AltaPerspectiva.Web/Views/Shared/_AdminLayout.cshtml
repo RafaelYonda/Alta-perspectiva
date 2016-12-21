@@ -45,6 +45,9 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <style>
+       .fixHeader{
+            margin-left:25px!important
+        }
         .body-minHeight {
             min-height: 79vh;
         }
@@ -150,7 +153,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/LOGO CUADRADO.png" /></a>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">Altaperspectiva</a>
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand fixHeader">Altaperspectiva</a>
             </div>
             <div class="navbar-collapse collapse">
                 @*<ul class="nav navbar-nav">
