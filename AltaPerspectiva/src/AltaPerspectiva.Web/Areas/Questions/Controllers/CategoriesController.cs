@@ -49,6 +49,26 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(categoriesList);
         }
         //questions/api/categories/keywords/{categoryId}
+        [HttpGet("questions/api/categories/totalcount")]
+        public IActionResult GetTotalUserQuestions(Guid categoryId)
+        {
+            var categoriesSummary = new CategoriesSummary();
+            categoriesSummary.Id = categoryId;
+            categoriesSummary.TotalQuestions = queryFactory.ResolveQuery<ICategoriesTotalQuestionsQuery>().Execute(categoryId);
+            categoriesSummary.TotalFollowers = queryFactory.ResolveQuery<ICategoriesTotalUsersQuery>().Execute(categoryId);
+
+            return Ok(categoriesSummary);
+        }
+        //questions/api/categories/addfollowers
+        [HttpPost("questions/api/categories/addfollowers")]        
+        public IActionResult AddFollowers(Guid CategoryId,Guid UserId)
+        {
+            FollowCategoryCommand cmd = new FollowCategoryCommand(CategoryId,UserId);
+            commandsFactory.ExecuteQuery(cmd);
+            return Created($"questions/api/questions/{cmd.Id}", cmd);
+        }
+
+        //questions/api/categories/totalcount
         [HttpGet("questions/api/categories/keywords/{categoryId}")]
         public IActionResult GetKeywordsByCategoryId(Guid categoryId)
         {
