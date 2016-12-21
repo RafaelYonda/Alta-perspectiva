@@ -127,10 +127,11 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddSkillCommand>, AddSkillCommandHandler>();
 
 
-            //CategoryCommand
+            //AddCategoryCommand
             services.AddTransient<ICommandHandler<AddCategoryCommand>, AddCategoryCommandHandler>();
-
-            //Delete
+            //UpdateCategoryCommand
+            services.AddTransient<ICommandHandler<UpdateCategoryCommand>, UpdateCategoryCommandHandler>();
+            //DeleteCategoryCommand
             services.AddTransient<ICommandHandler<DeleteCategoryCommand>, DeleteCategoryCommandHandler>();
         }
 
