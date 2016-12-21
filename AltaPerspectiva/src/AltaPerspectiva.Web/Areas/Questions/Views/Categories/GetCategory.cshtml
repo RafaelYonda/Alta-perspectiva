@@ -5,7 +5,7 @@
         <img class="left-border" src="~/images/border.png" />
 
         <section>
-            @using (Html.BeginForm("FileUpload", "Categories", FormMethod.Post, new { area = "Questions", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
+            @using (Html.BeginForm("CategoryFileUpload", "Categories", FormMethod.Post, new { area = "Questions", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
             {
                 <h2>Add Category</h2>
                 <div class="form-group">
@@ -208,7 +208,7 @@
             obj.categoryId = categoryId;
             obj.newKeyword = newKeyword;
             console.log(obj);
-            var url = '@Url.Action("AddKeyWords", "Categories", new { Area = "Questions" })';
+            var url = '@Url.Action("SaveKeyWords", "Categories", new { Area = "Questions" })';
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -222,7 +222,7 @@
 
                     tr = tr + '</tr>';
                     $('#tblKeyword > tbody:last').append(tr);
-
+                    $('#newKeyword').val('');
 
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
@@ -258,7 +258,7 @@
 
                     //console.log(tr);
                 }
-
+                $('#newKeyword').val('');
                 $('#keyword').modal({
                     show: true,
                     backdrop: 'static'
@@ -270,7 +270,7 @@
         });
     }
     function editCategory(element, Id) {
-        var url = '@Url.Action("Edit", "Categories", new { Area = "Questions" })';
+        var url = '@Url.Action("CategoryFilePath", "Categories", new { Area = "Questions" })';
         var obj = {};
         obj.Id = Id;
         console.log(obj);
@@ -315,7 +315,7 @@
         //obj.Id = Id;
         //obj.Name = $('#pName').val();
         //obj.Nescription = $('#pDescription').val();
-        var url = '@Url.Action("Edit", "Categories", new { Area = "Questions" })';
+        var url = '@Url.Action("CategoryUpdate", "Categories", new { Area = "Questions" })';
         $.ajax({
             url: url,
             type: 'POST',

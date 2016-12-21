@@ -115,8 +115,9 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return View(categoriesList);
         }
+        //Ajax file pathFor Modal
         [HttpGet]
-        public IActionResult Edit(Guid Id)
+        public IActionResult CategoryFilePath(Guid Id)
         {
             Category category = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().FirstOrDefault(x => x.Id == Id);
             var categoryImagepath = configuration["CategoryUpload"];
@@ -133,7 +134,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpPost]
-        public IActionResult Edit()
+        public IActionResult CategoryUpdate()
         {
             Guid Id = new Guid(Request.Form["Id"]);
             String Name = Request.Form["Name"];
@@ -162,46 +163,37 @@ namespace AltaPerspectiva.Web.Area.Questions
                 Category category = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().FirstOrDefault(x=>x.Id==Id);
                 image = category.Image;
             }
-            
-
-           
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(loggedinUser.ToString());
             }
-
-            
-            //IHostingEnvironment environment = new HostingEnvironment();
-            
-
-            
-
             UpdateCategoryCommand cmd = new UpdateCategoryCommand(loggedinUser, Id, Name,Description, image);
             commandsFactory.ExecuteQuery(cmd);
 
             return Json(new { success = "ok" });
         }
 
-        [HttpPost]
-        public JsonResult Delete(Guid Id)
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
-            }
-            DeleteCategoryCommand cmd = new DeleteCategoryCommand(loggedinUser,Id);
-            commandsFactory.ExecuteQuery(cmd);
-            // commandsFactory.ExecuteQuery(cmd);
-            return Json(new { success = "ok" });
-        }
+        //Implemented But excluded
+        //[HttpPost]
+        //public JsonResult Delete(Guid Id)
+        //{
+        //    Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+        //        loggedinUser = new Guid(loggedinUser.ToString());
+        //    }
+        //    DeleteCategoryCommand cmd = new DeleteCategoryCommand(loggedinUser,Id);
+        //    commandsFactory.ExecuteQuery(cmd);
+        //    commandsFactory.ExecuteQuery(cmd);
+        //    return Json(new { success = "ok" });
+        //}
         [HttpPost]
-        public IActionResult FileUpload(String name, IFormFile file, String description)
+        public IActionResult CategoryFileUpload(String name, String description, IFormFile file)
         {
             var categoryImagepath = configuration["CategoryUpload"];
             //IHostingEnvironment environment = new HostingEnvironment();
@@ -230,7 +222,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             Guid createdId = cmd.Id;
 
             List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
-            return View("GetCategory", categoriesList);
+            return RedirectToAction("GetCategory");
         }
 
         [HttpPost]
@@ -243,7 +235,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         [HttpPost]
-        public IActionResult AddKeyWords(Guid categoryId, String newKeyword)
+        public IActionResult SaveKeyWords(Guid categoryId, String newKeyword)
         {
             //List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
             AddKeywordCommand cmd = new AddKeywordCommand(categoryId, newKeyword);
