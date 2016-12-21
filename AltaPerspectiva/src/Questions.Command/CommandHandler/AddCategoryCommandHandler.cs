@@ -33,14 +33,9 @@ namespace Questions.Command.CommandHandler
 
          
             DbContext.Categories.Add(category);
-            try
-            {
-                DbContext.SaveChanges();
-            }
-            catch(Exception e)
-            {
-
-            }
+           
+           DbContext.SaveChanges();
+          
             
             command.Id = category.Id;
         }

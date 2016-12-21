@@ -206,9 +206,11 @@ namespace AltaPerspectiva.Web.Area.Questions
             int maxSequnce = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().OrderByDescending(x => x.Sequence).Select(x => x.Sequence).FirstOrDefault();
             //int maxSequnce=
             AddCategoryCommand cmd = new AddCategoryCommand(loggedinUser, name, "icon-dice", null, description, maxSequnce + 1, image);
-            //commandsFactory.ExecuteQuery(cmd);
+            commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
-            return View();
+
+            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+            return View("GetCategory", categoriesList);
         }
     }
 
