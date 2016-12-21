@@ -94,10 +94,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Final Approval</h4>
+                <h4 class="modal-title">Update Category</h4>
             </div>
             <div class="modal-body">
-                <input type="text" id="Id" />
+                <input type="hidden" id="Id" />
                 <div class="form-group">
                     <label class="control-label">Name</label>
                     <input id="pName" type="text" class="form-control" placeholder="Name">
@@ -114,7 +114,7 @@
                             <img id="image" src="" style="width:75px;height:75px;" class="img-rounded">
                         </div>
                         <div>
-                            <input type="file" name="chagedImage" />
+                            <input type="file" name="CategoryImage" id="CategoryImage"/>
                         </div>
                     </div>
 
@@ -147,94 +147,42 @@
                 $("#image").attr("src", respText.image);
                 $('#pName').val(respText.name);
                 $('#pDescription').val(respText.description);
+                $("#CategoryImage").val("");
                 $('#approveProjectModal').modal({
                     show: true,
                     backdrop: 'static'
                 });
-
-
             },
             error: function (jqXhr, textStatus, errorThrown) {
-                alert('error ..Check log for details');
-                console.log(textStatus, errorThrown);
-                var msg = '';
-                if (jqXhr.status === 0) {
-                    msg = 'Not connect.\n Verify Network.';
-                } else if (jqXhr.status == 404) {
-                    msg = 'Requested page not found. [404]';
-                } else if (jqXhr.status == 500) {
-                    msg = 'Internal Server Error [500].';
-                } else if (errorThrown === 'parsererror') {
-                    msg = 'Requested JSON parse failed.';
-                } else if (errorThrown === 'timeout') {
-                    msg = 'Time out error.';
-                } else if (errorThrown === 'abort') {
-                    msg = 'Ajax request aborted.';
-                } else {
-                    msg = 'Uncaught Error.\n' + jqXhr.responseText;
-                }
-                console.log(msg);
+
             }
         });
 
-
     }
-    function deleteCategory(element, Id) {
-        var url = '@Url.Action("Delete", "Categories", new { Area = "Questions" })';
-        var obj = {};
-        obj.Id = Id;
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: obj,
-            async: false,
-            success: function (respText) {
-                console.log(respText);
-                if (respText.success == 'ok') {
-                    alert('Deleted Successfully')
-                    document.getElementById("myTable").deleteRow(element.parentNode.parentNode.rowIndex);
-                } else {
-                    alert('Error');
-                }
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-                alert('error ..Check log for details');
-                console.log(textStatus, errorThrown);
-                var msg = '';
-                if (jqXhr.status === 0) {
-                    msg = 'Not connect.\n Verify Network.';
-                } else if (jqXhr.status == 404) {
-                    msg = 'Requested page not found. [404]';
-                } else if (jqXhr.status == 500) {
-                    msg = 'Internal Server Error [500].';
-                } else if (errorThrown === 'parsererror') {
-                    msg = 'Requested JSON parse failed.';
-                } else if (errorThrown === 'timeout') {
-                    msg = 'Time out error.';
-                } else if (errorThrown === 'abort') {
-                    msg = 'Ajax request aborted.';
-                } else {
-                    msg = 'Uncaught Error.\n' + jqXhr.responseText;
-                }
-                console.log(msg);
-            }
-        });
-    }
-
     function confirmCategory() {
         var Id = $('#Id').val();
-        var obj = {};
-        obj.Id = Id;
-        obj.name = $('#pName').val();
-        obj.description = $('#pDescription').val();
+        var data = new FormData();
+        var fileUpload = $("#CategoryImage").get(0);
+        var files = fileUpload.files;
+        var data = new FormData();
+        for (var i = 0; i < files.length ; i++) {
+            data.append(files[i].name, files[i]);
+        }
 
-        console.log(obj);
+        data.append('Id', Id);
+        data.append('Name', $('#pName').val());
+        data.append('Description', $('#pDescription').val());
+        //var obj = {};
+        //obj.Id = Id;
+        //obj.Name = $('#pName').val();
+        //obj.Nescription = $('#pDescription').val();
         var url = '@Url.Action("Edit", "Categories", new { Area = "Questions" })';
         $.ajax({
             url: url,
             type: 'POST',
-            data: obj,
-            async: false,
+            data: data,
+            contentType: false,
+            processData: false,
             success: function (respText) {
                 console.log(respText);
                 alert('Saved Successfully');
@@ -263,6 +211,31 @@
             }
         });
     }
+    function deleteCategory(element, Id) {
+        var url = '@Url.Action("Delete", "Categories", new { Area = "Questions" })';
+        var obj = {};
+        obj.Id = Id;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                if (respText.success == 'ok') {
+                    alert('Deleted Successfully')
+                    document.getElementById("myTable").deleteRow(element.parentNode.parentNode.rowIndex);
+                } else {
+                    alert('Error');
+                }
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+
+            }
+        });
+    }
+
+
 
 </script>
 

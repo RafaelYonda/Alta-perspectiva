@@ -133,15 +133,70 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpPost]
-        public JsonResult Edit(AddCategoryViewModel model)
+        public IActionResult Edit()
         {
+            Guid Id = new Guid(Request.Form["Id"]);
+            String Name = Request.Form["Name"];
+            String Description = Request.Form["Description"];
+
+
+            String image = String.Empty;
+            if (Request.Form.Files.Count > 0)
+            {
+                IFormFile file = Request.Form.Files[0];
+                var webRoot = environment.WebRootPath;
+
+                var categoryImagepath = configuration["CategoryUpload"];
+                var uploads = Path.Combine(webRoot, categoryImagepath);
+                image = file.FileName;
+
+
+                using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                
+            }
+            else
+            {
+                Category category = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().FirstOrDefault(x=>x.Id==Id);
+                image = category.Image;
+            }
+            
+
+           
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+
+            
+            //IHostingEnvironment environment = new HostingEnvironment();
+            
+
+            
+
+            UpdateCategoryCommand cmd = new UpdateCategoryCommand(loggedinUser, Id, Name,Description, image);
+            commandsFactory.ExecuteQuery(cmd);
+
             return Json(new { success = "ok" });
         }
 
         [HttpPost]
         public JsonResult Delete(Guid Id)
         {
-            DeleteCategoryCommand cmd = new DeleteCategoryCommand(Id);
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+            DeleteCategoryCommand cmd = new DeleteCategoryCommand(loggedinUser,Id);
+            commandsFactory.ExecuteQuery(cmd);
             // commandsFactory.ExecuteQuery(cmd);
             return Json(new { success = "ok" });
         }
@@ -171,9 +226,11 @@ namespace AltaPerspectiva.Web.Area.Questions
             int maxSequnce = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().OrderByDescending(x => x.Sequence).Select(x => x.Sequence).FirstOrDefault();
             //int maxSequnce=
             AddCategoryCommand cmd = new AddCategoryCommand(loggedinUser, name, "icon-dice", null, description, maxSequnce + 1, image);
-            //commandsFactory.ExecuteQuery(cmd);
+            commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
-            return View();
+
+            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+            return View("GetCategory", categoriesList);
         }
     }
 
