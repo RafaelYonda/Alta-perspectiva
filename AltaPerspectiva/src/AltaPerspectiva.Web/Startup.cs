@@ -122,10 +122,11 @@ namespace AltaPerspectiva
             //Practice
             services.AddTransient<IPracticeAreaQuery, PracticeAreaQuery>();
             services.AddTransient<ICommandHandler<AddPracticeAreaCommand>, AddPracticeAreaCommandHandler>();
+            services.AddTransient<ICommandHandler<DeletePracticeAreaCommand>, DeletePracticeAreaCommandHandler>();
             //Skill
             services.AddTransient<ISkillQuery, SkillQuery>();
             services.AddTransient<ICommandHandler<AddSkillCommand>, AddSkillCommandHandler>();
-
+            services.AddTransient<ICommandHandler<DeleteSkillCommand>, DeleteSkillCommandHandler>();
 
             //AddCategoryCommand
             services.AddTransient<ICommandHandler<AddCategoryCommand>, AddCategoryCommandHandler>();
@@ -133,6 +134,8 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<UpdateCategoryCommand>, UpdateCategoryCommandHandler>();
             //DeleteCategoryCommand
             services.AddTransient<ICommandHandler<DeleteCategoryCommand>, DeleteCategoryCommandHandler>();
+
+
         }
 
 

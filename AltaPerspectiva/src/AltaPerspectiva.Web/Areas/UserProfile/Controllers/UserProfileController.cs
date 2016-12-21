@@ -192,7 +192,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             Guid createdId = cmd.Id;
             return Ok();
         }
-        [HttpGet("userprofile/api/deleteskill")]
+        [HttpPost("userprofile/api/deleteskill")]
         public IActionResult DeletePracticeArea([FromBody]AddPracticeAreaViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
@@ -204,9 +204,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
 
             String practiceAreaName = model.PracticeAreaName;
-            //AddSkillCommand cmd = new AddSkillCommand(loggedinUser, model.SkillName);
-            //commandsFactory.ExecuteQuery(cmd);
-            //Guid createdId = cmd.Id;
+            
+            DeletePracticeAreaCommand cmd = new DeletePracticeAreaCommand(loggedinUser, model.PracticeAreaName);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
             return Ok();
         }
         #endregion
@@ -236,28 +237,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
             return Ok();
-            /*
-             
-             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
-            }
-                        
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-
-            return Created($"questions/api/questions/{cmd.Id}", question);
-             
-             
-             */
+           
         }
 
         //Delete
-        [HttpGet("userprofile/api/deleteskill")]
+        [HttpPost("userprofile/api/deleteskill")]
         public IActionResult DeleteSkill([FromBody]AddSkillViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
@@ -269,9 +253,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
 
             String skillName = model.SkillName;
+            DeleteSkillCommand cmd = new DeleteSkillCommand(loggedinUser, skillName);
             //AddSkillCommand cmd = new AddSkillCommand(loggedinUser, model.SkillName);
-            //commandsFactory.ExecuteQuery(cmd);
-            //Guid createdId = cmd.Id;
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
             return Ok();
         }
         #endregion
