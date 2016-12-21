@@ -13,22 +13,22 @@
                         <input type="text" id="name" name="name" placeholder="Name" class="form-control" minlength="2" required />
                     </div>
                 </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-1 col-md-10">
-                                <input type="text" id="description" name="description" placeholder="Description" class="form-control" minlength="2" required />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-1 col-md-10">
-                                <input type="file" id="file" placeholder="file" class="form-control-file" minlength="2" accept=".jpg" name="file" />
-                            </div>
-                        </div>
-                        <br />
-                        <div class="form-group">
-                            <div class="col-sm-offset-1 col-md-10">
-                                <input type="submit" value="Save" class="btn btn-default">
-                            </div>
-                        </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-md-10">
+                        <input type="text" id="description" name="description" placeholder="Description" class="form-control" minlength="2" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-md-10">
+                        <input type="file" id="file" placeholder="file" class="form-control-file" minlength="2" accept=".jpg" name="file" />
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default">
+                    </div>
+                </div>
 
             }
         </section>
@@ -75,9 +75,13 @@
                                 </button>
                             </td>
                             <td>
-                                <button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
-                                    <span class="glyphicon glyphicon-trash"></span> Delete
+                                @*<button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
+                                        <span class="glyphicon glyphicon-trash"></span> Delete
+                                    </button>*@
+                                <button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="addKeywords(this,'@item.Id')">
+                                    KeyWords
                                 </button>
+
                             </td>
                         </tr>
                     }
@@ -88,7 +92,7 @@
         </div>
     </div>
 </div>
-<!-- approveProjectModal Modal -->
+<!-- Edit Modal -->
 <div class="modal fade" id="approveProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -114,7 +118,7 @@
                             <img id="image" src="" style="width:75px;height:75px;" class="img-rounded">
                         </div>
                         <div>
-                            <input type="file" name="CategoryImage" id="CategoryImage"/>
+                            <input type="file" name="CategoryImage" id="CategoryImage" />
                         </div>
                     </div>
 
@@ -129,7 +133,142 @@
         </div>
     </div>
 </div>
+<style>
+    .table-responsive  {
+        height:400px
+    }
+</style>
+
+<div class="modal fade" id="keyword">
+    <div class="modal-dialog custom-class">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-header-text">Add Keywords</h3>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="CategoryId" />
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="col-md-3">
+                            <input type="button" id="btnAddKeyword" value="Add Keyword" class="btn btn-default" onclick="saveKeyword($('#CategoryId').val())">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="newKeyword" name="newKeyword" placeholder="Add Keywords" class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-md-9">
+                            <div class="table-responsive" >
+                                <table id="tblKeyword" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Keywords
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script>
+
+
+    function saveKeyword(categoryId) {
+        console.log(categoryId);
+        var newKeyword = $('#newKeyword').val();
+        if (newKeyword.length <= 1 || newKeyword === undefined) {
+            alert('Keyword is not correct');
+            return;
+
+        } else {
+            var obj = {};
+            obj.categoryId = categoryId;
+            obj.newKeyword = newKeyword;
+            console.log(obj);
+            var url = '@Url.Action("AddKeyWords", "Categories", new { Area = "Questions" })';
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: obj,
+                async: false,
+                success: function (respText) {
+                    console.log(respText);
+
+                    var tr = '<tr>';
+                    tr = tr + '<td>' + newKeyword + '</td>';
+
+                    tr = tr + '</tr>';
+                    $('#tblKeyword > tbody:last').append(tr);
+
+
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+
+                }
+            });
+
+        }
+
+    }
+    function addKeywords(element, Id) {
+
+        var url = '@Url.Action("GetKeyWords", "Categories", new { Area = "Questions" })';
+        var obj = {};
+        obj.Id = Id;
+        console.log(obj);
+          $("#tblKeyword tbody").empty();
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                $('#CategoryId').val(Id);
+                
+                for (var i = 0; i < respText.length; i++) {
+                    var tr = '<tr>';
+                    tr = tr + '<td>' + respText[i] + '</td>';
+
+                    tr = tr + '</tr>';
+                    $('#tblKeyword > tbody:last').append(tr);
+
+                    //console.log(tr);
+                }
+
+                $('#keyword').modal({
+                    show: true,
+                    backdrop: 'static'
+                });
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+
+            }
+        });
+    }
     function editCategory(element, Id) {
         var url = '@Url.Action("Edit", "Categories", new { Area = "Questions" })';
         var obj = {};
@@ -211,7 +350,7 @@
             }
         });
     }
-    function deleteCategory(element, Id) {
+    @*function deleteCategory(element, Id) {
         var url = '@Url.Action("Delete", "Categories", new { Area = "Questions" })';
         var obj = {};
         obj.Id = Id;
@@ -233,7 +372,7 @@
 
             }
         });
-    }
+    }*@
 
 
 

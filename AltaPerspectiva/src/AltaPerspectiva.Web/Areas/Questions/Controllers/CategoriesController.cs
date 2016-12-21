@@ -212,6 +212,24 @@ namespace AltaPerspectiva.Web.Area.Questions
             List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
             return View("GetCategory", categoriesList);
         }
+
+        [HttpPost]
+        public IActionResult GetKeyWords(Guid Id)
+        {
+            List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x=>x.Text).ToList();
+
+            return Ok(keywords);
+        }
+
+
+        [HttpPost]
+        public IActionResult AddKeyWords(Guid categoryId, String newKeyword)
+        {
+            //List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
+            AddKeywordCommand cmd = new AddKeywordCommand(categoryId, newKeyword);
+            commandsFactory.ExecuteQuery(cmd);
+            return Ok();
+        }
     }
 
 }

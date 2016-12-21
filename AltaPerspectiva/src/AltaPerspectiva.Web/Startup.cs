@@ -136,6 +136,9 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<DeleteCategoryCommand>, DeleteCategoryCommandHandler>();
 
 
+            //AddKeyword
+            services.AddTransient<ICommandHandler<AddKeywordCommand>, AddKeywordCommandHandler>();
+
         }
 
 
