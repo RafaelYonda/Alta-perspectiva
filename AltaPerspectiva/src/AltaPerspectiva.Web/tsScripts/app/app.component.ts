@@ -7,15 +7,12 @@ import { AuthenticationService } from './services/authentication.service';
     providers: [AuthenticationService]
 
 })
-export class AppComponent {
-
-    @Input() username: string;
-    @Input() token: string;
+export class AppComponent {   
 
     constructor(elm: ElementRef) {
 
         var username = elm.nativeElement.getAttribute('username');
-        var token = elm.nativeElement.getAttribute('token');
+        var token = elm.nativeElement.getAttribute('token');       
        
         if (username != "")
         {            

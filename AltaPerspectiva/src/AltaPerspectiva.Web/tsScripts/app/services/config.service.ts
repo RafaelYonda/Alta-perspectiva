@@ -1,37 +1,27 @@
 ﻿import { Injectable } from '@angular/core';
-import { Category, Keyword } from './models';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
+import { Router, ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable }     from 'rxjs/Observable';
-import 'rxjs/add/operator/publishReplay';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
+import { Config } from './models';
 
 @Injectable()
-export class CategoryService {
+export class ConfigService {
 
-    public catagories: Category[]
-    constructor(private _http: Http) {
-
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('auth_token'));
-
-        let options = new RequestOptions({ headers: headers });
+    constructor(private _http: Http) {       
     }
 
-    getAllCategories(): Observable<Category[]> {
-        return this._http.get('/questions/api/categories/')
+    getConfig(): Observable<Config> {
+        return this._http.get('/questions/api/questions/config')
             .map(this.extractData)
             .catch(this.handleError)
             .publishReplay(1)
-            .refCount();        
+            .refCount();  ;
     }
-    getAllKeywords(): Observable<Keyword[]> {
-        return this._http.get('/questions/api/categories/keywords')
-            .map(this.extractData)
-            .catch(this.handleError)
-            .publishReplay(1)
-            .refCount();
-    }
-
-    private extractData(res: Response) {
+  
+    private extractData(res: Response) {       
         let body;
 
         // check if empty, before call json
@@ -55,4 +45,5 @@ export class CategoryService {
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
+
 }

@@ -1,9 +1,21 @@
 ﻿<div class="loader" *ngIf="loader.isLoading"></div>
 <div class="question-title">
-    <img align="left" class="user-image" src="../../../../profile/avatar.png" />
-    <h2>
-        {{categorySelected}}
-    </h2>
+    <div class="row">
+        <img align="left" width="75" height="75" class="img-rounded" src="{{categorySelected?.image}}" />
+        <h2>
+            {{categorySelected?.name}}
+        </h2>
+        <br />
+    </div>
+    <div class="row">
+        <button type="button" class="btn btn-default">Follow</button>
+    </div>
+    <div class="row">
+        <p>
+            {{categorySelected?.description}}
+        </p>
+    </div>
+    <div class="clearfix"></div>
 </div>
 <div     infinite-scroll
          [infiniteScrollDistance]="scrollDistance"

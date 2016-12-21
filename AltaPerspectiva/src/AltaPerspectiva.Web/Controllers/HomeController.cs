@@ -23,30 +23,23 @@ namespace AltaPerspectiva.Controllers
         public async Task<ActionResult> Index()
         {
 
-            dynamic expando = new System.Dynamic.ExpandoObject();
-
-            var viewModel = expando as IDictionary<string, object>;
-            
-            viewModel.Add("ProfilePath", configuration["ProfileImage"]);
-            viewModel.Add("CategoryPath", configuration["CategoryImage"]);
-
-
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                    using (var client = new HttpClient())
+                using (var client = new HttpClient())
+                {
+                    var token = await HttpContext.Authentication.GetTokenAsync("access_token");
+                    if (string.IsNullOrEmpty(token))
                     {
-                        var token = await HttpContext.Authentication.GetTokenAsync("access_token");
-                        viewModel.Add("token", token);
-
-                        if (string.IsNullOrEmpty(token))
-                        {
-                            throw new InvalidOperationException("The access token cannot be found in the authentication ticket. " +
-                                                               "Make sure that SaveTokens is set to true in the OIDC options.");
-                        }               
+                        throw new InvalidOperationException("The access token cannot be found in the authentication ticket. " +
+                                                           "Make sure that SaveTokens is set to true in the OIDC options.");
                     }
-               }
 
-                return View(viewModel);
+
+                    return View("Index", model: token);
+                }
+            }
+
+            return View();
         }
 
         public IActionResult About()

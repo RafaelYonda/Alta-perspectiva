@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashBoardComponent } from './dashboard.component';
 import { EditProfileComponent } from './eidtprofile/editprofile.component';
+import { ViewProfileComponent } from './viewprofile/viewprofile.component';
 import { NavDashboard } from './navdashboard/navdashboard.component';
 import { DashTab } from './dashtab/dashtab.component';
 
@@ -37,7 +38,8 @@ const DashBoardroutes: Routes = [
                     { path: 'skill', component: SkillFormComponent },
 
                 ]
-            }
+            },
+            { path: 'viewprofile', component: ViewProfileComponent }
         ]
     }
 ];
@@ -50,8 +52,11 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
         //{ path: 'dashboard', component: DashBoardComponent }])
     ],
     declarations: [
-        DashBoardComponent, EditProfileComponent, NavDashboard, DashTab, ContactFormComponent,
-        BiographyFormComponent, EducationFormComponent, ExperienceFormComponent, InsightFormComponent, PracticeFormComponent, SkillFormComponent
+        DashBoardComponent,
+        DashTab, 
+        EditProfileComponent,
+                ContactFormComponent, BiographyFormComponent, EducationFormComponent, ExperienceFormComponent, InsightFormComponent,  NavDashboard, PracticeFormComponent, SkillFormComponent,
+        ViewProfileComponent         
     ],
     exports: [DashBoardComponent],
 })
