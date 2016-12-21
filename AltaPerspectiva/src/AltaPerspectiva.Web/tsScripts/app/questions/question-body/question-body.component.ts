@@ -2,7 +2,7 @@
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { CategoryService } from '../../services/category.service';
 import { ConfigService } from '../../services/config.service';
-import {QuestionMenu, Question, Answer, Category, DateName, Config} from '../../services/models';
+import {QuestionMenu, Question, Answer, Category, DateName, TotalCount, Config} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
 
 export interface ILoader {
@@ -34,6 +34,7 @@ export class QuestionBodyComponent{
 
     scrollPage: number = 0;
     config: Config;
+    totalCount: TotalCount;
 
     constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute) {
         this._router = router;
@@ -52,19 +53,8 @@ export class QuestionBodyComponent{
         this.configService.getConfig().subscribe(r => {
             this.config = r;
         });
-
-        this.categoryService.getAllCategories().subscribe(res => {
-            this.categories = res;
-
-            if (this.id == '0')
-                this.categorySelected = this.categories.find(x => x.sequence == 1);
-            else
-                this.categorySelected = this.categories.find(x => x.id == this.id);
-
-            if (this.categorySelected && this.categorySelected.image)
-                this.categorySelected.image = this.config.categoryImage.concat(this.categorySelected.image); 
-        });
         
+        this.loadCategories();
 
         //get questions by route param using category id.
         this.route.params.subscribe(params => {
@@ -74,12 +64,18 @@ export class QuestionBodyComponent{
 
             // param id = 0, default route, it is ver tidas
             if (this.id == '0') {               
+                // questions loaded by latest, without categoryId
                 subs = this.questionService.getQuestions();
             }
             else {
+
+                // questions loaded by category id
                 subs = this.questionService.getQuestionsByCategory(this.id);
-                this.categorySelected = this.categories.find(x => x.id == this.id);
-                this.categorySelected.image = this.config.categoryImage.concat(this.categorySelected.image); 
+
+
+                /// if page directly loads from url, then categories gets undefiend
+                
+                this.loadCategories();              
             }
 
             subs.subscribe(res => {               
@@ -89,6 +85,34 @@ export class QuestionBodyComponent{
         });        
         
     }    
+
+    loadCategories() {
+
+        this.categoryService.getAllCategories().subscribe(res => {
+
+            this.categories = res;
+
+            if (this.id == '0')
+                this.categorySelected = this.categories.find(x => x.sequence == 1);
+            else
+                this.categorySelected = this.categories.find(x => x.id == this.id);
+
+            if (this.categorySelected && this.categorySelected.image)
+                this.categorySelected.image = this.config.categoryImage.concat(this.categorySelected.image);
+
+            this.categoryService.getTotalCount(this.categorySelected.id).subscribe(x => {
+                this.totalCount = x;
+            });
+        });
+    }
+
+    addFollower(categoryId: string)
+    {
+        this.categoryService.addAddFollower(categoryId).subscribe(res => {
+            this.totalCount.totalUsers += 1;
+        });
+    }
+
 
     showLoader() {
         console.log('showloader started');

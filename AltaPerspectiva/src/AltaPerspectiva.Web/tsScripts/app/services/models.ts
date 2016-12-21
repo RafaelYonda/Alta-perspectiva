@@ -15,7 +15,10 @@ export class LogInObj {
     user: User;
     isLoggedIn: boolean;
 }
-
+export class TotalCount {
+    totalUsers: number;
+    totalQuestions: number;
+}
 
 export class Category {
     id: string;

@@ -49,7 +49,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(categoriesList);
         }
         //questions/api/categories/keywords/{categoryId}
-        [HttpGet("questions/api/categories/totalcount")]
+        [HttpGet("questions/api/categories/totalcount/{categoryId}")]
         public IActionResult GetTotalUserQuestions(Guid categoryId)
         {
             var categoriesSummary = new CategoriesSummary();
@@ -61,11 +61,20 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
         //questions/api/categories/addfollowers
         [HttpPost("questions/api/categories/addfollowers")]        
-        public IActionResult AddFollowers(Guid CategoryId,Guid UserId)
+        public IActionResult AddFollowers(Guid CategoryId)
         {
-            FollowCategoryCommand cmd = new FollowCategoryCommand(CategoryId,UserId);
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+
+            FollowCategoryCommand cmd = new FollowCategoryCommand(CategoryId,loggedinUser);
             commandsFactory.ExecuteQuery(cmd);
-            return Created($"questions/api/questions/{cmd.Id}", cmd);
+
+            return Created($"questions/api/categories/addfollowers/{cmd.Id}", cmd);
         }
 
         //questions/api/categories/totalcount
