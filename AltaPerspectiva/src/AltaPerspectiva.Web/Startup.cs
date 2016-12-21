@@ -89,6 +89,8 @@ namespace AltaPerspectiva
             services.AddTransient<ICategoryMatchKeywordQuery, CategoryMatchKeywordQuery>();
             services.AddTransient<IQuestionByIdQuery, QuestionByIdQuery>();
             services.AddTransient<IQuestionsByCategoryIdQuery, QuestionsByCategoryIdQuery>();
+            services.AddTransient <ICategoriesTotalQuestionsQuery, CategoriesTotalQuestionsQuery>();
+            services.AddTransient<ICategoriesTotalUsersQuery, CategoriesTotalUsersQuery>();
 
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
@@ -204,12 +206,15 @@ namespace AltaPerspectiva
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute("AngularDeepLinkingRoute", "{*url}",
+                    new { controller = "Home", action = "Index" });
             });
 
-            using (var context = new UserProfileDbContext(app.ApplicationServices.GetRequiredService<DbContextOptions<UserProfileDbContext>>()))
-            {
-                context.Database.EnsureCreated();
-            }
+            //using (var context = new UserProfileDbContext(app.ApplicationServices.GetRequiredService<DbContextOptions<UserProfileDbContext>>()))
+            //{
+            //    context.Database.EnsureCreated();
+            //}
 
             using (var context = new QuestionsDbContext(
             app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
