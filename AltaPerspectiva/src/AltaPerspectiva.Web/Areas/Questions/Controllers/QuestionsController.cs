@@ -42,8 +42,24 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions")]
         public async Task<IActionResult> Get()
         {
-            var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-            return Ok(questionsList);         
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                var questionsList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().Execute(loggedinUser);
+                return Ok(questionsList);
+
+            }
+            else
+            {
+
+                var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+                return Ok(questionsList);
+
+            }
         }
 
         // GET /questions/api/questions/{id}
@@ -72,7 +88,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
                         
             AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds);
@@ -91,7 +107,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
            
             AddAnswerCommand cmd = new AddAnswerCommand(answer.Text,answer.AnswerDate,answer.QuestionId, loggedinUser);
@@ -109,7 +125,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             AddCommentCommand cmd = new AddCommentCommand(comment.CommentText,comment.QuestionId,null, loggedinUser);
@@ -128,7 +144,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             AddCommentCommand cmd = new AddCommentCommand(comment.CommentText, comment.QuestionId, comment.AnswerId, loggedinUser);
@@ -146,7 +162,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
@@ -165,7 +181,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);

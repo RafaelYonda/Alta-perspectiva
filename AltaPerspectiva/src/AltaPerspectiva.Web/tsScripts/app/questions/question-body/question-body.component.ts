@@ -63,18 +63,17 @@ export class QuestionBodyComponent{
             var subs: any;
 
             // param id = 0, default route, it is ver tidas
-            if (this.id == '0') {               
+            if (this.id == '0')
+            {               
                 // questions loaded by latest, without categoryId
                 subs = this.questionService.getQuestions();
             }
-            else {
-
+            else
+            {
                 // questions loaded by category id
                 subs = this.questionService.getQuestionsByCategory(this.id);
 
-
-                /// if page directly loads from url, then categories gets undefiend
-                
+                /// if page directly loads from url, then categories gets undefiend                
                 this.loadCategories();              
             }
 
@@ -113,11 +112,11 @@ export class QuestionBodyComponent{
         });
     }
 
-
     showLoader() {
         console.log('showloader started');
         this.loader.isLoading = true;
     }
+
     hideLoader() {
         this.loader.isLoading = false;
     }

@@ -11,7 +11,6 @@ export class AuthenticationService{
             isLoggedIn: false
         };
 
-
         var currentUser = localStorage.getItem('auth_token');       
 
         if (currentUser != "null") {

@@ -17,12 +17,16 @@
     </div>
     <br />
     <div class="row">
-        <table class="table table-bordered" width="200">
+        <table class="table table-bordered table-nonfluid" width="200">
             <tr>
-                <td>{{totalCount?.totalQuestions}} Questions</td>
-                <td>{{totalCount?.totalFollowers}} Followers</td>
+                <td class="total">{{totalCount?.totalQuestions}} Questions </td>
+                <td class="total">{{totalCount?.totalFollowers}} Followers</td>
              </tr>
        </table>
+    </div>
+    <div class="row pull-left">
+        <a class="active" onclick=""> Questions </a>                 
+        <a onclick="">  Answers </a>      
     </div>
 
     
@@ -42,12 +46,13 @@
             <div>
                 Categories: <h5 *ngFor="let c of question.categories; let i = index; let last = last" class="subtitle">{{c?.category.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
             </div>            
-            <div class="row ">
-
+            <div class="row">
                 <div class="article-details">
+
                     <img class="user-image" src="../../../../images/avatar.png" />
                     <!--<div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>-->
                     <p [innerHTML]="question.body" class="answer-text"></p>
+
                 </div>
             </div>
             <hr />

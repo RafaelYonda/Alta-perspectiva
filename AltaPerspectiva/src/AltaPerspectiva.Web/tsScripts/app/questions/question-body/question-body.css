@@ -47,7 +47,13 @@ h5 {
 hr {
     width: 98%;
 }
+.table-nonfluid {
+   width: 200px !important;
+}
 
+.total {
+    font-size:20px;
+}
 
 .loader {
     border: 16px solid #f3f3f3;

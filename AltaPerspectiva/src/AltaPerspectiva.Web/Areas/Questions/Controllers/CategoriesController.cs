@@ -68,7 +68,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             FollowCategoryCommand cmd = new FollowCategoryCommand(categoryId, loggedinUser);
@@ -177,7 +177,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             UpdateCategoryCommand cmd = new UpdateCategoryCommand(loggedinUser, Id, Name,Description, image);
             commandsFactory.ExecuteQuery(cmd);
