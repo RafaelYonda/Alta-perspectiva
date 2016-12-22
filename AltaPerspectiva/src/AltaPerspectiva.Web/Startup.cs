@@ -89,7 +89,7 @@ namespace AltaPerspectiva
             services.AddTransient<ICategoryMatchKeywordQuery, CategoryMatchKeywordQuery>();
             services.AddTransient<IQuestionByIdQuery, QuestionByIdQuery>();
             services.AddTransient<IQuestionsByCategoryIdQuery, QuestionsByCategoryIdQuery>();
-            services.AddTransient <ICategoriesTotalQuestionsQuery, CategoriesTotalQuestionsQuery>();
+            services.AddTransient<ICategoriesTotalQuestionsQuery, CategoriesTotalQuestionsQuery>();
             services.AddTransient<ICategoriesTotalUsersQuery, CategoriesTotalUsersQuery>();
 
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
@@ -108,7 +108,7 @@ namespace AltaPerspectiva
             //UserProfile DepencyInjection 
             //Biography
             services.AddTransient<IBiographyQuery, BiographyQuery>();
-            services.AddTransient<ICommandHandler<AddBiographyCommand>,AddBiographyCommandHandler>();
+            services.AddTransient<ICommandHandler<AddBiographyCommand>, AddBiographyCommandHandler>();
             //Contract
             services.AddTransient<IContractInformationQuery, ContractInformationQuery>();
             services.AddTransient<ICommandHandler<AddContractInfomaionCommand>, AddContractInformationCommandHandler>();
@@ -130,6 +130,10 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddSkillCommand>, AddSkillCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteSkillCommand>, DeleteSkillCommandHandler>();
 
+
+            //UserImage
+            services.AddTransient<IUserImageQuery, UserImageQuery>();
+            services.AddTransient<ICommandHandler<AddUserImageCommand>, AddUserImageCommandHandler>();
             //AddCategoryCommand
             services.AddTransient<ICommandHandler<AddCategoryCommand>, AddCategoryCommandHandler>();
             //UpdateCategoryCommand
@@ -147,16 +151,16 @@ namespace AltaPerspectiva
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IDistributedCache cache)
         {
-           
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseApplicationInsightsRequestTelemetry();          
-           
+            app.UseApplicationInsightsRequestTelemetry();
+
             app.UseDeveloperExceptionPage();
-           
+
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -169,11 +173,19 @@ namespace AltaPerspectiva
             {
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
-                //ClientId = "localhost", // for localhost
+#if DEBUG
+                ClientId = "localhost", // for localhost
+
+#else
                 ClientId = "azure",       // for azure deploy 
+#endif
                 ClientSecret = "aLtaseCreT!@#",
-                //PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+
+#if DEBUG
+                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+#else
                 PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
+#endif
 
                 RequireHttpsMetadata = false,
                 GetClaimsFromUserInfoEndpoint = true,
@@ -228,7 +240,7 @@ namespace AltaPerspectiva
                 //    //                .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
 
 
-                }
             }
+        }
     }
 }

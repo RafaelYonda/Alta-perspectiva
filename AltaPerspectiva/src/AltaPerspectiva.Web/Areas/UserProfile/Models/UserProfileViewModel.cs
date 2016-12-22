@@ -13,7 +13,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
         public Education education { get; set; }
         public Experience experience { get; set; }
         public Insight insight { get; set; }
-        public PracticeArea practiceArea { get; set; }
-        public Skill skill { get; set; }
+        public List<PracticeArea> practiceArea { get; set; }
+        public List<Skill> skill { get; set; }
+        public UserImage userImage { get; set; }
     }
 }

@@ -14,9 +14,9 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-        public IEnumerable<PracticeArea> Execute(Guid id)
+        public IEnumerable<PracticeArea> Execute(Guid userId)
         {
-            return DbContext.PracticeArea.Where(x=>x.Id== id); //.OrderBy(x => x.FirstName);
+            return DbContext.PracticeArea.Where(x=>x.UserId== userId); //.OrderBy(x => x.FirstName);
         }
     }
 }

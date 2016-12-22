@@ -7,8 +7,8 @@ using UserProfile.Domain;
 
 namespace UserProfile.Query.Queries
 {
-    public interface IEducationQuery:IQuery
+    public interface IUserImageQuery : IQuery
     {
-        Education Execute(Guid userId);
+        UserImage Execute(Guid userId);
     }
 }
