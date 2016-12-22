@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Category, Keyword } from './models';
+import { Category, Keyword, TotalCount } from './models';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/publishReplay';
@@ -29,6 +29,20 @@ export class CategoryService {
             .catch(this.handleError)
             .publishReplay(1)
             .refCount();
+    }
+
+    getTotalCount(categoryId: string): Observable<TotalCount> {
+        return this._http.get('/questions/api/categories/totalcount/' + categoryId)
+            .map(this.extractData)
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount();
+    }
+
+    addAddFollower(id: string): Observable<any> {
+        return this._http.post('/questions/api/categories/addfollowers',id )
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
     private extractData(res: Response) {

@@ -8,13 +8,24 @@
         <br />
     </div>
     <div class="row">
-        <button type="button" class="btn btn-default">Follow</button>
+        <button type="button" (click)="addFollower(categorySelected.id)" class="btn btn-default">Follow</button>
     </div>
     <div class="row">
         <p>
             {{categorySelected?.description}}
         </p>
     </div>
+    <br />
+    <div class="row">
+        <table class="table table-bordered" width="200">
+            <tr>
+                <td>{{totalCount?.totalQuestions}} Questions</td>
+                <td>{{totalCount?.totalFollowers}} Followers</td>
+             </tr>
+       </table>
+    </div>
+
+    
     <div class="clearfix"></div>
 </div>
 <div     infinite-scroll
