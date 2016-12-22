@@ -9,6 +9,6 @@ namespace UserProfile.Query.Queries
 {
     public interface IContractInformationQuery: IQuery
     {
-        IEnumerable<ContractInformation> Execute();
+        IEnumerable<ContractInformation> Execute(Guid id);
     }
 }

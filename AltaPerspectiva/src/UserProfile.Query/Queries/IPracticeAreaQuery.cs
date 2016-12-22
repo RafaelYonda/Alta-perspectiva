@@ -9,6 +9,6 @@ namespace UserProfile.Query.Queries
 {
     public interface IPracticeAreaQuery:IQuery
     {
-        IEnumerable<PracticeArea> Execute();
+        IEnumerable<PracticeArea> Execute(Guid id);
     }
 }

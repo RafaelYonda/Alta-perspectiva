@@ -9,6 +9,6 @@ namespace UserProfile.Query.Queries
 {
     public interface IBiographyQuery:IQuery
     {
-        IEnumerable<Biography> Execute();
+        IEnumerable<Biography> Execute(Guid id);
     }
 }

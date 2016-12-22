@@ -9,6 +9,6 @@ namespace UserProfile.Query.Queries
 {
     public interface ISkillQuery:IQuery
     {
-        IEnumerable<Skill> Execute();
+        IEnumerable<Skill> Execute(Guid id);
     }
 }

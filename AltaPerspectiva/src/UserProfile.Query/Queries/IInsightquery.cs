@@ -9,6 +9,6 @@ namespace UserProfile.Query.Queries
 {
     public interface IInsightQuery:IQuery
     {
-        IEnumerable<Insight> Execute();
+        IEnumerable<Insight> Execute(Guid id);
     }
 }

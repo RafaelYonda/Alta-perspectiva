@@ -35,13 +35,30 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             configuration = _configuration;
             environment = _environment;
         }
+        //http://localhost:5273/userprofile/api    
+        [HttpGet("userprofile/api/getuserprofile/{id}")]
+        public IActionResult GetUserProfile(Guid id)
+        {
+            UserProfileViewModel model = new UserProfileViewModel();
+            model.Biography= queryFactory.ResolveQuery<IBiographyQuery>().Execute(id).FirstOrDefault();
+            model.contractInformation = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(id).FirstOrDefault();
+            model.education = queryFactory.ResolveQuery<IEducationQuery>().Execute(id).FirstOrDefault();
+            model.experience = queryFactory.ResolveQuery<IExperienceQuery>().Execute(id).FirstOrDefault();
+            model.insight = queryFactory.ResolveQuery<IInsightQuery>().Execute(id).FirstOrDefault();
+            model.practiceArea = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(id).FirstOrDefault();
+            model.skill = queryFactory.ResolveQuery<ISkillQuery>().Execute(id).FirstOrDefault();
+
+
+            return Ok(model);
+        }
+
         #region Biography
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getbiography")]
-        public IActionResult GetBiography(Guid Id)
+        [HttpGet("userprofile/api/getbiography/{id}")]
+        public IActionResult GetBiography(Guid id)
         {
 
-            var bios = queryFactory.ResolveQuery<IBiographyQuery>().Execute().Where(x=>x.Id==Id).FirstOrDefault();
+            var bios = queryFactory.ResolveQuery<IBiographyQuery>().Execute(id).FirstOrDefault();
             return Ok(bios);
         }
 
@@ -63,11 +80,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region ContractInformation
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getcontractinformation")]
-        public IActionResult GetContractInformation(Guid Id)
+        [HttpGet("userprofile/api/getcontractinformation/{id}")]
+        public IActionResult GetContractInformation(Guid id)
         {
 
-            var bios = queryFactory.ResolveQuery<IContractInformationQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault();
+            var bios = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(id);
             return Ok(bios);
         }
 
@@ -90,11 +107,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region Education
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/geteducation")]
-        public IActionResult GetEducation(Guid Id)
+        [HttpGet("userprofile/api/geteducation/{id}")]
+        public IActionResult GetEducation(Guid id)
         {
 
-            var bios = queryFactory.ResolveQuery<IEducationQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault(); ;
+            var bios = queryFactory.ResolveQuery<IEducationQuery>().Execute(id) ;
             return Ok(bios);
         }
 
@@ -116,11 +133,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region Experience
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getexperience")]
-        public IActionResult GetExperience(Guid Id)
+        [HttpGet("userprofile/api/getexperience/{id}")]
+        public IActionResult GetExperience(Guid id)
         {
 
-            var bios = queryFactory.ResolveQuery<IExperienceQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault(); ;
+            var bios = queryFactory.ResolveQuery<IExperienceQuery>().Execute(id) ;
             return Ok(bios);
         }
 
@@ -143,11 +160,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region Insight
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getinsight")]
-        public IActionResult GetInsight(Guid Id)
+        [HttpGet("userprofile/api/getinsight/{id}")]
+        public IActionResult GetInsight(Guid id)
         {
 
-            var bios = queryFactory.ResolveQuery<IInsightQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault(); ;
+            var bios = queryFactory.ResolveQuery<IInsightQuery>().Execute(id) ;
             return Ok(bios);
         }
 
@@ -169,11 +186,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region PracticeArea
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getpracticeArea")]
-        public IActionResult GetPracticeArea(Guid Id)
+        [HttpGet("userprofile/api/getpracticeArea/{id}")]
+        public IActionResult GetPracticeArea(Guid id)
         {
 
-            var bios = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault(); ;
+            var bios = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(id);
             return Ok(bios);
         }
 
@@ -213,11 +230,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region Skill
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getskill")]
-        public IActionResult GetSkill(Guid Id)
+        [HttpGet("userprofile/api/getskill/{id}")]
+        public IActionResult GetSkill(Guid id)
         {
 
-            var skills = queryFactory.ResolveQuery<ISkillQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault(); ;
+            var skills = queryFactory.ResolveQuery<ISkillQuery>().Execute(id) ;
             return Ok(skills);
         }
         [HttpPost("userprofile/api/setskill")]
@@ -260,7 +277,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
 
         [HttpPost("userprofile/api/fileupload")]
-        public void FileUpload(IFormFile file)
+        public IActionResult FileUpload(IFormFile file)
         {
             var categoryImagepath = configuration["ProfileUpload"];
             //IHostingEnvironment environment = new HostingEnvironment();
@@ -274,6 +291,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             {
                 file.CopyTo(fileStream);
             }
+            return Ok();
         }
 
 
