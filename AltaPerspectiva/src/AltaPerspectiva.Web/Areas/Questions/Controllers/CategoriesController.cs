@@ -60,8 +60,8 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(categoriesSummary);
         }
         //questions/api/categories/addfollowers
-        [HttpPost("questions/api/categories/addfollowers")]        
-        public IActionResult AddFollowers(Guid CategoryId)
+        [HttpPost("questions/api/categories/addfollowers/{categoryId}")]        
+        public IActionResult AddFollowers(Guid categoryId)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -71,10 +71,11 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(loggedinUser.ToString());
             }
 
-            FollowCategoryCommand cmd = new FollowCategoryCommand(CategoryId,loggedinUser);
+            FollowCategoryCommand cmd = new FollowCategoryCommand(categoryId, loggedinUser);
             commandsFactory.ExecuteQuery(cmd);
 
             return Created($"questions/api/categories/addfollowers/{cmd.Id}", cmd);
+
         }
 
         //questions/api/categories/totalcount

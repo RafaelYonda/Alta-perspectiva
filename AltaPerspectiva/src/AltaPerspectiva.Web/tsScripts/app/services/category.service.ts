@@ -39,8 +39,8 @@ export class CategoryService {
             .refCount();
     }
 
-    addAddFollower(id: string): Observable<any> {
-        return this._http.post('/questions/api/categories/addfollowers',id )
+    addAddFollower(categoryId: string): Observable<any> {
+        return this._http.post('/questions/api/categories/addfollowers/' + categoryId, null)
             .map(this.extractData)
             .catch(this.handleError);
     }
