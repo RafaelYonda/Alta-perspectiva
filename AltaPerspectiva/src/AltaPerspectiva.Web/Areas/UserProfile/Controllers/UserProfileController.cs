@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using UserProfile.Domain;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,13 +41,14 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         public IActionResult GetUserProfile(Guid id)
         {
             UserProfileViewModel model = new UserProfileViewModel();
-            model.Biography= queryFactory.ResolveQuery<IBiographyQuery>().Execute(id).FirstOrDefault();
-            model.contractInformation = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(id).FirstOrDefault();
-            model.education = queryFactory.ResolveQuery<IEducationQuery>().Execute(id).FirstOrDefault();
-            model.experience = queryFactory.ResolveQuery<IExperienceQuery>().Execute(id).FirstOrDefault();
-            model.insight = queryFactory.ResolveQuery<IInsightQuery>().Execute(id).FirstOrDefault();
-            model.practiceArea = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(id).FirstOrDefault();
-            model.skill = queryFactory.ResolveQuery<ISkillQuery>().Execute(id).FirstOrDefault();
+
+            model.biography= queryFactory.ResolveQuery<IBiographyQuery>().Execute(id).FirstOrDefault()??new Biography() ;
+            model.contractInformation = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(id).FirstOrDefault()??new ContractInformation();
+            model.education = queryFactory.ResolveQuery<IEducationQuery>().Execute(id).FirstOrDefault()??new Education();
+            model.experience = queryFactory.ResolveQuery<IExperienceQuery>().Execute(id).FirstOrDefault()??new Experience();
+            model.insight = queryFactory.ResolveQuery<IInsightQuery>().Execute(id).FirstOrDefault()??new Insight();
+            model.practiceArea = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(id).FirstOrDefault()??new PracticeArea();
+            model.skill = queryFactory.ResolveQuery<ISkillQuery>().Execute(id).FirstOrDefault()??new Skill();
 
 
             return Ok(model);

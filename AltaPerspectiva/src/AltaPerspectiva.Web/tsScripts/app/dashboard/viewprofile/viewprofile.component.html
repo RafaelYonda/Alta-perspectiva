@@ -1,4 +1,161 @@
-﻿<ap-navdashboard></ap-navdashboard>
-<dash-tab></dash-tab>
-<h1>view profile</h1>
+﻿<div class="row dash-panel">
+    <div class="col-lg-2 col-md-offset-2">
+        <div class="profile-pic">
+            <img class="profile-img" src="../images/userAdd.png" />
+        </div>
+        <img class="profile-border" src="../images/border-horizontal.png" />
+    </div>
+</div>
+<div class="container">
+    <div class="col-md-8 col-md-offset-2 info-form">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3>Contact Info</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>FIRST NAME: </label>
+                        <label>{{contact.firstName}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>LAST NAME: </label>
+                        <label>{{contact.lastName}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>PREFERED E-MAIL: </label>
+                        <label>{{contact.prefferedEmail}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>PHONE NUMBR: </label>
+                        <label>{{contact.phoneNumber}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>ADDRESS LINE 1: </label>
+                        <label>{{contact.addressLine1}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>ADDRESS LINE 2: </label>
+                        <label>{{contact.addressLine2}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>COUNTRY: </label>
+                        <label>{{contact.country}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>REGION: </label>
+                        <label>{{contact.region}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>CITY: </label>
+                        <label>{{contact.city}}</label>
+                    </div>
+                </div>
+                <hr />
+                <h3>Biography</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>TAG LINE: </label>
+                        <label>{{biography.tagLine}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>ABOUT ME: </label>
+                        <label>{{biography.aboutMe}}</label>
+                    </div>
+                </div>
+                <hr />
+                <h3>Education</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>INSTITUTE/UNIVERSITY: </label>
+                        <label>{{education.institute}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>FROM: </label>
+                        <label>{{education.startDate}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>TO: </label>
+                        <label>{{education.endDate}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>COMPLETED STUDIES: </label>
+                        <label>{{education.completedStudies}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>DESCRIPTION: </label>
+                        <label>{{education.description}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>ESPECIALITY: </label>
+                        <label>{{education.especiality}}</label>
+                    </div>
+                </div>
+                <hr />
+                <h3>Experience</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>EMPLOYER: </label>
+                        <label>{{experience.employer}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>POSITION HELD: </label>
+                        <label>{{experience.positionHeld}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>LOCATION: </label>
+                        <label>{{experience.location}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>TIME PERIOD: </label>
+                        <label>{{experience.timePeriodFrom}}</label>
+                        <label>TO</label>
+                        <label>{{experience.timePeriodTo}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>DESCRIPTION: </label>
+                        <label>{{experience.description}}</label>
+                    </div>
+                </div>
+                <hr />
+                <h3>Skills</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label *ngFor="let skill of skills.skillArea">{{skill}}</label>
+                    </div>
+                </div>
+                <hr />
+                <h3>Practice Area</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label *ngFor="let practice of practiceArea.practiceArea">{{practice}} </label>
+                    </div>
+                </div>
+                <hr />
+                <h3>Insight</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>TITLE: </label>
+                        <label>{{insight.title}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>PUBLICATION: </label>
+                        <label>{{insight.publication}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>DATE: </label>
+                        <label>{{insight.publicationDate}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>DESCRIPTION: </label>
+                        <label>{{insight.publicationHyperlink}}</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>HYPERLINK: </label>
+                        <label>{{insight.description}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 

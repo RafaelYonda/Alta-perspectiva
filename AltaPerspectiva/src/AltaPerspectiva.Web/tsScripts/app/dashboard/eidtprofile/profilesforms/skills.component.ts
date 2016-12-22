@@ -17,11 +17,29 @@ export class SkillFormComponent {
     skills: Skills;
     constructor(private service: ProfileService) {
         this.skills = new Skills();
-        console.log(service.profile);
+        //console.log(service.profile);
         this.service.profile.skills = this.skills;
+    }
+    ngOnInit() {
+        this.skills.skillArea = [];
+        this.skills.skillArea.push("Management skill");
+        this.skills.skillArea.push("Management skill");
+        this.skills.skillArea.push("Management skill");
+        this.skills.skillArea.push("Management skill");
+        console.log(this.skills.skillArea);
     }
     Submit() {
         this.service.SaveSkills(this.skills).subscribe(res => {
+            console.log(res);
+        });
+    }
+    remove(skillRemoved) {
+        var index = this.skills.skillArea.indexOf(skillRemoved);
+        if (index > -1) {
+            this.skills.skillArea.splice(index, 1);
+        }
+        this.skills.skillName = skillRemoved;
+        this.service.DeleteSkills(this.skills).subscribe(res => {
             console.log(res);
         });
     }

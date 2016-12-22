@@ -24,7 +24,7 @@ const DashBoardroutes: Routes = [
     {
         path: 'dashboard', component: DashBoardComponent,
         children: [
-            { path: '', redirectTo: 'editprofile' },
+            { path: '', redirectTo: 'viewprofile' },
             {
                 path: 'editprofile', component: EditProfileComponent,
                 children: [

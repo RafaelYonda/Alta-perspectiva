@@ -33,6 +33,19 @@
         margin: 5px auto;
         background-color: #f29200;
     }
+
+    .closebtn {
+        padding-left: 10px;
+        color: #888;
+        font-weight: bold;
+        float: right;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+        .closebtn:hover {
+            color: #000;
+        }
 </style>
 
 <form>
@@ -46,23 +59,16 @@
                 <div class="row">
                     <div class="row">
                         <div class="point-container">
-                            <div class="col-md-4 ">
-                                <div class="skil-points">quality mamangement</div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="skil-points">quality mamangement</div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="skil-points">quality mamangement</div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="skil-points">quality mamangement</div>
+                            <div class="col-md-4" *ngFor="let skill of skills.skillArea">
+                                <div class="skil-points">
+                                    {{skill}}<span (click)="remove(skill)" class="closebtn">&times;</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-6 col-lg-offset-3 button-container">
-                        <input type="text" [(ngModel)]="skills.skillName" name="skillName" placeholder="ADD SKILLS" class="form-control profile-form">
+                        <input type="text" [(ngModel)]="skills.skillName" name="skillName"  (click)="Submit()" placeholder="ADD SKILLS" class="form-control profile-form">
                         <button class="btn btn-default done-btn">DONE</button>
                     </div>
                 </div>
