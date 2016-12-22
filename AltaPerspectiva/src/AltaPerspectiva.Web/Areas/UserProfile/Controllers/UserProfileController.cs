@@ -43,7 +43,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             String fullName = String.Empty;
             String image = String.Empty;
@@ -131,7 +131,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
             var bios = queryFactory.ResolveQuery<IBiographyQuery>().Execute(loggedinUser);
@@ -146,7 +146,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             AddBiographyCommand cmd = new AddBiographyCommand(loggedinUser, model.TagLine, model.AboutMe);
             commandsFactory.ExecuteQuery(cmd);
@@ -178,7 +178,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             AddContractInfomaionCommand cmd = new AddContractInfomaionCommand(loggedinUser, model.FirstName, model.LastName, model.PrefferedEmail, model.PhoneNumber, model.AddressLine1, model.AddressLine2, model.Country, model.Region, model.City);
             commandsFactory.ExecuteQuery(cmd);
@@ -196,7 +196,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
             var bios = queryFactory.ResolveQuery<IEducationQuery>().Execute(loggedinUser) ;
@@ -211,7 +211,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             AddEducationCommand cmd = new AddEducationCommand(loggedinUser, model.Institute, model.TimeFrameFrom, model.TimeFrameTo, model.CompletedStudies, model.Description, model.Especiality);
             commandsFactory.ExecuteQuery(cmd);
@@ -228,7 +228,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
             var bios = queryFactory.ResolveQuery<IExperienceQuery>().Execute(loggedinUser) ;
@@ -243,7 +243,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             AddExperienceCommand cmd = new AddExperienceCommand(loggedinUser, model.Employer, model.PositionHeld, model.Location, model.CurrentlyWorkingHere, model.TimePeriodFrom, model.TimePeriodTo, model.Description);
 
@@ -261,7 +261,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
             var bios = queryFactory.ResolveQuery<IInsightQuery>().Execute(loggedinUser) ;
@@ -276,7 +276,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             AddInsightCommand cmd = new AddInsightCommand(loggedinUser, model.Title, model.Publication, model.PublicationDate, model.PublicationHyperlink, model.PublicationDocument, model.Description);
             commandsFactory.ExecuteQuery(cmd);
@@ -308,7 +308,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             AddPracticeAreaCommand cmd = new AddPracticeAreaCommand(loggedinUser, model.PracticeAreaName);
             commandsFactory.ExecuteQuery(cmd);
@@ -323,7 +323,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             String practiceAreaName = model.PracticeAreaName;
@@ -357,7 +357,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             AddSkillCommand cmd = new AddSkillCommand(loggedinUser, model.SkillName);
@@ -376,7 +376,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             String skillName = model.SkillName;
@@ -396,7 +396,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
             UserImage userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
@@ -423,7 +423,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             AddUserImageCommand cmd=new AddUserImageCommand(loggedinUser,image);
             commandsFactory.ExecuteQuery(cmd);
