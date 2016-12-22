@@ -260,7 +260,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
 
         [HttpPost("userprofile/api/fileupload")]
-        public async Task FileUpload(IFormFile file)
+        public void FileUpload(IFormFile file)
         {
             var categoryImagepath = configuration["ProfileUpload"];
             //IHostingEnvironment environment = new HostingEnvironment();
