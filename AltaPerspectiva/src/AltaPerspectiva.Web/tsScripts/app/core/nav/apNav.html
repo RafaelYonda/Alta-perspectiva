@@ -22,8 +22,7 @@
             <li><a href="/signin">Log in</a></li>
             <li><a href="/signin">Register</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right" *ngIf="_logObj.isLoggedIn">
-            <li><a href="#"><i class="fa fa-bell notification-font"> </i> <span class="badge">{{_logObj.notifyCount}}</span></a></li>
+        <ul class="nav navbar-nav navbar-right" *ngIf="_logObj.isLoggedIn">           
             <li>
                 <a href="#" class="dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false">
                     <img class="user-image" src="{{_logObj.user.imageUrl}}" />{{_logObj.user.name}}

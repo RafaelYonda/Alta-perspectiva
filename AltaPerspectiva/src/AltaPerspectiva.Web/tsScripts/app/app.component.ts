@@ -14,14 +14,15 @@ export class AppComponent {
         var username = elm.nativeElement.getAttribute('username');
         var token = elm.nativeElement.getAttribute('token');       
        
-        if (username != "")
-        {            
-            localStorage.setItem('currentUser', JSON.stringify({ username: username }));            
+        if (username != "") {
+            localStorage.setItem('currentUser', username);
             //localStorage.getItem('auth_token');
-            localStorage.setItem('auth_token', JSON.stringify({ auth_token: token }));            
+            localStorage.setItem('auth_token', token);
         }
-        else
+        else {
             localStorage.removeItem('currentUser');
+            localStorage.removeItem('auth_token');
+        }
     }
     ngOnInit() {
        

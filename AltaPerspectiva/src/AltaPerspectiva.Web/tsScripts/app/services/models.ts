@@ -10,8 +10,7 @@ export class User {
     occupassion: string;
     imageUrl: string;
 }
-export class LogInObj {
-    notifyCount: number;
+export class LogInObj {    
     user: User;
     isLoggedIn: boolean;
 }
