@@ -22,10 +22,10 @@ export class PracticeFormComponent {
     }
     ngOnInit() {
         this.practiceArea.practiceArea = [];
-        this.practiceArea.practiceArea.push("Practice 1");
-        this.practiceArea.practiceArea.push("Practice 2");
-        this.practiceArea.practiceArea.push("Practice 3");
-        this.practiceArea.practiceArea.push("Practice 4");
+        //this.practiceArea.practiceArea.push("Practice 1");
+        //this.practiceArea.practiceArea.push("Practice 2");
+        //this.practiceArea.practiceArea.push("Practice 3");
+        //this.practiceArea.practiceArea.push("Practice 4");
         console.log(this.practiceArea.practiceArea);
     }
     remove(skillRemoved) {

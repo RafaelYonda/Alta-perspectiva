@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import {Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword} from './models';
+import {User,Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword} from './models';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -34,12 +34,12 @@ export class ProfileService {
         return this.SaveProfile(biography, 'userprofile/api/setbiography')
     }
     SaveEducation(education: Education) {
-        education.timeFrameFrom = new Date(education.startDate, 1);
-        education.timeFrameTo = new Date(education.endDate, 1);
+        education.timeFrameFrom = new Date(education.startDate == null ? 1 : education.startDate, 1);
+        education.timeFrameTo = new Date(education.endDate == null ? 1 : education.endDate, 1);
         return this.SaveProfile(education, 'userprofile/api/seteducation')
     }
     SaveExperience(experience: Experience) {
-        experience.timePeriodFrom = new Date(experience.startYear, experience.startMonth);
+        experience.timePeriodFrom = new Date(experience.startYear == null ? 1 : experience.startYear, experience.startMonth == null ? 1 : experience.startMonth);
         experience.timePeriodTo = new Date(experience.endYear, experience.endMonth);
         return this.SaveProfile(experience, 'userprofile/api/setexperience')
     }
@@ -67,11 +67,15 @@ export class ProfileService {
         return body || {};
     }
 
+    GetUser(): Observable<User> {
+       var  url = 'userprofile/api/getuser';
+        return this._http.get(url)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     GetProfile(url: string): Observable<any> {
-        var userid: string;
-        if (localStorage.getItem('auth_token'))
-            var userid = '';
-        url = url + '/' + '9f5b4ead-f9e7-49da-b0fa-1683195cfcba';
+        url = 'userprofile/api/getuserprofile';
         console.log(url);
         return this._http.get(url )
             .map(this.extractData)

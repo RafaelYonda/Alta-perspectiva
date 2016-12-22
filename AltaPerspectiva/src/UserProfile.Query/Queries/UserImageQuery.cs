@@ -19,5 +19,4 @@ namespace UserProfile.Query.Queries
             return DbContext.UserImage.FirstOrDefault(x=>x.UserId==userId); //.OrderBy(x => x.FirstName);
         }
     }
-   
 }

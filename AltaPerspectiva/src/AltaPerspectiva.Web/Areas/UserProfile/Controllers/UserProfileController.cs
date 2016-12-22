@@ -82,10 +82,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-
+            var xtest= queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser) ?? new ContractInformation();
             UserProfileViewModel model = new UserProfileViewModel();
             model.biography= queryFactory.ResolveQuery<IBiographyQuery>().Execute(loggedinUser) ??new Biography() ;
             model.contractInformation = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser) ??new ContractInformation();
@@ -105,7 +105,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
             UserProfileStatusViewModel model = new UserProfileStatusViewModel();
@@ -163,7 +163,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
             var bios = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
@@ -293,7 +293,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
             var bios = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser);
@@ -343,7 +343,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
             var skills = queryFactory.ResolveQuery<ISkillQuery>().Execute(loggedinUser) ;

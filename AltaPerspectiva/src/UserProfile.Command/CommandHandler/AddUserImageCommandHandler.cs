@@ -27,7 +27,6 @@ namespace UserProfile.Command.CommandHandler
             image.Image = command.Image;
             DbContext.UserImage.Add(image);
             DbContext.SaveChanges();
-
         }
 
     }

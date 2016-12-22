@@ -22,10 +22,10 @@ export class SkillFormComponent {
     }
     ngOnInit() {
         this.skills.skillArea = [];
-        this.skills.skillArea.push("Management skill");
-        this.skills.skillArea.push("Management skill");
-        this.skills.skillArea.push("Management skill");
-        this.skills.skillArea.push("Management skill");
+        //this.skills.skillArea.push("Management skill");
+        //this.skills.skillArea.push("Management skill");
+        //this.skills.skillArea.push("Management skill");
+        //this.skills.skillArea.push("Management skill");
         console.log(this.skills.skillArea);
     }
     Submit() {

@@ -19,12 +19,13 @@ import { PracticeFormComponent } from './eidtprofile/profilesforms/practice.comp
 import { SkillFormComponent } from './eidtprofile/profilesforms/skills.component';
 
 import { ProfileService } from '../services/profile.service';
+import { ProfileResolver } from '../services/resolve.services/profile.resolver';
 
 const DashBoardroutes: Routes = [
     {
         path: 'dashboard', component: DashBoardComponent,
         children: [
-            { path: '', redirectTo: 'viewprofile' },
+            { path: '', redirectTo: 'editprofile' },
             {
                 path: 'editprofile', component: EditProfileComponent,
                 children: [
@@ -39,7 +40,7 @@ const DashBoardroutes: Routes = [
 
                 ]
             },
-            { path: 'viewprofile', component: ViewProfileComponent }
+            { path: 'viewprofile', component: ViewProfileComponent, resolve: { question: ProfileResolver } }
         ]
     }
 ];
@@ -47,6 +48,7 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
 
 
 @NgModule({
+    providers: [ProfileResolver],
     imports: [BrowserModule, FormsModule, dashboardRouting
         //RouterModule.forRoot([
         //{ path: 'dashboard', component: DashBoardComponent }])
