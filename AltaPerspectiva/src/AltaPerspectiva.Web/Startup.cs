@@ -91,7 +91,9 @@ namespace AltaPerspectiva
             services.AddTransient<IQuestionsByCategoryIdQuery, QuestionsByCategoryIdQuery>();
             services.AddTransient<ICategoriesTotalQuestionsQuery, CategoriesTotalQuestionsQuery>();
             services.AddTransient<ICategoriesTotalUsersQuery, CategoriesTotalUsersQuery>();
-            services.AddTransient<IQuestionsByUserFollowingQuery, QuestionsByUserFollowingQuery>();
+            services.AddTransient<IQuestionsByUserFollowingQuery, QuestionsByUserFollowingQuery>(); 
+            services.AddTransient<IQuestionsNotAnsweredQuery, QuestionsNotAnsweredQuery>();
+            services.AddTransient<IQuestionsAnsweredQuery, QuestionsAnsweredQuery>();
 
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
@@ -174,19 +176,19 @@ namespace AltaPerspectiva
             {
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
-#if DEBUG
-                ClientId = "localhost", // for localhost
 
-#else
+               // ClientId = "localhost", // for localhost
+
+
                 ClientId = "azure",       // for azure deploy 
-#endif
+
                 ClientSecret = "aLtaseCreT!@#",
 
-#if DEBUG
-                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
-#else
-                PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
-#endif
+
+               // PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+
+                  PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
+
 
                 RequireHttpsMetadata = false,
                 GetClaimsFromUserInfoEndpoint = true,
@@ -200,6 +202,7 @@ namespace AltaPerspectiva
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
 
+                //Authority = "http://localhost:54540",
 
                 Authority = "http://altaauth.azurewebsites.net",
 

@@ -112,6 +112,20 @@ export class QuestionBodyComponent{
         });
     }
 
+    getQuestionNotAnswered(categoryId: string)
+    {
+        this.questionService.getQuestionsNotAnswered(categoryId).subscribe(res => {
+            this.questions = res;
+        });
+    }
+
+    getQuestionsAnswered(categoryId: string)
+    {
+        this.questionService.getQuestyionsAnswered(categoryId).subscribe(res => {
+            this.questions = res;
+        });
+    }
+
     showLoader() {
         console.log('showloader started');
         this.loader.isLoading = true;

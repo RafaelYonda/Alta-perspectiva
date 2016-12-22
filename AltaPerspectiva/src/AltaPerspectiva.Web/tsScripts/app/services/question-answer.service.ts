@@ -54,6 +54,23 @@ export class QuestionAnswerService implements Resolve<Question> {
         
     }
 
+
+    getQuestionsNotAnswered(categoryId: string): Observable<Question[]> {
+        return this._http.get('/questions/api/questions/notanswered/' + categoryId)
+            .map(this.extractData)
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount();
+    }
+
+    getQuestyionsAnswered(categoryId: string): Observable<Question[]> {
+        return this._http.get('/questions/api/questions/answered/' + categoryId)
+            .map(this.extractData)
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount();
+    }
+
     addQuestions(question: Question): Observable<Question> {
 
         return this._http.post('/questions/api/questions', question)

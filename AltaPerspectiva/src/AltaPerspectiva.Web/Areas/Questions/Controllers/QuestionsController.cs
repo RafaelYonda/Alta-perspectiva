@@ -62,6 +62,20 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
         }
 
+        [HttpGet("/questions/api/questions/notanswered/{id}")]
+        public async Task<IActionResult> GetQuestyionsNotAnswered(Guid CategoryId)
+        {
+            var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+            return Ok(questionsList);
+              
+        }
+        [HttpGet("/questions/api/questions/answered/{id}")]
+        public async Task<IActionResult> GetQuestyionsAnswered(Guid CategoryId)
+        {
+            var questionsList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(CategoryId);
+            return Ok(questionsList);           
+        }
+
         // GET /questions/api/questions/{id}
         [HttpGet("/questions/api/questions/{id}")]
         public IActionResult Get(Guid id)
