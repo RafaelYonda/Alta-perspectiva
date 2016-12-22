@@ -98,6 +98,29 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(model);
         }
+        [HttpGet("userprofile/api/getuserstatus")]
+        public IActionResult GetUserStatus()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+
+            }
+            UserProfileStatusViewModel model = new UserProfileStatusViewModel();
+            model.biography = queryFactory.ResolveQuery<IBiographyQuery>().Execute(loggedinUser) !=null ?true:false;
+            model.contractInformation = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser) != null ? true : false;
+            model.education = queryFactory.ResolveQuery<IEducationQuery>().Execute(loggedinUser) != null ? true : false; ;
+            model.experience = queryFactory.ResolveQuery<IExperienceQuery>().Execute(loggedinUser) != null ? true : false; ;
+            model.insight = queryFactory.ResolveQuery<IInsightQuery>().Execute(loggedinUser) != null ? true : false; ;
+            model.practiceArea = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser).ToList().Count != 0 ? true : false; 
+            model.skill = queryFactory.ResolveQuery<ISkillQuery>().Execute(loggedinUser).ToList().Count != 0 ? true : false; 
+            model.userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser) != null ? true : false; ;
+
+            return Ok(model);
+        }
+
 
         #region Biography
         //http://localhost:5273/userprofile/api    
@@ -408,8 +431,6 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok();
         }
         #endregion
-
-
 
     }
 }
