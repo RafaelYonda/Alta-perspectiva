@@ -20,6 +20,20 @@ export class PracticeFormComponent {
         console.log(service.profile);
         this.service.profile.practiceArea = this.practiceArea;
     }
+    ngOnInit() {
+        this.practiceArea.practiceArea = [];
+        this.practiceArea.practiceArea.push("Practice 1");
+        this.practiceArea.practiceArea.push("Practice 2");
+        this.practiceArea.practiceArea.push("Practice 3");
+        this.practiceArea.practiceArea.push("Practice 4");
+        console.log(this.practiceArea.practiceArea);
+    }
+    remove(skillRemoved) {
+        var index = this.practiceArea.practiceArea.indexOf(skillRemoved);
+        if (index > -1) {
+            this.practiceArea.practiceArea.splice(index, 1);
+        }
+    }
     Submit() {
         this.service.SavePracticeArea(this.practiceArea).subscribe(res => {
             console.log(res);

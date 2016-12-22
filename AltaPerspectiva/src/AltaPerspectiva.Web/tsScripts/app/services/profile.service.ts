@@ -29,6 +29,7 @@ export class ProfileService {
     SaveContact(contact: Contact) {
         return this.SaveProfile(contact, 'userprofile/api/setcontractinformation')
     }
+   
     SaveBiography(biography: Biography) {
         return this.SaveProfile(biography, 'userprofile/api/setbiography')
     }
@@ -44,6 +45,9 @@ export class ProfileService {
     }
     SaveSkills(skills: Skills) {
         return this.SaveProfile(skills, 'userprofile/api/setskill')
+    }
+    DeleteSkills(skills: Skills) {
+        return this.SaveProfile(skills, 'userprofile/api/deleteskill')
     }
     SavePracticeArea(praqcticeArea: PracticeArea) {
         return this.SaveProfile(praqcticeArea, 'userprofile/api/setpracticeArea')
@@ -61,6 +65,38 @@ export class ProfileService {
         }
 
         return body || {};
+    }
+
+    GetProfile(url: string): Observable<any> {
+        var userid: string;
+        if (localStorage.getItem('auth_token'))
+            var userid = '';
+        url = url + '/' + '9f5b4ead-f9e7-49da-b0fa-1683195cfcba';
+        console.log(url);
+        return this._http.get(url )
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    GetContact() {
+        return this.GetProfile('userprofile/api/getuserprofile')
+    }
+    GetBiography() {
+        return this.GetProfile('userprofile/api/getbiography')
+    }
+    GetEducation() {
+        return this.GetProfile('userprofile/api/geteducation')
+    }
+    GetExperience() {
+        return this.GetProfile('userprofile/api/getexperience')
+    }
+    GetSkills() {
+        return this.GetProfile('userprofile/api/getskill')
+    }
+    GetPracticeArea() {
+        return this.GetProfile('userprofile/api/getpracticeArea')
+    }
+    GetInsight() {
+        return this.GetProfile('userprofile/api/getinsight')
     }
 
     private handleError(error: Response | any) {
