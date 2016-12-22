@@ -8,7 +8,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
 {
     public class UserProfileViewModel
     {
-        public Biography Biography { get; set; }
+        public Biography biography { get; set; }
         public ContractInformation contractInformation { get; set; }
         public Education education { get; set; }
         public Experience experience { get; set; }
