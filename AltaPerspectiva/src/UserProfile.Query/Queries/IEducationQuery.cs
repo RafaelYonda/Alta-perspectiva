@@ -9,6 +9,6 @@ namespace UserProfile.Query.Queries
 {
     public interface IEducationQuery:IQuery
     {
-        IEnumerable<Education> Execute();
+        IEnumerable<Education> Execute(Guid id);
     }
 }

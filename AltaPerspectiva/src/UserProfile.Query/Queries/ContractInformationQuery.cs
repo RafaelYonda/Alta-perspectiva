@@ -14,9 +14,9 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-        public IEnumerable<ContractInformation> Execute()
+        public IEnumerable<ContractInformation> Execute(Guid id)
         {
-            return DbContext.ContractInfomation; //.OrderBy(x => x.FirstName);
+            return DbContext.ContractInfomation.Where(x=>x.Id==id); //.OrderBy(x => x.FirstName);
         }
     }
 }

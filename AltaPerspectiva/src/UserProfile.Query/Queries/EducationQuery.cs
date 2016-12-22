@@ -14,9 +14,9 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-        public IEnumerable<Education> Execute()
+        public IEnumerable<Education> Execute(Guid id)
         {
-            return DbContext.Education; //.OrderBy(x => x.FirstName);
+            return DbContext.Education.Where(x=>x.Id== id); //.OrderBy(x => x.FirstName);
         }
     }
 }

@@ -14,9 +14,9 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-        public IEnumerable<Skill> Execute()
+        public IEnumerable<Skill> Execute(Guid id)
         {
-            return DbContext.Skill; //.OrderBy(x => x.FirstName);
+            return DbContext.Skill.Where(x=>x.Id== id); //.OrderBy(x => x.FirstName);
         }
     }
 }
