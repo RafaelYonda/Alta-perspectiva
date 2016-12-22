@@ -38,10 +38,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #region Biography
         //http://localhost:5273/userprofile/api    
         [HttpGet("userprofile/api/getbiography")]
-        public IActionResult GetBiography()
+        public IActionResult GetBiography(Guid Id)
         {
 
-            var bios = queryFactory.ResolveQuery<IBiographyQuery>().Execute();
+            var bios = queryFactory.ResolveQuery<IBiographyQuery>().Execute().Where(x=>x.Id==Id).FirstOrDefault();
             return Ok(bios);
         }
 
@@ -64,10 +64,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #region ContractInformation
         //http://localhost:5273/userprofile/api    
         [HttpGet("userprofile/api/getcontractinformation")]
-        public IActionResult GetContractInformation()
+        public IActionResult GetContractInformation(Guid Id)
         {
 
-            var bios = queryFactory.ResolveQuery<IContractInformationQuery>().Execute();
+            var bios = queryFactory.ResolveQuery<IContractInformationQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault();
             return Ok(bios);
         }
 
@@ -91,10 +91,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #region Education
         //http://localhost:5273/userprofile/api    
         [HttpGet("userprofile/api/geteducation")]
-        public IActionResult GetEducation()
+        public IActionResult GetEducation(Guid Id)
         {
 
-            var bios = queryFactory.ResolveQuery<IEducationQuery>().Execute();
+            var bios = queryFactory.ResolveQuery<IEducationQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault(); ;
             return Ok(bios);
         }
 
@@ -117,10 +117,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #region Experience
         //http://localhost:5273/userprofile/api    
         [HttpGet("userprofile/api/getexperience")]
-        public IActionResult GetExperience()
+        public IActionResult GetExperience(Guid Id)
         {
 
-            var bios = queryFactory.ResolveQuery<IExperienceQuery>().Execute();
+            var bios = queryFactory.ResolveQuery<IExperienceQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault(); ;
             return Ok(bios);
         }
 
@@ -144,10 +144,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #region Insight
         //http://localhost:5273/userprofile/api    
         [HttpGet("userprofile/api/getinsight")]
-        public IActionResult GetInsight()
+        public IActionResult GetInsight(Guid Id)
         {
 
-            var bios = queryFactory.ResolveQuery<IInsightQuery>().Execute();
+            var bios = queryFactory.ResolveQuery<IInsightQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault(); ;
             return Ok(bios);
         }
 
@@ -170,10 +170,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #region PracticeArea
         //http://localhost:5273/userprofile/api    
         [HttpGet("userprofile/api/getpracticeArea")]
-        public IActionResult GetPracticeArea()
+        public IActionResult GetPracticeArea(Guid Id)
         {
 
-            var bios = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute();
+            var bios = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault(); ;
             return Ok(bios);
         }
 
@@ -214,14 +214,12 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #region Skill
         //http://localhost:5273/userprofile/api    
         [HttpGet("userprofile/api/getskill")]
-        public IActionResult GetSkill()
+        public IActionResult GetSkill(Guid Id)
         {
 
-            var skills = queryFactory.ResolveQuery<ISkillQuery>().Execute();
+            var skills = queryFactory.ResolveQuery<ISkillQuery>().Execute().Where(x => x.Id == Id).FirstOrDefault(); ;
             return Ok(skills);
         }
-       
-
         [HttpPost("userprofile/api/setskill")]
         public IActionResult SetSkill([FromBody]AddSkillViewModel model)
         {
