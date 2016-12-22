@@ -69,6 +69,15 @@ namespace UserProfile.Query
             }
         }
 
+        public IQueryable<UserImage> UserImage
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<UserImage>().AsNoTracking();
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("UserProfile");
@@ -80,6 +89,8 @@ namespace UserProfile.Query
             modelBuilder.Entity<Insight>().ToTable("Insight");
             modelBuilder.Entity<PracticeArea>().ToTable("PracticeArea");
             modelBuilder.Entity<Skill>().ToTable("Skill");
+            modelBuilder.Entity<UserImage>().ToTable("UserImage");
+
 
         }
     }

@@ -9,6 +9,6 @@ namespace UserProfile.Query.Queries
 {
     public interface IExperienceQuery:IQuery
     {
-        IEnumerable<Experience> Execute(Guid id);
+        Experience Execute(Guid Userid);
     }
 }

@@ -14,9 +14,9 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-        public IEnumerable<Insight> Execute(Guid id)
+        public Insight Execute(Guid userId)
         {
-            return DbContext.Insight.Where(x=>x.Id==id); //.OrderBy(x => x.FirstName);
+            return DbContext.Insight.FirstOrDefault(x=>x.UserId== userId); //.OrderBy(x => x.FirstName);
         }
     }
 }

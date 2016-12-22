@@ -36,31 +36,105 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             configuration = _configuration;
             environment = _environment;
         }
-        //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getuserprofile/{id}")]
-        public IActionResult GetUserProfile(Guid id)
+        [HttpGet("userprofile/api/getuser")]
+        public IActionResult GetUser()
         {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+            String fullName = String.Empty;
+            String image = String.Empty;
+            String occupassion = String.Empty;
+            ContractInformation information = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
+            if (information != null)
+            {
+                fullName = information.FirstName + " " + information.LastName;
+            }
+
+            UserImage userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
+            if (userImage != null)
+            {
+                image =  userImage.Image;
+            }
+
+            Experience exp = queryFactory.ResolveQuery<IExperienceQuery>().Execute(loggedinUser);
+            if (exp != null)
+            {
+                occupassion = exp.PositionHeld;
+            }
+            UserViewModel model = new UserViewModel
+            {
+                ImageUrl = image,
+                Name = fullName,
+                Occupassion = occupassion,
+                UserId = loggedinUser
+            };
+            return Ok(model);
+        }
+        //http://localhost:5273/userprofile/api    
+        [HttpGet("userprofile/api/getuserprofile")]
+        public IActionResult GetUserProfile()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+
+            }
+
             UserProfileViewModel model = new UserProfileViewModel();
+            model.biography= queryFactory.ResolveQuery<IBiographyQuery>().Execute(loggedinUser) ??new Biography() ;
+            model.contractInformation = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser) ??new ContractInformation();
+            model.education = queryFactory.ResolveQuery<IEducationQuery>().Execute(loggedinUser) ??new Education();
+            model.experience = queryFactory.ResolveQuery<IExperienceQuery>().Execute(loggedinUser) ??new Experience();
+            model.insight = queryFactory.ResolveQuery<IInsightQuery>().Execute(loggedinUser) ??new Insight();
+            model.practiceArea = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser).ToList();
+            model.skill = queryFactory.ResolveQuery<ISkillQuery>().Execute(loggedinUser).ToList();
+            model.userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser) ?? new UserImage();
 
-            model.biography= queryFactory.ResolveQuery<IBiographyQuery>().Execute(id).FirstOrDefault()??new Biography() ;
-            model.contractInformation = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(id).FirstOrDefault()??new ContractInformation();
-            model.education = queryFactory.ResolveQuery<IEducationQuery>().Execute(id).FirstOrDefault()??new Education();
-            model.experience = queryFactory.ResolveQuery<IExperienceQuery>().Execute(id).FirstOrDefault()??new Experience();
-            model.insight = queryFactory.ResolveQuery<IInsightQuery>().Execute(id).FirstOrDefault()??new Insight();
-            model.practiceArea = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(id).FirstOrDefault()??new PracticeArea();
-            model.skill = queryFactory.ResolveQuery<ISkillQuery>().Execute(id).FirstOrDefault()??new Skill();
+            return Ok(model);
+        }
+        [HttpGet("userprofile/api/getuserstatus")]
+        public IActionResult GetUserStatus()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
 
+            }
+            UserProfileStatusViewModel model = new UserProfileStatusViewModel();
+            model.biography = queryFactory.ResolveQuery<IBiographyQuery>().Execute(loggedinUser) !=null ?true:false;
+            model.contractInformation = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser) != null ? true : false;
+            model.education = queryFactory.ResolveQuery<IEducationQuery>().Execute(loggedinUser) != null ? true : false; ;
+            model.experience = queryFactory.ResolveQuery<IExperienceQuery>().Execute(loggedinUser) != null ? true : false; ;
+            model.insight = queryFactory.ResolveQuery<IInsightQuery>().Execute(loggedinUser) != null ? true : false; ;
+            model.practiceArea = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser).ToList().Count != 0 ? true : false; 
+            model.skill = queryFactory.ResolveQuery<ISkillQuery>().Execute(loggedinUser).ToList().Count != 0 ? true : false; 
+            model.userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser) != null ? true : false; ;
 
             return Ok(model);
         }
 
+
         #region Biography
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getbiography/{id}")]
-        public IActionResult GetBiography(Guid id)
+        [HttpGet("userprofile/api/getbiography")]
+        public IActionResult GetBiography()
         {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
 
-            var bios = queryFactory.ResolveQuery<IBiographyQuery>().Execute(id).FirstOrDefault();
+            }
+            var bios = queryFactory.ResolveQuery<IBiographyQuery>().Execute(loggedinUser);
             return Ok(bios);
         }
 
@@ -82,11 +156,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region ContractInformation
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getcontractinformation/{id}")]
-        public IActionResult GetContractInformation(Guid id)
+        [HttpGet("userprofile/api/getcontractinformation")]
+        public IActionResult GetContractInformation()
         {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
 
-            var bios = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(id);
+            }
+            var bios = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
             return Ok(bios);
         }
 
@@ -109,11 +189,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region Education
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/geteducation/{id}")]
-        public IActionResult GetEducation(Guid id)
+        [HttpGet("userprofile/api/geteducation")]
+        public IActionResult GetEducation()
         {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
 
-            var bios = queryFactory.ResolveQuery<IEducationQuery>().Execute(id) ;
+            }
+            var bios = queryFactory.ResolveQuery<IEducationQuery>().Execute(loggedinUser) ;
             return Ok(bios);
         }
 
@@ -135,11 +221,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region Experience
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getexperience/{id}")]
-        public IActionResult GetExperience(Guid id)
+        [HttpGet("userprofile/api/getexperience")]
+        public IActionResult GetExperience()
         {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
 
-            var bios = queryFactory.ResolveQuery<IExperienceQuery>().Execute(id) ;
+            }
+            var bios = queryFactory.ResolveQuery<IExperienceQuery>().Execute(loggedinUser) ;
             return Ok(bios);
         }
 
@@ -162,11 +254,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region Insight
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getinsight/{id}")]
-        public IActionResult GetInsight(Guid id)
+        [HttpGet("userprofile/api/getinsight")]
+        public IActionResult GetInsight()
         {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
 
-            var bios = queryFactory.ResolveQuery<IInsightQuery>().Execute(id) ;
+            }
+            var bios = queryFactory.ResolveQuery<IInsightQuery>().Execute(loggedinUser) ;
             return Ok(bios);
         }
 
@@ -188,11 +286,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region PracticeArea
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getpracticeArea/{id}")]
-        public IActionResult GetPracticeArea(Guid id)
+        [HttpGet("userprofile/api/getpracticeArea")]
+        public IActionResult GetPracticeArea()
         {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
 
-            var bios = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(id);
+            }
+            var bios = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser);
             return Ok(bios);
         }
 
@@ -232,11 +336,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region Skill
         //http://localhost:5273/userprofile/api    
-        [HttpGet("userprofile/api/getskill/{id}")]
-        public IActionResult GetSkill(Guid id)
+        [HttpGet("userprofile/api/getskill")]
+        public IActionResult GetSkill()
         {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
 
-            var skills = queryFactory.ResolveQuery<ISkillQuery>().Execute(id) ;
+            }
+            var skills = queryFactory.ResolveQuery<ISkillQuery>().Execute(loggedinUser) ;
             return Ok(skills);
         }
         [HttpPost("userprofile/api/setskill")]
@@ -277,9 +387,23 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok();
         }
         #endregion
+        #region UserImage
 
+        [HttpGet("userprofile/api/getprofileimage")]
+        public IActionResult GetUserImage()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+
+            }
+            UserImage userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
+            return Ok(userImage);
+        }
         [HttpPost("userprofile/api/fileupload")]
-        public IActionResult FileUpload(IFormFile file)
+        public IActionResult SaveUserImagee(IFormFile file)
         {
             var categoryImagepath = configuration["ProfileUpload"];
             //IHostingEnvironment environment = new HostingEnvironment();
@@ -293,10 +417,20 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             {
                 file.CopyTo(fileStream);
             }
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+            AddUserImageCommand cmd=new AddUserImageCommand(loggedinUser,image);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
             return Ok();
         }
-
-
+        #endregion
 
     }
 }

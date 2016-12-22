@@ -20,6 +20,7 @@ namespace UserProfile.Command.UserProfileDBContext
         public DbSet<Insight> Insight { get; set; }
         public DbSet<PracticeArea> PracticeArea { get; set; }
         public DbSet<Skill> Skill { get; set; }
+        public DbSet<UserImage> UserImage { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configure model mappings
