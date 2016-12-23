@@ -37,6 +37,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
             Comments = new List<Comment>();
 
             Likes = new List<Like>();
+            userViewModel = new UserViewModel();
         }
         public UserViewModel userViewModel { get; set; }
     }

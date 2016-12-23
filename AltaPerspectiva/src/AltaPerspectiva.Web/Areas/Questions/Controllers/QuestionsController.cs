@@ -8,6 +8,9 @@ using Questions.Command;
 using Questions.Query;
 using AltaPerspectiva.Web.Areas.Questions.Models;
 using Microsoft.Extensions.Configuration;
+using UserProfile.Domain;
+using UserProfile.Query.Queries;
+using AltaPerspectiva.Web.Areas.UserProfile.Models;
 //using Questions.Domain;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -39,9 +42,11 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         // GET: /questions/api/questions
+        // GET: /questions/api/questions
         [HttpGet("/questions/api/questions")]
         public async Task<IActionResult> Get()
         {
+            List<QuestionWithUserViewModel> questionWithUserViewModelList = new List<QuestionWithUserViewModel>();
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
@@ -50,17 +55,84 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
                 var questionsList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().Execute(loggedinUser);
-                return Ok(questionsList);
+                if (questionsList.Any())
+                {
+                    foreach (var question in questionsList)
+                    {
+                        QuestionWithUserViewModel questionWithUserViewModel = new QuestionWithUserViewModel
+                        {
+                            Answers = question.Answers,
+                            Body = question.Body,
+                            Categories = question.Categories,
+                            Comments = question.Comments,
+                            Likes = question.Likes,
+                            Title = question.Title,
+                            UserId = loggedinUser,
+                            ViewCount = question.ViewCount
 
+                        };
+                        String fullName = String.Empty;
+                        String image = String.Empty;
+                        String occupassion = String.Empty;
+                        ContractInformation information = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
+                        if (information != null)
+                        {
+                            fullName = information.FirstName + " " + information.LastName;
+                        }
+
+                        UserImage userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
+                        if (userImage != null)
+                        {
+                            image = userImage.Image;
+                        }
+
+                        Experience exp = queryFactory.ResolveQuery<IExperienceQuery>().Execute(loggedinUser);
+                        if (exp != null)
+                        {
+                            occupassion = exp.PositionHeld;
+                        }
+                        UserViewModel model = new UserViewModel
+                        {
+                            ImageUrl = image,
+                            Name = fullName,
+                            Occupassion = occupassion,
+                            UserId = loggedinUser
+                        };
+
+                        questionWithUserViewModel.userViewModel = model;
+                        questionWithUserViewModelList.Add(questionWithUserViewModel);
+
+
+                    }
+
+                }
+                return Ok(questionWithUserViewModelList);
             }
             else
             {
 
                 var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-                return Ok(questionsList);
+                foreach (var question in questionsList)
+                {
+                    QuestionWithUserViewModel questionWithUserViewModel = new QuestionWithUserViewModel
+                    {
+                        Answers = question.Answers,
+                        Body = question.Body,
+                        Categories = question.Categories,
+                        Comments = question.Comments,
+                        Likes = question.Likes,
+                        Title = question.Title,
+                        UserId = loggedinUser,
+                        ViewCount = question.ViewCount
+
+                    };
+                    questionWithUserViewModelList.Add(questionWithUserViewModel);
+                }
+                return Ok(questionWithUserViewModelList);
 
             }
         }
+
 
         [HttpGet("/questions/api/questions/notanswered/{id}")]
         public async Task<IActionResult> GetQuestyionsNotAnswered(Guid CategoryId)
@@ -88,9 +160,90 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/category/{id}")]
         public async Task<IActionResult> GetQuestionsByCategoryId(Guid id)
         {
-            var question = await queryFactory.ResolveQuery<IQuestionsByCategoryIdQuery>().Execute(id);
-            return Ok(question);
+            List<QuestionWithUserViewModel> questionWithUserViewModelList = new List<QuestionWithUserViewModel>();
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var questionsList = await queryFactory.ResolveQuery<IQuestionsByCategoryIdQuery>().Execute(id);
+                if (questionsList.Any())
+                {
+                    foreach (var question in questionsList)
+                    {
+                        QuestionWithUserViewModel questionWithUserViewModel = new QuestionWithUserViewModel
+                        {
+                            Answers = question.Answers,
+                            Body = question.Body,
+                            Categories = question.Categories,
+                            Comments = question.Comments,
+                            Likes = question.Likes,
+                            Title = question.Title,
+                            UserId = loggedinUser,
+                            ViewCount = question.ViewCount
+
+                        };
+                        String fullName = String.Empty;
+                        String image = String.Empty;
+                        String occupassion = String.Empty;
+                        ContractInformation information = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
+                        if (information != null)
+                        {
+                            fullName = information.FirstName + " " + information.LastName;
+                        }
+
+                        UserImage userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
+                        if (userImage != null)
+                        {
+                            image = userImage.Image;
+                        }
+
+                        Experience exp = queryFactory.ResolveQuery<IExperienceQuery>().Execute(loggedinUser);
+                        if (exp != null)
+                        {
+                            occupassion = exp.PositionHeld;
+                        }
+                        UserViewModel model = new UserViewModel
+                        {
+                            ImageUrl = image,
+                            Name = fullName,
+                            Occupassion = occupassion,
+                            UserId = loggedinUser
+                        };
+
+                        questionWithUserViewModel.userViewModel = model;
+                        questionWithUserViewModelList.Add(questionWithUserViewModel);
+
+
+                    }
+
+                }
+                return Ok(questionWithUserViewModelList);
+            }
+            else
+            {
+                var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+                foreach (var question in questionsList)
+                {
+                    QuestionWithUserViewModel questionWithUserViewModel = new QuestionWithUserViewModel
+                    {
+                        Answers = question.Answers,
+                        Body = question.Body,
+                        Categories = question.Categories,
+                        Comments = question.Comments,
+                        Likes = question.Likes,
+                        Title = question.Title,
+                        UserId = loggedinUser,
+                        ViewCount = question.ViewCount
+
+                    };
+                    questionWithUserViewModelList.Add(questionWithUserViewModel);
+                }
+                return Ok(questionWithUserViewModelList);
+            }
+
         }
+
 
         //get  /questions/api/questions/reatedquestions/{id}
         [HttpGet("/questions/api/questions/reatedquestions/{id}")]
