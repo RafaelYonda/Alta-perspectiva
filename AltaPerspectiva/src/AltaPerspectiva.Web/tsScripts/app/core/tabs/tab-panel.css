@@ -1,8 +1,19 @@
-﻿.panel-article [class*="questions-container"] {
+﻿/*.panel-article [class*="questions-container"] {
   margin-bottom: 0;
   padding-bottom: 15px;
+  border-top:1px solid #eeeeee;
+  border-bottom:1px solid #eeeeee;
+}*/
+.questions-container{
+    margin-bottom: 0;
+  padding-bottom: 15px;
+  border-top:1px solid #eeeeee;
+  border-bottom:1px solid #eeeeee;
 }
-
+.questions-container:hover{
+    background-color:#f5f5f5;
+    cursor:pointer;
+}
 .social-icon>h5{
     display:inline;
 }

@@ -92,6 +92,15 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(question);
         }
 
+        //get  /questions/api/questions/reatedquestions/{id}
+        [HttpGet("/questions/api/questions/reatedquestions/{id}")]
+        public async Task<IActionResult> GetRelatedQuestions(Guid id)
+        {
+            var questions = await queryFactory.ResolveQuery<IRelatedQuestionsQuery>().Execute(id);
+            return Ok(questions);
+        }
+
+
         // POST /questions/api/questions       
         [HttpPost("/questions/api/questions")]
         public IActionResult Post([FromBody]QuestionViewModel question)
