@@ -72,12 +72,14 @@ export class Question {
     date: Date;    
     user: User;
     answers: AnswerViewModel[];
+    lastAnswer: AnswerViewModel;
     viewCount: number;    
     constructor() {
         this.user = new User();
         this.answers = new Array();
         this.comments = new Array();
         this.categoryIds = new Array();
+        this.lastAnswer = new AnswerViewModel();
     }
 }
 

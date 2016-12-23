@@ -54,11 +54,11 @@ export class QuestionAnswerService implements Resolve<Question> {
         
     }
 
-
     getRelatedQuestions(questionId: string): Observable<Question[]> {
         return this._http.get('/questions/api/questions/reatedquestions/' + questionId)
             .map(this.extractData)
             .catch(this.handleError);
+    }
 
 
 

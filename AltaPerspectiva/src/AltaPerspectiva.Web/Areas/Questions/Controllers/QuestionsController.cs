@@ -55,10 +55,8 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
             else
             {
-
                 var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
                 return Ok(questionsList);
-
             }
         }
 

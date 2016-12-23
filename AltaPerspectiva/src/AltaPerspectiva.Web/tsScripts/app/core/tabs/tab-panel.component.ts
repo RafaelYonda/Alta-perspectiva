@@ -25,6 +25,7 @@ export class TabPanelComponent {
             //this.questions = this.questionAnswerService.getQuestionByCategory(params['id']);
             this.questionAnswerService.getQuestionsByCategory(this.id).subscribe(res => {
                 this.questions = res;
+                this.questions.forEach(x => x.lastAnswer = x.answers[x.answers.length - 1]);
                 //console.log(this.questions);
             });
         });
