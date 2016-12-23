@@ -131,7 +131,7 @@ namespace Altaperspectiva.OpenId.Controllers {
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null) {
-            EnsureDatabaseCreated(_applicationDbContext);
+            //EnsureDatabaseCreated(_applicationDbContext);
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid) {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
