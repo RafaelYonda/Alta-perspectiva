@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AltaPerspectiva</title>
+    <title>iHaz tu preguntas sobre negocios!</title>
 
     <script src="~/js/main.js"></script>
     <!-- 1. Load libraries -->
@@ -31,11 +31,9 @@
     </environment>
     <environment names="Staging,Production">
         <link href="~/css/fonts/alta-fonts.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/fontawesome/css/font-awesome.css" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>

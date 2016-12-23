@@ -7,6 +7,7 @@ using AltaPerspectiva.Core;
 using Questions.Command;
 using Questions.Query;
 using AltaPerspectiva.Web.Areas.Questions.Models;
+using Microsoft.Extensions.Configuration;
 //using Questions.Domain;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,18 +20,60 @@ namespace AltaPerspectiva.Web.Area.Questions
     {
         ICommandsFactory commandsFactory;
         IQueryFactory queryFactory;
+        private readonly IConfigurationRoot configuration;
 
-        public QuestionsController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory) {
+        public QuestionsController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IConfigurationRoot _configuration) {
             commandsFactory = _commandsFactory;
             queryFactory = _queryFactory;
+            configuration = _configuration;
+        }
+
+
+        [HttpGet("/questions/api/questions/config")]
+        public IActionResult GetConfig()
+        {
+            var config = new Config();
+            config.ProfileImage = configuration["ProfileImage"];
+            config.CategoryImage = configuration["CategoryImage"];           
+            return Ok(config);
         }
 
         // GET: /questions/api/questions
         [HttpGet("/questions/api/questions")]
         public async Task<IActionResult> Get()
         {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                var questionsList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().Execute(loggedinUser);
+                return Ok(questionsList);
+
+            }
+            else
+            {
+
+                var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+                return Ok(questionsList);
+
+            }
+        }
+
+        [HttpGet("/questions/api/questions/notanswered/{id}")]
+        public async Task<IActionResult> GetQuestyionsNotAnswered(Guid CategoryId)
+        {
             var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-            return Ok(questionsList);         
+            return Ok(questionsList);
+              
+        }
+        [HttpGet("/questions/api/questions/answered/{id}")]
+        public async Task<IActionResult> GetQuestyionsAnswered(Guid CategoryId)
+        {
+            var questionsList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(CategoryId);
+            return Ok(questionsList);           
         }
 
         // GET /questions/api/questions/{id}
@@ -68,7 +111,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
                         
             AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds);
@@ -87,7 +130,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
            
             AddAnswerCommand cmd = new AddAnswerCommand(answer.Text,answer.AnswerDate,answer.QuestionId, loggedinUser);
@@ -105,7 +148,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             AddCommentCommand cmd = new AddCommentCommand(comment.CommentText,comment.QuestionId,null, loggedinUser);
@@ -124,7 +167,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             AddCommentCommand cmd = new AddCommentCommand(comment.CommentText, comment.QuestionId, comment.AnswerId, loggedinUser);
@@ -142,7 +185,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
@@ -161,7 +204,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
             AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);

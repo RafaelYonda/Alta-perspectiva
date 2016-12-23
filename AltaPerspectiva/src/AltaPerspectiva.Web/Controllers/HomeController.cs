@@ -8,31 +8,38 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Configuration;
 
 namespace AltaPerspectiva.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfigurationRoot configuration;
+        public HomeController(IConfigurationRoot _configuration)
+        {
+            configuration = _configuration;
+        }
         //[HttpGet("~/")]
         public async Task<ActionResult> Index()
         {
+
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                    using (var client = new HttpClient())
+                using (var client = new HttpClient())
+                {
+                    var token = await HttpContext.Authentication.GetTokenAsync("access_token");
+                    if (string.IsNullOrEmpty(token))
                     {
-                        var token = await HttpContext.Authentication.GetTokenAsync("access_token");
-                        if (string.IsNullOrEmpty(token))
-                        {
-                            throw new InvalidOperationException("The access token cannot be found in the authentication ticket. " +
-                                                               "Make sure that SaveTokens is set to true in the OIDC options.");
-                        }                 
-                   
-
-                        return View("Index", model: token);
+                        throw new InvalidOperationException("The access token cannot be found in the authentication ticket. " +
+                                                           "Make sure that SaveTokens is set to true in the OIDC options.");
                     }
-               }
 
-                return View();
+
+                    return View("Index", model: token);
+                }
+            }
+
+            return View();
         }
 
         public IActionResult About()

@@ -5,10 +5,12 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment, Like } from './models';
+import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment, Like, Config } from './models';
 
 @Injectable()
 export class QuestionAnswerService implements Resolve<Question> {
+
+    
   
     GetQuestion(id: string): Observable<Question> {
         console.log(id);
@@ -31,6 +33,8 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
 
+   
+
     getQuestions(): Observable<Question[]> {
         return this._http.get('/questions/api/questions')
             .map(this.extractData)
@@ -50,10 +54,28 @@ export class QuestionAnswerService implements Resolve<Question> {
         
     }
 
+
     getRelatedQuestions(questionId: string): Observable<Question[]> {
         return this._http.get('/questions/api/questions/reatedquestions/' + questionId)
             .map(this.extractData)
             .catch(this.handleError);
+
+
+
+    getQuestionsNotAnswered(categoryId: string): Observable<Question[]> {
+        return this._http.get('/questions/api/questions/notanswered/' + categoryId)
+            .map(this.extractData)
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount();
+    }
+
+    getQuestyionsAnswered(categoryId: string): Observable<Question[]> {
+        return this._http.get('/questions/api/questions/answered/' + categoryId)
+            .map(this.extractData)
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount();
 
     }
 

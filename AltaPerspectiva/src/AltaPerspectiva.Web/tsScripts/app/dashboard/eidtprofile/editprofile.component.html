@@ -1,25 +1,25 @@
-﻿<ap-navdashboard></ap-navdashboard>
-<dash-tab></dash-tab>
+﻿<!--<ap-navdashboard></ap-navdashboard>
+<dash-tab></dash-tab>-->
 <div class="row dash-panel">
     <!--<div class="col-lg-2"> space</div>-->
 
     <div class="col-lg-2 col-md-offset-2">
         <div class="left-panel">
             <div class="profile-pic">
-                <img class="profile-img" src="../images/userAdd.png" />
+                <img class="profile-img" src="{{imageLink}}" />
                 <div class="row title">Photo Edit</div>
             </div>
             <img class="profile-border" src="../images/border-horizontal.png" />
+                <input type="file" name="documents" class="custom-file-input" (change)="onChange($event)" [(ngModel)]="doc" #documents="ngModel">
             <div class="menu-list">
                 <ul>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/contact">Contact info</button> </li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/biography">Biography</button> </li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/education">Education</button></li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/experience">Experience</button></li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/skill">Skills</button></li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/practice">Practice Areas</button></li>
-                    <li><button class="btn btn-default menu-button" routerLink="/dashboard/editprofile/insight">Insight</button></li>
-
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Contact Info')" routerLink="/dashboard/editprofile/contact">Contact info</button> </li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Biography')" routerLink="/dashboard/editprofile/biography">Biography</button> </li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Education')" routerLink="/dashboard/editprofile/education">Education</button></li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Experience')" routerLink="/dashboard/editprofile/experience">Experience</button></li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Skills')" routerLink="/dashboard/editprofile/skill">Skills</button></li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Practice Areas')" routerLink="/dashboard/editprofile/practice">Practice Areas</button></li>
+                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Insight')" routerLink="/dashboard/editprofile/insight">Insight</button></li>
                 </ul>
             </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="description">
             <h1>User</h1>
             <p>
-                Conceptually ksdjfklsdf sdlfjksldkjfj sdfjsd sdjfsd fsdjfpsdjf spdjds pfjsdpfosjd fojsdpofjsdofjsp dofjpsodj psodfpsdojfpsdfjspdfojsdsdp jfspdf sdspdo jfpsdojf psdjf psdfjspdfjspdofjspdofjspdojfpsdofjpsdofjspdofjpsdjfsdpfj
+                
             </p>
         </div>
         <div class="progresstitle">
@@ -38,7 +38,6 @@
         <div class="progress-image">
             <img class="progress-bar-img" src="../images/border-horizontal.png" />
             <img class="progress-background" src="../images/border-horizontal.png" />
-
         </div>
         <div class="status-list">
             <div class="row">
@@ -52,11 +51,12 @@
                 <div class="col-md-3 inactive">(&#x2716;)Insight</div>
             </div>
         </div>
-        <form>
+        <router-outlet></router-outlet>
+        <!--<form>
             <div class="info-form">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="heading">Panel Heading</div>
+                        <div class="heading">{{_headerName}}</div>
                         <div class="pull-right heading">Required(*)</div>
                     </div>
                     <div class="panel-body">
@@ -68,7 +68,7 @@
                     <button class="btn btn-default menu-button" (click)="Submit()">Submit</button>
                 </div>
             </div>
-        </form>
+        </form>-->
         
     </div>
 </div>

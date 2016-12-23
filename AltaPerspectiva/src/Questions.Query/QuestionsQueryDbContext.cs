@@ -68,6 +68,15 @@
             }
         }
 
+        public IQueryable<CategoryFollower> CategoryFollowers
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<CategoryFollower>().AsNoTracking();
+            }
+        }
+
         public IQueryable<Keyword> Keywords
         {
             get
@@ -89,6 +98,7 @@
             modelBuilder.Entity<Comment>().ToTable("Comments");
             modelBuilder.Entity<QuestionCategory>().ToTable("QuestionCategories");
             modelBuilder.Entity<Keyword>().ToTable("Keywords");
+            modelBuilder.Entity<CategoryFollower>().ToTable("CategoryFollowers");
 
         }
 

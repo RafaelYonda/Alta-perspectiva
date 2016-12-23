@@ -1,42 +1,58 @@
-﻿<div class="row" >
-    <div class="form-group col-md-6">
-        <label>FIRST NAME*</label>
-        <input type="text" [(ngModel)]="contact.firstName" class="form-control profile-form" >
+﻿<form (ngSubmit)="Submit()" role="form" #questionVM="ngForm">
+    <div class="info-form">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="heading">{{_headerName}}</div>
+                <div class="pull-right heading">Required(*)</div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>FIRST NAME*</label>
+                        <input type="text" [(ngModel)]="contact.firstName" name="FirstName" class="form-control profile-form">
+                    </div>
+                    <div class="col-md-6">
+                        <label>LAST NAME*</label>
+                        <input type="text" [(ngModel)]="contact.lastName" name="lastName" class="form-control profile-form">
+                    </div>
+                    <!-- ==================== -->
+                    <div class="form-group col-md-6">
+                        <label>PREFERED E-MAIL*</label>
+                        <input type="email" placeholder="Enter your email" name="email" [(ngModel)]="contact.prefferedEmail" class="form-control profile-form">
+                    </div>
+                    <div class="col-md-6">
+                        <label>PHONE NUMBR</label>
+                        <input type="tel" [(ngModel)]="contact.phoneNumber" name="phoneNumber" class="form-control profile-form">
+                    </div>
+                    <!-- ==================== -->
+                    <div class="form-group col-md-6">
+                        <label>ADDRESS LINE 1*</label>
+                        <input type="text" [(ngModel)]="contact.addressLine1" name="addressLine1" class="form-control profile-form">
+                    </div>
+                    <div class="col-md-6">
+                        <label>ADDRESS LINE 2</label>
+                        <input type="text" [(ngModel)]="contact.addressLine2" name="addressLine2" class="form-control profile-form">
+                    </div>
+                    <!-- ==================== -->
+                    <div class="form-group col-md-6">
+                        <label>COUNTRY*</label>
+                        <input type="text" [(ngModel)]="contact.country" name="country" class="form-control profile-form">
+                    </div>
+                    <div class="col-md-6">
+                        <label>REGION*</label>
+                        <input type="text" [(ngModel)]="contact.region" name="region" class="form-control profile-form">
+                    </div>
+                    <!-- ==================== -->
+                    <div class="form-group col-md-6">
+                        <label>CITY*</label>
+                        <input type="text" [(ngModel)]="contact.city" name="city" class="form-control profile-form">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="submit-panel">
+            <button class="btn btn-default menu-button">Cancel</button>
+            <button class="btn btn-default menu-button" type="submit">Submit</button>
+        </div>
     </div>
-    <div class="col-md-6">
-        <label>LAST NAME*</label>
-        <input type="text" [(ngModel)]="contact.lastName" class="form-control profile-form">
-    </div>
-    <!-- ==================== -->
-    <div class="form-group col-md-6">
-        <label>PREFERED E-MAIL*</label>
-        <input type="email" placeholder="Enter your email" [(ngModel)]="contact.email" class="form-control profile-form">
-    </div>
-    <div class="col-md-6">
-        <label>PHONE NUMBR</label>
-        <input type="tel" [(ngModel)]="contact.phone" class="form-control profile-form">
-    </div>
-    <!-- ==================== -->
-    <div class="form-group col-md-6">
-        <label>ADDRESS LINE 1*</label>
-        <input type="text" [(ngModel)]="contact.address1" class="form-control profile-form">
-    </div>
-    <div class="col-md-6">
-        <label>ADDRESS LINE 2</label>
-        <input type="text" [(ngModel)]="contact.address2" class="form-control profile-form">
-    </div>
-    <!-- ==================== -->
-    <div class="form-group col-md-6">
-        <label>COUNTRY*</label>
-        <input type="text" [(ngModel)]="contact.country" class="form-control profile-form">
-    </div>
-    <div class="col-md-6">
-        <label>REGION*</label>
-        <input type="text" [(ngModel)]="contact.region" class="form-control profile-form">
-    </div>
-    <!-- ==================== -->
-    <div class="form-group col-md-6">
-        <label>CITY*</label>
-        <input type="text" [(ngModel)]="contact.city" class="form-control profile-form">
-    </div>
-</div>
+</form>

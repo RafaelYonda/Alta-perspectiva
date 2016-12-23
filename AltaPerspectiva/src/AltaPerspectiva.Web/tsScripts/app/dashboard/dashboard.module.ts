@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashBoardComponent } from './dashboard.component';
 import { EditProfileComponent } from './eidtprofile/editprofile.component';
+import { ViewProfileComponent } from './viewprofile/viewprofile.component';
 import { NavDashboard } from './navdashboard/navdashboard.component';
 import { DashTab } from './dashtab/dashtab.component';
 
@@ -18,6 +19,7 @@ import { PracticeFormComponent } from './eidtprofile/profilesforms/practice.comp
 import { SkillFormComponent } from './eidtprofile/profilesforms/skills.component';
 
 import { ProfileService } from '../services/profile.service';
+import { ProfileResolver } from '../services/resolve.services/profile.resolver';
 
 const DashBoardroutes: Routes = [
     {
@@ -37,7 +39,8 @@ const DashBoardroutes: Routes = [
                     { path: 'skill', component: SkillFormComponent },
 
                 ]
-            }
+            },
+            { path: 'viewprofile', component: ViewProfileComponent, resolve: { question: ProfileResolver } }
         ]
     }
 ];
@@ -45,13 +48,17 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
 
 
 @NgModule({
+    providers: [ProfileResolver],
     imports: [BrowserModule, FormsModule, dashboardRouting
         //RouterModule.forRoot([
         //{ path: 'dashboard', component: DashBoardComponent }])
     ],
     declarations: [
-        DashBoardComponent, EditProfileComponent, NavDashboard, DashTab, ContactFormComponent,
-        BiographyFormComponent, EducationFormComponent, ExperienceFormComponent, InsightFormComponent, PracticeFormComponent, SkillFormComponent
+        DashBoardComponent,
+        DashTab, 
+        EditProfileComponent,
+                ContactFormComponent, BiographyFormComponent, EducationFormComponent, ExperienceFormComponent, InsightFormComponent,  NavDashboard, PracticeFormComponent, SkillFormComponent,
+        ViewProfileComponent         
     ],
     exports: [DashBoardComponent],
 })

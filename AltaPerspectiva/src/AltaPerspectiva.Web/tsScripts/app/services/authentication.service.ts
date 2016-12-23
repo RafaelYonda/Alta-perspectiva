@@ -3,18 +3,25 @@ import {LogInObj, User} from './models';
 
 @Injectable()
 export class AuthenticationService{
-    getLoggedinObj(): LogInObj {
-        var isLoggedin = false;// 
-        if (localStorage.getItem('currentUser'))
-            isLoggedin = true;
+
+    getLoggedinObj(): LogInObj {  
+             
         var logObj: LogInObj = {
-            user: {
-                userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png"
-            },
-            notifyCount: 3,
-            isLoggedIn: isLoggedin
+            user: null,
+            isLoggedIn: false
+        };
+
+        var currentUser = localStorage.getItem('auth_token');       
+
+        if (currentUser != "null") {
+
+                logObj.user = {
+                    userid: 1, name: 'Rafael Yonda', occupassion: 'Industrial engineer', imageUrl: "../../../../images/avatar.png"
+                };
+                logObj.isLoggedIn = true;
+
         }
-        if (isLoggedin)
+        if (logObj.isLoggedIn)
             return logObj;
         else {
             logObj.isLoggedIn = false;

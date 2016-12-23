@@ -7,9 +7,12 @@ AltaPerspectiva/src/Questions.Query/bin/
 AltaPerspectiva/src/Questions.Command/bin/
 AltaPerspectiva/src/AltaPerspectiva.Web/bin/
 AltaPerspectiva/src/AltaPerspectiva.Web/obj/
-AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/css
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/images
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/js
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/libs/
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/lib/
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/Scripts
 AltaPerspectiva/src/Questions.Command/obj/
 AltaPerspectiva/src/AltaPerspectiva/bower_components/
 AltaPerspectiva/src/AltaPerspectiva/node_modules/
@@ -51,3 +54,17 @@ AltaPerspectiva/src/AltaPerspectiva.Identity/project.lock.json
 /AltaPerspectiva/src/Altaperspectiva.OpenId/node_modules
 /AltaPerspectiva/src/Questions.Domain/obj
 
+AltaPerspectiva/src/Questions.Command/project.lock.json
+AltaPerspectiva/src/Questions.Domain/project.lock.json
+AltaPerspectiva/src/Questions.Query/project.lock.json
+AltaPerspectiva/src/UserProfile.Command/project.lock.json
+AltaPerspectiva/src/UserProfile.Domain/project.lock.json
+AltaPerspectiva/src/UserProfile.Query/project.lock.json
+AltaPerspectiva/src/Altaperspectiva.OpenId/project.lock.json
+AltaPerspectiva/src/Altaperspectiva.OpenId/Altaperspectiva.OpenId.xproj.user
+AltaPerspectiva/src/UserProfile.Domain/bin/
+AltaPerspectiva/src/UserProfile.Query/obj/
+AltaPerspectiva/src/UserProfile.Query/bin/
+AltaPerspectiva/src/UserProfile.Domain/obj/
+AltaPerspectiva/src/UserProfile.Command/bin/
+AltaPerspectiva/src/UserProfile.Command/obj/

@@ -21,50 +21,68 @@
         line-height: 24px;
     }
 </style>
-<div class="row">
-    <div class="form-group col-md-6">
-        <label>TITLE*</label>
-        <input [(ngModel)]="insight.title" type="text" class="form-control profile-form">
-    </div>
-    <div class="form-group col-md-6">
-        <label>PUBLICATION</label>
-        <input [(ngModel)]="insight.publication" type="text" class="form-control profile-form">
-    </div>
-    <!-- =============== -->
-    <div class="form-group col-md-6">
-        <label>DATE</label>
-        <div class="row form-group">
-            <div class="col-md-5">
-                <input [(ngModel)]="insight.dateMonth" type="number" placeholder="MONTH" class="form-control profile-form">
-            </div>
 
-            <div class="col-md-5">
-                <input [(ngModel)]="insight.dateYear" type="number" min="1900" max="2099" step="1" value="2016" placeholder="YEAR" class="form-control profile-form">
+<form>
+    <div class="info-form">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="heading">{{_headerName}}</div>
+                <div class="pull-right heading">Required(*)</div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>TITLE*</label>
+                        <input [(ngModel)]="insight.title" name="title" type="text" class="form-control profile-form">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>PUBLICATION</label>
+                        <input [(ngModel)]="insight.publication" name="publication" type="text" class="form-control profile-form">
+                    </div>
+                    <!-- =============== -->
+                    <div class="form-group col-md-6">
+                        <label>DATE</label>
+                        <div class="row form-group">
+                            <div class="col-md-5">
+                                <input [(ngModel)]="insight.dateMonth" name="dateMonth" type="number" min="1" max="12" step="1" placeholder="MONTH" class="form-control profile-form">
+                            </div>
+
+                            <div class="col-md-5">
+                                <input [(ngModel)]="insight.dateYear" name="dateYear" type="number" min="1900" max="2099" step="1" value="2016" placeholder="YEAR" class="form-control profile-form">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-4">
+                                <label class="radio-inline">
+                                    <input [(ngModel)]="insight.isHyperLink"  type="radio" name="optradio">HYPERLINK
+                                </label>
+                            </div>
+
+                            <div class="col-md-8">
+                                <i class="fa fa-link"> </i>
+                                <label class="radio-inline">
+
+                                    <input [(ngModel)]="insight.isDocument" type="radio" name="optradio">UPLOAD DOCUMENT
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input [(ngModel)]="insight.publicationHyperlink" name="documentLink" type="text" class="form-control profile-form">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 text-panel">
+                        <label>DESCRIPTION*</label>
+                        <textarea [(ngModel)]="insight.description" name="description" rows="5" maxlength="3" class="form-control profile-form"></textarea>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="row form-group">
-            <div class="col-md-4">
-                <label class="radio-inline">
-                    <input [(ngModel)]="insight.isHyperLink" type="radio" name="optradio">HYPERLINK
-                </label>
-            </div>
-
-            <div class="col-md-8">
-                <i class="fa fa-link"> </i>
-                <label class="radio-inline">
-
-                    <input [(ngModel)]="insight.isDocument" type="radio" name="optradio">UPLOAD DOCUMENT
-                </label>
-            </div>
-        </div>
-        <div class="row form-group">
-            <div class="col-md-12">
-                <input [(ngModel)]="insight.documentLink" type="text" class="form-control profile-form">
-            </div>
+        <div class="submit-panel">
+            <button class="btn btn-default menu-button">Cancel</button>
+            <button class="btn btn-default menu-button" (click)="Submit()">Submit</button>
         </div>
     </div>
-    <div class="form-group col-md-6 text-panel">
-        <label>DESCRIPTION*</label>
-        <textarea [(ngModel)]="insight.description" rows="5" maxlength="3" class="form-control profile-form"></textarea>
-    </div>
-</div>
+</form>
