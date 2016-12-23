@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
 import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
+import { RelatedQuestionMenu } from '../question-left-menu/related-question-left-menu.component';
+
 @Component({
     selector: "question-details",
     templateUrl: 'js/app/questions/question-details/question-details.component.html',

@@ -1,0 +1,11 @@
+﻿<div class="menu-container">
+    <div class="row">
+        <div>
+            <div class="question-title"><h3>Related Questions</h3></div>
+            <img src="../../../../images/border-horizontal.png" />
+            <ul class="question-list">
+                <li *ngFor="let question of questions"><a [routerLink]="['/question/detail',question.id]"> {{question.title}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

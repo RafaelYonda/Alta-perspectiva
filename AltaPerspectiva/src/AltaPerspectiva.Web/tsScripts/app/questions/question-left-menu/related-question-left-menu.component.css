@@ -1,5 +1,6 @@
 ﻿
-.category-list {
+
+.question-list {
     color: #F6912B;
 }
 
@@ -11,7 +12,7 @@ a{
     float: right;
     text-align: left;
     padding: 10px;
-    margin-left: 10px;
+    margin-top: 0px;
     width: 95%;
     font-size: 12px;
 }
