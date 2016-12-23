@@ -1,6 +1,16 @@
 ﻿
+.img-category {
+    width :50px;
+    height :50px;
+    margin: 0px 10px 10px 0px;
+}
+
+
 h5 {
     display: inline;
+}
+h2{
+    margin-top:10px;
 }
 
 .question-contents {
@@ -19,9 +29,9 @@ h5 {
     color: #506db6;
 }
 
-.btn:hover {
-    border-color: #2865a1;
-}
+    .btn:hover {
+        border-color: #2865a1;
+    }
 
 .user-image {
     height: 40px;
@@ -47,12 +57,13 @@ h5 {
 hr {
     width: 98%;
 }
+
 .table-nonfluid {
-   width: 200px !important;
+    width: 200px !important;
 }
 
 .total {
-    font-size:20px;
+    font-size: 20px;
 }
 
 .loader {

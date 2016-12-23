@@ -89,11 +89,13 @@ namespace AltaPerspectiva
             services.AddTransient<ICategoryMatchKeywordQuery, CategoryMatchKeywordQuery>();
             services.AddTransient<IQuestionByIdQuery, QuestionByIdQuery>();
             services.AddTransient<IQuestionsByCategoryIdQuery, QuestionsByCategoryIdQuery>();
+            services.AddTransient<IRelatedQuestionsQuery, RelatedQuestionsQuery>();
             services.AddTransient<ICategoriesTotalQuestionsQuery, CategoriesTotalQuestionsQuery>();
             services.AddTransient<ICategoriesTotalUsersQuery, CategoriesTotalUsersQuery>();
             services.AddTransient<IQuestionsByUserFollowingQuery, QuestionsByUserFollowingQuery>(); 
             services.AddTransient<IQuestionsNotAnsweredQuery, QuestionsNotAnsweredQuery>();
             services.AddTransient<IQuestionsAnsweredQuery, QuestionsAnsweredQuery>();
+
 
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
