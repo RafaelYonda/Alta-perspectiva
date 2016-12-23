@@ -24,13 +24,12 @@
                 <div class="row  ">
                     <!--<div class="col-sm-1 left-gap">
                 </div>-->
-
                     <div class="col-sm-11 questions-container">
                         <div class="left-border">
                             <img class="image-border" src="../../../../images/border.png" />
                         </div>
                         <div class="details-container">
-                            <h3>{{question.title}}</h3>
+                            <h3><a>{{question.title}}</a></h3>
                             Categories: <h5 *ngFor="let c of question.categories" class="subtitle">{{c?.category.name}},&nbsp; </h5>
                             <p [innerHTML]="question.body"></p>
                             <div class="status-panel">

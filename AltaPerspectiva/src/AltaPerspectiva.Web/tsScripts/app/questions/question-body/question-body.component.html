@@ -21,41 +21,42 @@
             <tr>
                 <td class="total">{{totalCount?.totalQuestions}} Questions </td>
                 <td class="total">{{totalCount?.totalFollowers}} Followers</td>
-             </tr>
-       </table>
+            </tr>
+        </table>
     </div>
     <div class="row pull-left">
-        <a class="active" (click)="getQuestionNotAnswered(categorySelected.id)" > Questions </a>                 
-        <a (click)="getQuestionsAnswered(categorySelected.id)" >  Answers </a>      
+        <a class="active" (click)="getQuestionNotAnswered(categorySelected.id)"> Questions </a>
+        <a (click)="getQuestionsAnswered(categorySelected.id)">  Answers </a>
     </div>
 
-    
+
     <div class="clearfix"></div>
 </div>
-<div     infinite-scroll
-         [infiniteScrollDistance]="scrollDistance"
-         [infiniteScrollThrottle]="throttle"
-         (scrolled)="onScrollDown()">
-
-    <div *ngFor="let question of questions" class="questions-container">
-        <div class="left-border">
-            <img class="image-border" src="../../../../images/border.png" />
-        </div>
-        <div class="question-contents">
-            <h3><a [routerLink]="['/question/detail',question.id]">&iquest;{{question.title}}</a> </h3>
-            <div>
-                Categories: <h5 *ngFor="let c of question.categories; let i = index; let last = last" class="subtitle">{{c?.category.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
-            </div>            
-            <div class="row">
-                <div class="article-details">
-
-                    <img class="user-image" src="../../../../images/avatar.png" />
-                    <!--<div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>-->
-                    <p [innerHTML]="question.body" class="answer-text"></p>
-
+<div infinite-scroll
+     [infiniteScrollDistance]="scrollDistance"
+     [infiniteScrollThrottle]="throttle"
+     (scrolled)="onScrollDown()">
+</div>
+<div *ngFor="let question of questions">
+    <div class="panel-article">
+        <div class="row">
+            <div class="col-sm-11 questions-container">
+                <div class="left-border">
+                    <img class="image-border" src="../../../../images/border.png" />
+                </div>
+                <div class="question-contents">
+                    <h3><a [routerLink]="['/question/detail',question.id]">&iquest;{{question.title}}</a> </h3>
+                    <div>
+                        Categories: <h5 *ngFor="let c of question.categories; let i = index; let last = last" class="subtitle">{{c?.category.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
+                    </div>
+                    <div class="article-details">
+                        <img class="user-image" src="../../../../images/avatar.png" />
+                        <!--<div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>-->
+                        <p [innerHTML]="question.body" class="answer-text"></p>
+                    </div>
+                    <hr />
                 </div>
             </div>
-            <hr />
         </div>
     </div>
 </div>
