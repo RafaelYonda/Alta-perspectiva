@@ -1,43 +1,39 @@
 ﻿<div class="loader" *ngIf="loader.isLoading"></div>
-<div class="question-title">
-    <div class="row">
-        <img align="left" width="75" height="75" class="img-rounded" src="{{categorySelected?.image}}" />
-        <h2>
-            {{categorySelected?.name}}
-        </h2>
-        <br />
-    </div>
-    <div class="row">
-        <button type="button" (click)="addFollower(categorySelected.id)" class="btn btn-default">Follow</button>
-    </div>
-    <div class="row">
-        <p>
-            {{categorySelected?.description}}
-        </p>
-    </div>
-    <br />
-    <div class="row">
-        <table class="table table-bordered table-nonfluid" width="200">
-            <tr>
-                <td class="total">{{totalCount?.totalQuestions}} Questions </td>
-                <td class="total">{{totalCount?.totalFollowers}} Followers</td>
-            </tr>
-        </table>
-    </div>
-    <div class="row pull-left">
-        <a class="active" (click)="getQuestionNotAnswered(categorySelected.id)"> Questions </a>
-        <a (click)="getQuestionsAnswered(categorySelected.id)">  Answers </a>
-    </div>
-
-
-    <div class="clearfix"></div>
+<div class="row">
+    <img align="left" class="img-rounded img-category" src="{{categorySelected?.image}}" />
+    <h2 class="category-title">
+        {{categorySelected?.name}}
+    </h2>
 </div>
+<div class="row">
+    <button type="button" (click)="addFollower(categorySelected.id)" class="btn btn-lg">Follow</button>
+    <p>
+        {{categorySelected?.description}}
+    </p>
+</div>
+
+<div class="row">
+    <table class="table table-bordered table-nonfluid" width="200">
+        <tr>
+            <td class="total">{{totalCount?.totalQuestions}} Questions </td>
+            <td class="total">{{totalCount?.totalFollowers}} Followers</td>
+        </tr>
+    </table>
+</div>
+<div class="row pull-left">
+    <a class="active" (click)="getQuestionNotAnswered(categorySelected.id)"> Questions </a>
+    <a (click)="getQuestionsAnswered(categorySelected.id)">  Answers </a>
+</div>
+
+
+<div class="clearfix"></div>
 <div infinite-scroll
      [infiniteScrollDistance]="scrollDistance"
      [infiniteScrollThrottle]="throttle"
      (scrolled)="onScrollDown()">
 </div>
 <div *ngFor="let question of questions">
+
     <div class="panel-article">
         <div class="row">
             <div class="col-sm-11 questions-container">
@@ -50,15 +46,19 @@
                         Categories: <h5 *ngFor="let c of question.categories; let i = index; let last = last" class="subtitle">{{c?.category.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
                     </div>
                     <div class="article-details">
+
                         <img class="user-image" src="../../../../images/avatar.png" />
+
                         <!--<div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>-->
                         <p [innerHTML]="question.body" class="answer-text"></p>
+
                     </div>
                     <hr />
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <!-- ==========Modal======= -->
