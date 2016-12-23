@@ -4,7 +4,7 @@ using OpenIddict;
 
 namespace AltaPerspectiva.Identity
 {
-    public class ApplicationUserDbContext : OpenIddictDbContext<ApplicationUser>
+    public class ApplicationUserDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationUserDbContext(DbContextOptions options)
             : base(options) { }             

@@ -10,6 +10,7 @@ using Altaperspectiva.OpenId.Services;
 using NWebsec.AspNetCore.Middleware;
 using OpenIddict;
 using OpenIddict.Core;
+using OpenIddict.Models;
 
 namespace Altaperspectiva.OpenId {
     public class Startup {
@@ -21,16 +22,27 @@ namespace Altaperspectiva.OpenId {
 
             services.AddMvc();
 
-            services.AddDbContext<ApplicationUserDbContext>(options =>
-                options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"]));
+            services.AddDbContext<ApplicationUserDbContext>(options => {
+                // Configure the context to use Microsoft SQL Server.
+                options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"]);
+
+                // Register the entity sets needed by OpenIddict.
+                // Note: use the generic overload if you need
+                // to replace the default OpenIddict entities.
+                options.UseOpenIddict();
+            });
+
+            
 
             // Register the Identity services.
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationUserDbContext>()
                 .AddDefaultTokenProviders();
 
             // Register the OpenIddict services, including the default Entity Framework stores.
             services.AddOpenIddict()
+
+               .AddEntityFrameworkCoreStores<ApplicationUserDbContext>()
                 // Register the ASP.NET Core MVC binder used by OpenIddict.
                 // Note: if you don't call this method, you won't be able to
                 // bind OpenIdConnectRequest or OpenIdConnectResponse parameters.
@@ -141,14 +153,18 @@ namespace Altaperspectiva.OpenId {
             app.UseMvcWithDefaultRoute();
 
             using (var context = new ApplicationUserDbContext(
-                app.ApplicationServices.GetRequiredService<DbContextOptions<ApplicationUserDbContext>>())) {
+               app.ApplicationServices.GetRequiredService<DbContextOptions<ApplicationUserDbContext>>()))
+            {
                 context.Database.EnsureCreated();
 
+                var applications = context.Set<OpenIddictApplication>();
+
                 // Add Mvc.Client to the known applications.
-                if (!context.Applications.Any()) {
+                if (!applications.Any())
+                {
                     // Note: when using the introspection middleware, your resource server
                     // MUST be registered as an OAuth2 client and have valid credentials.
-                    // 
+                    //
                     // context.Applications.Add(new OpenIddictApplication {
                     //     Id = "resource_server",
                     //     DisplayName = "Main resource server",
@@ -156,7 +172,7 @@ namespace Altaperspectiva.OpenId {
                     //     Type = OpenIddictConstants.ClientTypes.Confidential
                     // });
 
-                    context.Applications.Add(new OpenIddictApplication {
+                    applications.Add(new OpenIddictApplication {
                         ClientId = "myClient",
                         ClientSecret = Crypto.HashPassword("secret_secret_secret"),
                         DisplayName = "My client application",
@@ -165,7 +181,7 @@ namespace Altaperspectiva.OpenId {
                         Type = OpenIddictConstants.ClientTypes.Confidential
                     });
 
-                    context.Applications.Add(new OpenIddictApplication
+                    applications.Add(new OpenIddictApplication
                     {
                         ClientId = "localhost",
                         ClientSecret = Crypto.HashPassword("aLtaseCreT!@#"),
@@ -175,7 +191,7 @@ namespace Altaperspectiva.OpenId {
                         Type = OpenIddictConstants.ClientTypes.Confidential
                     });
 
-                    context.Applications.Add(new OpenIddictApplication
+                    applications.Add(new OpenIddictApplication
                     {
                         ClientId = "azure",
                         ClientSecret = Crypto.HashPassword("aLtaseCreT!@#"),

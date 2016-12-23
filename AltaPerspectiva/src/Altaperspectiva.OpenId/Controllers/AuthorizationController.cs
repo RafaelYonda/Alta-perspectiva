@@ -20,6 +20,7 @@ using Altaperspectiva.OpenId.ViewModels.Shared;
 using OpenIddict;
 using AspNet.Security.OpenIdConnect.Primitives;
 using OpenIddict.Core;
+using OpenIddict.Models;
 
 namespace Altaperspectiva.OpenId {
     public class AuthorizationController : Controller {
