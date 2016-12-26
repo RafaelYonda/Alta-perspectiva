@@ -17,15 +17,16 @@ namespace Questions.Query
 
         public async Task<IEnumerable<Question>> Execute()
         {
-            return await DbContext.Questions
+              return await DbContext.Questions
                                     .Include(a => a.Answers)
                                         .ThenInclude(a => a.Likes)
                                     .Include(q=>q.Categories)
                                         .ThenInclude(c=>c.Category)
-                                            .OrderByDescending(c => c.CreatedOn.Value.Date)
-                                                .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
-                                                    .Take(20)
-                                                        .ToListAsync();
+                                    .Include(q=>q.Comments)
+                                        .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                            .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                                .Take(20)
+                                                    .ToListAsync();
         }
     }
 }

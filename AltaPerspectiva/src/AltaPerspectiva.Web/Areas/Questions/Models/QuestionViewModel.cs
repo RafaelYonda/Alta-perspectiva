@@ -15,6 +15,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
 
         public Guid UserId { get; set; }
 
+        public UserViewModel UserViewModel { get; set; }
+
         public virtual ICollection<QuestionCategory> Categories { get; set; }
 
         public virtual ICollection<Answer> Answers { get; set; }
@@ -29,16 +31,12 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
 
         public QuestionWithUserViewModel()
         {
-
             Categories = new List<QuestionCategory>();
-
             Answers = new List<Answer>();
-
             Comments = new List<Comment>();
-
             Likes = new List<Like>();
-            userViewModel = new UserViewModel();
+            UserViewModel = new UserViewModel();
         }
-        public UserViewModel userViewModel { get; set; }
+        
     }
 }

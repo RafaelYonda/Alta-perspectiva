@@ -101,7 +101,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         // POST /questions/api/questions       
         [HttpPost("/questions/api/questions")]
-        public IActionResult Post([FromBody]QuestionViewModel question)
+        public IActionResult Post([FromBody]AddQuestionViewModel question)
         {
 
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
@@ -121,7 +121,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         // POST /questions/api/question/{id}/answer
         [HttpPost("/questions/api/question/{id}/answer")]
-        public IActionResult PostAnswer([FromBody]AnswerViewModel answer)
+        public IActionResult PostAnswer([FromBody]AddAnswerViewModel answer)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -139,7 +139,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpPost("/questions/api/question/{id}/comment")]
-        public IActionResult PostQuestionComment([FromBody]CommentViewModel comment)
+        public IActionResult PostQuestionComment([FromBody]AddCommentViewModel comment)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -158,7 +158,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpPost("/questions/api/question/{id}/answer/{answerId}/comment")]
-        public IActionResult PostAnswerComment([FromBody]CommentViewModel comment)
+        public IActionResult PostAnswerComment([FromBody]AddCommentViewModel comment)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -176,7 +176,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpPost("/questions/api/question/{id}/like")]
-        public IActionResult PostQuestionLike([FromBody]LikeViewModel like)
+        public IActionResult PostQuestionLike([FromBody]AddLikeViewModel like)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -195,7 +195,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpPost("/questions/api/question/{id}/answer/{answerId}/like")]
-        public IActionResult PostAnswerLike([FromBody]LikeViewModel like)
+        public IActionResult PostAnswerLike([FromBody]AddLikeViewModel like)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Models
 {
-    public class QuestionViewModel
+    public class AddQuestionViewModel
     {      
         public string Title { get; set; }
         public string Body { get;  set; }      

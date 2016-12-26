@@ -25,6 +25,7 @@ namespace Questions.Query
                         .ThenInclude(a=>a.Likes)
                     .Include(q => q.Categories)
                         .ThenInclude(c => c.Category)
+                    .Include(q => q.Comments)
                     .Where(q => q.Categories.Any(x => x.CategoryId == id && x.QuestionId == q.Id))
                     .OrderByDescending(c => c.CreatedOn.Value.Date)
                          .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)

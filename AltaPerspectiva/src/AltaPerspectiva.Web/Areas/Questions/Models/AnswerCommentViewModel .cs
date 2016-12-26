@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Models
 {
-    public class AddCommentViewModel
+    public class AnswerCommentViewModel
     {      
         public Guid Id { get; set; }
         public Guid? UserId { get; set; }

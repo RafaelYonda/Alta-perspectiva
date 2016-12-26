@@ -101,8 +101,8 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("questions/api/categories/keywords")]
         public IActionResult GetAllkeywords()
         {
-
-            var keywords = JsonConvert.DeserializeObject<Keyword[]>(cache.GetString("Keywords"));
+            var categories = JsonConvert.DeserializeObject<Category[]>(cache.GetString("Keywords"));
+            var keywords = categories.SelectMany(c => c.Keywords).ToList();
             return Ok(keywords);
         }
         
