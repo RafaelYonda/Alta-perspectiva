@@ -8,6 +8,10 @@ using Questions.Command;
 using Questions.Query;
 using AltaPerspectiva.Web.Areas.Questions.Models;
 using Microsoft.Extensions.Configuration;
+using Questions.Domain;
+using UserProfile.Query;
+
+
 //using Questions.Domain;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -42,22 +46,42 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions")]
         public async Task<IActionResult> Get()
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            IEnumerable<Question> questionList = null;
 
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+                        
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-                var questionsList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().Execute(loggedinUser);
-                return Ok(questionsList);
-
+                
+                /// if user is logged in, then fetch questions by user following a category
+                questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().Execute(loggedinUser);
             }
             else
             {
-                var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-                return Ok(questionsList);
+                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();               
             }
+
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+            foreach(var q in questionList)
+            {
+
+                var contact = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(q.UserId);
+                var occupation = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(q.UserId);
+                var userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(q.UserId);
+
+                var qv = new QuestionViewModel();
+                qv.Title = q.Title;
+                qv.Body = q.Body;
+                qv.UserViewModel = new Areas.UserProfile.Models.UserViewModel { Name = contact.FirstName + " " + contact.LastName,
+                                                                                Occupation = String.Join(",", occupation),
+                                                                                ImageUrl = userImage.Image
+                                                                              };
+                questions.Add(qv);
+            }
+
+            return Ok(questionList);
         }
 
         [HttpGet("/questions/api/questions/notanswered/{id}")]

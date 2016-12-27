@@ -6,6 +6,7 @@ using AltaPerspectiva.Core.Infrastructure;
 using Questions.Query.DbContext;
 using System.Threading.Tasks;
 using System;
+using System.Linq.Expressions;
 
 namespace Questions.Query
 {
@@ -17,8 +18,8 @@ namespace Questions.Query
 		}
 
         public async Task<IEnumerable<Question>> Execute(Guid UserId)
-        {
-            var categories = DbContext.CategoryFollowers.Where(c => c.UserId == UserId).Select(x=>x.CategoryId).ToList();
+        {            
+            var categories = DbContext.CategoryFollowers.Where(c => c.UserId == UserId).Select(x=>x.CategoryId).ToList();   
 
             return await DbContext.
                                 Questions

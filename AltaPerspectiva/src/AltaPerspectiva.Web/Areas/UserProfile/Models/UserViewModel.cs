@@ -9,10 +9,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
     {
         public Guid UserId { get; set; }
         //First Name+" "+lastName
-        public String Name { get; set; }
-        public String Occupassion { get; set; }
+        public string Name { get; set; }
+        public string Occupation { get; set; }
 
-        public String ImageUrl { get; set;
+        public string ImageUrl { get; set;
         }
+        public string Occupassion { get; internal set; }
     }
 }

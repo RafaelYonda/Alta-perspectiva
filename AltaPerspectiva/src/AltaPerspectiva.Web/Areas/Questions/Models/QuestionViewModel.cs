@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Models
 {
-    public class QuestionWithUserViewModel
+    public class QuestionViewModel
     {
         public string Title { get; set; }
 
@@ -17,24 +17,24 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
 
         public UserViewModel UserViewModel { get; set; }
 
-        public virtual ICollection<QuestionCategory> Categories { get; set; }
+        public virtual ICollection<CategoryViewModel> Categories { get; set; }
 
-        public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<AnswerViewModel> Answers { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<QuestionCommentViewModel> Comments { get; set; }
 
-        public virtual ICollection<Like> Likes { get; set; }
+        public virtual ICollection<QuestionLikeViewModel> Likes { get; set; }
 
         public int? ViewCount { get; set; }
 
         //User View Model Added
 
-        public QuestionWithUserViewModel()
+        public QuestionViewModel()
         {
-            Categories = new List<QuestionCategory>();
-            Answers = new List<Answer>();
-            Comments = new List<Comment>();
-            Likes = new List<Like>();
+            Categories = new List<CategoryViewModel>();
+            Answers = new List<AnswerViewModel>();
+            Comments = new List<QuestionCommentViewModel>();
+            Likes = new List<QuestionLikeViewModel>();
             UserViewModel = new UserViewModel();
         }
         
