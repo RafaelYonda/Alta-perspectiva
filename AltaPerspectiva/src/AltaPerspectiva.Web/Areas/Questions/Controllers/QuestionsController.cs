@@ -10,7 +10,7 @@ using AltaPerspectiva.Web.Areas.Questions.Models;
 using Microsoft.Extensions.Configuration;
 using Questions.Domain;
 using UserProfile.Query;
-using AltaPerspectiva.Web.Areas.Common.Repositories;
+using AltaPerspectiva.Web.Areas.UserProfile.Services.Repositories;
 
 
 //using Questions.Domain;
