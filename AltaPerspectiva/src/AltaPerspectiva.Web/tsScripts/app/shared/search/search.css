@@ -67,7 +67,7 @@ a {
 }
 
 .dropdown-menu-right {
-    right: 68px;
+    right: 0;
 }
 
 .lef-column {
@@ -195,6 +195,6 @@ label {
 }
 
 .search-menu {
-    min-width: 768px;
+    min-width: 840px;
     margin-top: 6px;
 }

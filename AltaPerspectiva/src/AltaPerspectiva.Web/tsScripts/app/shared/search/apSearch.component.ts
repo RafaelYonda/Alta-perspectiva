@@ -15,7 +15,6 @@ import { Category, Question, Keyword, AskQuestionViewModel } from '../../service
 
 
 export class ApSearchComponent {
-   
     //@Input() placeBottom: string;
     ckeditorContent: string;
     public filteredQuestionList: any = [];
