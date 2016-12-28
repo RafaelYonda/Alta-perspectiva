@@ -92,7 +92,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 questions.Add(qv);
             }            
 
-            return Ok(questions.Take(1));            
+            return Ok(questions);            
         }
 
         [HttpGet("/questions/api/questions/notanswered/{id}")]
