@@ -104,6 +104,12 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
 
+    increaseQuestionViewCount(questionId: string): Observable<any> {
+        return this._http.post('/questions/api/question/addcount' + questionId, null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     addAnswerComment(comment: Comment): Observable<Comment> {
         return this._http.post('/questions/api/question/' + comment.questionId + '/answer/' + comment.answerId + '/like', comment)
             .map(this.extractData)

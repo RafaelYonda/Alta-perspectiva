@@ -34,11 +34,14 @@ export class QuestionDetailComponent {
         //this.question = questionService.getFakeQuestion();
         this.date = new DateName();
     }
-    ngOnInit() {
+    ngOnInit() {       
+
         this.route.data
             .subscribe(res => {
                 this.question = res.question;
-                console.log(this.question.comments);
+                this.dataService.increaseQuestionViewCount(this.question.id).subscribe(res => {
+                    this.question.viewCount += 1;
+                });
             });
     }
 

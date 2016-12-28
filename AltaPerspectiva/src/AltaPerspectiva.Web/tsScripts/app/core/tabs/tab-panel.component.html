@@ -37,10 +37,10 @@
                             <div class="status-panel">
                                 <hr />
                                 <img class="like-logo" src="../images/fade-logo.png" />
-                                <!--<div class="status-line">{{answer.likes?.length}}</div>-->
+                                <!--<div class="status-line">{{question?.likes?.length}}</div>-->
                                 <div class="status-line">Like</div>
                                 <div class="status-line like-border"></div>
-                                <!--<div class="status-line">{{answer.comments?.length}}</div>-->
+                                <!--<div class="status-line">{{question?.viewCount}}</div>-->
                                 <div class="status-line">Leidos</div>
                                 <a data-toggle="collapse" attr.data-target="#questionComment{{question.id}}" aria-expanded="false">
                                     {{question.comments?.length}} comments
@@ -49,7 +49,7 @@
                                 <div class="social-icon">
                                     <img class="social-image" src="../images/facebooklogo.jpg" />
                                     <img class="social-image" src="../images/twitter.png" />                                    
-                                    <h5>Respuestas</h5><span class="counter-box">{{question.viewCount}}+</span>
+                                    <h5>Respuestas</h5><span class="counter-box">{{question?.answers?.length}}+</span>
                                 </div>
                             </div>
                         </div>
