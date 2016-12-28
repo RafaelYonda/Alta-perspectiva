@@ -51,23 +51,14 @@ export class ApSearchComponent {
     }
 
     ngOnInit() {
-        this.questionList = ["Where is nascenia",
-            "Where is nascenia",
-            "Where is nascenia",
-            "Where is nascenia",
-            "Where is nascenia",
-            "Where is nascenia",
-            "Where is nascenia",
-            "Where is nascenia",
-            "Where is nascenia",
-            "Where is nascenia"];
+     
         this.questionsService.getQuestions().subscribe(res => {
             console.log(res);
             var resList = [];
             res.forEach(function (el) {
                 resList.push(el);
             });
-            //this.questionList = resList;
+            this.questionList = resList;
            
         }); 
         this.categoryService.getAllCategories().subscribe(res => {
@@ -135,16 +126,14 @@ export class ApSearchComponent {
         
     }
     filterQuestions() {
-        //console.log(this.questionList);
-        
+              
         //search after 3rd letter
-        //this.showMatchedCatogries(this.title);        
+        this.showMatchedCatogries(this.title);
+        var tempTitle = this.title;    
         if (this.title !== "" && this.title.length > 2) {
             console.log(this.title);
-            this.filteredQuestionList = this.questionList.filter(function (el) {
-                console.log(el);
-                var indx = el.title.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
-                console.log();
+            this.filteredQuestionList = this.questionList.filter(function (el) {               
+                var indx = el.title.toLowerCase().indexOf(tempTitle.toLowerCase()) > -1;               
                 return indx;
             });
                 //.bind(this));
