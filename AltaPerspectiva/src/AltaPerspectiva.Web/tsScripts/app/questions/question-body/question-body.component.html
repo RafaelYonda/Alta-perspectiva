@@ -19,7 +19,7 @@
     }
 </style>
 <div class="row">
-    <div class="col-md-3 ">
+    <div class="col-md-3 left-gap">
         <question-left-menu></question-left-menu>
     </div>
     <div class="col-md-8">
@@ -102,18 +102,18 @@
                                 <input class="form-control" />
                                 <button class="btn btn-info">comment</button>
                             </div>
-                            <!--<div class="card card-block">
+                            <div class="card card-block">
                                     <div *ngFor="let comment of question.comments">
                                         <div class="row">
                                             <div class="article-details" *ngIf="comment">
                                                 <img class="user-image comment-img" src="../../../../images/avatar.png" />
-                                                <div class="header-info">{{comment.user.name}},{{date.getMonthName(comment.time.getMonth())}} {{comment.time.getDate()}} {{comment.time.getFullYear()}}</div>
-                                                <p class="answer-text">{{comment.commentText}}</p>
+                                                <div class="header-info">{{comment?.userViewModel?.name}},{{date.getMonthName(comment?.time.getMonth())}} {{comment?.time.getDate()}} {{comment?.time.getFullYear()}}</div>
+                                                <p class="answer-text">{{comment?.commentText}}</p>
                                             </div>
                                         </div>
                                         <hr />
                                     </div>
-                                </div>-->
+                                </div>
                         </div>
                     </div>
                 </div>
