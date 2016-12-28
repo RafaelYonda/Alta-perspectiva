@@ -236,7 +236,12 @@ namespace AltaPerspectiva
             {
                 context.Database.EnsureCreated();
 
-                var keywords = context.Categories.Include(x=>x.Keywords).ToList();
+                var keywords = context.Categories.Include(x=>x.Keywords).Select(x=> new { Name = x.Name,Id = x.Id,Sequence = x.Sequence,
+
+                                                                                              keywords = x.Keywords.Select(y=>new
+                                                                                              {
+                                                                                                Id = y.Id,Text = y.Text})
+                                                                                              }).ToList();
 
                 cache.SetString("Keywords", JsonConvert.SerializeObject(keywords),
                                                new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
