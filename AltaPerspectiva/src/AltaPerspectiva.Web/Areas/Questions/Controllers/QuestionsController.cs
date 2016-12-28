@@ -7,10 +7,10 @@ using AltaPerspectiva.Core;
 using Questions.Command;
 using Questions.Query;
 using AltaPerspectiva.Web.Areas.Questions.Models;
+using AltaPerspectiva.Web.Areas.UserProfile.Services;
 using Microsoft.Extensions.Configuration;
 using Questions.Domain;
 using UserProfile.Query;
-using AltaPerspectiva.Web.Areas.UserProfile.Services.Repositories;
 
 
 //using Questions.Domain;
@@ -64,7 +64,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();               
             }
 
-            List<QuestionViewModel> questionViewModels = UserRepository.GetQuestionWithUserViewModel(questionList, queryFactory, loggedinUser);
+            List<QuestionViewModel> questionViewModels = UserService.GetQuestionWithUserViewModel(questionList, queryFactory, loggedinUser);
             return Ok(questionViewModels);
             //foreach(var q in questionList)
             //{
@@ -135,7 +135,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
             }
 
-            List<QuestionViewModel> questionViewModels = UserRepository.GetQuestionWithUserViewModel(questionList, queryFactory, loggedinUser);
+            List<QuestionViewModel> questionViewModels = UserService.GetQuestionWithUserViewModel(questionList, queryFactory, loggedinUser);
             return Ok(questionViewModels);
 
             /*Previos add*/

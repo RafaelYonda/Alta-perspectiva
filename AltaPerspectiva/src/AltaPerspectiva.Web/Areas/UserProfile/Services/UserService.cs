@@ -8,9 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using UserProfile.Query;
 
-namespace AltaPerspectiva.Web.Areas.UserProfile.Services.Repositories
+namespace AltaPerspectiva.Web.Areas.UserProfile.Services
 {
-    public class UserRepository
+    public class UserService
     {
         public static UserViewModel GetUserViewModel(IQueryFactory queryFactory, Guid loggedinUser)
         {
@@ -77,7 +77,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services.Repositories
                 var qv = new QuestionViewModel();
                 qv.Title = q.Title;
                 qv.Body = q.Body;
-                qv.UserViewModel = UserRepository.GetUserViewModel(queryFactory, loggedinUser);
+                qv.UserViewModel = UserService.GetUserViewModel(queryFactory, loggedinUser);
 
                 questions.Add(qv);
             }
