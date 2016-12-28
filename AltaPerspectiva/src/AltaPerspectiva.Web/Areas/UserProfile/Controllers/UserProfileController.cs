@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using UserProfile.Domain;
 using UserProfile.Query;
+using AltaPerspectiva.Web.Areas.Common.Repositories;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -46,33 +47,35 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            String fullName = String.Empty;
-            String image = String.Empty;
-            String occupassion = String.Empty;
-            ContractInformation information = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
-            if (information != null)
-            {
-                fullName = information.FirstName + " " + information.LastName;
-            }
+            //String fullName = String.Empty;
+            //String image = String.Empty;
+            //String occupassion = String.Empty;
+            //ContractInformation information = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
+            //if (information != null)
+            //{
+            //    fullName = information.FirstName + " " + information.LastName;
+            //}
 
-            UserImage userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
-            if (userImage != null)
-            {
-                image =  userImage.Image;
-            }
+            //UserImage userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
+            //if (userImage != null)
+            //{
+            //    image =  userImage.Image;
+            //}
 
-            Experience exp = queryFactory.ResolveQuery<IExperienceQuery>().Execute(loggedinUser);
-            if (exp != null)
-            {
-                occupassion = exp.PositionHeld;
-            }
-            UserViewModel model = new UserViewModel
-            {
-                ImageUrl = image,
-                Name = fullName,
-                Occupassion = occupassion,
-                UserId = loggedinUser
-            };
+            //Experience exp = queryFactory.ResolveQuery<IExperienceQuery>().Execute(loggedinUser);
+            //if (exp != null)
+            //{
+            //    occupassion = exp.PositionHeld;
+            //}
+            //UserViewModel model = new UserViewModel
+            //{
+            //    ImageUrl = image,
+            //    Name = fullName,
+            //    Occupassion = occupassion,
+            //    UserId = loggedinUser
+            //};
+            //refractoring:My add from User Repository 
+            var model = UserRepository.GetUserViewModel(queryFactory, loggedinUser);
             return Ok(model);
         }
         //http://localhost:5273/userprofile/api    
