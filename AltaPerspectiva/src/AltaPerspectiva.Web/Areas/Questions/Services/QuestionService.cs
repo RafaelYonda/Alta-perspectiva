@@ -41,7 +41,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 questions.Add(qv);
             }
 
-            return questions;
+            return questions.Take(1).ToList();
         }
     }
 }

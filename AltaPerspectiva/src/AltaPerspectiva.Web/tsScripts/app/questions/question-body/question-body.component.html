@@ -52,7 +52,7 @@
                     <div class="details-container">
                         <h3><a [routerLink]="['/question/detail',question.id]">{{question.title}}</a> </h3>
                         <div>
-                            Categories: <h5 *ngFor="let c of question.categories; let i = index; let last = last" class="subtitle">{{c?.category.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
+                            Categories: <h5 *ngFor="let c of question.categories; let i = index; let last = last" class="subtitle">{{c?.category?.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
                         </div>
                         <div class="article-details">
                             <img class="user-image" src="../../../../images/{{question.userViewModel?.imageUrl}}" />
