@@ -12,9 +12,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using AltaPerspectiva.Web.Areas.UserProfile.Services;
 using UserProfile.Domain;
 using UserProfile.Query;
-using AltaPerspectiva.Web.Areas.UserProfile.Services.Repositories;
+using AltaPerspectiva.Web.Areas.UserProfile.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -49,7 +50,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
             
             //refractoring:My add from User Repository 
-            var model = UserRepository.GetUserViewModel(queryFactory, loggedinUser);
+            var model = UserService.GetUserViewModel(queryFactory, loggedinUser);
             return Ok(model);
         }
         //http://localhost:5273/userprofile/api    
