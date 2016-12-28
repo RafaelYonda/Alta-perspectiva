@@ -55,8 +55,8 @@
                             Categories: <h5 *ngFor="let c of question.categories; let i = index; let last = last" class="subtitle">{{c?.category.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
                         </div>
                         <div class="article-details">
-                            <img class="user-image" src="../../../../images/avatar.png" />
-                            <!--<div class="header-info">{{question.user.name}},{{question.user.occupassion}}</div>-->
+                            <img class="user-image" src="../../../../images/{{question.userViewModel?.imageUrl}}" />
+                            <!--<div class="header-info">{{question.userViewModel?.name}},{{{{question.userViewModel?.occupation}}}}</div>-->
                             <div class="answer-text" [innerHTML]="question.lastAnswer?.text.substring(0,200)"></div>
                             <div class="status-panel">
                                 <hr />

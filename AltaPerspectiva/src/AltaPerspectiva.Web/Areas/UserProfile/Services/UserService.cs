@@ -23,6 +23,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             {
                 fullName = contact.FirstName + " " + contact.LastName;
             }
+            else
+            {
+                fullName = "Guest";
+            }
 
             var userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
             if (userImage != null)
@@ -30,13 +34,18 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
                 image = userImage.Image;
             }
             else
+            {
                 image = "avatar.png";
+            }
             
            
-            var occupationModel = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser);
-            if (occupationModel != null)
+            var occupationModel = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser);//Return IEnumrable
+            if (occupationModel.Any())
             {
                 occupassion = String.Join(",", occupationModel);
+            }else
+            {
+                occupassion = "nill";
             }
 
             UserViewModel userViewModel = new UserViewModel
