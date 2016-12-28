@@ -6,7 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashBoardComponent } from './dashboard.component';
 import { EditProfileComponent } from './eidtprofile/editprofile.component';
-import { ViewProfileComponent } from './viewprofile/viewprofile.component';
 import { NavDashboard } from './navdashboard/navdashboard.component';
 import { DashTab } from './dashtab/dashtab.component';
 
@@ -17,6 +16,12 @@ import { InsightFormComponent } from './eidtprofile/profilesforms/insight.compon
 import { ExperienceFormComponent } from './eidtprofile/profilesforms/experience.component';
 import { PracticeFormComponent } from './eidtprofile/profilesforms/practice.component';
 import { SkillFormComponent } from './eidtprofile/profilesforms/skills.component';
+
+import { ViewProfileComponent } from './viewprofile/viewprofile.component';
+import { GeneralProfileComponent } from './viewprofile/profiletabs/general-profile.component';
+import { ProjectlProfileComponent } from './viewprofile/profiletabs/project-profile.component';
+import { QuestionProfileComponent } from './viewprofile/profiletabs/question-profile.component';
+import { ServiceProfileComponent } from './viewprofile/profiletabs/service-profile.component';
 
 import { ProfileService } from '../services/profile.service';
 import { ProfileResolver } from '../services/resolve.services/profile.resolver';
@@ -40,7 +45,16 @@ const DashBoardroutes: Routes = [
 
                 ]
             },
-            { path: 'viewprofile', component: ViewProfileComponent, resolve: { question: ProfileResolver } }
+            {
+                path: 'viewprofile', component: ViewProfileComponent, resolve: { question: ProfileResolver },
+                children: [
+                    { path: '', redirectTo: 'general' },
+                    { path: 'general', component: GeneralProfileComponent },
+                    { path: 'projects', component: ProjectlProfileComponent },
+                    { path: 'questions', component: QuestionProfileComponent },
+                    { path: 'services', component: ServiceProfileComponent },
+
+                ]}
         ]
     }
 ];
@@ -58,7 +72,8 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
         DashTab, 
         EditProfileComponent,
                 ContactFormComponent, BiographyFormComponent, EducationFormComponent, ExperienceFormComponent, InsightFormComponent,  NavDashboard, PracticeFormComponent, SkillFormComponent,
-        ViewProfileComponent         
+        ViewProfileComponent,
+                GeneralProfileComponent, ProjectlProfileComponent, QuestionProfileComponent, ServiceProfileComponent
     ],
     exports: [DashBoardComponent],
 })

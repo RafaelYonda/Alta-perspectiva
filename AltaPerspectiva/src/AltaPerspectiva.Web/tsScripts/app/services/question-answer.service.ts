@@ -33,14 +33,16 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
 
-   
-
     getQuestions(): Observable<Question[]> {
         return this._http.get('/questions/api/questions')
             .map(this.extractData)
             .catch(this.handleError);
     }
-
+    getQuestionsForUser(): Observable<Question[]> {
+        return this._http.get('/questions/api/questions')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     getQuestionsByCategory(categoryId: string): Observable<Question[]> {
         if (categoryId === "1")
             return this._http.get('/questions/api/questions')

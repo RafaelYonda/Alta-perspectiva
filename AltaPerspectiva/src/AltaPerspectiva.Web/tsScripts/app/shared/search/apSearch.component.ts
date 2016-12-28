@@ -51,12 +51,24 @@ export class ApSearchComponent {
     }
 
     ngOnInit() {
+        this.questionList = ["Where is nascenia",
+            "Where is nascenia",
+            "Where is nascenia",
+            "Where is nascenia",
+            "Where is nascenia",
+            "Where is nascenia",
+            "Where is nascenia",
+            "Where is nascenia",
+            "Where is nascenia",
+            "Where is nascenia"];
         this.questionsService.getQuestions().subscribe(res => {
+            console.log(res);
             var resList = [];
             res.forEach(function (el) {
                 resList.push(el);
             });
-            this.questionList = resList;
+            //this.questionList = resList;
+           
         }); 
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
@@ -74,7 +86,7 @@ export class ApSearchComponent {
 
 
     showDetailsQuestionsPanel(input: HTMLInputElement) {                
-        this.filteredQuestionList = [];
+        //this.filteredQuestionList = [];
     }
    
 
@@ -98,14 +110,12 @@ export class ApSearchComponent {
                     var cat = this.categories.find(c => c.id == matched.categoryId);
                     this.categoryMatched += (cat == null ? "" : cat.name + " ");
                 }
-                
             })
-           
         }
     }
     searchClass: string;
+    //Search text change functionality
     showModal() {
-
         var form = document.getElementById("search-panel");
         var viewportOffset = form.getBoundingClientRect();
         // these are relative to the viewport, i.e. the window
@@ -115,31 +125,36 @@ export class ApSearchComponent {
             document.getElementById("search-box").className = "modal-container z-modal";
             form.style.marginTop = String(top) + "px";
         }
-        console.log(top);
     }
     removeModal() {
         this.filteredQuestionList = [];
         document.getElementById("search-box").className = this.placeBottom;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
-        console.log("Remove " + this.searchClass);
+        //console.log("Remove " + this.searchClass);
+        
     }
     filterQuestions() {
+        //console.log(this.questionList);
         
         //search after 3rd letter
-        this.showMatchedCatogries(this.title);        
-
-        if (this.title !== "" && this.title.length>2) {
+        //this.showMatchedCatogries(this.title);        
+        if (this.title !== "" && this.title.length > 2) {
+            console.log(this.title);
             this.filteredQuestionList = this.questionList.filter(function (el) {
-               return el.title.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
-            }.bind(this));
+                console.log(el);
+                var indx = el.title.toLowerCase().indexOf(this.title.toLowerCase()) > -1;
+                console.log();
+                return indx;
+            });
+                //.bind(this));
+            console.log(this.filteredQuestionList);
             this.showModal();           
         }
         else
         {
             this.filteredQuestionList = [];
             this.categoryMatched = "";
-            console.log("Remove " + this.searchClass);
             this.removeModal();
         }
     }
@@ -151,7 +166,6 @@ export class ApSearchComponent {
     }
 
     handleClick(event) {
-        console.log(event);
         //console.log(event.srcElement.attributes.id);
         var idAttr = event.srcElement.attributes.id;
         var value = idAttr.nodeValue;
