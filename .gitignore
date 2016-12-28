@@ -68,4 +68,10 @@ AltaPerspectiva/src/UserProfile.Query/bin/
 AltaPerspectiva/src/UserProfile.Domain/obj/
 AltaPerspectiva/src/UserProfile.Command/bin/
 AltaPerspectiva/src/UserProfile.Command/obj/
+/AltaPerspectiva/src/AltaPerspectiva.Api/bin/Debug/netstandard1.6/AltaPerspectiva.Api.deps.json
+/AltaPerspectiva/src/AltaPerspectiva.Api/obj/Debug/netstandard1.6/.IncrementalCache
+/AltaPerspectiva/src/AltaPerspectiva.Api/obj/Debug/netstandard1.6/.SDKVersion
+/AltaPerspectiva/src/AltaPerspectiva.Api/obj/Debug/netstandard1.6/dotnet-compile-csc.rsp
+/AltaPerspectiva/src/AltaPerspectiva.Api/obj/Debug/netstandard1.6/dotnet-compile.assemblyinfo.cs
+/AltaPerspectiva/src/AltaPerspectiva.Api/obj/Debug/netstandard1.6/dotnet-compile.rsp
 AltaPerspectiva/src/AltaPerspectiva.Api/AltaPerspectiva.Api.xproj.user
