@@ -21,7 +21,6 @@
 
 .search-footer {
     color: #235da7;
-    ;
 }
 
 hr, ul {
@@ -67,7 +66,7 @@ a {
 }
 
 .dropdown-menu-right {
-    right: 68px;
+    right: 0;
 }
 
 .lef-column {
@@ -97,7 +96,7 @@ a {
 
 .search-input {
     background-color: #f5f5f5;
-    width: 88%;
+    width: 86%;
 }
 
 .form-control {
@@ -178,11 +177,16 @@ a {
 }
 
 .question-components {
-    margin: 20px;
+    width:100%;
 }
-
-.catagory-dropdown {
-    width: 80%;
+.question-components>textarea{
+    display:block;
+    width:100%;
+    border-radius:2px;
+}
+.question-components>select{
+    margin-bottom: 10px;
+    border-radius: 2px;
 }
 
 .question-text {
@@ -195,6 +199,7 @@ label {
 }
 
 .search-menu {
-    min-width: 768px;
+    min-width: 840px;
     margin-top: 6px;
+    padding: 10px;
 }
