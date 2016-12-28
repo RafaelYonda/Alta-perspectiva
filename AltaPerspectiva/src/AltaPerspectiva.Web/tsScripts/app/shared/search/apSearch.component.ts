@@ -25,7 +25,7 @@ export class ApSearchComponent {
     question: Question; 
 
     title: string;
-    categoryID: string;
+    categoryID: string='-1';
     body: string;                 
     result: string;
 
