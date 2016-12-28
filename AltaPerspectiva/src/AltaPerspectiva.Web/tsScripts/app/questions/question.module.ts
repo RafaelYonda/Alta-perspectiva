@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {HttpModule  } from '@angular/http';
 
+
 import { CKEditorModule } from 'ng2-ckeditor';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 //====question components============
@@ -21,7 +22,7 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
 
 @NgModule({
     providers: [QuestionAnswerService, QuestionResolver],
-    imports: [BrowserModule, HttpModule, CKEditorModule, InfiniteScrollModule, FormsModule, SharedModule, RouterModule.forRoot([
+    imports: [BrowserModule, HttpModule, CKEditorModule, InfiniteScrollModule, FormsModule, SharedModule,  RouterModule.forRoot([
         {
             path: 'question', component: QuestionHomeComponent,
             children: [               

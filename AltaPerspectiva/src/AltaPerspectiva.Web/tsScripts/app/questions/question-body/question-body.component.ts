@@ -5,6 +5,7 @@ import { ConfigService } from '../../services/config.service';
 import {QuestionMenu, Question, Answer, Category, DateName, TotalCount, Config} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
 
+
 export interface ILoader {
     isLoading: boolean;
 }
@@ -36,6 +37,10 @@ export class QuestionBodyComponent{
     config: Config;
     totalCount: TotalCount;
 
+    twitterButton;
+    tags = 'Hello, World';
+    description = "This is a test";
+
     constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute) {
         this._router = router;
         this.route = route;
@@ -48,8 +53,7 @@ export class QuestionBodyComponent{
         
     }
 
-    ngOnInit() {     
-
+    ngOnInit() {
         this.configService.getConfig().subscribe(r => {
             this.config = r;
         });
@@ -58,6 +62,9 @@ export class QuestionBodyComponent{
 
         //get questions by route param using category id.
         this.route.params.subscribe(params => {
+
+            this.description = this._router.url;
+
             this.showLoader();
             this.id = params['id'];
             var subs: any;

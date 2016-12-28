@@ -56,7 +56,7 @@
                         </div>
                         <div class="article-details">
                             <img class="user-image" src="../../../../images/{{question.userViewModel?.imageUrl}}" />
-                            <!--<div class="header-info">{{question.userViewModel?.name}},{{{{question.userViewModel?.occupation}}}}</div>-->
+                            <div class="header-info">{{question.userViewModel?.name}},{{question.userViewModel?.occupation}}</div>
                             <div class="answer-text" [innerHTML]="question.lastAnswer?.text.substring(0,200)"></div>
                             <div class="status-panel">
                                 <hr />
@@ -72,7 +72,7 @@
                                 <!-- social media icon -->
                                 <div class="social-icon">
                                     <img class="social-image" src="../images/facebooklogo.jpg" />
-                                    <img class="social-image" src="../images/twitter.png" />
+                                    <img class="social-image" src="../images/twitter.png" />                                    
                                     <h5>Respuestas</h5><span class="counter-box">{{question.viewCount}}+</span>
                                 </div>
                             </div>
