@@ -1,24 +1,4 @@
-﻿<style>
-    .comment-img {
-        float: left;
-        margin-right: 3px;
-    }
-
-    .comment-input > .form-control {
-        width: 78%;
-        display: inline-block;
-    }
-
-    .comment-panel {
-        margin-left: 2%;
-        margin-top: 10px;
-    }
-
-    .comment-container {
-        display: inline-block;
-    }
-</style>
-<div class="row">
+﻿<div class="row">
     <div class="col-md-3 left-gap">
         <question-left-menu></question-left-menu>
     </div>
@@ -107,7 +87,7 @@
                                         <div class="row">
                                             <div class="article-details" *ngIf="comment">
                                                 <img class="user-image comment-img" src="../../../../images/avatar.png" />
-                                                <div class="header-info">{{comment?.userViewModel?.name}},{{date.getMonthName(comment?.time.getMonth())}} {{comment?.time.getDate()}} {{comment?.time.getFullYear()}}</div>
+                                                <div class="header-info">{{comment?.userViewModel?.name}}</div><!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
                                                 <p class="answer-text">{{comment?.commentText}}</p>
                                             </div>
                                         </div>
