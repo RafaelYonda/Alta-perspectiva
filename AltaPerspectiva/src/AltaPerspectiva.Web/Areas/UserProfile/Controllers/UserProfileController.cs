@@ -50,7 +50,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
             
             //refractoring:My add from User Repository 
-            var model = UserService.GetUserViewModel(queryFactory, loggedinUser);
+            var model = new UserService().GetUserViewModel(queryFactory, loggedinUser);
             return Ok(model);
         }
         //http://localhost:5273/userprofile/api    

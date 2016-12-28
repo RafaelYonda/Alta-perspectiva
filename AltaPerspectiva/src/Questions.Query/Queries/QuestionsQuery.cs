@@ -23,6 +23,7 @@ namespace Questions.Query
                                     .Include(q=>q.Categories)
                                         .ThenInclude(c=>c.Category)
                                     .Include(q=>q.Comments)
+                                    .Include(q=>q.Likes)
                                         .OrderByDescending(c => c.CreatedOn.Value.Date)
                                             .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                                 .Take(20)

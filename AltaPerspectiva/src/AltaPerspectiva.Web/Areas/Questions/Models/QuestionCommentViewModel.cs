@@ -13,7 +13,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
     {      
         public Guid Id { get; set; }
         public Guid? UserId { get; set; }
-        public UserViewModel userViewModel { get; set; }
+        public UserViewModel UserViewModel { get; set; }
         public string CommentText { get; set; }
         public Guid? QuestionId { get; set; }
       

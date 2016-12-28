@@ -9,6 +9,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
 {
     public class QuestionViewModel
     {
+        public Guid Id { get; set; }
         public string Title { get; set; }
 
         public string Body { get; set; }

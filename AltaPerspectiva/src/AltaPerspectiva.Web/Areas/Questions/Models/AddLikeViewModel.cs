@@ -11,8 +11,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
     public class AddLikeViewModel
     {      
         public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public string CommentText { get; set; }
+        public Guid UserId { get; set; }     
         public Guid? QuestionId { get; set; }
         public Guid? AnswerId { get; set; }
     }

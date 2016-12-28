@@ -12,7 +12,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
 {
     public class UserService
     {
-        public static UserViewModel GetUserViewModel(IQueryFactory queryFactory, Guid loggedinUser)
+        public UserViewModel GetUserViewModel(IQueryFactory queryFactory, Guid loggedinUser)
         {
             String fullName = String.Empty;
             String image = String.Empty;
@@ -29,6 +29,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             {
                 image = userImage.Image;
             }
+            else
+                image = "avatar.png";
+            
+           
             var occupationModel = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser);
             if (occupationModel != null)
             {
@@ -39,50 +43,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             {
                 ImageUrl = image,
                 Name = fullName,
-                Occupassion = occupassion,
+                Occupation = occupassion,
                 UserId = loggedinUser
-            };
-            //UserViewModel userViewModel;
-           
-            
-            
-
-            //userViewModel = new Areas.UserProfile.Models.UserViewModel
-            //{
-            //    Name = contact.FirstName + " " + contact.LastName,
-            //    Occupation = 
-            //    ImageUrl = userImage.Image
-            //};
+            };           
 
             return userViewModel;
-        }
-
-        public static List<QuestionViewModel> GetQuestionWithUserViewModel(IEnumerable<Question> questionList,IQueryFactory queryFactory, Guid loggedinUser)
-        {
-            List<QuestionViewModel> questions = new List<QuestionViewModel>();
-            foreach (var q in questionList)
-            {
-
-                //var contact = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(q.UserId);
-                //var occupation = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(q.UserId);
-                //var userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(q.UserId);
-
-                //var qv = new QuestionViewModel();
-                //qv.Title = q.Title;
-                //qv.Body = q.Body;
-                //qv.UserViewModel = new Areas.UserProfile.Models.UserViewModel { Name = contact.FirstName + " " + contact.LastName,
-                //                                                                Occupation = String.Join(",", occupation),
-                //                                                                ImageUrl = userImage.Image
-                //                                                              };
-                var qv = new QuestionViewModel();
-                qv.Title = q.Title;
-                qv.Body = q.Body;
-                qv.UserViewModel = UserService.GetUserViewModel(queryFactory, loggedinUser);
-
-                questions.Add(qv);
-            }
-            return questions;
-
-        }
+        }      
     }
 }
