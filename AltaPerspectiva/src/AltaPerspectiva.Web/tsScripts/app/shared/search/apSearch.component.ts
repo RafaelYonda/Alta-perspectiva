@@ -77,7 +77,7 @@ export class ApSearchComponent {
 
 
     showDetailsQuestionsPanel(input: HTMLInputElement) {                
-        //this.filteredQuestionList = [];
+        this.removeModal();
     }
    
 
@@ -119,6 +119,7 @@ export class ApSearchComponent {
     }
     removeModal() {
         this.filteredQuestionList = [];
+        this.categoryMatched="";
         document.getElementById("search-box").className = this.placeBottom;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
@@ -151,14 +152,15 @@ export class ApSearchComponent {
     selectQuestionDetails(item) {
         //this.title = item;
         this.filteredQuestionList = [];
+        this.categoryMatched = "";
         this.router.navigate(['/question/detail/'+item.id]);
     }
 
     handleClick(event) {
         //console.log(event.srcElement.attributes.id);
         var idAttr = event.srcElement.attributes.id;
-        var value = idAttr.nodeValue;
-        if (value == 'search-box')
+        var value = idAttr ? idAttr.nodeValue : undefined;
+        if (value && value == 'search-box')
             this.removeModal();
         //console.log(value);
         //var clickedComponent = event.target;
