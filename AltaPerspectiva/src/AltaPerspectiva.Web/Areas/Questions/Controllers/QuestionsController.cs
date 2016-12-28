@@ -10,6 +10,7 @@ using AltaPerspectiva.Web.Areas.Questions.Models;
 using Microsoft.Extensions.Configuration;
 using Questions.Domain;
 using UserProfile.Query;
+using AltaPerspectiva.Web.Areas.Common.Repositories;
 
 
 //using Questions.Domain;
@@ -63,31 +64,38 @@ namespace AltaPerspectiva.Web.Area.Questions
                 questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();               
             }
 
-            List<QuestionViewModel> questions = new List<QuestionViewModel>();
-            foreach(var q in questionList)
-            {
+            List<QuestionViewModel> questionViewModels = UserRepository.GetQuestionWithUserViewModel(questionList, queryFactory, loggedinUser);
+            return Ok(questionViewModels);
+            //foreach(var q in questionList)
+            //{
 
-                var contact = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(q.UserId);
-                var occupation = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(q.UserId);
-                var userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(q.UserId);
+            //    //var contact = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(q.UserId);
+            //    //var occupation = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(q.UserId);
+            //    //var userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(q.UserId);
 
-                var qv = new QuestionViewModel();
-                qv.Title = q.Title;
-                qv.Body = q.Body;
-                qv.UserViewModel = new Areas.UserProfile.Models.UserViewModel { Name = contact.FirstName + " " + contact.LastName,
-                                                                                Occupation = String.Join(",", occupation),
-                                                                                ImageUrl = userImage.Image
-                                                                              };
-                questions.Add(qv);
-            }
+            //    //var qv = new QuestionViewModel();
+            //    //qv.Title = q.Title;
+            //    //qv.Body = q.Body;
+            //    //qv.UserViewModel = new Areas.UserProfile.Models.UserViewModel { Name = contact.FirstName + " " + contact.LastName,
+            //    //                                                                Occupation = String.Join(",", occupation),
+            //    //                                                                ImageUrl = userImage.Image
+            //    //                                                              };
+            //    var qv = new QuestionViewModel();
+            //    qv.Title = q.Title;
+            //    qv.Body = q.Body;
+            //    qv.UserViewModel = UserRepository.GetUserViewModel(queryFactory, loggedinUser);
 
-            return Ok(questionList);
+            //    questions.Add(qv);
+            //}
+
+            //return Ok(questions);
         }
 
         [HttpGet("/questions/api/questions/notanswered/{id}")]
         public async Task<IActionResult> GetQuestyionsNotAnswered(Guid CategoryId)
         {
             var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+
             return Ok(questionsList);
               
         }
@@ -110,8 +118,29 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/category/{id}")]
         public async Task<IActionResult> GetQuestionsByCategoryId(Guid id)
         {
-            var question = await queryFactory.ResolveQuery<IQuestionsByCategoryIdQuery>().Execute(id);
-            return Ok(question);
+            IEnumerable<Question> questionList = null;
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                /// if user is logged in, then fetch questions by user following a category
+                questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().Execute(loggedinUser);
+            }
+            else
+            {
+                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+            }
+
+            List<QuestionViewModel> questionViewModels = UserRepository.GetQuestionWithUserViewModel(questionList, queryFactory, loggedinUser);
+            return Ok(questionViewModels);
+
+            /*Previos add*/
+            //var questionList = await queryFactory.ResolveQuery<IQuestionsByCategoryIdQuery>().Execute(id);
+            // return Ok(question);
         }
 
         //get  /questions/api/questions/reatedquestions/{id}
