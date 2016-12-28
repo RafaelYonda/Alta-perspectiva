@@ -21,11 +21,20 @@ export class TabPanelComponent {
 
     ngOnInit() {        
         this.sub = this.route.params.subscribe(params => {
-            this.shareUrl = this.router.url;
+           
             this.id = params['id']; // (+) converts string 'id' to a number 
             //this.questions = this.questionAnswerService.getQuestionByCategory(params['id']);
             this.questionAnswerService.getQuestionsByCategory(this.id).subscribe(res => {
                 this.questions = res;
+                for (var q = 0; q< this.questions.length; q++)
+                {
+                    if (this.questions[q].answers) {
+                        this.questions[q].lastAnswer = this.questions[q].answers[this.questions[q].answers.length - 1];
+                        var temp = this.questions[q].lastAnswer.text.substring(0, 200);
+                        this.questions[q].lastAnswer.text = temp + " <a [routerLink]=\"['/question/detail', question.id]\">read more...</a>";
+                        this.questions[q].shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questions[q].id);
+                    }
+                }
                 this.questions.forEach(x => x.lastAnswer = x.answers[x.answers.length - 1]);
                 //console.log(this.questions);
             });

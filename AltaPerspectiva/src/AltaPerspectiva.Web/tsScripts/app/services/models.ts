@@ -73,6 +73,7 @@ export class Question {
     user: User;
     answers: AnswerViewModel[];
     lastAnswer: AnswerViewModel;
+    shareUrl: string;
     viewCount: number;    
     constructor() {
         this.user = new User();

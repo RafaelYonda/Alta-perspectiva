@@ -33,7 +33,7 @@
                             <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}" />
                             <div class="header-info">{{question.userViewModel.name}}, {{question.userViewModel.occupation}} </div>
                             Categories: <h5 *ngFor="let c of question.categories" class="subtitle">{{c?.name}},&nbsp; </h5>
-                            <p [innerHTML]="question.lastAnswer?.text.substring(0,200)"></p>
+                            <p [innerHTML]="question.lastAnswer?.text"></p>
                             <div class="status-panel">
                                 <hr />
                                 <img class="like-logo" src="../images/fade-logo.png" />
@@ -47,8 +47,18 @@
                                 </a>
                                 <!-- social media icon -->
                                 <div class="social-icon">
-                                    <img class="social-image" src="../images/facebooklogo.jpg" />
-                                    <img class="social-image" src="../images/twitter.png" />                                    
+
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{question.shareUrl}}" 
+                                       class="SHARE FACEBOOK" 
+                                       onclick='window.open(this.href,"popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable"); return false;' target="social">
+                                       <img class="social-image" src="../images/facebooklogo.jpg" />
+                                    </a>
+
+                                    <a href="https://twitter.com/home?status={{question.shareUrl}}" class="SHARE TWITTER" 
+                                       onclick='window.open(this.href,"popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable"); return false;' target="social">
+                                        <img class="social-image" src="../images/twitter.png" />
+                                    </a>                                    
+                                                                        
                                     <h5>Respuestas</h5><span class="counter-box">{{question?.answers?.length}}+</span>
                                 </div>
                             </div>
