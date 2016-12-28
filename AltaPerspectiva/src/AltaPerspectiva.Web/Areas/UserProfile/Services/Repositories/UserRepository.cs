@@ -8,23 +8,51 @@ using System.Linq;
 using System.Threading.Tasks;
 using UserProfile.Query;
 
-namespace AltaPerspectiva.Web.Areas.Common.Repositories
+namespace AltaPerspectiva.Web.Areas.UserProfile.Services.Repositories
 {
     public class UserRepository
     {
         public static UserViewModel GetUserViewModel(IQueryFactory queryFactory, Guid loggedinUser)
         {
-            UserViewModel userViewModel;
+            String fullName = String.Empty;
+            String image = String.Empty;
+            String occupassion = String.Empty;
+            //ContractInformation information = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
             var contact = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
-            var occupation = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser);
-            var userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
-
-            userViewModel = new Areas.UserProfile.Models.UserViewModel
+            if (contact != null)
             {
-                Name = contact.FirstName + " " + contact.LastName,
-                Occupation = String.Join(",", occupation),
-                ImageUrl = userImage.Image
+                fullName = contact.FirstName + " " + contact.LastName;
+            }
+
+            var userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
+            if (userImage != null)
+            {
+                image = userImage.Image;
+            }
+            var occupationModel = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser);
+            if (occupationModel != null)
+            {
+                occupassion = String.Join(",", occupationModel);
+            }
+
+            UserViewModel userViewModel = new UserViewModel
+            {
+                ImageUrl = image,
+                Name = fullName,
+                Occupassion = occupassion,
+                UserId = loggedinUser
             };
+            //UserViewModel userViewModel;
+           
+            
+            
+
+            //userViewModel = new Areas.UserProfile.Models.UserViewModel
+            //{
+            //    Name = contact.FirstName + " " + contact.LastName,
+            //    Occupation = 
+            //    ImageUrl = userImage.Image
+            //};
 
             return userViewModel;
         }
