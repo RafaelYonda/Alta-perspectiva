@@ -42,7 +42,8 @@
     "NWebsec.AspNetCore.Middleware": "1.0.0-gamma1-15",
     "OpenIddict": "1.0.0-beta2-0503",
     "OpenIddict.EntityFrameworkCore": "1.0.0-beta2-0503",
-    "OpenIddict.Mvc": "1.0.0-beta2-0503"
+    "OpenIddict.Mvc": "1.0.0-beta2-0503",
+    "Microsoft.AspNetCore.Session": "1.0.0"
   },
 
   "frameworks": {

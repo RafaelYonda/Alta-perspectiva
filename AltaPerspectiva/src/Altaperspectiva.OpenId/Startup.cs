@@ -21,7 +21,7 @@ namespace Altaperspectiva.OpenId {
                 .Build();
 
             services.AddMvc();
-
+            services.AddSession();
             services.AddDbContext<ApplicationUserDbContext>(options => {
                 // Configure the context to use Microsoft SQL Server.
                 options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"]);
@@ -119,7 +119,7 @@ namespace Altaperspectiva.OpenId {
             //     options.ClientId = "resource_server";
             //     options.ClientSecret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd";
             // });
-
+            app.UseSession();
             app.UseCsp(options => options.DefaultSources(directive => directive.Self())
                 .ImageSources(directive => directive.Self()
                     .CustomSources("*"))
