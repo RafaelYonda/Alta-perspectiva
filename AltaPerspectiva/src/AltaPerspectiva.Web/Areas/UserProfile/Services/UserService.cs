@@ -43,10 +43,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             if (occupationModel.Any())
             {
                 occupassion = String.Join(",", occupationModel);
-            }else
-            {
-                occupassion = "nill";
             }
+            //}else
+            //{
+            //    occupassion = "nill";
+            //}
 
             UserViewModel userViewModel = new UserViewModel
             {
