@@ -74,7 +74,8 @@ export class Question {
     answers: AnswerViewModel[];
     lastAnswer: AnswerViewModel;
     shareUrl: string;
-    viewCount: number;    
+    viewCount: number;  
+    createdOn:Date;
     constructor() {
         this.user = new User();
         this.answers = new Array();

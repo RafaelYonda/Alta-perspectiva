@@ -27,6 +27,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         public virtual ICollection<QuestionLikeViewModel> Likes { get; set; }
 
         public int? ViewCount { get; set; }
+        public DateTime? CreatedOn { get; set; }
 
         //User View Model Added
 
