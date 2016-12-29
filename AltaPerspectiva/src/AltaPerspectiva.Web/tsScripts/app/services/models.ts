@@ -82,6 +82,7 @@ export class Question {
         this.comments = new Array();
         this.categoryIds = new Array();
         this.lastAnswer = new AnswerViewModel();
+        this.likes = new Array();
     }
 }
 
@@ -112,6 +113,11 @@ export class Answer {
     date: Date;
     likes: Like[];    
     comments: Comment[];
+   constructor() {
+       
+        this.likes = new Array();
+       this.comments = new Array();
+   }
 }
 
 export class AnswerViewModel {
@@ -121,6 +127,11 @@ export class AnswerViewModel {
     likes: Like[];
     comments: Comment[];
     createdOn:Date;
+constructor() {
+       
+        this.likes = new Array();
+       this.comments = new Array();
+   }
 }
 
 

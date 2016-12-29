@@ -92,7 +92,9 @@ namespace AltaPerspectiva.Web.Area.Questions
         public IActionResult Get(Guid id)
         {
             var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(id);
-            return Ok(question);
+
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory);
+            return Ok(questionViewModel);
         }
 
         // GET /questions/api/questions/category/{id}

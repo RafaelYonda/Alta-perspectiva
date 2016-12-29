@@ -44,12 +44,12 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             {
                 occupassion = String.Join(",", occupationModel);
             }
-            //}else
-            //{
-            //    occupassion = "nill";
-            //}
+             else
+            {
+                occupassion = "n/a";
+            }
 
-            UserViewModel userViewModel = new UserViewModel
+    UserViewModel userViewModel = new UserViewModel
             {
                 ImageUrl = image,
                 Name = fullName,

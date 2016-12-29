@@ -41,8 +41,10 @@ export class ApSearchComponent {
         this.question = new Question();
         this.question.title = this.title;
         this.question.body = this.body;
-        this.question.categoryIds.push(this.categoryID);
-        
+        if (this.categoryID!='-1')
+            this.question.categoryIds.push(this.categoryID);
+        else
+            this.question.categoryIds.push(this.categories[0].id);
         this.questionsService.addQuestions(this.question).subscribe(res => {
             console.log(res);
             this.question = res;
