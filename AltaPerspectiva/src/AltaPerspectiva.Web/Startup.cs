@@ -243,9 +243,9 @@ namespace AltaPerspectiva
                                                                                                 Id = y.Id,Text = y.Text})
                                                                                               }).ToList();
 
-                cache.SetString("Keywords", JsonConvert.SerializeObject(keywords),
-                                               new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
-                                                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
+                cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
+                                               //,new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
+                                               //     .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
 
 
             }

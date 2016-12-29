@@ -11,7 +11,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
     public class QuestionService
     {
-        public List<QuestionViewModel> GetQuestionViewModel(IEnumerable<Question> questionList, IQueryFactory queryFactory, Guid loggedinUser)
+        public List<QuestionViewModel> GetQuestionViewModel(IEnumerable<Question> questionList, IQueryFactory queryFactory)
         {
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
             foreach (var q in questionList)

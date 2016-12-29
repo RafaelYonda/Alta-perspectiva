@@ -67,7 +67,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
 
-            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory, loggedinUser);      
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);      
 
             return Ok(questions);            
         }
@@ -100,30 +100,12 @@ namespace AltaPerspectiva.Web.Area.Questions
         public async Task<IActionResult> GetQuestionsByCategoryId(Guid id)
         {
             IEnumerable<Question> questionList = null;
-
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-                /// if user is logged in, then fetch questions by user following a category
-                questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().Execute(loggedinUser);
-            }
-            else
-            {
-                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-            }
-
-
-            //return Ok(questionList);
+            questionList = await queryFactory.ResolveQuery<IQuestionsByCategoryIdQuery>().Execute(id);
 
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
 
-            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory, loggedinUser);
-
-            return Ok(questions);
+            return Ok(questions);            
         }
 
         //get  /questions/api/questions/reatedquestions/{id}
