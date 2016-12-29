@@ -86,14 +86,13 @@
                     </div>
                 </form>
                 <div class="card card-block">
-                    <div *ngFor="let comment of question.comments">
-                        <div class="row">
-                            <div class="article-details" *ngIf="comment">
-                                <img class="user-image comment-img" src="../../../../images/avatar.png" />
-                                <div class="header-info">{{comment?.user?.name}}</div>
+                    <div *ngFor="let comment of question.comments" class="clearfix">
+                        <div *ngIf="comment">
+                            <img class="user-image comment-img" src="../../../../images/avatar.png" />
+                            <div class="header-info">{{comment?.userViewModel?.name}}</div>
+
                                 <!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
-                                <p class="answer-text">{{comment.commentText}}</p>
-                            </div>
+                            <p class="comment-text">{{comment.commentText}}</p>
                         </div>
                         <hr />
                     </div>
@@ -119,7 +118,7 @@
                     <div class="status-line">{{answer.likes?.length}}</div>
                     <a (click)="submitLikeForAnswer(answer.id)"><div class="status-line">Like</div></a>
                     <div class="status-line like-border"></div>
-                    <div class="status-line">{{answer.comments?.length}}</div>                   
+                    <div class="status-line">{{answer.comments?.length}}</div>
                     <a data-toggle="collapse" attr.data-target="#answerComment{{answer.id}}" aria-expanded="false" aria-controls="collapseExample">
                         comments
                     </a>
@@ -138,19 +137,20 @@
                             <input class="form-control" [(ngModel)]="commentAnswerText" [ngModelOptions]="{standalone: true}" id="comment" />
                             <button type="button" class="btn btn-primary" (click)="submitCommentForAnswer(answer.id)">Save</button>
                         </div>
-                        </form>
-                        <div class="card card-block">
-                            <div *ngFor="let comment of answer.comments">
-                                <div class="row">
-                                    <div class="article-details" *ngIf="comment">
-                                        <img class="user-image comment-img" src="../../../../images/avatar.png" />
+                    </form>
+                    <div class="card card-block">
+                        <div *ngFor="let comment of answer.comments">
+                            <div *ngIf="comment">
+                                <img class="user-image comment-img" src="../../../../images/avatar.png" />
+
+
+
                                         <!--<div class="header-info">{{comment?.user?.name}},{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}</div>-->
-                                        <p class="answer-text">{{comment?.commentText}}</p>                              
-                                    </div>
-                                </div>
-                                <hr />
+                                <p class="answer-text">{{comment?.commentText}}</p>
                             </div>
+                            <hr />
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
