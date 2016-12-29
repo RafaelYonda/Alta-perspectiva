@@ -113,6 +113,11 @@ export class Answer {
     date: Date;
     likes: Like[];    
     comments: Comment[];
+   constructor() {
+       
+        this.likes = new Array();
+       this.comments = new Array();
+   }
 }
 
 export class AnswerViewModel {
@@ -122,6 +127,11 @@ export class AnswerViewModel {
     likes: Like[];
     comments: Comment[];
     createdOn:Date;
+constructor() {
+       
+        this.likes = new Array();
+       this.comments = new Array();
+   }
 }
 
 
