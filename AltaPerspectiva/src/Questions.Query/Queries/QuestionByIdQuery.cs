@@ -19,8 +19,8 @@ namespace Questions.Query
         public Question Execute(Guid id)
         {
             return DbContext.Questions
-                            .Include(q=>q.Answers)
-                                .ThenInclude(a=>a.Comments)
+                            .Include(q=>q.Answers).ThenInclude(a=>a.Comments)
+                            .Include(q => q.Answers).ThenInclude(a => a.Likes)
                             .Include(q=>q.Comments)
                             .Include(q=>q.Likes)
                             .Include(q=>q.Categories)

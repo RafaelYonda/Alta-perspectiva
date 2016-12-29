@@ -18,8 +18,8 @@ namespace Questions.Query
         public async Task<IEnumerable<Question>> Execute()
         {
               return await DbContext.Questions
-                                    .Include(a => a.Answers)
-                                        .ThenInclude(a => a.Likes)
+                                    .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                    .Include(a => a.Answers).ThenInclude(a => a.Comments)
                                     .Include(q=>q.Categories)
                                         .ThenInclude(c=>c.Category)
                                     .Include(q=>q.Comments)
