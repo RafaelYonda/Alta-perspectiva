@@ -15,10 +15,10 @@
                             </h3>
                             <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}"/>
                             
-                            <div class="header-info">{{question.userViewModel.name}}, {{question.userViewModel.occupation}} {{question.createdOn | date: 'dd MMM, yyyy'}} </div>
+                            <div class="header-info">{{question.userViewModel.name}}, {{question.userViewModel.occupation}} {{question?.createdOn | date: 'dd MMM, yyyy'}} </div>
                             Categories: <h5 *ngFor="let c of question.categories;let i = index; let last = last" class="subtitle">{{c?.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
                             <p [innerHTML]="question.lastAnswer?.text"></p>
-                            <div> by anserwer date</div>
+                            <div> by {{question.answers[question.answers.length-1]?.userViewModel?.name}} {{question.answers[question.answers.length-1]?.createdOn | date: 'dd MMM, yyyy'}}</div>
                             <div class="status-panel">
                                 <hr/>
                                 <img class="like-logo" src="../images/fade-logo.png"/>

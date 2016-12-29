@@ -120,6 +120,7 @@ export class AnswerViewModel {
     questionId: string;   
     likes: Like[];
     comments: Comment[];
+    createdOn:Date;
 }
 
 

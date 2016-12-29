@@ -6,7 +6,7 @@
 
     public class Comment:Entity
     {
-        public Guid? UserID { get; set; }        
+        public Guid UserID { get; set; }        
         public string CommentText { get; set; }
         public Guid? QuestionID { get; set; }
         public virtual Question  Question { get; set; }
