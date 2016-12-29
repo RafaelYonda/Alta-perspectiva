@@ -114,8 +114,11 @@ export class Answer {
 }
 
 export class AnswerViewModel {
+    id: string;
     text: string;
     questionId: string;   
+    likes: Like[];
+    comments: Comment[];
 }
 
 

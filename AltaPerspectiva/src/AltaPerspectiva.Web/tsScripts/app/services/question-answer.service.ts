@@ -113,13 +113,13 @@ export class QuestionAnswerService implements Resolve<Question> {
     }
 
     addAnswerComment(comment: Comment): Observable<Comment> {
-        return this._http.post('/questions/api/question/' + comment.questionId + '/answer/' + comment.answerId + '/like', comment)
+        return this._http.post('/questions/api/question/answer/' + comment.answerId + '/comment', comment)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     addAnswerLike(like: Like): Observable<Like> {
-        return this._http.post('/questions/api/question/' + like.questionId + '/answer/' + like.answerId + '/like', like)
+        return this._http.post('/questions/api/question/answer/' + like.answerId + '/like', like)
             .map(this.extractData)
             .catch(this.handleError);
     }

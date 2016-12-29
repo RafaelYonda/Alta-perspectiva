@@ -22,6 +22,7 @@ export class QuestionDetailComponent {
 
     comment: Comment;
     commentText: string;
+    commentAnswerText: string;
 
     like: Like;
 
@@ -39,6 +40,7 @@ export class QuestionDetailComponent {
         this.route.data
             .subscribe(res => {
                 this.question = res.question;
+                // save number of views of question
                 this.dataService.increaseQuestionViewCount(this.question.id).subscribe(res => {
                     this.question.viewCount += 1;
                 });
@@ -75,6 +77,19 @@ export class QuestionDetailComponent {
         });
     }
 
+    submitCommentForAnswer(answerId: string) {
+        this.comment = new Comment();        
+        this.comment.answerId = answerId;
+        this.comment.commentText = this.commentAnswerText;
+
+        this.dataService.addAnswerComment(this.comment).subscribe(res => {
+            this.commentText = "";
+            this.comment = res;
+            this.question.answers.find(x => x.id == answerId).comments.push(this.comment);
+
+        });
+    }
+
     submitLike(questionId: string)
     {
         this.like = new Like();
@@ -82,6 +97,15 @@ export class QuestionDetailComponent {
 
         this.dataService.addQuestionLike(this.like).subscribe(res => {
             this.question.likes.push(this.like);
+        });
+    }
+
+    submitLikeForAnswer(answerId: string) {
+        this.like = new Like();
+        this.like.answerId = answerId;
+
+        this.dataService.addAnswerLike(this.like).subscribe(res => {
+            this.question.answers.find(x => x.id == answerId).likes.push(this.like);
         });
     }
 

@@ -175,7 +175,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             
         }
 
-        [HttpPost("/questions/api/question/{id}/answer/{answerId}/comment")]
+        [HttpPost("/questions/api/question/answer/{answerId}/comment")]
         public IActionResult PostAnswerComment([FromBody]AddCommentViewModel comment)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
@@ -212,7 +212,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         }
 
-        [HttpPost("/questions/api/question/{id}/answer/{answerId}/like")]
+        [HttpPost("/questions/api/question/answer/{answerId}/like")]
         public IActionResult PostAnswerLike([FromBody]AddLikeViewModel like)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
