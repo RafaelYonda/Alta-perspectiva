@@ -17,33 +17,15 @@ a{
 .modal-dialog {
     margin: 150px auto;
 }
-.comment-input>.form-control{
-    width:78%;
-    display:inline-block;
-}
 .status-panel>hr{
     width:100%;
     margin-left:0;
 }
 
-.comment-panel{
-    margin-left:2%;
-    margin-top:10px;
-
-}
-.comment-container{
-    display:inline-block;
-}
 
 .like-border{
     border-right:1px solid #cccccc;
     height:10px;
-}
-
-
-.comment-img{
-    float:left;
-    margin-right:3px;
 }
 
 .answer-text {

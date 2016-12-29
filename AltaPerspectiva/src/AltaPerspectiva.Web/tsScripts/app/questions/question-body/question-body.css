@@ -1,8 +1,4 @@
-﻿ .comment-input>.form-control{
-    width:72%;
-    display:inline-block;
-}
-.line-clamp {
+﻿.line-clamp {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;  
