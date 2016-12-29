@@ -55,9 +55,11 @@
                         <div class="article-details">
                             <div class="user-info clearfix">
                                 <img class="user-image" src="../../../../images/{{question.userViewModel?.imageUrl}}" />
-                                <div class="header-info">{{question.userViewModel?.name}},{{question.userViewModel?.occupation}}</div>
+                                <div class="header-info" >{{question.userViewModel.name}}, {{question.userViewModel.occupation}} {{question?.createdOn | date: 'dd MMM, yyyy'}}</div>
                             </div>
                             <div class="answer-text" [innerHTML]="question.lastAnswer?.text.substring(0,200)"></div>
+                            <div *ngIf="question.answers[question.answers.length-1]"> by {{question.answers[question.answers.length-1]?.userViewModel?.name}} {{question.answers[question.answers.length-1]?.createdOn | date: 'dd MMM, yyyy'}}</div>
+                            
                             <div class="status-panel">
                                 <hr />
                                 <img class="like-logo" src="../images/fade-logo.png" />
