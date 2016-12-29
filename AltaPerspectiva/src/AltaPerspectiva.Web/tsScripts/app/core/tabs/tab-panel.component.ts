@@ -1,13 +1,17 @@
 ﻿import { Component } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
-import { Question } from '../../services/models';
+//import { Question } from '../../services/models';
 
+//Comment added
+import { QuestionResolver } from '../../services/resolve.services/question.resolver';
+//import { QuestionAnswerService } from '../../services/question-answer.service';
+import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName} from '../../services/models';
 @Component({
     selector: 'ap-tab-panel',
     templateUrl: 'js/app/core/tabs/tab-panel.component.html',
     styleUrls: ['js/app/core/tabs/tab-panel.css'],
-    providers: [QuestionAnswerService]
+    providers: [QuestionResolver,QuestionAnswerService]
 })
 export class TabPanelComponent {
     id: string;
@@ -15,11 +19,20 @@ export class TabPanelComponent {
     questions: Question[];
     shareUrl: string;
 
-    constructor(private route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService) {
+    //Comment
+    comment: Comment;
+    commentText: string;
+    question: Question;
+     route: any;
+    error: any;
+    //id: string;
+    
+    constructor(private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService,private questionService: QuestionResolver) {
         //this.questions = this.questionAnswerService.getQuestionByCategory('');
+         this.route = _route;
     }
 
-    ngOnInit() {        
+    ngOnInit() {   
         this.sub = this.route.params.subscribe(params => {
            
             this.id = params['id']; // (+) converts string 'id' to a number 
@@ -40,9 +53,22 @@ export class TabPanelComponent {
                 this.questions.forEach(x => x.lastAnswer = x.answers[x.answers.length - 1]);
                 //console.log(this.questions);
             });
+        }); 
+    }
+    //Added Comment Code
+    submitComment(questionId: string)
+    {
+        this.comment = new Comment();
+        this.comment.questionId = questionId;
+        this.comment.commentText = this.commentText;
+
+        this.questionAnswerService.addQuestionComment(this.comment).subscribe(res => {
+            this.commentText = "";
+            this.comment = res;
+            this.questions.find(x=>x.id ==questionId).comments.push(this.comment);     
+              
         });
     }
-
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
