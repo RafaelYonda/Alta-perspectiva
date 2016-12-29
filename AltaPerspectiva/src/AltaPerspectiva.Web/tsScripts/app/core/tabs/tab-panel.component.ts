@@ -27,9 +27,11 @@ export class TabPanelComponent {
             this.questionAnswerService.getQuestionsByCategory(this.id).subscribe(res => {
                 this.questions = res;
                 for (var q = 0; q< this.questions.length; q++)
-                {
-                    if (this.questions[q].answers) {
-                        this.questions[q].lastAnswer = this.questions[q].answers[this.questions[q].answers.length - 1];
+                {                    
+                    this.questions[q].lastAnswer = this.questions[q].answers[this.questions[q].answers.length - 1];
+
+                    if (this.questions[q].lastAnswer) {
+
                         var temp = this.questions[q].lastAnswer.text.substring(0, 200);
                         this.questions[q].lastAnswer.text = temp + " <a [routerLink]=\"['/question/detail', question.id]\">read more...</a>";
                         this.questions[q].shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questions[q].id);
