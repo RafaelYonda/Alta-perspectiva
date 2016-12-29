@@ -86,17 +86,12 @@
                                     <div class="clearfix"></div>
                                     <div class="card card-block">
                                         <div *ngFor="let comment of question.comments">
-                                            <div class="row">
-                                                <div class="article-details" *ngIf="comment">
-                                                    <img class="user-image comment-img" src="../../../../images/avatar.png" />
-                                                    <div class="header-info">{{comment?.userViewModel?.name}}</div>
+                                            <div *ngIf="comment">
+                                                <img class="user-image comment-img" src="../../../../images/avatar.png" />
+                                                <div class="header-info">{{comment?.userViewModel?.name}}</div>
 
-
-
-                                                    <!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
-                                                    <p class=
-                                                    <p class="answer-text">{{comment.commentText}}</p>
-                                                </div>
+                                                <!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
+                                                <p class="answer-text">{{comment.commentText}}</p>
                                             </div>
                                             <hr />
                                         </div>
@@ -107,26 +102,25 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- ==========Modal======= -->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Some text in the modal.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <!-- ==========Modal======= -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the modal.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
