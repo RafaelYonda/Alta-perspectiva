@@ -2,7 +2,7 @@
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { CategoryService } from '../../services/category.service';
 import { ConfigService } from '../../services/config.service';
-import {QuestionMenu, Question, Answer, Category, DateName, TotalCount, Config} from '../../services/models';
+import {QuestionMenu, Question, Answer, Category,Like, DateName, TotalCount, Config} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
 
 
@@ -40,6 +40,7 @@ export class QuestionBodyComponent{
     twitterButton;
     tags = 'Hello, World';
     description = "This is a test";
+     like: Like;
 
     constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute) {
         this._router = router;
@@ -149,5 +150,14 @@ export class QuestionBodyComponent{
         console.log('scrolled!!');
         this.scrollPage = this.scrollPage + 1;
         console.log(this.scrollPage);
+    }
+ submitLike(questionId: string) {
+        console.log(questionId);
+        this.like = new Like();
+        this.like.questionId = questionId;       
+
+        this.questionService.addQuestionLike(this.like).subscribe(res => {
+            this.questions.find(x=>x.id==questionId).likes.push(this.like);
+        });
     }
 }

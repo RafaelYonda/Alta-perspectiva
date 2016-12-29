@@ -25,7 +25,8 @@ export class TabPanelComponent {
     question: Question;
      route: any;
     error: any;
-    //id: string;
+    //Like
+    like: Like;
     
     constructor(private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService,private questionService: QuestionResolver) {
         //this.questions = this.questionAnswerService.getQuestionByCategory('');
@@ -67,6 +68,15 @@ export class TabPanelComponent {
             this.comment = res;
             this.questions.find(x=>x.id ==questionId).comments.push(this.comment);     
               
+        });
+    }
+ submitLike(questionId: string) {
+        console.log(questionId);
+        this.like = new Like();
+        this.like.questionId = questionId;       
+
+        this.questionAnswerService.addQuestionLike(this.like).subscribe(res => {
+            this.questions.find(x=>x.id==questionId).likes.push(this.like);
         });
     }
     ngOnDestroy() {

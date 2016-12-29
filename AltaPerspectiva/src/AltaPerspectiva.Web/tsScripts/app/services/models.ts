@@ -82,6 +82,7 @@ export class Question {
         this.comments = new Array();
         this.categoryIds = new Array();
         this.lastAnswer = new AnswerViewModel();
+        this.likes = new Array();
     }
 }
 
