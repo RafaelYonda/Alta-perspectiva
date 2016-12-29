@@ -53,8 +53,10 @@
                             Categories: <h5 *ngFor="let c of question.categories; let i = index; let last = last" class="subtitle">{{c?.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
                         </div>
                         <div class="article-details">
-                            <img class="user-image" src="../../../../images/{{question.userViewModel?.imageUrl}}" />
-                            <div class="header-info">{{question.userViewModel?.name}},{{question.userViewModel?.occupation}}</div>
+                            <div class="user-info clearfix">
+                                <img class="user-image" src="../../../../images/{{question.userViewModel?.imageUrl}}" />
+                                <div class="header-info">{{question.userViewModel?.name}},{{question.userViewModel?.occupation}}</div>
+                            </div>
                             <div class="answer-text" [innerHTML]="question.lastAnswer?.text.substring(0,200)"></div>
                             <div class="status-panel">
                                 <hr />
@@ -75,26 +77,27 @@
                                     <h5>Respuestas</h5><span class="counter-box">{{question?.answers?.length}}+</span>
                                 </div>
                                 <!-- ======Question Comment==== -->
-                                <div class="collapse comment-panel" id="questionComment{{question.id}}">
-                                    <form #commentForm="ngForm" class="form-horizontal" role="form">
-                                        <div class="comment-input">
+                                
+                            </div>
+                            <div class="collapse comment-panel" id="questionComment{{question.id}}">
+                                <form #commentForm="ngForm" class="form-horizontal" role="form">
+                                    <div class="comment-input">
+                                        <img class="user-image comment-img" src="../../../../images/avatar.png" />
+                                        <input class="form-control" />
+                                        <button type="button" class="btn btn-primary">comment</button>
+                                    </div>
+                                </form>
+                                <div class="clearfix"></div>
+                                <div class="card card-block">
+                                    <div *ngFor="let comment of question.comments">
+                                        <div *ngIf="comment">
                                             <img class="user-image comment-img" src="../../../../images/avatar.png" />
-                                            <input class="form-control" />
-                                            <button type="button" class="btn btn-primary">comment</button>
-                                        </div>
-                                    </form>
-                                    <div class="clearfix"></div>
-                                    <div class="card card-block">
-                                        <div *ngFor="let comment of question.comments">
-                                            <div *ngIf="comment">
-                                                <img class="user-image comment-img" src="../../../../images/avatar.png" />
-                                                <div class="header-info">{{comment?.userViewModel?.name}}</div>
+                                            <div class="header-info">{{comment?.userViewModel?.name}}</div>
 
-                                                <!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
-                                                <p class="answer-text">{{comment.commentText}}</p>
-                                            </div>
-                                            <hr />
+                                            <!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
+                                            <p class="comment-text">{{comment.commentText}}</p>
                                         </div>
+                                        <hr />
                                     </div>
                                 </div>
                             </div>
@@ -123,4 +126,4 @@
             </div>
         </div>
     </div>
-
+</div>
