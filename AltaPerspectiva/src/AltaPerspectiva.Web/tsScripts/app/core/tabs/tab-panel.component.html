@@ -5,20 +5,23 @@
             <div class="panel-article">
                 <div class="row  ">
                     <!--<div class="col-sm-1 left-gap">
-                </div>-->
+                    </div>-->
                     <div class="col-sm-11 questions-container">
                         <div class="left-border">
-                            <img class="image-border" src="../../../../images/border.png" />
+                            <img class="image-border" src="../../../../images/border.png"/>
                         </div>
                         <div class="details-container">
-                            <h3><a [routerLink]="['/question/detail',question.id]">{{question.title}}</a></h3>
-                            <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}" />
-                            <div class="header-info">{{question.userViewModel.name}}, {{question.userViewModel.occupation}} </div>
+                            <h3><a [routerLink]="['/question/detail',question.id]">{{question.title}}</a>
+                            </h3>
+                            <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}"/>
+                            
+                            <div class="header-info">{{question.userViewModel.name}}, {{question.userViewModel.occupation}} {{question.createdOn | date: 'dd MMM, yyyy'}} </div>
                             Categories: <h5 *ngFor="let c of question.categories;let i = index; let last = last" class="subtitle">{{c?.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
                             <p [innerHTML]="question.lastAnswer?.text"></p>
+                            <div> by anserwer date</div>
                             <div class="status-panel">
-                                <hr />
-                                <img class="like-logo" src="../images/fade-logo.png" />
+                                <hr/>
+                                <img class="like-logo" src="../images/fade-logo.png"/>
                                 <div class="status-line">{{question?.likes?.length}}</div>
                                 <div class="status-line">Likes</div>
                                 <div class="status-line like-border"></div>
@@ -30,40 +33,46 @@
                                 <!-- social media icon -->
                                 <div class="social-icon">
 
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{question.shareUrl}}" 
-                                       class="SHARE FACEBOOK" 
-                                       onclick='window.open(this.href,"popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable"); return false;' target="social">
-                                       <img class="social-image" src="../images/facebooklogo.jpg" />
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{question.shareUrl}}"
+                                       class="SHARE FACEBOOK"
+                                       onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
+                                        <img class="social-image" src="../images/facebooklogo.jpg"/>
                                     </a>
 
-                                    <a href="https://twitter.com/home?status={{question.shareUrl}}" class="SHARE TWITTER" 
-                                       onclick='window.open(this.href,"popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable"); return false;' target="social">
-                                        <img class="social-image" src="../images/twitter.png" />
-                                    </a>                                    
-                                                                        
+                                    <a href="https://twitter.com/home?status={{question.shareUrl}}" class="SHARE TWITTER"
+                                       onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
+                                        <img class="social-image" src="../images/twitter.png"/>
+                                    </a>
+
                                     <h5>Respuestas</h5><span class="counter-box">{{question?.answers?.length}}+</span>
                                 </div>
                             </div>
                         </div>
+
+
                         <!-- ======Question Comment==== -->
                         <div class="collapse comment-panel" id="questionComment{{question.id}}">
-                            <!--<div class="comment-input">
-                                <img class="user-image comment-img" src="../../../../images/avatar.png" />
-                                <input class="form-control" />
-                                <button class="btn btn-info">comment</button>
-                            </div>-->
-                            <div class="card card-block">
-                            <div *ngFor="let comment of question.comments">
-                                <div class="row">
-                                    <div class="article-details" *ngIf="comment">
-                                        <img class="user-image comment-img" src="../../../../images/avatar.png" />
-                                        <div class="header-info">{{comment?.userViewModel.name}}</div><!--,{{date.getMonthName(comment.time.getMonth())}} {{comment.time.getDate()}} {{comment.time.getFullYear()}}-->
-                                        <p class="answer-text">{{comment.commentText}}</p>
-                                    </div>
+                            <form #commentForm="ngForm" class="form-horizontal" role="form">
+                                <div class="comment-input">
+                                    <!--<div>{{question.id}} </div>-->
+                                    <img class="user-image comment-img" src="../../../../images/avatar.png"/>
+                                    <input class="form-control" [(ngModel)]="commentText" [ngModelOptions]="{standalone: true}" id="comment"/>
+                                    <button type="button" class="btn btn-primary" (click)="submitComment(question.id)">Submit</button>
                                 </div>
-                                <hr />
+                            </form>
+                            <div class="card card-block">
+                                <div *ngFor="let comment of question.comments">
+                                    <div class="row">
+                                        <div class="article-details" *ngIf="comment">
+                                            <img class="user-image comment-img" src="../../../../images/avatar.png"/>
+                                            <div class="header-info">{{comment?.user?.name}}</div>
+                                            <!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
+                                            <p class="answer-text">{{comment.commentText}}</p>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                </div>
                             </div>
-                        </div>
                         </div>
 
                     </div>

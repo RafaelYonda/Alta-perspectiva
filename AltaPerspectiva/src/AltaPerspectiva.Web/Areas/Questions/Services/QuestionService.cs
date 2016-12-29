@@ -20,6 +20,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 qv.Id = q.Id;
                 qv.Title = q.Title;
                 qv.Body = q.Body;
+                qv.CreatedOn = q.CreatedOn;
                 qv.UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId);
                 qv.Answers = q.Answers.Select(x =>
                                     new AnswerViewModel

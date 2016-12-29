@@ -72,9 +72,7 @@ h2{
 }
 
 .article-details {
-    float: left;
-    width: 98%;
-    padding-left: 2%;
+    padding: 2%;
 }
 
 hr {
