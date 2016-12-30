@@ -107,6 +107,7 @@ namespace AltaPerspectiva
 
             services.AddTransient<ICommandHandler<AddLikeCommand>, AddLikeCommandHandler>();
             services.AddTransient<ICommandHandler<FollowCategoryCommand>, FollowCategoryCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateViewCountCommand>, UpdateViewCountCommandHandler>();
 
             //UserProfile DepencyInjection 
             //Biography

@@ -48,6 +48,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
                 qv.Categories = q.Categories.Select(ct => new CategoryViewModel { Name = ct.Category.Name, Id = ct.CategoryId }).ToList();
 
+                qv.ViewCount = q.ViewCount;
+
                 questions.Add(qv);
             }
 

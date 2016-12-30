@@ -106,6 +106,7 @@ export class QuestionDetailComponent {
 
         this.dataService.addAnswerLike(this.like).subscribe(res => {
             this.question.answers.find(x => x.id == answerId).likes.push(this.like);
+            console.log(this.question.answers.find(x => x.id == answerId).likes);
         });
     }
 

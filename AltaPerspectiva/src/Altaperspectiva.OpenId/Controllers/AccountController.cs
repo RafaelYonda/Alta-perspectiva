@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using OpenIddict;
 using AspNet.Security.OpenIdConnect.Primitives;
 using OpenIddict.Core;
+using Microsoft.AspNetCore.Http;
 
 namespace Altaperspectiva.OpenId.Controllers {
     [Authorize]
@@ -82,6 +83,7 @@ namespace Altaperspectiva.OpenId.Controllers {
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null) {
             ViewData["ReturnUrl"] = returnUrl;
+            HttpContext.Session.SetString("ReturnUrl", returnUrl);
             return View();
         }
 
@@ -120,8 +122,8 @@ namespace Altaperspectiva.OpenId.Controllers {
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null) {
-            ViewData["ReturnUrl"] = returnUrl;
+        public IActionResult Register(/*string returnUrl = null*/) {
+            //ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
@@ -130,9 +132,10 @@ namespace Altaperspectiva.OpenId.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null) {
+        public async Task<IActionResult> Register(RegisterViewModel model)//, string returnUrl = null
+        {
             //EnsureDatabaseCreated(_applicationDbContext);
-            ViewData["ReturnUrl"] = returnUrl;
+            //ViewData["ReturnUrl"].ToString() = returnUrl;
             if (ModelState.IsValid) {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -144,7 +147,7 @@ namespace Altaperspectiva.OpenId.Controllers {
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(HttpContext.Session.GetString("ReturnUrl"));
                 }
                 AddErrors(result);
             }

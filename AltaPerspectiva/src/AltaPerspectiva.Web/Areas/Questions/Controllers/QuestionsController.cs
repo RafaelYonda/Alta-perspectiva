@@ -233,6 +233,18 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         }
 
+        [HttpPost("/questions/api/question/{id}/viewcount")]
+        public IActionResult PostQuestionViewCount(Guid id)
+        {           
+
+            UpdateViewCountCommand cmd = new UpdateViewCountCommand(id);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+
+            return Created($"/questions/api/question/{cmd.Id}/viewcount/{cmd.Id}", cmd);
+
+        }
+
         // PUT api/questions/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
