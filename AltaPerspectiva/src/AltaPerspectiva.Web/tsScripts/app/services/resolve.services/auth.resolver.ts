@@ -1,21 +1,38 @@
 ﻿import { Injectable } from '@angular/core';
-import {LogInObj, User} from './models';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
+import { Router, ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable }     from 'rxjs/Observable';
-import 'rxjs/add/operator/publishReplay';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
+import { Profile} from '../models';
 
 @Injectable()
-export class AuthenticationService{
+export class AuthResolver implements Resolve<Profile> {
+
     constructor(private _http: Http) {
+
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('auth_token'));
+
+        let options = new RequestOptions({ headers: headers });
     }
-    getLoggedinObj(): Observable<any> {
-        return this._http.get('/userprofile/api/getuser/')
+    GetLoggedInUser(): Observable<any> {
+        var url = '/userprofile/api/getuser/';
+        console.log(url);
+        return this._http.get(url)
             .map(this.extractData)
-            .catch(this.handleError)
-            .publishReplay(1)
-            .refCount();
+            .catch(this.handleError);
     }
-    private extractData(res: Response) {
+
+    resolve(route: ActivatedRouteSnapshot): Observable<any> {
+        //let id = route.params['id'];
+        var result = this.GetLoggedInUser();
+        console.log(result);
+        return result;
+    }
+    
+    private extractData(res: Response) {       
         let body;
 
         // check if empty, before call json
@@ -39,4 +56,5 @@ export class AuthenticationService{
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
+
 }
