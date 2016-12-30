@@ -53,7 +53,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             var model = new UserService().GetUserViewModel(queryFactory, loggedinUser);
             return Ok(model);
         }
-        //http://localhost:5273/userprofile/api    
+        //http://localhost:5273/userprofile/api/getuserprofile    
         [HttpGet("userprofile/api/getuserprofile")]
         public IActionResult GetUserProfile()
         {
@@ -64,7 +64,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            var xtest= queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser) ?? new ContractInformation();
+           // var xtest= queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser) ?? new ContractInformation();
             UserProfileViewModel model = new UserProfileViewModel();
             model.biography= queryFactory.ResolveQuery<IBiographyQuery>().Execute(loggedinUser) ??new Biography() ;
             model.contractInformation = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser) ??new ContractInformation();
@@ -132,6 +132,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             Guid createdId = cmd.Id;
             return Ok();
         }
+        [HttpPost("userprofile/api/updatebiography")]
+        public IActionResult UpdateBiography([FromBody]AddBiographyViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            UpdateBiographyCommand cmd = new UpdateBiographyCommand(loggedinUser, model.TagLine, model.AboutMe);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+            return Ok();
+        }
         #endregion
         #region ContractInformation
         //http://localhost:5273/userprofile/api    
@@ -164,7 +179,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             Guid createdId = cmd.Id;
             return Ok();
         }
+        [HttpPost("userprofile/api/updatecontractinformation")]
+        public IActionResult UpdateContractInformation([FromBody]AddContractInformationViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            UpdateContractInfomaionCommand cmd = new UpdateContractInfomaionCommand(loggedinUser, model.FirstName, model.LastName, model.PrefferedEmail, model.PhoneNumber, model.AddressLine1, model.AddressLine2, model.Country, model.Region, model.City);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+            return Ok();
+        }
         #endregion
         #region Education
         //http://localhost:5273/userprofile/api    
@@ -193,6 +222,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             AddEducationCommand cmd = new AddEducationCommand(loggedinUser, model.Institute, model.TimeFrameFrom, model.TimeFrameTo, model.CompletedStudies, model.Description, model.Especiality);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+            return Ok();
+        }
+        [HttpPost("userprofile/api/updateeducation")]
+        public IActionResult UpdateEducation([FromBody]AddEducationViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            UpdateEducationCommand cmd = new UpdateEducationCommand(loggedinUser, model.Institute, model.TimeFrameFrom, model.TimeFrameTo, model.CompletedStudies, model.Description, model.Especiality);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
             return Ok();
@@ -230,6 +274,22 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             Guid createdId = cmd.Id;
             return Ok();
         }
+        [HttpPost("userprofile/api/updateexperience")]
+        public IActionResult UpdateExperience([FromBody]AddExperienceViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            UpdateExperienceCommand cmd = new UpdateExperienceCommand(loggedinUser, model.Employer, model.PositionHeld, model.Location, model.CurrentlyWorkingHere, model.TimePeriodFrom, model.TimePeriodTo, model.Description);
+
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+            return Ok();
+        }
         #endregion
         #region Insight
         //http://localhost:5273/userprofile/api    
@@ -258,6 +318,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             AddInsightCommand cmd = new AddInsightCommand(loggedinUser, model.Title, model.Publication, model.PublicationDate, model.PublicationHyperlink, model.PublicationDocument, model.Description);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+            return Ok();
+        }
+        [HttpPost("userprofile/api/updateinsight")]
+        public IActionResult UpdateInsight([FromBody]AddInsightViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            UpdateInsightCommand cmd = new UpdateInsightCommand(loggedinUser, model.Title, model.Publication, model.PublicationDate, model.PublicationHyperlink, model.PublicationDocument, model.Description);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
             return Ok();
@@ -405,6 +480,34 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             AddUserImageCommand cmd=new AddUserImageCommand(loggedinUser,image);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+            return Ok();
+        }
+        [HttpPost("userprofile/api/updateuserimage")]
+        public IActionResult UpdateUserImage(IFormFile file)
+        {
+            var categoryImagepath = configuration["ProfileUpload"];
+            //IHostingEnvironment environment = new HostingEnvironment();
+            String image = file.FileName;
+
+            var webRoot = environment.WebRootPath;
+
+
+            var uploads = Path.Combine(webRoot, categoryImagepath);
+            using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            UpdateUserImageCommand cmd = new UpdateUserImageCommand(loggedinUser, image);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
             return Ok();
