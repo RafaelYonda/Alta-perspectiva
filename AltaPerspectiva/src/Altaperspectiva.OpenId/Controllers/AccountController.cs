@@ -83,7 +83,8 @@ namespace Altaperspectiva.OpenId.Controllers {
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null) {
             ViewData["ReturnUrl"] = returnUrl;
-            HttpContext.Session.SetString("ReturnUrl", returnUrl);
+            if(returnUrl!= null)
+                HttpContext.Session.SetString("ReturnUrl", returnUrl);
             return View();
         }
 
