@@ -101,9 +101,22 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("questions/api/categories/keywords")]
         public IActionResult GetAllkeywords()
         {
-            var categories = JsonConvert.DeserializeObject<Category[]>(cache.GetString("Keywords"));
-            var keywords = categories.SelectMany(c => c.Keywords).ToList();
-            return Ok(keywords);
+            // neeed to work on here to modify cacheing for categories and keywords
+            //if (cache.GetString("Keywords") != null)
+            //{
+
+            //    var keys = JsonConvert.DeserializeObject<Keyword[]>(cache.GetString("Keywords"));
+            //    var keywords = keys.ToList();
+            //    return Ok(keywords);
+            //}
+            //else
+            //{
+                var categories = queryFactory.ResolveQuery<ICategoriesKeywordsAllQuery>().Execute();                
+                var keywords = categories.SelectMany(c => c.Keywords).ToList();
+                //cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
+                return Ok(keywords);
+            //}
+
         }
         
         // PUT questions/api/categories/5

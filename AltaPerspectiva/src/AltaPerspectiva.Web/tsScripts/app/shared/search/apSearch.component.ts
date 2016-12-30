@@ -102,6 +102,7 @@ export class ApSearchComponent {
                 if (matched) {
                     var cat = this.categories.find(c => c.id == matched.categoryId);
                     this.categoryMatched += (cat == null ? "" : cat.name + " ");
+                    console.log(this.categoryMatched);
                 }
             })
         }
@@ -132,16 +133,19 @@ export class ApSearchComponent {
               
         //search after 3rd letter
         this.showMatchedCatogries(this.title);
-        var tempTitle = this.title;    
-        if (this.title !== "" && this.title.length > 2) {
-            console.log(this.title);
+        var tempTitle = this.title;  
+        ///  
+        if (this.title !== "" && this.title.length > 2) {           
             this.filteredQuestionList = this.questionList.filter(function (el) {               
                 var indx = el.title.toLowerCase().indexOf(tempTitle.toLowerCase()) > -1;               
                 return indx;
             });
-                //.bind(this));
-            console.log(this.filteredQuestionList);
+               
             this.showModal();           
+        }
+        else if (this.categoryMatched.length > 0)
+        {
+            this.showModal();
         }
         else
         {

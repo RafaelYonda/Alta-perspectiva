@@ -95,6 +95,7 @@ namespace AltaPerspectiva
             services.AddTransient<IQuestionsByUserFollowingQuery, QuestionsByUserFollowingQuery>(); 
             services.AddTransient<IQuestionsNotAnsweredQuery, QuestionsNotAnsweredQuery>();
             services.AddTransient<IQuestionsAnsweredQuery, QuestionsAnsweredQuery>();
+            services.AddTransient<ICategoriesKeywordsAllQuery, CategoriesKeywordsAllQuery>();
 
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
@@ -236,17 +237,11 @@ namespace AltaPerspectiva
             app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
             {
                 context.Database.EnsureCreated();
-
-                var keywords = context.Categories.Include(x=>x.Keywords).Select(x=> new { Name = x.Name,Id = x.Id,Sequence = x.Sequence,
-
-                                                                                              keywords = x.Keywords.Select(y=>new
-                                                                                              {
-                                                                                                Id = y.Id,Text = y.Text})
-                                                                                              }).ToList();
-
-                cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
-                                               //,new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
-                                               //     .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
+                var keywords = context.Keywords.ToList();
+                
+               // cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
+                //,new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
+                //     .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
 
 
             }
