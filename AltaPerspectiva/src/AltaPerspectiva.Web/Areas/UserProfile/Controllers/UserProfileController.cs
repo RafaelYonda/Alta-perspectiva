@@ -457,7 +457,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(userImage);
         }
         [HttpPost("userprofile/api/fileupload")]
-        public IActionResult SaveUserImagee(IFormFile file)
+        public IActionResult SaveUserImage(IFormFile file)
         {
             var categoryImagepath = configuration["ProfileUpload"];
             //IHostingEnvironment environment = new HostingEnvironment();
