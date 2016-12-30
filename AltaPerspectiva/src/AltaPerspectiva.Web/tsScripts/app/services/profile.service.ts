@@ -103,6 +103,30 @@ export class ProfileService {
         return this.GetProfile('userprofile/api/getinsight')
     }
 
+
+    //Update added 
+     UpdateProfile(profileObj: any,url: string): Observable<any> {
+         console.log(profileObj);
+        console.log(url);
+        return this._http.get(url )
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    UpdateContact(contact: Contact) {
+        return this.UpdateProfile(contact,'userprofile/api/updatecontact');
+    }
+     UpdateBiography(biography: Biography) {
+        return this.UpdateProfile(biography,'userprofile/api/updatebiography');
+    }
+    UpdateEducation(education: Education) {
+        return this.UpdateProfile(education,'userprofile/api/updateeducation');
+    }
+    UpdateExperience(experience: Experience) {
+        return this.UpdateProfile(experience,'userprofile/api/updateexperience');
+    }
+    UpdateInsight(insight: Insight) {
+            return this.UpdateProfile(insight,'userprofile/api/updateinsight');
+        }
     private handleError(error: Response | any) {
         // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;

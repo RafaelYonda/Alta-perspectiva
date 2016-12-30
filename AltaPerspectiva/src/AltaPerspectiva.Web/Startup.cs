@@ -114,18 +114,23 @@ namespace AltaPerspectiva
             //Biography
             services.AddTransient<IBiographyQuery, BiographyQuery>();
             services.AddTransient<ICommandHandler<AddBiographyCommand>, AddBiographyCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateBiographyCommand>, UpdateBiographyCommandHandler>();
             //Contract
             services.AddTransient<IContractInformationQuery, ContractInformationQuery>();
             services.AddTransient<ICommandHandler<AddContractInfomaionCommand>, AddContractInformationCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateContractInfomaionCommand>, UpdateContractInformationCommandHandler>();
             //Education
             services.AddTransient<IEducationQuery, EducationQuery>();
             services.AddTransient<ICommandHandler<AddEducationCommand>, AddEducationCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateEducationCommand>, UpdateEducationCommandHandler>();
             //Experience
             services.AddTransient<IExperienceQuery, ExperienceQuery>();
             services.AddTransient<ICommandHandler<AddExperienceCommand>, AddExperienceCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateExperienceCommand>, UpdateExperienceCommandHandler>();
             //Insight
             services.AddTransient<IInsightQuery, InsightQuery>();
             services.AddTransient<ICommandHandler<AddInsightCommand>, AddInsightCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateInsightCommand>, UpdateInsightCommandHandler>();
             //Practice
             services.AddTransient<IPracticeAreaQuery, PracticeAreaQuery>();
             services.AddTransient<ICommandHandler<AddPracticeAreaCommand>, AddPracticeAreaCommandHandler>();
@@ -138,6 +143,7 @@ namespace AltaPerspectiva
             //UserImage
             services.AddTransient<IUserImageQuery, UserImageQuery>();
             services.AddTransient<ICommandHandler<AddUserImageCommand>, AddUserImageCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateUserImageCommand>, UpdateUserImageCommandHandler>();
             //AddCategoryCommand
             services.AddTransient<ICommandHandler<AddCategoryCommand>, AddCategoryCommandHandler>();
             //UpdateCategoryCommand
