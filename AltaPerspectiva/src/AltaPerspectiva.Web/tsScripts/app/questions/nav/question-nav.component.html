@@ -25,7 +25,7 @@
             <li><a routerLink="/learn">Learn</a></li>
             <li><a routerLink="/project">Project</a></li>            
         </ul>
-        <ul class="nav navbar-nav navbar-right"  *ngIf="!_logObj.isLoggedIn">
+        <!--<ul class="nav navbar-nav navbar-right"  *ngIf="!_logObj.isLoggedIn">
             <li><a href="/signin">Log in</a></li>
             <li><a href="/signin">Register</a></li>
         </ul>
@@ -34,7 +34,6 @@
                 <a href="#" class="dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false">
                     <img class="user-image" src="{{_logObj.user.imageUrl}}" />{{_logObj.user.name}}
                 </a>
-                <!-- ======= -->
 
                 <div class="dropdown-menu dropdown-menu-right" role="menu">
                     <form class="form-horizontal" role="form">
@@ -52,9 +51,8 @@
                         </div>
                     </form>
                 </div>
-                <!-- ======== -->
 
             </li>
-        </ul>
+        </ul>-->
     </div>
 </div>

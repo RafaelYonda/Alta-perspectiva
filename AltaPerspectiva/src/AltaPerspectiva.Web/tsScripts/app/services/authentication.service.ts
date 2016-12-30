@@ -17,12 +17,10 @@ export class AuthenticationService{
     }
     private extractData(res: Response) {
         let body;
-
         // check if empty, before call json
         if (res.text()) {
             body = res.json();
         }
-
         return body || {};
     }
 

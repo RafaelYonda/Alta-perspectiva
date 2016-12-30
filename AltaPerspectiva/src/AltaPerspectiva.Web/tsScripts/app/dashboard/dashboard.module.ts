@@ -46,10 +46,10 @@ const DashBoardroutes: Routes = [
                 ]
             },
             {
-                path: 'viewprofile', component: ViewProfileComponent, resolve: { question: ProfileResolver },
+                path: 'viewprofile', component: ViewProfileComponent,
                 children: [
                     { path: '', redirectTo: 'general' },
-                    { path: 'general', component: GeneralProfileComponent },
+                    { path: 'general', component: GeneralProfileComponent, resolve: { question: ProfileResolver } },
                     { path: 'projects', component: ProjectlProfileComponent },
                     { path: 'questions', component: QuestionProfileComponent },
                     { path: 'services', component: ServiceProfileComponent },

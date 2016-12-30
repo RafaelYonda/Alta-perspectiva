@@ -16,7 +16,7 @@ export class GeneralProfileComponent {
     experience: Experience;
     skills: Skills;
     practiceArea: PracticeArea;
-    insight: Insight
+    insight: Insight;
 
     route: any;
     imageLink: string;
@@ -32,6 +32,7 @@ export class GeneralProfileComponent {
     fillData() {
         this.route.data
             .subscribe(res => {
+                console.log(res);
                 //***for Unknown reason res obeject is retuening 'question'  Object... need to investigate later***
                 this.contact = res.question.contractInformation;
                 this.biography = res.question.biography;

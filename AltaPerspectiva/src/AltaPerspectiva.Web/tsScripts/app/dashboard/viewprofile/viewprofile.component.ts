@@ -31,7 +31,7 @@ export class ViewProfileComponent {
         this.route = _route;
     }
     ngOnInit() {
-        this.fillData();
+        //this.fillData();
         this.SetImage();
     }
     SetImage() {
@@ -44,21 +44,21 @@ export class ViewProfileComponent {
             });
         });
     }
-    fillData() {
-        this.route.data
-            .subscribe(res => {
-                console.log(res);
-                //***for Unknown reason res obeject is retuening 'question'  Object... need to investigate later***
-                this.contact = res.question.contractInformation;
-                this.biography = res.question.biography;
-                this.education = res.question.education;
-                this.experience = res.question.experience;
-                this.skills = res.question.insight;
-                this.practiceArea = res.question.practiceArea;
-                this.insight = res.question.skill;
-                console.log(this.contact);
-                //this.question = res.question;
-                //console.log(this.question.comments);
-            });
-    }
+    //fillData() {
+    //    this.route.data
+    //        .subscribe(res => {
+    //            console.log(res);
+    //            //***for Unknown reason res obeject is retuening 'question'  Object... need to investigate later***
+    //            this.contact = res.question.contractInformation;
+    //            this.biography = res.question.biography;
+    //            this.education = res.question.education;
+    //            this.experience = res.question.experience;
+    //            this.skills = res.question.insight;
+    //            this.practiceArea = res.question.practiceArea;
+    //            this.insight = res.question.skill;
+    //            console.log(this.contact);
+    //            //this.question = res.question;
+    //            //console.log(this.question.comments);
+    //        });
+    //}
 }
