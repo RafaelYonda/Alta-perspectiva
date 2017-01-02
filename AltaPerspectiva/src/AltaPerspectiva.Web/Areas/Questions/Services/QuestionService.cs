@@ -27,19 +27,19 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                     {
                                         Id = x.Id,
                                         Text = x.Text,
-                                        Comments = x.Comments?.Select(y => new AnswerCommentViewModel { Id = y.Id, AnswerId = y.AnswerId, CommentText = y.CommentText, UserId = y.UserID ,UserViewModel = new UserService().GetUserViewModel(queryFactory,y.UserID)}).ToList(),
+                                        //Comments = x.Comments?.Select(y => new AnswerCommentViewModel { Id = y.Id, AnswerId = y.AnswerId, CommentText = y.CommentText, UserId = y.UserID ,UserViewModel = new UserService().GetUserViewModel(queryFactory,y.UserID)}).ToList(),
                                         AnswerDate = x.AnswerDate,
                                         UserId = x.UserId,
                                         QuestionId = x.QuestionId.Value,
                                         CreatedOn = x.CreatedOn,
                                         UserViewModel = new UserService().GetUserViewModel(queryFactory, x.UserId),
-                                        Likes = x.Likes?.Select(z=>new AnswerLikeViewModel
-                                        {
-                                            UserViewModel = new UserService().GetUserViewModel(queryFactory, z.UserId),
-                                            AnswerId = z.AnswerId,
-                                            Id = z.Id,
-                                            UserId = z.UserId
-                                        }).ToList()
+                                        //Likes = x.Likes?.Select(z=>new AnswerLikeViewModel
+                                        //{
+                                        //    UserViewModel = new UserService().GetUserViewModel(queryFactory, z.UserId),
+                                        //    AnswerId = z.AnswerId,
+                                        //    Id = z.Id,
+                                        //    UserId = z.UserId
+                                        //}).ToList()
             }).ToList();
 
                 qv.Likes = q.Likes.Select(l => new QuestionLikeViewModel { Id = l.Id, QuestionId = l.QuestionId.Value, UserId = l.UserId, UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId) }).ToList();

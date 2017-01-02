@@ -19,7 +19,7 @@
 
                                 <div class="header-info">{{question.userViewModel.name}}, {{question.userViewModel.occupation}} {{question?.createdOn | date: 'dd MMM, yyyy'}} </div>
                                 Categories: <h5 *ngFor="let c of question.categories;let i = index; let last = last" class="subtitle">{{c?.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
-                                <p [innerHTML]="question.lastAnswer?.text"></p>
+                                <div><p [innerHTML]="question.lastAnswer?.text"></p><a [routerLink]="['/question/detail',question.id]">Read more..</a></div>
                                 <div *ngIf="question.answers.length!=0"> by {{question.answers[question.answers.length-1]?.userViewModel?.name}} {{question.answers[question.answers.length-1]?.createdOn | date: 'dd MMM, yyyy'}}</div>
                                 <hr />
                                 <div class="status-panel">
@@ -53,8 +53,7 @@
                                 <div class="collapse comment-panel" id="questionComment{{question.id}}">
                                     <form #commentForm="ngForm" class="form-horizontal " role="form">
                                         <div class="comment-input">
-                                            <!--<div>{{question.id}} </div>-->
-                                            <img class="user-image comment-img" src="../../../../profile/{{comment?.userViewModel?.imageUrl}}" />
+                                            <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl}}" />
                                             <input class="form-control" [(ngModel)]="commentText" [ngModelOptions]="{standalone: true}" id="comment" />
                                             <button type="button" class="btn btn-primary" (click)="submitComment(question.id)">Submit</button>
                                         </div>
@@ -65,7 +64,9 @@
                                             <div *ngIf="comment">
                                                 <img class="user-image comment-img" src="../../../../profile/{{comment?.userViewModel?.imageUrl}}" />
                                                 <div class="header-info">{{comment?.userViewModel?.name}}</div>
-                                                <!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
+                                                
+
+
                                                 <p class="answer-text">{{comment.commentText}}</p>
                                             </div>
                                             <hr />

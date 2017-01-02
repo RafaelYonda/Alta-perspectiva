@@ -7,6 +7,6 @@ namespace Questions.Query
 {
     public interface ICategoriesKeywordsAllQuery : IQuery
     {
-        IEnumerable<Category> Execute();
+        IEnumerable<Keyword> Execute();
     }
 }

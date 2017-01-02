@@ -53,9 +53,8 @@ export class ApSearchComponent {
     }
 
     ngOnInit() {
-     
-        this.questionsService.getQuestions().subscribe(res => {
-            console.log(res);
+
+        this.questionsService.getQuestionsForSearch().subscribe(res => {           
             var resList = [];
             res.forEach(function (el) {
                 resList.push(el);

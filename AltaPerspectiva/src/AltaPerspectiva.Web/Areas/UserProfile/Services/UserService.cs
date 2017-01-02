@@ -42,11 +42,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             var occupationModel = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser);//Return IEnumrable
             if (occupationModel.Any())
             {
-                occupassion = String.Join(",", occupationModel);
+                occupassion = String.Join(",", occupationModel.Select(x=>x.PracticeAreaName).ToList());
             }
              else
             {
-                occupassion = "n/a";
+                occupassion = " ";
             }
 
     UserViewModel userViewModel = new UserViewModel

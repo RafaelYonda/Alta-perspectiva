@@ -38,6 +38,11 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getQuestionsForSearch(): Observable<Question[]> {
+        return this._http.get('/questions/api/questions/search')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     getQuestionsForUser(): Observable<Question[]> {
         return this._http.get('/questions/api/questions')
             .map(this.extractData)
