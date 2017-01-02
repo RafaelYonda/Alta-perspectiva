@@ -1,7 +1,8 @@
 ﻿import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
-import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName} from '../../services/models';
+import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName, LogInObj, User} from '../../services/models';
+import { AuthenticationService } from '../../services/authentication.service';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { RelatedQuestionMenu } from '../question-left-menu/related-question-left-menu.component';
 
@@ -9,13 +10,14 @@ import { RelatedQuestionMenu } from '../question-left-menu/related-question-left
     selector: "question-details",
     templateUrl: 'js/app/questions/question-details/question-details.component.html',
     styleUrls: ['js/app/questions/question-details/question-details.css'],
-    providers: [QuestionResolver, QuestionAnswerService]
+    providers: [QuestionResolver, QuestionAnswerService, AuthenticationService]
 })
 export class QuestionDetailComponent {
     date: DateName;
     route: any;
     error: any;
     id: string;
+    _logObj: LogInObj;
 
     answerText: string;
     answerVM: AnswerViewModel;
@@ -30,13 +32,21 @@ export class QuestionDetailComponent {
     private sub: any;
     question: Question;
     constructor(private router: Router, private _route: ActivatedRoute, private questionService: QuestionResolver,
-        private dataService: QuestionAnswerService) {
+        private dataService: QuestionAnswerService, private authService: AuthenticationService) {
         this.route = _route;
         //this.question = questionService.getFakeQuestion();
         this.date = new DateName();
+        this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
-    ngOnInit() {       
-
+    ngOnInit() {
+        var currentUserName = localStorage.getItem('currentUserName'); 
+        var currentUserImage = localStorage.getItem('currentUserImage');
+        console.log(currentUserName);
+        if (currentUserName != null)
+        {
+            this._logObj.user.name = currentUserName;
+            this._logObj.user.imageUrl = currentUserImage;
+        }
         this.route.data
             .subscribe(res => {
                 this.question = res.question;

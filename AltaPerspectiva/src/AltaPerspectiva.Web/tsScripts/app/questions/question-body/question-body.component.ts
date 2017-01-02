@@ -2,7 +2,7 @@
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { CategoryService } from '../../services/category.service';
 import { ConfigService } from '../../services/config.service';
-import {QuestionMenu, Question, Answer, Category,Like, DateName, TotalCount, Config} from '../../services/models';
+import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Config, LogInObj} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
 
 
@@ -24,7 +24,7 @@ export class QuestionBodyComponent{
     id: string;
     private sub: any;
     questions: Question[];
-
+    _logObj: LogInObj;
     answerList: Answer[];
     questionList: Question[];
     error: any;
@@ -51,10 +51,18 @@ export class QuestionBodyComponent{
 
         /// load spinner for when  component initialize
         this.loader.isLoading = true;
+        this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
         
     }
 
     ngOnInit() {
+        var currentUserName = localStorage.getItem('currentUserName');
+        var currentUserImage = localStorage.getItem('currentUserImage');
+        console.log(currentUserName);
+        if (currentUserName != null) {
+            this._logObj.user.name = currentUserName;
+            this._logObj.user.imageUrl = currentUserImage;
+        }
         this.configService.getConfig().subscribe(r => {
             this.config = r;
         });

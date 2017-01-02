@@ -22,12 +22,6 @@ export class ApNav {
         this._authService = authService;
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
-    //LogIn() {
-    //    console.log("Log in");
-    //    this._authService.tempLogin();
-    //} LogOut() {
-    //    this._authService.logout();
-    //}
     ngOnInit() {
         var currentUser = localStorage.getItem('auth_token');  
         console.log(this._logObj);
@@ -36,8 +30,9 @@ export class ApNav {
                 this._logObj.user.name = res.name;
                 this._logObj.user.imageUrl ='../../../../profile/'+ res.imageUrl;
                 this._logObj.isLoggedIn = true;
+                localStorage.setItem('currentUserName', this._logObj.user.name);
+                localStorage.setItem('currentUserImage', this._logObj.user.imageUrl);
             }
-            
             console.log(res);
         });
         console.log(this._logObj);
