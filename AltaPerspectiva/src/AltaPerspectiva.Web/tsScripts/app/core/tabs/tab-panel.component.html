@@ -53,8 +53,7 @@
                                 <div class="collapse comment-panel" id="questionComment{{question.id}}">
                                     <form #commentForm="ngForm" class="form-horizontal " role="form">
                                         <div class="comment-input">
-                                            <!--<div>{{question.id}} </div>-->
-                                            <img class="user-image comment-img" src="../../../../images/avatar.png" />
+                                            <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl}}" />
                                             <input class="form-control" [(ngModel)]="commentText" [ngModelOptions]="{standalone: true}" id="comment" />
                                             <button type="button" class="btn btn-primary" (click)="submitComment(question.id)">Submit</button>
                                         </div>
@@ -63,9 +62,11 @@
                                     <div class="card card-block">
                                         <div *ngFor="let comment of question.comments" class="clearfix">
                                             <div *ngIf="comment">
-                                                <img class="user-image comment-img" src="../../../../images/{{comment?.userViewModel?.imageUrl}}" />
+                                                <img class="user-image comment-img" src="../../../../profile/{{comment?.userViewModel?.imageUrl}}" />
                                                 <div class="header-info">{{comment?.userViewModel?.name}}</div>
-                                                <!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
+                                                
+
+
                                                 <p class="answer-text">{{comment.commentText}}</p>
                                             </div>
                                             <hr />

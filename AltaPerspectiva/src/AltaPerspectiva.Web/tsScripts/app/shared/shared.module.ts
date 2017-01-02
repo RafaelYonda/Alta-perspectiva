@@ -5,6 +5,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { RouterModule } from '@angular/router';
 
 import { ApSearchComponent } from './search/apsearch.component';
+import { CommentComponent } from './comment/comment.component';
 import { AppCkEditorComponent } from './apCkEditor.component';
 
 
@@ -14,10 +15,10 @@ import { AppCkEditorComponent } from './apCkEditor.component';
         { provide: 'Window', useValue: window }
     ],
     declarations: [
-        ApSearchComponent, AppCkEditorComponent
+        ApSearchComponent, AppCkEditorComponent, CommentComponent
     ],
     exports: [
-        ApSearchComponent, AppCkEditorComponent
+        ApSearchComponent, AppCkEditorComponent, CommentComponent
     ]
 })
 export class SharedModule { }

@@ -1,7 +1,8 @@
 ﻿import { Component } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
-//import { Question } from '../../services/models';
+import { AuthenticationService } from '../../services/authentication.service';
+import { LogInObj } from '../../services/models';
 
 //Comment added
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
@@ -11,13 +12,15 @@ import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName
     selector: 'ap-tab-panel',
     templateUrl: 'js/app/core/tabs/tab-panel.component.html',
     styleUrls: ['js/app/core/tabs/tab-panel.css'],
-    providers: [QuestionResolver,QuestionAnswerService]
+
+    providers: [QuestionResolver, QuestionAnswerService, AuthenticationService]
 })
 export class TabPanelComponent {
     id: string;
     private sub: any;
     questions: Question[];
     shareUrl: string;
+    _logObj: LogInObj;
     readMoreLink: string;
     //Comment
     comment: Comment;
@@ -28,12 +31,24 @@ export class TabPanelComponent {
     //Like
     like: Like;
     
-    constructor(private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService,private questionService: QuestionResolver) {
+    constructor(private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
         //this.questions = this.questionAnswerService.getQuestionByCategory('');
-         this.route = _route;
+        this.route = _route;
+        this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
-
     ngOnInit() {   
+        var currentUser = localStorage.getItem('auth_token');
+        console.log(this._logObj);
+        this.authService.getLoggedinObj().subscribe(res => {
+            if (res && currentUser != "null") {
+                this._logObj.user.name = res.name;
+                this._logObj.user.imageUrl = '../../../../profile/' + res.imageUrl;
+                this._logObj.isLoggedIn = true;
+                
+            }
+            console.log(res);
+        });
+
         this.sub = this.route.params.subscribe(params => {
            
             this.id = params['id']; // (+) converts string 'id' to a number 
