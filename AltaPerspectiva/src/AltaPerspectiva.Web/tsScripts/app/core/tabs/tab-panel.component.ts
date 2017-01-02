@@ -18,7 +18,7 @@ export class TabPanelComponent {
     private sub: any;
     questions: Question[];
     shareUrl: string;
-
+    readMoreLink: string;
     //Comment
     comment: Comment;
     commentText: string;
@@ -47,7 +47,8 @@ export class TabPanelComponent {
                     if (this.questions[q].lastAnswer) {
 
                         var temp = this.questions[q].lastAnswer.text.substring(0, 200);
-                        this.questions[q].lastAnswer.text = temp + " <a [routerLink]=\"['/question/detail', question.id]\">read more...</a>";
+                        this.questions[q].lastAnswer.text = temp;
+                        this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id +"'>read more...</a>";
                         this.questions[q].shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questions[q].id);
                     }
                 }

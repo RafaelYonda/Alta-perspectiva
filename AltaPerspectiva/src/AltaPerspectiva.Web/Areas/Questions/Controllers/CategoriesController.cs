@@ -111,8 +111,8 @@ namespace AltaPerspectiva.Web.Area.Questions
             //}
             //else
             //{
-                var categories = queryFactory.ResolveQuery<ICategoriesKeywordsAllQuery>().Execute();                
-                var keywords = categories.SelectMany(c => c.Keywords).ToList();
+                var keywords = queryFactory.ResolveQuery<ICategoriesKeywordsAllQuery>().Execute();                
+               
                 //cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
                 return Ok(keywords);
             //}

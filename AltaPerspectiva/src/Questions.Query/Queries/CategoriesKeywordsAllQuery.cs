@@ -16,9 +16,9 @@ namespace Questions.Query
 		{
 		}
 
-        public IEnumerable<Category> Execute()
+        public IEnumerable<Keyword> Execute()
         {
-            return DbContext.Categories.Include(x => x.Keywords).ToList(); ; 
+            return DbContext.Keywords.ToList(); ; 
         }
     }
 }

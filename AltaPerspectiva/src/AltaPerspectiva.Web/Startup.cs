@@ -84,6 +84,7 @@ namespace AltaPerspectiva
             services.AddTransient<IQueryFactory, QueryFactory>(serviceProvider => new QueryFactory(x => serviceProvider.GetRequiredService(x)));
 
             services.AddTransient<IQuestionsQuery, QuestionsQuery>();
+            services.AddTransient<IQuestionsSearchQuery, QuestionsSearchQuery>();
             services.AddTransient<ICategoriesQuery, CategoriesQuery>();
             services.AddTransient<IKeywordsQuery, KeywordsQuery>();
             services.AddTransient<ICategoryMatchKeywordQuery, CategoryMatchKeywordQuery>();
