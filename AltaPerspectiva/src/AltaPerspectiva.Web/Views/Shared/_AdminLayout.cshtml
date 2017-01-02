@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - Altaperspectiva.OpenId</title>
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/fontawesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/lib/bootstrap-touch-carousel/dist/css/bootstrap-touch-carousel.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
@@ -13,6 +15,8 @@
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.0.0/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
+        <link rel="stylesheet" href="~/lib/fontawesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap-touch-carousel/0.8.0/css/bootstrap-touch-carousel.css"
               asp-fallback-href="~/lib/bootstrap-touch-carousel/css/bootstrap-touch-carousel.css"
               asp-fallback-test-class="carousel-caption" asp-fallback-test-property="display" asp-fallback-test-value="none" />
@@ -45,9 +49,10 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <style>
-       .fixHeader{
-            margin-left:25px!important
+        .fixHeader {
+            margin-left: 25px !important;
         }
+
         .body-minHeight {
             min-height: 79vh;
         }
@@ -140,6 +145,13 @@
             background-color: black;
             height: 60px;
         }
+
+         .headerText {
+                 color: aliceblue;
+                  font-size: 14px;
+                      margin-top: 2px;
+                      cursor: pointer;
+         }
     </style>
 </head>
 
@@ -161,7 +173,52 @@
                         <li><a asp-controller="Home" asp-action="About">About</a></li>
                         <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                     </ul>*@
-                @Html.Partial("_LoginPartial")
+                <ul></ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                   
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <div class="dropdown-menu-right" role="menu">
+                                
+                                <div aria-expanded="false" class="dropdown-toggle fixed-height headerText" data-toggle="dropdown" href="#">
+                                    <img class="user-image"  src="../../../../profile/LOGO CUADRADO.png" src="../../../../profile/LOGO CUADRADO.png"><span id="headerUserName"></span>
+                                </div>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/dashboard"><span class="fa fa-user"></span> Profile</a></li>
+                                    <li><a href="/questions/getcategory"> <span class="fa fa-sign-out"></span> Manage Categories </a></li>
+                                    <li><a href="/signout"><span class="fa fa-sign-out"></span> Sign Out</a></li>
+                                    
+
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <script>
+                        var url = '@Url.Action("GetUserName", "UserProfile", new { Area = "UserProfile" })';
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: null,
+                            async: false,
+                            success: function (respText) {
+                                console.log(respText);
+                               $('#headerUserName').text(respText);
+
+                            },
+                            error: function (jqXhr, textStatus, errorThrown) {
+
+                            }
+                        });
+
+                    </script>
+
+                }
+                else
+                {
+                    @Html.Partial("_LoginPartial")
+                }
+
             </div>
         </div>
     </div>
@@ -178,11 +235,9 @@
             </div>
         </div>
     </div>
-   
+
 
 
     @RenderSection("scripts", required: false)
 </body>
 </html>
-
-
