@@ -24,7 +24,8 @@
                                 <hr />
                                 <div class="status-panel">
                                     <img class="like-logo" src="../images/fade-logo.png" />
-                                    <div class="status-line">{{question?.likes?.length}}</div>
+                                    <!--<div class="status-line">{{question?.likes?.length}}</div>-->
+                                    <a href="#" data-toggle="modal" data-target="#myModal" (click)="submitLikeUserDetails(question.id)"> {{question?.likes?.length}}</a>
                                     <a (click)="submitLike(question.id)"><div class="status-line">Like</div></a>
                                     <div class="status-line like-border"></div>
                                     <div class="status-line">{{question?.viewCount}}</div>
@@ -64,7 +65,7 @@
                                             <div *ngIf="comment">
                                                 <img class="user-image comment-img" src="../../../../profile/{{comment?.userViewModel?.imageUrl}}" />
                                                 <div class="header-info">{{comment?.userViewModel?.name}}</div>
-                                                
+
 
 
                                                 <p class="answer-text">{{comment.commentText}}</p>
@@ -80,6 +81,45 @@
             </div>
         </div>
     </div>
-</div>
 
+    <style>
+        .modal-dialog {
+            width: 500px;
+            margin: 302px auto;
+        }
+    </style>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <!--<h4 class="modal-title">Modal 1</h4>-->
+                </div><div class="container">
 
+                </div>
+                <div class="modal-body">
+                    <!--<h5 *ngFor="let c of question.categories;let i = index; let last = last" class="subtitle">{{c?.name}} <span *ngIf="!last">,&nbsp;</span> </h5>-->
+                    <div *ngIf="likedUsers?.length==0">
+                        No one liked yet...be the first to like
+                    </div>
+                    <div *ngFor="let user of likedUsers">
+                        <div>
+                            <img class="user-image comment-img img-circle"  src="../../../../profile/{{user?.imageUrl}}" />
+
+                            {{user?.name}}
+                        </div>
+                        
+
+                        <br />
+
+                    </div>
+                    <div class="modal-footer">
+                        <!--<a href="#" data-dismiss="modal" class="btn"></a>-->
+                        <div style="display: none">.</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- =============== -->
+    </div>

@@ -1,9 +1,9 @@
 ﻿<ul class="nav navbar-nav navbar-right user-menu">
     <li>
-        <a href="@Url.Action("Login", "Account")">Log in</a>
+        <a href="@Url.Action("Login", "Account" , new { Area = "" })">Log in</a>
     </li>
     <li>
-        <a href="@Url.Action("Login", "Account")">Register</a>
+        <a href="@Url.Action("Login", "Account", new { Area = "" })">Register</a>
     </li>
 </ul>
 @* ========Code below will be needed when server side function is working *@

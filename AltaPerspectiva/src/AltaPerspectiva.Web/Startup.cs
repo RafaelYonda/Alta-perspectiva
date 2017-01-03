@@ -17,11 +17,15 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.EntityFrameworkCore;
 using Questions.Command.DbContext;
 using System.IO;
+using System.Net;
+using System.Reflection;
 using Questions.Query;
 using Questions.Query.DbContext;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text;
+using AltaPerspectiva.Web.Areas.UserProfile.Services;
+using Microsoft.AspNetCore.Diagnostics;
 using UserProfile.Query.Queries;
 using UserProfile.Command.Commands;
 using UserProfile.Command.CommandHandler;
@@ -29,6 +33,7 @@ using UserProfile.Command.UserProfileDBContext;
 using UserProfile.Query;
 using Questions.Command.Commands;
 using Questions.Command.CommandHandler;
+using Questions.Query.Queries;
 
 namespace AltaPerspectiva
 {
@@ -157,6 +162,9 @@ namespace AltaPerspectiva
             //AddKeyword
             services.AddTransient<ICommandHandler<AddKeywordCommand>, AddKeywordCommandHandler>();
 
+            //Get all like
+            services.AddTransient<ILikeQuery, LikeQuery>();
+
         }
 
 
@@ -172,7 +180,43 @@ namespace AltaPerspectiva
             app.UseApplicationInsightsRequestTelemetry();
 
             app.UseDeveloperExceptionPage();
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+            //            app.UseExceptionHandler(
+            //                             options =>
+            //                             {
+            //                                 options.Run(
+            //                                 async context =>
+            //                                 {
+            //                                     String contextPath = context.Request.Path.Value;
+            //                                     //api request 
+            //                                     if (contextPath.Contains("/api") && contextPath != "/")
+            //                                     {
+            //                                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            //                                         context.Response.ContentType = "text/html";
+            //                                         context.Response.StatusCode = 500;
+            //                                         //context.Response.HttpContext.
+            //                                         var ex = context.Features.Get<IExceptionHandlerFeature>();
 
+            //                                        // MethodBase site = ex.Error.Source;
+            //                                        // string methodName = site == null ? null : site.Name;
+            //                                         //if (ex != null)
+            //                                         //{
+            //                                         var err = $"<h1>Error: {ex.Error.Message}</h1>{ex.Error.StackTrace }";
+            //                                         await context.Response.WriteAsync(err).ConfigureAwait(false);
+            //                                        // await  StatusCode(500);
+            //                                         //  }
+
+            //                                     }
+            //                                     //Route request
+            //                                     else
+            //                                     {
+            //                                         context.Response.Redirect("/home/error");
+            //                                         await Task.FromResult<object>(null);
+            //                                     }
+
+            //                                 });
+            //                             }
+            //);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -241,18 +285,18 @@ namespace AltaPerspectiva
             //    context.Database.EnsureCreated();
             //}
 
-            using (var context = new QuestionsDbContext(
-            app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
-            {
-                context.Database.EnsureCreated();
-                var keywords = context.Keywords.ToList();
+            //using (var context = new QuestionsDbContext(
+            //app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
+            //{
+            //    context.Database.EnsureCreated();
+            //    var keywords = context.Keywords.ToList();
                 
-               // cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
-                //,new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
-                //     .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
+            //   // cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
+            //    //,new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
+            //    //     .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
 
 
-            }
+            //}
         }
     }
 }

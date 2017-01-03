@@ -109,4 +109,41 @@ export class ImageUploadService {
             xhr.send(formData);
         });
     }
+public updateFileRequest(files: File[]): Observable<any> {
+        console.log(files);
+        return Observable.create(observer => {
+            let formData: FormData = new FormData(),
+                xhr: XMLHttpRequest = new XMLHttpRequest();
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append("uploads[]", files[i], files[i].name);
+            }
+            console.log(formData);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        observer.next(JSON.parse(xhr.response));
+                        observer.complete();
+                    } else {
+                        observer.error(xhr.response);
+                    }
+                }
+            };
+            xhr.onerror = function () {
+                console.log("Error while calling Web API");
+            }
+            //xhr.setRequestHeader("Content-type", "image");
+            xhr.setRequestHeader("content-type",
+                "undefined");
+
+            //xhr.upload.onprogress = (event) => {
+            //    this.progress = Math.round(event.loaded / event.total * 100);
+
+            //    this.progressObserver.next(this.progress);
+            //};
+
+            xhr.open('POST', 'userprofile/api/updateuserimage', true);
+            xhr.send(formData);
+        });
+    }
 }

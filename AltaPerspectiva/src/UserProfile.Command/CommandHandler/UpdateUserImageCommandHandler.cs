@@ -25,7 +25,7 @@ namespace UserProfile.Command.CommandHandler
             //image.GenerateNewIdentity();
             image.UserId = command.UserId;
             image.Image = command.Image;
-            DbContext.UserImage.Add(image);
+          //  DbContext.UserImage.Add(image);
             DbContext.SaveChanges();
         }
 

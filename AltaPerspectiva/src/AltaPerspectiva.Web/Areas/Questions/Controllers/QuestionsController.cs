@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Questions.Domain;
 using UserProfile.Query;
 using AltaPerspectiva.Web.Areas.Questions.Services;
+using AltaPerspectiva.Web.Areas.UserProfile.Models;
+using Questions.Query.Queries;
 
 
 //using Questions.Domain;
@@ -212,6 +214,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost("/questions/api/question/{id}/like")]
         public IActionResult PostQuestionLike([FromBody]AddLikeViewModel like)
         {
+            
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
@@ -219,12 +222,19 @@ namespace AltaPerspectiva.Web.Area.Questions
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
+            like.UserId = loggedinUser;
+            Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
+                .GetUserBeforeLike(like.QuestionId, loggedinUser);
+            if (!alreadyLiked)
+            {
+                AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
+                commandsFactory.ExecuteQuery(cmd);
+                Guid createdId = cmd.Id;
 
-            AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-
+               // return Created($"/questions/api/question/{like.QuestionId}/comment/{like.Id}", like);
+            }
             return Created($"/questions/api/question/{like.QuestionId}/comment/{like.Id}", like);
+
 
         }
 
@@ -269,6 +279,28 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        //all like added 
+        [HttpGet("/questions/api/questionlike/{questionId}")]
+        public async Task<IActionResult> QuestionLike(Guid questionId)
+        {
+            var likes = await queryFactory.ResolveQuery<ILikeQuery>().Execute(questionId);
+
+            List<UserViewModel> userViewModels=new List<UserViewModel>();
+            foreach (var like in likes)
+            {
+                Guid userId = like.UserId;
+
+                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
+                userViewModels.Add(userViewModel);
+
+            }
+
+
+            return Ok(userViewModels);
+
+
         }
     }
 }
