@@ -126,9 +126,10 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         // GET /questions/api/questions/{id}
         [HttpGet("/questions/api/questions/{id}/comments")]
-        public IActionResult GetComments(Guid id)
+        public async Task<IActionResult>  GetComments(Guid id)
         {
-            var comments = queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);           
+            var comments = await queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);
+            var commentsVM = new QuestionService().GetComments(comments, queryFactory);
             return Ok(comments);
         }
 
