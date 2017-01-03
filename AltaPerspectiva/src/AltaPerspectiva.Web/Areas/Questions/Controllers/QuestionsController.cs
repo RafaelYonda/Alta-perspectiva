@@ -126,6 +126,13 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(questions);
         }
 
+        // GET /questions/api/questions/{id}
+        [HttpGet("/questions/api/questions/{id}/comments")]
+        public IActionResult GetComments(Guid id)
+        {
+            var comments = queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);           
+            return Ok(comments);
+        }
 
         // POST /questions/api/questions       
         [HttpPost("/questions/api/questions")]

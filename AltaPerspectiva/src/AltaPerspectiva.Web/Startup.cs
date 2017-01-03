@@ -102,6 +102,7 @@ namespace AltaPerspectiva
             services.AddTransient<IQuestionsNotAnsweredQuery, QuestionsNotAnsweredQuery>();
             services.AddTransient<IQuestionsAnsweredQuery, QuestionsAnsweredQuery>();
             services.AddTransient<ICategoriesKeywordsAllQuery, CategoriesKeywordsAllQuery>();
+            services.AddTransient<IQuestionCommentsQuery, QuestionCommentsQuery>();
 
             services.AddTransient<ICommandHandler<AddQuestionCommand>, AddQuestionCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionCommand>, QuestionAddedNotificationCommandHandler>();
@@ -229,17 +230,17 @@ namespace AltaPerspectiva
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
 
-                ClientId = "localhost", // for localhost
+                //ClientId = "localhost", // for localhost
 
 
-                //ClientId = "azure",       // for azure deploy 
+                ClientId = "azure",       // for azure deploy 
 
                 ClientSecret = "aLtaseCreT!@#",
 
 
-                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+               // PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
 
-               // PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
+                  PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
 
 
                 RequireHttpsMetadata = false,
@@ -254,9 +255,9 @@ namespace AltaPerspectiva
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
 
-               Authority = "http://localhost:54540",
+               //Authority = "http://localhost:54540",
 
-               // Authority = "http://altaauth.azurewebsites.net",
+                Authority = "http://altaauth.azurewebsites.net",
 
                 Scope = { "email", "roles", "offline_access" }
             });
