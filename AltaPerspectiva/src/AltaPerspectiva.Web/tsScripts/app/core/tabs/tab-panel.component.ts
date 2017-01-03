@@ -30,6 +30,7 @@ export class TabPanelComponent {
     error: any;
     //Like
     like: Like;
+    likedUsers:any;
     
     constructor(private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
         //this.questions = this.questionAnswerService.getQuestionByCategory('');
@@ -92,8 +93,30 @@ export class TabPanelComponent {
         this.like.questionId = questionId;       
 
         this.questionAnswerService.addQuestionLike(this.like).subscribe(res => {
-            this.questions.find(x=>x.id==questionId).likes.push(this.like);
+            this.like.userId = res.userId ;    
+            console.log(res);
+            console.log(this.questions.find(x => x.id == questionId).likes);
+           var douplicateLike= this.questions.find(x => x.id == questionId).likes.find(x => x.userId == res.userId &&x.questionId==questionId);
+            console.log(douplicateLike);
+           if (douplicateLike==undefined) {
+               this.questions.find(x=>x.id==questionId).likes.push(this.like);
+           }
         });
+    }
+
+ submitLikeUserDetails(questionId: string) {
+        console.log(questionId);
+
+  this.questionAnswerService.addLikeUserDetails(questionId).subscribe(res => {
+      console.log(res);
+      this.likedUsers = res;
+  });
+       // this.like = new Like();
+       // this.like.questionId = questionId;       
+
+      //  this.questionAnswerService.addQuestionLike(this.like).subscribe(res => {
+        //    this.questions.find(x=>x.id==questionId).likes.push(this.like);
+      //  });
     }
     ngOnDestroy() {
         this.sub.unsubscribe();

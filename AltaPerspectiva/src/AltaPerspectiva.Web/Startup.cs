@@ -33,6 +33,7 @@ using UserProfile.Command.UserProfileDBContext;
 using UserProfile.Query;
 using Questions.Command.Commands;
 using Questions.Command.CommandHandler;
+using Questions.Query.Queries;
 
 namespace AltaPerspectiva
 {
@@ -159,6 +160,9 @@ namespace AltaPerspectiva
 
             //AddKeyword
             services.AddTransient<ICommandHandler<AddKeywordCommand>, AddKeywordCommandHandler>();
+
+            //Get all like
+            services.AddTransient<ILikeQuery, LikeQuery>();
 
         }
 

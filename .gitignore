@@ -76,3 +76,5 @@ AltaPerspectiva/src/UserProfile.Command/obj/
 /AltaPerspectiva/src/AltaPerspectiva.Api/obj/Debug/netstandard1.6/dotnet-compile.rsp
 AltaPerspectiva/src/AltaPerspectiva.Api/AltaPerspectiva.Api.xproj.user
 AltaPerspectiva/AltaPerspectiva.vsext
+AltaPerspectiva/src/AltaPerspectiva.Api/bin/Debug/netstandard1.6/AltaPerspectiva.Api.dll
+AltaPerspectiva/src/AltaPerspectiva.Api/bin/Debug/netstandard1.6/AltaPerspectiva.Api.pdb
