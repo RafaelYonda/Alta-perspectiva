@@ -40,9 +40,9 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                         //    Id = z.Id,
                                         //    UserId = z.UserId
                                         //}).ToList()
-            }).ToList();
+                                    }).ToList();
 
-                qv.Likes = q.Likes.Select(l => new QuestionLikeViewModel { Id = l.Id, QuestionId = l.QuestionId.Value, UserId = l.UserId, UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId) }).ToList();
+                qv.Likes = q.Likes.Select(l => new QuestionLikeViewModel { Id = l.Id, QuestionId = l.QuestionId.Value, UserId = l.UserId }).ToList();
 
                 qv.Comments = q.Comments.Select(c => new QuestionCommentViewModel { Id = c.Id, CommentText = c.CommentText, QuestionId = c.QuestionID, UserId = c.UserID, UserViewModel = new UserService().GetUserViewModel(queryFactory, c.UserID) }).ToList();
 
@@ -57,10 +57,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
         }
         public QuestionViewModel GetQuestionViewModel(Question question, IQueryFactory queryFactory)
         {
-            var q = question;
-           // List<QuestionViewModel> questions = new List<QuestionViewModel>();
-           // foreach (var q in questionList)
-           // {
+            var q = question;        
             var qv = new QuestionViewModel();
                 qv.Id = q.Id;
                 qv.Title = q.Title;
@@ -93,9 +90,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
                 qv.Categories = q.Categories.Select(ct => new CategoryViewModel { Name = ct.Category.Name, Id = ct.CategoryId }).ToList();
 
-               // questions.Add(qv);
-           // }
-
+              
             return qv;
         }
     }
