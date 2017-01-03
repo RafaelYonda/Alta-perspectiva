@@ -223,7 +223,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
             like.UserId = loggedinUser;
             Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
-                .GetUserBeforeLike(like.QuestionId, loggedinUser);
+                .GetQuestionBeforeLike(like.QuestionId, loggedinUser);
             if (!alreadyLiked)
             {
                 AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
@@ -247,10 +247,15 @@ namespace AltaPerspectiva.Web.Area.Questions
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-
-            AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
+            like.UserId = loggedinUser;
+            Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
+               .GetAnswerBeforeLike(like.QuestionId, loggedinUser);
+            if (!alreadyLiked)
+            {
+                AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);
+                commandsFactory.ExecuteQuery(cmd);
+                Guid createdId = cmd.Id;
+            }
 
             return Created($"/questions/api/question/{like.QuestionId}/answer/{like.AnswerId}/comment/{like.Id}", like);
 
@@ -287,6 +292,26 @@ namespace AltaPerspectiva.Web.Area.Questions
             var likes = await queryFactory.ResolveQuery<ILikeQuery>().Execute(questionId);
 
             List<UserViewModel> userViewModels=new List<UserViewModel>();
+            foreach (var like in likes)
+            {
+                Guid userId = like.UserId;
+
+                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
+                userViewModels.Add(userViewModel);
+
+            }
+
+
+            return Ok(userViewModels);
+
+
+        }
+        [HttpGet("/questions/api/answerlike/{answerId}")]
+        public async Task<IActionResult> AnswerLike(Guid answerId)
+        {
+            var likes = await queryFactory.ResolveQuery<ILikeQuery>().Answer(answerId);
+
+            List<UserViewModel> userViewModels = new List<UserViewModel>();
             foreach (var like in likes)
             {
                 Guid userId = like.UserId;

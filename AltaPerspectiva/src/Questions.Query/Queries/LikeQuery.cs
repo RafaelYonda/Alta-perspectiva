@@ -21,7 +21,7 @@ namespace Questions.Query.Queries
             return await DbContext.Likes.Where(x => x.QuestionId==questionId).ToListAsync();
         }
 
-        public bool GetUserBeforeLike(Guid? questionId, Guid loggedinUser)
+        public bool GetQuestionBeforeLike(Guid? questionId, Guid loggedinUser)
         {
             var alreadyLiked =
                 DbContext.Likes.FirstOrDefault(x => x.UserId == loggedinUser && x.QuestionId == questionId &&x.AnswerId==null);
@@ -34,6 +34,26 @@ namespace Questions.Query.Queries
             {
                 return false;
             }
+        }
+
+        public bool GetAnswerBeforeLike(Guid? questionId, Guid loggedinUser)
+        {
+            var alreadyLiked =
+               DbContext.Likes.FirstOrDefault(x => x.UserId == loggedinUser && x.QuestionId == questionId && x.AnswerId != null);
+            if (alreadyLiked != null)
+            {
+                //Like ited before
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<IEnumerable<Like>> Answer(Guid answerId)
+        {
+            return await DbContext.Likes.Where(x => x.AnswerId == answerId).ToListAsync();
         }
     }
     
