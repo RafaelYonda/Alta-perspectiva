@@ -28,7 +28,6 @@ export class CommentComponent {
 
         this.commentService.getCommentByQuestion(this.questionId).subscribe(res => {
             this.comments = res;
-            console.log(res);
         }); 
     }
 

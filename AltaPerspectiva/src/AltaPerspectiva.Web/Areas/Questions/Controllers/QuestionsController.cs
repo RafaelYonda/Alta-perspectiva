@@ -296,15 +296,10 @@ namespace AltaPerspectiva.Web.Area.Questions
             foreach (var like in likes)
             {
                 Guid userId = like.UserId;
-
                 UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
                 userViewModels.Add(userViewModel);
-
             }
-
-
             return Ok(userViewModels);
-
 
         }
         [HttpGet("/questions/api/answerlike/{answerId}")]

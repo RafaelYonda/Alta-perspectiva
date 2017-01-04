@@ -1,11 +1,11 @@
 .tab-panel-container {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 8px;
+    padding-left: 20px;
     margin-right: auto;
     margin-left: auto;
     margin-top: 25px;
     margin-bottom: 130px;
-    width: 94%;
+    width: 67%;
 }
 
 span {
