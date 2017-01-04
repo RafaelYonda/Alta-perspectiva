@@ -128,12 +128,21 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    
      addLikeUserDetails(questionId: string): Observable<any> {
          return this._http.get('/questions/api/questions/' + questionId + '/questionlike',null)
             .map(this.extractData)
             .catch(this.handleError);
 
     }
+
+     getTopFiveQuestion(): Observable<Question[]> {
+             return this._http.get('/questions/api/gettopfivequestion',null)
+                .map(this.extractData)
+                .catch(this.handleError);
+
+     }
+
     private extractData(res: Response) {       
         let body;
 
