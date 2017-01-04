@@ -1,62 +1,42 @@
-﻿<div class="row">
-<div class="col-md-3 left-gap">
-    <topfive-question-left-menu> </topfive-question-left-menu>
-    <topfive-user></topfive-user>
-</div>
-    <div class="col-md-6">
+﻿<style>
+    .left-panel {
+        width: 20%;
+    }
+
+    .tab-content-panel {
+        width: 60%;
+        float: left;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+</style>
+<div class="row">
+    <div class="left-panel">
+        <topfive-question-left-menu> </topfive-question-left-menu>
+    </div>
+    <div class="tab-content-panel">
         <div class="tab" *ngFor="let question of questions">
             <div class="panel-article">
                 <div class="row  ">
-                   
                     <!--<div class="col-sm-1 left-gap">
                     </div>-->
                     <div class="col-sm-11 questions-container">
                         <div class="left-border">
-                            <img class="image-border" src="../../../../images/border.png"/>
+                            <img class="image-border" src="../../../../images/border.png" />
                         </div>
                         <div class="details-container">
                             <h3>
                                 <a [routerLink]="['/question/detail',question.id]">{{question.title}}</a>
                             </h3>
                             <div class="article-details">
-                                <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}"/>
+                                <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}" />
 
                                 <div class="header-info">{{question.userViewModel.name}}, {{question.userViewModel.occupation}} {{question?.createdOn | date: 'dd MMM, yyyy'}} </div>
                                 Categories: <h5 *ngFor="let c of question.categories;let i = index; let last = last" class="subtitle">{{c?.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
-                                <div *ngIf="question.lastAnswer?.text">
-                                    <p [innerHTML]="question.lastAnswer?.text"></p><span><a [routerLink]="['/question/detail',question.id]">Read more..</a></span>
-                                </div>
+                                <div *ngIf="question.lastAnswer?.text"><p [innerHTML]="question.lastAnswer?.text"></p><span><a [routerLink]="['/question/detail',question.id]">Read more..</a></span></div>
                                 <div *ngIf="question.answers.length!=0"> by {{question.answers[question.answers.length-1]?.userViewModel?.name}} {{question.answers[question.answers.length-1]?.createdOn | date: 'dd MMM, yyyy'}}</div>
-                                <hr/>
-                                <div class="status-panel">
-                                    <img class="like-logo" src="../images/fade-logo.png"/>
-                                    <!--<div class="status-line">{{question?.likes?.length}}</div>-->
-                                    <a href="#" data-toggle="modal" data-target="#myModal" (click)="submitLikeUserDetails(question.id)"> {{question?.likes?.length}}</a>
-                                    <a (click)="submitLike(question.id)">
-                                        <div class="status-line">Like</div></a>
-                                    <div class="status-line like-border"></div>
-                                    <div class="status-line">{{question?.viewCount}}</div>
-                                    <div class="status-line">Leidos</div>
-                                    <a data-toggle="collapse" attr.data-target="#questionComment{{question.id}}" aria-expanded="false">
-                                        {{question.comments?.length}} comments
-                                    </a>
-                                    <!-- social media icon -->
-                                    <div class="social-icon">
-
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{question.shareUrl}}"
-                                           class="SHARE FACEBOOK"
-                                           onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
-                                            <img class="social-image" src="../images/facebooklogo.jpg"/>
-                                        </a>
-
-                                        <a href="https://twitter.com/home?status={{question.shareUrl}}" class="SHARE TWITTER"
-                                           onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
-                                            <img class="social-image" src="../images/twitter.png"/>
-                                        </a>
-
-                                        <h5>Respuestas</h5><span class="counter-box">{{question?.answers?.length}}+</span>
-                                    </div>
-                                </div>
+                                <hr />
+                                <ap-status [questionObj]="question"> </ap-status>
                                 <ap-comment [questionId]="question.id"></ap-comment>
                             </div>
                         </div>
@@ -66,49 +46,4 @@
         </div>
     </div>
 
-    <style>
-        .modal-dialog {
-            width: 244px;
-            margin: 302px auto;
-        }
-        .img {
-            margin-right: 22px;
-}
-        
-    </style>
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <!--<h4 class="modal-title">Modal 1</h4>-->
-                </div><div class="container">
-
-                </div>
-                <div class="modal-body">
-                    <!--<h5 *ngFor="let c of question.categories;let i = index; let last = last" class="subtitle">{{c?.name}} <span *ngIf="!last">,&nbsp;</span> </h5>-->
-                    <div *ngIf="likedUsers?.length==0">
-                        No one liked yet...be the first to like
-                    </div>
-                    <div *ngFor="let user of likedUsers">
-                        <div>
-                            
-                            <img class="user-image comment-img img-circle img" src="../../../../profile/{{user?.imageUrl}}"/>
-
-                            {{user?.name}}
-                        </div>
-                        
-
-                        <br />
-
-                    </div>
-                    <div class="modal-footer">
-                        <!--<a href="#" data-dismiss="modal" class="btn"></a>-->
-                        <div style="display: none">.</div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- =============== -->
-    </div>
+</div>

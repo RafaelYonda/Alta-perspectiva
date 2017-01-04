@@ -1,1 +1,40 @@
 ﻿
+.counter-box {
+    position: relative;
+    background: #107ebf;
+    display: inline-block;
+    border-radius: 2px;
+    height: 23px;
+    width: 40px;
+    text-align: center;
+    color: white;
+    margin-left: 2px;
+}
+
+.counter-box:after {
+    bottom: 100%;
+    right: 55%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: #107ebf;
+    border-width: 1px 5px 10px;
+    margin-left: -30px;
+}
+
+h5 {
+    display: inline;
+}
+
+.modal-dialog {
+    width: 244px;
+    margin: 302px auto;
+}
+
+.img {
+    margin-right: 22px;
+}

@@ -129,8 +129,9 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
     
-     addLikeUserDetails(questionId: string): Observable<any> {
-         return this._http.get('/questions/api/questions/' + questionId + '/questionlike',null)
+    addLikeUserDetails(questionId: string): Observable<any> {
+        console.log(questionId +'in addLikeUserDetails');
+         return this._http.get('/questions/api/question/' + questionId + '/questionlike',null)
             .map(this.extractData)
             .catch(this.handleError);
 
