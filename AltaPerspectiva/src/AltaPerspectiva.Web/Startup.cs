@@ -164,6 +164,7 @@ namespace AltaPerspectiva
 
             //Get all like
             services.AddTransient<ILikeQuery, LikeQuery>();
+            services.AddTransient<ITopUserQuery, TopUserQuery>();
 
         }
 

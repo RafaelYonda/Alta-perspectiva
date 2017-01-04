@@ -321,8 +321,6 @@ namespace AltaPerspectiva.Web.Area.Questions
                 userViewModels.Add(userViewModel);
 
             }
-
-
             return Ok(userViewModels);
 
 

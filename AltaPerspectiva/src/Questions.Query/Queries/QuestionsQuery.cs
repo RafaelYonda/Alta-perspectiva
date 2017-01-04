@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Questions.Domain;
@@ -8,29 +11,31 @@ using System.Threading.Tasks;
 
 namespace Questions.Query
 {
-	public class QuestionsQuery : EFQueryBase<QuestionsQueryDbContext>, IQuestionsQuery
+    public class QuestionsQuery : EFQueryBase<QuestionsQueryDbContext>, IQuestionsQuery
     {
-		public QuestionsQuery(QuestionsQueryDbContext context)
-			: base(context)
-		{
-		}
+        public QuestionsQuery(QuestionsQueryDbContext context)
+            : base(context)
+        {
+        }
 
         public async Task<IEnumerable<Question>> Execute()
         {
-              return await DbContext.Questions
-                                    .Include(a => a.Answers).ThenInclude(a => a.Likes)
-                                    .Include(a => a.Answers).ThenInclude(a => a.Comments)
-                                    .Include(q=>q.Categories)
-                                        .ThenInclude(c=>c.Category)
-                                    .Include(q=>q.Comments)
-                                    .Include(q=>q.Likes)
-                                        .OrderByDescending(c => c.CreatedOn.Value.Date)
-                                            .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
-                                                .Take(20)
-                                                    .ToListAsync();
+            return await DbContext.Questions
+                                  .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                  .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                  .Include(q => q.Categories)
+                                      .ThenInclude(c => c.Category)
+                                  .Include(q => q.Comments)
+                                  .Include(q => q.Likes)
+                                      .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                          .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                              .Take(20)
+                                                  .ToListAsync();
         }
         public async Task<IEnumerable<Question>> GetTopFiveQuestion()
         {
+           
+
             return await DbContext.Questions.OrderByDescending(x => x.ViewCount).Take(5).ToListAsync();
         }
     }

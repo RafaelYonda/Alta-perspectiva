@@ -11,10 +11,8 @@ import {Question, Answer, DateName} from '../../services/models';
     providers: [QuestionAnswerService]//, CategoryService]
 })
 export class TopFiveQuestionLeftMenuComponent {
-    isbackGround = false;
 
     topFiveQuestions:Question[];
-    //answerList: Answer[];
     questionService: QuestionAnswerService;
 
     constructor(questionService: QuestionAnswerService) {

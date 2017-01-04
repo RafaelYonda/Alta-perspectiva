@@ -81,6 +81,14 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+     GetTopFiveUser(): Observable<User[]> {
+       // url:String = ;
+        //console.log(url);
+        return this._http.get('userprofile/api/gettopFiveUser' )
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     GetContact() {
         return this.GetProfile('userprofile/api/getuserprofile')
     }
