@@ -132,7 +132,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             var comments = await queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);
             var commentsVM = new QuestionService().GetComments(comments, queryFactory);
-            return Ok(comments);
+            return Ok(commentsVM);
         }
 
         // POST /questions/api/questions       
