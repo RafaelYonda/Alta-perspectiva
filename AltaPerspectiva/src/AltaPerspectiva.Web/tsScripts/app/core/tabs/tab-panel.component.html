@@ -50,30 +50,7 @@
                                         <h5>Respuestas</h5><span class="counter-box">{{question?.answers?.length}}+</span>
                                     </div>
                                 </div>
-                                <!-- ======Question Comment==== -->
-                                <div class="collapse comment-panel" id="questionComment{{question.id}}">
-                                    <form #commentForm="ngForm" class="form-horizontal " role="form">
-                                        <div class="comment-input">
-                                            <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl}}" />
-                                            <input class="form-control" [(ngModel)]="commentText" [ngModelOptions]="{standalone: true}" id="comment" />
-                                            <button type="button" class="btn btn-primary" (click)="submitComment(question.id)">Submit</button>
-                                        </div>
-                                    </form>
-                                    <div class="clearfix"></div>
-                                    <div class="card card-block">
-                                        <div *ngFor="let comment of question.comments" class="clearfix">
-                                            <div *ngIf="comment">
-                                                <img class="user-image comment-img" src="../../../../profile/{{comment?.userViewModel?.imageUrl}}" />
-                                                <div class="header-info">{{comment?.userViewModel?.name}}</div>
-
-
-
-                                                <p class="answer-text">{{comment.commentText}}</p>
-                                            </div>
-                                            <hr />
-                                        </div>
-                                    </div>
-                                </div>
+                                <ap-comment [questionId]="question.id" ></ap-comment>
                             </div>
                         </div>
                     </div>
@@ -84,9 +61,13 @@
 
     <style>
         .modal-dialog {
-            width: 500px;
+            width: 244px;
             margin: 302px auto;
         }
+        .img {
+            margin-right: 22px;
+}
+        
     </style>
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
@@ -104,7 +85,8 @@
                     </div>
                     <div *ngFor="let user of likedUsers">
                         <div>
-                            <img class="user-image comment-img img-circle"  src="../../../../profile/{{user?.imageUrl}}" />
+                            
+                            <img class="user-image comment-img img-circle img" src="../../../../profile/{{user?.imageUrl}}"/>
 
                             {{user?.name}}
                         </div>

@@ -115,8 +115,15 @@ export class QuestionDetailComponent {
         this.like.answerId = answerId;
 
         this.dataService.addAnswerLike(this.like).subscribe(res => {
-            this.question.answers.find(x => x.id == answerId).likes.push(this.like);
+            this.like.userId = res.userId ;    
+             console.log(res);
             console.log(this.question.answers.find(x => x.id == answerId).likes);
+           var douplicateLike= this.question.answers.find(x => x.id == answerId).likes.find(x => x.userId == res.userId &&x.answerId==answerId);
+            console.log(douplicateLike);
+           if (douplicateLike==undefined) {
+               this.question.answers.find(x=>x.id==answerId).likes.push(this.like);
+           }
+            
         });
     }
 
