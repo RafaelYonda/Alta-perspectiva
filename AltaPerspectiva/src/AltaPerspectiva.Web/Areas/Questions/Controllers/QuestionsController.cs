@@ -132,7 +132,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             var comments = await queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);
             var commentsVM = new QuestionService().GetComments(comments, queryFactory);
-            return Ok(comments);
+            return Ok(commentsVM);
         }
 
         // POST /questions/api/questions       
@@ -287,7 +287,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         //all like added 
-        [HttpGet("/questions/api/questionlike/{questionId}")]
+        [HttpGet("/questions/api/question/{questionId}/questionlike")]
         public async Task<IActionResult> QuestionLike(Guid questionId)
         {
             var likes = await queryFactory.ResolveQuery<ILikeQuery>().Execute(questionId);

@@ -24,7 +24,7 @@ export class TabPanelComponent {
     readMoreLink: string;
     //Comment
     comment: Comment;
-    commentText: string;
+    
     question: Question;
      route: any;
     error: any;
@@ -72,20 +72,6 @@ export class TabPanelComponent {
                 //console.log(this.questions);
             });
         }); 
-    }
-    //Added Comment Code
-    submitComment(questionId: string)
-    {
-        this.comment = new Comment();
-        this.comment.questionId = questionId;
-        this.comment.commentText = this.commentText;
-
-        this.questionAnswerService.addQuestionComment(this.comment).subscribe(res => {
-            this.commentText = "";
-            this.comment = res;
-            this.questions.find(x=>x.id ==questionId).comments.push(this.comment);     
-              
-        });
     }
  submitLike(questionId: string) {
         console.log(questionId);

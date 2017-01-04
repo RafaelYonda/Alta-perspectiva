@@ -1,16 +1,48 @@
-﻿import { Component, Input, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-
-import { CategoryService } from '../../services/category.service'
-import { QuestionAnswerService } from '../../services/question-answer.service';
-import { Category, Question, Keyword, AskQuestionViewModel } from '../../services/models';
+﻿import { Component, Input } from '@angular/core';
+import { CommentService } from '../../services/comment.service';
+import {LogInObj, Comment } from '../../services/models';
 
 @Component({
-    selector: 'ap-commnet',
+    selector: 'ap-comment',
     templateUrl: 'js/app/shared/comment/comment.component.html',
     styleUrls: ['js/app/shared/comment/comment.component.css'],
-    //providers: [CategoryService, QuestionAnswerService]
+    providers: [CommentService]
 })
 export class CommentComponent {
-    @Input() placeBottom: string = '';
+    commentText: string;
+    comment: Comment;
+    comments: Comment[];
+    _logObj: LogInObj;
+    @Input() questionId: string = '';
+    constructor(private commentService: CommentService) {
+        this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
+    }
+    ngOnInit() {
+        var currentUserName = localStorage.getItem('currentUserName');
+        var currentUserImage = localStorage.getItem('currentUserImage');
+        console.log(currentUserName);
+        if (currentUserName != null) {
+            this._logObj.user.name = currentUserName;
+            this._logObj.user.imageUrl = currentUserImage;
+        }
+
+        this.commentService.getCommentByQuestion(this.questionId).subscribe(res => {
+            this.comments = res;
+            console.log(res);
+        }); 
+    }
+
+    submitComment(questionId: string) {
+        this.comment = new Comment();
+        this.comment.questionId = questionId;
+        this.comment.commentText = this.commentText;
+
+        this.commentService.addQuestionComment(this.comment).subscribe(res => {
+            this.commentText = "";
+            this.comment = res;
+            console.log(this.comment);
+            this.comments.push(this.comment);
+
+        });
+    }
 }
