@@ -17,14 +17,14 @@ import { Category, Question, Keyword, AskQuestionViewModel } from '../../service
 export class ApSearchComponent {
     public elementRef;
     title: string;
-    body: string;                 
+    body: string;
     result: string;
     keywords: Keyword[];
-    @Input() placeBottom: string='';
+    @Input() placeBottom: string = '';
 
-    constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService,private myElement: ElementRef) {
+    constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private myElement: ElementRef) {
         this.elementRef = myElement;
-    }  
+    }
     ngOnInit() {
         this.questionsService.getQuestionsForSearch().subscribe(res => {
             var resList = [];
@@ -41,23 +41,24 @@ export class ApSearchComponent {
             this.keywords = res;
         });
     }
-    
+
     handleClick(event) {
         //removel the modal on clicking out side the panel
         var idAttr = event.srcElement.attributes.id;
         var value = idAttr ? idAttr.nodeValue : undefined;
-        if (value && value == 'search-box')
+
+        if (value && (value == 'search-box') || (value == 'search-panel'))
             this.removeModal();
     }
 
     //=============Submit Question===========
-    question: Question; 
+    question: Question;
 
     submitQuestion() {
         this.question = new Question();
         this.question.title = this.title;
         this.question.body = this.body;
-        if (this.categoryID!='-1')
+        if (this.categoryID != '-1')
             this.question.categoryIds.push(this.categoryID);
         else
             this.question.categoryIds.push(this.categories[0].id);
@@ -65,7 +66,7 @@ export class ApSearchComponent {
             console.log(res);
             this.question = res;
             this.router.navigate(['/question/home/0']);
-        }); 
+        });
     }
 
     //=============Category Show=============
@@ -78,21 +79,17 @@ export class ApSearchComponent {
     showMatchedCatogries(title: string) {
         if (title.length < 3)
             return;
+        var keywordsInQuestionTitle = title.split(' '); //Get words from question to find keywords
+        keywordsInQuestionTitle.forEach(str => {
 
-        var keywordsInQuestionTitle = title.split(' ');
-
-        if (keywordsInQuestionTitle.length > 1) {
-            this.categoryMatched = "";
-            keywordsInQuestionTitle.forEach(str => {
-
-                var matched = this.keywords.find(x => x.text.toLowerCase() == str.toLocaleLowerCase());
-                if (matched) {
-                    var cat = this.categories.find(c => c.id == matched.categoryId);
-                    this.categoryMatched += (cat == null ? "" : cat.name + " ");
-                    console.log(this.categoryMatched);
-                }
-            })
-        }
+            var matched = this.keywords.find(x => x.text.toLowerCase() == str.toLocaleLowerCase());
+            if (matched) {
+                var cat = this.categories.find(c => c.id == matched.categoryId);
+                this.categoryMatched += (cat == null ? "" : cat.name + " ");
+                console.log(this.categoryMatched);
+            }
+        });
+        this.categoryMatched = "";
     }
 
     public selectCategory = (icon) => {
@@ -109,23 +106,19 @@ export class ApSearchComponent {
         this.removeModal();
     }
     selectQuestionDetails(item) {
-        //this.title = item;
         this.filteredQuestionList = [];
         this.categoryMatched = "";
         this.router.navigate(['/question/detail/' + item.id]);
     }
     filterQuestions() {
-
-        //search after 3rd letter
         this.showMatchedCatogries(this.title);
         var tempTitle = this.title;
-        ///  
+        //  search after 3rd letter
         if (this.title !== "" && this.title.length > 2) {
             this.filteredQuestionList = this.questionList.filter(function (el) {
                 var indx = el.title.toLowerCase().indexOf(tempTitle.toLowerCase()) > -1;
                 return indx;
             });
-
             this.showModal();
         }
         else if (this.categoryMatched.length > 0) {
@@ -134,10 +127,9 @@ export class ApSearchComponent {
         else {
             this.filteredQuestionList = [];
             this.categoryMatched = "";
-            //this.removeModal();
         }
     }
-    
+
     showModal() {
         var form = document.getElementById("search-panel");
         var viewportOffset = form.getBoundingClientRect();
