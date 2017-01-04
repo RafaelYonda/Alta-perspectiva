@@ -13,6 +13,7 @@ import { ApBannerComponent } from './banner/apbanner.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabPanelComponent } from './tabs/tab-panel.component';
 
+
 import { FormsModule } from '@angular/forms';
 //================
 import { SharedModule } from '../shared/shared.module';
@@ -20,6 +21,9 @@ import { QuestionModule } from '../questions/question.module';
 import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
+
+//New component added to module
+import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
 
 @NgModule({
     imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing
@@ -40,6 +44,8 @@ import { routing } from './core.route';
         //QuestionHomeComponent,
         LearnHome,
         ProjectHome,
+        //question left menu
+        TopFiveQuestionLeftMenuComponent
     ],
     exports: [
         RouterModule,
@@ -53,7 +59,11 @@ import { routing } from './core.route';
 
         //other app component
         LearnHome,
-        ProjectHome
+        ProjectHome,
+
+        //question left menu
+        TopFiveQuestionLeftMenuComponent
+
     ]
 })
 export class CoreModule { }

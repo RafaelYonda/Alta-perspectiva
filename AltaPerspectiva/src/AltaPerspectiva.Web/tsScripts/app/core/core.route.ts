@@ -9,6 +9,8 @@ import { TabsComponent } from './tabs/tabs.component';
 import { TabPanelComponent } from './tabs/tab-panel.component';
 import { QuestionModule } from '../questions/question.module';
 
+import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
+
 export const routes: Routes = [
     {
         path: 'home', component: HomeComponent,
@@ -17,7 +19,9 @@ export const routes: Routes = [
 
             { path: '', redirectTo: 'tab/1' },
 
-            { path: 'tab/:id', component: TabPanelComponent},           
+            { path: 'tab/:id', component: TabPanelComponent},   
+           // { path: 'tab/:id', component: TopFiveQuestionLeftMenuComponent},   
+                    
 
         ]
     },
