@@ -327,5 +327,15 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         }
+        [HttpGet("/questions/api/gettopfivequestion")]
+        public async Task<IActionResult> GetTopFiveQuestion()
+        {
+
+            var topFiveQuestion = await queryFactory.ResolveQuery<IQuestionsQuery>().GetTopFiveQuestion();
+
+            return Ok(topFiveQuestion);
+
+
+        }
     }
 }
