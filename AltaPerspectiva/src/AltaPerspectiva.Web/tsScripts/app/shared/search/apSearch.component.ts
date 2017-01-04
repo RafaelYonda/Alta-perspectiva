@@ -15,29 +15,45 @@ import { Category, Question, Keyword, AskQuestionViewModel } from '../../service
 
 
 export class ApSearchComponent {
-    //@Input() placeBottom: string;
-    ckeditorContent: string;
-    public filteredQuestionList: any = [];
-    @Input() placeBottom: string = '';
-    public icon: string;
-    public visible = true;
-    categories: Category[];
-    question: Question; 
-
+    public elementRef;
     title: string;
-    categoryID: string='-1';
     body: string;                 
     result: string;
-
-    categoryMatched: string ="";
     keywords: Keyword[];
+    @Input() placeBottom: string='';
 
     constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService,private myElement: ElementRef) {
         this.elementRef = myElement;
     }  
+    ngOnInit() {
+        this.questionsService.getQuestionsForSearch().subscribe(res => {
+            var resList = [];
+            res.forEach(function (el) {
+                resList.push(el);
+            });
+            this.questionList = resList;
+
+        });
+        this.categoryService.getAllCategories().subscribe(res => {
+            this.categories = res;
+        });
+        this.categoryService.getAllKeywords().subscribe(res => {
+            this.keywords = res;
+        });
+    }
+    
+    handleClick(event) {
+        //removel the modal on clicking out side the panel
+        var idAttr = event.srcElement.attributes.id;
+        var value = idAttr ? idAttr.nodeValue : undefined;
+        if (value && value == 'search-box')
+            this.removeModal();
+    }
+
+    //=============Submit Question===========
+    question: Question; 
 
     submitQuestion() {
-       
         this.question = new Question();
         this.question.title = this.title;
         this.question.body = this.body;
@@ -52,48 +68,20 @@ export class ApSearchComponent {
         }); 
     }
 
-    ngOnInit() {
+    //=============Category Show=============
+    categories: Category[];
+    categoryMatched: string = "";
+    categoryID: string = '-1';
+    public icon: string;
+    public visible = true;
 
-        this.questionsService.getQuestionsForSearch().subscribe(res => {           
-            var resList = [];
-            res.forEach(function (el) {
-                resList.push(el);
-            });
-            this.questionList = resList;
-           
-        }); 
-        this.categoryService.getAllCategories().subscribe(res => {
-            this.categories = res;
-        });
-        this.categoryService.getAllKeywords().subscribe(res => {
-            this.keywords = res;
-        });
-    }
-    
-    public elementRef;
-    public selectCategory = (icon) => {
-        this.icon = icon;
-        this.visible = true;
-    }
-
-
-    showDetailsQuestionsPanel(input: HTMLInputElement) {                
-        this.removeModal();
-    }
-   
-
-    public questionList = [];
-
-
-    showMatchedCatogries(title: string)
-    {
-        if(title.length < 3)
+    showMatchedCatogries(title: string) {
+        if (title.length < 3)
             return;
 
         var keywordsInQuestionTitle = title.split(' ');
-        
-        if (keywordsInQuestionTitle.length > 1)
-        {
+
+        if (keywordsInQuestionTitle.length > 1) {
             this.categoryMatched = "";
             keywordsInQuestionTitle.forEach(str => {
 
@@ -106,8 +94,50 @@ export class ApSearchComponent {
             })
         }
     }
+
+    public selectCategory = (icon) => {
+        this.icon = icon;
+        this.visible = true;
+    }
+    //=============Question show=============
+    public questionList = [];
     searchClass: string;
-    //Search text change functionality
+    //placeBottom: string;
+    public filteredQuestionList: any = [];
+
+    showDetailsQuestionsPanel(input: HTMLInputElement) {
+        this.removeModal();
+    }
+    selectQuestionDetails(item) {
+        //this.title = item;
+        this.filteredQuestionList = [];
+        this.categoryMatched = "";
+        this.router.navigate(['/question/detail/' + item.id]);
+    }
+    filterQuestions() {
+
+        //search after 3rd letter
+        this.showMatchedCatogries(this.title);
+        var tempTitle = this.title;
+        ///  
+        if (this.title !== "" && this.title.length > 2) {
+            this.filteredQuestionList = this.questionList.filter(function (el) {
+                var indx = el.title.toLowerCase().indexOf(tempTitle.toLowerCase()) > -1;
+                return indx;
+            });
+
+            this.showModal();
+        }
+        else if (this.categoryMatched.length > 0) {
+            this.showModal();
+        }
+        else {
+            this.filteredQuestionList = [];
+            this.categoryMatched = "";
+            //this.removeModal();
+        }
+    }
+    
     showModal() {
         var form = document.getElementById("search-panel");
         var viewportOffset = form.getBoundingClientRect();
@@ -121,64 +151,9 @@ export class ApSearchComponent {
     }
     removeModal() {
         this.filteredQuestionList = [];
-        this.categoryMatched="";
+        this.categoryMatched = "";
         document.getElementById("search-box").className = this.placeBottom;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
-        //console.log("Remove " + this.searchClass);
-        
-    }
-    filterQuestions() {
-              
-        //search after 3rd letter
-        this.showMatchedCatogries(this.title);
-        var tempTitle = this.title;  
-        ///  
-        if (this.title !== "" && this.title.length > 2) {           
-            this.filteredQuestionList = this.questionList.filter(function (el) {               
-                var indx = el.title.toLowerCase().indexOf(tempTitle.toLowerCase()) > -1;               
-                return indx;
-            });
-               
-            this.showModal();           
-        }
-        else if (this.categoryMatched.length > 0)
-        {
-            this.showModal();
-        }
-        else
-        {
-            this.filteredQuestionList = [];
-            this.categoryMatched = "";
-            this.removeModal();
-        }
-    }
-
-    selectQuestionDetails(item) {
-        //this.title = item;
-        this.filteredQuestionList = [];
-        this.categoryMatched = "";
-        this.router.navigate(['/question/detail/'+item.id]);
-    }
-
-    handleClick(event) {
-        //console.log(event.srcElement.attributes.id);
-        var idAttr = event.srcElement.attributes.id;
-        var value = idAttr ? idAttr.nodeValue : undefined;
-        if (value && value == 'search-box')
-            this.removeModal();
-        //console.log(value);
-        //var clickedComponent = event.target;
-        //var inside = false;
-        //do {
-        //    if (clickedComponent === this.elementRef.nativeElement) {
-        //        inside = true;
-        //    }
-        //    clickedComponent = clickedComponent.parentNode;
-        //} while (clickedComponent);
-        //if (!inside) {
-        //    console.log("Remove ");
-        //    this.filteredQuestionList = [];
-        //}
     }
 }
