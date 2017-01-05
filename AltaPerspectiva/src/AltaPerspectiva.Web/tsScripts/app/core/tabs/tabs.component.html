@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="tab-panel-container">
-        <div class="tab-header-col-md-1"> <a class="arrow-sign" (click)="rightclick()"><span class="icon-arrow-left"></span></a></div>
+        <div class="tab-header-col-md-1 left-arrow"> <a class="arrow-sign" (click)="rightclick()"><span class="icon-arrow-left"></span></a></div>
         <div class="tab-header-col-md-10">
             <div class="tabs-container" >
                 <div class="tabs" [ngStyle]="{'transition': 'all 1.5s ease','transform':translate}">
@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-header-col-md-1"><a class="arrow-sign"  (click)="leftclick()"><span class="icon-arrow-right"></span></a></div>
+        <div class="tab-header-col-md-1 right-arrow"><a class="arrow-sign"  (click)="leftclick()"><span class="icon-arrow-right"></span></a></div>
     </div>
 </div>
 <router-outlet></router-outlet>
