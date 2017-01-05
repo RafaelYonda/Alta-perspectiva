@@ -3,15 +3,23 @@
 
         <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="form-horizontal" role="form" id="search-panel">
 
-            <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off"
+            <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()"
                    [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
-            <!--<div [hidden]="titleName.valid || titleName.pristine"
-                 class="alert alert-danger">
-                Please type your question and then click ask!!
-            </div>-->
-            
-            <!--&& (this.categoryMatched.length > 0)-->
-            <div class="suggestions" *ngIf="(filteredQuestionList.length > 0) || (categoryMatched.length > 0) ">
+            <div class="suggestions" id="suggestion" *ngIf="(filteredQuestionList.length > 0) || (categoryMatched.length > 0) ">
+                <div>
+                    <div class="question-components">
+                        <select class="form-control catagory-dropdown" id="Category" required [(ngModel)]="categoryID" name="category" #categoryObj="ngModel">
+                            <option [value]="-1" disabled="true" selected>Selecciona la categoría</option>
+                            <option *ngFor="let category of categories" [value]="category.id">
+                                {{category.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="question-components">
+                        <textarea placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="body" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
+
+                    </div>
+                </div>
                 <ul class="question-List">
                     <li *ngFor="let item of filteredQuestionList">
                         <a (click)="selectQuestionDetails(item)">{{item.title}}</a>
@@ -29,32 +37,8 @@
 
             <div class="input-group-btn">
                 <div class="btn-group" role="group">
-                    <div class="dropdown dropdown-lg">
-                        <button type="button" class="btn btn-default  fixed-height" data-toggle="collapse" data-target="#question-details" (click)="showDetailsQuestionsPanel(searchText)" aria-expanded="false"><span class="caret"></span></button>
-                        <div id="question-details" class="dropdown-menu dropdown-menu-right search-menu" role="menu">
 
-                            <div class="question-components">
-                                <select  class="form-control catagory-dropdown" id="Category" required [(ngModel)]="categoryID" name="category" #category="ngModel">
-                                    <option [value]="-1" disabled="true" selected>Selecciona la categoría</option>
-                                    <option *ngFor="let category of categories" [value]="category.id">
-                                        {{category.name}}
-                                    </option>
-                                </select>
-                                <!--<div [hidden]="category.valid || category.pristine" class="alert alert-danger">
-                                    You must select a category for question
-                                </div>-->
-                            </div>
-                            <div class="question-components">   
-                                <textarea placeholder="Agrega detalle de tu pregunta - Optional"  [(ngModel)]="body" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>                             
-                                <!--<ckeditor [(ngModel)]="body" [ngModelOptions]="{standalone: true}"
-                                          [config]="{ removeButtons : 'About,Maximize,TextColor,Styles,Format,Font,FontSize,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Link,Unlink,Anchor,BidiLtr,Language,BidiRtl,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,CreateDiv,Blockquote,Outdent,Indent,BulletedList,NumberedList,CopyFormatting,RemoveFormat,Underline,Strike,Subscript,Superscript,Form,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Scayt,Find,SelectAll,Replace,BGColor,ShowBlocks,Checkbox,Source,Save,Templates,Cut,Undo,Redo,Copy,Paste,PasteText,PasteFromWord,Print,Preview,NewPage,Checkbox'}"
-                                          debounce="500">
-                                </ckeditor>-->
-                            </div>
-
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary fixed-height" [disabled]="!titleName.valid &&!category.valid"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span style="padding-left:5px">Enviar</span></button>
+                    <button type="submit" class="btn btn-primary fixed-height" [disabled]="!titleName.valid"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span style="padding-left:5px">Enviar</span></button>
                 </div>
             </div>
         </form>

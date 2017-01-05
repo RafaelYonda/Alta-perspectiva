@@ -11,57 +11,26 @@ import { Category, Question, Keyword, AskQuestionViewModel } from '../../service
     styleUrls: ['js/app/shared/search/search.css'],
     providers: [CategoryService, QuestionAnswerService]
 })
-
-
-
 export class ApSearchComponent {
-    //@Input() placeBottom: string;
-    ckeditorContent: string;
-    public filteredQuestionList: any = [];
-    @Input() placeBottom: string = '';
-    public icon: string;
-    public visible = true;
-    categories: Category[];
-    question: Question; 
-
+    public elementRef;
     title: string;
-    categoryID: string='-1';
-    body: string;                 
+    body: string;
     result: string;
-
-    categoryMatched: string ="";
     keywords: Keyword[];
+    @Input() placeBottom: string = '';
 
-    constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService,private myElement: ElementRef) {
+    constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private myElement: ElementRef) {
         this.elementRef = myElement;
-    }  
-
-    submitQuestion() {
-       
-        this.question = new Question();
-        this.question.title = this.title;
-        this.question.body = this.body;
-        if (this.categoryID!='-1')
-            this.question.categoryIds.push(this.categoryID);
-        else
-            this.question.categoryIds.push(this.categories[0].id);
-        this.questionsService.addQuestions(this.question).subscribe(res => {
-            console.log(res);
-            this.question = res;
-            this.router.navigate(['/question/home/0']);
-        }); 
     }
-
     ngOnInit() {
-
-        this.questionsService.getQuestionsForSearch().subscribe(res => {           
+        this.questionsService.getQuestionsForSearch().subscribe(res => {
             var resList = [];
             res.forEach(function (el) {
                 resList.push(el);
             });
             this.questionList = resList;
-           
-        }); 
+
+        });
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
         });
@@ -69,45 +38,94 @@ export class ApSearchComponent {
             this.keywords = res;
         });
     }
-    
-    public elementRef;
+
+    handleClick(event) {
+        //removel the modal on clicking out side the panel
+        var idAttr = event.srcElement.attributes.id;
+        var value = idAttr ? idAttr.nodeValue : undefined;
+        if (value && (value == 'search-box') || (value == 'adv-search'))
+            this.removeModal();
+    }
+
+    //=============Submit Question===========
+    question: Question;
+
+    submitQuestion() {
+        this.question = new Question();
+        this.question.title = this.title;
+        this.question.body = this.body;
+        if (this.categoryID != '-1')
+            this.question.categoryIds.push(this.categoryID);
+        else
+            this.question.categoryIds.push(this.categories[0].id);
+        this.questionsService.addQuestions(this.question).subscribe(res => {
+            console.log(res);
+            this.question = res;
+            this.router.navigate(['/question/home/0']);
+        });
+    }
+
+    //=============Category Show=============
+    categories: Category[];
+    categoryMatched: string = "";
+    categoryID: string = '-1';
+    public icon: string;
+    public visible = true;
+
+    showMatchedCatogries(title: string) {
+        if (title.length < 3)
+            return;
+        var keywordsInQuestionTitle = title.split(' '); //Get words from question to find keywords
+        keywordsInQuestionTitle.forEach(str => {
+
+            var matched = this.keywords.find(x => x.text.toLowerCase() == str.toLocaleLowerCase());
+            if (matched) {
+                var cat = this.categories.find(c => c.id == matched.categoryId);
+                this.categoryMatched += (cat == null ? "" : cat.name + " ");
+                console.log(this.categoryMatched);
+            }
+        });
+        this.categoryMatched = "";
+    }
+
     public selectCategory = (icon) => {
         this.icon = icon;
         this.visible = true;
     }
+    //=============Question show=============
+    public questionList = [];
+    searchClass: string;
+    //placeBottom: string;
+    public filteredQuestionList: any = [];
 
-
-    showDetailsQuestionsPanel(input: HTMLInputElement) {                
+    showDetailsQuestionsPanel(input: HTMLInputElement) {
         this.removeModal();
     }
-   
-
-    public questionList = [];
-
-
-    showMatchedCatogries(title: string)
-    {
-        if(title.length < 3)
-            return;
-
-        var keywordsInQuestionTitle = title.split(' ');
-        
-        if (keywordsInQuestionTitle.length > 1)
-        {
+    selectQuestionDetails(item) {
+        this.filteredQuestionList = [];
+        this.categoryMatched = "";
+        this.router.navigate(['/question/detail/' + item.id]);
+    }
+    filterQuestions() {
+        this.showMatchedCatogries(this.title);
+        var tempTitle = this.title;
+        //  search after 3rd letter
+        if (this.title !== "" && this.title.length > 2) {
+            this.filteredQuestionList = this.questionList.filter(function (el) {
+                var indx = el.title.toLowerCase().indexOf(tempTitle.toLowerCase()) > -1;
+                return indx;
+            });
+            this.showModal();
+        }
+        else if (this.categoryMatched.length > 0) {
+            this.showModal();
+        }
+        else {
+            this.filteredQuestionList = [];
             this.categoryMatched = "";
-            keywordsInQuestionTitle.forEach(str => {
-
-                var matched = this.keywords.find(x => x.text.toLowerCase() == str.toLocaleLowerCase());
-                if (matched) {
-                    var cat = this.categories.find(c => c.id == matched.categoryId);
-                    this.categoryMatched += (cat == null ? "" : cat.name + " ");
-                    console.log(this.categoryMatched);
-                }
-            })
         }
     }
-    searchClass: string;
-    //Search text change functionality
+
     showModal() {
         var form = document.getElementById("search-panel");
         var viewportOffset = form.getBoundingClientRect();
@@ -121,64 +139,9 @@ export class ApSearchComponent {
     }
     removeModal() {
         this.filteredQuestionList = [];
-        this.categoryMatched="";
+        this.categoryMatched = "";
         document.getElementById("search-box").className = this.placeBottom;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
-        //console.log("Remove " + this.searchClass);
-        
-    }
-    filterQuestions() {
-              
-        //search after 3rd letter
-        this.showMatchedCatogries(this.title);
-        var tempTitle = this.title;  
-        ///  
-        if (this.title !== "" && this.title.length > 2) {           
-            this.filteredQuestionList = this.questionList.filter(function (el) {               
-                var indx = el.title.toLowerCase().indexOf(tempTitle.toLowerCase()) > -1;               
-                return indx;
-            });
-               
-            this.showModal();           
-        }
-        else if (this.categoryMatched.length > 0)
-        {
-            this.showModal();
-        }
-        else
-        {
-            this.filteredQuestionList = [];
-            this.categoryMatched = "";
-            this.removeModal();
-        }
-    }
-
-    selectQuestionDetails(item) {
-        //this.title = item;
-        this.filteredQuestionList = [];
-        this.categoryMatched = "";
-        this.router.navigate(['/question/detail/'+item.id]);
-    }
-
-    handleClick(event) {
-        //console.log(event.srcElement.attributes.id);
-        var idAttr = event.srcElement.attributes.id;
-        var value = idAttr ? idAttr.nodeValue : undefined;
-        if (value && value == 'search-box')
-            this.removeModal();
-        //console.log(value);
-        //var clickedComponent = event.target;
-        //var inside = false;
-        //do {
-        //    if (clickedComponent === this.elementRef.nativeElement) {
-        //        inside = true;
-        //    }
-        //    clickedComponent = clickedComponent.parentNode;
-        //} while (clickedComponent);
-        //if (!inside) {
-        //    console.log("Remove ");
-        //    this.filteredQuestionList = [];
-        //}
     }
 }
