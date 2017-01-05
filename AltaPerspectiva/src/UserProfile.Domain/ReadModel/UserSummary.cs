@@ -10,6 +10,11 @@ namespace UserProfile.Domain.ReadModel
         public String Id { get; set; }
         public String Name { get; set; }
         public String ImageUrl { get; set; }
+
+        public int TotalLike { get; set; }
+        public int TotalComment { get; set; }
+        public int TotalQuestion { get; set; }
+        public int TotalAnswer { get; set; }
         
     }
 }

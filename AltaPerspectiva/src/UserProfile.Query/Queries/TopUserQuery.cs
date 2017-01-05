@@ -17,9 +17,9 @@ namespace UserProfile.Query.Queries
         }
 
       
-        public List<UserSummary> GetTopFiveUser()
+        public async Task<List<UserSummary>> GetTopFiveUserSummary()
         {
-            List < UserSummary > userSummery=new List<UserSummary>();
+            List <UserSummary> userSummery=new List<UserSummary>();
             using (var connection = (SqlConnection)DbContext.Database.GetDbConnection())
             {
                 connection.Open();
@@ -28,18 +28,46 @@ namespace UserProfile.Query.Queries
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "SpTopUserCalculation";
                 //command.Parameters.AddWithValue("@UserId", userId);
-
-                var reader = command.ExecuteReader();
+                var reader = await command.ExecuteReaderAsync();
                 while (reader.Read())
                 {
                     UserSummary summary=new UserSummary();
                     summary.Name = Convert.ToString(reader["FullName"]);
                     summary.Id = Convert.ToString(reader["Id"]);
                     summary.ImageUrl = Convert.ToString(reader["ImageUrl"]);
+                    summary.TotalLike = Convert.ToInt16(reader["TotalLike"]);
+                    summary.TotalComment = Convert.ToInt16(reader["TotalComment"]);
+                    summary.TotalQuestion = Convert.ToInt16(reader["TotalQuestion"]);
+                    summary.TotalAnswer = Convert.ToInt16(reader["TotalAnswer"]);
                     userSummery.Add(summary);
                 }
             }
-            return userSummery;
+            return  userSummery;
+        }
+
+        public async Task<UserSummary> GetUserSummary(Guid userId)
+        {
+            UserSummary summary = new UserSummary();
+            using (var connection = (SqlConnection)DbContext.Database.GetDbConnection())
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "SpTopUserCalculation";
+                command.Parameters.AddWithValue("@UserId", userId);
+                var reader = await command.ExecuteReaderAsync();
+                while (reader.Read())
+                {
+                    summary.Name = Convert.ToString(reader["FullName"]);
+                    summary.Id = Convert.ToString(reader["Id"]);
+                    summary.ImageUrl = Convert.ToString(reader["ImageUrl"]);
+                    summary.TotalLike = Convert.ToInt16(reader["TotalLike"]);
+                    summary.TotalComment = Convert.ToInt16(reader["TotalComment"]);
+                    summary.TotalQuestion = Convert.ToInt16(reader["TotalQuestion"]);
+                    summary.TotalAnswer = Convert.ToInt16(reader["TotalAnswer"]);
+                }
+            }
+            return summary;
         }
     }
 }
