@@ -11,9 +11,6 @@ import { Category, Question, Keyword, AskQuestionViewModel } from '../../service
     styleUrls: ['js/app/shared/search/search.css'],
     providers: [CategoryService, QuestionAnswerService]
 })
-
-
-
 export class ApSearchComponent {
     public elementRef;
     title: string;
@@ -46,8 +43,7 @@ export class ApSearchComponent {
         //removel the modal on clicking out side the panel
         var idAttr = event.srcElement.attributes.id;
         var value = idAttr ? idAttr.nodeValue : undefined;
-
-        if (value && (value == 'search-box') || (value == 'search-panel'))
+        if (value && (value == 'search-box') || (value == 'adv-search'))
             this.removeModal();
     }
 
