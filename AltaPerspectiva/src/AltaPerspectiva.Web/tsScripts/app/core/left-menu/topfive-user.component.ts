@@ -7,7 +7,7 @@ import {User} from '../../services/models';
 @Component({
     selector: 'topfive-user',
     templateUrl: 'js/app/core/left-menu/topfive-user.component.html',
-    styleUrls: ['js/app/core/left-menu/topfive-user.component.css'],
+    styleUrls: ['js/app/questions/question-left-menu/question-left-menu.css'],
     providers: [ProfileService]//, CategoryService]
 })
 export class TopFiveUserComponent {
