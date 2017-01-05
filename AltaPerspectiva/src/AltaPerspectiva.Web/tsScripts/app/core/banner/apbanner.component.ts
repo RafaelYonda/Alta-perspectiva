@@ -1,11 +1,11 @@
-﻿import { Component, HostListener, ElementRef,Inject} from '@angular/core';
+﻿import { Component, HostListener, ElementRef, Inject} from '@angular/core';
 
 
 @Component({
     selector: 'ap-banner',
     templateUrl: 'js/app/core/banner/apbanner.component.html',
     //Styles for the tag
-    styleUrls: ['js/app/core/banner/carousel.css']
+    styleUrls: ['js/app/core/banner/carousel.css'],
 })
 export class ApBannerComponent {
     public heroes: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -26,16 +26,19 @@ export class ApBannerComponent {
 
     @HostListener('window:scroll', ['$event'])
     track(event) {
+        var searchPanel = document.getElementById('search-box');
         var doc = this._el.nativeElement;
         var nodeBanner = doc.childNodes[0];
-        if (this._window.scrollY > 200) {          
+        if (this._window.scrollY > 250) {
+            searchPanel.style.top = '0';
             this._el.nativeElement.parentNode.classList.add("fixed-top");
-            ((this._el.nativeElement.parentNode).parentNode).parentNode.classList.add("parent-padding");
+            //((this._el.nativeElement.parentNode).parentNode).parentNode.classList.add("parent-padding");
             this._el.nativeElement.childNodes[0].classList.add("fixed-height");
         }
         else {
+            searchPanel.style.removeProperty('top');
             this._el.nativeElement.parentNode.classList.remove("fixed-top");
-            ((this._el.nativeElement.parentNode).parentNode).parentNode.classList.remove("parent-padding");
+            //((this._el.nativeElement.parentNode).parentNode).parentNode.classList.remove("parent-padding");
             this._el.nativeElement.childNodes[0].classList.remove("fixed-height");
         }
         // see http://juristr.com/blog/2016/01/learning-ng2-dynamic-styles/
