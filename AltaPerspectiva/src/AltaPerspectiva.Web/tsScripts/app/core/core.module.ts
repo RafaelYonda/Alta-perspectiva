@@ -26,6 +26,7 @@ import { routing } from './core.route';
 import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
 import { TopFiveUserComponent } from './left-menu/topfive-user.component';
 
+
 @NgModule({
     imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing
     ],
@@ -47,7 +48,10 @@ import { TopFiveUserComponent } from './left-menu/topfive-user.component';
         ProjectHome,
         //question left menu
         TopFiveQuestionLeftMenuComponent,
-        TopFiveUserComponent
+        TopFiveUserComponent,
+
+       //category
+       // QuestionMenuPanelComponent
     ],
     exports: [
         RouterModule,
@@ -65,7 +69,10 @@ import { TopFiveUserComponent } from './left-menu/topfive-user.component';
 
         //question left menu
         TopFiveQuestionLeftMenuComponent,
-        TopFiveUserComponent
+        TopFiveUserComponent,
+        
+        //category
+      //  QuestionMenuPanelComponent
 
     ]
 })

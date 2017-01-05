@@ -41,7 +41,7 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
         //Core Components
         QuestionBodyComponent, QuestionHomeComponent, questionNav, QuestionMenuPanelComponent, QuestionDetailComponent, RelatedQuestionMenu
     ],
-    exports: [
+    exports: [QuestionMenuPanelComponent
         //RouterModule,
         //QuestionHomeComponent
         //Core Components
