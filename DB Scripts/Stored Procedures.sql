@@ -29,8 +29,8 @@ if (@userId is null)
 	as(
 	SELECT  [Id]
 	,[UserName],
-	(select FirstName+' '+LastName as FullName from UserProfile.ContractInformation where UserId=u.Id) FullName,
-	(select Image as FullName from UserProfile.UserImage where UserId=u.Id) ImageUrl,
+	(select top 1 FirstName+' '+LastName as FullName from UserProfile.ContractInformation where UserId=u.Id order by Id desc) FullName,
+	(select top 1 Image as FullName from UserProfile.UserImage where UserId=u.Id order by Id desc) ImageUrl,
 	(select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id) TotalLike,
 	(select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) TotalComment,
 	(select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) TotalQuestion,
@@ -44,8 +44,8 @@ ELSE
 	BEGIN
 	SELECT  [Id]
 	,[UserName],
-	(select FirstName+' '+LastName as FullName from UserProfile.ContractInformation where UserId=u.Id) FullName,
-	(select Image as FullName from UserProfile.UserImage where UserId=u.Id) ImageUrl,
+	(select top 1 FirstName+' '+LastName as FullName from UserProfile.ContractInformation where UserId=u.Id order by Id desc) FullName,
+	(select top 1 Image as FullName from UserProfile.UserImage where UserId=u.Id order by Id desc) ImageUrl,
 	(select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id) TotalLike,
 	(select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) TotalComment,
 	(select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) TotalQuestion,

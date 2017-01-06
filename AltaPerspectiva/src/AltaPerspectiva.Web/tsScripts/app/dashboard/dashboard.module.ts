@@ -50,9 +50,11 @@ const DashBoardroutes: Routes = [
                 children: [
                     { path: '', redirectTo: 'general' },
                     { path: 'general', component: GeneralProfileComponent, resolve: { question: ProfileResolver } },
+                    { path: 'general/:id', component: GeneralProfileComponent , resolve: { question: ProfileResolver }},
                     { path: 'projects', component: ProjectlProfileComponent },
                     { path: 'questions', component: QuestionProfileComponent },
                     { path: 'services', component: ServiceProfileComponent },
+
 
                 ]}
         ]
