@@ -76,6 +76,7 @@ export class ApSearchComponent {
         if (title.length < 3)
             return;
         var keywordsInQuestionTitle = title.split(' '); //Get words from question to find keywords
+        this.categoryMatched = "";
         keywordsInQuestionTitle.forEach(str => {
 
             var matched = this.keywords.find(x => x.text.toLowerCase() == str.toLocaleLowerCase());
@@ -85,7 +86,6 @@ export class ApSearchComponent {
                 console.log(this.categoryMatched);
             }
         });
-        this.categoryMatched = "";
     }
 
     public selectCategory = (icon) => {
@@ -115,10 +115,6 @@ export class ApSearchComponent {
                 var indx = el.title.toLowerCase().indexOf(tempTitle.toLowerCase()) > -1;
                 return indx;
             });
-            this.showModal();
-        }
-        else if (this.categoryMatched.length > 0) {
-            this.showModal();
         }
         else {
             this.filteredQuestionList = [];
@@ -140,7 +136,8 @@ export class ApSearchComponent {
     removeModal() {
         this.filteredQuestionList = [];
         this.categoryMatched = "";
-        document.getElementById("search-box").className = this.placeBottom;
+        document.getElementById("search-box").className = this.placeBottom +" z-header";
+        //document.getElementById("search-box").className = this.searchClass;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
     }
