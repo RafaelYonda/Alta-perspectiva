@@ -1,4 +1,5 @@
-﻿import { Component} from '@angular/core';
+﻿/// <reference path="../../shared/status/status.component.ts" />
+import { Component} from '@angular/core';
 import { QuestionAnswerService} from '../../services/question-answer.service';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/models';
@@ -7,7 +8,7 @@ import {QuestionMenu, Answer, DateName} from '../../services/models';
 @Component({
     selector: 'question-left-menu',
     templateUrl: 'js/app/questions/question-left-menu/question-left-menu.component.html',
-    styleUrls: ['js/app/questions/question-left-menu/question-left-menu.css'],
+    styleUrls: ['js/app/shared/styles/left-menu.css'],
     providers: [QuestionAnswerService, CategoryService]
 })
 export class QuestionMenuPanelComponent {
