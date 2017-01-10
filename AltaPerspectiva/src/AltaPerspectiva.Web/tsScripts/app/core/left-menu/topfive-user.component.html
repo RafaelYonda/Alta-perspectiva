@@ -1,18 +1,17 @@
 ﻿<div class="menu-container">
-        <div>
-            <div class="question-title"><h4>Top Users</h4></div>
-            <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
-            <ul class="question-list" style="margin-left: -22px;">
-                <li *ngFor="let topFiveUser of topFiveUsers" style="list-style-type: none;">
-                    <div>
-                        <img class="user-image img-circle" src="../../../../profile/{{topFiveUser?.imageUrl}}" />
-                    </div>
-                    <div style="margin-left: 37px!important">
-                        <!--{{topFiveUser?.name}}-->
-                        <a [routerLink]="['/dashboard/detail/',topFiveUser?.id]"> {{topFiveUser?.name}}</a>
-                    </div>
+    <div class="question-title"><h4>Top Users</h4></div>
+    <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
+    <ul class="question-list" style="margin-left: -22px;">
+        <li *ngFor="let topFiveUser of topFiveUsers" style="list-style-type: none;">
+            <div>
+                <img class="user-image img-circle" src="../../../../profile/{{topFiveUser?.imageUrl}}" />
+            </div>
+            <div style="margin-left: 37px!important">
 
-                </li>
-            </ul>
-        </div>
+                        <!--{{topFiveUser?.name}}-->
+                <a [routerLink]="['/dashboard/detail/',topFiveUser?.id]"> {{topFiveUser?.name}}</a>
+            </div>
+
+        </li>
+    </ul>
 </div>

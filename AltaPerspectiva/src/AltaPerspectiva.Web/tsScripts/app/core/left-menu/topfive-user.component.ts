@@ -1,13 +1,11 @@
 ﻿import { Component} from '@angular/core';
-//import { QuestionAnswerService} from '../../services/question-answer.service';
 import { ProfileService } from '../../services/profile.service';
-//import { Category } from '../../services/models';
 import {User} from '../../services/models';
 
 @Component({
     selector: 'topfive-user',
     templateUrl: 'js/app/core/left-menu/topfive-user.component.html',
-    styleUrls: ['js/app/questions/question-left-menu/question-left-menu.css'],
+    styleUrls: ['js/app/shared/styles/left-menu.css'],
     providers: [ProfileService]//, CategoryService]
 })
 export class TopFiveUserComponent {
