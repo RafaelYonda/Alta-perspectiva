@@ -86,6 +86,39 @@
             }
         }
 
+        //Question topic and level
+        public IQueryable<Level> Levels
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<Level>().AsNoTracking();
+            }
+        }
+        public IQueryable<QuestionLevel> QuestionLevels
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<QuestionLevel>().AsNoTracking();
+            }
+        }
+        public IQueryable<QuestionTopic> QuestionTopics
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<QuestionTopic>().AsNoTracking();
+            }
+        }
+        public IQueryable<Topic> Topics
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<Topic>().AsNoTracking();
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -99,6 +132,13 @@
             modelBuilder.Entity<QuestionCategory>().ToTable("QuestionCategories");
             modelBuilder.Entity<Keyword>().ToTable("Keywords");
             modelBuilder.Entity<CategoryFollower>().ToTable("CategoryFollowers");
+
+
+            //Level and topics added 
+            modelBuilder.Entity<Level>().ToTable("Levels");
+            modelBuilder.Entity<QuestionLevel>().ToTable("QuestionLevels");
+            modelBuilder.Entity<QuestionTopic>().ToTable("QuestionTopics");
+            modelBuilder.Entity<Topic>().ToTable("Topics");
 
         }
 

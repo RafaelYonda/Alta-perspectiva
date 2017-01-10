@@ -31,6 +31,11 @@
 
                 e.HasMany<QuestionCategory>(c => c.Categories).WithOne().HasForeignKey("QuestionId");
 
+                //Question topic and level
+              //  e.HasMany<QuestionLevel>(c => c.QuestionLevels).WithOne().HasForeignKey("Id");
+              //  e.HasMany<QuestionTopic>(c => c.QuestionTopics).WithOne().HasForeignKey("Id");
+
+
             });
 
             // answers
@@ -82,6 +87,9 @@
 
                 e.HasMany<Keyword>(q => q.Keywords).WithOne(k => k.Category).HasForeignKey(k => k.CategoryId);
 
+                //Question topic and level
+                e.HasMany<Topic>(q => q.Topics).WithOne(k => k.Category).HasForeignKey(k => k.CategoryId);
+
             });
 
             //keywords
@@ -121,6 +129,33 @@
                 e.Property(p => p.UserId)
                     .HasColumnName("UserId").IsRequired();
 
+            });
+
+            //Question topic and level
+            model.Entity<Level>(e =>
+            {
+                e.ToTable("Levels");
+                e.HasKey(a => a.Id);
+                e.HasMany<QuestionLevel>(q => q.QuestionLevels).WithOne(k => k.Level).HasForeignKey(k => k.LevelId);
+            });
+
+            model.Entity<QuestionLevel>(e =>
+            {
+                e.ToTable("QuestionLevels");
+                e.HasKey(a => a.Id);
+                //e.Property(a => a.Id);
+            });
+            model.Entity<QuestionTopic>(e =>
+            {
+                e.ToTable("QuestionTopics");
+                e.HasKey(a => a.Id);
+                //e.Property(a=> a.Id);
+            });
+            model.Entity<Topic>(e =>
+            {
+                e.ToTable("Topics");
+                e.HasKey(a => a.Id);
+                e.HasMany<QuestionTopic>(q => q.QuestionTopics).WithOne(k => k.Topic).HasForeignKey(k => k.TopicId);
             });
         }
     }

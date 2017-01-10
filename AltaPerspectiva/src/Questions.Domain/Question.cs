@@ -22,6 +22,10 @@
    
         public virtual ICollection<Like> Likes { get; set; }
 
+
+        public virtual ICollection<QuestionLevel> QuestionLevels { get; set; }
+        public virtual ICollection<QuestionTopic> QuestionTopics { get; set; }
+
         public int? ViewCount { get; set; }
 
         public Question() {
@@ -33,6 +37,10 @@
             Comments = new List<Comment>();
 
             Likes = new List<Like>();
+
+            QuestionLevels=new List<QuestionLevel>();
+
+            QuestionTopics=new List<QuestionTopic>();
     }
        
     }

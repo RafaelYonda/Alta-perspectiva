@@ -18,7 +18,13 @@
        public DbSet<Keyword> Keywords { get; set; }
        public DbSet<CategoryFollower> CategoryFollowers { get; set; }
 
-       protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //Question topic and level
+        public DbSet<Level> Levels { get; set; }
+        public DbSet<QuestionLevel> QuestionLevels { get; set; }
+        public DbSet<QuestionTopic> QuestionTopics { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
        {
             // Configure model mappings
             modelBuilder.HasDefaultSchema("Questions");
