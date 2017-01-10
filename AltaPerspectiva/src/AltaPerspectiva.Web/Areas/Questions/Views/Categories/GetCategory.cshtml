@@ -1,4 +1,15 @@
 ﻿@model List<Questions.Domain.Category>
+<style>
+    .left-border {
+            margin-top: 77px;
+    }
+     .table-responsive  {
+        height:400px
+    }
+     .btn {
+             min-width: 0;
+     }
+</style>
 <div class="row">
     <div class="col-md-4">.</div>
     <div class="col-md-4">
@@ -70,16 +81,22 @@
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                                <button id="brnDelete" type="button" class="btn btn-danger" onclick="editCategory(this,'@item.Id')">
-                                    <span class="glyphicon glyphicon-ok"></span> Edit
+                                <button id="brnDelete" type="button" class="btn btn-danger" onclick="editCategory(this,'@item.Id','@item.Name')">
+                                     Edit
                                 </button>
                             </td>
                             <td>
                                 @*<button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
                                         <span class="glyphicon glyphicon-trash"></span> Delete
                                     </button>*@
-                                <button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="addKeywords(this,'@item.Id')">
-                                    KeyWords
+                                <button id="brnDelete" type="button" class="btn btn-danger" onclick="addKeywords(this,'@item.Id','@item.Name')">
+                                    KeyWord
+                                </button>
+
+                            </td>
+                            <td>
+                                <button id="btnTopic" type="button" class="btn btn-danger" onclick="editTopics(this,'@item.Id','@item.Name')">
+                                    Topic
                                 </button>
 
                             </td>
@@ -98,7 +115,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Update Category</h4>
+                <h4 class="modal-title">Update <label id="editCategory"></label> Category </h4>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="Id" />
@@ -133,18 +150,14 @@
         </div>
     </div>
 </div>
-<style>
-    .table-responsive  {
-        height:400px
-    }
-</style>
+
 
 <div class="modal fade" id="keyword">
     <div class="modal-dialog custom-class">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-header-text">Add Keywords</h3>
+                <h3 class="modal-header-text">Add <label id="keywordCategory"></label> Keywords</h3>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="CategoryId" />
@@ -152,7 +165,7 @@
                     <div class="col-lg-12">
 
                         <div class="col-md-3">
-                            <input type="button" id="btnAddKeyword" value="Add Keyword" class="btn btn-default" onclick="saveKeyword($('#CategoryId').val())">
+                            <input type="button" id="btnAddKeyword" value="Add Keyword" class="btn btn-danger" onclick="saveKeyword($('#CategoryId').val())">
                         </div>
                         <div class="col-md-6">
                             <input type="text" id="newKeyword" name="newKeyword" placeholder="Add Keywords" class="form-control" />
@@ -193,8 +206,131 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<script>
+<!--Topics Modal-->
+<div class="modal fade" id="topicModal">
+    <div class="modal-dialog custom-class">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-header-text"><label id="topicCategory"></label> Topic</h3>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="topicCategoryId" />
+                <div class="row">
+                    <div class="col-lg-12">
 
+                        <div class="col-md-3">
+                            <input type="button" id="btnSaveTopic" value="SaveTopic" class="btn btn-default" onclick="saveTopic($('#topicCategoryId').val())">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="newTopic" name="newTopic" placeholder="Add Topics" class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-md-9">
+                            <div class="table-responsive">
+                                <table id="tblTopics" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Topics
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    function saveTopic(categoryId) {
+        console.log(categoryId);
+        var newKeyword = $('#newTopic').val();
+        if (newKeyword.length <= 1 || newKeyword === undefined) {
+            alert('Keyword is not correct');
+            return;
+
+        } else {
+            var obj = {};
+            obj.categoryId = categoryId;
+            obj.topicName = newKeyword;
+            console.log(obj);
+            var url = '@Url.Action("SaveTopic", "Categories", new { Area = "Questions" })';
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: obj,
+                async: false,
+                success: function (respText) {
+                    console.log(respText);
+
+                    var tr = '<tr>';
+                    tr = tr + '<td>' + newKeyword + '</td>';
+
+                    tr = tr + '</tr>';
+                    $('#tblTopics > tbody:last').append(tr);
+                    $('#newTopic').val('');
+
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+
+                }
+            });
+
+        }
+    }
+
+    function editTopics(element, Id, categotyName) {
+        console.log(Id + '->' + categotyName);
+        var url = '@Url.Action("GetTopics", "Categories", new { Area = "Questions" })';
+        var obj = {};
+        obj.Id = Id;
+        $("#tblTopics tbody").empty();
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                for (var i = 0; i < respText.length; i++) {
+                    var tr = '<tr>';
+                    tr = tr + '<td>' + respText[i] + '</td>';
+
+                    tr = tr + '</tr>';
+                    $('#tblTopics > tbody:last').append(tr);
+
+                    //console.log(tr);
+                }
+                $('#topicCategoryId').val(Id);
+                $('#topicCategory').text(categotyName);
+                $('#topicModal').modal({
+                    show: true,
+                    backdrop: 'static'
+                });
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+
+            }
+        });
+    }
 
     function saveKeyword(categoryId) {
         console.log(categoryId);
@@ -233,13 +369,13 @@
         }
 
     }
-    function addKeywords(element, Id) {
+    function addKeywords(element, Id, categotyName) {
 
         var url = '@Url.Action("GetKeyWords", "Categories", new { Area = "Questions" })';
         var obj = {};
         obj.Id = Id;
         console.log(obj);
-          $("#tblKeyword tbody").empty();
+        $("#tblKeyword tbody").empty();
         $.ajax({
             url: url,
             type: 'POST',
@@ -248,7 +384,7 @@
             success: function (respText) {
                 console.log(respText);
                 $('#CategoryId').val(Id);
-                
+
                 for (var i = 0; i < respText.length; i++) {
                     var tr = '<tr>';
                     tr = tr + '<td>' + respText[i] + '</td>';
@@ -259,6 +395,7 @@
                     //console.log(tr);
                 }
                 $('#newKeyword').val('');
+                $('#keywordCategory').text(categotyName);
                 $('#keyword').modal({
                     show: true,
                     backdrop: 'static'
@@ -269,7 +406,7 @@
             }
         });
     }
-    function editCategory(element, Id) {
+    function editCategory(element, Id,categotyName) {
         var url = '@Url.Action("CategoryFilePath", "Categories", new { Area = "Questions" })';
         var obj = {};
         obj.Id = Id;
@@ -287,6 +424,7 @@
                 $('#pName').val(respText.name);
                 $('#pDescription').val(respText.description);
                 $("#CategoryImage").val("");
+                $('#editCategory').text(categotyName);
                 $('#approveProjectModal').modal({
                     show: true,
                     backdrop: 'static'

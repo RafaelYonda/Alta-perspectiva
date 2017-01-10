@@ -16,6 +16,7 @@ using Questions.Command.Commands;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Questions.Query.Queries;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -131,9 +132,15 @@ namespace AltaPerspectiva.Web.Area.Questions
         //{
         //}
         /*FromPost For CategoriesFile*/
+
+        #region Admin
         [HttpGet("questions/getcategory")]
         public IActionResult GetCategory()
         {
+            AddLevelCommand cmd=new AddLevelCommand(1,"akash");
+
+            commandsFactory.ExecuteQuery(cmd);
+
             List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
 
             return View(categoriesList);
@@ -198,6 +205,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Json(new { success = "ok" });
         }
 
+        
 
         //Implemented But excluded
         //[HttpPost]
@@ -255,8 +263,6 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return Ok(keywords);
         }
-
-
         [HttpPost]
         public IActionResult SaveKeyWords(Guid categoryId, String newKeyword)
         {
@@ -265,6 +271,40 @@ namespace AltaPerspectiva.Web.Area.Questions
             commandsFactory.ExecuteQuery(cmd);
             return Ok();
         }
+
+
+        /*Keyword added sccessfully*/
+        [HttpGet]
+        public IEnumerable<String> GetTopics(Guid Id)
+        {
+            var topics = queryFactory.ResolveQuery<ITopicQuery>().GeTopics(Id).Select(x=>x.TopicName).ToList();
+            return topics;
+        }
+
+        [HttpPost]
+        public IActionResult SaveTopic(Guid categoryId,String topicName)
+        {
+            AddTopicCommand cmd = new AddTopicCommand(topicName, categoryId);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid id = cmd.Id;
+
+            return Ok(topicName);
+        }
+
+
+
+        [HttpGet("questions/getlevel")]
+        public IActionResult GetLevel()
+        {
+            //AddLevelCommand cmd = new AddLevelCommand(1, "akash");
+
+            //commandsFactory.ExecuteQuery(cmd);
+
+            //List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+
+            return View();
+        }
+        #endregion
     }
 
 }

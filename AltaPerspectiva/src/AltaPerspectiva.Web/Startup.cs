@@ -166,6 +166,15 @@ namespace AltaPerspectiva
             services.AddTransient<ILikeQuery, LikeQuery>();
             services.AddTransient<ITopUserQuery, TopUserQuery>();
 
+
+            //Add Topic and Level
+            services.AddTransient<ICommandHandler<AddTopicCommand>, AddTopicCommandHandler>();
+            services.AddTransient<ITopicQuery, TopicQuery>();
+
+            services.AddTransient<ICommandHandler<AddLevelCommand>, AddLevelCommandHandler>();
+            services.AddTransient<ICommandHandler<AddQuestionLevelCommand>, AddQuestionLevelCommandHandler>();
+            services.AddTransient<ILevelQuery, LevelQuery>();
+
         }
 
 

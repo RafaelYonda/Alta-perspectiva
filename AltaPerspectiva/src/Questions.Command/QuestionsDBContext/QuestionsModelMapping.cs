@@ -31,9 +31,7 @@
 
                 e.HasMany<QuestionCategory>(c => c.Categories).WithOne().HasForeignKey("QuestionId");
 
-                //Question topic and level
-              //  e.HasMany<QuestionLevel>(c => c.QuestionLevels).WithOne().HasForeignKey("Id");
-              //  e.HasMany<QuestionTopic>(c => c.QuestionTopics).WithOne().HasForeignKey("Id");
+               
 
 
             });
