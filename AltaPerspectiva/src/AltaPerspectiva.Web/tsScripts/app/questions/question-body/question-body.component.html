@@ -1,31 +1,4 @@
-﻿<style>
-    .counter-box {
-    position: relative;
-    background: #107ebf;
-    display: inline-block;
-    border-radius: 2px;
-    height: 23px;
-    width: 40px;
-    text-align: center;
-    color:white;
-    margin-left:2px;
-}
-    .counter-box:after {
-    bottom: 100%;
-    right: 55%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border-color: rgba(136, 183, 213, 0);
-    border-bottom-color: #107ebf;
-    border-width: 1px 5px 10px;
-    margin-left: -30px;
-}
-</style>
-<div class="row">
+﻿<div class="row">
     <div class="col-md-3 left-gap">
         <question-left-menu></question-left-menu>
     </div>
@@ -71,84 +44,15 @@
         <div *ngFor="let question of questions" class="row">
             <div class="panel-article">
                 <div class="questions-container">
-                    <div class="left-border">
-                        <img class="image-border" src="../../../../images/border.png" />
-                    </div>
                     <div class="details-container">
-                        <h3><a [routerLink]="['/question/detail',question.id]">{{question.title}}</a> </h3>
-                        <div>
-                            Categories: <h5 *ngFor="let c of question.categories; let i = index; let last = last" class="subtitle">{{c?.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
-                        </div>
+                        <question-header [question]="question"></question-header>
                         <div class="article-details">
-                            <div class="user-info clearfix">
-                                <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}" />
-                                <div class="header-info" >{{question.userViewModel.name}}, {{question.userViewModel.occupation}} {{question?.createdOn | date: 'dd MMM, yyyy'}}</div>
-                            </div>
+                            <user-info [userObj]="question.lastAnswer?.userViewModel" [viewDate]="question.lastAnswer?.answerDate"></user-info>
                             <div class="answer-text" [innerHTML]="question.lastAnswer?.text.substring(0,200)"></div>
                             <div *ngIf="question.answers[question.answers.length-1]"> by {{question.answers[question.answers.length-1]?.userViewModel?.name}} {{question.answers[question.answers.length-1]?.createdOn | date: 'dd MMM, yyyy'}}</div>
                             <hr />
-                            <div class="status-panel">
-                                
-                                <img class="like-logo" src="../images/fade-logo.png" />
-                                <div class="status-line">{{question?.likes?.length}}</div>
-                                <a (click)="submitLike(question.id)"><div class="status-line">Like</div></a>
-                                <div class="status-line like-border"></div>
-
-                                <!--<div class="status-line">{{answer?.comments?.length}}</div>-->
-                                <div class="status-line">Leidos</div>
-                                <a data-toggle="collapse" attr.data-target="#questionComment{{question.id}}" aria-expanded="false">
-                                    {{question.comments?.length}} comments
-                                </a>
-                                <!-- social media icon -->
-                                <div class="social-icon">
-                                    <img class="social-image" src="../images/facebooklogo.jpg" />
-                                    <img class="social-image" src="../images/twitter.png" />
-                                    <h5>Respuestas</h5><span class="counter-box">{{question?.answers?.length}}+</span>
-                                </div>
-                                <!-- ======Question Comment==== -->
-                                
-                            </div>
-                            <div class="collapse comment-panel" id="questionComment{{question.id}}">
-                                <form #commentForm="ngForm" class="form-horizontal" role="form">
-                                    <div class="comment-input">
-                                        <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl}}" />
-                                        <input class="form-control" />
-                                        <button type="button" class="btn btn-primary">comment</button>
-                                    </div>
-                                </form>
-                                <div class="clearfix"></div>
-                                <div class="card card-block">
-                                    <div *ngFor="let comment of question.comments">
-                                        <div *ngIf="comment">
-                                            <img class="user-image comment-img" src="../../../../profile/{{comment?.userViewModel?.imageUrl}}" />
-                                            <div class="header-info">{{comment?.userViewModel?.name}}</div>
-
-                                            <!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
-                                            <p class="comment-text">{{comment.commentText}}</p>
-                                        </div>
-                                        <hr />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ==========Modal======= -->
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Some text in the modal.</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <ap-status [questionObj]="question"> </ap-status>
+                            <ap-comment [questionId]="question.id"></ap-comment>
                         </div>
                     </div>
                 </div>

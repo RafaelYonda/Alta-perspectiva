@@ -7,7 +7,7 @@ import {Question, Answer, DateName} from '../../services/models';
 @Component({
     selector: 'topfive-question-left-menu',
     templateUrl: 'js/app/core/left-menu/topfive-question-left-menu.component.html',
-    styleUrls: ['js/app/questions/question-left-menu/question-left-menu.css'],
+    styleUrls: ['js/app/shared/styles/left-menu.css'],
     providers: [QuestionAnswerService]//, CategoryService]
 })
 export class TopFiveQuestionLeftMenuComponent {

@@ -7,11 +7,10 @@ import { Router, ActivatedRoute, Resolve } from '@angular/router';
 @Component({
     selector: 'related-question-left-menu',
     templateUrl: 'js/app/questions/question-left-menu/related-question-left-menu.component.html',
-    styleUrls: ['js/app/questions/question-left-menu/related-question-left-menu.component.css'],
+    styleUrls: ['js/app/shared/styles/left-menu.css'],
     providers: [QuestionAnswerService, CategoryService]
 })
-
-export class RelatedQuestionMenu {
+    export class RelatedQuestionMenu {
     questions: Question[];
     id: string;
     _router: any;

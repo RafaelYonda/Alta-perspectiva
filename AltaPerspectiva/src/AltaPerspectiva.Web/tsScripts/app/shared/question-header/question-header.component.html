@@ -1,0 +1,9 @@
+﻿<ul class="question-header">
+    <li>{{question.categories[0].name}}</li>
+    <li class="question-info">Question Topic</li>
+    <li class="question-info">Question Level</li>
+    <li class="question-info">{{question?.createdOn | date: 'MMM, yyyy'}}</li>
+</ul>
+<h3 class="question-title">
+    <a [routerLink]="['/question/detail',question.id]">{{question.title}}</a>
+</h3>
