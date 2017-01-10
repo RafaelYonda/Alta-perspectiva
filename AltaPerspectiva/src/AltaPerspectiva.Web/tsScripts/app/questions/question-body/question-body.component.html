@@ -48,15 +48,9 @@
                         <img class="image-border" src="../../../../images/border.png" />
                     </div>
                     <div class="details-container">
-                        <h3><a [routerLink]="['/question/detail',question.id]">{{question.title}}</a> </h3>
-                        <div>
-                            Categories: <h5 *ngFor="let c of question.categories; let i = index; let last = last" class="subtitle">{{c?.name}} <span *ngIf="!last">,&nbsp;</span> </h5>
-                        </div>
+                        <question-header [question]="question"></question-header>
                         <div class="article-details">
-                            <div class="user-info clearfix">
-                                <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}" />
-                                <div class="header-info" >{{question.userViewModel.name}}, {{question.userViewModel.occupation}} {{question?.createdOn | date: 'dd MMM, yyyy'}}</div>
-                            </div>
+                            <user-info [userObj]="question.lastAnswer?.userViewModel" [viewDate]="question.lastAnswer?.answerDate"></user-info>
                             <div class="answer-text" [innerHTML]="question.lastAnswer?.text.substring(0,200)"></div>
                             <div *ngIf="question.answers[question.answers.length-1]"> by {{question.answers[question.answers.length-1]?.userViewModel?.name}} {{question.answers[question.answers.length-1]?.createdOn | date: 'dd MMM, yyyy'}}</div>
                             <hr />
