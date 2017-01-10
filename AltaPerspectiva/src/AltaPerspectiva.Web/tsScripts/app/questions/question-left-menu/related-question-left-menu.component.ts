@@ -10,8 +10,7 @@ import { Router, ActivatedRoute, Resolve } from '@angular/router';
     styleUrls: ['js/app/shared/styles/left-menu.css'],
     providers: [QuestionAnswerService, CategoryService]
 })
-
-export class RelatedQuestionMenu {
+    export class RelatedQuestionMenu {
     questions: Question[];
     id: string;
     _router: any;

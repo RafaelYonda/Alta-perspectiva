@@ -1,6 +1,7 @@
 ﻿.left-panel {
     float: left;
     width: 23%;
+    padding-right:10px;
 }
 
 .tab-content-panel {
