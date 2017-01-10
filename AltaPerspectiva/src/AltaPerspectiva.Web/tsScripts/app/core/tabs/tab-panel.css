@@ -1,10 +1,4 @@
-﻿/*.panel-article [class*="questions-container"] {
-  margin-bottom: 0;
-  padding-bottom: 15px;
-  border-top:1px solid #eeeeee;
-  border-bottom:1px solid #eeeeee;
-}*/
-.left-panel {
+﻿.left-panel {
     float: left;
     width: 23%;
 }
@@ -21,9 +15,9 @@
     border-top: 1px solid #eeeeee;
 }
 
-    .questions-container:hover {
-        background-color: #f5f5f5;
-    }
+.questions-container:hover {
+    background-color: #f5f5f5;
+}
 
 .social-icon > h5 {
     display: inline;
@@ -33,25 +27,26 @@
     margin-left: 10px;
 }
 
-.arrow_box {
+/* Deprecated now
+    .arrow_box {
     position: relative;
     background: #88b7d5;
 }
 
-    .arrow_box:after {
-        bottom: 100%;
-        left: 50%;
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-        border-color: rgba(136, 183, 213, 0);
-        border-bottom-color: #88b7d5;
-        border-width: 30px;
-        margin-left: -30px;
-    }
+.arrow_box:after {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: #88b7d5;
+    border-width: 30px;
+    margin-left: -30px;
+}*/
 
 .left-footer {
     float: left;
@@ -78,11 +73,6 @@
     font-family: myriadpro-regular;
     display: inline-block;
 }
-
-h3 {
-    clear: both;
-}
-
 h2 {
     font-size: 24px;
     font-family: myriadpro-regular;
@@ -110,49 +100,4 @@ p {
 .article-footer {
     border-bottom: 1px solid #d2cece;
     padding: 0 15px;
-}
-
-.details-container > ul > li {
-    list-style: none;
-    float: left;
-    color: #a29996;
-}
-
-.details-container > ul:after {
-    clear: both;
-}
-
-.question-info:before {
-    content: "·";
-    font-size: 12px;
-    vertical-align: middle;
-    line-height: 20px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-.user-info {
-    padding-top: 15px;
-    float: left;
-    display: block;
-}
-
-    .user-info:before {
-        content: "";
-        clear: both;
-    }
-
-.user-image {
-    height: 50px;
-    width: 50px;
-    border-radius: 25px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.user-detail {
-    font-size: 13px;
-    font-style: italic;
-    font-family: myriadpro-regular;
-    line-height: 12px;
 }

@@ -69,7 +69,7 @@ export class TabPanelComponent {
                     }
                 }
                 this.questions.forEach(x => x.lastAnswer = x.answers[x.answers.length - 1]);
-                //console.log(this.questions);
+                console.log(this.questions);
             });
         }); 
     }

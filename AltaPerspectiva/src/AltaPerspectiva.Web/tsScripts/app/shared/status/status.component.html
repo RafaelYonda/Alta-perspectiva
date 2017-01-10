@@ -1,13 +1,18 @@
 ﻿<div class="status-panel">
     <img class="like-logo" src="../images/fade-logo.png" />
-    <a href="#" data-toggle="modal" data-target="#myModal" (click)="submitLikeUserDetails(questionObj.id)"> {{questionObj?.likes?.length}}</a>
+    <a href="#" data-toggle="modal" data-target="#myModal" class="number-box" (click)="submitLikeUserDetails(questionObj.id)"> {{questionObj?.likes?.length}}</a>
     <a (click)="submitLike(questionObj.id)"><div class="status-line">Like</div></a>
-    <div class="status-line like-border"></div>
-    <div class="status-line">{{questionObj?.viewCount}}</div>
+    <div class="status-line like-border "></div>
+    <div class="status-line number-box">{{questionObj?.viewCount?questionObj?.viewCount:0}}</div>
     <div class="status-line">Leidos</div>
-    <a data-toggle="collapse" aria-expanded="false" attr.data-target="#questionComment{{questionObj.id}}">
-        {{questionObj.comments?.length}} comments
-    </a>
+    <div class="number-box" >
+        {{questionObj.comments?.length}} 
+    </div>
+    <a class="status-line" data-toggle="collapse" aria-expanded="false" attr.data-target="#questionComment{{questionObj.id}}">Comentarios</a>
+    <div class="status-line number-box">5</div>
+    <div class="status-line">Respuestas</div>
+
+    <!--==========Right Side=====-->
     <div class="social-icon">
         <a href="https://www.facebook.com/sharer/sharer.php?u={{questionObj.shareUrl}}"
            class="SHARE FACEBOOK"
@@ -20,7 +25,12 @@
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
             <img class="social-image" src="../images/twitter.png" />
         </a>
-        <h5>Respuestas</h5><span class="counter-box">{{questionObj?.answers?.length}}+</span>
+        <a >
+            <img class="social-image" src="../images/icon-external-link.png" />
+        </a>
+        <a>
+            <div class="other-function">...</div>
+        </a>
     </div>
 </div>
 
@@ -45,7 +55,6 @@
                 </div>
                 <div class="modal-footer">
                     <div style="display: none">.</div>
-
                 </div>
             </div>
         </div>
