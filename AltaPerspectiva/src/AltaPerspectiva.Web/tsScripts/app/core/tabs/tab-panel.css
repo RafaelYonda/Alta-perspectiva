@@ -79,6 +79,10 @@
     display: inline-block;
 }
 
+h3 {
+    clear: both;
+}
+
 h2 {
     font-size: 24px;
     font-family: myriadpro-regular;
@@ -106,4 +110,49 @@ p {
 .article-footer {
     border-bottom: 1px solid #d2cece;
     padding: 0 15px;
+}
+
+.details-container > ul > li {
+    list-style: none;
+    float: left;
+    color: #a29996;
+}
+
+.details-container > ul:after {
+    clear: both;
+}
+
+.question-info:before {
+    content: "·";
+    font-size: 12px;
+    vertical-align: middle;
+    line-height: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.user-info {
+    padding-top: 15px;
+    float: left;
+    display: block;
+}
+
+    .user-info:before {
+        content: "";
+        clear: both;
+    }
+
+.user-image {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.user-detail {
+    font-size: 13px;
+    font-style: italic;
+    font-family: myriadpro-regular;
+    line-height: 12px;
 }
