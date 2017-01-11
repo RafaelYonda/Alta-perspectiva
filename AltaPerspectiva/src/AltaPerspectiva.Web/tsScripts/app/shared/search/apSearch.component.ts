@@ -143,7 +143,7 @@ export class ApSearchComponent {
         var form = document.getElementById("search-panel");
         var viewportOffset = form.getBoundingClientRect();
         // these are relative to the viewport, i.e. the window
-        var top = viewportOffset.top;// Math.floor(viewportOffset.top);
+        var top = viewportOffset.top;
         if (top > 0 && !this.isOnModal) {
             this.searchClass = document.getElementById("search-box").className;
             document.getElementById("search-box").className = "modal-container z-modal";

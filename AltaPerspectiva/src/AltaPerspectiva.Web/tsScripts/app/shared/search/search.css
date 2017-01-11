@@ -169,12 +169,22 @@ a {
     width: 100%;
     position: absolute;
     background-color: white;
-    top: 100%;
+    top: 345px;
     border-radius: 10px;
     margin-top: 7px;
     padding: 15px;
 }
 
+.ask-detail {
+    width: 100%;
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    border-radius: 10px;
+    margin-top: 7px;
+    padding: 15px;
+    max-height:300px;
+}
 .btn-group {
     display: block;
 }

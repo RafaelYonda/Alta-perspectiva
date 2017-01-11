@@ -20,7 +20,6 @@ export class ApBannerComponent {
     movePosition: number=0;
     slideImage(move: number) {
         this.movePosition = move;
-        console.log(move);
         this.moveValue = move*(-25)+"%";
     }
 
@@ -31,7 +30,6 @@ export class ApBannerComponent {
         var doc = this._el.nativeElement;
         var nodeBanner = doc.childNodes[0];
         if (this._window.scrollY > 250) {
-            console.log(categoryPanel);
             searchPanel.style.top = '0';
             this._el.nativeElement.parentNode.classList.add("fixed-top");
             categoryPanel.classList.add('fixed-category');
