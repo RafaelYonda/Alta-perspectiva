@@ -4,8 +4,8 @@
         <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="form-horizontal" role="form" id="search-panel">
             <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()"
                    [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
-            <div class="suggestions" id="suggestion" *ngIf="(filteredQuestionList.length > 0) || (categoryMatched.length > 0) ">
-                <div>
+            <!--<div class="suggestions" id="suggestion" *ngIf="(filteredQuestionList.length > 0) || (categoryMatched.length > 0) ">-->
+                <div class="ask-detail " *ngIf="(filteredQuestionList.length > 0) || (categoryMatched.length > 0)">
                     <div class="question-components">
                         <select class="form-control catagory-dropdown" id="Category" required  (change)="onCategoryChange($event)" [(ngModel)]="categoryID" name="category" #categoryObj="ngModel">
                             <option [value]="-1" disabled="true" selected>Selecciona la categoría</option>
@@ -31,20 +31,23 @@
 
                     </div>
                 </div>
-                <ul class="question-List">
-                    <li *ngFor="let item of filteredQuestionList">
-                        <a (click)="selectQuestionDetails(item)">{{item.title}}</a>
-                        <hr />
-                    </li>
-                    <li>
-                        <a><span class="search-footer">Topics:</span>  {{categoryMatched}}</a>
-                        <hr />
-                    </li>
-                    <li>
-                        <a><span class="search-footer">Search:</span>  {{title?title+'?':''}}</a>
-                    </li>
-                </ul>
-            </div>
+                <div class="suggestions" *ngIf="(filteredQuestionList.length > 0) || (categoryMatched.length > 0)">
+                    <ul class="question-List">
+                        <li *ngFor="let item of filteredQuestionList">
+                            <a (click)="selectQuestionDetails(item)">{{item.title}}</a>
+                            <hr />
+                        </li>
+                        <li>
+                            <a><span class="search-footer">Topics:</span>  {{categoryMatched}}</a>
+                            <hr />
+                        </li>
+                        <li>
+                            <a><span class="search-footer">Search:</span>  {{title?title+'?':''}}</a>
+                        </li>
+                    </ul>
+
+                </div>
+            <!--</div>-->
 
             <div class="input-group-btn">
                 <div class="btn-group" role="group">
