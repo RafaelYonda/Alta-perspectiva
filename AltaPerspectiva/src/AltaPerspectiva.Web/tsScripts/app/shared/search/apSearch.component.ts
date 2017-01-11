@@ -19,6 +19,12 @@ export class ApSearchComponent {
     keywords: Keyword[];
     @Input() placeBottom: string = '';
 
+    onCategoryChange(event) {
+        console.log('category Change');
+    }
+    onTopicChange(event) {
+        console.log('Topic Change');
+    }
     constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private myElement: ElementRef) {
         this.elementRef = myElement;
     }
