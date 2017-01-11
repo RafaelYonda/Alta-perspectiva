@@ -6,25 +6,26 @@
                    [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
             <div class="suggestions" id="suggestion" *ngIf="(filteredQuestionList.length > 0) || (categoryMatched.length > 0) ">
                 <div class="suggestion-container" *ngIf="(filteredQuestionList.length > 0) || (categoryMatched.length > 0)">
-                        <select class="question-control" id="Category" required (change)="onCategoryChange($event)" [(ngModel)]="categoryID" name="category" #categoryObj="ngModel">
-                            <option [value]="-1" disabled="true" selected>Selecciona la categoría</option>
-                            <option *ngFor="let category of categories" [value]="category.id">
-                                {{category.name}}
-                            </option>
-                        </select>
-                        <select class="question-control" id="topics" required (change)="onTopicChange($event)">
-                            <option [value]="-1" disabled="true" selected>Selecciona la tematica</option>
-                            <option *ngFor="let category of categories" [value]="category.id">
-                                {{category.name}}
-                            </option>
-                        </select>
-                        <select class="question-control" id="topics" required>
-                            <option [value]="-1" disabled="true" selected>Selecciona la complejidad</option>
-                            <option *ngFor="let category of categories" [value]="category.id">
-                                {{category.name}}
-                            </option>
-                        </select>
-                        <textarea class="question-control" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="body" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
+                    <select class="question-control" id="Category" required (change)="onCategoryChange($event)" [(ngModel)]="categoryID" name="category" #categoryObj="ngModel">
+                        <option [value]="-1" disabled="true" selected>Selecciona la categoría</option>
+                        <option *ngFor="let category of categories" [value]="category.id">
+                            {{category.name}}
+                        </option>
+                    </select>
+                    <select class="question-control" id="topics" required (change)="onTopicChange($event)">
+                        <option [value]="-1" disabled="true" selected>Selecciona la tematica</option>
+                        <option *ngFor="let category of categories" [value]="category.id">
+                            {{category.name}}
+                        </option>
+                    </select>
+                    <select class="question-control" id="topics" required>
+                        <option [value]="-1" disabled="true" selected>Selecciona la complejidad</option>
+                        <option *ngFor="let category of categories" [value]="category.id">
+                            {{category.name}}
+                        </option>
+                    </select>
+                    <textarea class="question-control" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="body" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
+                    <input type="checkbox" /> <label>Preguntar Anonimo</label>
                 </div>
                 <div class="suggestion-container" *ngIf="(filteredQuestionList.length > 0) || (categoryMatched.length > 0)">
                     <div class="arrow-container"></div>
