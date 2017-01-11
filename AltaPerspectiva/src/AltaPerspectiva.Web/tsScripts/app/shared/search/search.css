@@ -1,7 +1,17 @@
 ﻿.input-group-btn {
     width: auto;
 }
-
+.question-control{
+    padding: 0;
+    height: 24px;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+textarea{
+    min-height: 70px;
+    padding: 5px !important;
+}
 .ask-text {
     padding-left: 5px;
     margin-right: 7px;
@@ -166,18 +176,18 @@ a {
             min-width: 500px;
         }
 }
+
 .suggestion-container {
     margin-top: 15px;
     border-radius: 10px;
     background-color: white;
     padding: 15px;
 }
+
 .suggestions {
-    top:100%;
+    top: 100%;
     width: 100%;
     position: absolute;
-    
-   
 }
 
 /*.topic-detail {
