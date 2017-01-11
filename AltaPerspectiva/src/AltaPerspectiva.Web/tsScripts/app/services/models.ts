@@ -235,4 +235,5 @@ export class QuestionSaveViewModel {
     categoryId:string;
     topicId:string;
     levelId:string;
+    body:string;
 }

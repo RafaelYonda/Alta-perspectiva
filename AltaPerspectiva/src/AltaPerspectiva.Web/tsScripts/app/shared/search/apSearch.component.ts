@@ -69,6 +69,7 @@ export class ApSearchComponent {
         this.questionSaveViewModel.categoryId = this.categoryID;
         this.questionSaveViewModel.topicId = this.topicID;
         this.questionSaveViewModel.levelId = this.levelID;
+        this.questionSaveViewModel.body = this.body;
      //   this.question = new Question();
        // this.question.title = this.title;
        // this.question.body = this.body;
@@ -93,6 +94,7 @@ export class ApSearchComponent {
     categoryID: string = '-1';
     topicID: string = '-1';
     levelID: string = '-1';
+   // body: string = '';
     public icon: string;
     public visible = true;
 
