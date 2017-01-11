@@ -1,10 +1,12 @@
 ﻿.input-group-btn {
     width: auto;
 }
-.ask-text{
-    padding-left:5px;
-    margin-right:7px;
+
+.ask-text {
+    padding-left: 5px;
+    margin-right: 7px;
 }
+
 .modal-container {
     position: fixed;
     top: 0;
@@ -164,43 +166,47 @@ a {
             min-width: 500px;
         }
 }
-
+.suggestion-container {
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 15px;
+}
 .suggestions {
+    top:100%;
     width: 100%;
     position: absolute;
-    background-color: white;
-    top: 345px;
-    border-radius: 10px;
-    margin-top: 7px;
-    padding: 15px;
+    
+   
+}
+
+/*.topic-detail {
+    
 }
 
 .ask-detail {
-    width: 100%;
-    position: absolute;
-    background-color: white;
-    top: 100%;
-    border-radius: 10px;
     margin-top: 7px;
-    padding: 15px;
-    max-height:300px;
-}
+    border-radius: 10px;
+}*/
+
 .btn-group {
     display: block;
 }
 
 .question-components {
-    width:100%;
+    width: 100%;
 }
-.question-components>textarea{
-    display:block;
-    width:100%;
-    border-radius:2px;
-}
-.question-components>select{
-    margin-bottom: 10px;
-    border-radius: 2px;
-}
+
+    .question-components > textarea {
+        display: block;
+        width: 100%;
+        border-radius: 2px;
+    }
+
+    .question-components > select {
+        margin-bottom: 10px;
+        border-radius: 2px;
+    }
 
 .question-text {
     border-radius: 5px;
@@ -216,3 +222,19 @@ label {
     margin-top: 6px;
     padding: 10px;
 }
+
+.arrow-container {
+    position: relative;
+    width: 100%;
+}
+
+    .arrow-container:before {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        border-width: 0 14px 19px;
+        border-color: #ffffff transparent;
+        display: block;
+        top: -27px;
+        left: 47%;
+    }
