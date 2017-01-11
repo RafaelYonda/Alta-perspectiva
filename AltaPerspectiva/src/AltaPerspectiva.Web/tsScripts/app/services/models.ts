@@ -224,3 +224,8 @@ export class Topic {
     topicName:string;
     id:string;
 }
+
+export class Level {
+    levelName:string;
+    id:string;
+}

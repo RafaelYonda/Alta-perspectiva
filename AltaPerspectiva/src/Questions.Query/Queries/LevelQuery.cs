@@ -16,9 +16,9 @@ namespace Questions.Query
 		{
 		}
 
-        public List<Level> GetAllLevel()
+        public async Task<List<Level>> GetAllLevel()
         {
-            return DbContext.Levels.ToList();
+            return await DbContext.Levels.ToListAsync();
         }
     }
 }

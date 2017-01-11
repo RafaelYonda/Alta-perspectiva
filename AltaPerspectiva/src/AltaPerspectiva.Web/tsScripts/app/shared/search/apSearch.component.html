@@ -15,14 +15,14 @@
                         </select>
                         <select class="form-control catagory-dropdown" id="topics" required   (change)="onTopicChange($event)">
                             <option [value]="-1" disabled="true" selected>Selecciona la tematica</option>
-                            <option *ngFor="let category of categories" [value]="category.id">
-                                {{category.name}}
+                            <option *ngFor="let topic of topics" [value]="topic?.id">
+                                {{topic?.topicName}}
                             </option>
                         </select>
-                        <select class="form-control catagory-dropdown" id="topics" required>
+                        <select class="form-control catagory-dropdown" id="levels" required>
                             <option [value]="-1" disabled="true" selected>Selecciona la complejidad</option>
-                            <option *ngFor="let category of categories" [value]="category.id">
-                                {{category.name}}
+                            <option *ngFor="let level of levels" [value]="level?.id">
+                                {{level?.levelName}}
                             </option>
                         </select>
                     </div>
