@@ -4,8 +4,8 @@
         <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="form-horizontal" role="form" id="search-panel">
             <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()"
                    [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
-            <div class="suggestions" id="suggestion" *ngIf="(filteredQuestionList.length > 0) || (categoryMatched.length > 0) ">
-                <div class="suggestion-container" *ngIf="(filteredQuestionList.length > 0) || (categoryMatched.length > 0)">
+            <div class="suggestions" id="suggestion" *ngIf="isOnModal" >
+                <div class="suggestion-container" *ngIf="isOnModal">
                     <select class="question-control" id="Category" required (change)="onCategoryChange($event)" [(ngModel)]="categoryID" name="category" #categoryObj="ngModel">
                         <option [value]="-1" disabled="true" selected>Selecciona la categoría</option>
                         <option *ngFor="let category of categories" [value]="category.id">
@@ -35,11 +35,11 @@
                             <hr />
                         </li>
                         <li>
-                            <a><span class="search-footer">Topics:</span>  {{categoryMatched}}</a>
+                            <a><span class="glyphicon glyphicon-search topic-icon" aria-hidden="true"></span><span class="search-footer">Topics:</span>  {{categoryMatched}}</a>
                             <hr />
                         </li>
                         <li>
-                            <a><span class="search-footer">Search:</span>  {{title?title+'?':''}}</a>
+                            <a><span class="glyphicon glyphicon-search topic-icon" aria-hidden="true"></span><span class="search-footer">Search:</span>  {{title?title+'?':''}}</a>
                         </li>
                     </ul>
                 </div>
