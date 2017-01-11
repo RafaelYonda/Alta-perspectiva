@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { CategoryService } from '../../services/category.service'
 import { QuestionAnswerService } from '../../services/question-answer.service';
-import { Category, Question, Keyword, AskQuestionViewModel } from '../../services/models';
+import { Category, Question, Keyword, AskQuestionViewModel,Topic } from '../../services/models';
 
 @Component({
     selector: 'ap-search',
@@ -18,9 +18,17 @@ export class ApSearchComponent {
     result: string;
     keywords: Keyword[];
     @Input() placeBottom: string = '';
-
+    topics:Topic[];
+    
     onCategoryChange(event) {
         console.log('category Change');
+        console.log(event);
+       
+        let categoryId = '9C8BA604-E77E-CDBD-B3DF-08D439285097';
+        this.questionsService.getTopicByCategoryid(categoryId).subscribe(res => {
+            console.log(res);
+        });
+
     }
     onTopicChange(event) {
         console.log('Topic Change');

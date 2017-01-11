@@ -330,5 +330,12 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         }
+
+        [HttpGet("/questions/api/gettopicbycategoryid/{categoryId}")]
+        public async Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId)
+        {
+            var topicsByCategory = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(categoryId);
+            return topicsByCategory;
+        }
     }
 }

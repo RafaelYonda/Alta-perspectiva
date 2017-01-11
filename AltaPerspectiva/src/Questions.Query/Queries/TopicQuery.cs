@@ -20,6 +20,11 @@ namespace Questions.Query.Queries
         {
             return DbContext.Topics.Where(x => x.CategoryId == categoryId).ToList();
         }
+
+        public async Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId)
+        {
+            return await DbContext.Topics.Where(x => x.CategoryId == categoryId).ToListAsync();
+        }
     }
     
     

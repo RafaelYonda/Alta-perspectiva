@@ -217,3 +217,10 @@ export class DateName {
     "July", "August", "September", "October", "November", "December"
 ];
 }
+
+//====Topic class
+
+export class Topic {
+    topicName:string;
+    id:string;
+}
