@@ -1,5 +1,5 @@
 ﻿<ul class="question-header">
-    <li>{{question.categories[0].name}}</li>
+    <li>{{question.categories[0]?.name}}</li>
     <li class="question-info">Question Topic</li>
     <li class="question-info">Question Level</li>
     <li class="question-info">{{question?.createdOn | date: 'MMM, yyyy'}}</li>

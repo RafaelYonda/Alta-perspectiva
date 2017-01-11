@@ -22,11 +22,13 @@ export class ApSearchComponent {
     
     onCategoryChange(event) {
         console.log('category Change');
-        console.log(event);
+        console.log(this.categoryID);
        
-        let categoryId = '9C8BA604-E77E-CDBD-B3DF-08D439285097';
-        this.questionsService.getTopicByCategoryid(categoryId).subscribe(res => {
+       // let categoryId = '9C8BA604-E77E-CDBD-B3DF-08D439285097';
+        this.questionsService.getTopicByCategoryid(this.categoryID).subscribe(res => {
             console.log(res);
+            this.topics = res;
+
         });
 
     }
