@@ -229,3 +229,10 @@ export class Level {
     levelName:string;
     id:string;
 }
+
+export class QuestionSaveViewModel {
+    title:string;
+    categoryId:string;
+    topicId:string;
+    levelId:string;
+}

@@ -12,16 +12,16 @@
                                 {{category.name}}
                             </option>
                         </select>
-                        <select class="question-control" id="topics" required (change)="onTopicChange($event)">
+                        <select class="question-control" name="topics" id="topics" required (change)="onTopicChange($event)" [(ngModel)]="topicID">
                             <option [value]="-1" disabled="true" selected>Selecciona la tematica</option>
-                            <option *ngFor="let category of categories" [value]="category.id">
-                                {{category.name}}
+                            <option *ngFor="let topic of topics" [value]="topic?.id">
+                                {{topic?.topicName}}
                             </option>
                         </select>
-                        <select class="question-control" id="topics" required>
+                        <select class="question-control" name="levels" id="levels" required [(ngModel)]="levelID">
                             <option [value]="-1" disabled="true" selected>Selecciona la complejidad</option>
-                            <option *ngFor="let category of categories" [value]="category.id">
-                                {{category.name}}
+                            <option *ngFor="let level of levels" [value]="level?.id">
+                                {{level?.levelName}}
                             </option>
                         </select>
                         <textarea class="question-control" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="body" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>

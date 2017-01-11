@@ -344,5 +344,11 @@ namespace AltaPerspectiva.Web.Area.Questions
             var levels = await queryFactory.ResolveQuery<ILevelQuery>().GetAllLevel();
             return levels;
         }
+
+        [HttpPost("/questions/api/savequestion")]
+        public IActionResult SaveQuestion([FromBody]QuestionSaveViewModel questionSaveViewModel)
+        {
+            return Ok();
+        }
     }
 }

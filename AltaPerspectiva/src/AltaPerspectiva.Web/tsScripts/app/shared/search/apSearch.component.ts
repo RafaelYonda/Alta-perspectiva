@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { CategoryService } from '../../services/category.service'
 import { QuestionAnswerService } from '../../services/question-answer.service';
-import { Category, Question, Keyword, AskQuestionViewModel,Topic,Level } from '../../services/models';
+import { Category, Question, Keyword, AskQuestionViewModel,Topic,Level,QuestionSaveViewModel } from '../../services/models';
 
 @Component({
     selector: 'ap-search',
@@ -20,6 +20,7 @@ export class ApSearchComponent {
     @Input() placeBottom: string = '';
     topics:Topic[];
     levels:Level[];
+    questionSaveViewModel:QuestionSaveViewModel;
     onCategoryChange(event) {
         this.questionsService.getTopicByCategoryid(this.categoryID).subscribe(res => {
             this.topics = res;
@@ -62,17 +63,27 @@ export class ApSearchComponent {
     question: Question;
 
     submitQuestion() {
-        this.question = new Question();
-        this.question.title = this.title;
-        this.question.body = this.body;
-        if (this.categoryID != '-1')
-            this.question.categoryIds.push(this.categoryID);
-        else
-            this.question.categoryIds.push(this.categories[0].id);
-        this.questionsService.addQuestions(this.question).subscribe(res => {
-            console.log(res);
-            this.question = res;
-            this.router.navigate(['/question/home/0']);
+        console.log('In Submit form');
+        this.questionSaveViewModel = new QuestionSaveViewModel();
+          this.questionSaveViewModel.title=this.title;
+        this.questionSaveViewModel.categoryId = this.categoryID;
+        this.questionSaveViewModel.topicId = this.topicID;
+        this.questionSaveViewModel.levelId = this.levelID;
+     //   this.question = new Question();
+       // this.question.title = this.title;
+       // this.question.body = this.body;
+       // if (this.categoryID != '-1')
+       //     this.question.categoryIds.push(this.categoryID);
+       // else
+       //     this.question.categoryIds.push(this.categories[0].id);
+       // this.questionsService.addQuestions(this.question).subscribe(res => {
+         //   console.log(res);
+         //   this.question = res;
+           // this.router.navigate(['/question/home/0']);
+        //});
+
+        this.questionsService.saveQuestionSaveViewModel(this.questionSaveViewModel).subscribe(res => {
+            console.log('in ok');
         });
     }
 
@@ -80,6 +91,8 @@ export class ApSearchComponent {
     categories: Category[];
     categoryMatched: string = "";
     categoryID: string = '-1';
+    topicID: string = '-1';
+    levelID: string = '-1';
     public icon: string;
     public visible = true;
 
