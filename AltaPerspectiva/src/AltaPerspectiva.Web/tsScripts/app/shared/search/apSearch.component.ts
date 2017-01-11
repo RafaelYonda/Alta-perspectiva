@@ -136,15 +136,18 @@ export class ApSearchComponent {
         }
     }
 
+    isOnModal = false;
     showModal() {
         var form = document.getElementById("search-panel");
         var viewportOffset = form.getBoundingClientRect();
         // these are relative to the viewport, i.e. the window
-        var top = Math.floor(viewportOffset.top);
-        if (top > 0) {
+        var top = viewportOffset.top;// Math.floor(viewportOffset.top);
+        if (top > 0 && !this.isOnModal) {
             this.searchClass = document.getElementById("search-box").className;
             document.getElementById("search-box").className = "modal-container z-modal";
-            form.style.marginTop = String(top) + "px";
+            console.log(top);
+            form.style.marginTop = String(top-5) + "px";    //It takes 5px extra for unknown reason.. so -5
+            this.isOnModal = true;
         }
     }
     removeModal() {
@@ -154,5 +157,6 @@ export class ApSearchComponent {
         //document.getElementById("search-box").className = this.searchClass;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
+        this.isOnModal = false;
     }
 }

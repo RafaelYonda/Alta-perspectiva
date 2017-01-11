@@ -10,7 +10,7 @@ gulp.task('clean', function () {
     return gulp.src(destPath)
         .pipe(clean());
 });
-
+/*
 gulp.task("scriptsNStyles", () => {
     gulp.src([
             'core-js/client/**',
@@ -27,7 +27,7 @@ gulp.task("scriptsNStyles", () => {
         cwd: "node_modules/**"
     })
         .pipe(gulp.dest("wwwroot/libs/"));
-});
+});*/
 
 var tsProject = ts.createProject('tsScripts/tsconfig.json', {
     typescript: require('typescript')
