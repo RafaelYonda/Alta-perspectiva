@@ -9,5 +9,7 @@ namespace Questions.Query
     public interface ILevelQuery : IQuery
     {
         Task<List<Level>> GetAllLevel();
+
+        Level GetLevelByLevelId(Guid levelId);
     }
 }

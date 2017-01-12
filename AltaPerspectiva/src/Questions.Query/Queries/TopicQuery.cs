@@ -25,6 +25,11 @@ namespace Questions.Query.Queries
         {
             return await DbContext.Topics.Where(x => x.CategoryId == categoryId).ToListAsync();
         }
+
+        public Topic GeTopicByTopicId(Guid topicId)
+        {
+            return DbContext.Topics.FirstOrDefault(x => x.Id == topicId);
+        }
     }
     
     
