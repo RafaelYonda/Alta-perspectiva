@@ -18,7 +18,7 @@ namespace Questions.Query
 
         public async Task<List<Level>> GetAllLevel()
         {
-            return await DbContext.Levels.ToListAsync();
+            return await DbContext.Levels.OrderBy(x=>x.LevelRank).ToListAsync();
         }
     }
 }

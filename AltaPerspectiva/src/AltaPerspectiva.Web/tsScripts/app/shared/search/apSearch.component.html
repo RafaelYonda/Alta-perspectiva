@@ -6,19 +6,19 @@
                    [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
             <div class="suggestions" id="suggestion" *ngIf="isOnModal" >
                 <div class="suggestion-container" *ngIf="isOnModal">
-                    <select class="question-control" id="Category" required (change)="onCategoryChange($event)" [(ngModel)]="categoryID" name="category" #categoryObj="ngModel">
+                    <select class="question-control" id="Category" required (change)="onCategoryChange(categoryObj.value)" name="category" #categoryObj>
                         <option [value]="-1" disabled="true" selected>Selecciona la categoría</option>
                         <option *ngFor="let category of categories" [value]="category.id">
                             {{category.name}}
                         </option>
                     </select>
-                    <select class="question-control" name="topics" id="topics" required (change)="onTopicChange($event)" [(ngModel)]="topicID">
+                    <select class="question-control" name="topics" id="topics" required (change)="onTopicChange(topicObj.value)" #topicObj>
                         <option [value]="-1" disabled="true" selected>Selecciona la tematica</option>
                         <option *ngFor="let topic of topics" [value]="topic?.id">
                             {{topic?.topicName}}
                         </option>
                     </select>
-                    <select class="question-control" name="levels" id="levels" required [(ngModel)]="levelID">
+                    <select class="question-control" name="levels" id="levels" required (change)="onLevelChange(levelObj.value)" #levelObj>
                         <option [value]="-1" disabled="true" selected>Selecciona la complejidad</option>
                         <option *ngFor="let level of levels" [value]="level.id">
                             {{level.levelName}}

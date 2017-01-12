@@ -21,15 +21,24 @@ export class ApSearchComponent {
     topics:Topic[];
     levels:Level[];
     questionSaveViewModel:QuestionSaveViewModel;
-    onCategoryChange(event) {
+    onCategoryChange(categoryId) {
+        //console.log(categoryId);
+        this.categoryID = categoryId;
         this.questionsService.getTopicByCategoryid(this.categoryID).subscribe(res => {
             this.topics = res;
-        });
+         });
     }
-    onTopicChange(event) {
+    onTopicChange(topicId) {
+        console.log(topicId);
+        this.topicID = topicId;
          this.questionsService.getlevel().subscribe(res => {
             this.levels = res;
-        });
+             this.levelID = this.levels[0].id;
+         });
+    }
+    onLevelChange(levelId) {
+        console.log(levelId);
+        this.levelID = levelId;
     }
     constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private myElement: ElementRef) {
         this.elementRef = myElement;
@@ -63,17 +72,16 @@ export class ApSearchComponent {
     question: Question;
 
     submitQuestion() {
-        console.log('In Submit form');
         this.questionSaveViewModel = new QuestionSaveViewModel();
           this.questionSaveViewModel.title=this.title;
         this.questionSaveViewModel.categoryId = this.categoryID;
         this.questionSaveViewModel.topicId = this.topicID;
         this.questionSaveViewModel.levelId = this.levelID;
         this.questionSaveViewModel.body = this.body;
-     //   this.question = new Question();
-       // this.question.title = this.title;
-       // this.question.body = this.body;
-       // if (this.categoryID != '-1')
+       this.question = new Question();
+        this.question.title = this.title;
+        this.question.body = this.body;
+       //if (this.categoryID != '-1')
        //     this.question.categoryIds.push(this.categoryID);
        // else
        //     this.question.categoryIds.push(this.categories[0].id);
@@ -82,9 +90,16 @@ export class ApSearchComponent {
          //   this.question = res;
            // this.router.navigate(['/question/home/0']);
         //});
-
+        //CategoryID=-1 is for placeholder .So will not be added to question while savings
+        if (this.categoryID != '-1')
+            this.question.categoryIds.push(this.categoryID);
+        else
+            this.question.categoryIds.push(this.categories[0].id);
         this.questionsService.saveQuestionSaveViewModel(this.questionSaveViewModel).subscribe(res => {
             console.log('in ok');
+            this.question = res;
+            this.router.navigate(['/question/home/0']);
+
         });
     }
 

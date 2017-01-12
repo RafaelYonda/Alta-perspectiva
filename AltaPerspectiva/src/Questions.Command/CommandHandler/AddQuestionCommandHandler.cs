@@ -65,7 +65,14 @@
             DbContext.SaveChanges();
 
 			command.Id = question.Id;
-		}
+
+            QuestionTopic questionTopic = new QuestionTopic();
+            questionTopic.QuestionId = question.Id; 
+            questionTopic.TopicId = command.TopicId;
+
+            DbContext.QuestionTopics.Add(questionTopic);
+            DbContext.SaveChanges();
+        }
 
         private List<Guid> GetMatchedCategories(string[] keywords)
         {

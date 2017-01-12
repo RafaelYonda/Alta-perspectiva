@@ -9,7 +9,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
     {
         public string Title { get; set; }
         public string CategoryId { get; set; }
-        public string TopicId { get; set; }
+        public Guid TopicId { get; set; }
         public string LevelId { get; set; }
         public string Body { get; set; }
     }
