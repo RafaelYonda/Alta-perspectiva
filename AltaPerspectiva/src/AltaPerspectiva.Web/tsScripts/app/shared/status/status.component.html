@@ -1,12 +1,12 @@
 ﻿<div class="status-panel">
     <img class="like-logo" src="../images/fade-logo.png" />
-    <a href="#" data-toggle="modal" data-target="#myModal" class="number-box" (click)="submitLikeUserDetails(questionObj.id)"> {{questionObj?.likes?.length}}</a>
-    <a (click)="submitLike(questionObj.id)"><div class="status-line">Like</div></a>
+    <a href="#" data-toggle="modal" data-target="#myModal" class="number-box" (click)="submitLikeUserDetails(questionObj.id)"> {{questionObj?.answers[0]?.likes?.length}}</a>
+    <a (click)="submitLike(questionObj.answers[0]?.id,questionObj.id)"><div class="status-line">Like</div></a>
     <div class="status-line like-border "></div>
     <div class="status-line number-box">{{questionObj?.viewCount?questionObj?.viewCount:0}}</div>
     <div class="status-line">Leidos</div>
     <div class="number-box" >
-        {{questionObj.comments?.length}} 
+        {{questionObj.answers[0]?.comments?.length}} 
     </div>
     <a class="status-line" data-toggle="collapse" aria-expanded="false" attr.data-target="#questionComment{{questionObj.id}}">Comentarios</a>
     <div class="status-line number-box">{{questionObj?.answers?.length}}</div>
