@@ -110,8 +110,9 @@ export class QuestionDetailComponent {
         });
     }
 
-    submitLikeForAnswer(answerId: string) {
+    submitLikeForAnswer(answerId: string,questionId: string) {
         this.like = new Like();
+        this.like.questionId = questionId;  
         this.like.answerId = answerId;
 
         this.dataService.addAnswerLike(this.like).subscribe(res => {

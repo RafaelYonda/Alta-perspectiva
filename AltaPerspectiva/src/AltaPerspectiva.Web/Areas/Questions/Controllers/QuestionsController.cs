@@ -233,7 +233,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
             like.UserId = loggedinUser;
             Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
-               .GetAnswerBeforeLike(like.QuestionId, loggedinUser);
+               .GetAnswerBeforeLike(like.AnswerId, loggedinUser);
             if (!alreadyLiked)
             {
                 AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);
@@ -276,6 +276,21 @@ namespace AltaPerspectiva.Web.Area.Questions
             var likes = await queryFactory.ResolveQuery<ILikeQuery>().Execute(questionId);
 
             List<UserViewModel> userViewModels=new List<UserViewModel>();
+            foreach (var like in likes)
+            {
+                Guid userId = like.UserId;
+                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
+                userViewModels.Add(userViewModel);
+            }
+            return Ok(userViewModels);
+
+        }
+        [HttpGet("/questions/api/question/{answerId}/answerlike/{questionId}")]
+        public async Task<IActionResult> GetAnswerLike(Guid answerId,Guid questionId)
+        {
+            var likes = await queryFactory.ResolveQuery<ILikeQuery>().GetLikeByAnswerId(questionId, answerId);
+
+            List<UserViewModel> userViewModels = new List<UserViewModel>();
             foreach (var like in likes)
             {
                 Guid userId = like.UserId;
