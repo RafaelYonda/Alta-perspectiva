@@ -20,7 +20,6 @@ export class CommentComponent {
     ngOnInit() {
         var currentUserName = localStorage.getItem('currentUserName');
         var currentUserImage = localStorage.getItem('currentUserImage');
-        console.log(currentUserName);
         if (currentUserName != null) {
             this._logObj.user.name = currentUserName;
             this._logObj.user.imageUrl = currentUserImage;
@@ -39,7 +38,6 @@ export class CommentComponent {
         this.commentService.addQuestionComment(this.comment).subscribe(res => {
             this.commentText = "";
             this.comment = res;
-            console.log(this.comment);
             this.comments.push(this.comment);
 
         });

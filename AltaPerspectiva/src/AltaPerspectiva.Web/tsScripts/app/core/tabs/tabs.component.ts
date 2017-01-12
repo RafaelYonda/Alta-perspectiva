@@ -1,4 +1,5 @@
 ﻿import { Component } from '@angular/core';
+import { CommunicationService } from '../../services/communication.service';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/models';
 import { Router } from '@angular/router';
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
     selector: 'ap-tabs',
     templateUrl: 'js/app/core/tabs/tabs.component.html',
     styleUrls: ['js/app/core/tabs/tabs.css'],
-    providers: [CategoryService]
+    providers: [CategoryService, CommunicationService]
 })
 export class TabsComponent {
     categories: Category[];    
@@ -15,7 +16,7 @@ export class TabsComponent {
     transform: number;
     translate: string;
     _router: Router;
-    constructor(private categoryService: CategoryService, route: Router) {
+    constructor(private categoryService: CategoryService, private commServ: CommunicationService ,route: Router) {
         this._router = route;
          
         //====
@@ -65,6 +66,7 @@ export class TabsComponent {
             else element.active = '';
 
         });
+        this.commServ.setCategory(id);
         this._router.navigateByUrl('home/tab/' + id, { skipLocationChange: true });
     }
 }

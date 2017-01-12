@@ -39,7 +39,6 @@ export class TabPanelComponent {
     }
     ngOnInit() {   
         var currentUser = localStorage.getItem('auth_token');
-        console.log(this._logObj);
         this.authService.getLoggedinObj().subscribe(res => {
             if (res && currentUser != "null") {
                 this._logObj.user.name = res.name;
@@ -47,16 +46,14 @@ export class TabPanelComponent {
                 this._logObj.isLoggedIn = true;
                 
             }
-            console.log(res);
         });
 
         this.sub = this.route.params.subscribe(params => {
            
             this.id = params['id']; // (+) converts string 'id' to a number 
+            console.log(this.id);
             //this.questions = this.questionAnswerService.getQuestionByCategory(params['id']);
             this.questionAnswerService.getQuestionsByCategory(this.id).subscribe(res => {
-                console.log('Tab pannel component');
-                console.log(res);
                 this.questions = res;
                 for (var q = 0; q< this.questions.length; q++)
                 {                    

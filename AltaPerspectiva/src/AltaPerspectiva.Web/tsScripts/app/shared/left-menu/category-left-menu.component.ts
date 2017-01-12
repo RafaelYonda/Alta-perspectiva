@@ -1,5 +1,6 @@
-﻿import { Component} from '@angular/core';
+﻿import { Component,Input} from '@angular/core';
 import { QuestionAnswerService} from '../../services/question-answer.service';
+import { CommunicationService } from '../../services/communication.service';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/models';
 import {QuestionMenu, Answer, DateName} from '../../services/models';
@@ -8,20 +9,25 @@ import {QuestionMenu, Answer, DateName} from '../../services/models';
     selector: 'category-left-menu',
     templateUrl: 'js/app/shared/left-menu/category-left-menu.component.html',
     styleUrls: ['js/app/shared/styles/left-menu.css'],
-    //providers: [QuestionAnswerService, CategoryService]
+    providers: [QuestionAnswerService, CategoryService]
 })
 export class CategoryMenuPanelComponent {
+    @Input() caegoryId: string;
     isbackGround = false;
     date: DateName = new DateName();
     questionMenuList: QuestionMenu[];
     answerList: Answer[];
     questionService: QuestionAnswerService;
     categories: Category[];
-    constructor(questionService: QuestionAnswerService,private categoryService: CategoryService) {
+    constructor(questionService: QuestionAnswerService, private categoryService: CategoryService, private commServ: CommunicationService) {
         this.questionService = questionService;                      
     }
 
     ngOnInit() {
+        this.commServ.getCategory().subscribe((logged: string) => {
+            console.log('Welcome %s', logged);
+        });
+        console.log(this.caegoryId);
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
         });
