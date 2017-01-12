@@ -6,14 +6,14 @@ import { Observable } from 'rxjs/Observable';
 export class CommunicationService {
 
     private categoryId: string;
-    private subject: Subject<string> = new Subject<string>();
+    private objChange: Subject<string> = new Subject<string>();
 
     setCategory(logged: string): void {
         this.categoryId = logged;
-        this.subject.next(logged);
+        this.objChange.next(logged);
     }
 
     getCategory(): Observable<string> {
-        return this.subject.asObservable();
+        return this.objChange.asObservable();
     }
 }

@@ -1,6 +1,7 @@
 ﻿import { Component} from '@angular/core';
 import { QuestionAnswerService} from '../../services/question-answer.service';
 import { CategoryService } from '../../services/category.service';
+import { CommunicationService } from '../../services/communication.service';
 import { Category } from '../../services/models';
 import {QuestionMenu, Answer, DateName} from '../../services/models';
 
@@ -8,7 +9,7 @@ import {QuestionMenu, Answer, DateName} from '../../services/models';
     selector: 'question-left-menu',
     templateUrl: 'js/app/shared/question-left-menu.component.html',
     styleUrls: ['js/app/shared/styles/left-menu.css'],
-    providers: [QuestionAnswerService, CategoryService]
+    providers: [QuestionAnswerService, CategoryService, CommunicationService]
 })
 export class QuestionMenuPanelComponent {
     isbackGround = false;
@@ -17,7 +18,7 @@ export class QuestionMenuPanelComponent {
     answerList: Answer[];
     questionService: QuestionAnswerService;
     categories: Category[];
-    constructor(questionService: QuestionAnswerService,private categoryService: CategoryService) {
+    constructor(questionService: QuestionAnswerService, private categoryService: CategoryService, private commServ: CommunicationService) {
         this.questionService = questionService;                      
     }
 
