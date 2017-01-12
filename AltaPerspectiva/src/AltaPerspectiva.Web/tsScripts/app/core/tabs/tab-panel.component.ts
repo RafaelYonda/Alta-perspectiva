@@ -60,7 +60,7 @@ export class TabPanelComponent {
                 {                    
                     this.questions[q].lastAnswer = this.questions[q].answers[this.questions[q].answers.length - 1];
 
-                    if (this.questions[q].lastAnswer) {
+                    if (this.questions[q].lastAnswer && this.questions[q].lastAnswer.text) {
 
                         var temp = this.questions[q].lastAnswer.text.substring(0, 200);
                         this.questions[q].lastAnswer.text = temp;
@@ -69,7 +69,7 @@ export class TabPanelComponent {
                     }
                 }
                 this.questions.forEach(x => x.lastAnswer = x.answers[x.answers.length - 1]);
-                console.log(this.questions);
+            
             });
         }); 
     }

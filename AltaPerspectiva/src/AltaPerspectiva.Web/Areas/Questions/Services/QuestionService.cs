@@ -22,7 +22,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 qv.Body = q.Body;
                 qv.CreatedOn = q.CreatedOn;
                 qv.UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId);
-                qv.Answers = q.Answers.Select(x =>
+                qv.Answers = q.Answers.OrderBy(y=>y.Likes.Count).Take(1).Select(x =>
                                     new AnswerViewModel
                                     {
                                         Id = x.Id,
