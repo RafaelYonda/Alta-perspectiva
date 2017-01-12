@@ -24,7 +24,6 @@ export class ApNav {
     }
     ngOnInit() {
         var currentUser = localStorage.getItem('auth_token');  
-        console.log(this._logObj);
         this._authService.getLoggedinObj().subscribe(res => {
             if (res && currentUser != "null") {
                 this._logObj.user.name = res.name;
@@ -33,9 +32,7 @@ export class ApNav {
                 localStorage.setItem('currentUserName', this._logObj.user.name);
                 localStorage.setItem('currentUserImage', this._logObj.user.imageUrl);
             }
-            console.log(res);
         });
-        console.log(this._logObj);
     }
     goToDashBoard() {
         this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
