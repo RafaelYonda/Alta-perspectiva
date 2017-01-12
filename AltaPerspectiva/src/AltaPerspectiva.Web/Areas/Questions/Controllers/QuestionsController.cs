@@ -303,6 +303,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         }
+        //Questions
         [HttpGet("/questions/api/gettopfivequestion")]
         public async Task<IActionResult> GetTopFiveQuestion()
         {
@@ -313,8 +314,14 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         }
+        [HttpGet("/questions/api/{categoryId}/gettopfivequestionbycategoryid")]
+        public async Task<IActionResult> GetTopFiveQuestionByCategoryId()
+        {
 
-        [HttpGet("/questions/api/gettopicbycategoryid/{categoryId}")]
+            return Ok();
+        }
+
+        [HttpGet("/questions/api/{categoryId}/gettopicbycategoryid")]
         public async Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId)
         {
             var topicsByCategory = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(categoryId);

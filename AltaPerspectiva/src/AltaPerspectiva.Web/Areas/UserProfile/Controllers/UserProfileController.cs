@@ -530,12 +530,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
         #endregion
 
-        #region topFiveUser and UserSummary
+        #region topFiveUser ,topFiveUserByCategoryId and UserSummary
         [HttpGet("userprofile/api/gettopFiveUser")]
         public async Task<List<UserSummary>> GetTopFiveUser()
         {
             var summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetTopFiveUserSummary();
             return summeries;
+        }
+        [HttpGet("userprofile/api/{categoryId}/gettopFiveUserbycategoryid")]
+        public async Task<List<UserSummary>> GetTopFiveUserByCategoryId()
+        {
+            return null;
         }
         [HttpGet("userprofile/api/getusersummary/{userId}")]
         public async Task<UserSummary> GetUserSummary(Guid userId)
