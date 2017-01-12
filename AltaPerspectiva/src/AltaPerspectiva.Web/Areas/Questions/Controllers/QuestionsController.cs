@@ -340,7 +340,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
             List<Guid> categoryIds=new List<Guid>();
             categoryIds.Add(new Guid(question.CategoryId));
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, categoryIds, question.TopicId);
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, categoryIds, question.TopicId,question.LevelId);
             commandsFactory.ExecuteQuery(cmd);
             Guid questionId = cmd.Id;
 

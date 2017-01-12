@@ -29,8 +29,13 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         public int? ViewCount { get; set; }
         public DateTime? CreatedOn { get; set; }
 
-        //User View Model Added
+        //Topics and Levels
+        public virtual ICollection<QuestionLevel> QuestionLevels { get; set; }
+        public virtual ICollection<QuestionTopic> QuestionTopics { get; set; }
 
+
+        public List<String> QuestionLevelNames { get; set; }
+        public List<String> QuestionTopicNames { get; set; }
         public QuestionViewModel()
         {
             Categories = new List<CategoryViewModel>();
@@ -38,6 +43,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
             Comments = new List<QuestionCommentViewModel>();
             Likes = new List<QuestionLikeViewModel>();
             UserViewModel = new UserViewModel();
+            QuestionLevelNames=new List<string>();
+            QuestionTopicNames=new List<string>();
         }
         
     }

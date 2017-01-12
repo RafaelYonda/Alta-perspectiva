@@ -13,6 +13,8 @@ namespace Questions.Query.Queries
 
         Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId);
 
+       Topic GeTopicByTopicId(Guid topicId);
+
 
     }
 }

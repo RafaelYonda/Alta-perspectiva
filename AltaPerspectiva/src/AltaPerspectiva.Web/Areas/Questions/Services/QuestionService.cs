@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Questions.Query;
+using Questions.Query.Queries;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
@@ -31,7 +33,16 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                         UserId = x.UserId,
                                         QuestionId = x.QuestionId.Value,
                                         CreatedOn = x.CreatedOn,
-                                        UserViewModel = new UserService().GetUserViewModel(queryFactory, x.UserId)
+                                        UserViewModel = new UserService().GetUserViewModel(queryFactory, x.UserId),
+                                        Comments = x.Comments?.Select(y => new AnswerCommentViewModel { Id = y.Id, AnswerId = y.AnswerId, CommentText = y.CommentText, UserId = y.UserID, UserViewModel = new UserService().GetUserViewModel(queryFactory, y.UserID) }).ToList(),
+                                        Likes = x.Likes?.Select(z => new AnswerLikeViewModel
+                                        {
+                                            UserViewModel = new UserService().GetUserViewModel(queryFactory, z.UserId),
+                                            AnswerId = z.AnswerId,
+                                            Id = z.Id,
+                                            UserId = z.UserId
+                                        }).ToList()
+
                                     }).ToList();
 
                 qv.Likes = q.Likes.Select(l => new QuestionLikeViewModel { Id = l.Id, QuestionId = l.QuestionId.Value, UserId = l.UserId }).ToList();
@@ -42,11 +53,37 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
                 qv.ViewCount = q.ViewCount;
 
+                qv.QuestionTopics = q.QuestionTopics;
+                qv.QuestionLevels = q.QuestionLevels;
+
+                
+                foreach (var questionTopic in qv.QuestionTopics)
+                {
+                    var topicId = questionTopic.TopicId;
+                    Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GeTopicByTopicId(topicId);
+                    if (topic != null)
+                    {
+                        qv.QuestionTopicNames.Add(topic.TopicName);
+                    }
+                }
+                foreach (var questionLevel in qv.QuestionLevels)
+                {
+                    var levelId = questionLevel.LevelId;
+                    Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId);
+                    if (level != null)
+                    {
+                        qv.QuestionLevelNames.Add(level.LevelName);
+                    }
+                }
+
                 questions.Add(qv);
             }
 
             return questions.ToList();
         }
+
+        
+       
         public QuestionViewModel GetQuestionViewModel(Question question, IQueryFactory queryFactory)
         {
             var q = question;        
@@ -102,3 +139,6 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
         }
     }
 }
+
+
+

@@ -66,13 +66,21 @@
 
 			command.Id = question.Id;
 
+            /*Topics and Level added s*/
             QuestionTopic questionTopic = new QuestionTopic();
             questionTopic.QuestionId = question.Id; 
             questionTopic.TopicId = command.TopicId;
 
             DbContext.QuestionTopics.Add(questionTopic);
             DbContext.SaveChanges();
-        }
+
+            QuestionLevel questionLevel=new QuestionLevel();
+		    questionLevel.QuestionId = question.Id;
+		    questionLevel.LevelId = command.LevelId;
+
+		    DbContext.QuestionLevels.Add(questionLevel);
+		    DbContext.SaveChanges();
+		}
 
         private List<Guid> GetMatchedCategories(string[] keywords)
         {
