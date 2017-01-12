@@ -26,7 +26,7 @@ export class ApBannerComponent {
     @HostListener('window:scroll', ['$event'])
     track(event) {
         var searchPanel = document.getElementById('search-box');
-        var categoryPanel = document.getElementById('category');
+        var categoryPanel = document.getElementById('leftPanel');
         var doc = this._el.nativeElement;
         var nodeBanner = doc.childNodes[0];
         if (this._window.scrollY > 250) {
