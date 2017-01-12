@@ -55,6 +55,8 @@ export class TabPanelComponent {
             this.id = params['id']; // (+) converts string 'id' to a number 
             //this.questions = this.questionAnswerService.getQuestionByCategory(params['id']);
             this.questionAnswerService.getQuestionsByCategory(this.id).subscribe(res => {
+                console.log('Tab pannel component');
+                console.log(res);
                 this.questions = res;
                 for (var q = 0; q< this.questions.length; q++)
                 {                    
