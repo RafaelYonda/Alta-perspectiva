@@ -16,7 +16,7 @@ export class StatusComponent {
     constructor(private statusService: StatusService,private dataService: QuestionAnswerService) {
     }
     submitLike(answerId: string,questionId:string) {
-        console.log(answerId);
+        console.log(answerId+'->'+questionId);
        // this.like = new Like();
        // this.like.questionId = questionId;
       //  this.statusService.addQuestionLike(this.like).subscribe(res => {
@@ -46,8 +46,9 @@ export class StatusComponent {
 
         });
     }
-    submitLikeUserDetails(questionId: string) {
-        this.statusService.addLikeUserDetails(questionId).subscribe(res => {
+    submitLikeUserDetails(answerId: string,questionId:string) {
+        console.log(answerId + '->' + questionId);
+        this.statusService.addLikeUserDetailsByAnswer(answerId,questionId).subscribe(res => {
             console.log(res);
             this.likedUsers = res;
         });

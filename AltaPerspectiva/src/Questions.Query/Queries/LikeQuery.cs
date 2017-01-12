@@ -36,10 +36,10 @@ namespace Questions.Query.Queries
             }
         }
 
-        public bool GetAnswerBeforeLike(Guid? questionId, Guid loggedinUser)
+        public bool GetAnswerBeforeLike(Guid? answerId, Guid loggedinUser)
         {
             var alreadyLiked =
-               DbContext.Likes.FirstOrDefault(x => x.UserId == loggedinUser && x.QuestionId == questionId && x.AnswerId != null);
+               DbContext.Likes.FirstOrDefault(x => x.UserId == loggedinUser &&  x.AnswerId == answerId);
             if (alreadyLiked != null)
             {
                 //Like ited before
@@ -54,6 +54,11 @@ namespace Questions.Query.Queries
         public async Task<IEnumerable<Like>> Answer(Guid answerId)
         {
             return await DbContext.Likes.Where(x => x.AnswerId == answerId).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Like>> GetLikeByAnswerId(Guid questionId,Guid answerId)
+        {
+            return await DbContext.Likes.Where(x => x.QuestionId == questionId &&x.AnswerId== answerId).ToListAsync();
         }
     }
     

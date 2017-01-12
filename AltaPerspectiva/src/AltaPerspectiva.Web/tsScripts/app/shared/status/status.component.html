@@ -1,6 +1,6 @@
 ﻿<div class="status-panel">
     <img class="like-logo" src="../images/fade-logo.png" />
-    <a href="#" data-toggle="modal" data-target="#myModal" class="number-box" (click)="submitLikeUserDetails(questionObj.id)"> {{questionObj?.answers[0]?.likes?.length}}</a>
+    <a href="#" data-toggle="modal" data-target="#myModal" class="number-box" (click)="submitLikeUserDetails(questionObj.answers[0]?.id,questionObj.id)"> {{questionObj?.answers[0]?.likes?.length}}</a>
     <a (click)="submitLike(questionObj.answers[0]?.id,questionObj.id)"><div class="status-line">Like</div></a>
     <div class="status-line like-border "></div>
     <div class="status-line number-box">{{questionObj?.viewCount?questionObj?.viewCount:0}}</div>
