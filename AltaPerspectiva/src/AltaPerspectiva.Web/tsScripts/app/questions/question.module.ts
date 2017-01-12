@@ -13,7 +13,6 @@ import { QuestionHomeComponent } from './question-home.component';
 import { QuestionDetailComponent } from './question-details/question-details.component';
 import { QuestionBodyComponent } from './question-body/question-body.component';
 import { QuestionMenuPanelComponent } from './question-left-menu/question-left-menu.component';
-import { RelatedQuestionMenu } from './question-left-menu/related-question-left-menu.component';
 import { SharedModule } from '../shared/shared.module';
 //================services=================\
 import { QuestionAnswerService } from '../services/question-answer.service';
@@ -39,7 +38,7 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
     )],
     declarations: [
         //Core Components
-        QuestionBodyComponent, QuestionHomeComponent, questionNav, QuestionMenuPanelComponent, QuestionDetailComponent, RelatedQuestionMenu
+        QuestionBodyComponent, QuestionHomeComponent, questionNav, QuestionMenuPanelComponent, QuestionDetailComponent
     ],
     exports: [QuestionMenuPanelComponent
         //RouterModule,

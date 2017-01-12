@@ -22,9 +22,9 @@ import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
 
-//New component added to module
-import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
-import { TopFiveUserComponent } from './left-menu/topfive-user.component';
+////New component added to module
+//import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
+//import { TopFiveUserComponent } from './left-menu/topfive-user.component';
 
 
 @NgModule({
@@ -47,8 +47,6 @@ import { TopFiveUserComponent } from './left-menu/topfive-user.component';
         LearnHome,
         ProjectHome,
         //question left menu
-        TopFiveQuestionLeftMenuComponent,
-        TopFiveUserComponent,
 
        //category
        // QuestionMenuPanelComponent
@@ -68,9 +66,6 @@ import { TopFiveUserComponent } from './left-menu/topfive-user.component';
         ProjectHome,
 
         //question left menu
-        TopFiveQuestionLeftMenuComponent,
-        TopFiveUserComponent,
-        
         //category
       //  QuestionMenuPanelComponent
 

@@ -10,6 +10,11 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { QuestionHeaderComponent } from './question-header/question-header.component';
 import { StatusComponent } from './status/status.component';
 import { AppCkEditorComponent } from './apCkEditor.component';
+/*Left Menu*/
+import { CategoryMenuPanelComponent } from './left-menu/category-left-menu.component';
+import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
+import { RelatedQuestionMenu } from './left-menu/related-question-left-menu.component';
+import { TopFiveUserComponent } from './left-menu/topfive-user.component';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, CKEditorModule, RouterModule],
@@ -17,10 +22,10 @@ import { AppCkEditorComponent } from './apCkEditor.component';
         { provide: 'Window', useValue: window }
     ],
     declarations: [
-        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent
+        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu
     ],
     exports: [
-        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent
+        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu
     ]
 })
 export class SharedModule { }

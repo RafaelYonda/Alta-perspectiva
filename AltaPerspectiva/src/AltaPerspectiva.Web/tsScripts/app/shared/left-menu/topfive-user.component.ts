@@ -6,7 +6,7 @@ import {User} from '../../services/models';
     selector: 'topfive-user',
     templateUrl: 'js/app/shared/left-menu/topfive-user.component.html',
     styleUrls: ['js/app/shared/styles/left-menu.css'],
-    providers: [ProfileService]//, CategoryService]
+    providers: [ProfileService]
 })
 export class TopFiveUserComponent {
 

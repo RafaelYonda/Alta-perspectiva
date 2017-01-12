@@ -6,7 +6,7 @@ import { Router, ActivatedRoute, Resolve } from '@angular/router';
 
 @Component({
     selector: 'related-question-left-menu',
-    templateUrl: 'js/app/shared/related-question-left-menu.component.html',
+    templateUrl: 'js/app/shared/left-menu/related-question-left-menu.component.html',
     styleUrls: ['js/app/shared/styles/left-menu.css'],
     providers: [QuestionAnswerService, CategoryService]
 })
