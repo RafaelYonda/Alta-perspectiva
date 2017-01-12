@@ -119,20 +119,22 @@
                 <p class="answer-text" [innerHTML]="answer.text"></p>
                 <div class="status-panel">
                     <hr />
-                    <img class="like-logo" src="../images/fade-logo.png" />
+                    <ap-status [questionObj]="question"> </ap-status>
+                    <ap-comment [questionId]="question.id"></ap-comment>
+                    <!--<img class="like-logo" src="../images/fade-logo.png" />
                     <div class="status-line">{{answer.likes?.length}}</div>
                     <a (click)="submitLikeForAnswer(answer.id)"><div class="status-line">Like</div></a>
                     <div class="status-line like-border"></div>
                     <div class="status-line">{{answer.comments?.length}}</div>
                     <a data-toggle="collapse" attr.data-target="#answerComment{{answer.id}}" aria-expanded="false" aria-controls="collapseExample">
                         comments
-                    </a>
+                    </a>-->
                     <!-- social media icon -->
-                    <div class="social-icon">
+                    <!--<div class="social-icon">
                         <img class="social-image" src="../images/facebooklogo.jpg" />
                         <img class="social-image" src="../images/twitter.png" />
                         <img class="social-image" src="../images/icon-external-link.png" />
-                    </div>
+                    </div>-->
                 </div>
                 <!-- ======Answer Comment==== -->
                 <div class="collapse comment-panel" id="answerComment{{answer.id}}">
