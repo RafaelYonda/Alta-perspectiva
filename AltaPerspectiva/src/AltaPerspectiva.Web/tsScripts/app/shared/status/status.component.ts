@@ -13,7 +13,9 @@ export class StatusComponent {
     @Input() questionObj: Question;
     @Input() answerObj: Answer;
     @Input() isQuestion: any;
+
     commentId: string;
+    CommentCount: number;
     like: Like;
     likedUsers: any;
     constructor(private statusService: StatusService, private dataService: QuestionAnswerService) {
@@ -21,10 +23,15 @@ export class StatusComponent {
     ngOnInit() {
         console.log(this.isQuestion);
         if (this.isQuestion)
+        {
             this.commentId = this.questionObj.id;
+            this.CommentCount = this.questionObj.comments.length;
+        }
         else
+        {
             this.commentId = this.answerObj.id;
-        
+            this.CommentCount = this.answerObj.comments.length;
+        }
     }
     submitLike(answerId: string,questionId:string) {         
         this.like = new Like();

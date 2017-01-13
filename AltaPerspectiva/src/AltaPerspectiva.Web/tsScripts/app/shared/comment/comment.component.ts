@@ -21,53 +21,54 @@ export class CommentComponent {
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
     ngOnInit() {
-        console.log(this.isQuestion);
-        if (this.isQuestion)
+        var temp = this;
+        if (this.isQuestion) {
             this.commentId = this.questionId;
+            this.commentService.getCommentByQuestion(temp.questionId).subscribe(res => {
+                this.comments = res;
+            });
+        }
+
         else
+        {
             this.commentId = this.answerId;
+            this.commentService.getCommentByAnswer(temp.answerId).subscribe(res => {
+                this.comments = res;
+            });
+        }
+            
         var currentUserName = localStorage.getItem('currentUserName');
         var currentUserImage = localStorage.getItem('currentUserImage');
         if (currentUserName != null) {
             this._logObj.user.name = currentUserName;
             this._logObj.user.imageUrl = currentUserImage;
         }
-
-        var temp = this;
-
-        if (this.answerId != "") {
-            this.questionId = this.answerId;
-            this.commentService.getCommentByAnswer(temp.answerId).subscribe(res => {
-                this.comments = res;
-            });
-        }
-        if (this.answerId == "")  {
-            this.commentService.getCommentByQuestion(temp.questionId).subscribe(res => {
-                this.comments = res;
-            });
-        }
     }
 
+    pushComment(result) {
+        this.commentText = "";
+        this.comment = result;
+        this.comments.push(this.comment);
+    }
     submitComment(questionId: string, answerId: string) {
         this.comment = new Comment();
-        this.comment.questionId = questionId;
+        
         this.comment.commentText = this.commentText;
+        if (this.comment.commentText.trim() == "")
+            return;
 
-        if (this.answerId == "") {
+        if (this.isQuestion) {
+            this.comment.questionId = this.questionId;
             this.commentService.addQuestionComment(this.comment).subscribe(res => {
-                this.commentText = "";
-                this.comment = res;
-                this.comments.push(this.comment);
-
+                this.pushComment(res)
             });
         }
 
-        if (this.answerId != "") {
+        else
+        {
+            this.comment.answerId = this.answerId;
             this.commentService.addAnswerComment(this.comment).subscribe(res => {
-                this.commentText = "";
-                this.comment = res;
-                this.comments.push(this.comment);
-
+                this.pushComment(res)
             });
         }
     }
