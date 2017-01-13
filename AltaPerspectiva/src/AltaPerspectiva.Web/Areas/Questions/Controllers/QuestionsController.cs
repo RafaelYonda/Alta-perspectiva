@@ -158,7 +158,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpPost("/questions/api/question/{id}/comment")]
-        public UserViewModel PostQuestionComment([FromBody]AddCommentViewModel comment)
+        public AddCommentViewModel PostQuestionComment([FromBody]AddCommentViewModel comment)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -173,13 +173,14 @@ namespace AltaPerspectiva.Web.Area.Questions
             Guid createdId = cmd.Id;
 
             var userViewModel = new UserService().GetUserViewModel(queryFactory,loggedinUser);
-            return userViewModel;
+            comment.UserViewModel = userViewModel;
+            return comment;
 
 
         }
 
         [HttpPost("/questions/api/question/answer/{answerId}/comment")]
-        public UserViewModel PostAnswerComment([FromBody]AddCommentViewModel comment)
+        public AddCommentViewModel PostAnswerComment([FromBody]AddCommentViewModel comment)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -194,7 +195,8 @@ namespace AltaPerspectiva.Web.Area.Questions
             Guid createdId = cmd.Id;
 
             var userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser);
-            return userViewModel;
+            comment.UserViewModel = userViewModel;
+            return comment;
         }
 
         [HttpPost("/questions/api/question/{id}/like")]

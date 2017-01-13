@@ -43,7 +43,7 @@ namespace Questions.Query
 
         public async Task<IEnumerable<Question>> GetTopFiveQuestionByCategoryId(Guid categoryId)
         {
-            return await DbContext.Questions.OrderByDescending(x => x.ViewCount).Take(5).ToListAsync();
+            return await DbContext.Questions.Where(q => q.Categories.Any(x => x.CategoryId == categoryId && x.QuestionId == q.Id)).OrderByDescending(x => x.ViewCount).Take(5).ToListAsync();
         }
     }
 }
