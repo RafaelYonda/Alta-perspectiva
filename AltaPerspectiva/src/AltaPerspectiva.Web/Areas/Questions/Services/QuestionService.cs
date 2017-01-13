@@ -154,7 +154,23 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 var tmp = new QuestionCommentViewModel();
                 tmp.Id = cvm.Id;
                 tmp.CommentText = cvm.CommentText;
-                tmp.QuestionId = cvm.QuestionID;
+                tmp.QuestionId = cvm.QuestionID;                
+                tmp.UserId = cvm.UserID;
+                tmp.UserViewModel = new UserService().GetUserViewModel(queryFactory, cvm.UserID);
+                commentVMs.Add(tmp);
+            }
+            return commentVMs.ToList();
+        }
+
+        public List<AnswerCommentViewModel> GetAnswersComments(IEnumerable<Comment> commentList, IQueryFactory queryFactory)
+        {
+            List<AnswerCommentViewModel> commentVMs = new List<AnswerCommentViewModel>();
+            foreach (var cvm in commentList)
+            {
+                var tmp = new AnswerCommentViewModel();
+                tmp.Id = cvm.Id;
+                tmp.CommentText = cvm.CommentText;
+                tmp.AnswerId = cvm.AnswerId;
                 tmp.UserId = cvm.UserID;
                 tmp.UserViewModel = new UserService().GetUserViewModel(queryFactory, cvm.UserID);
                 commentVMs.Add(tmp);

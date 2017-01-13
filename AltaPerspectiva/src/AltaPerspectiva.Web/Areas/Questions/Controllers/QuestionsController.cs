@@ -128,15 +128,24 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         // GET /questions/api/questions/{id}
         [HttpGet("/questions/api/questions/{id}/comments")]
-        public async Task<IActionResult>  GetComments(Guid id)
+        public async Task<IActionResult>  GetQuestionComments(Guid id)
         {
             var comments = await queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);
             var commentsVM = new QuestionService().GetComments(comments, queryFactory);
             return Ok(commentsVM);
         }
 
+        // GET /questions/api/questions/{id}
+        [HttpGet("/questions/api/questions/answer/{id}/comments")]
+        public async Task<IActionResult> GetAnswerComments(Guid id)
+        {
+            var comments = await queryFactory.ResolveQuery<IAnswerCommentsQuery>().Execute(id);
+            var commentsVM = new QuestionService().GetComments(comments, queryFactory);
+            return Ok(commentsVM);
+        }
+
         // POST /questions/api/questions       
-        
+
 
         // POST /questions/api/question/{id}/answer
         [HttpPost("/questions/api/question/{id}/answer")]
