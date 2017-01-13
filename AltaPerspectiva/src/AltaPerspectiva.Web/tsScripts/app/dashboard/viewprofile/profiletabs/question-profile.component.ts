@@ -21,7 +21,7 @@ export class QuestionProfileComponent {
         subs.subscribe(res => {
             console.log(res);
             this.questions = res;
-            this.questions.forEach(x => x.lastAnswer = x.answers[x.answers.length - 1]);
+            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
         });
     }
 }

@@ -14,11 +14,11 @@
                     <div class="details-container">
                         <question-header [question]="question"></question-header>
                         <div class="article-details">
-                            <user-info [userObj]="question.lastAnswer?.userViewModel" [viewDate]="question.lastAnswer?.answerDate"></user-info>
-                            <div *ngIf="question.lastAnswer?.text"><p [innerHTML]="question.lastAnswer?.text"></p><span><a [routerLink]="['/question/detail',question.id]">Read more..</a></span></div>
+                            <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
+                            <div *ngIf="question.bestAnswer?.text"><p [innerHTML]="question.bestAnswer?.text"></p><span><a [routerLink]="['/question/detail',question.id]">Read more..</a></span></div>
                             <hr />
-                            <ap-status [questionObj]="question"> </ap-status>
-                            <ap-comment [questionId]="question.id"></ap-comment>
+                            <ap-status [questionObj]="question" [answerObj]="question.bestAnswer"> </ap-status>                            
+                            <ap-comment [questionId]="question.bestAnswer?.id"></ap-comment>
                         </div>
                     </div>
                 </div>

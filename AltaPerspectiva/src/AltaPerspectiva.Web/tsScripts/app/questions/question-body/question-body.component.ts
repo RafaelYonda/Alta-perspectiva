@@ -94,8 +94,8 @@ export class QuestionBodyComponent{
             }
 
             subs.subscribe(res => {               
-                this.questions = res;        
-                this.questions.forEach(x => x.lastAnswer = x.answers[x.answers.length - 1]);       
+                this.questions = res;
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]);       
                 this.hideLoader();    
             });
         });        
@@ -133,7 +133,7 @@ export class QuestionBodyComponent{
     {
         this.questionService.getQuestionsNotAnswered(categoryId).subscribe(res => {
             this.questions = res;
-            this.questions.forEach(x => x.lastAnswer = x.answers[x.answers.length - 1]);
+            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
         });
     }
 
@@ -141,7 +141,7 @@ export class QuestionBodyComponent{
     {
         this.questionService.getQuestyionsAnswered(categoryId).subscribe(res => {
             this.questions = res;
-            this.questions.forEach(x => x.lastAnswer = x.answers[x.answers.length - 1]);
+            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
         });
     }
 

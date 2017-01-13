@@ -29,14 +29,16 @@ export class StatusService  {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    addLikeUserDetails(questionId: string): Observable<any> {
+
+    showLikeUserDetailsByQuestion(questionId: string): Observable<any> {
         console.log(questionId +' in addLikeUserDetails');
         return this._http.get('/questions/api/question/' + questionId + '/questionlike', null)
             .map(this.extractData)
             .catch(this.handleError);
 
     }
-     addLikeUserDetailsByAnswer(answerId: string,questionId:string): Observable<any> {
+
+    showLikeUserDetailsByAnswer(answerId: string,questionId:string): Observable<any> {
         console.log(answerId +' in addLikeUserDetails');
         return this._http.get('/questions/api/question/' + answerId + '/answerlike/'+questionId, null)
             .map(this.extractData)

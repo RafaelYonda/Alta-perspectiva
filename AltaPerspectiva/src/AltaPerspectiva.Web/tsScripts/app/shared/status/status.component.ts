@@ -1,7 +1,7 @@
 ﻿import { Component, Input, ElementRef } from '@angular/core';
 import { StatusService } from '../../services/status.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {  Question, Like} from '../../services/models';
+import {  Question, Answer, Like} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 @Component({
     selector: 'ap-status',
@@ -11,26 +11,48 @@ import { QuestionAnswerService } from '../../services/question-answer.service';
 })
 export class StatusComponent {
     @Input() questionObj: Question;
+    @Input() answerObj: Answer;
     like: Like;
     likedUsers: any;
     constructor(private statusService: StatusService,private dataService: QuestionAnswerService) {
     }
+
     submitLike(answerId: string,questionId:string) {         
         this.like = new Like();
         this.like.answerId = answerId;
         this.like.questionId = questionId;
 
-        this.dataService.addAnswerLike(this.like).subscribe(res => {
-            this.like.userId = res.userId ;       
-            var douplicateLike = this.questionObj.answers[0].likes.find(x => x.answerId == answerId);
-            if (douplicateLike == undefined) {
+        if (answerId != null || questionId != null) {
+            this.dataService.addAnswerLike(this.like).subscribe(res => {
+                this.like.userId = res.userId;
+                var douplicateLike = this.questionObj.answers[0].likes.find(x => x.answerId == answerId);
+                if (douplicateLike == undefined) {
                     this.questionObj.answers[0].likes.push(this.like);
-            }
-        });
+                }
+            });
+        }
+
+        if (answerId == null && questionId != null) {
+            this.dataService.addQuestionLike(this.like).subscribe(res => {
+                this.like.userId = res.userId;
+                var douplicateLike = this.questionObj.answers[0].likes.find(x => x.answerId == answerId);
+                if (douplicateLike == undefined) {
+                    this.questionObj.answers[0].likes.push(this.like);
+                }
+            });
+        }
     }
-    submitLikeUserDetails(answerId: string,questionId:string) {       
-        this.statusService.addLikeUserDetailsByAnswer(answerId,questionId).subscribe(res => {           
-            this.likedUsers = res;
-        });       
+
+    showLikeUserDetails(answerId: string, questionId: string) {
+        if (answerId != null) {
+            this.statusService.showLikeUserDetailsByQuestion(questionId).subscribe(res => {
+                this.likedUsers = res;
+            });
+        }  
+        if (answerId == null) {
+            this.statusService.showLikeUserDetailsByAnswer(answerId, questionId).subscribe(res => {
+                this.likedUsers = res;
+            });
+        }    
     }
 }

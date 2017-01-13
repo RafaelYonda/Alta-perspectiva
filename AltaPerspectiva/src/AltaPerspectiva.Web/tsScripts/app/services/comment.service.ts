@@ -39,6 +39,15 @@ export class CommentService  {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+    addAnswerComment(comment: Comment): Observable<Comment> {
+        return this._http.post('/questions/api/question/answer/' + comment.answerId + '/comment', comment)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+
+
     private extractData(res: Response) {       
         let body;
 

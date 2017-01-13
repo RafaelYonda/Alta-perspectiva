@@ -72,7 +72,7 @@ export class Question {
     date: Date;    
     user: User;
     answers: AnswerViewModel[];
-    lastAnswer: AnswerViewModel;
+    bestAnswer: AnswerViewModel;
     shareUrl: string;
     viewCount: number;  
     createdOn:Date;
@@ -81,7 +81,7 @@ export class Question {
         this.answers = new Array();
         this.comments = new Array();
         this.categoryIds = new Array();
-        this.lastAnswer = new AnswerViewModel();
+        this.bestAnswer = new AnswerViewModel();
         this.likes = new Array();
     }
 }

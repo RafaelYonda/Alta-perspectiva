@@ -38,6 +38,7 @@ export class TabPanelComponent {
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
     ngOnInit() {   
+
         var currentUser = localStorage.getItem('auth_token');
         this.authService.getLoggedinObj().subscribe(res => {
             if (res && currentUser != "null") {
@@ -51,23 +52,23 @@ export class TabPanelComponent {
         this.sub = this.route.params.subscribe(params => {
            
             this.id = params['id']; // (+) converts string 'id' to a number 
-            console.log(this.id);
-            //this.questions = this.questionAnswerService.getQuestionByCategory(params['id']);
+           
             this.questionAnswerService.getQuestionsByCategory(this.id).subscribe(res => {
                 this.questions = res;
                 for (var q = 0; q< this.questions.length; q++)
                 {                    
-                    this.questions[q].lastAnswer = this.questions[q].answers[this.questions[q].answers.length - 1];
+                    // answers[0] is the best answer
+                    this.questions[q].bestAnswer = this.questions[q].answers[0];
 
-                    if (this.questions[q].lastAnswer && this.questions[q].lastAnswer.text) {
+                    if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
 
-                        var temp = this.questions[q].lastAnswer.text.substring(0, 200);
-                        this.questions[q].lastAnswer.text = temp;
+                        var temp = this.questions[q].bestAnswer.text.substring(0, 200);
+                        this.questions[q].bestAnswer.text = temp;
                         this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id +"'>read more...</a>";
                         this.questions[q].shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questions[q].id);
                     }
                 }
-                this.questions.forEach(x => x.lastAnswer = x.answers[x.answers.length - 1]);
+                this.questions.forEach(x => x.bestAnswer = x.answers[x.answers.length - 1]);
             
             });
         }); 

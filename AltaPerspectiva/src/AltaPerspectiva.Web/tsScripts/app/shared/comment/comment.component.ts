@@ -14,6 +14,7 @@ export class CommentComponent {
     comments: Comment[];
     _logObj: LogInObj;
     @Input() questionId: string = '';
+    @Input() answerId: string = '';
     constructor(private commentService: CommentService) {
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
@@ -30,16 +31,27 @@ export class CommentComponent {
         }); 
     }
 
-    submitComment(questionId: string) {
+    submitComment(questionId: string, answerId: string) {
         this.comment = new Comment();
         this.comment.questionId = questionId;
         this.comment.commentText = this.commentText;
 
-        this.commentService.addQuestionComment(this.comment).subscribe(res => {
-            this.commentText = "";
-            this.comment = res;
-            this.comments.push(this.comment);
+        if (this.answerId == "") {
+            this.commentService.addQuestionComment(this.comment).subscribe(res => {
+                this.commentText = "";
+                this.comment = res;
+                this.comments.push(this.comment);
 
-        });
+            });
+        }
+
+        if (this.answerId != "") {
+            this.commentService.addAnswerComment(this.comment).subscribe(res => {
+                this.commentText = "";
+                this.comment = res;
+                this.comments.push(this.comment);
+
+            });
+        }
     }
 }

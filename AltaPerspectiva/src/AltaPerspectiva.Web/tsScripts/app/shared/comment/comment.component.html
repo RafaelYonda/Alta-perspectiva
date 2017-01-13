@@ -2,7 +2,8 @@
     <form #commentForm="ngForm" class="form-horizontal " role="form">
         <div class="comment-input">
             <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
-            <input class="form-control" id="comment" [(ngModel)]="commentText" [ngModelOptions]="{standalone: true}" />             <button type="button" class="btn btn-primary" (click)="submitComment(questionId)">Comment</button>
+            <input class="form-control" id="comment" [(ngModel)]="commentText" [ngModelOptions]="{standalone: true}" />            
+             <button type="button" class="btn btn-primary" (click)="submitComment(questionId,answerId)">Comment</button>
         </div>
     </form>
     <div class="clearfix"></div>

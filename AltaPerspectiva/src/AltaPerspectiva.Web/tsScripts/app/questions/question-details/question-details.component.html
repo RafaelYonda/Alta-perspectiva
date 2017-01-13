@@ -11,7 +11,7 @@
     <!-- ===================== -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            
+
             <form #answerVM="ngForm" class="form-horizontal" role="form">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -21,7 +21,7 @@
                         <h1>&iquest;{{question.title}}?</h1>
                         <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl}}" />
                         <div class="header-info">{{_logObj.user?.name}}, {{_logObj.user?.occupassion}} </div>
-                        
+
                         <div [hidden]="answerField.valid || answerField.pristine"
                              class="alert alert-danger">
                             Please type your answer and then submit!!
@@ -63,46 +63,8 @@
             <div class="header-info">{{question.userViewModel?.name}}, {{question.userViewModel?.occupation}} {{question?.createdOn | date: 'dd MMM, yyyy'}} </div>
             <!--<div class="header-info">{{date.getMonthName(question.date?.getMonth())}} {{question.date?.getFullYear()}}</div>-->
             <p class="answer-text" [innerHTML]="question.body"></p>
-            <div class="status-panel">
-                <hr />
-                <img class="like-logo" src="../images/fade-logo.png" />
-                <div class="status-line">{{question.likes?.length}}</div>
-                <a (click)="submitLike(question.id)"><div class="status-line">Like</div></a>
-                <div class="status-line like-border"></div>
-                <div class="status-line">{{question.viewCount}}</div>
-                <div class="status-line">Leidos</div>
-                <a data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    {{question.comments?.length}} comments
-                </a>
-                <!-- social media icon -->
-                <div class="social-icon">
-                    <a><img class="social-image" src="../images/facebooklogo.jpg" /></a>
-                    <a><img class="social-image" src="../images/twitter.png" /></a>
-                    <a><img class="social-image" src="../images/icon-external-link.png" /></a>
-                </div>
-            </div>
-            <!-- ======Question Comment==== -->
-            <div class="collapse comment-panel" id="collapseExample">
-                <form #commentForm="ngForm" class="form-horizontal" role="form">
-                    <div class="comment-input">
-                        <img class="user-image" src="../../../../profile/{{_logObj.user?.imageUrl}}" />
-                        <input class="form-control" [(ngModel)]="commentText" [ngModelOptions]="{standalone: true}" id="comment" />
-                        <button type="button" class="btn btn-primary" (click)="submitComment(question.id)">Save</button>
-                    </div>
-                </form>
-                <div class="card card-block">
-                    <div *ngFor="let comment of question.comments" class="clearfix">
-                        <div *ngIf="comment">
-                            <img class="user-image comment-img" src="../../../../profile/{{comment?.userViewModel?.imageUrl}}" />
-                            <div class="header-info">{{comment?.userViewModel?.name}}</div>
-
-                                <!--,{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}-->
-                            <p class="comment-text">{{comment.commentText}}</p>
-                        </div>
-                        <hr />
-                    </div>
-                </div>
-            </div>
+            <ap-status [questionObj]="question"> </ap-status>
+            <ap-comment [questionId]="question?.id"></ap-comment>
         </div>
     </div>
     <hr />
@@ -117,45 +79,8 @@
                 <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}" />
                 <div class="header-info">{{answer.userViewModel?.name}},{{answer.userViewModel?.occupation}} {{answer?.createdOn | date: 'dd MMM, yyyy'}}</div>
                 <p class="answer-text" [innerHTML]="answer.text"></p>
-                <div class="status-panel">
-                    <hr />
-                    <ap-status [questionObj]="question"> </ap-status>
-                    <ap-comment [questionId]="question.id"></ap-comment>
-                    <!--<img class="like-logo" src="../images/fade-logo.png" />
-                    <div class="status-line">{{answer.likes?.length}}</div>
-                    <a (click)="submitLikeForAnswer(answer.id)"><div class="status-line">Like</div></a>
-                    <div class="status-line like-border"></div>
-                    <div class="status-line">{{answer.comments?.length}}</div>
-                    <a data-toggle="collapse" attr.data-target="#answerComment{{answer.id}}" aria-expanded="false" aria-controls="collapseExample">
-                        comments
-                    </a>-->
-                    <!-- social media icon -->
-                    <!--<div class="social-icon">
-                        <img class="social-image" src="../images/facebooklogo.jpg" />
-                        <img class="social-image" src="../images/twitter.png" />
-                        <img class="social-image" src="../images/icon-external-link.png" />
-                    </div>-->
-                </div>
-                <!-- ======Answer Comment==== -->
-                <div class="collapse comment-panel" id="answerComment{{answer.id}}">
-                    <form #commentAnswerForm="ngForm" class="form-horizontal" role="form">
-                        <div class="comment-input">
-                            <img class="user-image" src="../../../../profile/{{_logObj.user?.imageUrl}}" />
-                            <input class="form-control" [(ngModel)]="commentAnswerText" [ngModelOptions]="{standalone: true}" id="comment" />
-                            <button type="button" class="btn btn-primary" (click)="submitCommentForAnswer(answer.id)">Save</button>
-                        </div>
-                    </form>
-                    <div class="card card-block">
-                        <div *ngFor="let comment of answer.comments">
-                            <div *ngIf="comment">
-                                <img class="user-image comment-img" src="../../../../profile/{{comment?.userViewModel?.imageUrl}}" />
-                                        <!--<div class="header-info">{{comment?.user?.name}},{{date.getMonthName(comment?.time?.getMonth())}} {{comment?.time?.getDate()}} {{comment?.time?.getFullYear()}}</div>-->
-                                <p class="answer-text">{{comment?.commentText}}</p>
-                            </div>
-                            <hr />
-                        </div>
-                    </div>
-                </div>
+                <ap-status [questionObj]="question"> </ap-status>
+                <ap-comment [questionId]="question.id"></ap-comment>
             </div>
         </div>
         <hr />
