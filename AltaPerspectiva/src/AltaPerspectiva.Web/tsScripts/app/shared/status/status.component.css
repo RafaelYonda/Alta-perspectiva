@@ -1,8 +1,21 @@
-﻿.other-function{
-    padding-bottom:5px;
+﻿.like-logo {
+    height: 30px;
+    width: 30px;
+}
+
+    .like-logo:hover {
+        background-repeat:no-repeat;
+        height: 40px;
+        width: 40px;
+        background-image: url('../images/like-logo.png');
+    }
+
+.other-function {
+    padding-bottom: 5px;
     display: inline-block;
 }
-.number-box{
+
+.number-box {
     background-color: rgba(236, 234, 234, 0.83);
     min-width: 15px;
     text-align: center;
@@ -10,6 +23,7 @@
     display: inline-block;
     padding: 1px;
 }
+
 .counter-box {
     position: relative;
     background: #107ebf;
@@ -22,20 +36,20 @@
     margin-left: 2px;
 }
 
-.counter-box:after {
-    bottom: 100%;
-    right: 55%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border-color: rgba(136, 183, 213, 0);
-    border-bottom-color: #107ebf;
-    border-width: 1px 5px 10px;
-    margin-left: -30px;
-}
+    .counter-box:after {
+        bottom: 100%;
+        right: 55%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(136, 183, 213, 0);
+        border-bottom-color: #107ebf;
+        border-width: 1px 5px 10px;
+        margin-left: -30px;
+    }
 
 h5 {
     display: inline;
