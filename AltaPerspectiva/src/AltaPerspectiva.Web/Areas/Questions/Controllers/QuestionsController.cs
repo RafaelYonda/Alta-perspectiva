@@ -276,7 +276,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         //all like added 
         [HttpGet("/questions/api/question/{questionId}/questionlike")]
-        public async Task<IActionResult> QuestionLike(Guid questionId)
+        public async Task<IActionResult> GetQuestionLike(Guid questionId)
         {
             var likes = await queryFactory.ResolveQuery<ILikeQuery>().Execute(questionId);
 

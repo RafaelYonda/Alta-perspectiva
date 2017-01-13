@@ -23,22 +23,20 @@ export class StatusComponent {
         this.like.questionId = questionId;
 
         if (answerId != null || questionId != null) {
-            this.dataService.addAnswerLike(this.like).subscribe(res => {
-                this.like.userId = res.userId;
-                var douplicateLike = this.questionObj.answers[0].likes.find(x => x.answerId == answerId);
-                if (douplicateLike == undefined) {
+
+
+
+            this.dataService.addAnswerLike(this.like).subscribe(res => {                            
                     this.questionObj.answers[0].likes.push(this.like);
                 }
-            });
+            );
         }
 
         if (answerId == null && questionId != null) {
-            this.dataService.addQuestionLike(this.like).subscribe(res => {
-                this.like.userId = res.userId;
-                var douplicateLike = this.questionObj.answers[0].likes.find(x => x.answerId == answerId);
-                if (douplicateLike == undefined) {
-                    this.questionObj.answers[0].likes.push(this.like);
-                }
+
+
+            this.dataService.addQuestionLike(this.like).subscribe(res => {            
+                    this.questionObj.answers[0].likes.push(this.like);               
             });
         }
     }

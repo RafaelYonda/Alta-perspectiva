@@ -156,8 +156,8 @@ export class QuestionAnswerService implements Resolve<Question> {
                 .catch(this.handleError);
 
      }
-     saveQuestionSaveViewModel(model:QuestionSaveViewModel):Observable<any> {
-         console.log('i am in saveQuestionSaveViewModel');
+
+     saveQuestionSaveViewModel(model:QuestionSaveViewModel):Observable<any> {      
          return this._http.post('/questions/api/savequestion', model)
             .map(this.extractData)
             .catch(this.handleError);
