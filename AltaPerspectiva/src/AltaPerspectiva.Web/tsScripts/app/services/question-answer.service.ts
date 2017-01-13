@@ -111,7 +111,7 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
    
-    increaseQuestionViewCount(id: string): Observable<any> {
+    increaseQuestionViewCount(id: string): Observable<boolean> {
         return this._http.post('/questions/api/question/' + id + '/viewcount', null)
             .map(this.extractData)
             .catch(this.handleError);
@@ -123,6 +123,16 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
 
+    getQuestionAlreadyLiked(questionId: string): Observable<any> {
+        return this._http.get('/questions/api/question/' + questionId + '/getqestionalreadyLiked',null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+     getAnswerAlreadyLiked(answerId: string): Observable<any> {
+        return this._http.get('/questions/api/question/getansweralreadyliked/'+ answerId ,null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     addAnswerLike(like: Like): Observable<Like> {
         return this._http.post('/questions/api/question/answer/' + like.answerId + '/like', like)
             .map(this.extractData)
@@ -130,7 +140,6 @@ export class QuestionAnswerService implements Resolve<Question> {
     }
     
     addLikeUserDetails(questionId: string): Observable<any> {
-        console.log(questionId +'in addLikeUserDetails');
          return this._http.get('/questions/api/question/' + questionId + '/questionlike',null)
             .map(this.extractData)
             .catch(this.handleError);

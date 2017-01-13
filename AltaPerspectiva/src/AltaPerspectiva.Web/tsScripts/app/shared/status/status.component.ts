@@ -14,6 +14,8 @@ export class StatusComponent {
     @Input() answerObj: Answer;
     like: Like;
     likedUsers: any;
+    questionAlreadyLiked:boolean;
+    answerAlreadyLiked:boolean;
     constructor(private statusService: StatusService,private dataService: QuestionAnswerService) {
     }
 
@@ -22,23 +24,38 @@ export class StatusComponent {
         this.like.answerId = answerId;
         this.like.questionId = questionId;
 
-        if (answerId != null || questionId != null) {
-
-
-
-            this.dataService.addAnswerLike(this.like).subscribe(res => {                            
-                    this.questionObj.answers[0].likes.push(this.like);
-                }
-            );
-        }
 
         if (answerId == null && questionId != null) {
 
-
-            this.dataService.addQuestionLike(this.like).subscribe(res => {            
-                    this.questionObj.answers[0].likes.push(this.like);               
+            this.dataService.getQuestionAlreadyLiked(questionId).subscribe(res => {
+             
+                if( res.result==true) return;
+                    this.dataService.addQuestionLike(this.like).subscribe(res => {            
+                        this.questionObj.answers[0].likes.push(this.like);               
+                                });
+               
             });
+
+       }
+      //for answer
+        else if (answerId != null || questionId != null) {
+           
+            this.dataService.getAnswerAlreadyLiked(answerId).subscribe(res => {
+                if (res.result == true) 
+                return;
+                this.dataService.addAnswerLike(this.like).subscribe(res => {                            
+                                this.questionObj.answers[0].likes.push(this.like);
+                            }
+                        );
+               
+            });
+           
+            
+            
+           
         }
+
+        
     }
 
     showLikeUserDetails(answerId: string, questionId: string) {
