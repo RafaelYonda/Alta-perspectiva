@@ -18,7 +18,7 @@
                             <div *ngIf="question.bestAnswer?.text"><p [innerHTML]="question.bestAnswer?.text"></p><span><a [routerLink]="['/question/detail',question.id]">Read more..</a></span></div>
                             <hr />
                             <ap-status [questionObj]="question" [answerObj]="question.bestAnswer"> </ap-status>                            
-                            <ap-comment [questionId]="question.bestAnswer?.id"></ap-comment>
+                            <ap-comment [questionId]="question.bestAnswer?.id"  [answerId]="question.bestAnswer?.id"></ap-comment>
                         </div>
                     </div>
                 </div>

@@ -30,6 +30,11 @@ namespace Questions.Query.Queries
         {
             return DbContext.Topics.FirstOrDefault(x => x.Id == topicId);
         }
+
+        //public Task<IEnumerable<Topic>> GetTopFiveTopicsByCategoryId(Guid categoryId)
+        //{
+            
+        //}
     }
     
     

@@ -79,8 +79,8 @@
                 <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}" />
                 <div class="header-info">{{answer.userViewModel?.name}},{{answer.userViewModel?.occupation}} {{answer?.createdOn | date: 'dd MMM, yyyy'}}</div>
                 <p class="answer-text" [innerHTML]="answer.text"></p>
-                <ap-status [questionObj]="question"> </ap-status>
-                <ap-comment [questionId]="question.id"></ap-comment>
+                <ap-status [questionObj]="question" [answerObj]="answer"> </ap-status>
+                <ap-comment [questionId]="question?.id"  [answerId]="answer.id"></ap-comment>
             </div>
         </div>
         <hr />

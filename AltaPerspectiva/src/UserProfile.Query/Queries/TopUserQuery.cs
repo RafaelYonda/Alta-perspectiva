@@ -69,5 +69,35 @@ namespace UserProfile.Query.Queries
             }
             return summary;
         }
+
+        public async Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId)
+        {
+            List<UserSummary> userSummery = new List<UserSummary>();
+            using (var connection = (SqlConnection)DbContext.Database.GetDbConnection())
+            {
+                connection.Open();
+                //String query = String.Format(@"select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=@UserId");
+                var command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "SpTopUserCalculation";
+                command.Parameters.AddWithValue("@UserId", null);
+                command.Parameters.AddWithValue("@categoryId", categoryId);
+
+                var reader = await command.ExecuteReaderAsync();
+                while (reader.Read())
+                {
+                    UserSummary summary = new UserSummary();
+                    summary.Name = Convert.ToString(reader["FullName"]);
+                    summary.Id = Convert.ToString(reader["Id"]);
+                    summary.ImageUrl = Convert.ToString(reader["ImageUrl"]);
+                    summary.TotalLike = Convert.ToInt16(reader["TotalLike"]);
+                    summary.TotalComment = Convert.ToInt16(reader["TotalComment"]);
+                    summary.TotalQuestion = Convert.ToInt16(reader["TotalQuestion"]);
+                    summary.TotalAnswer = Convert.ToInt16(reader["TotalAnswer"]);
+                    userSummery.Add(summary);
+                }
+            }
+            return userSummery;
+        }
     }
 }

@@ -64,45 +64,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-create proc [dbo].[SpTopTopicCalculation]
-  (
-   @categoryId nvarchar(200)=null
-  )
-  as
-  BEGIN
-	if @categoryId is null
-	BEGIN
-		;with CTE
-	  as(
-	  select t.CategoryId,t.TopicName,COUNT(*) TopicCount 
-	  from Questions.QuestionCategories qc
-	  inner join Questions.QuestionTopics qt
-	  on qc.QuestionId=qt.QuestionId
-	  inner join Questions.Topics t
-	  on qt.TopicId=t.Id 
-	  group by t.CategoryId,t.TopicName
-	  )
-	  select top 5 * from CTE order by TopicCount desc
-	END
-	else
-	BEGIN
-	;with CTE
-	  as(
-	  select t.CategoryId,t.TopicName,COUNT(*) TopicCount 
-	  from Questions.QuestionCategories qc
-	  inner join Questions.QuestionTopics qt
-	  on qc.QuestionId=qt.QuestionId
-	  inner join Questions.Topics t
-	  on qt.TopicId=t.Id 
-	  where t.CategoryId=@categoryId
-	  group by t.CategoryId,t.TopicName
-	  )
-	  select top 5 * from CTE order by TopicCount desc
-	END
-  END
 
-
-GO
 
 
 
