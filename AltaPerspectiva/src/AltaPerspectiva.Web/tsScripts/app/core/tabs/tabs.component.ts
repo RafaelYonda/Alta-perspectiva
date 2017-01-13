@@ -22,13 +22,14 @@ export class TabsComponent {
         //====
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
-            
+            this.commServ.setCategory(this.categories[0].id);       //'setCategory' triggers top question and users
 
             this.tabLength = this.categories.length - 6;
             this.transform = 0;
         });
     }
     ngOnInit() {
+        
         //console.log('on init');
         //this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
     }

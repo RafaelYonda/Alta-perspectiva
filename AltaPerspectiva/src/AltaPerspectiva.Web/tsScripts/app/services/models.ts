@@ -106,7 +106,7 @@ export class Keyword {
 }
 
 export class Answer {
-    id: number;
+    id: string;
     questionId: number;
     user: User;
     answerText: string;

@@ -8,12 +8,15 @@ export class CommunicationService {
     private categoryId: string;
     private objChange: Subject<string> = new Subject<string>();
 
-    setCategory(logged: string): void {
-        this.categoryId = logged;
-        this.objChange.next(logged);
+    setCategory(catId: string): void {
+        this.categoryId = catId;
+        this.objChange.next(catId);
+        console.log(this.categoryId);
+
     }
 
     getCategory(): Observable<string> {
+        console.log(this.categoryId);
         return this.objChange.asObservable();
     }
 }

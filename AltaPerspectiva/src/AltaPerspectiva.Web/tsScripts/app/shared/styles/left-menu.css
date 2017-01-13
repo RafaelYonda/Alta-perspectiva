@@ -19,6 +19,9 @@ ul {
 .menu-container>ul>li>a{
     color:#b3abab;
 }
+.menu-container>ul>li>a:hover{
+    color:#858080;
+}
 .question-list > a {
     display: block;
 }

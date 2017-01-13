@@ -12,13 +12,20 @@ export class CommentComponent {
     commentText: string;
     comment: Comment;
     comments: Comment[];
+    commentId: string;
     _logObj: LogInObj;
     @Input() questionId: string = '';
     @Input() answerId: string = '';
+    @Input() isQuestion: any;
     constructor(private commentService: CommentService) {
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
     ngOnInit() {
+        console.log(this.isQuestion);
+        if (this.isQuestion)
+            this.commentId = this.questionId;
+        else
+            this.commentId = this.answerId;
         var currentUserName = localStorage.getItem('currentUserName');
         var currentUserImage = localStorage.getItem('currentUserImage');
         if (currentUserName != null) {
@@ -29,6 +36,7 @@ export class CommentComponent {
         var temp = this;
 
         if (this.answerId != "") {
+            this.questionId = this.answerId;
             this.commentService.getCommentByAnswer(temp.answerId).subscribe(res => {
                 this.comments = res;
             });

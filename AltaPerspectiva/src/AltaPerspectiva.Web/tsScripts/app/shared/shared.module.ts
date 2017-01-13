@@ -15,11 +15,11 @@ import { CategoryMenuPanelComponent } from './left-menu/category-left-menu.compo
 import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
 import { RelatedQuestionMenu } from './left-menu/related-question-left-menu.component';
 import { TopFiveUserComponent } from './left-menu/topfive-user.component';
-
+import { CommunicationService } from '../services/communication.service';
 @NgModule({
     imports: [BrowserModule, FormsModule, CKEditorModule, RouterModule],
     providers: [
-        { provide: 'Window', useValue: window }
+        { provide: 'Window', useValue: window }, CommunicationService
     ],
     declarations: [
         ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu
