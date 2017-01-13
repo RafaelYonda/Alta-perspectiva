@@ -80,8 +80,8 @@ namespace UserProfile.Query.Queries
                 var command = connection.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "SpTopUserCalculation";
-              /*  command.Parameters.AddWithValue("@UserId", null);
-                command.Parameters.AddWithValue("@categoryId", categoryId);*/
+                command.Parameters.AddWithValue("@UserId", null);
+                command.Parameters.AddWithValue("@categoryId", categoryId);
 
                 var reader = await command.ExecuteReaderAsync();
                 while (reader.Read())
