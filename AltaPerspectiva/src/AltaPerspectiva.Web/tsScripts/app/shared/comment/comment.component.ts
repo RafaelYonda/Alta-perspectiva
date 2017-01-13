@@ -26,9 +26,18 @@ export class CommentComponent {
             this._logObj.user.imageUrl = currentUserImage;
         }
 
-        this.commentService.getCommentByQuestion(this.questionId).subscribe(res => {
-            this.comments = res;
-        }); 
+        var temp = this;
+
+        if (this.answerId != "") {
+            this.commentService.getCommentByAnswer(temp.answerId).subscribe(res => {
+                this.comments = res;
+            });
+        }
+        if (this.answerId == "")  {
+            this.commentService.getCommentByQuestion(temp.questionId).subscribe(res => {
+                this.comments = res;
+            });
+        }
     }
 
     submitComment(questionId: string, answerId: string) {

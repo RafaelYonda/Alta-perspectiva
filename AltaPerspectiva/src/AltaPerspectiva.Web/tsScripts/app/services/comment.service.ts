@@ -26,7 +26,11 @@ export class CommentService  {
 
         let options = new RequestOptions({ headers: headers });
     }
-    
+    getCommentByAnswer(answerId: string): Observable<Comment[]> {
+        return this._http.get('/questions/api/questions/answer/' + answerId + '/comments')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
     getCommentByQuestion(questionId: string): Observable<Comment[]> {
         return this._http.get('/questions/api/questions/' + questionId+'/comments')
