@@ -9,7 +9,7 @@ import {QuestionMenu, Answer, DateName} from '../../services/models';
     selector: 'question-left-menu',
     templateUrl: 'js/app/shared/question-left-menu.component.html',
     styleUrls: ['js/app/shared/styles/left-menu.css'],
-    providers: [QuestionAnswerService, CategoryService, CommunicationService]
+    providers: [QuestionAnswerService, CategoryService]
 })
 export class QuestionMenuPanelComponent {
     isbackGround = false;

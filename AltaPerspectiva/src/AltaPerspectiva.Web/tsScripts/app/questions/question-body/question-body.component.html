@@ -55,9 +55,11 @@
                             <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
                             <div class="answer-text" [innerHTML]="question.bestAnswer?.text?.substring(0,200)"></div>
                             <div *ngIf="question.answers[question.answers.length-1]"> by {{question.answers[question.answers.length-1]?.userViewModel?.name}} {{question.answers[question.answers.length-1]?.createdOn | date: 'dd MMM, yyyy'}}</div>
-                            <hr />
-                            <ap-status [questionObj]="question" [answerObj]="question.bestAnswer"> </ap-status>
-                            <ap-comment  [questionId]="question?.id" [answerId]="question.bestAnswer?.id"></ap-comment>
+                            <div *ngIf="question.bestAnswer">
+                                <hr />
+                                <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer"> </ap-status>
+                                <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="question.bestAnswer?.id"></ap-comment>
+                            </div>
                         </div>
                     </div>
                 </div>

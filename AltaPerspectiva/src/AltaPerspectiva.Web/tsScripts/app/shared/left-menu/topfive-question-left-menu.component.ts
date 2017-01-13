@@ -7,7 +7,7 @@ import {Question, Answer, DateName} from '../../services/models';
     selector: 'topfive-question-left-menu',
     templateUrl: 'js/app/shared/left-menu/topfive-question-left-menu.component.html',
     styleUrls: ['js/app/shared/styles/left-menu.css'],
-    providers: [QuestionService, CommunicationService]
+    providers: [QuestionService]
 })
 export class TopFiveQuestionLeftMenuComponent {
 
@@ -21,6 +21,7 @@ export class TopFiveQuestionLeftMenuComponent {
 
     ngOnInit() {
         this.commServ.getCategory().subscribe((catId: string) => {
+            console.log(catId);
             this.questionService.getTopfiveQuestionsByCategory(catId).subscribe(res => {
                 this.topFiveQuestions = res;
                 console.log(res);

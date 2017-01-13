@@ -7,7 +7,7 @@ import {User} from '../../services/models';
     selector: 'topfive-user',
     templateUrl: 'js/app/shared/left-menu/topfive-user.component.html',
     styleUrls: ['js/app/shared/styles/left-menu.css'],
-    providers: [ProfileService, CommunicationService]
+    providers: [ProfileService]
 })
 export class TopFiveUserComponent {
 
@@ -23,9 +23,8 @@ export class TopFiveUserComponent {
         this.commServ.getCategory().subscribe((catId: string) => {
             this.userService.GetTopFiveUserByCategory(catId).subscribe(res => {
                 this.topFiveUsers = res;
-                console.log(res);
+                console.log(this.topFiveUsers);
             });
-            console.log('Cat Id', catId);
         });
     }
 }

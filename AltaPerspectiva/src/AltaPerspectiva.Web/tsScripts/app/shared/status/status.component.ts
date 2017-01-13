@@ -12,50 +12,43 @@ import { QuestionAnswerService } from '../../services/question-answer.service';
 export class StatusComponent {
     @Input() questionObj: Question;
     @Input() answerObj: Answer;
+    @Input() isQuestion: any;
+
+    commentId: string;
+    CommentCount: number;
     like: Like;
     likedUsers: any;
-    questionAlreadyLiked:boolean;
-    answerAlreadyLiked:boolean;
-    constructor(private statusService: StatusService,private dataService: QuestionAnswerService) {
+    constructor(private statusService: StatusService, private dataService: QuestionAnswerService) {
     }
-
+    ngOnInit() {
+        console.log(this.isQuestion);
+        if (this.isQuestion)
+        {
+            this.commentId = this.questionObj.id;
+            this.CommentCount = this.questionObj.comments.length;
+        }
+        else
+        {
+            this.commentId = this.answerObj.id;
+            this.CommentCount = this.answerObj.comments.length;
+        }
+    }
     submitLike(answerId: string,questionId:string) {         
         this.like = new Like();
         this.like.answerId = answerId;
         this.like.questionId = questionId;
-
-
-        if (answerId == null && questionId != null) {
-
-            this.dataService.getQuestionAlreadyLiked(questionId).subscribe(res => {
-             
-                if( res.result==true) return;
-                    this.dataService.addQuestionLike(this.like).subscribe(res => {            
-                        this.questionObj.answers[0].likes.push(this.like);               
-                                });
-               
-            });
-
-       }
-      //for answer
-        else if (answerId != null || questionId != null) {
-           
-            this.dataService.getAnswerAlreadyLiked(answerId).subscribe(res => {
-                if (res.result == true) 
-                return;
-                this.dataService.addAnswerLike(this.like).subscribe(res => {                            
-                                this.questionObj.answers[0].likes.push(this.like);
-                            }
-                        );
-               
-            });
-           
-            
-            
-           
+        if (answerId != null || questionId != null) {
+            this.dataService.addAnswerLike(this.like).subscribe(res => {                            
+                    this.questionObj.answers[0].likes.push(this.like);
+                }
+            );
         }
 
-        
+        if (answerId == null && questionId != null) {
+            this.dataService.addQuestionLike(this.like).subscribe(res => {            
+                    this.questionObj.answers[0].likes.push(this.like);               
+            });
+        }
     }
 
     showLikeUserDetails(answerId: string, questionId: string) {
