@@ -11,5 +11,7 @@ namespace UserProfile.Query.Queries
     {
         Task< List<UserSummary>> GetTopFiveUserSummary();
         Task<UserSummary> GetUserSummary(Guid userId);
+
+        Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId);
     }
 }

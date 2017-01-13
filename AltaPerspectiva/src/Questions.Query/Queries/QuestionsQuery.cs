@@ -40,5 +40,10 @@ namespace Questions.Query
 
             return await DbContext.Questions.OrderByDescending(x => x.ViewCount).Take(5).ToListAsync();
         }
+
+        public async Task<IEnumerable<Question>> GetTopFiveQuestionByCategoryId(Guid categoryId)
+        {
+            return await DbContext.Questions.OrderByDescending(x => x.ViewCount).Take(5).ToListAsync();
+        }
     }
 }

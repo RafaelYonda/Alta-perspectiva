@@ -11,9 +11,11 @@ namespace Questions.Query.Queries
     {
         IEnumerable<Topic> GeTopics(Guid categoryId);
 
-        Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId);
+       // Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId);
 
        Topic GeTopicByTopicId(Guid topicId);
+
+     //   Task<IEnumerable<Topic>> GetTopFiveTopicsByCategoryId(Guid categoryId);
 
 
     }

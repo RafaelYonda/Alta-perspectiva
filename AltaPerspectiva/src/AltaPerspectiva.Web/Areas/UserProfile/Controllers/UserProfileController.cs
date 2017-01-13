@@ -538,9 +538,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return summeries;
         }
         [HttpGet("userprofile/api/{categoryId}/gettopFiveUserbycategoryid")]
-        public async Task<List<UserSummary>> GetTopFiveUserByCategoryId()
+        public async Task<List<UserSummary>> GetTopFiveUserByCategoryId(Guid categoryId)
         {
-            return null;
+            var summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetUserSummnaryByCategoryId(categoryId);
+            return summeries;
         }
         [HttpGet("userprofile/api/getusersummary/{userId}")]
         public async Task<UserSummary> GetUserSummary(Guid userId)

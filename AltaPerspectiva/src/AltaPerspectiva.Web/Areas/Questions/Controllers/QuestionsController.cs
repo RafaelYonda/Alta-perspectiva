@@ -158,7 +158,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpPost("/questions/api/question/{id}/comment")]
-        public IActionResult PostQuestionComment([FromBody]AddCommentViewModel comment)
+        public UserViewModel PostQuestionComment([FromBody]AddCommentViewModel comment)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -172,12 +172,14 @@ namespace AltaPerspectiva.Web.Area.Questions
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 
-            return Created($"/questions/api/question/{comment.QuestionId}/comment/{comment.Id}", comment);
-            
+            var userViewModel = new UserService().GetUserViewModel(queryFactory,loggedinUser);
+            return userViewModel;
+
+
         }
 
         [HttpPost("/questions/api/question/answer/{answerId}/comment")]
-        public IActionResult PostAnswerComment([FromBody]AddCommentViewModel comment)
+        public UserViewModel PostAnswerComment([FromBody]AddCommentViewModel comment)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -191,7 +193,8 @@ namespace AltaPerspectiva.Web.Area.Questions
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 
-            return Created($"/questions/api/question/{comment.QuestionId}/answer/{comment.AnswerId}/comment/{comment.Id}", comment);
+            var userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser);
+            return userViewModel;
         }
 
         [HttpPost("/questions/api/question/{id}/like")]
@@ -330,17 +333,20 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         }
         [HttpGet("/questions/api/{categoryId}/gettopfivequestionbycategoryid")]
-        public async Task<IActionResult> GetTopFiveQuestionByCategoryId()
+        public async Task<IActionResult> GetTopFiveQuestionByCategoryId(Guid categoryId)
         {
 
-            return Ok();
+            var topFiveQuestion = await queryFactory.ResolveQuery<IQuestionsQuery>().GetTopFiveQuestionByCategoryId(categoryId);
+
+            return Ok(topFiveQuestion);
         }
 
         [HttpGet("/questions/api/{categoryId}/gettopicbycategoryid")]
         public async Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId)
         {
-            var topicsByCategory = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(categoryId);
-            return topicsByCategory;
+            //var topicsByCategory = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(categoryId);
+            //return topicsByCategory;
+            return null;
         }
 
         [HttpGet("/questions/api/getlevel")]
