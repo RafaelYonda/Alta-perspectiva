@@ -19,8 +19,8 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <h1>&iquest;{{question.title}}?</h1>
-                        <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl}}" />
-                        <div class="header-info">{{_logObj.user?.name}}, {{_logObj.user?.occupassion}} </div>
+                        <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
+                        <div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
 
                         <div [hidden]="answerField.valid || answerField.pristine"
                              class="alert alert-danger">
