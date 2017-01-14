@@ -56,7 +56,8 @@ if(res.result==true)
     }
 
     showLikeUserDetails(answerId: string, questionId: string) {
-        if (answerId != null) {
+      
+  if (answerId != null) {
             this.statusService.showLikeUserDetailsByQuestion(questionId).subscribe(res => {
                 this.likedUsers = res;
             });

@@ -16,10 +16,10 @@ namespace UserProfile.Query.Queries
         {
         }
 
-      
+
         public async Task<List<UserSummary>> GetTopFiveUserSummary()
         {
-            List <UserSummary> userSummery=new List<UserSummary>();
+            List<UserSummary> userSummery = new List<UserSummary>();
             using (var connection = (SqlConnection)DbContext.Database.GetDbConnection())
             {
                 connection.Open();
@@ -31,7 +31,7 @@ namespace UserProfile.Query.Queries
                 var reader = await command.ExecuteReaderAsync();
                 while (reader.Read())
                 {
-                    UserSummary summary=new UserSummary();
+                    UserSummary summary = new UserSummary();
                     summary.Name = Convert.ToString(reader["FullName"]);
                     summary.Id = Convert.ToString(reader["Id"]);
                     summary.ImageUrl = Convert.ToString(reader["ImageUrl"]);
@@ -42,7 +42,7 @@ namespace UserProfile.Query.Queries
                     userSummery.Add(summary);
                 }
             }
-            return  userSummery;
+            return userSummery;
         }
 
         public async Task<UserSummary> GetUserSummary(Guid userId)
@@ -75,30 +75,29 @@ namespace UserProfile.Query.Queries
             List<UserSummary> userSummery = new List<UserSummary>();
             using (var connection = (SqlConnection)DbContext.Database.GetDbConnection())
             {
-                
-                    connection.Open();
-                    //String query = String.Format(@"select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=@UserId");
-                    var command = connection.CreateCommand();
-                    command.CommandType = CommandType.Text;
+                connection.Open();
+                //String query = String.Format(@"select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=@UserId");
+                var command = connection.CreateCommand();
+                command.CommandType = CommandType.Text;
 
-                    command.CommandText = String.Format("SpTopUserCalculation null,'{0}'", categoryId);
+                command.CommandText = String.Format("SpTopUserCalculation null,'{0}'", categoryId);
 
 
-                    var reader = await command.ExecuteReaderAsync();
-                    while (reader.Read())
-                    {
-                        UserSummary summary = new UserSummary();
-                        summary.Name = Convert.ToString(reader["FullName"]);
-                        summary.Id = Convert.ToString(reader["Id"]);
-                        summary.ImageUrl = Convert.ToString(reader["ImageUrl"]);
-                        summary.TotalLike = Convert.ToInt16(reader["TotalLike"]);
-                        summary.TotalComment = Convert.ToInt16(reader["TotalComment"]);
-                        summary.TotalQuestion = Convert.ToInt16(reader["TotalQuestion"]);
-                        summary.TotalAnswer = Convert.ToInt16(reader["TotalAnswer"]);
-                        userSummery.Add(summary);
-                    }
-               
-                
+                var reader = await command.ExecuteReaderAsync();
+                while (reader.Read())
+                {
+                    UserSummary summary = new UserSummary();
+                    summary.Name = Convert.ToString(reader["FullName"]);
+                    summary.Id = Convert.ToString(reader["Id"]);
+                    summary.ImageUrl = Convert.ToString(reader["ImageUrl"]);
+                    summary.TotalLike = Convert.ToInt16(reader["TotalLike"]);
+                    summary.TotalComment = Convert.ToInt16(reader["TotalComment"]);
+                    summary.TotalQuestion = Convert.ToInt16(reader["TotalQuestion"]);
+                    summary.TotalAnswer = Convert.ToInt16(reader["TotalAnswer"]);
+                    userSummery.Add(summary);
+                }
+
+
             }
             return userSummery;
         }
