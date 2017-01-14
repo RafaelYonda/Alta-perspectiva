@@ -21,9 +21,8 @@ export class TabsComponent {
          
         //====
         this.categoryService.getAllCategories().subscribe(res => {
-            this.categories = res;
-            this.commServ.setCategory(this.categories[0].id);       //'setCategory' triggers top question and users
 
+            this.categories = res;
             this.tabLength = this.categories.length - 6;
             this.transform = 0;
         });
