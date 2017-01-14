@@ -20,13 +20,11 @@ export class TopFiveQuestionLeftMenuComponent {
     }
 
     ngOnInit() {
-        this.commServ.getCategory().subscribe((catId: string) => {
-            console.log(catId);
+        this.commServ.getCategory().subscribe((catId: string) => {            
             this.questionService.getTopfiveQuestionsByCategory(catId).subscribe(res => {
                 this.topFiveQuestions = res;
                 console.log(res);
-            });
-            console.log('Welcome %s', catId);
+            });            
         });
         
     }
