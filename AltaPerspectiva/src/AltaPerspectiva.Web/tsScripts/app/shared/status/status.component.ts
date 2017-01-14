@@ -56,15 +56,15 @@ if(res.result==true)
     }
 
     showLikeUserDetails(answerId: string, questionId: string) {
-        if (answerId != null) {
-            this.statusService.showLikeUserDetailsByQuestion(questionId).subscribe(res => {
+        if (this.isQuestion) {
+            this.statusService.showLikeUserDetailsByQuestion(this.questionObj.id).subscribe(res => {
                 this.likedUsers = res;
             });
-        }  
-        if (answerId == null) {
-            this.statusService.showLikeUserDetailsByAnswer(answerId, questionId).subscribe(res => {
+        }
+        else {
+            this.statusService.showLikeUserDetailsByAnswer(this.answerObj.id).subscribe(res => {
                 this.likedUsers = res;
             });
-        }    
+        }
     }
 }

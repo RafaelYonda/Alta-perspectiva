@@ -2,11 +2,12 @@
      
     <img *ngIf="questionObj?.answers[0]?.likes?.length<1"  src='../images/fade-logo.png'  onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
     <img *ngIf="questionObj?.answers[0]?.likes?.length>0" src='../images/like-logo.png' />
-    <a href="#" data-toggle="modal" data-target="#myModal" class="number-box" (click)="showLikeUserDetails(answerObj?.id,questionObj.id)"> {{isQuestion?(questionObj.likes.length):(answerObj?.likes?.length)}}</a>
+    <a href="#" data-toggle="modal" attr.data-target="#likeModal{{commentId}}" class="number-box" (click)="showLikeUserDetails()" > {{isQuestion?(questionObj.likes.length):(answerObj?.likes?.length)}}</a>
     <a (click)="submitLike(answerObj.id,questionObj.id)"><div class="status-line">Like</div></a>
     <div class="status-line like-border "></div>
     <div class="status-line number-box">{{questionObj?.viewCount?questionObj?.viewCount:0}}</div>
     <div class="status-line">Leidos</div>
+    {{likedUsers?.length}}
     <div class="number-box" >
         {{CommentCount}} 
     </div>
@@ -37,7 +38,7 @@
 </div>
 
 <!--====Modal====-->
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="likeModal{{commentId}}" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -45,9 +46,6 @@
             </div><div class="container">
             </div>
             <div class="modal-body">
-                <div *ngIf="likedUsers?.length==0">
-                    No one liked yet...be the first to like
-                </div>
                 <div *ngFor="let user of likedUsers">
                     <div>
                         <img class="user-image comment-img img-circle img" src="../../../../profile/{{user?.imageUrl}}" />

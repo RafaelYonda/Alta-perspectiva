@@ -11,7 +11,7 @@ namespace Questions.Query.Queries
     {
         Task<IEnumerable<Like>> Execute(Guid questionId);
 
-        Task<IEnumerable<Like>> GetLikeByAnswerId(Guid questionId,Guid answerId);
+        Task<IEnumerable<Like>> GetLikeByAnswerId(Guid answerId);
 
         Boolean GetQuestionBeforeLike(Guid? questionId,Guid loggedinUser);
 
