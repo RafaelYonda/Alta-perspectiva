@@ -18,9 +18,13 @@ export class TabsComponent {
     _router: Router;
     constructor(private categoryService: CategoryService, private commServ: CommunicationService ,route: Router) {
         this._router = route;
-         
+
+        
         //====
         this.categoryService.getAllCategories().subscribe(res => {
+
+            /// set general category for first time load
+            this.commServ.setCategory("1"); 
 
             this.categories = res;
             this.tabLength = this.categories.length - 6;
@@ -28,7 +32,8 @@ export class TabsComponent {
         });
     }
     ngOnInit() {
-        
+       
+
         //console.log('on init');
         //this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
     }
@@ -64,7 +69,6 @@ export class TabsComponent {
                     id = 1; /// to get all latest question
             }
             else element.active = '';
-
         });
         this.commServ.setCategory(id);
         this._router.navigateByUrl('home/tab/' + id, { skipLocationChange: true });

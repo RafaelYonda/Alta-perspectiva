@@ -11,12 +11,9 @@ export class CommunicationService {
     setCategory(catId: string): void {
         this.categoryId = catId;
         this.objChange.next(catId);
-        console.log(this.categoryId);
-
     }
 
-    getCategory(): Observable<string> {
-        console.log(this.categoryId);
+    getCategory(): Observable<string> {        
         return this.objChange.asObservable();
     }
 }
