@@ -56,7 +56,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 qv.QuestionTopics = q.QuestionTopics;
                 qv.QuestionLevels = q.QuestionLevels;
 
-
+                qv.AnswerCount = q.Answers.Count;
                 foreach (var questionTopic in qv.QuestionTopics)
                 {
                     var topicId = questionTopic.TopicId;
@@ -120,6 +120,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
 
             qv.ViewCount = q.ViewCount;
+            qv.AnswerCount = q.Answers.Count;
 
             qv.QuestionTopics = q.QuestionTopics;
             qv.QuestionLevels = q.QuestionLevels;

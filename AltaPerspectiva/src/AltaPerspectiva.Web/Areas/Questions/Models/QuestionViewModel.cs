@@ -34,6 +34,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         public virtual ICollection<QuestionTopic> QuestionTopics { get; set; }
 
 
+        public int AnswerCount { get; set; }
+
         public List<String> QuestionLevelNames { get; set; }
         public List<String> QuestionTopicNames { get; set; }
 

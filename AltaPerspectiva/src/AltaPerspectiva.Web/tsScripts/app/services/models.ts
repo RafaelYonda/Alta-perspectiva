@@ -76,6 +76,7 @@ export class Question {
     shareUrl: string;
     viewCount: number;  
     createdOn:Date;
+    answerCount:number;
     constructor() {
         this.user = new User();
         this.answers = new Array();
