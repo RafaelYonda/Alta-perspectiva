@@ -56,9 +56,9 @@ namespace Questions.Query.Queries
             return await DbContext.Likes.Where(x => x.AnswerId == answerId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Like>> GetLikeByAnswerId(Guid questionId,Guid answerId)
+        public async Task<IEnumerable<Like>> GetLikeByAnswerId(Guid answerId)
         {
-            return await DbContext.Likes.Where(x => x.QuestionId == questionId &&x.AnswerId== answerId).ToListAsync();
+            return await DbContext.Likes.Where(x =>x.AnswerId== answerId).ToListAsync();
         }
     }
     

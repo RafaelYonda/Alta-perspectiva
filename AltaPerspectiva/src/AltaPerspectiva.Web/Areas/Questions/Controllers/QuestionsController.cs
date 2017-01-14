@@ -326,10 +326,10 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(userViewModels);
 
         }
-        [HttpGet("/questions/api/question/{answerId}/answerlike/{questionId}")]
-        public async Task<IActionResult> GetAnswerLike(Guid answerId,Guid questionId)
+        [HttpGet("/questions/api/question/{answerId}/answerlike")]
+        public async Task<IActionResult> GetAnswerLike(Guid answerId)
         {
-            var likes = await queryFactory.ResolveQuery<ILikeQuery>().GetLikeByAnswerId(questionId, answerId);
+            var likes = await queryFactory.ResolveQuery<ILikeQuery>().GetLikeByAnswerId(answerId);
 
             List<UserViewModel> userViewModels = new List<UserViewModel>();
             foreach (var like in likes)
