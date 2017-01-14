@@ -80,16 +80,7 @@ export class ApSearchComponent {
         this.questionSaveViewModel.body = this.body;
        this.question = new Question();
         this.question.title = this.title;
-        this.question.body = this.body;
-       //if (this.categoryID != '-1')
-       //     this.question.categoryIds.push(this.categoryID);
-       // else
-       //     this.question.categoryIds.push(this.categories[0].id);
-       // this.questionsService.addQuestions(this.question).subscribe(res => {
-         //   console.log(res);
-         //   this.question = res;
-           // this.router.navigate(['/question/home/0']);
-        //});
+        this.question.body = this.body;       
         //CategoryID=-1 is for placeholder .So will not be added to question while savings
         if (this.categoryID != '-1')
             this.question.categoryIds.push(this.categoryID);
@@ -98,7 +89,7 @@ export class ApSearchComponent {
         this.questionsService.saveQuestionSaveViewModel(this.questionSaveViewModel).subscribe(res => {
             console.log('in ok');
             this.question = res;
-            this.router.navigate(['/question/home/0']);
+            this.router.navigate(['/question/home/1']);
 
         });
     }
