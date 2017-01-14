@@ -531,6 +531,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
 
         #region topFiveUser ,topFiveUserByCategoryId and UserSummary
+
+        //redunandt user Top five willlbe done by other apis
         [HttpGet("userprofile/api/gettopFiveUser")]
         public async Task<List<UserSummary>> GetTopFiveUser()
         {
@@ -540,8 +542,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/{categoryId}/gettopFiveUserbycategoryid")]
         public async Task<List<UserSummary>> GetTopFiveUserByCategoryId(Guid categoryId)
         {
-            var summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetUserSummnaryByCategoryId(categoryId);
-            return summeries;
+            if (categoryId==Guid.Empty)
+            {
+                var summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetUserSummnaryByCategoryId(categoryId);
+                return summeries;
+            }
+            else
+            {
+                var summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetTopFiveUserSummary();
+                return summeries;
+            }
+            
         }
         [HttpGet("userprofile/api/getusersummary/{userId}")]
         public async Task<UserSummary> GetUserSummary(Guid userId)

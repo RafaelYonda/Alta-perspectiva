@@ -373,10 +373,20 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/{categoryId}/gettopfivequestionbycategoryid")]
         public async Task<IActionResult> GetTopFiveQuestionByCategoryId(Guid categoryId)
         {
+            if (categoryId == Guid.Empty)
+            {
+                var topFiveQuestion = await queryFactory.ResolveQuery<IQuestionsQuery>().GetTopFiveQuestion();
 
-            var topFiveQuestion = await queryFactory.ResolveQuery<IQuestionsQuery>().GetTopFiveQuestionByCategoryId(categoryId);
+                return Ok(topFiveQuestion);
+            }
+            else
+            {
+                var topFiveQuestion = await queryFactory.ResolveQuery<IQuestionsQuery>().GetTopFiveQuestionByCategoryId(categoryId);
 
-            return Ok(topFiveQuestion);
+                return Ok(topFiveQuestion);
+            }
+
+            
         }
 
         [HttpGet("/questions/api/{categoryId}/gettopicbycategoryid")]
