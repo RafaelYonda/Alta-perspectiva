@@ -154,7 +154,7 @@ export class QuestionAnswerService implements Resolve<Question> {
      }
 
      getTopicByCategoryid(categoryId:string): Observable<Topic[]> {
-             return this._http.get('/questions/api/gettopicbycategoryid/'+categoryId,null)
+             return this._http.get('/questions/api/'+categoryId+'/gettopicbycategoryid',null)
                 .map(this.extractData)
                 .catch(this.handleError);
 

@@ -79,7 +79,7 @@ export class QuestionBodyComponent{
             var subs: any;
 
             // param id = 0, default route, it is ver tidas
-            if (this.id == '0')
+            if (this.id == '1')
             {               
                 // questions loaded by latest, without categoryId
                 subs = this.questionService.getQuestions();
