@@ -68,8 +68,7 @@ export class TabPanelComponent {
                         this.questions[q].shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questions[q].id);
                     }
                 }
-                this.questions.forEach(x => x.bestAnswer = x.answers[x.answers.length - 1]);
-            
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             });
         }); 
     }

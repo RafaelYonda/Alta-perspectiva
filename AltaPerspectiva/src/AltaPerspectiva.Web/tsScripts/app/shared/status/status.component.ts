@@ -30,7 +30,7 @@ export class StatusComponent {
         else
         {
             this.commentId = this.answerObj.id;
-            this.CommentCount = this.answerObj.comments.length;
+            this.CommentCount = this.answerObj.comments? this.answerObj.comments.length:0;
         }
     }
     submitLike(answerId: string,questionId:string) {         

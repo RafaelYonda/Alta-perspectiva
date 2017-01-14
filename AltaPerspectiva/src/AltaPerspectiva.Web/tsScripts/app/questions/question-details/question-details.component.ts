@@ -67,7 +67,10 @@ export class QuestionDetailComponent {
 
             this.answerVM = res;
             this.answerText = "";
-            this.question.answers.push(this.answerVM);
+
+            this.dataService.GetQuestion(_id).subscribe(res => {
+                this.question = res;
+            })
            
         });
 
