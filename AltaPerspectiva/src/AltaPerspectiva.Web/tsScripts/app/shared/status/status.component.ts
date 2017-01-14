@@ -37,18 +37,22 @@ export class StatusComponent {
         this.like = new Like();
         this.like.answerId = answerId;
         this.like.questionId = questionId;
-        if (answerId != null || questionId != null) {
-            this.dataService.addAnswerLike(this.like).subscribe(res => {                            
-                    this.questionObj.answers[0].likes.push(this.like);
+        //Question
+         if (answerId == null && questionId != null) {
+                    this.dataService.getQuestionAlreadyLiked(questionId).subscribe(res => {            
+                            
+                         if(res.result==false)  this.questionObj.answers[0].likes.push(this.like);               
+                    });
+                }
+        ///Answer
+        else if (answerId != null || questionId != null) {
+            this.dataService.getAnswerAlreadyLiked(answerId).subscribe(res => {  
+if(res.result==true)                          
+                    if(res.result==false) this.questionObj.answers[0].likes.push(this.like);
                 }
             );
         }
 
-        if (answerId == null && questionId != null) {
-            this.dataService.addQuestionLike(this.like).subscribe(res => {            
-                    this.questionObj.answers[0].likes.push(this.like);               
-            });
-        }
     }
 
     showLikeUserDetails(answerId: string, questionId: string) {

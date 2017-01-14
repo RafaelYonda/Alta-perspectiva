@@ -208,10 +208,28 @@ namespace AltaPerspectiva.Web.Area.Questions
             return comment;
         }
 
+        #region Question and Answer Likes
+
+        [HttpGet("/questions/api/question/{questionId}/getqestionalreadyLiked")]
+        public IActionResult GetQuestionAlreadyLiked(Guid questionId)
+        {
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
+               .GetQuestionBeforeLike(questionId, loggedinUser);
+            return Ok(new { result = alreadyLiked });
+        }
+
         [HttpPost("/questions/api/question/{id}/like")]
         public IActionResult PostQuestionLike([FromBody]AddLikeViewModel like)
         {
-            
+
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
@@ -220,19 +238,29 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             like.UserId = loggedinUser;
-            Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
-                .GetQuestionBeforeLike(like.QuestionId, loggedinUser);
-            if (!alreadyLiked)
-            {
-                AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
-                commandsFactory.ExecuteQuery(cmd);
-                Guid createdId = cmd.Id;
 
-               // return Created($"/questions/api/question/{like.QuestionId}/comment/{like.Id}", like);
-            }
+            AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+
             return Created($"/questions/api/question/{like.QuestionId}/comment/{like.Id}", like);
 
 
+        }
+
+        [HttpGet("/questions/api/question/getansweralreadyliked/{answerId}")]
+        public IActionResult GetAnswerAlreadyLiked(Guid answerId)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
+              .GetAnswerBeforeLike(answerId, loggedinUser);
+            return Ok(new { result = alreadyLiked });
         }
 
         [HttpPost("/questions/api/question/answer/{answerId}/like")]
@@ -246,18 +274,17 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             like.UserId = loggedinUser;
-            Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
-               .GetAnswerBeforeLike(like.AnswerId, loggedinUser);
-            if (!alreadyLiked)
-            {
-                AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);
-                commandsFactory.ExecuteQuery(cmd);
-                Guid createdId = cmd.Id;
-            }
+
+            AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
 
             return Created($"/questions/api/question/{like.QuestionId}/answer/{like.AnswerId}/comment/{like.Id}", like);
 
         }
+
+        #endregion
+
 
         [HttpPost("/questions/api/question/{id}/viewcount")]
         public IActionResult PostQuestionViewCount(Guid id)
