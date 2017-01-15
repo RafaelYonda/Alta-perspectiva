@@ -1,4 +1,4 @@
-﻿import { Component} from '@angular/core';
+﻿import { Component,Input} from '@angular/core';
 import { QuestionService} from '../../services/question.service';
 import { CommunicationService } from '../../services/communication.service';
 import {Question, Answer, DateName} from '../../services/models';
@@ -23,7 +23,6 @@ export class TopFiveQuestionLeftMenuComponent {
         this.commServ.getCategory().subscribe((catId: string) => {            
             this.questionService.getTopfiveQuestionsByCategory(catId).subscribe(res => {
                 this.topFiveQuestions = res;
-                console.log(res);
             });            
         });
         

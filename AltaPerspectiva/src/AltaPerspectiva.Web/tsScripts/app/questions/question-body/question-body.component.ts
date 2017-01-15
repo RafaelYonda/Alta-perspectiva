@@ -4,7 +4,7 @@ import { CategoryService } from '../../services/category.service';
 import { ConfigService } from '../../services/config.service';
 import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Config, LogInObj} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
-
+import { CommunicationService } from '../../services/communication.service';
 
 export interface ILoader {
     isLoading: boolean;
@@ -42,7 +42,7 @@ export class QuestionBodyComponent{
     description = "This is a test";
      like: Like;
 
-    constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute) {
+    constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute,private commServ: CommunicationService) {
         this._router = router;
         this.route = route;
 
@@ -77,10 +77,11 @@ export class QuestionBodyComponent{
             this.showLoader();
             this.id = params['id'];
             var subs: any;
-
+            this.commServ.setCategory(this.id);     
             // param id = 0, default route, it is ver tidas
             if (this.id == '1')
-            {               
+            {         
+                   
                 // questions loaded by latest, without categoryId
                 subs = this.questionService.getQuestions();
             }

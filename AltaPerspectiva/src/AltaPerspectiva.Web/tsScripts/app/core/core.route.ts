@@ -9,7 +9,6 @@ import { TabsComponent } from './tabs/tabs.component';
 import { TabPanelComponent } from './tabs/tab-panel.component';
 import { QuestionModule } from '../questions/question.module';
 
-import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
 
 export const routes: Routes = [
     {
