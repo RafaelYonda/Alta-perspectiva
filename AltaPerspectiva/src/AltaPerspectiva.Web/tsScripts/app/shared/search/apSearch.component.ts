@@ -72,21 +72,22 @@ export class ApSearchComponent {
     question: Question;
 
     submitQuestion() {
-        this.questionSaveViewModel = new QuestionSaveViewModel();
-          this.questionSaveViewModel.title=this.title;
-        this.questionSaveViewModel.categoryId = this.categoryID;
-        this.questionSaveViewModel.topicId = this.topicID;
-        this.questionSaveViewModel.levelId = this.levelID;
-        this.questionSaveViewModel.body = this.body;
+        
        this.question = new Question();
+        
         this.question.title = this.title;
-        this.question.body = this.body;       
+        this.question.body = this.body;
+        this.question.topicId = this.topicID == '-1' ? '' : this.topicID;
+        this.question.levelId = this.levelID=='-1'?'':this.levelID;  
+        
         //CategoryID=-1 is for placeholder .So will not be added to question while savings
         if (this.categoryID != '-1')
             this.question.categoryIds.push(this.categoryID);
         else
             this.question.categoryIds.push(this.categories[0].id);
-        this.questionsService.saveQuestionSaveViewModel(this.questionSaveViewModel).subscribe(res => {
+
+
+        this.questionsService.saveQuestionSaveViewModel(this.question).subscribe(res => {
             console.log('in ok');
             this.question = res;
             this.router.navigate(['/question/home/1']);

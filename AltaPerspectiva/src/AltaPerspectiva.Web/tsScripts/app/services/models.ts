@@ -77,6 +77,8 @@ export class Question {
     viewCount: number;  
     createdOn:Date;
     answerCount:number;
+    topicId: string;
+    levelId: string;
     constructor() {
         this.user = new User();
         this.answers = new Array();

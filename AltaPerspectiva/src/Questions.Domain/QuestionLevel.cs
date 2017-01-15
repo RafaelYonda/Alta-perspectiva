@@ -13,7 +13,7 @@ namespace Questions.Domain
         public Guid QuestionId { get; set; }
         public virtual Question Question { get; set; }
 
-        public Guid LevelId { get; set; }
+        public Guid? LevelId { get; set; }
         public virtual Level Level { get; set; }
 
     }

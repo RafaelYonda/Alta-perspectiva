@@ -13,6 +13,16 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         public string Title { get; set; }
         public string Body { get;  set; }      
         public Guid Id { get; set; }        
-        public List<Guid> CategoryIds { get; set; }    
+        public List<Guid> CategoryIds { get; set; }
+
+        public string TopicId { get; set; }
+        public string LevelId { get; set; }
+
+        public AddQuestionViewModel()
+        {
+            CategoryIds = new List<Guid>();
+            
+        }
+    
     }
 }

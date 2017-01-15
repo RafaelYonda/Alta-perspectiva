@@ -404,7 +404,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpPost("/questions/api/savequestion")]
-        public IActionResult SaveQuestion([FromBody]QuestionSaveViewModel question)
+        public IActionResult SaveQuestion([FromBody]AddQuestionViewModel question)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -413,9 +413,26 @@ namespace AltaPerspectiva.Web.Area.Questions
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            List<Guid> categoryIds=new List<Guid>();
-            categoryIds.Add(new Guid(question.CategoryId));
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, categoryIds, question.TopicId,question.LevelId);
+            Guid? topicId;
+            Guid? levelId;
+            if (string.IsNullOrEmpty(question.TopicId))
+            {
+                topicId = null;
+            }
+            else
+            {
+                topicId=new Guid(question.TopicId);
+            }
+            if (string.IsNullOrEmpty(question.LevelId ))
+            {
+                levelId = null;
+            }
+            else
+            {
+                levelId=new Guid(question.LevelId);
+            }
+            
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId,levelId);
             commandsFactory.ExecuteQuery(cmd);
             Guid questionId = cmd.Id;
 

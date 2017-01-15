@@ -60,20 +60,28 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 foreach (var questionTopic in qv.QuestionTopics)
                 {
                     var topicId = questionTopic.TopicId;
-                    Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GeTopicByTopicId(topicId);
-                    if (topic != null)
+                    if (topicId != null)
                     {
-                        qv.QuestionTopicNames.Add(topic.TopicName);
+                        Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GeTopicByTopicId(topicId.Value);
+                        if (topic != null)
+                        {
+                            qv.QuestionTopicNames.Add(topic.TopicName);
+                        }
                     }
+                    
                 }
                 foreach (var questionLevel in qv.QuestionLevels)
                 {
                     var levelId = questionLevel.LevelId;
-                    Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId);
-                    if (level != null)
+                    if (levelId != null)
                     {
-                        qv.QuestionLevelNames.Add(level.LevelName);
+                        Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId.Value);
+                        if (level != null)
+                        {
+                            qv.QuestionLevelNames.Add(level.LevelName);
+                        }
                     }
+                    
                 }
                 questions.Add(qv);
             }
@@ -129,19 +137,26 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             foreach (var questionTopic in qv.QuestionTopics)
             {
                 var topicId = questionTopic.TopicId;
-                Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GeTopicByTopicId(topicId);
-                if (topic != null)
+                if (topicId != null)
                 {
-                    qv.QuestionTopicNames.Add(topic.TopicName);
+                    Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GeTopicByTopicId(topicId.Value);
+
+                    if (topic != null)
+                    {
+                        qv.QuestionTopicNames.Add(topic.TopicName);
+                    }
                 }
             }
             foreach (var questionLevel in qv.QuestionLevels)
             {
                 var levelId = questionLevel.LevelId;
-                Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId);
-                if (level != null)
+                if (levelId != null)
                 {
-                    qv.QuestionLevelNames.Add(level.LevelName);
+                    Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId.Value);
+                    if (level != null)
+                    {
+                        qv.QuestionLevelNames.Add(level.LevelName);
+                    }
                 }
             }
 
