@@ -18,12 +18,10 @@ export class ContactFormComponent {
     contact: Contact;
     constructor(private service: ProfileService, private catServ: CategoryService) {
         this.contact = new Contact();
-        console.log(service.profile);
         this.service.profile.contact = this.contact;
     }
     Submit() {
         this.service.SaveContact(this.contact).subscribe(res => {
-            console.log(res);
         });
     }
 }

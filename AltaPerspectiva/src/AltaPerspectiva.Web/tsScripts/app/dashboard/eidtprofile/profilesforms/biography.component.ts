@@ -22,7 +22,6 @@ export class BiographyFormComponent {
     }
     Submit() {
         this.service.SaveBiography(this.biography).subscribe(res => {
-            console.log(res);
         });
     }
 }

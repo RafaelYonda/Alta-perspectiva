@@ -17,7 +17,6 @@ export class EditProfileComponent {
     doc: Image;
     _headerName: string = 'Contact Info';
     imageLink: string;
-    //profile: Profile;
     constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService) {
         var imgageLocation = _configService.getConfig();
         var imageName = '';
@@ -26,13 +25,10 @@ export class EditProfileComponent {
         this._configService.getConfig().subscribe(res => {
             this.imageLink = res.profileImage;
             var user = this.profileService.GetUser().subscribe(usr => {
-                console.log(usr.imageUrl);
                 if (usr.imageUrl != '')
                     this.imageLink += '/' + usr.imageUrl;
                 else this.imageLink = '../images/userAdd.png';
             });
-            console.log(res);
-            console.log(this.imageLink);
         });
     }
     changeHeader(headerName: string) {
@@ -44,8 +40,6 @@ export class EditProfileComponent {
             .upload(file)
             .subscribe(res => {
                 this.ngOnInit();
-            console.log(res);
             });
-        //location.reload();
     }
 }

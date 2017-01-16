@@ -19,12 +19,6 @@ export class DashTab {
         this._authService = authService;
         this._logObj = authService.getLoggedinObj();
     }
-    //LogIn() {
-    //    console.log("Log in");
-    //    this._authService.tempLogin();
-    //} LogOut() {
-    //    this._authService.logout();
-    //}
 }
 
 export class LogInObj {

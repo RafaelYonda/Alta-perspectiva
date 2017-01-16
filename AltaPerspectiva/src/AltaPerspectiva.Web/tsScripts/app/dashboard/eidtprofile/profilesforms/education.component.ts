@@ -17,13 +17,10 @@ export class EducationFormComponent {
     education: Education;
     constructor(private service: ProfileService) {
         this.education = new Education();
-        console.log(service.profile);
         this.service.profile.education = this.education;
-        //var d = this.education.startDate.setFullYear(2016)
     }
     Submit() {
         this.service.SaveEducation(this.education).subscribe(res => {
-            console.log(res);
         });
     }
 }

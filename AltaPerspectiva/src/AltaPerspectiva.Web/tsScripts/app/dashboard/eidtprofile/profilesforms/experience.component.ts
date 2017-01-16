@@ -13,19 +13,14 @@ import { ProfileService } from '../../../services/profile.service';
     providers: [ProfileService]
 })
 export class ExperienceFormComponent {
-    //dateName: DateName;
-    //months: string[];
     public _headerName: string = 'Experience';
     experience: Experience;
     constructor(private service: ProfileService) {
-        //this.months = this.dateName.monthNames;
         this.experience = new Experience();
-        console.log(service.profile);
         this.service.profile.experience = this.experience;
     }
     Submit() {
         this.service.SaveExperience(this.experience).subscribe(res => {
-            console.log(res);
         });
     }
 }
