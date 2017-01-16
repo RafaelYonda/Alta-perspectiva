@@ -10,7 +10,7 @@ gulp.task('clean', function () {
     return gulp.src(destPath)
         .pipe(clean());
 });
-/*
+
 gulp.task("scriptsNStyles", () => {
     gulp.src([
             'core-js/client/**',
@@ -20,6 +20,7 @@ gulp.task("scriptsNStyles", () => {
             'zone.js/dist/**',
             '@angular/**',
             'ng2-ckeditor/**',
+            "ng2-popover/**",
             'angular2-infinite-scroll/**',
             'jquery/dist/jquery.*js',
             'bootstrap/dist/js/bootstrap.*js'
@@ -27,7 +28,7 @@ gulp.task("scriptsNStyles", () => {
         cwd: "node_modules/**"
     })
         .pipe(gulp.dest("wwwroot/libs/"));
-});*/
+});
 
 var tsProject = ts.createProject('tsScripts/tsconfig.json', {
     typescript: require('typescript')

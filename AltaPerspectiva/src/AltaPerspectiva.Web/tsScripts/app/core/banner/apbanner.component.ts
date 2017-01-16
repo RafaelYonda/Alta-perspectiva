@@ -50,4 +50,3 @@ var IMAGES: Image[] = [
     { "title": "iHaz preguntas sobre negocios!", "url": "../images/background.png" },
     { "title": "iHaz preguntas sobre negocios!", "url": "../images/background.png" },
 ];
-

@@ -22,13 +22,17 @@ import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
 
+
+import {PopoverModule} from "ng2-popover";
+
+
 ////New component added to module
 //import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
 //import { TopFiveUserComponent } from './left-menu/topfive-user.component';
 
 
 @NgModule({
-    imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing
+    imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing, PopoverModule
     ],
     providers: [
         { provide: 'Window', useValue: window }
