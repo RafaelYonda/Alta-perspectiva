@@ -21,7 +21,9 @@ export class StatusComponent {
     constructor(private statusService: StatusService, private dataService: QuestionAnswerService) {
     }
     ngOnInit() {
-        console.log(this.isQuestion);
+        console.log(this.questionObj);
+        console.log(this.answerObj);
+
         if (this.isQuestion)
         {
             this.commentId = this.questionObj.id;
@@ -43,7 +45,7 @@ export class StatusComponent {
                         if (res.result == true) return; 
                         else {
                             this.dataService.addQuestionLike(this.like).subscribe(res => {
-                                this.questionObj.answers[0].likes.push(this.like);
+                                this.questionObj.likes.push(this.like);
                             });
                             
                         }              
