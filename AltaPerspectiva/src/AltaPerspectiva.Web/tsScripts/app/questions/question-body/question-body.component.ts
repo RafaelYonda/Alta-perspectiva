@@ -109,7 +109,7 @@ export class QuestionBodyComponent{
 
             this.categories = res;
 
-            if (this.id == '0')
+            if (this.id == '1')
                 this.categorySelected = this.categories.find(x => x.sequence == 1);
             else
                 this.categorySelected = this.categories.find(x => x.id == this.id);
