@@ -21,9 +21,6 @@ export class StatusComponent {
     constructor(private statusService: StatusService, private dataService: QuestionAnswerService) {
     }
     ngOnInit() {
-        console.log(this.questionObj);
-        console.log(this.answerObj);
-
         if (this.isQuestion)
         {
             this.commentId = this.questionObj.id;
