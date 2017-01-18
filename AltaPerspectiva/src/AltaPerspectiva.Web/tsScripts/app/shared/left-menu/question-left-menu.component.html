@@ -1,7 +1,7 @@
 ﻿<div id="category" class="menu-container">
-    <div class="question-title"><h3>Categories</h3></div>
+    <div class="list-title"><h3>Categories</h3></div>
     <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
-    <ul class="category-list">
+    <ul class="left-panel-list">
         <li *ngFor="let category of categories"><a [routerLink]="['/question/home',category.id]"> {{category.name}}</a></li>
     </ul>
 </div>

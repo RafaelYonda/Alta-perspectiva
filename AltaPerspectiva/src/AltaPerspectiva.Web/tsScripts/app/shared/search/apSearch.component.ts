@@ -140,8 +140,10 @@ export class ApSearchComponent {
         this.router.navigate(['/question/detail/' + item.id]);
     }
     filterQuestions() {
+        this.title=this.title.replace(/[?]/g,'');
+        this.title = '¿' + this.title + '?';
         this.showMatchedCatogries(this.title);
-        var tempTitle = this.title;
+        var tempTitle = this.title.replace(/[?]/g, '');
         //  search after 3rd letter
         if (this.title !== "" && this.title.length > 2) {
             this.filteredQuestionList = this.questionList.filter(function (el) {
@@ -154,9 +156,15 @@ export class ApSearchComponent {
             this.categoryMatched = "";
         }
     }
-
+    addQuestionMark() {
+        var input = document.getElementById("title");
+        //this.title = '?';
+    }
     isOnModal = false;
     showModal() {
+        //Add ?? mark on click
+        this.addQuestionMark();
+
         var form = document.getElementById("search-panel");
         var viewportOffset = form.getBoundingClientRect();
         // these are relative to the viewport, i.e. the window

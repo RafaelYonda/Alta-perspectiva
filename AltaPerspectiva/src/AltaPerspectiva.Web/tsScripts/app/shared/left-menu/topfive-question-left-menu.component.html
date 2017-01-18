@@ -1,7 +1,7 @@
 ﻿<div class="menu-container">
-    <div class="question-title"><h4>Top Questions</h4></div>
+    <div class="list-title"><h4>Top Questions</h4></div>
     <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
-    <ul class="question-list" *ngIf="topFiveQuestions.length>0">
+    <ul class="left-panel-list" *ngIf="topFiveQuestions.length>0">
         <li  *ngFor="let topFiveQuestion of topFiveQuestions">
             <a [routerLink]="['/question/detail',topFiveQuestion.id]"> {{topFiveQuestion?.title}}</a>
         </li>
