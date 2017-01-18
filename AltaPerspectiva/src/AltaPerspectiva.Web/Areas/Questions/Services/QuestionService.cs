@@ -29,7 +29,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                       {
                                           Id = x.Id,
                                           Text = x.Text,
-                                          AnswerDate = x.AnswerDate,
+                                          AnswerDate = x.CreatedOn,
                                           UserId = x.UserId,
                                           QuestionId = x.QuestionId.Value,
                                           CreatedOn = x.CreatedOn,
