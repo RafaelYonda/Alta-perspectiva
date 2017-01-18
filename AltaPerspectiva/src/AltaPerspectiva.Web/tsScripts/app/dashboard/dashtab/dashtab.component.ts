@@ -14,20 +14,9 @@ export class DashTab {
     isbackGround = false;
     _logObj: any;
     _authService: AuthenticationService;
-    
+
     constructor(private authService: AuthenticationService) {
         this._authService = authService;
         this._logObj = authService.getLoggedinObj();
     }
-}
-
-export class LogInObj {
-    notifyCount: number;
-    user: User;
-}
-export class User {
-    userid: number;
-    name: string;
-    occupassion: string;
-    imageUrl: string;
 }

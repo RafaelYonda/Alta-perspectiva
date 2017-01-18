@@ -1,7 +1,7 @@
-﻿import { Component } from '@angular/core'; 
+﻿import { Component } from '@angular/core';
 import { ProfileService } from '../../../services/profile.service';
 import { CategoryService } from '../../../services/category.service';
-import { Profile, Contact } from '../../../services/models';
+import { Contact } from '../../../services/models';
 @Component({
     templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/contact.component.html',
     styleUrls: [

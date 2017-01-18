@@ -17,7 +17,6 @@ export class BiographyFormComponent {
     biography: Biography;
     constructor(private service: ProfileService) {
         this.biography = new Biography();
-        console.log(service.profile);
         this.service.profile.biography = this.biography;
     }
     Submit() {

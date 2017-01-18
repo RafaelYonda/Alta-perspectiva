@@ -1,5 +1,5 @@
 ﻿import { Component } from '@angular/core';
-import { Profile, Education } from '../../../services/models';
+import { Education } from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/education.component.html',

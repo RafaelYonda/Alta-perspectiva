@@ -1,5 +1,5 @@
 ﻿import { Component } from '@angular/core';
-import { Profile, Insight } from '../../../services/models';
+import { Insight } from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/insight.component.html',
