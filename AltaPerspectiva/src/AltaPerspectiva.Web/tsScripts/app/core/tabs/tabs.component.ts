@@ -18,9 +18,6 @@ export class TabsComponent {
     _router: Router;
     constructor(private categoryService: CategoryService, private commServ: CommunicationService ,route: Router) {
         this._router = route;
-
-        
-        //====
         this.categoryService.getAllCategories().subscribe(res => {
 
             /// set general category for first time load

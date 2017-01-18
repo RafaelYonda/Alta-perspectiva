@@ -22,6 +22,7 @@ gulp.task("scriptsNStyles", () => {
             'ng2-ckeditor/**',
             "ng2-popover/**",
             'angular2-infinite-scroll/**',
+            'ng2-toastr/**',
             'jquery/dist/jquery.*js',
             'bootstrap/dist/js/bootstrap.*js'
     ], {

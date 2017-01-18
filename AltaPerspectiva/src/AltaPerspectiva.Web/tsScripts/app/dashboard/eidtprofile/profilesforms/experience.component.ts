@@ -1,5 +1,5 @@
 ﻿import { Component } from '@angular/core';
-import { Profile, Experience, DateName } from '../../../services/models';
+import { Experience, DateName } from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/experience.component.html',

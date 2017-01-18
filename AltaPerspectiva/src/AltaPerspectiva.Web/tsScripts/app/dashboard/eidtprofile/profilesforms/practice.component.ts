@@ -1,5 +1,5 @@
 ﻿import { Component } from '@angular/core';
-import { Profile, PracticeArea } from '../../../services/models';
+import { PracticeArea } from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/practice.component.html',

@@ -1,5 +1,5 @@
 ﻿<div class="row">
-    <div class="left-panel" >
+    <div class="left-panel">
         <div>.</div>
         <div id="leftPanel">
             <topfive-question-left-menu> </topfive-question-left-menu>
@@ -15,17 +15,20 @@
                         <question-header [question]="question"></question-header>
                         <div class="article-details">
                             <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
-                            <div *ngIf="question.bestAnswer?.text"><p [innerHTML]="question.bestAnswer?.text"></p><span><a [routerLink]="['/question/detail',question.id]">Read more..</a></span></div>
-                            <hr />
+                            <div *ngIf="question.bestAnswer?.text">
+                                <p [innerHTML]="question.bestAnswer?.text"></p><span><a [routerLink]="['/question/detail',question.id]">Read more..</a></span>
+                                <hr />
+                            </div>
+
                             <div *ngIf="question.bestAnswer">
                                 <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer"> </ap-status>
                                 <ap-comment [isQuestion]='false' [questionId]="question.id" [answerId]="question.bestAnswer?.id"></ap-comment>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+</div>

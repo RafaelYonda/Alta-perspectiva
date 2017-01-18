@@ -26,6 +26,9 @@ import { ServiceProfileComponent } from './viewprofile/profiletabs/service-profi
 import { ProfileService } from '../services/profile.service';
 import { ProfileResolver } from '../services/resolve.services/profile.resolver';
 
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
+
+
 const DashBoardroutes: Routes = [
     {
         path: 'dashboard', component: DashBoardComponent,
@@ -65,9 +68,7 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
 
 @NgModule({
     providers: [ProfileResolver],
-    imports: [BrowserModule, FormsModule, dashboardRouting
-        //RouterModule.forRoot([
-        //{ path: 'dashboard', component: DashBoardComponent }])
+    imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule
     ],
     declarations: [
         DashBoardComponent,

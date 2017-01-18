@@ -1,8 +1,6 @@
 ﻿<!--<ap-navdashboard></ap-navdashboard>
 <dash-tab></dash-tab>-->
 <div class="row dash-panel">
-    <!--<div class="col-lg-2"> space</div>-->
-
     <div class="col-lg-2 col-md-offset-2">
         <div class="left-panel">
             <div class="profile-pic">
@@ -29,7 +27,7 @@
         <div class="description">
             <h1>User</h1>
             <p>
-                
+                <button (click)="showSuccess()">Toast</button>
             </p>
         </div>
         <div class="progresstitle">
@@ -52,24 +50,6 @@
             </div>
         </div>
         <router-outlet></router-outlet>
-        <!--<form>
-            <div class="info-form">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="heading">{{_headerName}}</div>
-                        <div class="pull-right heading">Required(*)</div>
-                    </div>
-                    <div class="panel-body">
-                        <router-outlet></router-outlet>
-                    </div>
-                </div>
-                <div class="submit-panel">
-                    <button class="btn btn-default menu-button">Cancel</button>
-                    <button class="btn btn-default menu-button" (click)="Submit()">Submit</button>
-                </div>
-            </div>
-        </form>-->
-        
     </div>
 </div>
 
