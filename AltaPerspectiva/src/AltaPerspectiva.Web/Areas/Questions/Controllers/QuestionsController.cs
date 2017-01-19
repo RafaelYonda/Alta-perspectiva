@@ -118,6 +118,19 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(questions);            
         }
 
+        // GET /questions/api/questions/topic/{id}
+        [HttpGet("/questions/api/questions/topic/{id}")]
+        public async Task<IActionResult> GetQuestionsByTopicId(Guid id)
+        {
+            IEnumerable<Question> questionList = null;
+            questionList = await queryFactory.ResolveQuery<IGetQuestionByTopicId>().Execute(id);
+
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+
+            return Ok(questions);
+        }
+
         //get  /questions/api/questions/reatedquestions/{id}
         [HttpGet("/questions/api/questions/reatedquestions/{id}")]
         public async Task<IActionResult> GetRelatedQuestions(Guid id)
