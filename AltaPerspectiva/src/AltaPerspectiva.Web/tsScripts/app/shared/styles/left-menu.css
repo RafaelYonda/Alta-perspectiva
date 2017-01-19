@@ -9,8 +9,7 @@
     font-size:14px;
 }
 .menu-container {
-    float: right;
-    margin-top: 20px;
+    margin: 20px auto;
     width: 65%;
     font-size: 12px;
     font-family: myriadpro-regular;

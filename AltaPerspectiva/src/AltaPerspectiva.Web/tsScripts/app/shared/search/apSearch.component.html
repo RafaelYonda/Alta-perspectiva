@@ -1,5 +1,5 @@
 ﻿<div class="z-header" [ngClass]="placeBottom" id="search-box" (click)="handleClick($event)">
-    <div class="input-group" id="adv-search">
+    <div class="input-group center-width" id="adv-search">
 
         <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="form-horizontal" role="form" id="search-panel">
             <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()"
