@@ -11,7 +11,6 @@ import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName
 @Component({
     selector: 'ap-tab-panel',
     templateUrl: 'js/app/core/tabs/tab-panel.component.html',
-    styleUrls: ['js/app/core/tabs/tab-panel.css'],
 
     providers: [QuestionResolver, QuestionAnswerService, AuthenticationService, CommunicationService]
 })

@@ -1,12 +1,10 @@
-﻿
-<div class="col-md-3">
+﻿<div class="left-panel">
     <related-question-left-menu></related-question-left-menu>
 </div>
 
 <!-- =========Questions========== -->
-<div class="col-md-9">
+<div class="center-width center-body">
     <h1>&iquest;{{question.title}}?</h1>
-    <!--<div class="header-info">{{date.getMonthName(question.date.getMonth())}} {{question.date.getFullYear()}}</div>-->
     <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Answer</button>
     <!-- ===================== -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -52,16 +50,11 @@
         </div>
     </div>
     <!-- =============== -->
-
-
     <div class="row z-ground">
-        <!--<div class="left-border">
-            <img class="image-border" src="../../../../images/border.png" />
-        </div>-->
         <div class="article-details">
             <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}" />
             <div class="header-info">{{question.userViewModel?.name}}, {{question.userViewModel?.occupation}} {{question?.createdOn | date: 'dd MMM, yyyy'}} </div>
-            <!--<div class="header-info">{{date.getMonthName(question.date?.getMonth())}} {{question.date?.getFullYear()}}</div>-->
+            
             <p class="answer-text" [innerHTML]="question.body"></p>
             <ap-status [isQuestion]='true' [questionObj]="question"> </ap-status>
             <ap-comment [isQuestion]='true' [questionId]="question?.id"></ap-comment>
@@ -72,9 +65,6 @@
     <!-- =========Answers============== -->
     <div *ngFor="let answer of question.answers">
         <div class="row">
-            <!--<div class="left-border">
-                <img class="image-border" src="../../../../images/border.png" />
-            </div>-->
             <div class="article-details" *ngIf="answer">
                 <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}" />
                 <div class="header-info">{{answer.userViewModel?.name}},{{answer.userViewModel?.occupation}} {{answer?.createdOn | date: 'dd MMM, yyyy'}}</div>
