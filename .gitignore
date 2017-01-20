@@ -11,12 +11,11 @@ AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/css
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/images
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/js
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/libs/
-AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/libs/@angular/
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/lib/
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/Scripts
-AltaPerspectiva/src/Questions.Command/obj/
 AltaPerspectiva/src/AltaPerspectiva.Web/bower_components/
 AltaPerspectiva/src/AltaPerspectiva.Web/node_modules/
+AltaPerspectiva/src/Questions.Command/obj/
 AltaPerspectiva/src/Questions.Query/Questions.Query.xproj.user
 AltaPerspectiva/src/AltaPerspectiva.Core/AltaPerspectiva.Core.xproj.user
 AltaPerspectiva/src/AltaPerspectiva.Web/AltaPerspectiva.Web.xproj.user
@@ -47,8 +46,6 @@ AltaPerspectiva/src/AltaPerspectiva.Identity/project.lock.json
 /AltaPerspectiva/src/Altaperspectiva.OpenID.Web/bin/src/AltaPerspectiva.Identity/obj/Debug/netstandard1.6
 /AltaPerspectiva/src/Altaperspectiva.OpenID.Web/obj/Debug/netcoreapp1.0
 /AltaPerspectiva/src/Altaperspectiva.OpenID.Web/wwwroot
-/AltaPerspectiva/src/AltaPerspectiva.Web/node_modules
-/AltaPerspectiva/src/AltaPerspectiva.Web/bower_components/tinymce
 /AltaPerspectiva/src/Altaperspectiva.OpenId/bin/
 /AltaPerspectiva/src/Altaperspectiva.OpenId/obj/
 /AltaPerspectiva/src/Questions.Domain/bin/
