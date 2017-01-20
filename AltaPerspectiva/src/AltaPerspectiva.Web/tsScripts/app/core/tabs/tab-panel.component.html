@@ -14,6 +14,9 @@
                 <div class="questions-container">
                     <div data-toggle="modal" data-target="#question" (click)="ShowModal(question.id)" class="details-container">
                         <question-header [question]="question"></question-header>
+                        <h3 class="question-title">
+                            <a [routerLink]="['/question/detail',question.id]">{{question.title}}</a>
+                        </h3>
                         <div class="article-details">
                             <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
                             <div *ngIf="question.bestAnswer?.text">

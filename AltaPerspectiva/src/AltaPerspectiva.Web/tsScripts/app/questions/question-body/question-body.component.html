@@ -29,12 +29,17 @@
             </table>
         </div>
         <div class="row read-question-button">
-            <button (click)="getQuestionNotAnswered(categorySelected.id)" type="button" class="btn btn-primary outline">
-                <span class="glyphicon glyphicon-question-sign"></span> Question
-            </button>
-            <button (click)="getQuestionsAnswered(categorySelected.id)" type="button" class="btn btn-primary outline">
-                <span class="glyphicon glyphicon-pencil"></span> Answers
-            </button>
+                <a (click)="getQuestionNotAnswered(categorySelected.id)">
+                    <span class="glyphicon glyphicon-question-sign"></span> Question
+                </a>
+                <a (click)="getQuestionsAnswered(categorySelected.id)">
+                    <span class="glyphicon glyphicon-pencil"></span> Answers
+                </a>
+            <div class="row">
+                <div class="col-md-3">The latest question</div>
+                <div class="col-md-3">The best Question</div>
+                <div class="col-md-3">The more views</div>
+            </div>
         </div>
 
         <div class="clearfix"></div>
@@ -49,6 +54,9 @@
                 <div class="questions-container">
                     <div class="details-container">
                         <question-header [question]="question"></question-header>
+                        <h3 class="question-title">
+                            <a [routerLink]="['/question/detail',question.id]">{{question.title}}</a>
+                        </h3>
                         <div class="article-details">
                             <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
                             <div class="answer-text" [innerHTML]="question.bestAnswer?.text?.substring(0,200)"></div>

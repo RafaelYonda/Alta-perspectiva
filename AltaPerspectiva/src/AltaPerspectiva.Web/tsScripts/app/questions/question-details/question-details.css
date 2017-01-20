@@ -4,6 +4,19 @@
 a{
     cursor:pointer;
 }
+.answer-button{
+        margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 4px 12px;
+    font-family: typogroteskrounded;
+    background-color: #ececec;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.summery-panel{
+     margin-bottom:10px;
+}
 .btn-default{
     background-color:#f5f5f5;
 }
