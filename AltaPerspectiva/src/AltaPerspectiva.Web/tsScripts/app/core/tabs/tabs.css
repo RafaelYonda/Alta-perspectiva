@@ -1,9 +1,6 @@
 .tab-panel-container {
     margin-top: 25px; 
     position: relative;
-/*for roe: -15px*/
-    padding-left:15px;
-    padding-right:15px;
 }
 
 span {
