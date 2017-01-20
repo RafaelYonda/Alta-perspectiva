@@ -32,6 +32,12 @@ export class QuestionService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getRelatedTopicsByTopicId(topicId: string): Observable<Topic[]> {
+        return this._http.get('/questions/api/'+topicId+'/getrelatedTopicsbytopicId')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+     
     private extractData(res: Response) {       
         let body;
 

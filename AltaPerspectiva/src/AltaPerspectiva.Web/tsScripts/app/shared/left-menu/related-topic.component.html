@@ -1,0 +1,9 @@
+﻿<div class="menu-container">
+    <div class="list-title"><h4>related topic</h4></div>
+    <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
+    <ul class="left-panel-list" *ngIf="relatedTopics.length>0">
+        <li *ngFor="let relatedTopic of relatedTopics">
+            <a [routerLink]="['/question/home/topic',{topicId:relatedTopic.id,categoryId:relatedTopic.categoryId}]"> {{relatedTopic?.topicName}}</a>
+        </li>
+    </ul>
+</div>

@@ -75,8 +75,12 @@ order by SUM(q.ViewCount) DESC
                 await DbContext.Topics.FromSql(query).ToListAsync();
         }
 
-       
-       
+        public async Task<IEnumerable<Topic>> GetRelatedTopicsByTopicId(Guid topicId)
+        {
+            var categoryId = DbContext.Topics.Where(x => x.Id == topicId).Select(y=>y.CategoryId).FirstOrDefault();
+
+            return await DbContext.Topics.Where(x => x.CategoryId == categoryId &&x.Id!=topicId).ToListAsync();
+        }
     }
     
     

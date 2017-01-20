@@ -18,6 +18,8 @@ namespace Questions.Query.Queries
         Task<IEnumerable<Topic>> GetTopFiveTopics();
         Task<IEnumerable<Topic>> GetTopFiveTopicsByCategoryId(Guid categoryId);
 
+        Task<IEnumerable<Topic>> GetRelatedTopicsByTopicId(Guid topicId);
+
 
     }
 }
