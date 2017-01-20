@@ -118,6 +118,19 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(questions);            
         }
 
+        // GET /questions/api/questions/topic/{id}
+        [HttpGet("/questions/api/questions/topic/{id}")]
+        public async Task<IActionResult> GetQuestionsByTopicId(Guid id)
+        {
+            IEnumerable<Question> questionList = null;
+            questionList = await queryFactory.ResolveQuery<IGetQuestionByTopicId>().Execute(id);
+
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+
+            return Ok(questions);
+        }
+
         //get  /questions/api/questions/reatedquestions/{id}
         [HttpGet("/questions/api/questions/reatedquestions/{id}")]
         public async Task<IActionResult> GetRelatedQuestions(Guid id)
@@ -388,7 +401,30 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             
         }
+        [HttpGet("/questions/api/{categoryId}/gettopfivetopicsbycategoryid")]
+        public async Task<IActionResult> GetTopFiveTopicsByCategoryId(Guid categoryId)
+        {
+            IEnumerable<Topic> topFiveTopics = new List<Topic>();
+          //  IEnumerable<Question> questions=new List<Question>();
+            if (categoryId == Guid.Empty)
+            {
+                topFiveTopics =
+                    await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopics();
 
+                
+            }
+            else
+            {
+                topFiveTopics =
+                    await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopicsByCategoryId(categoryId);
+
+                
+            }
+            
+
+            return Ok(topFiveTopics);
+
+        }
         [HttpGet("/questions/api/{categoryId}/gettopicbycategoryid")]
         public async Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId)
         {
@@ -440,3 +476,4 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
     }
 }
+

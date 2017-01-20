@@ -225,7 +225,8 @@ export class DateName {
 
 export class Topic {
     topicName:string;
-    id:string;
+    id: string;
+    categoryId: string;
 }
 
 export class Level {

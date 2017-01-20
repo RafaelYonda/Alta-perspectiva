@@ -7,15 +7,16 @@ using Questions.Domain;
 
 namespace Questions.Query.Queries
 {
-    public interface ITopicQuery:IQuery
+    public interface ITopicQuery : IQuery
     {
-        IEnumerable<Topic> GeTopics(Guid categoryId);
+        IEnumerable<Topic> GetTopics(Guid categoryId);
 
         Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId);
 
-       Topic GeTopicByTopicId(Guid topicId);
+        Topic GetTopicByTopicId(Guid topicId);
 
-     //   Task<IEnumerable<Topic>> GetTopFiveTopicsByCategoryId(Guid categoryId);
+        Task<IEnumerable<Topic>> GetTopFiveTopics();
+        Task<IEnumerable<Topic>> GetTopFiveTopicsByCategoryId(Guid categoryId);
 
 
     }

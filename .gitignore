@@ -10,6 +10,7 @@ AltaPerspectiva/src/AltaPerspectiva.Web/obj/
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/css
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/images
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/js
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/libs
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/libs/
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/libs/@angular/
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/lib/
@@ -17,6 +18,7 @@ AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/Scripts
 AltaPerspectiva/src/Questions.Command/obj/
 AltaPerspectiva/src/AltaPerspectiva.Web/bower_components/
 AltaPerspectiva/src/AltaPerspectiva.Web/node_modules/
+AltaPerspectiva/src/AltaPerspectiva.Web/node_modules
 AltaPerspectiva/src/Questions.Query/Questions.Query.xproj.user
 AltaPerspectiva/src/AltaPerspectiva.Core/AltaPerspectiva.Core.xproj.user
 AltaPerspectiva/src/AltaPerspectiva.Web/AltaPerspectiva.Web.xproj.user

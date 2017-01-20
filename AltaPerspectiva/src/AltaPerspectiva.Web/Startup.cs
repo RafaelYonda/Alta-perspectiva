@@ -175,7 +175,10 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddLevelCommand>, AddLevelCommandHandler>();
             services.AddTransient<ICommandHandler<AddQuestionLevelCommand>, AddQuestionLevelCommandHandler>();
             services.AddTransient<ILevelQuery, LevelQuery>();
-            
+
+            //QuestionByTopicId
+            services.AddTransient<IGetQuestionByTopicId, GetQuestionByTopicId>();
+
 
         }
 

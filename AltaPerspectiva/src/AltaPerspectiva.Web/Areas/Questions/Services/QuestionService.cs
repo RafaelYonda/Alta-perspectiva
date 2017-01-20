@@ -62,7 +62,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     var topicId = questionTopic.TopicId;
                     if (topicId != null)
                     {
-                        Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GeTopicByTopicId(topicId.Value);
+                        Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId.Value);
                         if (topic != null)
                         {
                             qv.QuestionTopicNames.Add(topic.TopicName);
@@ -139,7 +139,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 var topicId = questionTopic.TopicId;
                 if (topicId != null)
                 {
-                    Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GeTopicByTopicId(topicId.Value);
+                    Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId.Value);
 
                     if (topic != null)
                     {
