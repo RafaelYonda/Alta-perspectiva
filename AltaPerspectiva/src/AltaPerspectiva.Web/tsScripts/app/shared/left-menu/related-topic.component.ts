@@ -13,18 +13,17 @@ export class RelatedTopicComponent {
 
     relatedTopics: Topic[];
     questionService: QuestionService;
-
+    @Input() topicId: string;
     constructor(questionService: QuestionService, private commServ: CommunicationService) {
         this.questionService = questionService;
         this.relatedTopics = [];
     }
 
     ngOnInit() {
-        this.commServ.getCategory().subscribe((topicId: string) => {
-            this.questionService.getRelatedTopicsByTopicId(topicId).subscribe(res => {
+        this.questionService.getRelatedTopicsByTopicId(this.topicId).subscribe(res => {
                 this.relatedTopics = res;
             });
-        });
+        
 
     }
 }
