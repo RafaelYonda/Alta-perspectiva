@@ -22,7 +22,6 @@ using Questions.Query.Queries;
 
 namespace AltaPerspectiva.Web.Area.Questions
 {
-    //http://localhost:5273/questions/api/questions
     [Area("Questions")]    
     public class QuestionsController : Controller
     {

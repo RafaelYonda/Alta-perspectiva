@@ -22,7 +22,7 @@ namespace Questions.Query
             var categories = DbContext.CategoryFollowers.Where(c => c.UserId == UserId).Select(x=>x.CategoryId).ToList();   
 
             return await DbContext.
-                                Questions
+                                Questions.Include(ql=>ql.QuestionLevels)
                                     .Include(q=>q.Categories)
                                         .ThenInclude(c=>c.Category)
                                             .Where(q => q.Categories.Any(x => categories.Contains( x.CategoryId) || x.Category.Sequence == 1))

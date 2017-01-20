@@ -20,7 +20,7 @@ namespace Questions.Query
         {
             //var x = DbContext.QuestionCategories.Include(qc=>qc.Category).Where(x=>x.CategoryId == id).Select(q=>q.Question).Include(q=>q.Categories).ToList()
 
-            return await DbContext.Questions
+            return await DbContext.Questions.Include(ql=>ql.QuestionLevels)
                     .Include(a=>a.Answers)
                         .ThenInclude(a=>a.Likes)
                     .Include(q => q.Categories)
