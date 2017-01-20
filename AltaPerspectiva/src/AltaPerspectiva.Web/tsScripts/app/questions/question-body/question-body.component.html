@@ -1,5 +1,4 @@
-﻿<div class="row">
-    <div class="left-panel">
+﻿    <div class="left-panel">
         <div>.</div>
         <div id="leftPanel">
             <topfive-question-left-menu > </topfive-question-left-menu>
@@ -8,8 +7,7 @@
             <category-left-menu [caegoryId]="id"></category-left-menu>
         </div>
     </div>
-    <div class="col-md-8">
-
+    <div class="center-width center-body">
         <div class="loader" *ngIf="loader.isLoading"></div>
         <div class="row">
             <img align="left" class="img-rounded img-category" src="{{categorySelected?.image}}" />
@@ -67,4 +65,3 @@
             </div>
         </div>
     </div>
-</div>

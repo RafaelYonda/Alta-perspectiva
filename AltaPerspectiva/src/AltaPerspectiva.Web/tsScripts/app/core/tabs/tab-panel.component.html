@@ -1,4 +1,9 @@
-﻿<div class="row">
+﻿<style>
+    .modal-dialog {
+    margin: 20% auto;
+}
+</style>
+<div class="row">
     <div class="left-panel">
         <div>.</div>
         <div id="leftPanel">
@@ -8,11 +13,11 @@
             <topfive-topic></topfive-topic>
         </div>
     </div>
-    <div class="tab-content-panel">
+    <div class="center-width">
         <div class="tab" *ngFor="let question of questions">
             <div class="panel-article">
                 <div class="questions-container">
-                    <div class="details-container">
+                    <div data-toggle="modal" data-target="#question" (click)="ShowModal(question.id)"   class="details-container">
                         <question-header [question]="question"></question-header>
                         <div class="article-details">
                             <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
@@ -20,7 +25,6 @@
                                 <p [innerHTML]="question.bestAnswer?.text"></p><span><a [routerLink]="['/question/detail',question.id]">Read more..</a></span>
                                 <hr />
                             </div>
-
                             <div *ngIf="question.bestAnswer">
                                 <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer"> </ap-status>
                                 <ap-comment [isQuestion]='false' [questionId]="question.id" [answerId]="question.bestAnswer?.id"></ap-comment>
@@ -28,6 +32,22 @@
 
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="question" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div><div class="container">
+            </div>
+            <div class="modal-body">
+                <div class="modal-footer">
+                    <div style="display: none">.</div>
                 </div>
             </div>
         </div>

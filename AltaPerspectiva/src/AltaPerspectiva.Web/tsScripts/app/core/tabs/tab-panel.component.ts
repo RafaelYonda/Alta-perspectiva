@@ -2,18 +2,17 @@
 import { ActivatedRoute,Router } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { AuthenticationService } from '../../services/authentication.service';
+import { CommunicationService } from '../../services/communication.service';
 import { LogInObj } from '../../services/models';
 
 //Comment added
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
-//import { QuestionAnswerService } from '../../services/question-answer.service';
 import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName} from '../../services/models';
 @Component({
     selector: 'ap-tab-panel',
     templateUrl: 'js/app/core/tabs/tab-panel.component.html',
-    styleUrls: ['js/app/core/tabs/tab-panel.css'],
 
-    providers: [QuestionResolver, QuestionAnswerService, AuthenticationService]
+    providers: [QuestionResolver, QuestionAnswerService, AuthenticationService, CommunicationService]
 })
 export class TabPanelComponent {
     id: string;
@@ -32,23 +31,21 @@ export class TabPanelComponent {
     
     
     
-    constructor(private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
+    constructor(private _route: ActivatedRoute, private commServ: CommunicationService, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
         //this.questions = this.questionAnswerService.getQuestionByCategory('');
         this.route = _route;
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
     ngOnInit() {   
-
         var currentUser = localStorage.getItem('auth_token');
         this.authService.getLoggedinObj().subscribe(res => {
             if (res && currentUser != "null") {
                 this._logObj.user.name = res.name;
                 this._logObj.user.imageUrl = '../../../../profile/' + res.imageUrl;
                 this._logObj.isLoggedIn = true;
-                
             }
         });
-
+        
         this.sub = this.route.params.subscribe(params => {
            
             this.id = params['id']; // (+) converts string 'id' to a number 
@@ -72,7 +69,10 @@ export class TabPanelComponent {
             });
         }); 
     }
-
+    ShowModal(questionId) {
+        this.commServ.setQuestionId(questionId);
+        console.log(questionId);
+    }
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
