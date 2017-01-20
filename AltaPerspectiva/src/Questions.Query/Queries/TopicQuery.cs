@@ -68,7 +68,7 @@ join Questions.Questions q
 on q.Id = qt.QuestionId
 
 GROUP BY T.Id, T.TopicName
-order by SUM(q.ViewCount)
+order by SUM(q.ViewCount) DESC
 ");
 
             return

@@ -27,8 +27,8 @@ namespace Questions.Query
                                       .ThenInclude(c => c.Category)
                                   .Include(q => q.Comments)
                                   .Include(q => q.Likes)
-                                  .Include(q=>q.QuestionLevels)
-                                  .Include(q=>q.QuestionTopics)
+                                  .Include(q => q.QuestionLevels)
+                                  .Include(q => q.QuestionTopics)
                                       .OrderByDescending(c => c.CreatedOn.Value.Date)
                                           .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                               .Take(20)
@@ -36,7 +36,7 @@ namespace Questions.Query
         }
         public async Task<IEnumerable<Question>> GetTopFiveQuestion()
         {
-           
+
 
             return await DbContext.Questions.OrderByDescending(x => x.ViewCount).Take(5).ToListAsync();
         }
@@ -44,6 +44,26 @@ namespace Questions.Query
         public async Task<IEnumerable<Question>> GetTopFiveQuestionByCategoryId(Guid categoryId)
         {
             return await DbContext.Questions.Where(q => q.Categories.Any(x => x.CategoryId == categoryId && x.QuestionId == q.Id)).OrderByDescending(x => x.ViewCount).Take(5).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Question>> GetQuestionByTopciNCategoryId(Guid topicId, Guid categoryId)
+        {
+            return
+                await DbContext.Questions
+                .Where(qt => qt.QuestionTopics.Any(q => q.QuestionId == qt.Id && q.Topic.Id == topicId && q.Topic.CategoryId == categoryId))
+
+                .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                .Include(q => q.Categories).ThenInclude(c => c.Category)
+                .Include(q => q.Comments)
+                .Include(q => q.Likes)
+                .Include(q => q.QuestionLevels)
+                .Include(q => q.QuestionTopics)
+                .OrderByDescending(c => c.CreatedOn.Value.Date)
+                .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                .Take(20)
+
+                .ToListAsync();
         }
     }
 }

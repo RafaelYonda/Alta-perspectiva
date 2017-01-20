@@ -74,6 +74,33 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(questions);            
         }
 
+        [HttpGet("/questions/api/{topicId}/questions/{categoryId}")]
+        public async Task<IActionResult> GetQuestionByTopciNCategoryId(Guid topicId,Guid categoryId)
+        {
+            IEnumerable<Question> questionList = null;
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                // if user is logged in, then fetch questions by user following a category
+                questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().GetQuestionByTopciNCategoryId(loggedinUser,topicId,categoryId);
+            }
+            else
+            {
+                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().GetQuestionByTopciNCategoryId(topicId,categoryId);
+            }
+
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+
+            return Ok(questions);
+        }
+
         [HttpGet("/questions/api/questions/search")]
         public async Task<IActionResult> GetSearchQuestion()
         {

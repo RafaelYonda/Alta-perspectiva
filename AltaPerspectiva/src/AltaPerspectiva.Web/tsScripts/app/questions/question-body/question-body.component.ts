@@ -41,7 +41,9 @@ export class QuestionBodyComponent{
     tags = 'Hello, World';
     description = "This is a test";
      like: Like;
-
+    //categoryId
+    topicId:string;
+    categoryId:string;
     constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute,private commServ: CommunicationService) {
         this._router = router;
         this.route = route;
@@ -72,28 +74,35 @@ export class QuestionBodyComponent{
         //get questions by route param using category id.
         this.route.params.subscribe(params => {
 
+
+            this.topicId = params['topicId'];
+            this.categoryId = params['categoryId'];
             this.description = this._router.url;
 
             this.showLoader();
-            this.id = params['id'];
             var subs: any;
-            this.commServ.setCategory(this.id);     
-            // param id = 0, default route, it is ver tidas
-            if (this.id == '1')
-            {         
+            if (this.topicId != undefined && this.categoryId != undefined) {
+                subs = this.questionService.getQuestionByTopciNCategoryId(this.topicId, this.categoryId);
+                  this.loadCategories(); 
+            } else {
+                this.id = params['id'];
+                this.commServ.setCategory(this.id);     
+                // param id = 0, default route, it is ver tidas
+                if (this.id == '1')
+                {         
                    
-                // questions loaded by latest, without categoryId
-                subs = this.questionService.getQuestions();
-            }
-            else
-            {
-                // questions loaded by category id
-                subs = this.questionService.getQuestionsByCategory(this.id);
+                    // questions loaded by latest, without categoryId
+                    subs = this.questionService.getQuestions();
+                }
+                else
+                {
+                    // questions loaded by category id
+                    subs = this.questionService.getQuestionsByCategory(this.id);
 
-                /// if page directly loads from url, then categories gets undefiend                
-                this.loadCategories();              
+                    /// if page directly loads from url, then categories gets undefiend                
+                    this.loadCategories();              
+                }
             }
-
             subs.subscribe(res => {               
                 this.questions = res;
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);       

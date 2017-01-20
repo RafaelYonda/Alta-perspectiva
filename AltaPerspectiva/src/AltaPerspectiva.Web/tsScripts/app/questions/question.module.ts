@@ -30,6 +30,10 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
                         //resolve: { questionList: QuestionAnswerService}
                 },
                 {
+                    path: 'home/topic/:topicId/:categoryId', component: QuestionBodyComponent
+                        //resolve: { questionList: QuestionAnswerService}
+                },
+                {
                     path: 'detail/:id', component: QuestionDetailComponent
                     ,resolve: { question: QuestionResolver }
                 }]
