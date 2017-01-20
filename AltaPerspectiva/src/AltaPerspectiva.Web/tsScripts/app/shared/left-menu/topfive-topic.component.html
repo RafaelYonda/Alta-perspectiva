@@ -1,0 +1,9 @@
+﻿<div class="menu-container">
+    <div class="list-title"><h4>Top Topics</h4></div>
+    <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
+    <ul class="left-panel-list" *ngIf="topFiveTopics.length>0">
+        <li *ngFor="let topFiveTopic of topFiveTopics">
+            <a [routerLink]="['/question/detail',topFiveTopic.id]"> {{topFiveTopic?.topicName}}</a>
+        </li>
+    </ul>
+</div>

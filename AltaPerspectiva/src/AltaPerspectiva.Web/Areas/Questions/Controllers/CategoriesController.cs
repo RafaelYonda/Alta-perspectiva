@@ -277,7 +277,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet]
         public IEnumerable<String> GetTopics(Guid Id)
         {
-            var topics = queryFactory.ResolveQuery<ITopicQuery>().GeTopics(Id).Select(x=>x.TopicName).ToList();
+            var topics = queryFactory.ResolveQuery<ITopicQuery>().GetTopics(Id).Select(x=>x.TopicName).ToList();
             return topics;
         }
 

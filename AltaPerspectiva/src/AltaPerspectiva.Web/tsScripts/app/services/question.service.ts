@@ -27,7 +27,11 @@ export class QuestionService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
+    getTopFiveTopicsByCategoryId(categoryId: string): Observable<Topic[]> {
+        return this._http.get('/questions/api/'+categoryId+'/gettopfivetopicsbycategoryid')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     private extractData(res: Response) {       
         let body;
 

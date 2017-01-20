@@ -401,7 +401,30 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             
         }
+        [HttpGet("/questions/api/{categoryId}/gettopfivetopicsbycategoryid")]
+        public async Task<IActionResult> GetTopFiveTopicsByCategoryId(Guid categoryId)
+        {
+            IEnumerable<Topic> topFiveTopics = new List<Topic>();
+          //  IEnumerable<Question> questions=new List<Question>();
+            if (categoryId == Guid.Empty)
+            {
+                topFiveTopics =
+                    await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopics();
 
+                
+            }
+            else
+            {
+                topFiveTopics =
+                    await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopicsByCategoryId(categoryId);
+
+                
+            }
+            
+
+            return Ok(topFiveTopics);
+
+        }
         [HttpGet("/questions/api/{categoryId}/gettopicbycategoryid")]
         public async Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId)
         {
@@ -453,3 +476,4 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
     }
 }
+
