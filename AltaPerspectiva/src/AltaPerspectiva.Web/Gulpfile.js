@@ -150,7 +150,7 @@ gulp.task("copy:images", function () {
     return gulp.src(["./Styles/images/**.*"])
         .pipe(gulp.dest("./wwwroot/images"));
 });
-
+ 
 //gulp.task("copy:fonts", function () {
 //    var fontsFilter = filter(["**/*.woff2", "**/*.eot", "**/*.svg", "**/*.ttf", "**/*.woff"], { restore: true });
 //    return gulp.src(["./Styles/alta-font/css/*.css", "./Styles/alta-font/font/**.*", "./Styles/alta-font/font-icon/**.*"])

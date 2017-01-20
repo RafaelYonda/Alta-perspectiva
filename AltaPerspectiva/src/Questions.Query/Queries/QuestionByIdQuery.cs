@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using  Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 using Questions.Domain;
 using AltaPerspectiva.Core.Infrastructure;
 using Questions.Query.DbContext;
@@ -18,7 +19,7 @@ namespace Questions.Query
 
         public Question Execute(Guid id)
         {
-            return DbContext.Questions
+            return DbContext.Questions.Include(qt=>qt.QuestionTopics)
                             .Include(q=>q.Answers).ThenInclude(a=>a.Comments)
                             .Include(q => q.Answers).ThenInclude(a => a.Likes)
                             .Include(q=>q.Comments)
@@ -26,7 +27,7 @@ namespace Questions.Query
                             .Include(q=>q.Categories)
                                 .ThenInclude(c=>c.Category)                
                             .Where(q=>q.Id == id)
-                            .SingleOrDefault(); 
+                            .FirstOrDefault(); 
         }
     }
 }

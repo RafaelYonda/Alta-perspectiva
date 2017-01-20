@@ -12,5 +12,7 @@ namespace Questions.Query
         Task<IEnumerable<Question>> GetTopFiveQuestion();
 
         Task<IEnumerable<Question>> GetTopFiveQuestionByCategoryId(Guid categoryId);
+
+        Task<IEnumerable<Question>> GetQuestionByTopciNCategoryId(Guid topicId,Guid categoryId);
     }
 }

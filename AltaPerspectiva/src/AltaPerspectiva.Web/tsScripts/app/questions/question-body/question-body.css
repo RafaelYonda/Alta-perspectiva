@@ -1,4 +1,5 @@
-﻿.line-clamp {
+﻿
+.line-clamp {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;  
@@ -21,7 +22,10 @@
 }
 
 .read-question-button {
-    margin-bottom:20px;
+    margin-bottom: 20px;
+    background-color: #f6f6f6;
+    padding: 10px;
+    font-family:
 }
 .img-category {
     width :50px;

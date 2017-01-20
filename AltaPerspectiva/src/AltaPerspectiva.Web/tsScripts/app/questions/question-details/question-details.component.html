@@ -1,89 +1,85 @@
-﻿
-<div class="col-md-3">
+﻿<div class="left-panel">
     <related-question-left-menu></related-question-left-menu>
+    <related-topic [topicId]="question?.questionTopics[0]?.topicId"></related-topic>
+    <category-left-menu [caegoryId]="question?.categories[0]?.id"></category-left-menu>
 </div>
 
-<!-- =========Questions========== -->
-<div class="col-md-9">
-    <h1>&iquest;{{question.title}}?</h1>
-    <!--<div class="header-info">{{date.getMonthName(question.date.getMonth())}} {{question.date.getFullYear()}}</div>-->
-    <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Answer</button>
-    <!-- ===================== -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-
-            <form #answerVM="ngForm" class="form-horizontal" role="form">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h1>&iquest;{{question.title}}?</h1>
-                        <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
-                        <div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
-
-                        <div [hidden]="answerField.valid || answerField.pristine"
-                             class="alert alert-danger">
-                            Please type your answer and then submit!!
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <ckeditor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}" id="answer"
-                                  required name="answerField" #answerField="ngModel"
-                                  [config]="{   filebrowserUploadUrl : '/browser/browse/type/all',
-                                           filebrowserImageUploadUrl : '/browser/browse/type/image',
-                              removeButtons : 'About,Maximize,TextColor,Styles,Format,Font,FontSize,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Unlink,Anchor,BidiLtr,Language,BidiRtl,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,CreateDiv,Blockquote,Outdent,Indent,BulletedList,NumberedList,CopyFormatting,RemoveFormat,Underline,Strike,Subscript,Superscript,Form,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Scayt,Find,SelectAll,Replace,BGColor,ShowBlocks,Checkbox,Source,Save,Templates,Cut,Undo,Redo,Copy,Paste,PasteText,PasteFromWord,Print,Preview,NewPage,Checkbox'}"
-                                  debounce="500">
-                        </ckeditor>
-                    </div>
-                    <div class="modal-footer">
-                        <div style="float:left;color:#737373;line-height: 34px;">
-                            <button type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Submit</button>
-                        </div>
-
-                        <div class="social-icon">
-                            <a><img class="social-image" src="../images/facebooklogo.jpg" /></a>
-                            <a><img class="social-image" src="../images/twitter.png" /></a>
-                        </div>
-
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- =============== -->
-
-
-    <div class="row z-ground">
-        <!--<div class="left-border">
-            <img class="image-border" src="../../../../images/border.png" />
-        </div>-->
-        <div class="article-details">
-            <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}" />
-            <div class="header-info">{{question.userViewModel?.name}}, {{question.userViewModel?.occupation}} {{question?.createdOn | date: 'dd MMM, yyyy'}} </div>
-            <!--<div class="header-info">{{date.getMonthName(question.date?.getMonth())}} {{question.date?.getFullYear()}}</div>-->
-            <p class="answer-text" [innerHTML]="question.body"></p>
-            <ap-status [isQuestion]='true' [questionObj]="question"> </ap-status>
-            <ap-comment [isQuestion]='true' [questionId]="question?.id"></ap-comment>
-        </div>
+<!-- =========Question========== -->
+<div class="center-width center-body z-ground">
+    <question-header [question]="question"></question-header>
+    <h1 class="question-title">
+        {{question.title}}
+    </h1>
+    <div class="article-details">
+        <user-info [userObj]="question.userViewModel" [viewDate]="question?.createdOn"></user-info>
+        <p class="answer-text" [innerHTML]="question.body"></p>
+        <div class="clearfix"></div>
+        <ap-status [isQuestion]='true' [questionObj]="question"> </ap-status>
+        <ap-comment [isQuestion]='true' [questionId]="question?.id"></ap-comment>
     </div>
     <hr />
-    <h3>{{question.answers?.length}} Answers</h3>
+    <button class="answer-button" data-toggle="modal" data-target="#myModal">Answer</button>
+    <div class="summery-panel">
+        <h4>{{question.answers?.length}} Answers</h4>
+        <div class="row">
+            <div class="col-md-3"><h4>The latest answers</h4></div>
+            <div class="col-md-3"><h4>The best answer</h4></div>
+            <div class="col-md-4"><h4>The more view answers</h4></div>
+        </div>
+        <hr />
+    </div>
+   
     <!-- =========Answers============== -->
     <div *ngFor="let answer of question.answers">
-        <div class="row">
-            <!--<div class="left-border">
-                <img class="image-border" src="../../../../images/border.png" />
-            </div>-->
-            <div class="article-details" *ngIf="answer">
-                <img class="user-image" src="../../../../profile/{{question.userViewModel?.imageUrl}}" />
-                <div class="header-info">{{answer.userViewModel?.name}},{{answer.userViewModel?.occupation}} {{answer?.createdOn | date: 'dd MMM, yyyy'}}</div>
-                <p class="answer-text" [innerHTML]="answer.text"></p>
-                <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="answer"> </ap-status>
-                <ap-comment [isQuestion]='false' [questionId]="question?.id"  [answerId]="answer.id"></ap-comment>
-            </div>
+        <div class="article-details" *ngIf="answer">
+            <user-info [userObj]="answer?.userViewModel" [viewDate]="answer?.createdOn"></user-info>
+            <p class="answer-text" [innerHTML]="answer.text"></p>
+            <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="answer"> </ap-status>
+            <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="answer.id"></ap-comment>
         </div>
         <hr />
     </div>
 
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form #answerVM="ngForm" class="form-horizontal" role="form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h1>&iquest;{{question.title}}?</h1>
+                    <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
+                    <div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
+
+                    <div [hidden]="answerField.valid || answerField.pristine"
+                         class="alert alert-danger">
+                        Please type your answer and then submit!!
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <ckeditor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}" id="answer"
+                              required name="answerField" #answerField="ngModel"
+                              [config]="{   filebrowserUploadUrl : '/browser/browse/type/all',
+                                           filebrowserImageUploadUrl : '/browser/browse/type/image',
+                              removeButtons : 'About,Maximize,TextColor,Styles,Format,Font,FontSize,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Unlink,Anchor,BidiLtr,Language,BidiRtl,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,CreateDiv,Blockquote,Outdent,Indent,BulletedList,NumberedList,CopyFormatting,RemoveFormat,Underline,Strike,Subscript,Superscript,Form,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Scayt,Find,SelectAll,Replace,BGColor,ShowBlocks,Checkbox,Source,Save,Templates,Cut,Undo,Redo,Copy,Paste,PasteText,PasteFromWord,Print,Preview,NewPage,Checkbox'}"
+                              debounce="500">
+                    </ckeditor>
+                </div>
+                <div class="modal-footer">
+                    <div style="float:left;color:#737373;line-height: 34px;">
+                        <button type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Submit</button>
+                    </div>
+
+                    <div class="social-icon">
+                        <a><img class="social-image" src="../images/facebooklogo.jpg" /></a>
+                        <a><img class="social-image" src="../images/twitter.png" /></a>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

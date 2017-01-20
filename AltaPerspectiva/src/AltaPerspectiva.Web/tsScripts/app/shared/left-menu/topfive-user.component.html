@@ -1,23 +1,14 @@
-﻿<style>
-    .user-list > li {
-        list-style-type: none;
-        margin-bottom: 3px;
-    }
-
-        .user-list > li > a {
-            display: inline-block;
-            padding-top: 10px;
-            max-width: 118px;
-            padding-left: 3px;
-        }
-</style>
-<div class="menu-container">
-    <div class="question-title"><h4>Top Users</h4></div>
+﻿<div class="menu-container">
+    <div class="list-title"><h4>Usuarios más destacados</h4></div>
     <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
     <ul class="user-list" *ngIf="topFiveUsers.length>0">
         <li *ngFor="let topFiveUser of topFiveUsers">
             <img class="user-image img-circle" src="../../../../profile/{{topFiveUser?.imageUrl}}" />
-            <a [routerLink]="['/dashboard/detail/',topFiveUser?.id]"> {{topFiveUser?.name}}</a>
+            <div class="top-user-info">
+                <a [routerLink]="['/dashboard/detail/',topFiveUser?.id]"> {{topFiveUser?.name}}</a>
+                <span>,Occupation of the user</span>
+                <div>000 vistas</div>
+            </div>
             <div class="clearfix"></div>
         </li>
     </ul>

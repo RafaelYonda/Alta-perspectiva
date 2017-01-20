@@ -1,0 +1,11 @@
+﻿.user-list > li {
+    list-style-type: none;
+    margin-bottom: 3px;
+}
+
+    .user-list > li > a {
+        display: inline-block;
+        padding-top: 10px;
+        max-width: 118px;
+        padding-left: 3px;
+    }

@@ -16,7 +16,7 @@ namespace Questions.Query.Queries
 		{
         }
 
-        public IEnumerable<Topic> GeTopics(Guid categoryId)
+        public IEnumerable<Topic> GetTopics(Guid categoryId)
         {
             return DbContext.Topics.Where(x => x.CategoryId == categoryId).ToList();
         }
@@ -26,15 +26,61 @@ namespace Questions.Query.Queries
             return await DbContext.Topics.Where(x => x.CategoryId == categoryId).ToListAsync();
         }
 
-        public Topic GeTopicByTopicId(Guid topicId)
+        public Topic GetTopicByTopicId(Guid topicId)
         {
             return DbContext.Topics.FirstOrDefault(x => x.Id == topicId);
         }
 
-        //public Task<IEnumerable<Topic>> GetTopFiveTopicsByCategoryId(Guid categoryId)
-        //{
-            
-        //}
+        public async Task<IEnumerable<Topic>> GetTopFiveTopicsByCategoryId(Guid categoryId)
+        {
+            String query = String.Format(@"select top 5 T.Id, t.TopicName ,
+
+(select CategoryId from Questions.Topics where Id=t.Id) CategoryId,cast(cast(0 as binary) as uniqueidentifier) CreatedBy,GETDATE() CreatedOn,GETDATE() DTS,null [IsActive]
+      ,null [IsDeleted]
+      ,null [ModifiedBy]
+      ,null [ModifiedOn]
+from Questions.Topics t
+join Questions.QuestionTopics qt
+on t.Id = qt.TopicId
+join Questions.Questions q
+on q.Id = qt.QuestionId
+where t.CategoryId='{0}'
+GROUP BY T.Id, T.TopicName
+order by SUM(q.ViewCount) DESC
+", categoryId);
+            return
+                await DbContext.Topics.FromSql(query).ToListAsync();
+
+        }
+
+        public async Task<IEnumerable<Topic>> GetTopFiveTopics()
+        {
+            String query = String.Format(@"select top 5 T.Id, t.TopicName ,
+
+(select CategoryId from Questions.Topics where Id=t.Id) CategoryId,cast(cast(0 as binary) as uniqueidentifier) CreatedBy,GETDATE() CreatedOn,GETDATE() DTS,null [IsActive]
+      ,null [IsDeleted]
+      ,null [ModifiedBy]
+      ,null [ModifiedOn]
+from Questions.Topics t
+join Questions.QuestionTopics qt
+on t.Id = qt.TopicId
+join Questions.Questions q
+on q.Id = qt.QuestionId
+
+GROUP BY T.Id, T.TopicName
+order by SUM(q.ViewCount) DESC
+");
+
+            return
+                await DbContext.Topics.FromSql(query).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Topic>> GetRelatedTopicsByTopicId(Guid topicId)
+        {
+            var categoryId = DbContext.Topics.Where(x => x.Id == topicId).Select(y=>y.CategoryId).FirstOrDefault();
+
+            return await DbContext.Topics.Where(x => x.CategoryId == categoryId &&x.Id!=topicId).ToListAsync();
+        }
     }
     
     

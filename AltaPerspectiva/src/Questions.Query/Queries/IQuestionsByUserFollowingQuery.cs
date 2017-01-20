@@ -9,5 +9,6 @@ namespace Questions.Query
     public interface IQuestionsByUserFollowingQuery : IQuery
     {
         Task<IEnumerable<Question>> Execute(Guid UserId);
+        Task<IEnumerable<Question>> GetQuestionByTopciNCategoryId(Guid UserId, Guid topicId, Guid categoryId);
     }
 }
