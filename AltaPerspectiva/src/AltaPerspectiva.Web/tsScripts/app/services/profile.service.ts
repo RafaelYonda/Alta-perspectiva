@@ -20,7 +20,7 @@ export class ProfileService {
     }
 
     SaveProfile(profileObj: any,url:string): Observable<any> {
-        console.log(profileObj); 
+
         return this._http.post(url, profileObj)
             .map(this.extractData)
             .catch(this.handleError);
@@ -76,22 +76,20 @@ export class ProfileService {
 
     GetProfile(url: string): Observable<any> {
         url = 'userprofile/api/getuserprofile';
-        console.log(url);
+      
         return this._http.get(url )
             .map(this.extractData)
             .catch(this.handleError);
     }
 
      GetTopFiveUser(): Observable<User[]> {
-       // url:String = ;
-        //console.log(url);
+       
         return this._http.get('userprofile/api/gettopFiveUser' )
             .map(this.extractData)
             .catch(this.handleError);
     }
      GetTopFiveUserByCategory(id): Observable<User[]> {
-         // url:String = ;
-         //console.log(url);
+         
          return this._http.get('userprofile/api/'+id+'/gettopFiveUserbycategoryid')
              .map(this.extractData)
              .catch(this.handleError);
