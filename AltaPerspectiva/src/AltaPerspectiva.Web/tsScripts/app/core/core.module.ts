@@ -20,7 +20,7 @@ import { QuestionModule } from '../questions/question.module';
 import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
-import {PopoverModule} from "ng2-popover";
+import {PopoverModule} from "ngx-popover";
 import {DialogComponent} from "./tabs/dialog.component";
 
 @NgModule({
