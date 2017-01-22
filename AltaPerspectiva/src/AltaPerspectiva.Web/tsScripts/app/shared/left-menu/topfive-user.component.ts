@@ -21,6 +21,7 @@ export class TopFiveUserComponent {
 
     ngOnInit() {
         this.commServ.getCategory().subscribe((catId: string) => {
+            console.log(catId);
             this.userService.GetTopFiveUserByCategory(catId).subscribe(res => {
                 this.topFiveUsers = res;
                 console.log(this.topFiveUsers);

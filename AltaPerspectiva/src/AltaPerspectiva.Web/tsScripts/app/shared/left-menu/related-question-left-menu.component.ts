@@ -25,7 +25,6 @@ import { Router, ActivatedRoute, Resolve } from '@angular/router';
         this.route = route;
         //this.answerList = questionService.getAnswersByQuestion(2);        
         this.questions = [];
-       
     }
 
     ngOnInit() {
@@ -39,12 +38,9 @@ import { Router, ActivatedRoute, Resolve } from '@angular/router';
                 subs = this.questionService.getQuestions();        
             else 
                 subs = this.questionService.getRelatedQuestions(this.id);
-            
             subs.subscribe(res => {
                 this.questions = res;
-                              
             });
-
         }); 
     }
 }

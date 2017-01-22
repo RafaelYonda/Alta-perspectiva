@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
     selector: 'ap-tabs',
     templateUrl: 'js/app/core/tabs/tabs.component.html',
     styleUrls: ['js/app/core/tabs/tabs.css'],
-    providers: [CategoryService, CommunicationService]
+    providers: [CategoryService]
 })
 export class TabsComponent {
     categories: Category[];    

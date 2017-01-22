@@ -1,9 +1,10 @@
-﻿import { Component } from '@angular/core';
+﻿/// <reference path="dialog.component.ts" />
+import { Component, ViewContainerRef, ComponentFactoryResolver,ViewChild } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { AuthenticationService } from '../../services/authentication.service';
-import { CommunicationService } from '../../services/communication.service';
 import { LogInObj } from '../../services/models';
+import { DialogComponent } from './dialog.component';
 
 //Comment added
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
@@ -12,7 +13,7 @@ import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName
     selector: 'ap-tab-panel',
     templateUrl: 'js/app/core/tabs/tab-panel.component.html',
 
-    providers: [QuestionResolver, QuestionAnswerService, AuthenticationService, CommunicationService]
+    providers: [QuestionResolver, QuestionAnswerService, AuthenticationService]
 })
 export class TabPanelComponent {
     id: string;
@@ -23,18 +24,27 @@ export class TabPanelComponent {
     readMoreLink: string;
     //Comment
     comment: Comment;
-    
     question: Question;
      route: any;
     error: any;
     //Like
     
     
-    
-    constructor(private _route: ActivatedRoute, private commServ: CommunicationService, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
-        //this.questions = this.questionAnswerService.getQuestionByCategory('');
+    @ViewChild('dialogAnchor', { read: ViewContainerRef }) dialogAnchor: ViewContainerRef;
+    constructor(private componentFactoryResolver: ComponentFactoryResolver,private _route: ActivatedRoute,  private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
         this.route = _route;
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
+    }
+    openDialogBox(question: Question) {
+        // Close any already open dialogs
+        this.dialogAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(DialogComponent);
+        let dialogComponentRef = this.dialogAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.question = question; // Not sure about the translation here
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        })
     }
     ngOnInit() {   
         var currentUser = localStorage.getItem('auth_token');
@@ -58,7 +68,6 @@ export class TabPanelComponent {
                     this.questions[q].bestAnswer = this.questions[q].answers[0];
 
                     if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
-
                         var temp = this.questions[q].bestAnswer.text.substring(0, 200);
                         this.questions[q].bestAnswer.text = temp;
                         this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id +"'>read more...</a>";
@@ -70,7 +79,6 @@ export class TabPanelComponent {
         }); 
     }
     ShowModal(questionId) {
-        this.commServ.setQuestionId(questionId);
         console.log(questionId);
     }
     ngOnDestroy() {

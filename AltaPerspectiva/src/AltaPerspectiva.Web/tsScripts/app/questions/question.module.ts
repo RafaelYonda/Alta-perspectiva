@@ -14,13 +14,14 @@ import { QuestionDetailComponent } from './question-details/question-details.com
 import { QuestionBodyComponent } from './question-body/question-body.component';
 import { QuestionMenuPanelComponent } from './question-left-menu/question-left-menu.component';
 import { SharedModule } from '../shared/shared.module';
-//================services=================\
+import { CommunicationService } from '../services/communication.service';
+//================services=================
 import { QuestionAnswerService } from '../services/question-answer.service';
 import { QuestionResolver } from '../services/resolve.services/question.resolver';
 
 
 @NgModule({
-    providers: [QuestionAnswerService, QuestionResolver],
+    providers: [QuestionAnswerService, QuestionResolver, CommunicationService],
     imports: [BrowserModule, HttpModule, CKEditorModule, InfiniteScrollModule, FormsModule, SharedModule,  RouterModule.forRoot([
         {
             path: 'question', component: QuestionHomeComponent,

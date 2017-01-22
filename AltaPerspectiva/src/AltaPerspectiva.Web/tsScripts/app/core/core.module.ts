@@ -1,9 +1,10 @@
-﻿import { NgModule, Input } from '@angular/core';
+﻿/// <reference path="tabs/dialog.component.ts" />
+import { NgModule, Input } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {HttpModule  } from '@angular/http';
-
+import { CommunicationService } from '../services/communication.service';
 
 //====core components============
 import { HomeComponent } from './home.component';
@@ -12,8 +13,6 @@ import { ApBannerComponent } from './banner/apbanner.component';
 //import { ApSearchComponent } from './search/apSearch.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabPanelComponent } from './tabs/tab-panel.component';
-
-
 import { FormsModule } from '@angular/forms';
 //================
 import { SharedModule } from '../shared/shared.module';
@@ -21,21 +20,14 @@ import { QuestionModule } from '../questions/question.module';
 import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
-
-
-
-
-
-////New component added to module
-//import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
-//import { TopFiveUserComponent } from './left-menu/topfive-user.component';
-
+import {PopoverModule} from "ng2-popover";
+import {DialogComponent} from "./tabs/dialog.component";
 
 @NgModule({
-    imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing
+    imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing, PopoverModule
     ],
     providers: [
-        { provide: 'Window', useValue: window }
+        { provide: 'Window', useValue: window }, CommunicationService
     ],
     declarations: [
         //Core Components
@@ -45,7 +37,6 @@ import { routing } from './core.route';
         //ApSearchComponent,
         TabsComponent,
         TabPanelComponent,        
-
         //other app component
         //QuestionHomeComponent,
         LearnHome,
@@ -54,6 +45,7 @@ import { routing } from './core.route';
 
        //category
        // QuestionMenuPanelComponent
+        DialogComponent
     ],
     exports: [
         RouterModule,
@@ -68,11 +60,13 @@ import { routing } from './core.route';
         //other app component
         LearnHome,
         ProjectHome,
-
         //question left menu
         //category
       //  QuestionMenuPanelComponent
+        DialogComponent
 
-    ]
+
+    ],
+    entryComponents: [DialogComponent]
 })
 export class CoreModule { }
