@@ -23,7 +23,7 @@ import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
 
 
-import {PopoverModule} from "ng2-popover";
+
 
 
 ////New component added to module
@@ -32,7 +32,7 @@ import {PopoverModule} from "ng2-popover";
 
 
 @NgModule({
-    imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing, PopoverModule
+    imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing
     ],
     providers: [
         { provide: 'Window', useValue: window }

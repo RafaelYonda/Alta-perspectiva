@@ -140,6 +140,9 @@
             modelBuilder.Entity<QuestionTopic>().ToTable("QuestionTopics");
             modelBuilder.Entity<Topic>().ToTable("Topics");
 
+            //bookmark
+            modelBuilder.Entity<Bookmark>().ToTable("Bookmarks");
+
         }
 
     }

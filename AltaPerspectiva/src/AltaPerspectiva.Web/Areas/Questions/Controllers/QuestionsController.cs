@@ -506,6 +506,24 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return Created($"questions/api/questions/{cmd.Id}", question);
         }
+
+        [HttpPost("/questions/api/{questionId}/addbookmark")]
+        public IActionResult AddBookMark(Guid questionId)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+
+            AddBookmarkCommand cmd=new AddBookmarkCommand(loggedinUser,questionId);
+
+            commandsFactory.ExecuteQuery(cmd);
+
+            return Created($"/questions/api/{cmd.Id}/addbookmark", questionId);
+        }
     }
 }
 

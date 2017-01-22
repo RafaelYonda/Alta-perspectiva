@@ -20,7 +20,7 @@ gulp.task("scriptsNStyles", () => {
             'zone.js/dist/**',
             '@angular/**',
             'ng2-ckeditor/**',
-            "ng2-popover/**",
+            "ngx-popover/**",
             'angular2-infinite-scroll/**',
             'ng2-toastr/**',
             'jquery/dist/jquery.*js',

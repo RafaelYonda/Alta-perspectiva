@@ -23,7 +23,7 @@
         public DbSet<QuestionLevel> QuestionLevels { get; set; }
         public DbSet<QuestionTopic> QuestionTopics { get; set; }
         public DbSet<Topic> Topics { get; set; }
-
+        public DbSet<Bookmark> Bookmarks { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
        {
             // Configure model mappings

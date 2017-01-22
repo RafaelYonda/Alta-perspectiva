@@ -179,6 +179,8 @@ namespace AltaPerspectiva
             //QuestionByTopicId
             services.AddTransient<IGetQuestionByTopicId, GetQuestionByTopicId>();
 
+            //Bookmarks
+            services.AddTransient<ICommandHandler<AddBookmarkCommand>, AddBookmarkCommandHandler>();
 
         }
 
@@ -304,9 +306,9 @@ namespace AltaPerspectiva
             //app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
             //{
             //    context.Database.EnsureCreated();
-            //    var keywords = context.Keywords.ToList();
-                
-            //   // cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
+            //  //  var keywords = context.Keywords.ToList();
+
+            //    // cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
             //    //,new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
             //    //     .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
 

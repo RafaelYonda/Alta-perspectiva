@@ -21,7 +21,7 @@
             '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
-            "ng2-popover": "npm:ng2-popover",
+            "ngx-popover": "npm:ngx-popover",
             // other libraries
             'rxjs': 'npm:rxjs',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
@@ -49,7 +49,7 @@
                 main: 'angular2-infinite-scroll.js',
                 defaultExtension: 'js'
             },
-            "ng2-popover": { main: "index.js", defaultExtension: "js" }
+            "ngx-popover": { main: "index.js", defaultExtension: "js" }
         }
     });
 })(this);

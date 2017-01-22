@@ -20,8 +20,10 @@ import { RelatedTopicComponent } from './left-menu/related-topic.component';
 import { LevelComponent } from './left-menu/level.component';
 
 import { CommunicationService } from '../services/communication.service';
+/*popover*/
+import {PopoverModule} from "ngx-popover";
 @NgModule({
-    imports: [BrowserModule, FormsModule, CKEditorModule, RouterModule],
+    imports: [BrowserModule, FormsModule, CKEditorModule, RouterModule,PopoverModule],
     providers: [
         { provide: 'Window', useValue: window }, CommunicationService
     ],

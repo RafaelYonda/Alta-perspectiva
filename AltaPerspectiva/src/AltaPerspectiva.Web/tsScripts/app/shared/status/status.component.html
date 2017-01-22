@@ -32,8 +32,27 @@
             <img class="social-image" src="../images/icon-external-link.png" />
         </a>
         <a>
-            <div class="other-function">...</div>
+            <div class="other-function">
+                <a [popover]="myPopover" >...</a>
+                <popover-content #myPopover title="Details" 
+                                placement="right"
+                                 [closeOnClickOutside]="true" >
+                    <ul>
+                        <li>
+                            <a href="#">Edit Question</a>
+                        </li>
+                        <li>
+                            <a href="#">Bookmark</a>
+                        </li>
+                        <li>
+                            <a href="#">Report</a>
+                        </li>
+                        
+                    </ul>
+                </popover-content>
+            </div>
         </a>
+        
     </div>
 </div>
 
