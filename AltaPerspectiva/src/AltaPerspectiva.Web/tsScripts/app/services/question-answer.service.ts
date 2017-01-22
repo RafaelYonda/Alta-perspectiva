@@ -177,6 +177,14 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
      }
+       
+
+    addBookMark(questionId:string):Observable<any> {      
+         return this._http.post('/questions/api/'+questionId+'/addbookmark', null)
+            .map(this.extractData)
+            .catch(this.handleError);
+     }
+   
 
     private extractData(res: Response) {       
         let body;

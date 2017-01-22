@@ -1,5 +1,7 @@
 ﻿<div class="status-panel">
-     
+    <style>
+        
+    </style>
     <img *ngIf="questionObj?.answers[0]?.likes?.length<1"  src='../images/fade-logo.png'  onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
     <img *ngIf="questionObj?.answers[0]?.likes?.length>0" src='../images/like-logo.png' />
     <a href="#" data-toggle="modal" attr.data-target="#likeModal{{commentId}}" class="number-box" (click)="showLikeUserDetails()" > {{isQuestion?(questionObj.likes.length):(answerObj?.likes?.length)}}</a>
@@ -34,20 +36,21 @@
         <a>
             <div class="other-function">
                 <a [popover]="myPopover" >...</a>
-                <popover-content #myPopover title="Details" 
-                                placement="right"
-                                 [closeOnClickOutside]="true" >
-                    <ul>
-                        <li>
+                <popover-content #myPopover
+                                 placement="right"
+                                 [closeOnClickOutside]="true">
+                    <span></span>
+                    <ul style="list-style-type: none;">
+                        <li style="list-style-type: none;width: 91px;">
                             <a href="#">Edit Question</a>
                         </li>
-                        <li>
-                            <a href="#">Bookmark</a>
+                        <li style="list-style-type: none;">
+                            <div (click)="bookmarkClicked(questionObj?.id)">Bookmark</div>
                         </li>
-                        <li>
+                        <li style="list-style-type: none;">
                             <a href="#">Report</a>
                         </li>
-                        
+
                     </ul>
                 </popover-content>
             </div>

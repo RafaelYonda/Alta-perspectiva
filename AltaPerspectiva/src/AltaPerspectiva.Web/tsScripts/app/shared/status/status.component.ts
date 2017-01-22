@@ -31,7 +31,14 @@ export class StatusComponent {
             this.commentId = this.answerObj.id;
             this.CommentCount = this.answerObj.comments? this.answerObj.comments.length:0;
         }
+    } 
+    bookmarkClicked(questionId: string) {
+           this.dataService.addBookMark(questionId).subscribe(res => {
+                 console.log(questionId + 'saved as bookmark');
+          });
     }
+
+
     submitLike(answerId: string,questionId:string) {         
         this.like = new Like();
         this.like.answerId = answerId;
