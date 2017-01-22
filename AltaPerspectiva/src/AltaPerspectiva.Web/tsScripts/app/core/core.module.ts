@@ -1,4 +1,5 @@
-﻿import { NgModule, Input } from '@angular/core';
+﻿/// <reference path="tabs/dialog.component.ts" />
+import { NgModule, Input } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
@@ -12,8 +13,6 @@ import { ApBannerComponent } from './banner/apbanner.component';
 //import { ApSearchComponent } from './search/apSearch.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabPanelComponent } from './tabs/tab-panel.component';
-
-
 import { FormsModule } from '@angular/forms';
 //================
 import { SharedModule } from '../shared/shared.module';
@@ -22,6 +21,7 @@ import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
 import {PopoverModule} from "ng2-popover";
+import {DialogComponent} from "./tabs/dialog.component";
 
 @NgModule({
     imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing, PopoverModule
@@ -37,7 +37,6 @@ import {PopoverModule} from "ng2-popover";
         //ApSearchComponent,
         TabsComponent,
         TabPanelComponent,        
-
         //other app component
         //QuestionHomeComponent,
         LearnHome,
@@ -46,6 +45,7 @@ import {PopoverModule} from "ng2-popover";
 
        //category
        // QuestionMenuPanelComponent
+        DialogComponent
     ],
     exports: [
         RouterModule,
@@ -63,7 +63,10 @@ import {PopoverModule} from "ng2-popover";
         //question left menu
         //category
       //  QuestionMenuPanelComponent
+        DialogComponent
 
-    ]
+
+    ],
+    entryComponents: [DialogComponent]
 })
 export class CoreModule { }

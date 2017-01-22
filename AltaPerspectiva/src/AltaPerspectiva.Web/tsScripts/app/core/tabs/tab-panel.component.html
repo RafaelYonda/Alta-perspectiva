@@ -1,4 +1,7 @@
 ﻿<div class="row">
+    <div #dialogAnchor></div>
+</div>
+<div class="row">
     <div class="left-panel">
         <div>.</div>
         <div id="leftPanel">
@@ -12,21 +15,20 @@
         <div class="tab" *ngFor="let question of questions">
             <div class="panel-article">
                 <div class="questions-container">
-                    <div data-toggle="modal" data-target="#question" (click)="ShowModal(question.id)" class="details-container">
+                    <div  (click)="openDialogBox(question)" class="details-container">
                         <question-header [question]="question"></question-header>
                         <h3 class="question-title">
-                            <a [routerLink]="['/question/detail',question.id]">{{question.title}}</a>
+                            <a  [routerLink]="['/question/detail',question.id]">{{question.title}}</a>
                         </h3>
                         <div class="article-details">
                             <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
                             <div *ngIf="question.bestAnswer?.text">
-                                <p [innerHTML]="question.bestAnswer?.text"></p><span><a [routerLink]="['/question/detail',question.id]">Read more..</a></span>
+                                <p [innerHTML]="question.bestAnswer?.text"></p><span><a (click)="openDialogBox(question)" >Read more..</a></span>
                             </div>
                             <div *ngIf="question.bestAnswer">
                                 <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer"> </ap-status>
                                 <ap-comment [isQuestion]='false' [questionId]="question.id" [answerId]="question.bestAnswer?.id"></ap-comment>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -34,3 +36,4 @@
         </div>
     </div>
 </div>
+

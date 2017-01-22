@@ -1,18 +1,27 @@
 ﻿@zindexModal    : 9000;
+@zindexModalBootstrapOverlay    : 9005;
+@zindexModalBootstrap    : 90010;
 @zindexOverlay  : 8000;
 @zindexHeader   : 7000;
 @zindexBanner   : 6000;
 @zindexBody     : 5000;
 
-.z-header{
-    z-index:@zindexHeader;
+.z-modal{
+    z-index:@zindexModal;
+}
+.modal-backdrop{
+    z-index:@zindexModalBootstrapOverlay;
+}
+.modal{
+    z-index:@zindexModalBootstrap;
 }
 .overlay{
     z-index:@zindexOverlay
 }
-.z-modal{
-    z-index:@zindexModal;
+.z-header{
+    z-index:@zindexHeader;
 }
+
 .z-banner{
     z-index:@zindexBanner;
 }
