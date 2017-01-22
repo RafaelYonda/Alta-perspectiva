@@ -140,7 +140,8 @@ export class ApSearchComponent {
         this.router.navigate(['/question/detail/' + item.id]);
     }
     filterQuestions() {
-        this.title=this.title.replace(/[?]/g,'');
+        this.title = this.title.replace(/[?]/g, '');
+        this.title = this.title.replace(/[¿]/g, '');
         this.title = '¿' + this.title + '?';
         this.showMatchedCatogries(this.title);
         var tempTitle = this.title.replace(/[?]/g, '');
@@ -163,19 +164,14 @@ export class ApSearchComponent {
     isOnModal = false;
     showModal() {
         //Add ?? mark on click
-        this.addQuestionMark();
+        this.title = '¿'+'?';
 
         var form = document.getElementById("search-panel");
         var viewportOffset = form.getBoundingClientRect();
-        // these are relative to the viewport, i.e. the window
-        var top = viewportOffset.top;
-        if (top > 0 && !this.isOnModal) {
-            this.searchClass = document.getElementById("search-box").className;
-            document.getElementById("search-box").className = "modal-container z-modal";
-            console.log(top);
-            form.style.marginTop = String(top-5) + "px";    //It takes 5px extra for unknown reason.. so -5
-            this.isOnModal = true;
-        }
+        this.searchClass = document.getElementById("search-box").className;
+        document.getElementById("search-box").className = "modal-container z-modal";
+        form.style.marginTop = '15px';
+        
     }
     removeModal() {
         this.filteredQuestionList = [];
