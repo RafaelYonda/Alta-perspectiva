@@ -17,6 +17,7 @@ import { RelatedQuestionMenu } from './left-menu/related-question-left-menu.comp
 import { TopFiveUserComponent } from './left-menu/topfive-user.component';
 import { TopFiveTopicComponent } from './left-menu/topfive-topic.component';
 import { RelatedTopicComponent } from './left-menu/related-topic.component';
+import { LevelComponent } from './left-menu/level.component';
 
 import { CommunicationService } from '../services/communication.service';
 @NgModule({
@@ -25,10 +26,10 @@ import { CommunicationService } from '../services/communication.service';
         { provide: 'Window', useValue: window }, CommunicationService
     ],
     declarations: [
-        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent,RelatedTopicComponent
+        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent,RelatedTopicComponent,LevelComponent
     ],
     exports: [
-        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent,RelatedTopicComponent
+        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent,RelatedTopicComponent,LevelComponent
     ]
 })
 export class SharedModule { }
