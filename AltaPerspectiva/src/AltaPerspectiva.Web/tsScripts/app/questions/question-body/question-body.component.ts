@@ -86,7 +86,7 @@ export class QuestionBodyComponent{
                   this.loadCategories(); 
             } else {
                 this.id = params['id'];
-                this.commServ.setCategory(this.id);     
+                
                 // param id = 0, default route, it is ver tidas
                 if (this.id == '1')
                 {         
@@ -103,7 +103,8 @@ export class QuestionBodyComponent{
                     this.loadCategories();              
                 }
             }
-            subs.subscribe(res => {               
+            subs.subscribe(res => {             
+                this.commServ.setCategory(this.id);       
                 this.questions = res;
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);       
                 this.hideLoader();    

@@ -159,12 +159,11 @@ export class ApSearchComponent {
     }
     addQuestionMark() {
         var input = document.getElementById("title");
-        //this.title = '?';
     }
     isOnModal = false;
     showModal() {
         //Add ?? mark on click
-        this.title = '¿'+'?';
+        this.title = '¿'+ this.title+'?';
 
         var form = document.getElementById("search-panel");
         var viewportOffset = form.getBoundingClientRect();

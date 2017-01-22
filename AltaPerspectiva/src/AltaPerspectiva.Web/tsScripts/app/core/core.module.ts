@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {HttpModule  } from '@angular/http';
-
+import { CommunicationService } from '../services/communication.service';
 
 //====core components============
 import { HomeComponent } from './home.component';
@@ -21,21 +21,13 @@ import { QuestionModule } from '../questions/question.module';
 import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
-
-
 import {PopoverModule} from "ng2-popover";
-
-
-////New component added to module
-//import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
-//import { TopFiveUserComponent } from './left-menu/topfive-user.component';
-
 
 @NgModule({
     imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing, PopoverModule
     ],
     providers: [
-        { provide: 'Window', useValue: window }
+        { provide: 'Window', useValue: window }, CommunicationService
     ],
     declarations: [
         //Core Components
@@ -68,7 +60,6 @@ import {PopoverModule} from "ng2-popover";
         //other app component
         LearnHome,
         ProjectHome,
-
         //question left menu
         //category
       //  QuestionMenuPanelComponent
