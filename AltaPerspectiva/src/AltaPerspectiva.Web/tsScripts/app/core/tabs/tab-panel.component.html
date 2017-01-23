@@ -15,12 +15,12 @@
         <div class="tab" *ngFor="let question of questions">
             <div class="panel-article">
                 <div class="questions-container">
-                    <div  (click)="openDialogBox(question)" class="details-container">
+                    <div class="details-container">
                         <question-header [question]="question"></question-header>
                         <h3 class="question-title">
                             <a  [routerLink]="['/question/detail',question.id]">{{question.title}}</a>
                         </h3>
-                        <div class="article-details">
+                        <div class="article-details" (click)="openDialogBox(question)">
                             <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
                             <div *ngIf="question.bestAnswer?.text">
                                 <p [innerHTML]="question.bestAnswer?.text"></p><span><a (click)="openDialogBox(question)" >Read more..</a></span>
