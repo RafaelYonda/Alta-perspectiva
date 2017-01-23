@@ -20,7 +20,8 @@ export class ApSearchComponent {
     @Input() placeBottom: string = '';
     topics:Topic[];
     levels:Level[];
-    questionSaveViewModel:QuestionSaveViewModel;
+    questionSaveViewModel: QuestionSaveViewModel;
+    isAnonymous:boolean;
     onCategoryChange(categoryId) {
         //console.log(categoryId);
         this.categoryID = categoryId;
@@ -67,7 +68,11 @@ export class ApSearchComponent {
         if (value && (value == 'search-box') || (value == 'adv-search'))
             this.removeModal();
     }
-
+    onChange(event) {
+        
+        this.isAnonymous = event;
+        console.log(" : " + this.isAnonymous );
+    }
     //=============Submit Question===========
     question: Question;
 
@@ -78,8 +83,8 @@ export class ApSearchComponent {
         this.question.title = this.title;
         this.question.body = this.body;
         this.question.topicId = this.topicID == '-1' ? '' : this.topicID;
-        this.question.levelId = this.levelID=='-1'?'':this.levelID;  
-        
+        this.question.levelId = this.levelID=='-1'?'':this.levelID;
+        this.question.isAnonymous = this.isAnonymous;
         //CategoryID=-1 is for placeholder .So will not be added to question while savings
         if (this.categoryID != '-1')
             this.question.categoryIds.push(this.categoryID);
