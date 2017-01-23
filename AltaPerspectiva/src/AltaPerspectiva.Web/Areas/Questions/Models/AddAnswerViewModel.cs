@@ -17,5 +17,6 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         public Guid QuestionId { get; set; }
 
         public bool? IsDrafted { get; set; }
+        public bool? IsAnonymous { get; set; }
     }
 }

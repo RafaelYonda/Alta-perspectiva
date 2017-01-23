@@ -41,7 +41,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                               AnswerId = z.AnswerId,
                                               Id = z.Id,
                                               UserId = z.UserId
-                                          }).ToList()
+                                          }).ToList(),
+                                          IsAnonymous = x.IsAnonymous
 
                                       }).ToList();
 
@@ -117,7 +118,9 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                         AnswerId = z.AnswerId,
                                         Id = z.Id,
                                         UserId = z.UserId
-                                    }).ToList()
+                                    }
+                                    ).ToList(),
+                                    IsAnonymous = x.IsAnonymous
                                 }).ToList();
 
             qv.Likes = q.Likes.Select(l => new QuestionLikeViewModel { Id = l.Id, QuestionId = l.QuestionId.Value, UserId = l.UserId, UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId) }).ToList();
@@ -133,6 +136,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             qv.QuestionTopics = q.QuestionTopics;
             qv.QuestionLevels = q.QuestionLevels;
 
+            qv.IsAnonymous = q.IsAnonymous;
 
             foreach (var questionTopic in qv.QuestionTopics)
             {

@@ -39,6 +39,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         public List<String> QuestionLevelNames { get; set; }
         public List<String> QuestionTopicNames { get; set; }
 
+        public bool? IsAnonymous { get; set; }
         public QuestionViewModel()
         {
             Categories = new List<CategoryViewModel>();

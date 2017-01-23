@@ -37,6 +37,7 @@
             answer.Text = command.Text;            
             answer.UserId = command.UserId;
 		    answer.IsDrafted = command.IsDrafted;//isDrafted added
+		    answer.IsAnonymous = command.IsAnonymous;//IsAnonymous added
             answer.CreatedOn = DateTime.Now;
             answer.CreatedBy = command.UserId;
             answer.DTS = DateTime.Now;             

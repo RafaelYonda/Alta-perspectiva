@@ -9,4 +9,5 @@ import {User, Comment } from '../../services/models';
 export class UserInfoComponent {
     @Input() userObj: User;
     @Input() viewDate: Date;
+    @Input() isAnonymous:boolean;
 }

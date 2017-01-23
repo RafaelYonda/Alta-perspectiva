@@ -199,7 +199,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
            
-            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text,answer.AnswerDate,answer.QuestionId, loggedinUser,answer.IsDrafted);
+            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text,answer.AnswerDate,answer.QuestionId, loggedinUser,answer.IsDrafted,answer.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 

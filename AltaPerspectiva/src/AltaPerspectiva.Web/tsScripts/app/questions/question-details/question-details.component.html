@@ -11,7 +11,7 @@
         {{question.title}}
     </h1>
     <div class="article-details">
-        <user-info [userObj]="question.userViewModel" [viewDate]="question?.createdOn"></user-info>
+        <user-info [userObj]="question.userViewModel" [viewDate]="question?.createdOn" [isAnonymous]="question?.isAnonymous"></user-info>
         <p class="answer-text" [innerHTML]="question.body"></p>
         <div class="clearfix"></div>
         <ap-status [isQuestion]='true' [questionObj]="question"> </ap-status>

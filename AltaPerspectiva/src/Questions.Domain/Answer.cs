@@ -13,7 +13,7 @@
         public DateTime AnswerDate { get; set; }
         public Guid UserId { get; set; }
         public Guid? QuestionId { get; set; }
-
+        public bool? IsAnonymous { get; set; }
         public bool? IsDrafted { get; set; }
         public virtual Question Question { get; set; }        
         public virtual ICollection<Comment> Comments { get; set; }        
