@@ -1,4 +1,7 @@
-﻿    <div class="left-panel">
+﻿<div class="row">
+    <div #dialogAnchor></div>
+</div>
+    <div class="left-panel">
         <div>.</div>
         <div id="leftPanel">
             <level></level>
@@ -54,7 +57,7 @@
         <div *ngFor="let question of questions" class="row">
             <div class="panel-article">
                 <div class="questions-container">
-                    <div class="details-container">
+                    <div class="details-container" (click)="openDialogBox(question)">
                         <question-header [question]="question"></question-header>
                         <h3 class="question-title">
                             <a [routerLink]="['/question/detail',question.id]">{{question.title}}</a>

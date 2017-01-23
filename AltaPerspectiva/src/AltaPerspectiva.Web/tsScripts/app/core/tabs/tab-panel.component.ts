@@ -27,13 +27,13 @@ export class TabPanelComponent {
     route: any;
     error: any;
     //Like
-
-
-    @ViewChild('dialogAnchor', { read: ViewContainerRef }) dialogAnchor: ViewContainerRef;
+    
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
         this.route = _route;
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
+
+    @ViewChild('dialogAnchor', { read: ViewContainerRef }) dialogAnchor: ViewContainerRef;
     openDialogBox(question: Question) {
         // Close any already open dialogs
         this.dialogAnchor.clear();
