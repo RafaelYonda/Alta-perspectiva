@@ -16,7 +16,7 @@
                     <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
                     <div>
                         <p [innerHTML]="question.bestAnswer?.text"></p>
-                        <button class="btn btn-default" [routerLink]="['/question/detail',question.id]">View Other answer</button>
+                        <button *ngIf="question.answerCount>1" class="btn btn-default" [routerLink]="['/question/detail',question.id]">View Other {{question?.answerCount-1}} answers</button>
                     </div>
                 </div>
             </div>
