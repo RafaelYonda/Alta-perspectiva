@@ -65,5 +65,22 @@ namespace Questions.Query
 
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Question>> GetBookmark(Guid userId)
+        {
+            return await DbContext.Questions.Where(x=>x.Bookmarks.Any(u=>u.UserId==userId))
+                                   .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                   .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                   .Include(q => q.Categories)
+                                       .ThenInclude(c => c.Category)
+                                   .Include(q => q.Comments)
+                                   .Include(q => q.Likes)
+                                   .Include(q => q.QuestionLevels)
+                                   .Include(q => q.QuestionTopics)
+                                       .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                           .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                               .Take(20)
+                                                   .ToListAsync();
+        }
     }
 }

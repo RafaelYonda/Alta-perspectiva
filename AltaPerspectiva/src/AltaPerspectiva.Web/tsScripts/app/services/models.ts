@@ -133,7 +133,8 @@ export class AnswerViewModel {
     likes: Like[];
     comments: Comment[];
     createdOn: Date;
-    IsAnonymous: boolean;//IsAnonymous added 
+    isAnonymous: boolean;//IsAnonymous added 
+    isDrafted:boolean;
 constructor() {
        
         this.likes = new Array();

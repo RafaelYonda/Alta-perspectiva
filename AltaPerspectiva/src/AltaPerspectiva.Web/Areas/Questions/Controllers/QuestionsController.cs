@@ -493,6 +493,31 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Created($"questions/api/questions/{cmd.Id}", question);
         }
 
+
+        #region Bookmark
+        [HttpGet("/questions/api/getbookmark")]
+        public async Task<IActionResult> GetBookmark()
+        {
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+
+            var questionByBookmarked = await queryFactory.ResolveQuery<IQuestionsQuery>().GetBookmark(loggedinUser);
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+
+            questions = new QuestionService().GetQuestionViewModel(questionByBookmarked, queryFactory);
+
+            return Ok(questions);
+        }
+
+
+
+
         [HttpPost("/questions/api/{questionId}/addbookmark")]
         public IActionResult AddBookMark(Guid questionId)
         {
@@ -504,12 +529,16 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
-            AddBookmarkCommand cmd=new AddBookmarkCommand(loggedinUser,questionId);
+            AddBookmarkCommand cmd = new AddBookmarkCommand(loggedinUser, questionId);
 
             commandsFactory.ExecuteQuery(cmd);
 
             return Created($"/questions/api/{cmd.Id}/addbookmark", questionId);
         }
+
+       
+        #endregion
+
     }
 }
 

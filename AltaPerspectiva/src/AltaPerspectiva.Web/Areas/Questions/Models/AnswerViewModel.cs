@@ -20,6 +20,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         public ICollection<AnswerLikeViewModel> Likes { get; set; }
         public Guid QuestionId { get; set; }
         public bool? IsAnonymous { get; set; }
+        public bool? IsDrafted { get; set; }
         public DateTime? CreatedOn { get; set; }
     }
 }
