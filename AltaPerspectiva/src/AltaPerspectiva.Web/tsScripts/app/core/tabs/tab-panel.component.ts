@@ -1,6 +1,6 @@
 ﻿/// <reference path="dialog.component.ts" />
-import { Component, ViewContainerRef, ComponentFactoryResolver,ViewChild } from '@angular/core';
-import { ActivatedRoute,Router } from '@angular/router';
+import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { LogInObj } from '../../services/models';
@@ -25,13 +25,13 @@ export class TabPanelComponent {
     //Comment
     comment: Comment;
     question: Question;
-     route: any;
+    route: any;
     error: any;
     //Like
-    
-    
+
+
     @ViewChild('dialogAnchor', { read: ViewContainerRef }) dialogAnchor: ViewContainerRef;
-    constructor(private componentFactoryResolver: ComponentFactoryResolver,private _route: ActivatedRoute,  private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
         this.route = _route;
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
@@ -44,9 +44,9 @@ export class TabPanelComponent {
         dialogComponentRef.instance.question = question; // Not sure about the translation here
         dialogComponentRef.instance.close.subscribe(() => {
             dialogComponentRef.destroy();
-        })
+        });
     }
-    ngOnInit() {   
+    ngOnInit() {
         var currentUser = localStorage.getItem('auth_token');
         this.authService.getLoggedinObj().subscribe(res => {
             if (res && currentUser != "null") {
@@ -55,28 +55,27 @@ export class TabPanelComponent {
                 this._logObj.isLoggedIn = true;
             }
         });
-        
+
         this.sub = this.route.params.subscribe(params => {
-           
+
             this.id = params['id']; // (+) converts string 'id' to a number 
-           
+
             this.questionAnswerService.getQuestionsByCategory(this.id).subscribe(res => {
                 this.questions = res;
-                for (var q = 0; q< this.questions.length; q++)
-                {                    
+                for (var q = 0; q < this.questions.length; q++) {
                     // answers[0] is the best answer
                     this.questions[q].bestAnswer = this.questions[q].answers[0];
 
                     if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
                         var temp = this.questions[q].bestAnswer.text.substring(0, 200);
                         this.questions[q].bestAnswer.text = temp;
-                        this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id +"'>read more...</a>";
+                        this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
                         this.questions[q].shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questions[q].id);
                     }
                 }
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             });
-        }); 
+        });
     }
     ShowModal(questionId) {
         console.log(questionId);

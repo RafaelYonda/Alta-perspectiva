@@ -168,8 +168,9 @@ export class ApSearchComponent {
         var form = document.getElementById("search-panel");
         var viewportOffset = form.getBoundingClientRect();
         this.searchClass = document.getElementById("search-box").className;
-        document.getElementById("search-box").className = "modal-container z-modal";
+        document.getElementById("search-box").className = "modal-overlay z-modal";
         form.style.marginTop = '15px';
+        this.isOnModal = true;
         
     }
     removeModal() {
