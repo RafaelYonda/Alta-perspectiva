@@ -3,8 +3,8 @@ import { Question} from '../../services/models';
 
 @Component({
     selector: 'dlg',
-    templateUrl: 'js/app/core/tabs/dialog.component.html',
-    styleUrls: ['js/app/core/tabs/dialog.component.css'],
+    templateUrl: 'js/app/shared/dialog-modal/dialog.component.html',
+    styleUrls: ['js/app/shared/dialog-modal/dialog.component.css'],
 })
 export class DialogComponent {
     close = new EventEmitter();
