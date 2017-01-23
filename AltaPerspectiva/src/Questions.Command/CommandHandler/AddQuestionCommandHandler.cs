@@ -36,6 +36,8 @@
             question.Title = command.Title;
             question.Body = command.Body ?? "";
             question.UserId = command.UserId;
+            //IsAnonums added
+            question.IsAnonymous = command.IsAnonymous;
             question.CreatedOn = command.Date;
             question.CreatedBy = command.UserId;
             question.DTS = command.Date;

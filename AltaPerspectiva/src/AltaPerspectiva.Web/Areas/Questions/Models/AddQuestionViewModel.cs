@@ -18,6 +18,9 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         public string TopicId { get; set; }
         public string LevelId { get; set; }
 
+
+        //ananomus
+        public bool? IsAnonymous { get; set; }
         public AddQuestionViewModel()
         {
             CategoryIds = new List<Guid>();

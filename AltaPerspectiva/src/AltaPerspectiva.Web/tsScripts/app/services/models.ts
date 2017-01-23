@@ -79,6 +79,7 @@ export class Question {
     answerCount:number;
     topicId: string;
     levelId: string;
+    isAnonymous:boolean;//IsAnonymous added 
     constructor() {
         this.user = new User();
         this.answers = new Array();
@@ -114,6 +115,7 @@ export class Answer {
     user: User;
     answerText: string;
     date: Date;
+    isDrafted:boolean; //IsDrafted added 
     likes: Like[];    
     comments: Comment[];
    constructor() {

@@ -199,7 +199,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
            
-            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text,answer.AnswerDate,answer.QuestionId, loggedinUser);
+            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text,answer.AnswerDate,answer.QuestionId, loggedinUser,answer.IsDrafted);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 
@@ -501,7 +501,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 levelId=new Guid(question.LevelId);
             }
             
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId,levelId);
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId,levelId,question.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
             Guid questionId = cmd.Id;
 

@@ -4,6 +4,10 @@ GO
 ALTER TABLE [Questions].[Questions]
 ADD  [IsAnonymous] [bit] NULL
 
+GO
+ALTER TABLE [Questions].[Answers]
+ADD  [IsDrafted] [bit] NULL
+
 
 /****** Object:  Table [Questions].[Bookmarks]    Script Date: 1/22/2017 6:20:18 PM ******/
 SET ANSI_NULLS ON
