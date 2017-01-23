@@ -152,6 +152,9 @@
                       margin-top: 2px;
                       cursor: pointer;
          }
+         .align-of-header {
+                 margin-top: 6px;
+         }
     </style>
 </head>
 
@@ -168,15 +171,13 @@
                 <a asp-controller="Home" asp-action="Index" class="navbar-brand fixHeader">Altaperspectiva</a>
             </div>
             <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    </ul>*@
+                <ul class="nav navbar-nav">
+                        <li class="align-of-header"><a asp-controller="Home" asp-action="Index">My Bookmark</a></li>
+                       
+                    </ul>
                 <ul></ul>
                 @if (User.Identity.IsAuthenticated)
                 {
-                   
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <div class="dropdown-menu-right" role="menu">

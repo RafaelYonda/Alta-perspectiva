@@ -24,7 +24,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 qv.Body = q.Body;
                 qv.CreatedOn = q.CreatedOn;
                 qv.UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId);
-                qv.Answers = q.Answers.OrderByDescending(y => y.Likes.Count).Take(1).Select(x =>
+                qv.Answers = q.Answers.Where(drafted => drafted.IsDrafted != true).OrderByDescending(y => y.Likes.Count).Take(1).Select(x =>
                                       new AnswerViewModel
                                       {
                                           Id = x.Id,
@@ -57,7 +57,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 qv.QuestionTopics = q.QuestionTopics;
                 qv.QuestionLevels = q.QuestionLevels;
 
-                qv.AnswerCount = q.Answers.Count;
+                qv.AnswerCount = q.Answers.Where(drafted => drafted.IsDrafted != true).ToList().Count;
                 foreach (var questionTopic in qv.QuestionTopics)
                 {
                     var topicId = questionTopic.TopicId;

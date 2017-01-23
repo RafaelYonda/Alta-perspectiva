@@ -185,9 +185,6 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(commentsVM);
         }
 
-        // POST /questions/api/questions       
-
-
         // POST /questions/api/question/{id}/answer
         [HttpPost("/questions/api/question/{id}/answer")]
         public IActionResult PostAnswer([FromBody]AddAnswerViewModel answer)
@@ -338,19 +335,6 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Created($"/questions/api/question/{cmd.Id}/viewcount/{cmd.Id}", cmd);
 
         }
-
-        // PUT api/questions/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/questions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-
         //all like added 
         [HttpGet("/questions/api/question/{questionId}/questionlike")]
         public async Task<IActionResult> GetQuestionLike(Guid questionId)
