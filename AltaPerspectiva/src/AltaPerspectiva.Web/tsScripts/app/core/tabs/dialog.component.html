@@ -1,15 +1,19 @@
-﻿<div class="dialog overlay">
-    <header><div class="title">Question Dialog</div><div class="exit-button" (click)="onClickedExit()">x</div></header>
-    <div class="panel-article">
-        <div class="questions-container">
-            <div class="details-container">
-                <h3 class="question-title">
-                    <a>{{question.title}}</a>
-                </h3>
-                <div class="article-details">
-                    <div>
-                        <p [innerHTML]="question.bestAnswer?.text"></p>
-                        <button class="btn btn-default" [routerLink]="['/question/detail',question.id]">View Other answer</button>
+﻿<div class="modal-overlay z-modal">
+    <div class="dialog">
+        <header>
+            <h3 class="question-title">
+                {{question.title}}
+            </h3><div class="exit-button" (click)="onClickedExit()">x</div>
+        </header>
+        <div class="panel-article">
+            <div class="questions-container">
+                <div class="details-container">
+
+                    <div class="article-details">
+                        <div>
+                            <p [innerHTML]="question.bestAnswer?.text"></p>
+                            <button class="btn btn-default" [routerLink]="['/question/detail',question.id]">View Other answer</button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,18 +1,16 @@
 ﻿.dialog {
     padding: 30px;
     background-color: white;
-    position: absolute;
     border: 1px solid black;
     border-radius: 5px;
     overflow: hidden;
-    position: fixed;
-    left: calc(50% - 125px);
-    top: 60%;
+    max-width: 60%;
+    margin: 20px auto;
+    flex-grow:1;
 }
-
-    .dialog p {
-        text-align: center;
-    }
+.dialog p{
+    margin-bottom:10px;
+}
 
     .dialog header {
         border-bottom: 1px solid black;
@@ -29,4 +27,5 @@
         .dialog header .exit-button {
             cursor: pointer;
             padding: 0 5px;
+            font-size: 30px;
         }
