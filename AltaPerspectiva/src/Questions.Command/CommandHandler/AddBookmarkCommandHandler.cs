@@ -9,6 +9,7 @@
     using System.Collections.Generic;
     using System;
     using Microsoft.EntityFrameworkCore;
+ 
 
     /// <summary>
     ///     Create new inactive user
@@ -27,18 +28,23 @@
 		{
 			Debug.WriteLine("AddBookmarkCommandHandler executed");
 
-            Bookmark bookmark=new Bookmark();
-            bookmark.GenerateNewIdentity();
-		    bookmark.QuestionId = command.QuestionId;
-		    bookmark.UserId = command.UserId;
-            
+		    var alreadyBookmarked =
+		        DbContext.Bookmarks.Where(x => x.UserId == command.UserId && x.QuestionId == x.QuestionId).FirstOrDefault();
 
-                   
-                        
-            DbContext.Bookmarks.Add(bookmark);
-            DbContext.SaveChanges();
+		    if (alreadyBookmarked == null)
+		    {
+                Bookmark bookmark = new Bookmark();
+                bookmark.GenerateNewIdentity();
+                bookmark.QuestionId = command.QuestionId;
+                bookmark.UserId = command.UserId;
 
-			command.Id = bookmark.Id;
+                DbContext.Bookmarks.Add(bookmark);
+                DbContext.SaveChanges();
+
+                command.Id = bookmark.Id;
+            }
+
+          
 		}
     }
 }
