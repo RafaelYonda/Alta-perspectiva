@@ -16,4 +16,11 @@ export class DialogComponent {
     ngOnInit() {
         console.log(this.question);
     }
+    handleClick(event) {
+        //removel the modal on clicking out side the panel
+        var idAttr = event.srcElement.attributes.id;
+        var value = idAttr ? idAttr.nodeValue : undefined;
+        if (value =='dialogModal')
+            this.close.emit('event');
+    }
 }

@@ -18,7 +18,6 @@ import { TopFiveUserComponent } from './left-menu/topfive-user.component';
 import { TopFiveTopicComponent } from './left-menu/topfive-topic.component';
 import { RelatedTopicComponent } from './left-menu/related-topic.component';
 import { LevelComponent } from './left-menu/level.component';
-
 import { CommunicationService } from '../services/communication.service';
 /*popover*/
 import {PopoverModule} from "ngx-popover";
