@@ -1,5 +1,4 @@
-﻿/// <reference path="tabs/dialog.component.ts" />
-import { NgModule, Input } from '@angular/core';
+﻿import { NgModule, Input } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
@@ -21,7 +20,6 @@ import { LearnHome } from '../learning/learnHome';
 import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
 import {PopoverModule} from "ngx-popover";
-import {DialogComponent} from "./tabs/dialog.component";
 
 @NgModule({
     imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing, PopoverModule
@@ -45,7 +43,7 @@ import {DialogComponent} from "./tabs/dialog.component";
 
        //category
        // QuestionMenuPanelComponent
-        DialogComponent
+        
     ],
     exports: [
         RouterModule,
@@ -63,10 +61,9 @@ import {DialogComponent} from "./tabs/dialog.component";
         //question left menu
         //category
       //  QuestionMenuPanelComponent
-        DialogComponent
+        
 
 
     ],
-    entryComponents: [DialogComponent]
 })
 export class CoreModule { }

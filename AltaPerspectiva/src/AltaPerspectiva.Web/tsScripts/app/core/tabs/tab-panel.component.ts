@@ -1,10 +1,9 @@
-﻿/// <reference path="dialog.component.ts" />
-import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
+﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { LogInObj } from '../../services/models';
-import { DialogComponent } from './dialog.component';
+import { DialogComponent } from '../../shared/dialog-modal/dialog.component';
 
 //Comment added
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
