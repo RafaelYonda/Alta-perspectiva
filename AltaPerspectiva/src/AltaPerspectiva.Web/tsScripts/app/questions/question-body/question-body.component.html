@@ -1,4 +1,7 @@
-﻿    <div class="left-panel">
+﻿<div class="row">
+    <div #dialogAnchor></div>
+</div>
+    <div class="left-panel">
         <div>.</div>
         <div id="leftPanel">
             <level></level>
@@ -54,12 +57,12 @@
         <div *ngFor="let question of questions" class="row">
             <div class="panel-article">
                 <div class="questions-container">
-                    <div class="details-container">
+                    <div class="details-container" >
                         <question-header [question]="question"></question-header>
                         <h3 class="question-title">
                             <a [routerLink]="['/question/detail',question.id]">{{question.title}}</a>
                         </h3>
-                        <div class="article-details">
+                        <div class="article-details" (click)="openDialogBox(question)">
                             <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
                             <div class="answer-text" [innerHTML]="question.bestAnswer?.text?.substring(0,200)"></div>
                             <div *ngIf="question.answers[question.answers.length-1]"> by {{question.answers[question.answers.length-1]?.userViewModel?.name}} {{question.answers[question.answers.length-1]?.createdOn | date: 'dd MMM, yyyy'}}</div>

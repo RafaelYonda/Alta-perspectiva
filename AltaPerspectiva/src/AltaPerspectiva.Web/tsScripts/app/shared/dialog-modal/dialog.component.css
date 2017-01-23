@@ -6,11 +6,13 @@
     overflow: hidden;
     max-width: 60%;
     margin: 20px auto;
-    flex-grow:1;
+    flex-grow: 1;
+    position:relative;
 }
-.dialog p{
-    margin-bottom:10px;
-}
+
+    .dialog p {
+        margin-bottom: 10px;
+    }
 
     .dialog header {
         border-bottom: 1px solid black;
@@ -23,9 +25,10 @@
             flex-grow: 1;
             cursor: default;
         }
-
-        .dialog header .exit-button {
+.exit-button {
             cursor: pointer;
-            padding: 0 5px;
+            position:absolute;
+            top:15px;
+            right:15px;
             font-size: 30px;
         }

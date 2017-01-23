@@ -19,18 +19,21 @@ import { TopFiveTopicComponent } from './left-menu/topfive-topic.component';
 import { RelatedTopicComponent } from './left-menu/related-topic.component';
 import { LevelComponent } from './left-menu/level.component';
 import { CommunicationService } from '../services/communication.service';
-/*popover*/
+/*Plug in components*/
 import {PopoverModule} from "ngx-popover";
+import {DialogComponent} from "./dialog-modal/dialog.component";
+
 @NgModule({
     imports: [BrowserModule, FormsModule, CKEditorModule, RouterModule,PopoverModule],
     providers: [
         { provide: 'Window', useValue: window }, CommunicationService
     ],
     declarations: [
-        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent,RelatedTopicComponent,LevelComponent
+        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent
     ],
     exports: [
-        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent,RelatedTopicComponent,LevelComponent
-    ]
+        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent
+    ],
+    entryComponents: [DialogComponent]
 })
 export class SharedModule { }
