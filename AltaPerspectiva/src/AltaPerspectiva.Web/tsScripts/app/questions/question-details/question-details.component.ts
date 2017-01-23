@@ -58,10 +58,9 @@ export class QuestionDetailComponent {
                 });
             });
     }
+    //anonymous checkbox
     onChange(event) {
-
         this.isAnonymous = event;
-        console.log(" : " + this.isAnonymous);
     }
     submitAnswer(_id: string) {
 

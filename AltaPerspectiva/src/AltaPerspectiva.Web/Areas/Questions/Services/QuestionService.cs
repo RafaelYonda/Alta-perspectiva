@@ -101,7 +101,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             qv.Body = q.Body;
             qv.CreatedOn = q.CreatedOn;
             qv.UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId);
-            qv.Answers = q.Answers.Select(x =>
+            qv.Answers = q.Answers.Where(drafted=>drafted.IsDrafted!=true).Select(x => //Drafted is nullable .so only true are drafted
                                 new AnswerViewModel
                                 {
                                     Id = x.Id,
@@ -131,7 +131,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
 
             qv.ViewCount = q.ViewCount;
-            qv.AnswerCount = q.Answers.Count;
+            qv.AnswerCount = q.Answers.Where(isDrafted=>isDrafted.IsDrafted!=true).ToList().Count;
 
             qv.QuestionTopics = q.QuestionTopics;
             qv.QuestionLevels = q.QuestionLevels;

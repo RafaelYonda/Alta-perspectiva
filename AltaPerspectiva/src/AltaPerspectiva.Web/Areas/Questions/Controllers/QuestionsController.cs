@@ -26,6 +26,7 @@ namespace AltaPerspectiva.Web.Area.Questions
     [Area("Questions")]    
     public class QuestionsController : Controller
     {
+        #region Ctor and config
         ICommandsFactory commandsFactory;
         IQueryFactory queryFactory;
         private readonly IConfigurationRoot configuration;
@@ -45,7 +46,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             config.CategoryImage = configuration["CategoryImage"];           
             return Ok(config);
         }
-
+        #endregion
         // GET: /questions/api/questions
         [HttpGet("/questions/api/questions")]
         public async Task<IActionResult> Get()
