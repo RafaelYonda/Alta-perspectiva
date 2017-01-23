@@ -28,7 +28,7 @@
         </div>
         <hr />
     </div>
-   
+
     <!-- =========Answers============== -->
     <div *ngFor="let answer of question.answers">
         <div class="article-details" *ngIf="answer">
@@ -51,7 +51,17 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h1>&iquest;{{question.title}}?</h1>
-                    <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
+                    <div *ngIf="!isAnonymous">
+                        <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
+                    </div>
+                    <div *ngIf="isAnonymous">
+                        <img class="user-image " src="../../../../profile/Anonymous.png" />
+                    </div>
+                    
+                    <br/>
+                    <div>
+                        <input type="checkbox" #answerAnonymous [checked]=false (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar Anonimo</label>
+                    </div>
                     <div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
 
                     <div [hidden]="answerField.valid || answerField.pristine"

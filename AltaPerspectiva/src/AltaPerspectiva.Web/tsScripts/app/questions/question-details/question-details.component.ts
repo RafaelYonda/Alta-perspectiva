@@ -31,6 +31,8 @@ export class QuestionDetailComponent {
 
     private sub: any;
     question: Question;
+
+    isAnonymous: boolean;//anonymous added to 
     constructor(private router: Router, private _route: ActivatedRoute, private questionService: QuestionResolver,
         private dataService: QuestionAnswerService, private authService: AuthenticationService) {
         this.route = _route;
@@ -56,13 +58,17 @@ export class QuestionDetailComponent {
                 });
             });
     }
+    onChange(event) {
 
+        this.isAnonymous = event;
+        console.log(" : " + this.isAnonymous);
+    }
     submitAnswer(_id: string) {
 
         this.answerVM = new AnswerViewModel();
         this.answerVM.questionId = _id;
         this.answerVM.text = this.answerText;
-
+        this.answerVM.IsAnonymous = this.isAnonymous;
         this.dataService.addAnswer(this.answerVM).subscribe(res => {
 
             this.answerVM = res;
