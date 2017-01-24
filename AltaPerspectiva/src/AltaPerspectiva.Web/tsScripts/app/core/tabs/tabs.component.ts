@@ -16,6 +16,7 @@ export class TabsComponent {
     transform: number;
     translate: string;
     _router: Router;
+    isAnonymous: boolean;//anonymous added to 
     constructor(private categoryService: CategoryService, private commServ: CommunicationService ,route: Router) {
         this._router = route;
         this.categoryService.getAllCategories().subscribe(res => {
@@ -34,6 +35,12 @@ export class TabsComponent {
         //console.log('on init');
         //this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
     }
+    //anonymous checkbox
+    onChange(event) {
+        console.log('anonymous checkbox');
+        this.isAnonymous = event;
+    }
+
     leftclick() {
         //return tabs are at its left most position
         console.log(this.tabLength);

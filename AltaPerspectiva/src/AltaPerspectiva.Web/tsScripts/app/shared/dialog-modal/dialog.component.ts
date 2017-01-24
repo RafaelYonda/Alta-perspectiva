@@ -14,7 +14,7 @@ export class DialogComponent {
         this.close.emit('event');
     }
     ngOnInit() {
-        console.log(this.question);
+        console.log('My question'+this.question);
     }
     handleClick(event) {
         //removel the modal on clicking out side the panel

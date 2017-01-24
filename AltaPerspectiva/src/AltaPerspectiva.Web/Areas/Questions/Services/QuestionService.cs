@@ -58,6 +58,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 qv.QuestionLevels = q.QuestionLevels;
 
                 qv.AnswerCount = q.Answers.Where(drafted => drafted.IsDrafted != true).ToList().Count;
+                qv.IsAnonymous = q.IsAnonymous;
                 foreach (var questionTopic in qv.QuestionTopics)
                 {
                     var topicId = questionTopic.TopicId;

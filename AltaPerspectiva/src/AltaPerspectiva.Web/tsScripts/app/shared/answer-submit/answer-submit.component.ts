@@ -26,6 +26,11 @@ export class AnswerSubmitComponent {
             this._logObj.user.imageUrl = currentUserImage;
         }
     }
+    //anonymous checkbox
+    onChange(event) {
+        this.isAnonymous = event;
+    }
+
     submitAnswer(_id: string) {
         this.answerVM = new AnswerViewModel();
         this.answerVM.questionId = _id;
@@ -39,5 +44,22 @@ export class AnswerSubmitComponent {
 
         });
 
+    }
+    submitAnswerAsDraft(_id: string) {
+
+        this.answerVM = new AnswerViewModel();
+        this.answerVM.questionId = _id;
+        this.answerVM.text = this.answerText;
+        this.answerVM.isAnonymous = this.isAnonymous;
+        this.answerVM.isDrafted = true;
+
+        this.dataService.addAnswer(this.answerVM).subscribe(res => {
+
+            this.answerVM = res;
+            this.answerText = "";
+            this.isAnonymous = false;
+            this._router.navigateByUrl('question/detail/' + this.question.id, { skipLocationChange: true });
+
+        });
     }
 }

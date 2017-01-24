@@ -182,6 +182,10 @@ namespace AltaPerspectiva
             //Bookmarks
             services.AddTransient<ICommandHandler<AddBookmarkCommand>, AddBookmarkCommandHandler>();
 
+            //Update question
+            //Bookmarks
+            services.AddTransient<ICommandHandler<UpdateQuestionCommand>, UpdateQuestionCommandHandler>();
+
         }
 
 

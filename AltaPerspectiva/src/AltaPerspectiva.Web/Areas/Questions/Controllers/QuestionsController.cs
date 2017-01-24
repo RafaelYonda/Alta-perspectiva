@@ -594,6 +594,27 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(questions);
         }
 
+
+        [HttpPost("/questions/api/{questionId}/updatedquestion")]
+        public IActionResult UpdateQuestion([FromBody]AddQuestionViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+
+            if (model.TopicId == null)
+            {
+                return NotFound("TopicId not found");
+            }
+            UpdateQuestionCommand cmd=new UpdateQuestionCommand(model.Id,model.Title,model.Body,model.IsAnonymous);
+            commandsFactory.ExecuteQuery(cmd);
+            return Ok();
+
+        }
     }
 }
 
