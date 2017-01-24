@@ -8,8 +8,9 @@ import { CommentComponent } from './comment/comment.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { QuestionHeaderComponent } from './question-header/question-header.component';
 import { StatusComponent } from './status/status.component';
-import { AppCkEditorComponent } from './apCkEditor.component';
+import { AppCkEditorComponent } from './apCkEditor.component'; 
 import { AnswerDialogComponent } from './answer-dialog/answer-dialog.component';
+import { AnswerSubmitComponent } from './answer-submit/answer-submit.component';
 /*Left Menu*/
 import { CategoryMenuPanelComponent } from './left-menu/category-left-menu.component';
 import { TopFiveQuestionLeftMenuComponent } from './left-menu/topfive-question-left-menu.component';
@@ -30,12 +31,12 @@ import { CKEditorModule } from 'ng2-ckeditor';
         { provide: 'Window', useValue: window }, CommunicationService
     ],
     declarations: [
-        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent
+        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent, AnswerSubmitComponent
         //Plug ins
 
     ],
     exports: [
-        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent
+        ApSearchComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent, AnswerSubmitComponent
     ],
     entryComponents: [DialogComponent, AnswerDialogComponent]
 })
