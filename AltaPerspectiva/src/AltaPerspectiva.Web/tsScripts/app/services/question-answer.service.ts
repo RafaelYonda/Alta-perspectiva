@@ -101,7 +101,12 @@ export class QuestionAnswerService implements Resolve<Question> {
             .refCount();
 
     }
-
+    //
+    getbookmark(): Observable<Question[]> {
+        return this._http.get('/questions/api/getbookmark')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     addQuestions(question: Question): Observable<Question> {
 
         return this._http.post('/questions/api/questions', question)

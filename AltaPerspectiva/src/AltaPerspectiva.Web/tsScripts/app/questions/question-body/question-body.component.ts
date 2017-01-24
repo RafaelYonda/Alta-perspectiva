@@ -121,6 +121,10 @@ export class QuestionBodyComponent{
                     // questions loaded by latest, without categoryId
                     subs = this.questionService.getQuestions();
                 }
+                //Question with bookmarks
+                else if (this.id == '2') {
+                    subs = this.questionService.getbookmark();
+                }
                 else
                 {
                     // questions loaded by category id
