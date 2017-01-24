@@ -1,9 +1,11 @@
-﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
+﻿/// <reference path="../../shared/answer-dialog/answer-dialog.component.ts" />
+import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { LogInObj } from '../../services/models';
 import { DialogComponent } from '../../shared/dialog-modal/dialog.component';
+import { AnswerDialogComponent } from '../../shared/answer-dialog/answer-dialog.component';
 
 //Comment added
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
@@ -76,9 +78,22 @@ export class TabPanelComponent {
             });
         });
     }
+    @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
+    answerDialogBox(question: Question) {
+        // Close any already open dialogs
+        this.answerAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AnswerDialogComponent);
+        let dialogComponentRef = this.answerAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.question = question; // Not sure about the translation here
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }
     ShowModal(questionId) {
         console.log(questionId);
     }
+
     ngOnDestroy() {
         this.sub.unsubscribe();
     }

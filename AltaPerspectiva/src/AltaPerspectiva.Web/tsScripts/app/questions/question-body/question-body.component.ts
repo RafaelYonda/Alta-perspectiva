@@ -6,6 +6,7 @@ import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Co
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
 import { CommunicationService } from '../../services/communication.service';
 import { DialogComponent } from '../../shared/dialog-modal/dialog.component';
+import { AnswerDialogComponent } from '../../shared/answer-dialog/answer-dialog.component';
 
 export interface ILoader {
     isLoading: boolean;
@@ -45,7 +46,7 @@ export class QuestionBodyComponent{
     //categoryId
     topicId:string;
     categoryId:string;
-    constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private componentFactoryResolver: ComponentFactoryResolver,) {
+    constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private componentFactoryResolver: ComponentFactoryResolver) {
         this._router = router;
         this.route = route;
 
@@ -70,6 +71,18 @@ export class QuestionBodyComponent{
         });
     }
 
+    @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
+    answerDialogBox(question: Question) {
+        // Close any already open dialogs
+        this.answerAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AnswerDialogComponent);
+        let dialogComponentRef = this.answerAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.question = question; // Not sure about the translation here
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }
     ngOnInit() {
         var currentUserName = localStorage.getItem('currentUserName');
         var currentUserImage = localStorage.getItem('currentUserImage');
