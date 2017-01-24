@@ -560,10 +560,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
-            if (model.TopicId == null)
-            {
-                return NotFound("TopicId not found");
-            }
+           
             UpdateQuestionCommand cmd=new UpdateQuestionCommand(model.Id,model.Title,model.Body,model.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
             return Ok();

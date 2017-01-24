@@ -36,10 +36,10 @@
 		    {
 		        question.Title = command.Title;
 		        question.Body = command.Body;
-		        question.DTS = DateTime.Now;
-		        question.IsAnonymous = question.IsAnonymous;
+                question.CreatedOn= DateTime.Now;
+                question.ModifiedOn=DateTime.Now;
 
-		        DbContext.Questions.Add(question);
+                DbContext.Questions.Update(question);
 		        DbContext.SaveChanges();
 		    }
 

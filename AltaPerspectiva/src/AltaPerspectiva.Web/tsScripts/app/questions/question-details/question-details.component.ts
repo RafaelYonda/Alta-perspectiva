@@ -171,6 +171,9 @@ export class QuestionDetailComponent {
             this.question = res;
         })
     }
-
+    //[routerLink]="['/question/questionfullscreen',question.id]
+    //routechange() {
+   //     this.router.navigateByUrl('/question/questionfullscreen/' + this.question.id);
+    //}
 
 }
