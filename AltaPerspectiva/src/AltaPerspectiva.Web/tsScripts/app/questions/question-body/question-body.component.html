@@ -42,8 +42,8 @@
                 </a>
             <div class="row">
                 <div class="col-md-3">The latest question</div>
-                <div class="col-md-3">The best Question</div>
-                <div class="col-md-3">The more views</div>
+                <div class="col-md-3"><a (click)="bestquestionbytotallike(categorySelected.id)"> The best Question</a></div>
+                <div class="col-md-3"><a (click)="getmorequestionbyviewcount(categorySelected.id)">The more views</a></div>
             </div>
         </div>
 

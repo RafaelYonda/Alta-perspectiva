@@ -16,5 +16,12 @@ namespace Questions.Query
         Task<IEnumerable<Question>> GetQuestionByTopciNCategoryId(Guid topicId,Guid categoryId);
 
         Task<IEnumerable<Question>> GetBookmark(Guid userId);
+
+
+        //Question Home page
+        Task<IEnumerable<Question>> GetMoreViewedQuestionByViewCount(Guid categoryId);
+
+        Task<IEnumerable<Question>> GetBestQuestionbyTotalLike(Guid categoryId);
+
     }
 }

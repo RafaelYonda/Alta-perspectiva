@@ -82,5 +82,43 @@ namespace Questions.Query
                                                .Take(20)
                                                    .ToListAsync();
         }
+
+        public async Task<IEnumerable<Question>> GetMoreViewedQuestionByViewCount(Guid categoryId)
+        {
+            return await DbContext.Questions.Where(x=>x.Categories.Any(cc=>cc.CategoryId==categoryId))
+                
+                                  .Include(ql => ql.QuestionLevels)
+                                 .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                 .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                 .Include(q => q.Categories)
+                                     .ThenInclude(c => c.Category)
+                                 .Include(q => q.Comments)
+                                 .Include(q => q.Likes)
+                                 .Include(q => q.QuestionLevels)
+                                 .Include(q => q.QuestionTopics)
+                                 .OrderByDescending(d=>d.ViewCount)
+                                    
+                                             .Take(20)
+                                                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Question>> GetBestQuestionbyTotalLike(Guid categoryId)
+        {
+            return await DbContext.Questions.Where(x => x.Categories.Any(cc => cc.CategoryId == categoryId))
+
+                                 .Include(ql => ql.QuestionLevels)
+                                .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                .Include(q => q.Categories)
+                                    .ThenInclude(c => c.Category)
+                                .Include(q => q.Comments)
+                                .Include(q => q.Likes)
+                                .Include(q => q.QuestionLevels)
+                                .Include(q => q.QuestionTopics)
+                                .OrderByDescending(y => y.Likes.Count)
+
+                                            .Take(20)
+                                                .ToListAsync();
+        }
     }
 }

@@ -32,6 +32,16 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getmorequestionbyviewcount(categoryId:string): Observable<Question[]> {
+        return this._http.get('/questions/api/' + categoryId +'/getmorequestionbyviewcount')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    bestquestionbytotallike(categoryId: string): Observable<Question[]> {
+        return this._http.get('/questions/api/' + categoryId + '/bestquestionbytotallike')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
     getQuestions(): Observable<Question[]> {
         return this._http.get('/questions/api/questions')

@@ -10,5 +10,9 @@ namespace Questions.Query
     {
         Task<IEnumerable<Question>> Execute(Guid UserId);
         Task<IEnumerable<Question>> GetQuestionByTopciNCategoryId(Guid UserId, Guid topicId, Guid categoryId);
+
+        Task<IEnumerable<Question>> GetMoreViewedQuestionByViewCountByCategoryFollowing(Guid UserId, Guid categoryId);
+
+        Task<IEnumerable<Question>> GetBestQuestionbyTotalLike(Guid UserId, Guid categoryId);
     }
 }

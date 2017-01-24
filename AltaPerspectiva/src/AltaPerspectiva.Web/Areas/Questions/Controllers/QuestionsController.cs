@@ -10,7 +10,6 @@ using AltaPerspectiva.Web.Areas.Questions.Models;
 using AltaPerspectiva.Web.Areas.UserProfile.Services;
 using Microsoft.Extensions.Configuration;
 using Questions.Domain;
-using UserProfile.Query;
 using AltaPerspectiva.Web.Areas.Questions.Services;
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
 using Questions.Query.Queries;
@@ -536,8 +535,64 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Created($"/questions/api/{cmd.Id}/addbookmark", questionId);
         }
 
-       
+
         #endregion
+
+        [HttpGet("/questions/api/{categoryId}/getmorequestionbyviewcount")]
+        public async Task<IActionResult> GetMoreViewedQuestionByViewCount(Guid categoryId)
+        {
+            IEnumerable<Question> questionList = null;
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                /// if user is logged in, then fetch questions by user following a category
+                questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().GetMoreViewedQuestionByViewCountByCategoryFollowing(loggedinUser, categoryId);
+            }
+            else
+            {
+                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>()
+                    .GetMoreViewedQuestionByViewCount(categoryId);
+            }
+
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+
+            return Ok(questions);
+        }
+        //not done with api
+        [HttpGet("/questions/api/{categoryId}/bestquestionbytotallike")]
+        public async Task<IActionResult> GetBestQuestionbyTotalLike(Guid categoryId)
+        {
+            IEnumerable<Question> questionList = null;
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                /// if user is logged in, then fetch questions by user following a category
+                questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().GetBestQuestionbyTotalLike(loggedinUser, categoryId);
+            }
+            else
+            {
+                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>()
+                    .GetBestQuestionbyTotalLike(categoryId);
+            }
+
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+
+            return Ok(questions);
+        }
 
     }
 }

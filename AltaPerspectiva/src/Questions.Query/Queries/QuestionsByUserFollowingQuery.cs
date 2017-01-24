@@ -32,6 +32,22 @@ namespace Questions.Query
                                                         .ToListAsync();
         }
 
+
+        public async Task<IEnumerable<Question>> GetMoreViewedQuestionByViewCountByCategoryFollowing(Guid UserId, Guid categoryId)
+        {
+            var categories = DbContext.CategoryFollowers.Where(c => c.UserId == UserId).Select(x => x.CategoryId).ToList();
+
+            return await DbContext.
+                                Questions
+                                .Where(qt => qt.QuestionTopics.Any(q => q.QuestionId == qt.Id && q.Topic.CategoryId == categoryId))
+                                    .Include(q => q.Categories)
+                                        .ThenInclude(c => c.Category)
+                                            .Where(q => q.Categories.Any(x => categories.Contains(x.CategoryId) || x.Category.Sequence == 1))
+                                            .OrderByDescending(qq=>qq.ViewCount)
+                                                .Take(20)
+                                                        .ToListAsync();
+        }
+
         public async Task<IEnumerable<Question>> GetQuestionByTopciNCategoryId(Guid UserId,Guid topicId, Guid categoryId)
         {
             var categories = DbContext.CategoryFollowers.Where(c => c.UserId == UserId).Select(x => x.CategoryId).ToList();
@@ -46,6 +62,25 @@ namespace Questions.Query
                                                 .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                                     .Take(20)
                                                         .ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<Question>> GetBestQuestionbyTotalLike(Guid UserId, Guid categoryId)
+        {
+            var categories = DbContext.CategoryFollowers.Where(c => c.UserId == UserId).Select(x => x.CategoryId).ToList();
+            return await 
+                DbContext.Questions
+                .Include(ql => ql.QuestionLevels)
+                .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                .Include(q => q.Categories).ThenInclude(c => c.Category)
+                .Include(q => q.Comments)
+                .Include(q => q.Likes)
+                .Include(q => q.QuestionLevels)
+                .Include(q => q.QuestionTopics)
+                .Where(q => q.Categories.Any(x => categories.Contains(x.CategoryId) || x.Category.Sequence == 1))
+                .OrderByDescending(y => y.Likes.Count)
+                .Take(20).ToListAsync();
         }
     }
 }

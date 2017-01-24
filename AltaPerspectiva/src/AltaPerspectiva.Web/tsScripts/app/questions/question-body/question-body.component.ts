@@ -96,7 +96,8 @@ export class QuestionBodyComponent{
             var subs: any;
             if (this.topicId != undefined && this.categoryId != undefined) {
                 subs = this.questionService.getQuestionByTopciNCategoryId(this.topicId, this.categoryId);
-                  this.loadCategories(); 
+                this.loadCategories();
+                this.id = this.categoryId;
             } else {
                 this.id = params['id'];
                 
@@ -124,7 +125,32 @@ export class QuestionBodyComponent{
             });
         });        
         
-    }    
+    }  
+    bestquestionbytotallike(categoryId: string) {
+        
+        var subs = this.questionService.bestquestionbytotallike(categoryId).subscribe(
+            res => {
+                
+                this.questions = res;
+
+             //   this.loadCategories();
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+
+            }
+        );
+    }
+    getmorequestionbyviewcount(categoryId: string) {
+        this.categorySelected = this.categories.find(x => x.id == categoryId);
+        var subs = this.questionService.getmorequestionbyviewcount(categoryId).subscribe(
+            res => {
+                console.log(res);
+                this.questions = res;
+
+              //  this.loadCategories();
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]); 
+            }
+        );
+    }
 
     loadCategories() {
 
@@ -184,7 +210,6 @@ export class QuestionBodyComponent{
         console.log(this.scrollPage);
     }
  submitLike(questionId: string) {
-        console.log(questionId);
         this.like = new Like();
         this.like.questionId = questionId;       
 
@@ -192,4 +217,6 @@ export class QuestionBodyComponent{
             this.questions.find(x=>x.id==questionId).likes.push(this.like);
         });
     }
+
+
 }
