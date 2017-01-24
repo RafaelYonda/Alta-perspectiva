@@ -12,7 +12,8 @@ import { questionNav } from './nav/question-nav.component';
 import { QuestionHomeComponent } from './question-home.component';
 import { QuestionDetailComponent } from './question-details/question-details.component';
 import { QuestionBodyComponent } from './question-body/question-body.component';
-import { QuestionMenuPanelComponent } from './question-left-menu/question-left-menu.component';
+import { QuestionMenuPanelComponent } from './question-left-menu/question-left-menu.component'; 
+import { QuestionFullscreenComponent } from './question-fullscreen/question-fullscreen.component'; 
 import { SharedModule } from '../shared/shared.module';
 import { CommunicationService } from '../services/communication.service';
 //================services=================
@@ -30,6 +31,7 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
                     path: 'home/:id', component: QuestionBodyComponent
                         //resolve: { questionList: QuestionAnswerService}
                 },
+                
                 {
                     path: 'home/topic/:topicId/:categoryId', component: QuestionBodyComponent
                         //resolve: { questionList: QuestionAnswerService}
@@ -37,18 +39,19 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
                 {
                     path: 'detail/:id', component: QuestionDetailComponent
                     ,resolve: { question: QuestionResolver }
+                },
+                {
+                    path: 'questionfullscreen/:id', component: QuestionFullscreenComponent,
+                    resolve: { question: QuestionResolver }
                 }]
         }
     ]
     )],
     declarations: [
         //Core Components
-        QuestionBodyComponent, QuestionHomeComponent, questionNav, QuestionMenuPanelComponent, QuestionDetailComponent
+        QuestionBodyComponent, QuestionHomeComponent, questionNav, QuestionMenuPanelComponent, QuestionDetailComponent, QuestionFullscreenComponent
     ],
     exports: [QuestionMenuPanelComponent
-        //RouterModule,
-        //QuestionHomeComponent
-        //Core Components
     ]
 })
 export class QuestionModule {

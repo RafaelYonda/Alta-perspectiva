@@ -7,7 +7,6 @@
         <div *ngIf="isAnonymous">
             <img class="user-image " src="../../../../profile/Anonymous.png" />
         </div>
-
         <br />
         <div>
             <input type="checkbox" #answerAnonymous [checked]=false (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar Anonimo</label>
@@ -17,6 +16,7 @@
              class="alert alert-danger">
             Please type your answer and then submit!!
         </div>-->
+        <a [routerLink]="['/question/questionfullscreen',question.id]">Go full screen</a>
     </div>
     <div class="modal-body">
         <ckeditor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}" id="answer"
