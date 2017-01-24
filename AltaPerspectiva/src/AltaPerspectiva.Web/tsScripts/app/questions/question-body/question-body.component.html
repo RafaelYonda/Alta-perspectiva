@@ -1,5 +1,6 @@
 ﻿<div class="row">
     <div #dialogAnchor></div>
+    <div #answerAnchor></div>
 </div>
     <div class="left-panel">
         <div>.</div>
@@ -62,15 +63,24 @@
                         <h3 class="question-title">
                             <a [routerLink]="['/question/detail',question.id]">{{question.title}}</a>
                         </h3>
-                        <div class="article-details" (click)="openDialogBox(question)">
-                            <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
-                            <div class="answer-text" [innerHTML]="question.bestAnswer?.text?.substring(0,200)"></div>
-                            <div *ngIf="question.answers[question.answers.length-1]"> by {{question.answers[question.answers.length-1]?.userViewModel?.name}} {{question.answers[question.answers.length-1]?.createdOn | date: 'dd MMM, yyyy'}}</div>
-                            <div *ngIf="question.bestAnswer">
-                                <hr />
-                                <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer"> </ap-status>
-                                <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="question.bestAnswer?.id"></ap-comment>
+                        <div class="article-details">
+                            <div *ngIf="!(question.answerCount>0)">
+                                <button class="answer-button" (click)="answerDialogBox(question)" >Answer</button>
                             </div>
+                            <div *ngIf="(question.answerCount>0)">
+                                <div (click)="openDialogBox(question)">
+                                    <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
+                                    <div *ngIf="question.bestAnswer?.text">
+                                        <p [innerHTML]="question.bestAnswer?.text"></p><span><a (click)="openDialogBox(question)">Read more..</a></span>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="question.bestAnswer">
+                                    <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer"></ap-status>
+                                    <ap-comment [isQuestion]='false' [questionId]="question.id" [answerId]="question.bestAnswer?.id"></ap-comment>
+                                </div>
+                            </div>
+                           
                         </div>
                     </div>
                 </div>

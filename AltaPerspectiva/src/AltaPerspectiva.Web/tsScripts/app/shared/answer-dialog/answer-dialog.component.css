@@ -1,0 +1,27 @@
+﻿.answer-dialog{
+    margin: 20px auto;
+    max-width: 60%;
+}
+
+    .dialog p{
+        margin-bottom: 10px;
+    }
+
+    .dialog header{
+        border-bottom: 1px solid black;
+        font-size: 12px;
+        padding: 5px;
+        display: flex;
+    }
+        .dialog header .title{
+            flex-grow: 1;
+            cursor: default;
+        }
+
+.exit-button{
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
+}
