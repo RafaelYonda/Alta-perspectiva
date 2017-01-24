@@ -1,6 +1,7 @@
 ﻿import { Component, Input, EventEmitter } from '@angular/core';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import {LogInObj, Question, AnswerViewModel } from '../../services/models';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'answer-dialog',
@@ -16,7 +17,7 @@ export class AnswerDialogComponent {
     isAnonymous: boolean;//anonymous added to 
     answerVM: AnswerViewModel;
     answerText: string;
-    constructor(private dataService: QuestionAnswerService) {
+    constructor(private dataService: QuestionAnswerService, private _router: Router) {
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
     ngOnInit() {
@@ -46,10 +47,10 @@ export class AnswerDialogComponent {
 
             this.answerVM = res;
             this.answerText = "";
-
-            this.dataService.GetQuestion(_id).subscribe(res => {
-                this.question = res;
-            })
+            this._router.navigateByUrl('question/detail/' + this.question.id, { skipLocationChange: true });
+            //this.dataService.GetQuestion(_id).subscribe(res => {
+            //    this.question = res;
+            //})
 
         });
 
