@@ -30,7 +30,7 @@ export class AnswerSubmitComponent {
         this.answerVM = new AnswerViewModel();
         this.answerVM.questionId = _id;
         this.answerVM.text = this.answerText;
-        this.answerVM.IsAnonymous = this.isAnonymous;
+        this.answerVM.isAnonymous = this.isAnonymous;
         this.dataService.addAnswer(this.answerVM).subscribe(res => {
             this.answerVM = res;
             this.answerText = "";
