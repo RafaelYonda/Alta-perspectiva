@@ -7,6 +7,9 @@ namespace Questions.Query
 {
     public interface IQuestionByIdQuery : IQuery
     {
-        Question Execute(Guid id);
+        Question Execute(Guid questionId);
+
+     //   Question GetLatestAnswer(Guid questionId);
+     //   Question GetBestAnswer(Guid questionId);
     }
 }

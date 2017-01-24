@@ -127,7 +127,8 @@ export class QuestionDetailComponent {
 
         });
     }
-
+    //Has been moved to status.component.html aka <ap-status>
+    /* 
     submitLike(questionId: string)
     {
         this.like = new Like();
@@ -145,8 +146,8 @@ export class QuestionDetailComponent {
 
         this.dataService.addAnswerLike(this.like).subscribe(res => {
             this.like.userId = res.userId ;    
-             console.log(res);
-            console.log(this.question.answers.find(x => x.id == answerId).likes);
+          //   console.log(res);
+          //  console.log(this.question.answers.find(x => x.id == answerId).likes);
            var douplicateLike= this.question.answers.find(x => x.id == answerId).likes.find(x => x.userId == res.userId &&x.answerId==answerId);
             console.log(douplicateLike);
            if (douplicateLike==undefined) {
@@ -154,6 +155,21 @@ export class QuestionDetailComponent {
            }
             
         });
+    }*/
+
+    GetLatestAnswer(questionId: string) {
+        console.log(questionId);
+        this.dataService.GetLatestAnswer(questionId).subscribe(res => {
+           // console.log(res);
+            this.question = res;
+        })
+    }
+    GetBestAnswer(questionId: string) {
+        console.log(questionId);
+        this.dataService.GetBestAnswer(questionId).subscribe(res => {
+           // console.log(res);
+            this.question = res;
+        })
     }
 
 

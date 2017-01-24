@@ -629,15 +629,32 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return Ok(questions);
         }
-        // GET /questions/api/questions/{id}
-        [HttpGet("/questions/api/questions/{id}")]
-        public IActionResult Get(Guid id)
+
+
+        [HttpGet("/questions/api/questions/{questionId}/getlatestanswer")]
+        public IActionResult GetLatestAnswer(Guid questionId)
         {
-            var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(id);
+            var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
+
+            question.Answers =
+                question.Answers.OrderByDescending(d => d.AnswerDate.Date)
+                            .ThenBy(h => h.AnswerDate.Hour)
+                            .ThenBy(m => m.AnswerDate.Minute)
+                            .ThenBy(s => s.AnswerDate.Second).ToList();
 
             var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory);
             return Ok(questionViewModel);
         }
+        [HttpGet("/questions/api/questions/{questionId}/getbestanswer")]
+        public IActionResult GetBestAnswer(Guid questionId)
+        {
+            var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
+
+            question.Answers = question.Answers.OrderByDescending(l => l.Likes.Count).ToList();
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory);
+            return Ok(questionViewModel);
+        }
+        
 
         #endregion
     }
