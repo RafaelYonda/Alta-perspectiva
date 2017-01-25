@@ -2,7 +2,7 @@
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { CategoryService } from '../../services/category.service';
 import { ConfigService } from '../../services/config.service';
-import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Config, LogInObj} from '../../services/models';
+import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Config, LogInObj, FilterParameter} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
 import { CommunicationService } from '../../services/communication.service';
 
@@ -43,7 +43,10 @@ export class QuestionBodyComponent{
      like: Like;
     //categoryId
     topicId:string;
-    categoryId:string;
+    categoryId: string;
+    levelId:string;
+
+    filterParameter: FilterParameter;
     constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService) {
         this._router = router;
         this.route = route;
@@ -73,9 +76,10 @@ export class QuestionBodyComponent{
         //get questions by route param using category id.
         this.route.params.subscribe(params => {
 
-
+            this.id = params['id']; //For the First time it will be 1
             this.topicId = params['topicId'];
             this.categoryId = params['categoryId'];
+            this.levelId = params['levelId'];
             this.description = this._router.url;
 
             this.showLoader();
@@ -88,16 +92,18 @@ export class QuestionBodyComponent{
                 this.id = params['id'];
                 
                 // param id = 0, default route, it is ver tidas
-                if (this.id == '1')
-                {         
-                   
+                if (this.id == '1') {
+                    this.filterParameter = new FilterParameter();
+                   // subs = this.questionService.FilterbyCategoryTopicNLevel(this.filterParameter);
+
                     // questions loaded by latest, without categoryId
                     subs = this.questionService.getQuestions();
+                    this.commServ.setCategory(this.id);     
                 }
-                //Question with bookmarks
-                else if (this.id == '2') {
-                    subs = this.questionService.getbookmark();
-                }
+                ////Question with bookmarks
+                //else if (this.id == '2') {
+                //    subs = this.questionService.getbookmark();
+                //}
                 else
                 {
                     // questions loaded by category id
@@ -108,7 +114,7 @@ export class QuestionBodyComponent{
                 }
             }
             subs.subscribe(res => {             
-                this.commServ.setCategory(this.id);       
+                  
                 this.questions = res;
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);       
                 this.hideLoader();    

@@ -662,87 +662,86 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
 
-        [HttpGet("/questions/api/FilterbyCategoryTopicNLevel/{categoryId}/{topicId}/{levelId}")]
-        public async Task<IActionResult> FilterbyCategoryTopicNLevel([FromBody]FilterParameter filterParameter)
+        [HttpGet("/questions/api/FilterbyCategoryTopicNLevel")]
+        public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter)
         {
            // Guid emptyGuid=Guid.Empty;
 
             var categoryId = filterParameter.CategoryId;
             var topicId = filterParameter.TopicId;
             var levelId = filterParameter.LevelId;
+            IEnumerable<Question> questions=new List<Question>();
+
 
              //Filter by Category ,Topic   and level
             if (categoryId.HasValue && topicId.HasValue && levelId.HasValue)
             {
-                var questions =
+                questions =
                     await queryFactory.ResolveQuery<IQuestionsQuery>()
                         .FilterbyCategoryTopicandlevel(categoryId.Value, topicId.Value, levelId.Value);
-                return Ok(questions);
             }
             //Filter by category AND TOPIC
             else if (categoryId.HasValue && topicId.HasValue && !levelId.HasValue)
             {
-                var questions =
+                questions =
                     await queryFactory.ResolveQuery<IQuestionsQuery>()
                         .FilterbycategoryANDTOPIC(categoryId.Value, topicId.Value);
-                return Ok(questions);
+
             }
             //Filter by category and level
             else if (categoryId.HasValue && !topicId.HasValue && levelId.HasValue)
             {
-                var questions =
+                questions =
                     await queryFactory.ResolveQuery<IQuestionsQuery>()
                         .Filterbycategoryandlevel(categoryId.Value, levelId.Value);
-                return Ok(questions);
+
             }
             //Filter by Topic and level
             else if (!categoryId.HasValue && topicId.HasValue && levelId.HasValue)
             {
-                var questions =
+                questions =
                     await queryFactory.ResolveQuery<IQuestionsQuery>()
                         .FilterbyTopicAndLevel( topicId.Value, levelId.Value);
-                return Ok(questions);
+
             }
             //Filter by category only
             else if (categoryId.HasValue && !topicId.HasValue && !levelId.HasValue)
             {
-                var questions =
+                questions =
                     await queryFactory.ResolveQuery<IQuestionsQuery>()
                         .Filterbycategoryonly(categoryId.Value);
-                return Ok(questions);
+
             }
 
             //Filtered by topic only
             else if (!categoryId.HasValue && topicId.HasValue && !levelId.HasValue)
             {
-                var questions =
+                questions =
                      await queryFactory.ResolveQuery<IQuestionsQuery>()
                          .Filteredbytopiconly( topicId.Value);
-                return Ok(questions);
+
             }
             //Filtered by level only
             else if (!categoryId.HasValue && !topicId.HasValue && levelId.HasValue)
             {
-                var questions =
+                questions =
                      await queryFactory.ResolveQuery<IQuestionsQuery>()
                          .Filteredbylevelonly( levelId.Value);
-                return Ok(questions);
+
             }
             //Filtered General Category only
             else //(categoryId == emptyGuid && topicId == emptyGuid && levelId == emptyGuid)
             {
-                var questions =
+                questions =
                     await queryFactory.ResolveQuery<IQuestionsQuery>()
                         .FilteredGeneralCategoryonly();
-                return Ok(questions);
+                
             }
+            List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
 
+            questionViewModels = new QuestionService().GetQuestionViewModel(questions, queryFactory);
 
-
-
-
-
-            return null;
+            return Ok(questionViewModels);
         }
 
 

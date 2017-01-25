@@ -5,7 +5,7 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment, Like, Config,Topic,Level,QuestionSaveViewModel } from './models';
+import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment, Like, Config,Topic,Level,QuestionSaveViewModel ,FilterParameter} from './models';
 
 @Injectable()
 export class QuestionAnswerService implements Resolve<Question> {
@@ -217,6 +217,14 @@ export class QuestionAnswerService implements Resolve<Question> {
     //GetBestAnswer
     GetBestAnswer(questionId: string): Observable<Question> {
         return this._http.get('/questions/api/questions/' + questionId + '/getbestanswer', null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+
+    //Filtered parameter
+    FilterbyCategoryTopicNLevel(filterParameter:FilterParameter): Observable<Question[]> {
+        return this._http.get('/questions/api/FilterbyCategoryTopicNLevel', filterParameter)
             .map(this.extractData)
             .catch(this.handleError);
     }

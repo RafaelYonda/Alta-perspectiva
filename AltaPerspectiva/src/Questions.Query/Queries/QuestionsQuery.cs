@@ -259,7 +259,7 @@ namespace Questions.Query
                                 .Include(q => q.Likes)
                                 .Include(q => q.QuestionLevels)
                                 .Include(q => q.QuestionTopics)
-                                .Where(x => x.Categories.Any(c => c.CategoryId == null))
+                                //.Where(x => x.Categories.Any(c => c.CategoryId == null))
                                     .OrderByDescending(c => c.CreatedOn.Value.Date)
                                         .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                             .Take(20)

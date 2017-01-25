@@ -247,3 +247,9 @@ export class QuestionSaveViewModel {
     body: string;
     isAnonymous: boolean;//IsAnonymous added 
 }
+
+export class FilterParameter {
+    categoryId: string;
+    topicId: string;
+    levelId: string;
+}
