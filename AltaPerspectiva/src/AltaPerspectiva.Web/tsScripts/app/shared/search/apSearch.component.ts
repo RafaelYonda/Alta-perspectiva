@@ -165,18 +165,14 @@ export class ApSearchComponent {
     isOnModal = false;
     showModal() {
 
-        var form = document.getElementById("search-panel");
-        var viewportOffset = form.getBoundingClientRect();
         this.searchClass = document.getElementById("search-box").className;
         document.getElementById("search-box").className = "modal-overlay z-modal";
-        form.style.marginTop = '15px';
+        var form = document.getElementById("search-box");
+        form.style.paddingTop = '15px';
         this.isOnModal = true;
         
     }
     removeModal() {
-        this.title = this.title.replace(/[?]/g, '');
-        this.title = this.title.replace(/[¿]/g, '');
-        this.title = '¿' + this.title + '?';
         this.filteredQuestionList = [];
         this.categoryMatched = "";
         document.getElementById("search-box").className = this.placeBottom +" z-header";

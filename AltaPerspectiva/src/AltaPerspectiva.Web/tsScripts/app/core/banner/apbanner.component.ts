@@ -8,7 +8,6 @@
     styleUrls: ['js/app/core/banner/carousel.css'],
 })
 export class ApBannerComponent {
-    public heroes: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
     public images = IMAGES;
     private bannerHeight: Number = 200;
     _window: any;
@@ -30,7 +29,8 @@ export class ApBannerComponent {
         var doc = this._el.nativeElement;
         var nodeBanner = doc.childNodes[0];
         if (this._window.scrollY > 250) {
-            searchPanel.style.top = '0';
+            searchPanel.style.top = '0'; 
+            searchPanel.style.paddingTop = '15px';
             this._el.nativeElement.parentNode.classList.add("fixed-top");
             //categoryPanel.classList.add('fixed-category');
             this._el.nativeElement.childNodes[0].classList.add("fixed-height");
