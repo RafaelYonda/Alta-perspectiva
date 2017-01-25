@@ -76,10 +76,8 @@ export class ApSearchComponent {
     //=============Submit Question===========
     question: Question;
 
-    submitQuestion() {
-        
-       this.question = new Question();
-        
+    submitQuestion() {        
+        this.question = new Question();        
         this.question.title = this.title;
         this.question.body = this.body;
         this.question.topicId = this.topicID == '-1' ? '' : this.topicID;
@@ -165,18 +163,14 @@ export class ApSearchComponent {
     isOnModal = false;
     showModal() {
 
-        var form = document.getElementById("search-panel");
-        var viewportOffset = form.getBoundingClientRect();
         this.searchClass = document.getElementById("search-box").className;
         document.getElementById("search-box").className = "modal-overlay z-modal";
-        form.style.marginTop = '15px';
+        var form = document.getElementById("search-box");
+        form.style.paddingTop = '10px';
         this.isOnModal = true;
         
     }
     removeModal() {
-        this.title = this.title.replace(/[?]/g, '');
-        this.title = this.title.replace(/[¿]/g, '');
-        this.title = '¿' + this.title + '?';
         this.filteredQuestionList = [];
         this.categoryMatched = "";
         document.getElementById("search-box").className = this.placeBottom +" z-header";

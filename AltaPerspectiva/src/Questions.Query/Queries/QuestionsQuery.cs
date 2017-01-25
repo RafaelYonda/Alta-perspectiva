@@ -20,7 +20,7 @@ namespace Questions.Query
 
         public async Task<IEnumerable<Question>> Execute()
         {
-            return await DbContext.Questions.Include(ql=>ql.QuestionLevels)
+            return await DbContext.Questions
                                   .Include(a => a.Answers).ThenInclude(a => a.Likes)
                                   .Include(a => a.Answers).ThenInclude(a => a.Comments)
                                   .Include(q => q.Categories)
@@ -117,6 +117,151 @@ namespace Questions.Query
                                 .Include(q => q.QuestionTopics)
                                 .OrderByDescending(y => y.Likes.Count)
 
+                                            .Take(20)
+                                                .ToListAsync();
+        }
+
+        /*Filter query*/
+        public async Task<IEnumerable<Question>> FilterbyCategoryTopicandlevel(Guid categoryId, Guid topicId, Guid levelId)
+        {
+            return await DbContext.Questions
+                                  .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                  .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                  .Include(q => q.Categories)
+                                      .ThenInclude(c => c.Category)
+                                  .Include(q => q.Comments)
+                                  .Include(q => q.Likes)
+                                  .Include(q => q.QuestionLevels)
+                                  .Include(q => q.QuestionTopics)
+                                  .Where(x=>x.Categories.Any(c=>c.CategoryId==categoryId) &&x.QuestionTopics.Any(qt=>qt.TopicId==topicId) &&x.QuestionLevels.Any(ql=>ql.LevelId==levelId))
+                                      .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                          .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                              .Take(20)
+                                                  .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Question>> FilterbycategoryANDTOPIC(Guid categoryId, Guid topicId)
+        {
+            return await DbContext.Questions
+                                  .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                  .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                  .Include(q => q.Categories)
+                                      .ThenInclude(c => c.Category)
+                                  .Include(q => q.Comments)
+                                  .Include(q => q.Likes)
+                                  .Include(q => q.QuestionLevels)
+                                  .Include(q => q.QuestionTopics)
+                                  .Where(x => x.Categories.Any(c => c.CategoryId == categoryId) && x.QuestionTopics.Any(qt => qt.TopicId == topicId) )
+                                      .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                          .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                              .Take(20)
+                                                  .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Question>> Filterbycategoryandlevel(Guid categoryId, Guid levelId)
+        {
+            return await DbContext.Questions
+                                 .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                 .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                 .Include(q => q.Categories)
+                                     .ThenInclude(c => c.Category)
+                                 .Include(q => q.Comments)
+                                 .Include(q => q.Likes)
+                                 .Include(q => q.QuestionLevels)
+                                 .Include(q => q.QuestionTopics)
+                                 .Where(x => x.Categories.Any(c => c.CategoryId == categoryId)  && x.QuestionLevels.Any(ql => ql.LevelId == levelId))
+                                     .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                         .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                             .Take(20)
+                                                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Question>> FilterbyTopicAndLevel(Guid topicId, Guid levelId)
+        {
+            return await DbContext.Questions
+                                .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                .Include(q => q.Categories)
+                                    .ThenInclude(c => c.Category)
+                                .Include(q => q.Comments)
+                                .Include(q => q.Likes)
+                                .Include(q => q.QuestionLevels)
+                                .Include(q => q.QuestionTopics)
+                                .Where(x =>  x.QuestionTopics.Any(qt => qt.TopicId == topicId) && x.QuestionLevels.Any(ql => ql.LevelId == levelId))
+                                    .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                        .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                            .Take(20)
+                                                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Question>> Filterbycategoryonly(Guid categoryId)
+        {
+            return await DbContext.Questions
+                                .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                .Include(q => q.Categories)
+                                    .ThenInclude(c => c.Category)
+                                .Include(q => q.Comments)
+                                .Include(q => q.Likes)
+                                .Include(q => q.QuestionLevels)
+                                .Include(q => q.QuestionTopics)
+                                .Where(x => x.Categories.Any(c => c.CategoryId == categoryId) )
+                                    .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                        .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                            .Take(20)
+                                                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Question>> Filteredbytopiconly(Guid topicId)
+        {
+            return await DbContext.Questions
+                                .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                .Include(q => q.Categories)
+                                    .ThenInclude(c => c.Category)
+                                .Include(q => q.Comments)
+                                .Include(q => q.Likes)
+                                .Include(q => q.QuestionLevels)
+                                .Include(q => q.QuestionTopics)
+                                .Where(x => x.QuestionTopics.Any(qt => qt.TopicId == topicId) )
+                                    .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                        .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                            .Take(20)
+                                                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Question>> Filteredbylevelonly(Guid levelId)
+        {
+            return await DbContext.Questions
+                                .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                .Include(q => q.Categories)
+                                    .ThenInclude(c => c.Category)
+                                .Include(q => q.Comments)
+                                .Include(q => q.Likes)
+                                .Include(q => q.QuestionLevels)
+                                .Include(q => q.QuestionTopics)
+                                .Where(x => x.QuestionLevels.Any(ql => ql.LevelId == levelId))
+                                    .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                        .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                            .Take(20)
+                                                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Question>> FilteredGeneralCategoryonly()
+        {
+            return await DbContext.Questions
+                                .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                .Include(q => q.Categories)
+                                    .ThenInclude(c => c.Category)
+                                .Include(q => q.Comments)
+                                .Include(q => q.Likes)
+                                .Include(q => q.QuestionLevels)
+                                .Include(q => q.QuestionTopics)
+                                .Where(x => x.Categories.Any(c => c.CategoryId == null))
+                                    .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                        .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                             .Take(20)
                                                 .ToListAsync();
         }

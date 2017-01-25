@@ -19,7 +19,7 @@
 
             <div class="col-lg-2 image-to-checkbox-spacing">
                 <input type="checkbox" #answerAnonymous [checked]=false (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar Anonimo</label>
-                <a [routerLink]="['/question/questionfullscreen',question.id]">Go full screen</a>
+                <a *ngIf="!isFullScreen" [routerLink]="['/question/questionfullscreen',question.id]">Go full screen</a>
             </div>
         </div>
         <div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
@@ -49,6 +49,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("div").removeClass("modal-backdrop fade in");
-</script>

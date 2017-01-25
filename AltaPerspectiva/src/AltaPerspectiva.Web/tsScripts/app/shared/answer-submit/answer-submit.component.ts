@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class AnswerSubmitComponent {
     _logObj: LogInObj;
     @Input() question: Question;
+    @Input() isFullScreen: boolean;
 
     isAnonymous: boolean;//anonymous added to 
     answerVM: AnswerViewModel;
