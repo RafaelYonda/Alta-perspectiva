@@ -1,10 +1,43 @@
-﻿<div class="z-header" [ngClass]="placeBottom" id="search-box" (click)="handleClick($event)">
-    <div class="input-group center-width" id="adv-search">
+﻿<style>
+    .icon-container {
+        position: relative;
+    }
 
+    .question-begin {
+        position: absolute;
+        font-size: 22px;
+        left: 4px;
+        top: 5px;
+        z-index: 9050;
+        font-weight: bold;
+    }
+
+    .question-end {
+        position: absolute;
+        font-size: 22px;
+        z-index: 9050;
+        font-weight: bold;
+        left: 20px;
+        top: 8px;
+    }
+
+    .form-control {
+        padding: 5px 15px;
+    }
+</style>
+<div class="z-header" [ngClass]="placeBottom" id="search-box" (click)="handleClick($event)">
+    <div class="input-group center-width" id="adv-search">
         <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="form-horizontal" role="form" id="search-panel">
-            <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()"
-                   [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
-            <div class="suggestions" id="suggestion" *ngIf="isOnModal" >
+            <div class="icon-container">
+                <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()"
+                       [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
+                <div [hidden]="!showQuestion" class="question-begin">¿</div>
+                <div [hidden]="!showQuestion" class="question-end" id="question-end">?</div>
+            </div>
+
+
+            <div class="suggestions" id="suggestion" *ngIf="isOnModal">
+                <!-- Question Text -->
                 <div class="suggestion-container" *ngIf="isOnModal">
                     <select class="question-control" id="Category" required (change)="onCategoryChange(categoryObj.value)" name="category" #categoryObj>
                         <option [value]="-1" disabled="true" selected>Selecciona la categoría</option>
@@ -25,10 +58,11 @@
                         </option>
                     </select>
                     <textarea name="body" class="question-control" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="body" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
-                    <input type="checkbox" #cv [checked]=false (change)="onChange(cv.checked)"/> <label>Preguntar Anonimo</label>
+                    <input type="checkbox" #cv [checked]=false (change)="onChange(cv.checked)" /> <label>Preguntar Anonimo</label>
                 </div>
+                <!-- Question Suggestion -->
                 <div class="suggestion-container" *ngIf="(filteredQuestionList.length>0) || (categoryMatched?.length > 0)">
-                    <div class="arrow-container"></div> 
+                    <div class="arrow-container"></div>
                     <ul class="question-List">
                         <li *ngFor="let item of filteredQuestionList">
                             <a (click)="selectQuestionDetails(item)">{{item.title}}</a>

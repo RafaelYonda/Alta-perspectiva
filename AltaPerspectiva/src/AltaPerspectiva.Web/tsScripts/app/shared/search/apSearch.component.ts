@@ -89,7 +89,6 @@ export class ApSearchComponent {
         else
             this.question.categoryIds.push(this.categories[0].id);
 
-
         this.questionsService.saveQuestionSaveViewModel(this.question).subscribe(res => {
             console.log('in ok');
             this.question = res;
@@ -142,7 +141,25 @@ export class ApSearchComponent {
         this.categoryMatched = "";
         this.router.navigate(['/question/detail/' + item.id]);
     }
+    //=======Question mark movment====
+    showQuestion = false;
+    questionLeftposition = 20;
+    movequestionMark() {
+        this.showQuestion = true;
+        var form = document.getElementById("question-end");
+        this.questionLeftposition = this.questionLeftposition+7;
+        form.style.left = this.questionLeftposition.toString() + 'px';
+        console.log(form.style.left);
+    }
+    resetquestionMark() {
+        this.showQuestion = false;
+        var form = document.getElementById("question-end");
+        this.questionLeftposition = 20;
+        form.style.left = this.questionLeftposition.toString() + 'px';
+    }
+    //=======/Question mark movment=====
     filterQuestions() {
+        this.movequestionMark();
         var tempTitle = this.title;
        
         //  search after 3rd letter
@@ -162,13 +179,11 @@ export class ApSearchComponent {
     }
     isOnModal = false;
     showModal() {
-
         this.searchClass = document.getElementById("search-box").className;
         document.getElementById("search-box").className = "modal-overlay z-modal";
         var form = document.getElementById("search-box");
         form.style.paddingTop = '10px';
         this.isOnModal = true;
-        
     }
     removeModal() {
         this.filteredQuestionList = [];
@@ -177,6 +192,8 @@ export class ApSearchComponent {
         //document.getElementById("search-box").className = this.searchClass;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
+        this.resetquestionMark();
         this.isOnModal = false;
+        this.title = '';
     }
 }
