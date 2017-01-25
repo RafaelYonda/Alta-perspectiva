@@ -169,7 +169,7 @@ export class ApSearchComponent {
     filterQuestions(event) {
         this.movequestionMark(event);
         var tempTitle = this.title;
-       
+        this.showMatchedCatogries(this.title);
         //  search after 3rd letter
         if (tempTitle !== "" && tempTitle.length > 1) {
             this.filteredQuestionList = this.questionList.filter(function (el) {
