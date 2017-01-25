@@ -75,7 +75,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpGet("/questions/api/{topicId}/questions/{categoryId}")]
-        public async Task<IActionResult> GetQuestionByTopciNCategoryId(Guid topicId,Guid categoryId)
+        public async Task<IActionResult> GetQuestionByTopicNCategoryId(Guid topicId,Guid categoryId)
         {
             IEnumerable<Question> questionList = null;
 
@@ -109,17 +109,22 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpGet("/questions/api/questions/notanswered/{id}")]
-        public async Task<IActionResult> GetQuestyionsNotAnswered(Guid CategoryId)
+        public async Task<IActionResult> GetQuestyionsNotAnswered(Guid id)
         {
-            var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-            return Ok(questionsList);              
+            IEnumerable<Question> questionList = null;
+            questionList = await queryFactory.ResolveQuery<IQuestionsNotAnsweredQuery>().Execute(id);
+
+            var questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+            return Ok(questions);
         }
 
         [HttpGet("/questions/api/questions/answered/{id}")]
-        public async Task<IActionResult> GetQuestyionsAnswered(Guid CategoryId)
+        public async Task<IActionResult> GetQuestyionsAnswered(Guid id)
         {
-            var questionsList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(CategoryId);
-            return Ok(questionsList);           
+            IEnumerable<Question> questionList = null;
+            questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(id);            
+            var questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+            return Ok(questions);           
         }
 
         // GET /questions/api/questions/{id}
@@ -549,7 +554,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return Created($"questions/api/questions/{cmd.Id}", question);
         }
-        [HttpPost("/questions/api/{questionId}/updatedquestion")]
+        [HttpPost("/questions/api/{questionId}/updatequestion")]
         public IActionResult UpdateQuestion([FromBody]AddQuestionViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
@@ -651,9 +656,92 @@ namespace AltaPerspectiva.Web.Area.Questions
             var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory);
             return Ok(questionViewModel);
         }
-        
+
 
         #endregion
+
+
+
+        [HttpGet("/questions/api/FilterbyCategoryTopicNLevel/{categoryId}/{topicId}/{levelId}")]
+        public async Task<IActionResult> FilterbyCategoryTopicNLevel(Guid categoryId,Guid topicId,Guid levelId)
+        {
+            Guid emptyGuid=Guid.Empty;
+
+             //Filter by Category ,Topic   and level
+            if (categoryId != emptyGuid && topicId != emptyGuid && levelId != emptyGuid)
+            {
+                var questions =
+                    await queryFactory.ResolveQuery<IQuestionsQuery>()
+                        .FilterbyCategoryTopicandlevel(categoryId, topicId, levelId);
+                return Ok(questions);
+            }
+            //Filter by category AND TOPIC
+            else if (categoryId != emptyGuid && topicId != emptyGuid && levelId == emptyGuid)
+            {
+                var questions =
+                    await queryFactory.ResolveQuery<IQuestionsQuery>()
+                        .FilterbycategoryANDTOPIC(categoryId, topicId);
+                return Ok(questions);
+            }
+            //Filter by category and level
+            else if (categoryId != emptyGuid && topicId == emptyGuid && levelId != emptyGuid)
+            {
+                var questions =
+                    await queryFactory.ResolveQuery<IQuestionsQuery>()
+                        .Filterbycategoryandlevel(categoryId, levelId);
+                return Ok(questions);
+            }
+            //Filter by Topic and level
+            else if (categoryId == emptyGuid && topicId != emptyGuid && levelId != emptyGuid)
+            {
+                var questions =
+                    await queryFactory.ResolveQuery<IQuestionsQuery>()
+                        .FilterbyTopicAndLevel( topicId, levelId);
+                return Ok(questions);
+            }
+            //Filter by category only
+            else if (categoryId != emptyGuid && topicId == emptyGuid && levelId == emptyGuid)
+            {
+                var questions =
+                    await queryFactory.ResolveQuery<IQuestionsQuery>()
+                        .Filterbycategoryonly(categoryId);
+                return Ok(questions);
+            }
+
+            //Filtered by topic only
+            else if (categoryId == emptyGuid && topicId != emptyGuid && levelId == emptyGuid)
+            {
+                var questions =
+                     await queryFactory.ResolveQuery<IQuestionsQuery>()
+                         .Filteredbytopiconly( topicId);
+                return Ok(questions);
+            }
+            //Filtered by level only
+            else if (categoryId == emptyGuid && topicId == emptyGuid && levelId != emptyGuid)
+            {
+                var questions =
+                     await queryFactory.ResolveQuery<IQuestionsQuery>()
+                         .Filteredbylevelonly( levelId);
+                return Ok(questions);
+            }
+            //Filtered General Category only
+            else //(categoryId == emptyGuid && topicId == emptyGuid && levelId == emptyGuid)
+            {
+                var questions =
+                    await queryFactory.ResolveQuery<IQuestionsQuery>()
+                        .FilteredGeneralCategoryonly();
+                return Ok(questions);
+            }
+
+
+
+
+
+
+            return null;
+        }
+
+
     }
 }
 
