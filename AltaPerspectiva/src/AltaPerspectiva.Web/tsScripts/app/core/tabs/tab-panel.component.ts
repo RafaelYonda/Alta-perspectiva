@@ -1,11 +1,8 @@
-﻿/// <reference path="../../shared/answer-dialog/answer-dialog.component.ts" />
-import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { LogInObj } from '../../services/models';
-import { DialogComponent } from '../../shared/dialog-modal/dialog.component';
-import { AnswerDialogComponent } from '../../shared/answer-dialog/answer-dialog.component';
 
 //Comment added
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
@@ -30,23 +27,12 @@ export class TabPanelComponent {
     error: any;
     //Like
     
-    constructor(private componentFactoryResolver: ComponentFactoryResolver, private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
+    constructor( private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
         this.route = _route;
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
 
-    @ViewChild('dialogAnchor', { read: ViewContainerRef }) dialogAnchor: ViewContainerRef;
-    openDialogBox(question: Question) {
-        // Close any already open dialogs
-        this.dialogAnchor.clear();
-
-        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(DialogComponent);
-        let dialogComponentRef = this.dialogAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.question = question; // Not sure about the translation here
-        dialogComponentRef.instance.close.subscribe(() => {
-            dialogComponentRef.destroy();
-        });
-    }
+    
     ngOnInit() {
         var currentUser = localStorage.getItem('auth_token');
         this.authService.getLoggedinObj().subscribe(res => {
@@ -78,18 +64,7 @@ export class TabPanelComponent {
             });
         });
     }
-    @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
-    answerDialogBox(question: Question) {
-        // Close any already open dialogs
-        this.answerAnchor.clear();
 
-        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AnswerDialogComponent);
-        let dialogComponentRef = this.answerAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.question = question; // Not sure about the translation here
-        dialogComponentRef.instance.close.subscribe(() => {
-            dialogComponentRef.destroy();
-        });
-    }
     ShowModal(questionId) {
         console.log(questionId);
     }

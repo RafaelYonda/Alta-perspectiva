@@ -1,12 +1,10 @@
-﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild  } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { CategoryService } from '../../services/category.service';
 import { ConfigService } from '../../services/config.service';
 import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Config, LogInObj} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
 import { CommunicationService } from '../../services/communication.service';
-import { DialogComponent } from '../../shared/dialog-modal/dialog.component';
-import { AnswerDialogComponent } from '../../shared/answer-dialog/answer-dialog.component';
 
 export interface ILoader {
     isLoading: boolean;
@@ -46,7 +44,7 @@ export class QuestionBodyComponent{
     //categoryId
     topicId:string;
     categoryId:string;
-    constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private componentFactoryResolver: ComponentFactoryResolver) {
+    constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService) {
         this._router = router;
         this.route = route;
 
@@ -57,31 +55,6 @@ export class QuestionBodyComponent{
         this.loader.isLoading = true;
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
         
-    }
-    @ViewChild('dialogAnchor', { read: ViewContainerRef }) dialogAnchor: ViewContainerRef;
-    openDialogBox(question: Question) {
-        // Close any already open dialogs
-        this.dialogAnchor.clear();
-
-        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(DialogComponent);
-        let dialogComponentRef = this.dialogAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.question = question; // Not sure about the translation here
-        dialogComponentRef.instance.close.subscribe(() => {
-            dialogComponentRef.destroy();
-        });
-    }
-
-    @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
-    answerDialogBox(question: Question) {
-        // Close any already open dialogs
-        this.answerAnchor.clear();
-
-        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AnswerDialogComponent);
-        let dialogComponentRef = this.answerAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.question = question; // Not sure about the translation here
-        dialogComponentRef.instance.close.subscribe(() => {
-            dialogComponentRef.destroy();
-        });
     }
     ngOnInit() {
         var currentUserName = localStorage.getItem('currentUserName');
