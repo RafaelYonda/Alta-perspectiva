@@ -17,7 +17,7 @@
         font-size: 22px;
         z-index: 9050;
         font-weight: bold;
-        margin-left:10px;
+        left: 20px;
         top: 8px;
     }
 
@@ -29,17 +29,12 @@
     <div class="input-group center-width" id="adv-search">
         <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="form-horizontal" role="form" id="search-panel">
             <div class="icon-container">
-                <!--<canvas id="myCanvas" width="300" height="150" style="border:1px solid #d3d3d3;">
-                </canvas>-->
-                
-                
                 <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()"
-                       [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions($event) />
+                       [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
                 <div [hidden]="!showQuestion" class="question-begin">¿</div>
                 <div [hidden]="!showQuestion" class="question-end" id="question-end">?</div>
-                <div id="temp-text" style="position:absolute;top:-100px;">{{title}}</div>
-
             </div>
+
 
             <div class="suggestions" id="suggestion" *ngIf="isOnModal">
                 <!-- Question Text -->
