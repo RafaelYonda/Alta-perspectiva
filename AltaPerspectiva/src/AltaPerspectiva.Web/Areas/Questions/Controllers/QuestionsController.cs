@@ -595,7 +595,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
 
-        [HttpPost("/questions/api/{questionId}/updatedquestion")]
+        [HttpPost("/questions/api/{questionId}/updatequestion")]
         public IActionResult UpdateQuestion([FromBody]AddQuestionViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");

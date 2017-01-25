@@ -192,6 +192,12 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
      }
+
+     updateQuestion(model: Question): Observable<any> {
+         return this._http.post('/questions/api/' + model.id + '/updatequestion', model)
+             .map(this.extractData)
+             .catch(this.handleError);
+     }
        
 
     addBookMark(questionId:string):Observable<any> {      

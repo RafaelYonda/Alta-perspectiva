@@ -30,28 +30,28 @@
         <a >
             <img class="social-image" src="../images/icon-external-link.png" />
         </a>
-        <a>
-            <div class="other-function" *ngIf="isQuestion!=false">
-                <a [popover]="myPopover" >...</a>
-                <popover-content #myPopover
-                                 placement="right"
-                                 [closeOnClickOutside]="true">
-                    <span></span>
-                    <ul style="list-style-type: none;">
-                        <li style="list-style-type: none;width: 91px;">
-                            <a href="#">Edit Question</a>
-                        </li>
-                        <li style="list-style-type: none;">
-                            <div (click)="bookmarkClicked(questionObj?.id)">Bookmark</div>
-                        </li>
-                        <li style="list-style-type: none;">
-                            <a href="#">Report</a>
-                        </li>
+        
+        <div class="other-function" *ngIf="isQuestion!=false">
+            <a [popover]="myPopover" >...</a>
+            <popover-content #myPopover
+                                placement="right"
+                                [closeOnClickOutside]="true">
+                <span></span>
+                <ul style="list-style-type: none;">
+                    <li style="list-style-type: none;width: 91px;">
+                        <a (click)="questionDetailClicked()">Edit Question</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a (click)="bookmarkClicked(questionObj?.id)">Bookmark</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a href="#">Report</a>
+                    </li>
 
-                    </ul>
-                </popover-content>
-            </div>
-        </a>
+                </ul>
+            </popover-content>
+        </div>
+       
         
     </div>
 </div>

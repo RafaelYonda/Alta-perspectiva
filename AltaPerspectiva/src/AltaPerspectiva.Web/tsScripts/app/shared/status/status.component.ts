@@ -1,4 +1,4 @@
-﻿import { Component, Input, ElementRef } from '@angular/core';
+﻿import { Component, Input, ElementRef, EventEmitter,Output } from '@angular/core';
 import { StatusService } from '../../services/status.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {  Question, Answer, Like} from '../../services/models';
@@ -14,12 +14,15 @@ export class StatusComponent {
     @Input() answerObj: Answer;
     @Input() isQuestion: any;
 
+    @Output() onQuestionDetailClicked = new EventEmitter<boolean>();
+
     commentId: string;
     CommentCount: number;
     like: Like;
     likedUsers: any;
     constructor(private statusService: StatusService, private dataService: QuestionAnswerService) {
     }
+
     ngOnInit() {
         if (this.isQuestion)
         {
@@ -38,6 +41,10 @@ export class StatusComponent {
           });
     }
 
+    questionDetailClicked()
+    {
+        this.onQuestionDetailClicked.emit(true);
+    }
 
     submitLike(answerId: string,questionId:string) {         
         this.like = new Like();

@@ -27,7 +27,7 @@
                     <textarea name="body" class="question-control" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="body" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
                     <input type="checkbox" #cv [checked]=false (change)="onChange(cv.checked)"/> <label>Preguntar Anonimo</label>
                 </div>
-                <div class="suggestion-container" *ngIf="(filteredQuestionList?.length > 0) || (categoryMatched?.length > 0)">
+                <div class="suggestion-container" *ngIf="(filteredQuestionList==true) || (categoryMatched?.length > 0)">
                     <div class="arrow-container"></div>
                     <ul class="question-List">
                         <li *ngFor="let item of filteredQuestionList">

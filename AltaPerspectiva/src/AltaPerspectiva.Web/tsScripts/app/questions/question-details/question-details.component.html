@@ -5,42 +5,66 @@
 </div>
 
 <!-- =========Question========== -->
-<div class="center-width center-body z-ground">
-    <question-header [question]="question"></question-header>
-    <h1 class="question-title">
-        {{question.title}}
-    </h1>
-    <div class="article-details">
-        <user-info [userObj]="question.userViewModel" [viewDate]="question?.createdOn" [isAnonymous]="question?.isAnonymous"></user-info>
-        <p class="answer-text" [innerHTML]="question.body"></p>
-        <div class="clearfix"></div>
-        <ap-status [isQuestion]='true' [questionObj]="question"> </ap-status>
-        <ap-comment [isQuestion]='true' [questionId]="question?.id"></ap-comment>
-    </div>
-    <hr />
-    <button class="answer-button" data-toggle="modal" data-target="#myModal">Answer</button>
-    <div class="summery-panel">
-        <h4>{{question.answers?.length}} Answers</h4>
-        <div class="row">
-            <div class="col-md-3"><h4>The latest answers</h4></div>
-            <div class="col-md-3"><h4>The best answer</h4></div>
-            <div class="col-md-4"><h4>The more view answers</h4></div>
+<div *ngIf="!showQuestionEditForm">
+    <div class="center-width center-body z-ground">
+        <question-header [question]="question"></question-header>
+        <h1 class="question-title">
+            {{question.title}}
+        </h1>
+        <div class="article-details">
+            <user-info [userObj]="question.userViewModel" [viewDate]="question?.createdOn" [isAnonymous]="question?.isAnonymous"></user-info>
+            <p class="answer-text" [innerHTML]="question.body"></p>
+            <div class="clearfix"></div>
+            <ap-status [isQuestion]='true' [questionObj]="question" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"> </ap-status>
+            <ap-comment [isQuestion]='true' [questionId]="question?.id"></ap-comment>
         </div>
         <hr />
-    </div>
-
-    <!-- =========Answers============== -->
-    <div *ngFor="let answer of question.answers">
-        <div class="article-details" *ngIf="answer">
-            <user-info [userObj]="answer?.userViewModel" [viewDate]="answer?.createdOn"></user-info>
-            <p class="answer-text" [innerHTML]="answer.text"></p>
-            <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="answer"> </ap-status>
-            <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="answer.id"></ap-comment>
+        <button class="answer-button" data-toggle="modal" data-target="#myModal">Answer</button>
+        <div class="summery-panel">
+            <h4>{{question.answers?.length}} Answers</h4>
+            <div class="row">
+                <div class="col-md-3"><h4>The latest answers</h4></div>
+                <div class="col-md-3"><h4>The best answer</h4></div>
+                <div class="col-md-4"><h4>The more view answers</h4></div>
+            </div>
+            <hr />
         </div>
-        <hr />
-    </div>
 
+        <!-- =========Answers============== -->
+        <div *ngFor="let answer of question.answers">
+            <div class="article-details" *ngIf="answer">
+                <user-info [userObj]="answer?.userViewModel" [viewDate]="answer?.createdOn"></user-info>
+                <p class="answer-text" [innerHTML]="answer.text"></p>
+                <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="answer"> </ap-status>
+                <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="answer.id"></ap-comment>
+            </div>
+            <hr />
+        </div>
+
+    </div>
 </div>
+<div *ngIf="showQuestionEditForm">
+    
+        <div class="center-width center-body z-ground">
+            <form (ngSubmit)="updateQuestion()" #questionVM="ngForm">
+                <question-header [question]="question"></question-header>
+                <h1 class="question-title">
+                    <input style="width:538px;" [(ngModel)]="editTitle" name="editField" #editField="ngModel" required />
+                </h1>
+                <br />
+                <hr />
+                <textarea name="editBody" class="question-control" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="editBody" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
+
+
+                <div>
+                    <button type="submit" class="btn btn-primary fixed-height" [disabled]="!questionVM.form.valid">Update</button>
+                    <button type="button" class="btn btn-info fixed-height" (click)="onQuestionDetailClicked(false)">Cancel</button>
+                </div>
+            </form>
+          </div>
+   
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -57,10 +81,10 @@
                     <div *ngIf="isAnonymous">
                         <img class="user-image " src="../../../../profile/Anonymous.png" />
                     </div>
-                    
-                    <br/>
+
+                    <br />
                     <div>
-                        <input type="checkbox" #answerAnonymous [checked]="isAnonymous"  (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar Anonimo</label>
+                        <input type="checkbox" #answerAnonymous [checked]="isAnonymous" (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar Anonimo</label>
                     </div>
                     <div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
 
@@ -83,8 +107,8 @@
                         <button type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Submit</button>
                         <button type="button" (click)="submitAnswerAsDraft(question.id)" data-dismiss="modal" class="btn btn-primary">Save As Draft</button>
                     </div>
-                    <div >
-                        
+                    <div>
+
                     </div>
 
                     <div class="social-icon">

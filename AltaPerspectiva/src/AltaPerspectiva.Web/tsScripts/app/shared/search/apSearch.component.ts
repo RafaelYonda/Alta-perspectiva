@@ -111,8 +111,8 @@ export class ApSearchComponent {
     public visible = true;
 
     showMatchedCatogries(title: string) {
-        if (title.length < 3)
-            return;
+        //if (title.length < 3)
+        //    return;
         var keywordsInQuestionTitle = title.split(' '); //Get words from question to find keywords
         this.categoryMatched = "";
         keywordsInQuestionTitle.forEach(str => {
@@ -138,6 +138,7 @@ export class ApSearchComponent {
 
     showDetailsQuestionsPanel(input: HTMLInputElement) {
         this.removeModal();
+
     }
     selectQuestionDetails(item) {
         this.filteredQuestionList = [];
@@ -147,11 +148,14 @@ export class ApSearchComponent {
     filterQuestions() {
         this.title = this.title.replace(/[?]/g, '');
         this.title = this.title.replace(/[¿]/g, '');
-        this.title = '¿' + this.title + '?';
+
+        var tempTitle = this.title;
+
         this.showMatchedCatogries(this.title);
-        var tempTitle = this.title.replace(/[?]/g, '');
+        this.title = '¿' + this.title + '?';
+       
         //  search after 3rd letter
-        if (this.title !== "" && this.title.length > 2) {
+        if (tempTitle !== "" && tempTitle.length > 1) {
             this.filteredQuestionList = this.questionList.filter(function (el) {
                 var indx = el.title.toLowerCase().indexOf(tempTitle.toLowerCase()) > -1;
                 return indx;
@@ -168,6 +172,7 @@ export class ApSearchComponent {
     isOnModal = false;
     showModal() {
         //Add ?? mark on click
+        if (!this.title)
         this.title = '¿' + (this.title ? this.title:'')+'?';
 
         var form = document.getElementById("search-panel");
@@ -179,6 +184,9 @@ export class ApSearchComponent {
         
     }
     removeModal() {
+        this.title = this.title.replace(/[?]/g, '');
+        this.title = this.title.replace(/[¿]/g, '');
+        this.title = '¿' + this.title + '?';
         this.filteredQuestionList = [];
         this.categoryMatched = "";
         document.getElementById("search-box").className = this.placeBottom +" z-header";

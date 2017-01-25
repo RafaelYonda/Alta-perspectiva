@@ -179,6 +179,6 @@ gulp.task("tsCompile", function () {
     ]).pipe(gulp.dest("wwwroot/js/"));
     //========Type script compile=========
     var tsResult = tsProject.src()
-        .pipe(ts(tsProject));
+        .pipe(tsProject());
     return tsResult.pipe(gulp.dest('wwwroot/js'));
 });

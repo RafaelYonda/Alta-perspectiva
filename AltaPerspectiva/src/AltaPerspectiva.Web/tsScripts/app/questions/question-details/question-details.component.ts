@@ -32,6 +32,10 @@ export class QuestionDetailComponent {
     private sub: any;
     question: Question;
 
+    showQuestionEditForm: boolean
+    editTitle: string
+    editBody: string
+
     isAnonymous: boolean;//anonymous added to 
     constructor(private router: Router, private _route: ActivatedRoute, private questionService: QuestionResolver,
         private dataService: QuestionAnswerService, private authService: AuthenticationService) {
@@ -153,6 +157,28 @@ export class QuestionDetailComponent {
                this.question.answers.find(x=>x.id==answerId).likes.push(this.like);
            }
             
+        });
+    }
+
+    onQuestionDetailClicked(showEditForm: boolean)
+    {
+        this.showQuestionEditForm = showEditForm;
+        this.editTitle = this.question.title;
+        this.editBody = this.question.body;    
+    }
+
+    updateQuestion()
+    {
+        var qv = new Question();
+        qv.title = this.editTitle;
+        qv.body = this.editBody;
+        qv.id = this.question.id;
+
+        this.dataService.updateQuestion(qv).subscribe(res => {
+            this.question.title = this.editTitle;
+            this.question.body = this.editBody;
+            this.showQuestionEditForm = false;
+
         });
     }
 
