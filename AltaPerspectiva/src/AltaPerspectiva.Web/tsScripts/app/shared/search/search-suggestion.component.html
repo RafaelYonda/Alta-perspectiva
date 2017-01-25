@@ -1,89 +1,16 @@
-﻿<style>
-    .icon-container {
-        position: relative;
-    }
-
-    .question-begin {
-        position: absolute;
-        font-size: 22px;
-        left: 4px;
-        top: 5px;
-        z-index: 9050;
-        font-weight: bold;
-    }
-
-    .question-end {
-        position: absolute;
-        font-size: 22px;
-        z-index: 9050;
-        font-weight: bold;
-        left: 20px;
-        top: 8px;
-    }
-
-    .form-control {
-        padding: 5px 15px;
-    }
-</style>
-<div class="z-header" [ngClass]="placeBottom" id="search-box" (click)="handleClick($event)">
-    <div class="input-group center-width" id="adv-search">
-        <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="form-horizontal" role="form" id="search-panel">
-            <div class="icon-container">
-                <input type="text" class="form-control search-input fixed-height" #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()"
-                       [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions() />
-                <div [hidden]="!showQuestion" class="question-begin">¿</div>
-                <div [hidden]="!showQuestion" class="question-end" id="question-end">?</div>
-            </div>
-
-
-            <div class="suggestions" id="suggestion" *ngIf="isOnModal">
-                <!-- Question Text -->
-                <div class="suggestion-container" *ngIf="isOnModal">
-                    <select class="question-control" id="Category" required (change)="onCategoryChange(categoryObj.value)" name="category" #categoryObj>
-                        <option [value]="-1" disabled="true" selected>Selecciona la categoría</option>
-                        <option *ngFor="let category of categories" [value]="category.id">
-                            {{category.name}}
-                        </option>
-                    </select>
-                    <select class="question-control" name="topics" id="topics" required (change)="onTopicChange(topicObj.value)" #topicObj>
-                        <option [value]="-1" disabled="true" selected>Selecciona la tematica</option>
-                        <option *ngFor="let topic of topics" [value]="topic?.id">
-                            {{topic?.topicName}}
-                        </option>
-                    </select>
-                    <select class="question-control" name="levels" id="levels" required (change)="onLevelChange(levelObj.value)" #levelObj>
-                        <option [value]="-1" disabled="true" selected>Selecciona la complejidad</option>
-                        <option *ngFor="let level of levels" [value]="level.id">
-                            {{level.levelName}}
-                        </option>
-                    </select>
-                    <textarea name="body" class="question-control" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="body" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
-                    <input type="checkbox" #cv [checked]=false (change)="onChange(cv.checked)" /> <label>Preguntar Anonimo</label>
-                </div>
-                <!-- Question Suggestion -->
-                <div class="suggestion-container" *ngIf="(filteredQuestionList.length>0) || (categoryMatched?.length > 0)">
-                    <div class="arrow-container"></div>
-                    <ul class="question-List">
-                        <li *ngFor="let item of filteredQuestionList">
-                            <a (click)="selectQuestionDetails(item)">{{item.title}}</a>
-                            <hr />
-                        </li>
-                        <li>
-                            <a><span class="glyphicon glyphicon-search topic-icon" aria-hidden="true"></span><span class="search-footer">Topics:</span>  {{categoryMatched}}</a>
-                            <hr />
-                        </li>
-                        <li>
-                            <a><span class="glyphicon glyphicon-search topic-icon" aria-hidden="true"></span><span class="search-footer">Search:</span>  {{title?title+'?':''}}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="input-group-btn">
-                <div class="btn-group" role="group">
-                    <button type="submit" class="btn btn-primary fixed-height" [disabled]="!titleName.valid"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span class="ask-text">Enviar</span></button>
-                </div>
-            </div>
-        </form>
-    </div>
+﻿<div class="suggestion-container" *ngIf="(filteredQuestionList.length>0) || (categoryMatched?.length > 0)">
+    <div class="arrow-container"></div>
+    <ul class="question-List">
+        <li *ngFor="let item of filteredQuestionList">
+            <a (click)="selectQuestionDetails(item)">{{item.title}}</a>
+            <hr />
+        </li>
+        <li>
+            <a><span class="glyphicon glyphicon-search topic-icon" aria-hidden="true"></span><span class="search-footer">Topics:</span>  {{categoryMatched}}</a>
+            <hr />
+        </li>
+        <li>
+            <a><span class="glyphicon glyphicon-search topic-icon" aria-hidden="true"></span><span class="search-footer">Search:</span>  {{title?title+'?':''}}</a>
+        </li>
+    </ul>
 </div>

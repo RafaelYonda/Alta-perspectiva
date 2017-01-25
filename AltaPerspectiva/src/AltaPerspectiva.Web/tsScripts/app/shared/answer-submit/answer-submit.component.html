@@ -1,23 +1,26 @@
 ﻿<style>
-    .image-to-checkbox-spacing {
-        margin-left: 70px !important;
-        margin-top: 10px;
+    .img-container {
+        margin-left: 10px;
     }
-    
-</style>
 
+    .checkbox-container {
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+    }
+</style>
 <form #answerVM="ngForm" class="form-horizontal " role="form">
     <div class="modal-header">
         <h1>&iquest;{{question.title}}?</h1>
         <div class="row">
-            <div *ngIf="!isAnonymous" class="col-lg-1">
+            <div class="img-container" *ngIf="!isAnonymous">
                 <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
             </div>
-            <div *ngIf="isAnonymous" class="col-lg-1">
+            <div class="img-container" *ngIf="isAnonymous" class="col-lg-1">
                 <img class="user-image " src="../../../../profile/Anonymous.png" />
             </div>
 
-            <div class="col-lg-2 image-to-checkbox-spacing">
+            <div class="checkbox-container">
                 <input type="checkbox" #answerAnonymous [checked]=false (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar Anonimo</label>
                 <a *ngIf="!isFullScreen" [routerLink]="['/question/questionfullscreen',question.id]">Go full screen</a>
             </div>
