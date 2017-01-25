@@ -320,27 +320,12 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         }
 
-        #endregion
-
-
-        [HttpPost("/questions/api/question/{id}/viewcount")]
-        public IActionResult PostQuestionViewCount(Guid id)
-        {           
-
-            UpdateViewCountCommand cmd = new UpdateViewCountCommand(id);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-
-            return Created($"/questions/api/question/{cmd.Id}/viewcount/{cmd.Id}", cmd);
-
-        }
-        //all like added 
         [HttpGet("/questions/api/question/{questionId}/questionlike")]
         public async Task<IActionResult> GetQuestionLike(Guid questionId)
         {
             var likes = await queryFactory.ResolveQuery<ILikeQuery>().Execute(questionId);
 
-            List<UserViewModel> userViewModels=new List<UserViewModel>();
+            List<UserViewModel> userViewModels = new List<UserViewModel>();
             foreach (var like in likes)
             {
                 Guid userId = like.UserId;
@@ -365,6 +350,23 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(userViewModels);
 
         }
+
+        #endregion
+
+
+        [HttpPost("/questions/api/question/{id}/viewcount")]
+        public IActionResult PostQuestionViewCount(Guid id)
+        {           
+
+            UpdateViewCountCommand cmd = new UpdateViewCountCommand(id);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+
+            return Created($"/questions/api/question/{cmd.Id}/viewcount/{cmd.Id}", cmd);
+
+        }
+        //all like added 
+      
         [HttpGet("/questions/api/answerlike/{answerId}")]
         public async Task<IActionResult> AnswerLike(Guid answerId)
         {
@@ -383,6 +385,8 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         }
+
+        #region Top Five Region
         //Questions
         [HttpGet("/questions/api/gettopfivequestion")]
         public async Task<IActionResult> GetTopFiveQuestion()
@@ -410,28 +414,28 @@ namespace AltaPerspectiva.Web.Area.Questions
                 return Ok(topFiveQuestion);
             }
 
-            
+
         }
         [HttpGet("/questions/api/{categoryId}/gettopfivetopicsbycategoryid")]
         public async Task<IActionResult> GetTopFiveTopicsByCategoryId(Guid categoryId)
         {
             IEnumerable<Topic> topFiveTopics = new List<Topic>();
-          //  IEnumerable<Question> questions=new List<Question>();
+            //  IEnumerable<Question> questions=new List<Question>();
             if (categoryId == Guid.Empty)
             {
                 topFiveTopics =
                     await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopics();
 
-                
+
             }
             else
             {
                 topFiveTopics =
                     await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopicsByCategoryId(categoryId);
 
-                
+
             }
-            
+
 
             return Ok(topFiveTopics);
 
@@ -449,6 +453,10 @@ namespace AltaPerspectiva.Web.Area.Questions
             return relatedTopicsByCategory;
         }
 
+        #endregion
+
+
+
         [HttpGet("/questions/api/getlevel")]
         public async Task<IEnumerable<Level>> GetLevel()
         {
@@ -456,41 +464,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             return levels;
         }
 
-        [HttpPost("/questions/api/savequestion")]
-        public IActionResult SaveQuestion([FromBody]AddQuestionViewModel question)
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            Guid? topicId;
-            Guid? levelId;
-            if (string.IsNullOrEmpty(question.TopicId))
-            {
-                topicId = null;
-            }
-            else
-            {
-                topicId=new Guid(question.TopicId);
-            }
-            if (string.IsNullOrEmpty(question.LevelId ))
-            {
-                levelId = null;
-            }
-            else
-            {
-                levelId=new Guid(question.LevelId);
-            }
-            
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId,levelId,question.IsAnonymous);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid questionId = cmd.Id;
-
-            return Created($"questions/api/questions/{cmd.Id}", question);
-        }
+        
 
 
         #region Bookmark
@@ -538,6 +512,65 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         #endregion
 
+
+        #region Question
+        [HttpPost("/questions/api/savequestion")]
+        public IActionResult SaveQuestion([FromBody]AddQuestionViewModel question)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            Guid? topicId;
+            Guid? levelId;
+            if (string.IsNullOrEmpty(question.TopicId))
+            {
+                topicId = null;
+            }
+            else
+            {
+                topicId = new Guid(question.TopicId);
+            }
+            if (string.IsNullOrEmpty(question.LevelId))
+            {
+                levelId = null;
+            }
+            else
+            {
+                levelId = new Guid(question.LevelId);
+            }
+
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid questionId = cmd.Id;
+
+            return Created($"questions/api/questions/{cmd.Id}", question);
+        }
+        [HttpPost("/questions/api/{questionId}/updatedquestion")]
+        public IActionResult UpdateQuestion([FromBody]AddQuestionViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+
+           
+            UpdateQuestionCommand cmd=new UpdateQuestionCommand(model.Id,model.Title,model.Body,model.IsAnonymous);
+            commandsFactory.ExecuteQuery(cmd);
+            return Ok();
+
+        }
+
+
+        #endregion
+
+        #region Best Question and More Views Region
         [HttpGet("/questions/api/{categoryId}/getmorequestionbyviewcount")]
         public async Task<IActionResult> GetMoreViewedQuestionByViewCount(Guid categoryId)
         {
@@ -595,26 +628,32 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
 
-        [HttpPost("/questions/api/{questionId}/updatequestion")]
-        public IActionResult UpdateQuestion([FromBody]AddQuestionViewModel model)
+        [HttpGet("/questions/api/questions/{questionId}/getlatestanswer")]
+        public IActionResult GetLatestAnswer(Guid questionId)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
 
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
+            question.Answers =
+                question.Answers.OrderByDescending(d => d.AnswerDate.Date)
+                            .ThenBy(h => h.AnswerDate.Hour)
+                            .ThenBy(m => m.AnswerDate.Minute)
+                            .ThenBy(s => s.AnswerDate.Second).ToList();
 
-            if (model.TopicId == null)
-            {
-                return NotFound("TopicId not found");
-            }
-            UpdateQuestionCommand cmd=new UpdateQuestionCommand(model.Id,model.Title,model.Body,model.IsAnonymous);
-            commandsFactory.ExecuteQuery(cmd);
-            return Ok();
-
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory);
+            return Ok(questionViewModel);
         }
+        [HttpGet("/questions/api/questions/{questionId}/getbestanswer")]
+        public IActionResult GetBestAnswer(Guid questionId)
+        {
+            var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
+
+            question.Answers = question.Answers.OrderByDescending(l => l.Likes.Count).ToList();
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory);
+            return Ok(questionViewModel);
+        }
+        
+
+        #endregion
     }
 }
 

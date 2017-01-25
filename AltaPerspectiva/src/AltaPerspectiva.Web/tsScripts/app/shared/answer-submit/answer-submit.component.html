@@ -1,22 +1,33 @@
-﻿<form #answerVM="ngForm" class="form-horizontal " role="form">
+﻿<style>
+    .image-to-checkbox-spacing {
+        margin-left: 70px !important;
+        margin-top: 10px;
+    }
+    
+</style>
+
+<form #answerVM="ngForm" class="form-horizontal " role="form">
     <div class="modal-header">
         <h1>&iquest;{{question.title}}?</h1>
-        <div *ngIf="!isAnonymous">
-            <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
-        </div>
-        <div *ngIf="isAnonymous">
-            <img class="user-image " src="../../../../profile/Anonymous.png" />
-        </div>
-        <br />
-        <div>
-            <input type="checkbox" #answerAnonymous [checked]=false (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar Anonimo</label>
+        <div class="row">
+            <div *ngIf="!isAnonymous" class="col-lg-1">
+                <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
+            </div>
+            <div *ngIf="isAnonymous" class="col-lg-1">
+                <img class="user-image " src="../../../../profile/Anonymous.png" />
+            </div>
+
+            <div class="col-lg-2 image-to-checkbox-spacing">
+                <input type="checkbox" #answerAnonymous [checked]=false (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar Anonimo</label>
+                <a [routerLink]="['/question/questionfullscreen',question.id]">Go full screen</a>
+            </div>
         </div>
         <div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
         <!--<div [hidden]="answerField.valid || answerField.pristine"
-             class="alert alert-danger">
+                 class="alert alert-danger">
             Please type your answer and then submit!!
         </div>-->
-        <a [routerLink]="['/question/questionfullscreen',question.id]">Go full screen</a>
+
     </div>
     <div class="modal-body">
         <ckeditor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}" id="answer"
@@ -38,3 +49,6 @@
         </div>
     </div>
 </form>
+<script>
+    $("div").removeClass("modal-backdrop fade in");
+</script>

@@ -41,7 +41,7 @@
             answer.CreatedOn = DateTime.Now;
             answer.CreatedBy = command.UserId;
             answer.DTS = DateTime.Now;             
-                        
+            answer.AnswerDate=DateTime.Now;            
             DbContext.Answers.Add(answer);
             DbContext.SaveChanges();
 

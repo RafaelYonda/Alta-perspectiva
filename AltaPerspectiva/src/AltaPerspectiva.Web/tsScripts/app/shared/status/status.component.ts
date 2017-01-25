@@ -68,7 +68,7 @@ export class StatusComponent {
                  if (res.result == true) return;
                     else {
                         this.dataService.addAnswerLike(this.like).subscribe(res => {
-                            this.questionObj.answers[0].likes.push(this.like);
+                            this.questionObj.answers.find(x => x.id == answerId).likes.push(this.like);
                         });
                     }
                 }

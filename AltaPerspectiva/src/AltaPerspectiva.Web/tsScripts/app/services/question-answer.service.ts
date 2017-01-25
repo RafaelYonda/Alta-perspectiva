@@ -205,8 +205,21 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
      }
-   
 
+
+    //GetLatestAnswer and
+    //GetBestAnswer
+    GetLatestAnswer(questionId: string): Observable<Question> {
+        return this._http.get('/questions/api/questions/' + questionId + '/getlatestanswer', null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //GetBestAnswer
+    GetBestAnswer(questionId: string): Observable<Question> {
+        return this._http.get('/questions/api/questions/' + questionId + '/getbestanswer', null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     private extractData(res: Response) {       
         let body;
 
