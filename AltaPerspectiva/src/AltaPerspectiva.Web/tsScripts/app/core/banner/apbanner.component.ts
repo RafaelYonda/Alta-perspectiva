@@ -30,7 +30,7 @@ export class ApBannerComponent {
         var nodeBanner = doc.childNodes[0];
         if (this._window.scrollY > 250) {
             searchPanel.style.top = '0'; 
-            searchPanel.style.paddingTop = '15px';
+            searchPanel.style.paddingTop = '10px';
             this._el.nativeElement.parentNode.classList.add("fixed-top");
             //categoryPanel.classList.add('fixed-category');
             this._el.nativeElement.childNodes[0].classList.add("fixed-height");

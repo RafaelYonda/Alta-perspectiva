@@ -76,10 +76,8 @@ export class ApSearchComponent {
     //=============Submit Question===========
     question: Question;
 
-    submitQuestion() {
-        
-       this.question = new Question();
-        
+    submitQuestion() {        
+        this.question = new Question();        
         this.question.title = this.title;
         this.question.body = this.body;
         this.question.topicId = this.topicID == '-1' ? '' : this.topicID;
@@ -168,7 +166,7 @@ export class ApSearchComponent {
         this.searchClass = document.getElementById("search-box").className;
         document.getElementById("search-box").className = "modal-overlay z-modal";
         var form = document.getElementById("search-box");
-        form.style.paddingTop = '15px';
+        form.style.paddingTop = '10px';
         this.isOnModal = true;
         
     }
