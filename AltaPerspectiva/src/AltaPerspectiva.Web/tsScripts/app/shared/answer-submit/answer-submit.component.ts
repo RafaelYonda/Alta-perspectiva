@@ -40,8 +40,6 @@ export class AnswerSubmitComponent {
             this.answerVM = res;
             this.answerText = "";
             this._router.navigateByUrl('question/detail/' + this.question.id, { skipLocationChange: true });
-            
-
         });
 
     }

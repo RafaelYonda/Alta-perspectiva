@@ -138,7 +138,6 @@ export class ApSearchComponent {
 
     showDetailsQuestionsPanel(input: HTMLInputElement) {
         this.removeModal();
-
     }
     selectQuestionDetails(item) {
         this.filteredQuestionList = [];
@@ -146,13 +145,7 @@ export class ApSearchComponent {
         this.router.navigate(['/question/detail/' + item.id]);
     }
     filterQuestions() {
-        this.title = this.title.replace(/[?]/g, '');
-        this.title = this.title.replace(/[¿]/g, '');
-
         var tempTitle = this.title;
-
-        this.showMatchedCatogries(this.title);
-        this.title = '¿' + this.title + '?';
        
         //  search after 3rd letter
         if (tempTitle !== "" && tempTitle.length > 1) {
@@ -171,9 +164,6 @@ export class ApSearchComponent {
     }
     isOnModal = false;
     showModal() {
-        //Add ?? mark on click
-        if (!this.title)
-        this.title = '¿' + (this.title ? this.title:'')+'?';
 
         var form = document.getElementById("search-panel");
         var viewportOffset = form.getBoundingClientRect();
