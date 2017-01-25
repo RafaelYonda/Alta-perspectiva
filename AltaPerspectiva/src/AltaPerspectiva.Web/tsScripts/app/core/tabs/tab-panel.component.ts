@@ -54,8 +54,8 @@ export class TabPanelComponent {
                     this.questions[q].bestAnswer = this.questions[q].answers[0];
 
                     if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
-                        var temp = this.questions[q].bestAnswer.text.substring(0, 200);
-                        this.questions[q].bestAnswer.text = temp;
+                       // var temp = this.questions[q].bestAnswer.text.substring(0, 200);
+                       // this.questions[q].bestAnswer.text = temp;
                         this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
                         this.questions[q].shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questions[q].id);
                     }

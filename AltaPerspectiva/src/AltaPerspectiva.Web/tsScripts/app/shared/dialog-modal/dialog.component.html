@@ -12,10 +12,13 @@
         </header>
         <div class="panel-article">
             <div class="details-container">
-                <div class="article-details">
+                <div class="article-details">                   
                     <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
-                    <div>
-                        <p [innerHTML]="question.bestAnswer?.text"></p>
+                    <div>                       
+                        <p class="answer-text" [innerHTML]="question.bestAnswer?.text"></p>
+                        <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question?.bestAnswer"> </ap-status>
+                        <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="question?.bestAnswer?.id"></ap-comment>
+                        <br />
                         <button *ngIf="question.answerCount>1" class="btn btn-default" [routerLink]="['/question/detail',question.id]">View Other {{question?.answerCount-1}} answers</button>
                     </div>
                 </div>

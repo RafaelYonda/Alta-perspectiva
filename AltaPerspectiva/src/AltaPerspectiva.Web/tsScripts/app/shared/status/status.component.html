@@ -31,7 +31,7 @@
             <img class="social-image" src="../images/icon-external-link.png" />
         </a>
         
-        <div class="other-function" *ngIf="isQuestion!=false">
+        <div class="other-function" *ngIf="isQuestion">
             <a [popover]="myPopover" >...</a>
             <popover-content #myPopover
                                 placement="right"
