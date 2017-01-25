@@ -1,10 +1,11 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
 import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName, LogInObj, User} from '../../services/models';
 import { AuthenticationService } from '../../services/authentication.service';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { RelatedQuestionMenu } from '../question-left-menu/related-question-left-menu.component';
+import { AnswerDialogComponent } from '../../shared/answer-dialog/answer-dialog.component';
 
 @Component({
     selector: "question-details",
@@ -38,7 +39,7 @@ export class QuestionDetailComponent {
 
     isAnonymous: boolean;//anonymous added to 
     constructor(private router: Router, private _route: ActivatedRoute, private questionService: QuestionResolver,
-        private dataService: QuestionAnswerService, private authService: AuthenticationService) {
+        private dataService: QuestionAnswerService, private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver) {
         this.route = _route;
         //this.question = questionService.getFakeQuestion();
         this.date = new DateName();
@@ -84,7 +85,18 @@ export class QuestionDetailComponent {
            
         });
     }
-    
+    @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
+    answerDialogBox(question: Question) {
+        // Close any already open dialogs
+        this.answerAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AnswerDialogComponent);
+        let dialogComponentRef = this.answerAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.question = question; // Not sure about the translation here
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }
     submitAnswerAsDraft(_id: string) {
 
         this.answerVM = new AnswerViewModel();
