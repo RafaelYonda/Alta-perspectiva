@@ -8,4 +8,7 @@ import {Question } from '../../services/models';
 })
 export class QuestionHeaderComponent {
     @Input() question: Question;
+
+    ngOnInit() {        
+    }
 }

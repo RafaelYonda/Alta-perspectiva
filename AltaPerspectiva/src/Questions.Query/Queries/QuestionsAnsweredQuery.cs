@@ -24,6 +24,8 @@ namespace Questions.Query
                                             .Select(x => x.QuestionId.Value).ToList();
             return await DbContext.
                                 Questions
+                                    .Include(q => q.Answers)
+                                        .ThenInclude(a => a.Likes)
                                     .Include(q=>q.Categories)
                                         .ThenInclude(c=>c.Category)
                                         .Where(q=>answeredQuestions.Contains(q.Id) 

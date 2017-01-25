@@ -75,7 +75,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpGet("/questions/api/{topicId}/questions/{categoryId}")]
-        public async Task<IActionResult> GetQuestionByTopciNCategoryId(Guid topicId,Guid categoryId)
+        public async Task<IActionResult> GetQuestionByTopicNCategoryId(Guid topicId,Guid categoryId)
         {
             IEnumerable<Question> questionList = null;
 
@@ -109,17 +109,22 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpGet("/questions/api/questions/notanswered/{id}")]
-        public async Task<IActionResult> GetQuestyionsNotAnswered(Guid CategoryId)
+        public async Task<IActionResult> GetQuestyionsNotAnswered(Guid id)
         {
-            var questionsList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-            return Ok(questionsList);              
+            IEnumerable<Question> questionList = null;
+            questionList = await queryFactory.ResolveQuery<IQuestionsNotAnsweredQuery>().Execute(id);
+
+            var questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+            return Ok(questions);
         }
 
         [HttpGet("/questions/api/questions/answered/{id}")]
-        public async Task<IActionResult> GetQuestyionsAnswered(Guid CategoryId)
+        public async Task<IActionResult> GetQuestyionsAnswered(Guid id)
         {
-            var questionsList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(CategoryId);
-            return Ok(questionsList);           
+            IEnumerable<Question> questionList = null;
+            questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(id);            
+            var questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+            return Ok(questions);           
         }
 
         // GET /questions/api/questions/{id}
