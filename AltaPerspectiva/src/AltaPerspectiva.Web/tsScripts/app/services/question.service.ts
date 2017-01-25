@@ -25,23 +25,31 @@ export class QuestionService {
     getTopfiveQuestionsByCategory(id: string): Observable<Question[]> {
         return this._http.get('/questions/api/'+id+'/gettopfivequestionbycategoryid')
             .map(this.extractData)
-            .catch(this.handleError);
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount(); 
     }
     getTopFiveTopicsByCategoryId(categoryId: string): Observable<Topic[]> {
         return this._http.get('/questions/api/'+categoryId+'/gettopfivetopicsbycategoryid')
             .map(this.extractData)
-            .catch(this.handleError);
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount(); 
     }
     getLevel(): Observable<Level[]> {
         return this._http.get('/questions/api/getlevel')
             .map(this.extractData)
-            .catch(this.handleError);
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount(); ;
     }
    
     getRelatedTopicsByTopicId(topicId: string): Observable<Topic[]> {
         return this._http.get('/questions/api/'+topicId+'/getrelatedTopicsbytopicId')
             .map(this.extractData)
-            .catch(this.handleError);
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount(); ;
     }
      
     private extractData(res: Response) {       
