@@ -224,7 +224,18 @@ export class QuestionAnswerService implements Resolve<Question> {
 
     //Filtered parameter
     FilterbyCategoryTopicNLevel(filterParameter:FilterParameter): Observable<Question[]> {
-        return this._http.get('/questions/api/FilterbyCategoryTopicNLevel', filterParameter)
+        return this._http.get('/questions/api/FilterbyCategoryTopicNLevel?categoryId='+filterParameter.categoryId+'&topicId='+filterParameter.topicId+'&levelId='+filterParameter.levelId, null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    GetLevelName(levelId: string): Observable<string> {
+        return this._http.get('/questions/api/getlevelname/'+levelId, null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    GetTopicName(topicId: string): Observable<string> {
+        return this._http.get('/questions/api/GetTopicName/' + topicId, null)
             .map(this.extractData)
             .catch(this.handleError);
     }

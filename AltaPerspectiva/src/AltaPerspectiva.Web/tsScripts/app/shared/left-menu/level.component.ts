@@ -13,6 +13,8 @@ export class LevelComponent {
 
     levels: Level[];
     questionService: QuestionService;
+    categoryId: string;
+    topicId:string;
 
     constructor(questionService: QuestionService, private commServ: CommunicationService) {
         this.questionService = questionService;
@@ -20,7 +22,10 @@ export class LevelComponent {
     }
 
     ngOnInit() {
+        this.topicId = this.commServ.getTopicId();
         this.commServ.getCategory().subscribe((catId: string) => {
+            this.categoryId = catId;
+            this.topicId = this.commServ.getTopicId();
             this.questionService.getLevel().subscribe(res => {
                 this.levels = res;
             });

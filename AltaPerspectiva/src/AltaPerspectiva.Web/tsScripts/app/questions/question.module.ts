@@ -28,11 +28,11 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
             path: 'question', component: QuestionHomeComponent,
             children: [               
                 {
-                    path: 'home/:id', component: QuestionBodyComponent
+                    path: 'home/:categoryId', component: QuestionBodyComponent
                         //resolve: { questionList: QuestionAnswerService}
                 },                
                 {
-                    path: 'home/topic/:topicId/:categoryId', component: QuestionBodyComponent
+                    path: 'home/:categoryId/:topicId/:levelId', component: QuestionBodyComponent
                         //resolve: { questionList: QuestionAnswerService}
                 },
                 {

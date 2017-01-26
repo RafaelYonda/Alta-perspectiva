@@ -16,12 +16,12 @@ export interface ILoader {
     styleUrls: ['js/app/questions/question-body/question-body.css'],
     providers: [QuestionAnswerService, CategoryService, ConfigService]
 })
-export class QuestionBodyComponent{
+export class QuestionBodyComponent {
 
     loader: ILoader = { isLoading: false };
     _router: any;
-    route: any;   
-    id: string;
+    route: any;
+  //  id: string;
     private sub: any;
     questions: Question[];
     _logObj: LogInObj;
@@ -31,7 +31,7 @@ export class QuestionBodyComponent{
     answer: string;
     categories: Category[];
     categorySelected: Category;
-    
+
 
     scrollPage: number = 0;
     config: Config;
@@ -40,11 +40,11 @@ export class QuestionBodyComponent{
     twitterButton;
     tags = 'Hello, World';
     description = "This is a test";
-     like: Like;
+    like: Like;
     //categoryId
-    topicId:string;
+    topicId: string;
     categoryId: string;
-    levelId:string;
+    levelId: string;
 
     filterParameter: FilterParameter;
     constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService) {
@@ -57,7 +57,7 @@ export class QuestionBodyComponent{
         /// load spinner for when  component initialize
         this.loader.isLoading = true;
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
-        
+
     }
     ngOnInit() {
         var currentUserName = localStorage.getItem('currentUserName');
@@ -70,66 +70,74 @@ export class QuestionBodyComponent{
         this.configService.getConfig().subscribe(r => {
             this.config = r;
         });
-        
+
         this.loadCategories();
 
         //get questions by route param using category id.
         this.route.params.subscribe(params => {
 
-            this.id = params['id']; //For the First time it will be 1
+           // this.id = params['id']; //For the First time it will be 1
             this.topicId = params['topicId'];
             this.categoryId = params['categoryId'];
             this.levelId = params['levelId'];
             this.description = this._router.url;
 
+            this.filterParameter = new FilterParameter();
+            this.filterParameter.categoryId = this.categoryId;
+            //this.filterParameter.topicId = this.topicId;
+            //this.filterParameter.levelId = this.levelId;
+
+            if (this.topicId)
+                this.commServ.setTopicId(this.topicId);
+
+            if (this.levelId)
+                this.commServ.setLevelId(this.levelId);
+
             this.showLoader();
             var subs: any;
-            if (this.topicId != undefined && this.categoryId != undefined) {
-                subs = this.questionService.getQuestionByTopciNCategoryId(this.topicId, this.categoryId);
-                this.loadCategories();
-                this.id = this.categoryId;
-            } else {
-                this.id = params['id'];
-                
-                // param id = 0, default route, it is ver tidas
-                if (this.id == '1') {
-                    this.filterParameter = new FilterParameter();
-                   // subs = this.questionService.FilterbyCategoryTopicNLevel(this.filterParameter);
 
-                    // questions loaded by latest, without categoryId
-                    subs = this.questionService.getQuestions();
-                    this.commServ.setCategory(this.id);     
-                }
-                ////Question with bookmarks
-                //else if (this.id == '2') {
-                //    subs = this.questionService.getbookmark();
-                //}
-                else
-                {
-                    // questions loaded by category id
-                    subs = this.questionService.getQuestionsByCategory(this.id);
+          //  this.id = params['id'];
 
-                    /// if page directly loads from url, then categories gets undefiend                
-                    this.loadCategories();              
-                }
+            // param id = 0, default route, it is ver tidas
+            if (this.categoryId == '1') {
+                this.filterParameter.topicId = this.commServ.getTopicId();
+                this.filterParameter.levelId = this.commServ.getLevelId();
+                this.filterParameter.categoryId = this.categoryId;
+
+                subs = this.questionService.FilterbyCategoryTopicNLevel(this.filterParameter);
+
+                // questions loaded by latest, without categoryId
+               // subs = this.questionService.getQuestions();
+
             }
-            subs.subscribe(res => {             
-                  
+
+            else {
+                this.filterParameter = this.commServ.getFilterParameter();
+                // questions loaded by category id
+                // subs = this.questionService.getQuestionsByCategory(this.id);
+                subs = this.questionService.FilterbyCategoryTopicNLevel(this.filterParameter);
+
+                /// if page directly loads from url, then categories gets undefiend                
+                this.loadCategories();
+            }
+
+            subs.subscribe(res => {
+                this.commServ.setCategory(this.categoryId);
                 this.questions = res;
-                this.questions.forEach(x => x.bestAnswer = x.answers[0]);       
-                this.hideLoader();    
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+                this.hideLoader();
             });
-        });        
-        
-    }  
+        });
+
+    }
     bestquestionbytotallike(categoryId: string) {
-        
+
         var subs = this.questionService.bestquestionbytotallike(categoryId).subscribe(
             res => {
-                
+
                 this.questions = res;
 
-             //   this.loadCategories();
+                //   this.loadCategories();
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
 
             }
@@ -142,8 +150,8 @@ export class QuestionBodyComponent{
                 console.log(res);
                 this.questions = res;
 
-              //  this.loadCategories();
-                this.questions.forEach(x => x.bestAnswer = x.answers[0]); 
+                //  this.loadCategories();
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             }
         );
     }
@@ -154,10 +162,10 @@ export class QuestionBodyComponent{
 
             this.categories = res;
 
-            if (this.id == '1')
+            if (this.categoryId == '1')
                 this.categorySelected = this.categories.find(x => x.sequence == 1);
             else
-                this.categorySelected = this.categories.find(x => x.id == this.id);
+                this.categorySelected = this.categories.find(x => x.id == this.categoryId);
 
             if (this.categorySelected && this.categorySelected.image)
                 this.categorySelected.image = this.config.categoryImage.concat(this.categorySelected.image);
@@ -168,23 +176,20 @@ export class QuestionBodyComponent{
         });
     }
 
-    addFollower(categoryId: string)
-    {
+    addFollower(categoryId: string) {
         this.categoryService.addAddFollower(categoryId).subscribe(res => {
             this.totalCount.totalUsers += 1;
         });
     }
 
-    getQuestionNotAnswered(categoryId: string)
-    {
+    getQuestionNotAnswered(categoryId: string) {
         this.questionService.getQuestionsNotAnswered(categoryId).subscribe(res => {
             this.questions = res;
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
         });
     }
 
-    getQuestionsAnswered(categoryId: string)
-    {
+    getQuestionsAnswered(categoryId: string) {
         this.questionService.getQuestyionsAnswered(categoryId).subscribe(res => {
             this.questions = res;
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
@@ -192,7 +197,7 @@ export class QuestionBodyComponent{
     }
 
     showLoader() {
-        console.log('showloader started');
+       // console.log('showloader started');
         this.loader.isLoading = true;
     }
 
@@ -201,16 +206,16 @@ export class QuestionBodyComponent{
     }
 
     onScrollDown() {
-        console.log('scrolled!!');
+       // console.log('scrolled!!');
         this.scrollPage = this.scrollPage + 1;
-        console.log(this.scrollPage);
+       // console.log(this.scrollPage);
     }
- submitLike(questionId: string) {
+    submitLike(questionId: string) {
         this.like = new Like();
-        this.like.questionId = questionId;       
+        this.like.questionId = questionId;
 
         this.questionService.addQuestionLike(this.like).subscribe(res => {
-            this.questions.find(x=>x.id==questionId).likes.push(this.like);
+            this.questions.find(x => x.id == questionId).likes.push(this.like);
         });
     }
 

@@ -13,6 +13,7 @@ using Questions.Domain;
 using AltaPerspectiva.Web.Areas.Questions.Services;
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
 using Questions.Query.Queries;
+using System.Web.Http;
 
 
 //using Questions.Domain;
@@ -468,8 +469,19 @@ namespace AltaPerspectiva.Web.Area.Questions
             var levels = await queryFactory.ResolveQuery<ILevelQuery>().GetAllLevel();
             return levels;
         }
+        [HttpGet("/questions/api/getlevelname/{levelId}")]
+        public IActionResult GetLevelName(Guid levelId)
+        {
+            var level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId);
+            return Ok(level?.LevelName);
+        }
 
-        
+        [HttpGet("/questions/api/gettopicname/{topicId}")]
+        public IActionResult GetTopicName(Guid topicId)
+        {
+            var topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId);
+            return Ok(topic?.TopicName);
+        }
 
 
         #region Bookmark
@@ -662,6 +674,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
 
+        #region Filters
         [HttpGet("/questions/api/FilterbyCategoryTopicNLevel")]
         public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter)
         {
@@ -743,7 +756,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return Ok(questionViewModels);
         }
-
+        #endregion
 
     }
 }
