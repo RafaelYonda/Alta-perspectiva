@@ -194,5 +194,18 @@ export class QuestionDetailComponent {
         });
     }
 
+    GetLatestAnswer(questionId: string) {
+        console.log('GetLatestAnswer ' + questionId);
+        this.dataService.GetLatestAnswer(questionId).subscribe(res => {
+            this.question = res;
+        })
+    }
+
+    GetBestAnswer(questionId: string) {
+        console.log('GetBestAnswer ' + questionId);
+        this.dataService.GetBestAnswer(questionId).subscribe(res => {
+            this.question = res;
+        })
+    }
 
 }

@@ -24,9 +24,9 @@
         <div class="summery-panel">
             <h4>{{question.answers?.length}} Answers</h4>
             <div class="row">
-                <div class="col-md-3"><h4>The latest answers</h4></div>
-                <div class="col-md-3"><h4>The best answer</h4></div>
-                <div class="col-md-4"><h4>The more view answers</h4></div>
+                <div class="col-md-3"><a (click)="GetLatestAnswer(question.id)"><h4>The latest answers</h4></a></div>
+                <div class="col-md-3"><a (click)="GetBestAnswer(question.id)"><h4>The best answer</h4></a></div>
+                <!--<div class="col-md-4"><h4>The more view answers</h4></div>-->
             </div>
             <hr />
         </div>

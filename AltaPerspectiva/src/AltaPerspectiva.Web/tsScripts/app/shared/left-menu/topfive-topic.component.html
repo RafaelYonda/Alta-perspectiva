@@ -3,7 +3,7 @@
     <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
     <ul class="left-panel-list" *ngIf="topFiveTopics.length>0">
         <li *ngFor="let topFiveTopic of topFiveTopics">
-            <a [routerLink]="['/question/home/1',{topicId:topFiveTopic?.id,categoryId:topFiveTopic?.categoryId}]"> {{topFiveTopic?.topicName}}</a>
+            <a [routerLink]="['/question/home',{topicId:topFiveTopic?.id,categoryId:topFiveTopic?.categoryId}]"> {{topFiveTopic?.topicName}}</a>
         </li>
     </ul>
 </div>
