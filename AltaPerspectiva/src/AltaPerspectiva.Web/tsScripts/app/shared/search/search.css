@@ -1,23 +1,52 @@
-﻿.topic-icon{
+﻿    .icon-container {
+        position: relative;
+    }
+
+    .question-begin {
+        position: absolute;
+        font-size: 22px;
+        left: 4px;
+        top: 5px;
+        z-index: 9050;
+        font-weight: bold;
+    }
+
+    .question-end {
+        position: absolute;
+        font-size: 22px;
+        z-index: 9050;
+        font-weight: bold;
+        margin-left:10px;
+        top: 8px;
+    }
+
+    .form-control {
+        padding: 5px 15px;
+    }
+.topic-icon {
     background-color: #f6912b;
     padding: 3px;
     color: white;
     margin-right: 5px;
 }
+
 .input-group-btn {
     width: auto;
 }
-.question-control{
+
+.question-control {
     padding: 0;
     height: 24px;
     border-radius: 8px;
     width: 100%;
     margin-bottom: 5px;
 }
-textarea{
+
+textarea {
     min-height: 70px;
     padding: 5px !important;
 }
+
 .ask-text {
     padding-left: 5px;
     margin-right: 7px;
@@ -169,6 +198,12 @@ a {
         }
 }
 
+.dropdown-block{
+    background-color: white;
+    border-radius: 7px;
+    padding: 10px;
+
+}
 .suggestion-container {
     margin-top: 15px;
     border-radius: 10px;
@@ -177,9 +212,10 @@ a {
 }
 
 .suggestions {
+    margin-top:10px;
     top: 100%;
     width: 100%;
-    position: absolute;
+    position: absolute;  
 }
 
 /*.topic-detail {

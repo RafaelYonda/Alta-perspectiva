@@ -1,5 +1,7 @@
-﻿import { Component, Input, ElementRef } from '@angular/core';
+﻿/// <reference path="search-dropdown.component.ts" />
+import { Component, Input, ElementRef, ViewChild  } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ApSearchDropDownComponent } from './search-dropdown.component';
 
 import { CategoryService } from '../../services/category.service'
 import { QuestionAnswerService } from '../../services/question-answer.service';
@@ -12,35 +14,17 @@ import { Category, Question, Keyword, AskQuestionViewModel,Topic,Level,QuestionS
     providers: [CategoryService, QuestionAnswerService]
 })
 export class ApSearchComponent {
+    @ViewChild(ApSearchDropDownComponent) searchDropDown: ApSearchDropDownComponent
     public elementRef;
     title: string;
-    body: string;
+    //body: string;
     result: string;
     keywords: Keyword[];
     @Input() placeBottom: string = '';
-    topics:Topic[];
-    levels:Level[];
+    //topics:Topic[];
+    //levels:Level[];
     questionSaveViewModel: QuestionSaveViewModel;
-    isAnonymous:boolean;
-    onCategoryChange(categoryId) {
-        //console.log(categoryId);
-        this.categoryID = categoryId;
-        this.questionsService.getTopicByCategoryid(this.categoryID).subscribe(res => {
-            this.topics = res;
-         });
-    }
-    onTopicChange(topicId) {
-        console.log(topicId);
-        this.topicID = topicId;
-         this.questionsService.getlevel().subscribe(res => {
-            this.levels = res;
-             this.levelID = this.levels[0].id;
-         });
-    }
-    onLevelChange(levelId) {
-        console.log(levelId);
-        this.levelID = levelId;
-    }
+
     constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private myElement: ElementRef) {
         this.elementRef = myElement;
     }
@@ -53,9 +37,9 @@ export class ApSearchComponent {
             this.questionList = resList;
 
         });
-        this.categoryService.getAllCategories().subscribe(res => {
-            this.categories = res;
-        });
+        //this.categoryService.getAllCategories().subscribe(res => {
+        //    this.categories = res;
+        //});
         this.categoryService.getAllKeywords().subscribe(res => {
             this.keywords = res;
         });
@@ -68,48 +52,21 @@ export class ApSearchComponent {
         if (value && (value == 'search-box') || (value == 'adv-search'))
             this.removeModal();
     }
-    onChange(event) {
-        
-        this.isAnonymous = event;
-        console.log(" : " + this.isAnonymous );
-    }
     //=============Submit Question===========
     question: Question;
 
-    submitQuestion() {        
-        this.question = new Question();        
-        this.question.title = this.title;
-        this.question.body = this.body;
-        this.question.topicId = this.topicID == '-1' ? '' : this.topicID;
-        this.question.levelId = this.levelID=='-1'?'':this.levelID;
-        this.question.isAnonymous = this.isAnonymous;
-        //CategoryID=-1 is for placeholder .So will not be added to question while savings
-        if (this.categoryID != '-1')
-            this.question.categoryIds.push(this.categoryID);
-        else
-            this.question.categoryIds.push(this.categories[0].id);
-
-        this.questionsService.saveQuestionSaveViewModel(this.question).subscribe(res => {
-            console.log('in ok');
-            this.question = res;
-            this.router.navigate(['/question/home/1']);
-
-        });
+    submitQuestion() {
+        this.searchDropDown.submitQuestion();
     }
 
     //=============Category Show=============
     categories: Category[];
     categoryMatched: string = "";
     categoryID: string = '-1';
-    topicID: string = '-1';
-    levelID: string = '-1';
-   // body: string = '';
     public icon: string;
     public visible = true;
 
     showMatchedCatogries(title: string) {
-        //if (title.length < 3)
-        //    return;
         var keywordsInQuestionTitle = title.split(' '); //Get words from question to find keywords
         this.categoryMatched = "";
         keywordsInQuestionTitle.forEach(str => {
