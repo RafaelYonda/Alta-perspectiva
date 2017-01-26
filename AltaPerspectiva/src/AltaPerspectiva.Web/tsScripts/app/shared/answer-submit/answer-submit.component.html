@@ -16,7 +16,7 @@
             <div class="img-container" *ngIf="!isAnonymous">
                 <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
             </div>
-            <div class="img-container" *ngIf="isAnonymous" class="col-lg-1">
+            <div class="img-container" *ngIf="isAnonymous" >
                 <img class="user-image " src="../../../../profile/Anonymous.png" />
             </div>
 
