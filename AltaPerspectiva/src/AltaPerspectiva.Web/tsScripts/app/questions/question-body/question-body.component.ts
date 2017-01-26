@@ -137,9 +137,21 @@ export class QuestionBodyComponent {
         });
 
     }
-    bestquestionbytotallike(categoryId: string) {
+    GetLatestQuestionByDate(categoryId: string) {
+        this.categorySelected = this.categories.find(x => x.id == categoryId);
+        var subs = this.questionService.GetLatestQuestionByDate(categoryId).subscribe(
+            res => {
 
-        var subs = this.questionService.bestquestionbytotallike(categoryId).subscribe(
+                this.questions = res;
+
+                //  this.loadCategories();
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+            }
+        );
+    }
+    getbestquestionbytotallike(categoryId: string) {
+
+        var subs = this.questionService.getbestquestionbytotallike(categoryId).subscribe(
             res => {
 
                 this.questions = res;
