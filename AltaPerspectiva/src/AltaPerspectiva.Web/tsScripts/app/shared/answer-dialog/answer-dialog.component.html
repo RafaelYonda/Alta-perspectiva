@@ -1,6 +1,6 @@
 ﻿<div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
     <div class="modal-content answer-dialog">
         <div class="exit-button" (click)="onClickedExit()">x</div>
-        <answer-submit [question]="question" [isFullScreen]="false" ></answer-submit>
+        <answer-submit [question]="question" [isFullScreen]="false" [isDetail]="isDetail"></answer-submit>
     </div>
 </div>

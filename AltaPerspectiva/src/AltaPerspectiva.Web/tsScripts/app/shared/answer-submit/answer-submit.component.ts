@@ -12,6 +12,7 @@ export class AnswerSubmitComponent {
     _logObj: LogInObj;
     @Input() question: Question;
     @Input() isFullScreen: boolean;
+    @Input() isDetail: boolean;
 
     isAnonymous: boolean;//anonymous added to 
     answerVM: AnswerViewModel;
@@ -40,12 +41,13 @@ export class AnswerSubmitComponent {
         this.dataService.addAnswer(this.answerVM).subscribe(res => {
             this.answerVM = res;
             this.answerText = "";
-            this._router.navigateByUrl('question/detail/' + this.question.id, { skipLocationChange: true });
+            if (!this.isDetail)
+                this._router.navigateByUrl('question/detail/' + this.question.id, { skipLocationChange: true });
+            else
+                location.reload();
         });
-
     }
     submitAnswerAsDraft(_id: string) {
-
         this.answerVM = new AnswerViewModel();
         this.answerVM.questionId = _id;
         this.answerVM.text = this.answerText;
@@ -53,11 +55,13 @@ export class AnswerSubmitComponent {
         this.answerVM.isDrafted = true;
 
         this.dataService.addAnswer(this.answerVM).subscribe(res => {
-
             this.answerVM = res;
             this.answerText = "";
             this.isAnonymous = false;
-            this._router.navigateByUrl('question/detail/' + this.question.id, { skipLocationChange: true });
+            if (!this.isDetail)
+                this._router.navigateByUrl('question/detail/' + this.question.id, { skipLocationChange: true });
+            else
+                location.reload();
 
         });
     }

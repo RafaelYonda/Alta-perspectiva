@@ -93,6 +93,7 @@ export class QuestionDetailComponent {
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AnswerDialogComponent);
         let dialogComponentRef = this.answerAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.question = question; // Not sure about the translation here
+        dialogComponentRef.instance.isDetail = true;
         dialogComponentRef.instance.close.subscribe(() => {
             dialogComponentRef.destroy();
         });
