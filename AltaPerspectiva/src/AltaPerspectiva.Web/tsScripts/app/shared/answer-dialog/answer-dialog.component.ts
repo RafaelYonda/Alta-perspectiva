@@ -7,6 +7,7 @@ import {Question } from '../../services/models';
     styleUrls: ['js/app/shared/answer-dialog/answer-dialog.component.css'],
 })
 export class AnswerDialogComponent {
+    isDetail: boolean;
     close = new EventEmitter();
     question: Question;
     onClickedExit() {
