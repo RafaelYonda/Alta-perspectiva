@@ -37,9 +37,9 @@ export class ApSearchComponent {
             this.questionList = resList;
 
         });
-        //this.categoryService.getAllCategories().subscribe(res => {
-        //    this.categories = res;
-        //});
+        this.categoryService.getAllCategories().subscribe(res => {
+            this.categories = res;
+        });
         this.categoryService.getAllKeywords().subscribe(res => {
             this.keywords = res;
         });
