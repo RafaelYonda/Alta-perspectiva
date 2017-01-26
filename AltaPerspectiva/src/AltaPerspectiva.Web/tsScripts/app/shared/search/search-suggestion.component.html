@@ -1,0 +1,16 @@
+﻿<div class="suggestion-container" *ngIf="(filteredQuestionList.length>0) || (categoryMatched?.length > 0)">
+    <div class="arrow-container"></div>
+    <ul class="question-List">
+        <li *ngFor="let item of filteredQuestionList">
+            <a (click)="selectQuestionDetails(item)">{{item.title}}</a>
+            <hr />
+        </li>
+        <li>
+            <a><span class="glyphicon glyphicon-search topic-icon" aria-hidden="true"></span><span class="search-footer">Topics:</span>  {{categoryMatched}}</a>
+            <hr />
+        </li>
+        <li>
+            <a><span class="glyphicon glyphicon-search topic-icon" aria-hidden="true"></span><span class="search-footer">Search:</span>  {{title?title+'?':''}}</a>
+        </li>
+    </ul>
+</div>

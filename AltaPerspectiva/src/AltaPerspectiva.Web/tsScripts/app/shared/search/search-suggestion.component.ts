@@ -23,7 +23,6 @@ export class ApSearchComponent {
     questionSaveViewModel: QuestionSaveViewModel;
     isAnonymous:boolean;
     onCategoryChange(categoryId) {
-        //console.log(categoryId);
         this.categoryID = categoryId;
         this.questionsService.getTopicByCategoryid(this.categoryID).subscribe(res => {
             this.topics = res;
@@ -144,18 +143,10 @@ export class ApSearchComponent {
     //=======Question mark movment====
     showQuestion = false;
     questionLeftposition = 20;
-    movequestionMark(event) {
-        var textWidth = document.getElementById('temp-text').clientWidth;
-        var key = event.keyCode || event.charCode;
-        textWidth = (textWidth + 20) < 30 ? (textWidth + 10) : (textWidth + 7);
-        if (textWidth > 635)
-            return;
-        console.log(textWidth);
-        //==============
+    movequestionMark() {
         this.showQuestion = true;
         var form = document.getElementById("question-end");
-        
-            this.questionLeftposition = textWidth;
+        this.questionLeftposition = this.questionLeftposition+7;
         form.style.left = this.questionLeftposition.toString() + 'px';
         console.log(form.style.left);
     }
@@ -166,10 +157,10 @@ export class ApSearchComponent {
         form.style.left = this.questionLeftposition.toString() + 'px';
     }
     //=======/Question mark movment=====
-    filterQuestions(event) {
-        this.movequestionMark(event);
+    filterQuestions() {
+        this.movequestionMark();
         var tempTitle = this.title;
-        this.showMatchedCatogries(this.title);
+       
         //  search after 3rd letter
         if (tempTitle !== "" && tempTitle.length > 1) {
             this.filteredQuestionList = this.questionList.filter(function (el) {
