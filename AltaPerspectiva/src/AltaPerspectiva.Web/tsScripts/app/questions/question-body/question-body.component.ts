@@ -13,7 +13,7 @@ export interface ILoader {
 @Component({
     selector: "question-body",
     templateUrl: 'js/app/questions/question-body/question-body.component.html',
-    styleUrls: ['js/app/questions/question-body/question-body.css'],
+    //styleUrls: ['js/app/questions/question-body/question-body.css'],
     providers: [QuestionAnswerService, CategoryService, ConfigService]
 })
 export class QuestionBodyComponent {
