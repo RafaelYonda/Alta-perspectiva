@@ -37,8 +37,15 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    bestquestionbytotallike(categoryId: string): Observable<Question[]> {
+    //bestquestionbytotallike
+    getbestquestionbytotallike(categoryId: string): Observable<Question[]> {
         return this._http.get('/questions/api/' + categoryId + '/bestquestionbytotallike')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //GetLatestQuestionByDate
+    GetLatestQuestionByDate(categoryId: string): Observable<Question[]> {
+        return this._http.get('/questions/api/' + categoryId + '/getlatestquestionbydate', null)
             .map(this.extractData)
             .catch(this.handleError);
     }

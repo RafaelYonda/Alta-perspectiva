@@ -87,11 +87,22 @@ export class QuestionBodyComponent {
             //this.filterParameter.topicId = this.topicId;
             //this.filterParameter.levelId = this.levelId;
 
-            if (this.topicId)
+            if (this.topicId) {
                 this.commServ.setTopicId(this.topicId);
+                this.filterParameter.topicId = this.topicId;
+            }
+            else {
+                this.filterParameter.topicId = '0';
+            }
 
-            if (this.levelId)
+
+            if (this.levelId) {
                 this.commServ.setLevelId(this.levelId);
+                this.filterParameter.levelId = this.levelId;
+            } else {
+                this.filterParameter.levelId = '0';
+            }
+                
 
             this.showLoader();
             var subs: any;
@@ -100,10 +111,6 @@ export class QuestionBodyComponent {
 
             // param id = 0, default route, it is ver tidas
             if (this.categoryId == '1') {
-                this.filterParameter.topicId = this.commServ.getTopicId();
-                this.filterParameter.levelId = this.commServ.getLevelId();
-                this.filterParameter.categoryId = this.categoryId;
-
                 subs = this.questionService.FilterbyCategoryTopicNLevel(this.filterParameter);
 
                 // questions loaded by latest, without categoryId
@@ -112,7 +119,7 @@ export class QuestionBodyComponent {
             }
 
             else {
-                this.filterParameter = this.commServ.getFilterParameter();
+              //  this.filterParameter = this.commServ.getFilterParameter();
                 // questions loaded by category id
                 // subs = this.questionService.getQuestionsByCategory(this.id);
                 subs = this.questionService.FilterbyCategoryTopicNLevel(this.filterParameter);
@@ -130,9 +137,21 @@ export class QuestionBodyComponent {
         });
 
     }
-    bestquestionbytotallike(categoryId: string) {
+    GetLatestQuestionByDate(categoryId: string) {
+        this.categorySelected = this.categories.find(x => x.id == categoryId);
+        var subs = this.questionService.GetLatestQuestionByDate(categoryId).subscribe(
+            res => {
 
-        var subs = this.questionService.bestquestionbytotallike(categoryId).subscribe(
+                this.questions = res;
+
+                //  this.loadCategories();
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+            }
+        );
+    }
+    getbestquestionbytotallike(categoryId: string) {
+
+        var subs = this.questionService.getbestquestionbytotallike(categoryId).subscribe(
             res => {
 
                 this.questions = res;

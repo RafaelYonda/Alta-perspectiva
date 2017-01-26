@@ -22,7 +22,7 @@ using Questions.Query.Queries;
 
 namespace AltaPerspectiva.Web.Area.Questions
 {
-    [Area("Questions")]    
+    [Area("Questions")]
     public class QuestionsController : Controller
     {
         #region Ctor and config
@@ -30,7 +30,8 @@ namespace AltaPerspectiva.Web.Area.Questions
         IQueryFactory queryFactory;
         private readonly IConfigurationRoot configuration;
 
-        public QuestionsController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IConfigurationRoot _configuration) {
+        public QuestionsController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IConfigurationRoot _configuration)
+        {
             commandsFactory = _commandsFactory;
             queryFactory = _queryFactory;
             configuration = _configuration;
@@ -42,7 +43,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             var config = new Config();
             config.ProfileImage = configuration["ProfileImage"];
-            config.CategoryImage = configuration["CategoryImage"];           
+            config.CategoryImage = configuration["CategoryImage"];
             return Ok(config);
         }
         #endregion
@@ -53,29 +54,29 @@ namespace AltaPerspectiva.Web.Area.Questions
             IEnumerable<Question> questionList = null;
 
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-                        
+
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-                
+
                 /// if user is logged in, then fetch questions by user following a category
                 questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().Execute(loggedinUser);
             }
             else
             {
-                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();               
-            }         
+                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+            }
 
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
 
-            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);      
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
 
-            return Ok(questions);            
+            return Ok(questions);
         }
 
         [HttpGet("/questions/api/{topicId}/questions/{categoryId}")]
-        public async Task<IActionResult> GetQuestionByTopicNCategoryId(Guid topicId,Guid categoryId)
+        public async Task<IActionResult> GetQuestionByTopicNCategoryId(Guid topicId, Guid categoryId)
         {
             IEnumerable<Question> questionList = null;
 
@@ -87,11 +88,11 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
                 // if user is logged in, then fetch questions by user following a category
-                questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().GetQuestionByTopciNCategoryId(loggedinUser,topicId,categoryId);
+                questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().GetQuestionByTopciNCategoryId(loggedinUser, topicId, categoryId);
             }
             else
             {
-                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().GetQuestionByTopciNCategoryId(topicId,categoryId);
+                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().GetQuestionByTopciNCategoryId(topicId, categoryId);
             }
 
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
@@ -104,8 +105,8 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/search")]
         public async Task<IActionResult> GetSearchQuestion()
         {
-          var questionList = await queryFactory.ResolveQuery<IQuestionsSearchQuery>().Execute();
-          return Ok(questionList);
+            var questionList = await queryFactory.ResolveQuery<IQuestionsSearchQuery>().Execute();
+            return Ok(questionList);
         }
 
         [HttpGet("/questions/api/questions/notanswered/{id}")]
@@ -122,9 +123,9 @@ namespace AltaPerspectiva.Web.Area.Questions
         public async Task<IActionResult> GetQuestyionsAnswered(Guid id)
         {
             IEnumerable<Question> questionList = null;
-            questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(id);            
+            questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(id);
             var questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
-            return Ok(questions);           
+            return Ok(questions);
         }
 
         // GET /questions/api/questions/{id}
@@ -147,7 +148,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
             questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
 
-            return Ok(questions);            
+            return Ok(questions);
         }
 
         // GET /questions/api/questions/topic/{id}
@@ -173,7 +174,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         // GET /questions/api/questions/{id}
         [HttpGet("/questions/api/questions/{id}/comments")]
-        public async Task<IActionResult>  GetQuestionComments(Guid id)
+        public async Task<IActionResult> GetQuestionComments(Guid id)
         {
             var comments = await queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);
             var commentsVM = new QuestionService().GetComments(comments, queryFactory);
@@ -200,8 +201,8 @@ namespace AltaPerspectiva.Web.Area.Questions
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-           
-            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text,answer.AnswerDate,answer.QuestionId, loggedinUser,answer.IsDrafted,answer.IsAnonymous);
+
+            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 
@@ -219,11 +220,11 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
-            AddCommentCommand cmd = new AddCommentCommand(comment.CommentText,comment.QuestionId,null, loggedinUser);
+            AddCommentCommand cmd = new AddCommentCommand(comment.CommentText, comment.QuestionId, null, loggedinUser);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 
-            var userViewModel = new UserService().GetUserViewModel(queryFactory,loggedinUser);
+            var userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser);
             comment.UserViewModel = userViewModel;
             return comment;
 
@@ -361,7 +362,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         [HttpPost("/questions/api/question/{id}/viewcount")]
         public IActionResult PostQuestionViewCount(Guid id)
-        {           
+        {
 
             UpdateViewCountCommand cmd = new UpdateViewCountCommand(id);
             commandsFactory.ExecuteQuery(cmd);
@@ -371,7 +372,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         }
         //all like added 
-      
+
         [HttpGet("/questions/api/answerlike/{answerId}")]
         public async Task<IActionResult> AnswerLike(Guid answerId)
         {
@@ -576,8 +577,8 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
-           
-            UpdateQuestionCommand cmd=new UpdateQuestionCommand(model.Id,model.Title,model.Body,model.IsAnonymous);
+
+            UpdateQuestionCommand cmd = new UpdateQuestionCommand(model.Id, model.Title, model.Body, model.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
             return Ok();
 
@@ -586,7 +587,37 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         #endregion
 
-        #region Best Question and More Views Region
+        #region  latest question Best Question and More Views Region
+        [HttpGet("/questions/api/{categoryId}/getlatestquestionbydate")]
+        public async Task<IActionResult> GetLatestQuestionByDate(Guid categoryId)
+        {
+            IEnumerable<Question> questionList = null;
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            if (categoryId == Guid.Empty)
+            {
+                //vertodas category soo let us fetch all category
+                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+            }
+            else
+            {
+                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>()
+                .GetLatestQuestion(loggedinUser, categoryId);
+            }
+            
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+
+            return Ok(questions);
+        }
+
         [HttpGet("/questions/api/{categoryId}/getmorequestionbyviewcount")]
         public async Task<IActionResult> GetMoreViewedQuestionByViewCount(Guid categoryId)
         {
@@ -677,15 +708,15 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/FilterbyCategoryTopicNLevel")]
         public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter)
         {
-           // Guid emptyGuid=Guid.Empty;
+            // Guid emptyGuid=Guid.Empty;
 
             var categoryId = filterParameter.CategoryId;
             var topicId = filterParameter.TopicId;
             var levelId = filterParameter.LevelId;
-            IEnumerable<Question> questions=new List<Question>();
+            IEnumerable<Question> questions = new List<Question>();
 
 
-             //Filter by Category ,Topic   and level
+            //Filter by Category ,Topic   and level
             if (categoryId.HasValue && topicId.HasValue && levelId.HasValue)
             {
                 questions =
@@ -713,7 +744,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             {
                 questions =
                     await queryFactory.ResolveQuery<IQuestionsQuery>()
-                        .FilterbyTopicAndLevel( topicId.Value, levelId.Value);
+                        .FilterbyTopicAndLevel(topicId.Value, levelId.Value);
 
             }
             //Filter by category only
@@ -730,7 +761,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             {
                 questions =
                      await queryFactory.ResolveQuery<IQuestionsQuery>()
-                         .Filteredbytopiconly( topicId.Value);
+                         .Filteredbytopiconly(topicId.Value);
 
             }
             //Filtered by level only
@@ -738,7 +769,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             {
                 questions =
                      await queryFactory.ResolveQuery<IQuestionsQuery>()
-                         .Filteredbylevelonly( levelId.Value);
+                         .Filteredbylevelonly(levelId.Value);
 
             }
             //Filtered General Category only
@@ -747,7 +778,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 questions =
                     await queryFactory.ResolveQuery<IQuestionsQuery>()
                         .FilteredGeneralCategoryonly();
-                
+
             }
             List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
 
