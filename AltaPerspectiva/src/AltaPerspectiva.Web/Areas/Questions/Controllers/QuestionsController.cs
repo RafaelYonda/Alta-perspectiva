@@ -13,7 +13,6 @@ using Questions.Domain;
 using AltaPerspectiva.Web.Areas.Questions.Services;
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
 using Questions.Query.Queries;
-using System.Web.Http;
 
 
 //using Questions.Domain;
