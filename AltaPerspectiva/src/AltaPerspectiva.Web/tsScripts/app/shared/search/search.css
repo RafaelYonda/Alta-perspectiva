@@ -156,6 +156,7 @@ a {
 .btn-primary {
     background-color: #F6912B;
     border-color: #F6912B;
+    color: white;
 }
 
     .btn-primary:hover {

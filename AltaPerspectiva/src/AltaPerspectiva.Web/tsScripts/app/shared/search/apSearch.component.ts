@@ -145,7 +145,7 @@ export class ApSearchComponent {
     isOnModal = false;
     showModal() {
         this.searchClass = document.getElementById("search-box").className;
-        document.getElementById("search-box").className = "modal-overlay z-modal";
+        document.getElementById("search-box").className = "modal-overlay";
         var form = document.getElementById("search-box");
         form.style.paddingTop = '10px';
         this.isOnModal = true;
@@ -153,7 +153,7 @@ export class ApSearchComponent {
     removeModal() {
         this.filteredQuestionList = [];
         this.categoryMatched = "";
-        document.getElementById("search-box").className = this.placeBottom +" z-header";
+        document.getElementById("search-box").className = this.placeBottom ;
         //document.getElementById("search-box").className = this.searchClass;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
