@@ -1,5 +1,5 @@
 ﻿import { Component, EventEmitter } from '@angular/core';
-import { Question} from '../../services/models';
+//import { Question} from '../../services/models';
 
 @Component({
     selector: 'question-report',
@@ -8,13 +8,13 @@ import { Question} from '../../services/models';
 })
 export class QuestionReportComponent {
     close = new EventEmitter();
-    question: Question;
+    //question: Question;
 
     onClickedExit() {
         this.close.emit('event');
     }
     ngOnInit() {
-        console.log('My question' + this.question);
+       // console.log('My question' + this.question);
     }
     handleClick(event) {
         //removel the modal on clicking out side the panel

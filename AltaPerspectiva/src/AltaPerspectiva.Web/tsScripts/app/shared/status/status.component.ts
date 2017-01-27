@@ -15,6 +15,7 @@ export class StatusComponent {
     @Input() isQuestion: any;
 
     @Output() onQuestionDetailClicked = new EventEmitter<boolean>();
+    @Output() onQuestionReportClicked = new EventEmitter<boolean>();
 
     commentId: string;
     CommentCount: number;
@@ -88,5 +89,9 @@ export class StatusComponent {
                 this.likedUsers = res;
             });
         }
+    }
+    questionReportClicked() {
+        console.log('questionReportClicked');
+        this.onQuestionReportClicked.emit(true);
     }
 }

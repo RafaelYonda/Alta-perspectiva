@@ -6,7 +6,8 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { RelatedQuestionMenu } from '../question-left-menu/related-question-left-menu.component';
 import { AnswerDialogComponent } from '../../shared/answer-dialog/answer-dialog.component';
-
+//QuestionReport
+import { QuestionReportComponent } from '../../shared/question-report/question-report.component';
 @Component({
     selector: "question-details",
     templateUrl: 'js/app/questions/question-details/question-details.component.html',
@@ -182,6 +183,30 @@ export class QuestionDetailComponent {
         this.editTitle = this.question.title;
         this.editBody = this.question.body;    
     }
+    @ViewChild('questionReport', { read: ViewContainerRef }) questionReport: ViewContainerRef;
+    /*answerDialogBox(question: Question) {
+        // Close any already open dialogs
+        this.answerAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AnswerDialogComponent);
+        let dialogComponentRef = this.answerAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.question = question; // Not sure about the translation here
+        dialogComponentRef.instance.isDetail = false;
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }*/
+    onQuestionReportClicked(showQuestionReportModal: boolean) {
+        console.log('onQuestionReportClicked->onQuestionReportClicked->onQuestionReportClicked->onQuestionReportClicked');
+        this.questionReport.clear();
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(QuestionReportComponent);
+        let dialogComponentRef = this.questionReport.createComponent(dialogComponentFactory);
+       // dialogComponentRef.instance.isDetail = false;
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }
+
 
     updateQuestion()
     {

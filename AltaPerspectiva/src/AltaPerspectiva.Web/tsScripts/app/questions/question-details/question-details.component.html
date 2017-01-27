@@ -1,4 +1,5 @@
 ﻿<div #answerAnchor></div>
+<div #questionReport></div>
 <div class="left-panel">
     <related-question-left-menu></related-question-left-menu>
     <related-topic [topicId]="question?.questionTopics[0]?.topicId"></related-topic>
@@ -16,7 +17,7 @@
             <user-info [userObj]="question.userViewModel" [viewDate]="question?.createdOn" [isAnonymous]="question?.isAnonymous"></user-info>
             <p class="answer-text" [innerHTML]="question.body"></p>
             <div class="clearfix"></div>
-            <ap-status [isQuestion]='true' [questionObj]="question" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"> </ap-status>
+            <ap-status [isQuestion]='true' [questionObj]="question" (onQuestionDetailClicked)="onQuestionDetailClicked($event)" (onQuestionReportClicked)="onQuestionReportClicked($event)"> </ap-status>
             <ap-comment [isQuestion]='true' [questionId]="question?.id"></ap-comment>
         </div>
         <hr />
