@@ -1,4 +1,4 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { Component, Input,EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { CategoryService } from '../../services/category.service'
@@ -12,6 +12,7 @@ import { Category, Question, Keyword, AskQuestionViewModel,Topic,Level,QuestionS
     providers: [CategoryService, QuestionAnswerService]
 })
 export class ApSearchDropDownComponent {
+    submitEmitter= new  EventEmitter();
     @Input() title: string;
     categoryID: string = '-1';
     categories: Category[];
@@ -67,8 +68,12 @@ export class ApSearchDropDownComponent {
 
         this.questionsService.saveQuestionSaveViewModel(this.question).subscribe(res => {
             this.question = res;
+            console.log(this.router.url)
+            if (this.router.url == "/question/home/1")
+                this.submitEmitter.emit("submitted");
+            else
             this.router.navigate(['/question/home/1']);
-
+            
         });
     }
 }

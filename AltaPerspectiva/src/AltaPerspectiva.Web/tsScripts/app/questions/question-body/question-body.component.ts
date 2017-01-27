@@ -59,6 +59,16 @@ export class QuestionBodyComponent {
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
 
     }
+    onQuestionSubmitted(event) {
+        console.log("Submit on question");
+        var subs=this.questionService.getQuestions();
+        subs.subscribe(res => {
+            this.commServ.setCategory(this.categoryId);
+            this.questions = res;
+            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+            this.hideLoader();
+        });
+    }
     ngOnInit() {
         var currentUserName = localStorage.getItem('currentUserName');
         var currentUserImage = localStorage.getItem('currentUserImage');

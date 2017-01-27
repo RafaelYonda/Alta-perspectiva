@@ -1,4 +1,4 @@
-﻿<ap-search placeBottom="top-fixed"></ap-search>
+﻿<ap-search placeBottom="top-fixed" (onQuestionSubmit)="onQuestionSubmitted($event)"></ap-search>
 <div class="row">
     <div #dialogAnchor></div>
     <div #answerAnchor></div>
@@ -52,7 +52,7 @@
                 <div class="col-md-4"><a (click)="GetLatestQuestionByDate(categorySelected.id)" class="pull-left">The latest question</a> </div>
                 <div class="col-md-4 text-center"><a (click)="getbestquestionbytotallike(categorySelected.id)"> The best Question</a></div>
                 <div class="col-md-4 "><a class="pull-right" (click)="getmorequestionbyviewcount(categorySelected.id)">The more views</a></div>
-            </div>
+            </div> 
         </div>
         <div infinite-scroll
              [infiniteScrollDistance]="scrollDistance"
