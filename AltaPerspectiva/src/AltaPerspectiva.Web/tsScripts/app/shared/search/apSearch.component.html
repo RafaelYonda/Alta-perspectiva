@@ -1,8 +1,8 @@
-﻿<div [ngClass]="placeBottom" id="search-box" (click)="handleClick($event)">
-    <div class="input-group center-width" id="adv-search">
-        <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="form-horizontal" role="form" id="search-panel">
+﻿<div [ngClass]="placeBottom" id="search-box" (click)="handleClick($event)" class="z-search">
+    <div class="center-width" id="adv-search">
+        <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="z-header" role="form" id="search-panel">
             <div class="icon-container">
-                <input type="text" class="form-control search-input fixed-height z-header" #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()"
+                <input type="text" class="search-input fixed-height " #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()"
                        [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions($event) />
                 <div [hidden]="!showQuestion" class="question-begin">¿</div>
                 <div [hidden]="!showQuestion" class="question-end" id="question-end">?</div>
@@ -30,11 +30,9 @@
                 </div>
             </div>
 
-            <div class="input-group-btn">
-                <div class="btn-group" role="group">
-                    <button type="submit" class="btn btn-primary fixed-height" [disabled]="!titleName.valid"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span class="ask-text">Enviar</span></button>
-                </div>
-            </div>
+            <button type="submit" class="ask-button fixed-height" [disabled]="!titleName.valid">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span><span class="ask-text">Enviar</span>
+            </button>
         </form>
     </div>
 </div>

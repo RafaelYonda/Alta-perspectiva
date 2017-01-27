@@ -145,7 +145,7 @@ export class ApSearchComponent {
     isOnModal = false;
     showModal() {
         this.searchClass = document.getElementById("search-box").className;
-        document.getElementById("search-box").className = "modal-overlay";
+        document.getElementById("search-box").className = "modal-overlay z-modal";
         var form = document.getElementById("search-box");
         form.style.paddingTop = '10px';
         this.isOnModal = true;

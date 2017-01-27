@@ -1,28 +1,36 @@
-﻿    .icon-container {
-        position: relative;
-    }
+﻿#search-panel{
+    position:relative;
+}
+.ask-button {
+    background-color: #f6912b;
+    border: 1px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color:white;
+}
 
-    .question-begin {
-        position: absolute;
-        font-size: 22px;
-        left: 4px;
-        top: 5px;
-        z-index: 9050;
-        font-weight: bold;
-    }
+.icon-container {
+    position: relative;
+}
 
-    .question-end {
-        position: absolute;
-        font-size: 22px;
-        z-index: 9050;
-        font-weight: bold;
-        margin-left:10px;
-        top: 8px;
-    }
+.question-begin {
+    position: absolute;
+    font-size: 22px;
+    left: 4px;
+    top: 5px;
+    z-index: 9050;
+    font-weight: bold;
+}
 
-    .form-control {
-        padding: 5px 15px;
-    }
+.question-end {
+    position: absolute;
+    font-size: 22px;
+    z-index: 9050;
+    font-weight: bold;
+    margin-left: 10px;
+    top: 8px;
+}
+
 .topic-icon {
     background-color: #f6912b;
     padding: 3px;
@@ -85,9 +93,14 @@ a {
     padding: 10px 0px;
 }
 
-.form-horizontal > .search-input {
+.search-input {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+    float: left;
+    border: 1px solid #eeeeee;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-left:15px;
 }
 
 .form-group {
@@ -137,7 +150,7 @@ a {
 
 .search-input {
     background-color: #f5f5f5;
-    width: 88%;
+    width: 90%;
 }
 
 .form-control {
@@ -199,12 +212,12 @@ a {
         }
 }
 
-.dropdown-block{
+.dropdown-block {
     background-color: white;
     border-radius: 7px;
     padding: 10px;
-
 }
+
 .suggestion-container {
     margin-top: 15px;
     border-radius: 10px;
@@ -213,10 +226,10 @@ a {
 }
 
 .suggestions {
-    margin-top:10px;
+    margin-top: 10px;
     top: 100%;
     width: 100%;
-    position: absolute;  
+    position: absolute;
 }
 
 /*.topic-detail {
