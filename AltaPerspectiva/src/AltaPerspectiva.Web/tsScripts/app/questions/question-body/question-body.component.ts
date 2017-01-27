@@ -70,6 +70,7 @@ export class QuestionBodyComponent {
         });
     }
     ngOnInit() {
+        window.scrollTo(0,0);
         var currentUserName = localStorage.getItem('currentUserName');
         var currentUserImage = localStorage.getItem('currentUserImage');
         console.log(currentUserName);
