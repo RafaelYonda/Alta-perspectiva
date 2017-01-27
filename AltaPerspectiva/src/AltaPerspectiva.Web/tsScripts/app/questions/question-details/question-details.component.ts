@@ -81,7 +81,7 @@ export class QuestionDetailComponent {
             this.isAnonymous = false;
             this.dataService.GetQuestion(_id).subscribe(res => {
                 this.question = res;
-            })
+            });
            
         });
     }
@@ -96,6 +96,9 @@ export class QuestionDetailComponent {
         dialogComponentRef.instance.isDetail = true;
         dialogComponentRef.instance.close.subscribe(() => {
             dialogComponentRef.destroy();
+            this.dataService.GetQuestion(this.question.id).subscribe(res => {
+                this.question = res;
+            });
         });
     }
     submitAnswerAsDraft(_id: string) {

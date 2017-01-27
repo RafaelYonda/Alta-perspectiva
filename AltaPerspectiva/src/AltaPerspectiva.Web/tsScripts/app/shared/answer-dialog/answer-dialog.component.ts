@@ -1,5 +1,6 @@
-﻿import { Component,EventEmitter } from '@angular/core';
+﻿import { Component, EventEmitter, ViewChild } from '@angular/core';
 import {Question } from '../../services/models';
+import {AnswerSubmitComponent } from '../answer-submit/answer-submit.component';
 
 @Component({
     selector: 'answer-dialog',
@@ -10,6 +11,12 @@ export class AnswerDialogComponent {
     isDetail: boolean;
     close = new EventEmitter();
     question: Question;
+    @ViewChild(AnswerSubmitComponent) anserSubmit: AnswerSubmitComponent
+    ngOnInit() {
+        this.anserSubmit.close.subscribe(() => {
+            this.close.emit('event');
+        });
+    }
     onClickedExit() {
         this.close.emit('event');
     }

@@ -1,4 +1,4 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { Component, Input, EventEmitter } from '@angular/core';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import {LogInObj, Question, AnswerViewModel } from '../../services/models';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ export class AnswerSubmitComponent {
     @Input() question: Question;
     @Input() isFullScreen: boolean;
     @Input() isDetail: boolean;
-
+    close = new EventEmitter();
     isAnonymous: boolean;//anonymous added to 
     answerVM: AnswerViewModel;
     answerText: string;
@@ -44,7 +44,7 @@ export class AnswerSubmitComponent {
             if (!this.isDetail)
                 this._router.navigateByUrl('question/detail/' + this.question.id, { skipLocationChange: true });
             else
-                location.reload();
+                this.close.emit();
         });
     }
     submitAnswerAsDraft(_id: string) {
@@ -61,7 +61,7 @@ export class AnswerSubmitComponent {
             if (!this.isDetail)
                 this._router.navigateByUrl('question/detail/' + this.question.id, { skipLocationChange: true });
             else
-                location.reload();
+                this.close.emit();
 
         });
     }
