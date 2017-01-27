@@ -46,6 +46,7 @@ export class QuestionDetailComponent {
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
     ngOnInit() {
+        window.scrollTo(0, 0);
         var currentUserName = localStorage.getItem('currentUserName'); 
         var currentUserImage = localStorage.getItem('currentUserImage');
         console.log(currentUserName);
