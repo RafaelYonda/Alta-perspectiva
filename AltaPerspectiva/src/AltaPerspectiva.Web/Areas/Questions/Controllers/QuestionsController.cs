@@ -12,7 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Questions.Domain;
 using AltaPerspectiva.Web.Areas.Questions.Services;
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
+using Questions.Domain.ReadModel;
 using Questions.Query.Queries;
+using Questions.Commands;
 
 
 //using Questions.Domain;
@@ -786,6 +788,43 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return Ok(questionViewModels);
         }
+        #endregion
+
+
+
+        #region Popover
+        [HttpGet("/questions/api/getreport")]
+        public IActionResult GetReport()
+        {
+
+           
+            var reports=new Report().GetAllReports();
+
+            return Ok(reports);
+        }
+        [HttpPost("/questions/api/savereport")]
+        public IActionResult SaveReport([FromBody]QuestionReportViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                /// if user is logged in, then fetch questions by user following a category
+            }
+            QuestionReportCommand cmd=new QuestionReportCommand(model.QuestionId,model.Title,model.Comment,model.AnswerId,loggedinUser);
+
+            commandsFactory.ExecuteQuery(cmd);
+
+
+
+
+
+            return Ok();
+        }
+
         #endregion
 
     }

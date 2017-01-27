@@ -33,6 +33,8 @@ using UserProfile.Command.UserProfileDBContext;
 using UserProfile.Query;
 using Questions.Command.Commands;
 using Questions.Command.CommandHandler;
+using Questions.Commands;
+using Questions.Domain.ReadModel;
 using Questions.Query.Queries;
 
 namespace AltaPerspectiva
@@ -185,6 +187,10 @@ namespace AltaPerspectiva
             //Update question
             //Bookmarks
             services.AddTransient<ICommandHandler<UpdateQuestionCommand>, UpdateQuestionCommandHandler>();
+
+            //Question Report
+
+            services.AddTransient<ICommandHandler<QuestionReportCommand>, QuestionReportCommandHandler>();
 
         }
 

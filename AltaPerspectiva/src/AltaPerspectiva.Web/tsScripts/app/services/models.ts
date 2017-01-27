@@ -253,3 +253,10 @@ export class FilterParameter {
     topicId: string;
     levelId: string;
 }
+//Question report added
+export class QuestionReport {
+    questionId: string;
+    title: string;
+    comment: string;
+    anwserId:string;
+}
