@@ -1,13 +1,16 @@
-﻿<ul class="question-header">
-    <li>
-        <a [routerLink]="['/question/home',question?.categories[0]?.id]"> {{question.categories[0]?.name}}</a>
-    </li>
-    <li class="question-info">
-        <a [routerLink]="['/question/home/topic',{topicId:question?.questionTopics[0]?.topicId,categoryId:question?.categories[0]?.id}]">{{question?.questionTopicNames[0]}}</a>
-    </li>
-    <li class="question-info" *ngIf="question?.questionLevelNames?.length!=0">
-        <a [routerLink]="['/question/home',question?.questionLevels[0]?.levelId]"> {{question?.questionLevelNames[0]}}</a> 
-    </li>
-    <li class="question-info">{{question?.createdOn | date: 'MMM, yyyy'}}</li>
-</ul>
-<div class="clearfix"></div>
+﻿<div class="row row-fix">
+    <ul class="question-header">
+        <li>
+            <a [routerLink]="['/question/home',question?.categories[0]?.id]"> {{question.categories[0]?.name}}</a>
+        </li>
+        <li class="question-info">
+            <a [routerLink]="['/question/home/topic',{topicId:question?.questionTopics[0]?.topicId,categoryId:question?.categories[0]?.id}]">{{question?.questionTopicNames[0]}}</a>
+        </li>
+        <li class="question-info" *ngIf="question?.questionLevelNames?.length!=0">
+            <a [routerLink]="['/question/home',question?.questionLevels[0]?.levelId]"> {{question?.questionLevelNames[0]}}</a>
+        </li>
+        <li class="question-info">{{question?.createdOn | date: 'MMM, yyyy'}}</li>
+    </ul>
+</div>
+
+<!--<div class="clearfix"></div>-->
