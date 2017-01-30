@@ -15,7 +15,7 @@
         <div class="article-details">
             <user-info [userObj]="question.userViewModel" [viewDate]="question?.createdOn" [isAnonymous]="question?.isAnonymous"></user-info>
             <p class="answer-text" [innerHTML]="question.body"></p>
-            <ap-status [isQuestion]='true' [questionObj]="question" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"> </ap-status>
+            <ap-status [isQuestion]='true' [questionObj]="question" (onQuestionDetailClicked)="onQuestionDetailClicked($event)" (onQuestionReportClicked)="onQuestionReportClicked($event)"> </ap-status>
             <ap-comment [isQuestion]='true' [questionId]="question?.id"></ap-comment>
         </div>
         <hr />
