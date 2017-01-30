@@ -3,14 +3,16 @@
         <div id="leftPanel">
             <topfive-question-left-menu> </topfive-question-left-menu>
             <topfive-user></topfive-user>
-            <topfive-topic></topfive-topic>
             <category-left-menu [caegoryId]="id"></category-left-menu>
         </div>
+    </div>
+    <div class="right-panel">
+        <topfive-topic></topfive-topic>
     </div>
     <div class="center-width">
         <div class="tab" *ngFor="let question of questions">
             <question-panel [question]="question"></question-panel>
         </div>
     </div>
-</div>
 
+</div>

@@ -28,7 +28,7 @@ export class ApBannerComponent {
         //var categoryPanel = document.getElementById('leftPanel');
         var doc = this._el.nativeElement;
         var nodeBanner = doc.childNodes[0];
-        if (this._window.scrollY > 250) {
+        if (this._window.scrollY > 270) {
             searchPanel.style.top = '0'; 
             searchPanel.style.paddingTop = '10px';
             this._el.nativeElement.parentNode.classList.add("fixed-top");
