@@ -258,5 +258,5 @@ export class QuestionReport {
     questionId: string;
     title: string;
     comment: string;
-    anwserId:string;
+    answerId:string;
 }

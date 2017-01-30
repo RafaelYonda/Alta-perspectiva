@@ -42,6 +42,7 @@ export class QuestionDetailComponent {
 
     //Question report
     questionReports: QuestionReport[];
+    
     constructor(private router: Router, private _route: ActivatedRoute, private questionService: QuestionResolver,
         private dataService: QuestionAnswerService, private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver) {
         this.route = _route;
@@ -200,15 +201,19 @@ export class QuestionDetailComponent {
             dialogComponentRef.destroy();
         });
     }*/
-    onQuestionReportClicked(showQuestionReportModal: boolean) {
-        console.log('onQuestionReportClicked->onQuestionReportClicked->onQuestionReportClicked->onQuestionReportClicked');
+    onQuestionReportClicked(showQuestionReportModal: any) {
+        //console.log('onQuestionReportClicked->onQuestionReportClicked->onQuestionReportClicked->onQuestionReportClicked');
+        console.log(showQuestionReportModal);
         this.questionReport.clear();
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(QuestionReportComponent);
         let dialogComponentRef = this.questionReport.createComponent(dialogComponentFactory);
 
         this.dataService.GetReport().subscribe(res => {
             this.questionReports = res;
-            dialogComponentRef.instance.questionReports =  this.questionReports;
+            dialogComponentRef.instance.questionReports = this.questionReports;
+            dialogComponentRef.instance.questionId = showQuestionReportModal.questionId;
+            dialogComponentRef.instance.answerId = showQuestionReportModal.answerId;
+            
         })
 
         

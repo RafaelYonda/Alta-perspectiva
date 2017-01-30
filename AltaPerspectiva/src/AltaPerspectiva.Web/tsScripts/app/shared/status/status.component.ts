@@ -15,7 +15,7 @@ export class StatusComponent {
     @Input() isQuestion: any;
 
     @Output() onQuestionDetailClicked = new EventEmitter<boolean>();
-    @Output() onQuestionReportClicked = new EventEmitter<boolean>();
+    @Output() onQuestionReportClicked = new EventEmitter<any>();
 
     commentId: string;
     CommentCount: number;
@@ -90,8 +90,8 @@ export class StatusComponent {
             });
         }
     }
-    questionReportClicked() {
-        console.log('questionReportClicked');
-        this.onQuestionReportClicked.emit(true);
+    questionReportClicked(questionId: string,answerId:string) {
+        console.log('questionReportClicked->' + questionId + '->' + answerId);
+        this.onQuestionReportClicked.emit({ questionId: questionId, answerId: answerId });
     }
 }

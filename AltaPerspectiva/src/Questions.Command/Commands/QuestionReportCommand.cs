@@ -8,7 +8,7 @@ namespace Questions.Commands
 {
     public class QuestionReportCommand:ICommand
     {
-        public QuestionReportCommand(Guid questionId,String title,String comment,Guid answerId, Guid userId)
+        public QuestionReportCommand(Guid questionId,String title,String comment,Guid? answerId, Guid userId)
         {
             QuestionId = questionId;
             Title = title;
@@ -20,7 +20,7 @@ namespace Questions.Commands
         public String Title { get; set; }
         public String Comment { get; set; }
         public Guid UserId { get; set; }
-        public Guid AnswerId { get; set; }
+        public Guid? AnswerId { get; set; }
 
         public Guid Id { get; set; }
       

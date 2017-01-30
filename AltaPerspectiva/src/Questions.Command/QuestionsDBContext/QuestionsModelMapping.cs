@@ -162,6 +162,14 @@
                 e.HasKey(a => a.Id);
                 
             });
+
+            //QuestionReports
+            model.Entity<QuestionReport>(e =>
+            {
+                e.ToTable("QuestionReports");
+
+                e.HasKey(c => c.Id);
+            });
         }
     }
 }

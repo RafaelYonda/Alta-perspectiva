@@ -31,7 +31,7 @@
             <img class="social-image" src="../images/icon-external-link.png" />
         </a>
         
-        <div class="other-function" *ngIf="isQuestion">
+        <div class="other-function">
             <a [popover]="myPopover" >...</a>
             <popover-content #myPopover
                                 placement="top"
@@ -45,7 +45,7 @@
                         <a (click)="bookmarkClicked(questionObj?.id)">Bookmark</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a (click)="questionReportClicked()">Report</a>
+                        <a (click)="questionReportClicked(questionObj?.id,answerObj?.id)">Report</a>
                     </li>
 
                 </ul>

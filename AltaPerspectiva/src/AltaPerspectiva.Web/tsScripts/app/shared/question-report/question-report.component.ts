@@ -17,6 +17,8 @@ export class QuestionReportComponent {
     //question: Question;
     questionReports: QuestionReport[];
     questionReport: QuestionReport;
+    questionId: string;
+    answerId: string;
 
     onClickedExit() {
         this.close.emit('event');
@@ -42,7 +44,8 @@ export class QuestionReportComponent {
             this.questionReport = new QuestionReport();
             this.questionReport.title = this.selectedQuestionReport;
             this.questionReport.comment = this.comment;
-            
+            this.questionReport.questionId = this.questionId;
+            this.questionReport.answerId = this.answerId;
             this.questionService.SaveReport(this.questionReport).subscribe(res => {
                 this.close.emit('event');
             })

@@ -119,6 +119,14 @@
                 return Set<Topic>().AsNoTracking();
             }
         }
+        public IQueryable<QuestionReport> QuestionReports
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<QuestionReport>().AsNoTracking();
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -142,6 +150,7 @@
 
             //bookmark
             modelBuilder.Entity<Bookmark>().ToTable("Bookmarks");
+            modelBuilder.Entity<QuestionReport>().ToTable("QuestionReports");
 
         }
 
