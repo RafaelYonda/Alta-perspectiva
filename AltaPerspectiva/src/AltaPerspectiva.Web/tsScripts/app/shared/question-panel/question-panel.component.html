@@ -1,6 +1,7 @@
 ﻿<div>
     <div #dialogAnchor></div>
     <div #answerAnchor></div>
+    <div #questionReport></div>
 </div>
 <div class="panel-article">
     <div class="questions-container">
@@ -21,7 +22,7 @@
                         </div>
                     </div>
                     <div *ngIf="question.bestAnswer">
-                        <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer"></ap-status>
+                        <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)"></ap-status>
                         <ap-comment [isQuestion]='false' [questionId]="question.id" [answerId]="question.bestAnswer?.id"></ap-comment>
                     </div>
                 </div>
