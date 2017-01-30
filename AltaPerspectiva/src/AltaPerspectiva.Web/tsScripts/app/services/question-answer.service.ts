@@ -247,8 +247,8 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
 
-    GetReport(): Observable<QuestionReport[]> {
-        return this._http.get('/questions/api/getreport', null)
+    GetReport(answerId:string): Observable<QuestionReport[]> {
+        return this._http.get('/questions/api/getreport/' + answerId, null)
             .map(this.extractData)
             .catch(this.handleError);
     }

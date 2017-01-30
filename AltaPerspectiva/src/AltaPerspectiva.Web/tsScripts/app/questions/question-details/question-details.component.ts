@@ -208,7 +208,7 @@ export class QuestionDetailComponent {
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(QuestionReportComponent);
         let dialogComponentRef = this.questionReport.createComponent(dialogComponentFactory);
 
-        this.dataService.GetReport().subscribe(res => {
+        this.dataService.GetReport(showQuestionReportModal.answerId).subscribe(res => {
             this.questionReports = res;
             dialogComponentRef.instance.questionReports = this.questionReports;
             dialogComponentRef.instance.questionId = showQuestionReportModal.questionId;

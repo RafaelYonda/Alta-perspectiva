@@ -31,7 +31,53 @@ namespace Questions.Domain.ReadModel
         Incorrect: Substantially incorrect and/or incorrect primary conclusions     
              
         */
-        public List<Report> GetAllReports()
+
+        public List<Report> GetQuestionReports()
+        {
+            /*
+             Harassment: Disparaging or adversarial towards a person or group
+             Spam: Undisclosed promotion for a link or product
+             Insincere: Not seeking genuine answers
+             Poorly Written: Not in English or has very bad formatting, grammar, and spelling
+             Incorrect Topics: Topics are irrelevant to the question or overly broad
+             
+             */
+            List<Report> reports = new List<Report>();
+            reports.Add(new Report
+            {
+                Title = "Harassment",
+                Description = "Disparaging or adversarial towards a person or group",
+                Link = "#",
+            });
+            reports.Add(new Report
+            {
+                Title = "Spam",
+                Description = "Undisclosed promotion for a link or product",
+                Link = "#",
+            });
+            reports.Add(new Report
+            {
+                Title = "Insincere",
+                Description = " Not seeking genuine answers",
+                Link = "#",
+            });
+            reports.Add(new Report
+            {
+                Title = "Poorly Written",
+                Description = " Not in English or has very bad formatting, grammar, and spelling",
+                Link = "#",
+            });
+
+            reports.Add(new Report
+            {
+                Title = "Incorrect Topics",
+                Description = " Not in English or has very bad formatting, grammar, and spelling",
+                Link = "#",
+            });
+
+            return reports;
+        }
+        public List<Report> GetAnswerReports()
         {
             List<Report> reports=new List<Report>();
 

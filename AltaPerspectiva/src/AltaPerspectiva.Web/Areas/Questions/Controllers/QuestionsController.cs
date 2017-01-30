@@ -793,15 +793,24 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         #region Popover
-        [HttpGet("/questions/api/getreport")]
-        public IActionResult GetReport()
-        {
-
-           
-            var reports=new Report().GetAllReports();
+        //Depends on answerId.As answer not appread then that is question ...Load data according to
+        [HttpGet("/questions/api/getreport/{answerId}")]
+        public IActionResult GetReport(Guid? answerId)
+        {  
+            List<Report> reports=new List<Report>();
+            if (answerId.HasValue)
+            {
+                reports = new Report().GetAnswerReports();
+            }
+            else
+            {
+                reports = new Report().GetQuestionReports();
+            }
+            
 
             return Ok(reports);
         }
+
         [HttpPost("/questions/api/savereport")]
         public IActionResult SaveReport([FromBody]QuestionReportViewModel model)
         {
@@ -817,11 +826,6 @@ namespace AltaPerspectiva.Web.Area.Questions
             QuestionReportCommand cmd=new QuestionReportCommand(model.QuestionId,model.Title,model.Comment,model.AnswerId,loggedinUser);
 
             commandsFactory.ExecuteQuery(cmd);
-
-
-
-
-
             return Ok();
         }
 
