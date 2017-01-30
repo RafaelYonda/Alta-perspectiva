@@ -19,16 +19,16 @@
         <a href="https://www.facebook.com/sharer/sharer.php?u={{questionObj.shareUrl}}"
            class="SHARE FACEBOOK"
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
-            <img class="social-image" src="../images/facebooklogo.jpg" />
+            <img class="social-image" id="img1" src="../images/facebooklogo.jpg" />
         </a>
 
         <a href="https://twitter.com/home?status={{questionObj.shareUrl}}"
            class="SHARE TWITTER"
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
-            <img class="social-image" src="../images/twitter.png" />
+            <img class="social-image" id="img2" src="../images/twitter.png" />
         </a>
         <a >
-            <img class="social-image" src="../images/icon-external-link.png" />
+            <img class="social-image" id="img3" src="../images/icon-external-link.png" />
         </a>
         
         <div class="other-function" *ngIf="isQuestion">
