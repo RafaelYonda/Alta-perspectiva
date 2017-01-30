@@ -2,12 +2,12 @@
     <div class="left-panel">
         <div id="leftPanel">
             <topfive-question-left-menu> </topfive-question-left-menu>
-            <topfive-user></topfive-user>
+            <topfive-topic></topfive-topic>
             <category-left-menu [caegoryId]="id"></category-left-menu>
         </div>
     </div>
     <div class="right-panel">
-        <topfive-topic></topfive-topic>
+        <topfive-user></topfive-user>
     </div>
     <div class="center-width">
         <div class="tab" *ngFor="let question of questions">
