@@ -3,9 +3,11 @@
     <div class="dialog">
         <header>
             <div class="question-title">
-                
-                <h3>
-                    Submit Report
+                <h3 *ngIf="answerId">
+                    Report Answer
+                </h3>
+                <h3 *ngIf="!answerId">
+                    Report Question
                 </h3>
             </div>
         </header>
@@ -15,6 +17,7 @@
             <div class="details-container">
                 <div class="article-details">
                     <div class="left-panel-list" *ngIf="questionReports">
+                        <br/>
                         <div *ngFor="let questionReport of questionReports">
                             <input type="radio" [(ngModel)]="selectedQuestionReport" name="questionReport" value="{{questionReport?.title}}"> {{questionReport?.title}}<br>
 
