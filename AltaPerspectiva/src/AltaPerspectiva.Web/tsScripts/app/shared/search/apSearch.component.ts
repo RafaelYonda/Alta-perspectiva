@@ -1,5 +1,5 @@
 ﻿/// <reference path="search-dropdown.component.ts" />
-import { Component, Input, ElementRef, ViewChild  } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, Output, EventEmitter  } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ApSearchDropDownComponent } from './search-dropdown.component';
 
@@ -21,6 +21,7 @@ export class ApSearchComponent {
     result: string;
     keywords: Keyword[];
     @Input() placeBottom: string = '';
+    @Output() onQuestionSubmit = new EventEmitter<boolean>();
     //topics:Topic[];
     //levels:Level[];
     questionSaveViewModel: QuestionSaveViewModel;
@@ -56,6 +57,10 @@ export class ApSearchComponent {
     question: Question;
 
     submitQuestion() {
+        this.searchDropDown.submitEmitter.subscribe(() => {
+            this.onQuestionSubmit.emit(true);
+            this.removeModal();
+        });
         this.searchDropDown.submitQuestion();
     }
 
@@ -67,7 +72,8 @@ export class ApSearchComponent {
     public visible = true;
 
     showMatchedCatogries(title: string) {
-        var keywordsInQuestionTitle = title.split(' '); //Get words from question to find keywords
+        console.log("Category Matched");
+        var keywordsInQuestionTitle = title? title.split(' '):[]; //Get words from question to find keywords
         this.categoryMatched = "";
         keywordsInQuestionTitle.forEach(str => {
 
@@ -145,7 +151,7 @@ export class ApSearchComponent {
     isOnModal = false;
     showModal() {
         this.searchClass = document.getElementById("search-box").className;
-        document.getElementById("search-box").className = "modal-overlay";
+        document.getElementById("search-box").className = "modal-overlay z-modal";
         var form = document.getElementById("search-box");
         form.style.paddingTop = '10px';
         this.isOnModal = true;
@@ -153,7 +159,7 @@ export class ApSearchComponent {
     removeModal() {
         this.filteredQuestionList = [];
         this.categoryMatched = "";
-        document.getElementById("search-box").className = this.placeBottom ;
+        document.getElementById("search-box").className = this.placeBottom +" z-search" ;
         //document.getElementById("search-box").className = this.searchClass;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
