@@ -542,17 +542,20 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/{categoryId}/gettopFiveUserbycategoryid")]
         public async Task<List<UserSummary>> GetTopFiveUserByCategoryId(Guid categoryId)
         {
+            List<UserSummary> summeries=new List<UserSummary>();
             if (categoryId==Guid.Empty)
             {
-                var summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetUserSummnaryByCategoryId(categoryId);
-                return summeries;
+                summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetUserSummnaryByCategoryId(categoryId);
+                
             }
             else
             {
-                var summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetTopFiveUserSummary();
-                return summeries;
+                summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetTopFiveUserSummary();
+               
             }
-            
+            summeries=new UserSummaryFilter().GetUserSummaryForNameFilter(summeries);
+            return summeries;
+
         }
         [HttpGet("userprofile/api/getusersummary/{userId}")]
         public async Task<UserSummary> GetUserSummary(Guid userId)

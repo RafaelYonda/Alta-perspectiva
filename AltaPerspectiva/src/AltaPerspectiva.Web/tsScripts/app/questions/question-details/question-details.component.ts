@@ -1,7 +1,7 @@
 ﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
-import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName, LogInObj, User} from '../../services/models';
+import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName, LogInObj, User,QuestionReport} from '../../services/models';
 import { AuthenticationService } from '../../services/authentication.service';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { RelatedQuestionMenu } from '../question-left-menu/related-question-left-menu.component';
@@ -39,6 +39,9 @@ export class QuestionDetailComponent {
     editBody: string
 
     isAnonymous: boolean;//anonymous added to 
+
+    //Question report
+    questionReports: QuestionReport[];
     constructor(private router: Router, private _route: ActivatedRoute, private questionService: QuestionResolver,
         private dataService: QuestionAnswerService, private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver) {
         this.route = _route;
@@ -201,7 +204,13 @@ export class QuestionDetailComponent {
         this.questionReport.clear();
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(QuestionReportComponent);
         let dialogComponentRef = this.questionReport.createComponent(dialogComponentFactory);
-       // dialogComponentRef.instance.isDetail = false;
+
+        this.dataService.GetReport().subscribe(res => {
+            this.questionReports = res;
+            dialogComponentRef.instance.questionReports =  this.questionReports;
+        })
+
+        
         dialogComponentRef.instance.close.subscribe(() => {
             dialogComponentRef.destroy();
         });
