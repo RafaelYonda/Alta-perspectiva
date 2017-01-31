@@ -73,7 +73,7 @@
                                 <button id="btnTopic" type="button" class="btn btn-default" onclick="Discard(this, '@item.Id')">
                                     Ignore Report
                                 </button>
-                                <button id="btnTopic" type="button" class="btn btn-default" onclick="Delete(this, '@item.Id', '@item.QuestionId')">
+                                <button id="btnTopic" type="button" class="btn btn-default" onclick="Delete(this, '@item.Id', '@item.QuestionId','@item.AnswerId')">
                                     Delete
                                 </button>
                             </div>
@@ -174,12 +174,12 @@
         });
 
     }
-    function Delete(element, Id, QuestionId) {
+    function Delete(element, Id, QuestionId, AnswerId) {
         //QuestionDelete
         var obj = {};
         obj.Id = Id;
         obj.QuestionId = QuestionId;
-        obj.AnswerId = null;
+        obj.AnswerId = AnswerId;
         console.log(obj);
         var url = '@Url.Action("Delete", "QuestionReport", new { Area = "Admin" })';
         $.ajax({
@@ -189,7 +189,7 @@
             async: false,
             success: function (respText) {
                 console.log(respText);
-                alert('Question deleted successfully');
+                alert('Answer deleted successfully');
                 location.reload(true);
             },
             error: function (jqXhr, textStatus, errorThrown) {
