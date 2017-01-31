@@ -10,7 +10,6 @@
         <level></level>
         <topfive-question-left-menu> </topfive-question-left-menu>
         <topfive-user></topfive-user>
-        <topfive-topic></topfive-topic>
         <category-left-menu [caegoryId]="categoryId"></category-left-menu>
     </div>
 </div>
@@ -27,11 +26,12 @@
     </div>
 
     <div class="row">
-        <button type="button" (click)="addFollower(categorySelected.id)" class="alta-btn alta-btn-lg">ltFollow</button>
+        <button type="button" (click)="addFollower(categorySelected.id)" class="alta-btn alta-btn-lg">Follow</button>
         <p>
             {{categorySelected?.description}}
         </p>
     </div>
+    <br />
     <div class="row">
         <table class="table table-bordered table-nonfluid col-md-4" width="200">
             <tr>
@@ -40,9 +40,10 @@
             </tr>
         </table>
         <div class="tags-container col-md-8">
-            <div class="tags">Tags 1</div>
-            <div class="tags">Tags 1</div>
-            <div class="tags">Tags 1</div>
+
+            <div class="tags" *ngFor="let topic of topFiveTopics">
+                <a [routerLink]="['/question/home',topic?.categoryId,topic?.id,0]"> {{topic.topicName}}</a>
+            </div>
         </div>
     </div>
     <div class="filter-panel">

@@ -1,8 +1,9 @@
 ﻿import { Component } from '@angular/core';
 import { QuestionAnswerService } from '../../services/question-answer.service';
+import { QuestionService } from '../../services/question.service';
 import { CategoryService } from '../../services/category.service';
 import { ConfigService } from '../../services/config.service';
-import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Config, LogInObj, FilterParameter} from '../../services/models';
+import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Config, LogInObj, FilterParameter, Topic} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
 import { CommunicationService } from '../../services/communication.service';
 
@@ -14,7 +15,7 @@ export interface ILoader {
     selector: "question-body",
     templateUrl: 'js/app/questions/question-body/question-body.component.html',
     //styleUrls: ['js/app/questions/question-body/question-body.css'],
-    providers: [QuestionAnswerService, CategoryService, ConfigService]
+    providers: [QuestionAnswerService, CategoryService, ConfigService, QuestionService]
 })
 export class QuestionBodyComponent {
 
@@ -31,7 +32,7 @@ export class QuestionBodyComponent {
     answer: string;
     categories: Category[];
     categorySelected: Category;
-
+    topFiveTopics: Topic[];
 
     scrollPage: number = 0;
     config: Config;
@@ -47,7 +48,7 @@ export class QuestionBodyComponent {
     levelId: string;
 
     filterParameter: FilterParameter;
-    constructor(private questionService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService) {
+    constructor(private questioAnswernService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private questionService: QuestionService) {
         this._router = router;
         this.route = route;
 
@@ -61,7 +62,7 @@ export class QuestionBodyComponent {
     }
     onQuestionSubmitted(event) {
         console.log("Submit on question");
-        var subs=this.questionService.getQuestions();
+        var subs=this.questioAnswernService.getQuestions();
         subs.subscribe(res => {
             this.commServ.setCategory(this.categoryId);
             this.questions = res;
@@ -122,24 +123,27 @@ export class QuestionBodyComponent {
 
             // param id = 0, default route, it is ver tidas
             if (this.categoryId == '1') {
-                subs = this.questionService.FilterbyCategoryTopicNLevel(this.filterParameter);
+                subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
 
                 // questions loaded by latest, without categoryId
-               // subs = this.questionService.getQuestions();
+               // subs = this.questioAnswernService.getQuestions();
 
             }
 
             else {
               //  this.filterParameter = this.commServ.getFilterParameter();
                 // questions loaded by category id
-                // subs = this.questionService.getQuestionsByCategory(this.id);
-                subs = this.questionService.FilterbyCategoryTopicNLevel(this.filterParameter);
+                // subs = this.questioAnswernService.getQuestionsByCategory(this.id);
+                subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
 
                 /// if page directly loads from url, then categories gets undefiend                
                 this.loadCategories();
             }
 
             subs.subscribe(res => {
+                this.questionService.getTopFiveTopicsByCategoryId(this.categoryId).subscribe(res => {
+                    this.topFiveTopics = res;
+                });
                 this.commServ.setCategory(this.categoryId);
                 this.questions = res;
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
@@ -150,7 +154,7 @@ export class QuestionBodyComponent {
     }
     GetLatestQuestionByDate(categoryId: string) {
         this.categorySelected = this.categories.find(x => x.id == categoryId);
-        var subs = this.questionService.GetLatestQuestionByDate(categoryId).subscribe(
+        var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
             res => {
 
                 this.questions = res;
@@ -162,7 +166,7 @@ export class QuestionBodyComponent {
     }
     getbestquestionbytotallike(categoryId: string) {
 
-        var subs = this.questionService.getbestquestionbytotallike(categoryId).subscribe(
+        var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
             res => {
 
                 this.questions = res;
@@ -175,7 +179,7 @@ export class QuestionBodyComponent {
     }
     getmorequestionbyviewcount(categoryId: string) {
         this.categorySelected = this.categories.find(x => x.id == categoryId);
-        var subs = this.questionService.getmorequestionbyviewcount(categoryId).subscribe(
+        var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(
             res => {
                 console.log(res);
                 this.questions = res;
@@ -213,14 +217,14 @@ export class QuestionBodyComponent {
     }
 
     getQuestionNotAnswered(categoryId: string) {
-        this.questionService.getQuestionsNotAnswered(categoryId).subscribe(res => {
+        this.questioAnswernService.getQuestionsNotAnswered(categoryId).subscribe(res => {
             this.questions = res;
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
         });
     }
 
     getQuestionsAnswered(categoryId: string) {
-        this.questionService.getQuestyionsAnswered(categoryId).subscribe(res => {
+        this.questioAnswernService.getQuestyionsAnswered(categoryId).subscribe(res => {
             this.questions = res;
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
         });
@@ -244,7 +248,7 @@ export class QuestionBodyComponent {
         this.like = new Like();
         this.like.questionId = questionId;
 
-        this.questionService.addQuestionLike(this.like).subscribe(res => {
+        this.questioAnswernService.addQuestionLike(this.like).subscribe(res => {
             this.questions.find(x => x.id == questionId).likes.push(this.like);
         });
     }
