@@ -11,6 +11,7 @@ using Questions.Query;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Questions.Command.Commands;
+using Questions.Command;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,6 +33,15 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             environment = _environment;
         }
 
+        [HttpPost]
+        public IActionResult SaveTopic(Guid categoryId, String topicName)
+        {
+            AddTopicCommand cmd = new AddTopicCommand(topicName, categoryId);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid id = cmd.Id;
+
+            return Ok(topicName);
+        }
 
         [HttpGet("Admin/getcategory")]
         public IActionResult GetCategory()
@@ -79,14 +89,17 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
             return RedirectToAction("AddCategory");
         }
-        [HttpGet("Admin/addtopic")]
-        public IActionResult AddTopic()
-        {
-            return View();
-        }
+       
 
         [HttpGet("Admin/addkeyword")]
         public IActionResult AddKeyword()
+        {
+            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+            return View(categoriesList);
+        }
+
+        [HttpGet("Admin/QuestionReport")]
+        public IActionResult QuestionReport()
         {
             return View();
         }

@@ -28,10 +28,11 @@ namespace Questions.Command.CommandHandler
             QuestionReport questionReport = new QuestionReport();
             questionReport.GenerateNewIdentity();
             questionReport.UserId = command.UserId;
-            questionReport.AnwserId = command.AnswerId;
+            questionReport.AnswerId = command.AnswerId;
             questionReport.Comment = command.Comment;
             questionReport.QuestionId = command.QuestionId;
             questionReport.Title = command.Title;
+            questionReport.IsActive = true;
             questionReport.CreatedBy = command.UserId;
             questionReport.CreatedOn=DateTime.Now;
 

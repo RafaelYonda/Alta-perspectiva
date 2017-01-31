@@ -1,0 +1,164 @@
+﻿@model IEnumerable<AltaPerspectiva.Web.Areas.Admin.Models.ReportViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        
+       
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.QuestionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuestionTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuestionBody)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.UserFullName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionTitle)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionBody)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.UserFullName)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                <button id="btnTopic" type="button" class="btn btn-danger" onclick="Discard(this,'@item.Id')">
+                    Discard
+                </button>
+                <button id="btnTopic" type="button" class="btn btn-danger" onclick="Delete(this,'@item.Id','@item.QuestionId')">
+                    DeleteQuestion
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="modal fade" id="InvalidReportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Discard Report </h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="Id" value="1"/>
+                <div class="form-group">
+                    <label class="control-label">Admin Comment</label>
+                    <input id="ModiferComment" type="text" class="form-control" placeholder="Name">
+                </div>
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btnConfirm" type="button" class="btn btn-success" onclick="InvalidReport($('#Id').val(), $('#ModiferComment').val())">Confirm</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function Discard(element, Id) {
+        $('#Id').val(Id);
+        $('#InvalidReportModal').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    function InvalidReport(Id, ModiferComment) {
+        console.log(Id + '->' + ModiferComment);
+        var obj = {};
+        obj.Id = Id;
+        obj.ModiferComment = ModiferComment;
+        console.log(obj);
+        var url = '@Url.Action("InvalidReport", "QuestionReport", new { Area = "Admin" })';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                alert('comment discarded successfully');
+                location.reload(true);
+
+
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+
+            }
+        });
+
+    }
+    function Delete(element, Id, QuestionId) {
+        //QuestionDelete
+        var obj = {};
+        obj.Id = Id;
+        obj.QuestionId = QuestionId;
+        console.log(obj);
+        var url = '@Url.Action("QuestionDelete", "QuestionReport", new { Area = "Admin" })';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                alert('Question deleted successfully');
+                location.reload(true);
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+
+            }
+        });
+
+    }
+</script>
