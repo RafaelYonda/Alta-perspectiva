@@ -22,6 +22,7 @@
     border-radius: 1px;
     display: inline-block;
     padding: 1px;
+    position:absolute;
 }
 
 .counter-box {
@@ -72,4 +73,7 @@ h5 {
 }
 #img3{
     left:50px;
+}
+#img4{
+    left:75px;
 }
