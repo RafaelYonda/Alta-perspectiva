@@ -22,3 +22,18 @@ CREATE TABLE [Questions].[QuestionReports](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
+
+
+ALTER TABLE [Questions].[QuestionReports]  WITH CHECK ADD  CONSTRAINT [FK_QuestionReports_Answers] FOREIGN KEY([AnswerId])
+REFERENCES [Questions].[Answers] ([Id])
+GO
+
+ALTER TABLE [Questions].[QuestionReports] CHECK CONSTRAINT [FK_QuestionReports_Answers]
+GO
+
+ALTER TABLE [Questions].[QuestionReports]  WITH CHECK ADD  CONSTRAINT [FK_QuestionReports_Questions] FOREIGN KEY([QuestionId])
+REFERENCES [Questions].[Questions] ([Id])
+GO
+
+ALTER TABLE [Questions].[QuestionReports] CHECK CONSTRAINT [FK_QuestionReports_Questions]
+GO
