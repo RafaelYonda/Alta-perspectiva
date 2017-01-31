@@ -32,15 +32,15 @@ export class ApBannerComponent {
         if (this._window.scrollY > 270) {
             searchPanel.style.top = '0'; 
             searchPanel.style.paddingTop = '10px';
+            searchPanel.classList.remove("z-search");
             tabPanel.classList.add("on-scroll-padding");
             this._el.nativeElement.parentNode.classList.add("fixed-top");
-            //categoryPanel.classList.add('fixed-category');
             this._el.nativeElement.childNodes[0].classList.add("fixed-height");
         }
         else {
             searchPanel.style.removeProperty('top');
+            searchPanel.classList.add("z-search");
             this._el.nativeElement.parentNode.classList.remove("fixed-top");
-            //categoryPanel.classList.remove('fixed-category');
             tabPanel.classList.remove("on-scroll-padding");
             this._el.nativeElement.childNodes[0].classList.remove("fixed-height");
         }
