@@ -40,7 +40,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             List<ReportViewModel> reportViewModels=new QuestionReportService().GetQuestionReportViewModels(queryFactory, questionReports);
             return View(reportViewModels);
         }
-        [HttpPost("QuestionReport/QuestionDelete")]
+        [HttpPost("QuestionReport/Delete")]
         public IActionResult Delete(Guid Id, Guid QuestionId,Guid? AnswerId) //only answers decides wheather to delete question or answer
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
@@ -50,7 +50,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(loggedinUser.ToString());
             }
-            DeleteQuestionReportCommand command=new DeleteQuestionReportCommand(loggedinUser,QuestionId,AnswerId);
+            DeleteQuestionReportCommand command=new DeleteQuestionReportCommand(loggedinUser,Id,QuestionId,AnswerId);
             commandsFactory.ExecuteQuery(command);
             return Ok();
         }

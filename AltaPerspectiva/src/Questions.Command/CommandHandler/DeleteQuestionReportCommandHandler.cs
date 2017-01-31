@@ -22,7 +22,6 @@ namespace Questions.Command.CommandHandler
         public override void Execute(DeleteQuestionReportCommand command)
         {
             Debug.WriteLine("AddBookmarkCommandHandler executed");
-
             if (command.AnswerId.HasValue)
             {
                 //For Answer report
@@ -33,7 +32,6 @@ namespace Questions.Command.CommandHandler
                     answer.ModifiedBy = command.UserId;
                     answer.ModifiedOn=DateTime.Now;
                     DbContext.Answers.Update(answer);
-                    DbContext.SaveChanges();
                 }
                 else
                 {
@@ -47,12 +45,13 @@ namespace Questions.Command.CommandHandler
                 Question question = DbContext.Questions.Where(x => x.Id == command.QuestionId).FirstOrDefault();
                 if (question != null)
                 {
+                    
                     question.IsDeleted = true;
                     question.ModifiedBy = command.UserId;
                     question.ModifiedOn = DateTime.Now;
 
                     DbContext.Questions.Update(question);
-                    DbContext.SaveChanges();
+                    
                 }
                 else
                 {
@@ -60,6 +59,22 @@ namespace Questions.Command.CommandHandler
                 }
             }
 
+            //Update question report
+            QuestionReport questionReport = DbContext.QuestionReports.Where(x => x.Id == command.QuestionReportId).FirstOrDefault();
+
+            if (questionReport != null)
+            {
+                questionReport.IsActive = false;
+                questionReport.ModifiedBy = command.UserId;
+                questionReport.ModifiedOn = DateTime.Now;
+
+                DbContext.QuestionReports.Update(questionReport);
+            }
+            else
+            {
+                throw new Exception("DeleteQuestionReportCommandHandler");
+            }
+            DbContext.SaveChanges();
         }
     }
    

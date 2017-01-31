@@ -9,13 +9,15 @@ namespace Questions.Command.Commands
     public class DeleteQuestionReportCommand:ICommand
     {
 
-        public DeleteQuestionReportCommand(Guid userId, Guid questionId, Guid? answerId)
+        public DeleteQuestionReportCommand(Guid userId,Guid questionReportId, Guid questionId, Guid? answerId)
         {
             UserId = userId;
+            QuestionReportId = questionReportId;
             QuestionId = questionId;
             AnswerId = answerId;
         }
         public Guid UserId { get; set; }
+        public Guid QuestionReportId { get; set; }
         public Guid QuestionId { get; set; }
         public Guid? AnswerId { get; set; }
 
