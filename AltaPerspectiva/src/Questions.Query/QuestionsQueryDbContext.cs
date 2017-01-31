@@ -150,6 +150,8 @@
 
             //bookmark
             modelBuilder.Entity<Bookmark>().ToTable("Bookmarks");
+
+            //questionReport
             modelBuilder.Entity<QuestionReport>().ToTable("QuestionReports");
 
         }

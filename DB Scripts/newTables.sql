@@ -3,7 +3,7 @@ USE AltaPerspectiva
 GO
 CREATE TABLE [Questions].[QuestionReports](
 	[Id] [uniqueidentifier] NOT NULL,
-	[AnwserId] [uniqueidentifier] NULL,
+	[AnswerId] [uniqueidentifier] NULL,
 	[Comment] [nvarchar](max) NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[CreatedOn] [datetime2](7) NULL,

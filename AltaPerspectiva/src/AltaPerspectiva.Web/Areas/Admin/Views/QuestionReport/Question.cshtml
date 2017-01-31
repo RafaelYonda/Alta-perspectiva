@@ -1,0 +1,202 @@
+﻿@model IEnumerable<AltaPerspectiva.Web.Areas.Admin.Models.ReportViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<br />
+
+<div class="row">
+
+    <table class="table">
+        @*<tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedOn)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.QuestionId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.QuestionTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.QuestionBody)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.UserFullName)
+                </th>
+                <th></th>
+            </tr>*@
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Report:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(modelItem => item.Title, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="pwd">By user:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(modelItem => item.UserFullName, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">on Question </label>
+                            <div class="col-sm-10">
+                                @Html.DisplayFor(modelItem => item.QuestionTitle, new { @class = "control-label" })
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">by  User </label>
+                            <div class="col-sm-10">
+                                @Html.DisplayFor(modelItem => item.UserFullName, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-4" style="    margin-left: 105px;">
+                                <button id="btnTopic" type="button" class="btn btn-default" onclick="Discard(this, '@item.Id')">
+                                    Ignore Report
+                                </button>
+                                <button id="btnTopic" type="button" class="btn btn-default" onclick="Delete(this, '@item.Id', '@item.QuestionId','@item.AnswerId')">
+                                    Delete
+                                </button>
+                            </div>
+                            
+                         
+                            
+                        </div>
+
+                    </form>
+
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comment)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedOn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QuestionId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QuestionTitle)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QuestionBody)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserFullName)
+                        </td>*@
+
+
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
+<div class="modal fade" id="InvalidReportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Discard Report </h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="Id" value="1" />
+                <div class="form-group">
+                    <label class="control-label">Admin Comment</label>
+                    <input id="ModiferComment" type="text" class="form-control" placeholder="Name">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btnConfirm" type="button" class="btn btn-success" onclick="InvalidReport($('#Id').val(), $('#ModiferComment').val())">Confirm</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function Discard(element, Id) {
+        $('#Id').val(Id);
+        $('#InvalidReportModal').modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+    function InvalidReport(Id, ModiferComment) {
+        console.log(Id + '->' + ModiferComment);
+        var obj = {};
+        obj.Id = Id;
+        obj.ModiferComment = ModiferComment;
+        console.log(obj);
+        var url = '@Url.Action("InvalidReport", "QuestionReport", new { Area = "Admin" })';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                alert('comment discarded successfully');
+                location.reload(true);
+
+
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+
+            }
+        });
+
+    }
+    function Delete(element, Id, QuestionId, AnswerId) {
+        //QuestionDelete
+        var obj = {};
+        obj.Id = Id;
+        obj.QuestionId = QuestionId;
+        obj.AnswerId = AnswerId;
+        console.log(obj);
+        var url = '@Url.Action("Delete", "QuestionReport", new { Area = "Admin" })';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                alert('Question deleted successfully');
+                location.reload(true);
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+
+            }
+        });
+
+    }
+</script>

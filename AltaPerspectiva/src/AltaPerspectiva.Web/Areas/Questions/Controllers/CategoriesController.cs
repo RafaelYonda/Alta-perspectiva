@@ -137,9 +137,9 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("questions/getcategory")]
         public IActionResult GetCategory()
         {
-            AddLevelCommand cmd=new AddLevelCommand(1,"akash");
+           // AddLevelCommand cmd=new AddLevelCommand(1,"akash");
 
-            commandsFactory.ExecuteQuery(cmd);
+           // commandsFactory.ExecuteQuery(cmd);
 
             List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
 

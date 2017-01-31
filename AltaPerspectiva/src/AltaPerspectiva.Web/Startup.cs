@@ -192,6 +192,10 @@ namespace AltaPerspectiva
 
             services.AddTransient<ICommandHandler<QuestionReportCommand>, QuestionReportCommandHandler>();
 
+            services.AddTransient<IQuestionReportQuery, QuestionReportQuery>();
+            services.AddTransient<ICommandHandler<InvalidQuestionReportCommand>, InvalidQuestionReportCommandHandler>();
+            services.AddTransient<ICommandHandler<DeleteQuestionReportCommand>, DeleteQuestionReportCommandHandler>();
+
         }
 
 

@@ -12,6 +12,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
 {
     public class UserService
     {
+        
+        public String GetUserFullName(IQueryFactory queryFactory,Guid loggedinUser)
+        {
+            String fullName = String.Empty;
+            var contact = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
+            if (contact != null)
+            {
+                fullName = contact.FirstName + " " + contact.LastName;
+            }
+            else
+            {
+                fullName = "Guest";
+            }
+            return fullName;
+        }
         public UserViewModel GetUserViewModel(IQueryFactory queryFactory, Guid loggedinUser)
         {
             String fullName = String.Empty;

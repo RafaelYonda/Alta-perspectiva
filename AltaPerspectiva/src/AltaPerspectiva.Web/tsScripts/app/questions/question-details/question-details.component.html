@@ -35,10 +35,12 @@
         <!-- =========Answers============== -->
         <div *ngFor="let answer of question.answers">
             <div class="article-details" *ngIf="answer">
-                <user-info [userObj]="answer?.userViewModel" [viewDate]="answer?.createdOn"></user-info>
-                <p class="answer-text" [innerHTML]="answer.text"></p>
-                <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="answer" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)"> </ap-status>
-                <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="answer.id"></ap-comment>
+                <div id="{{answer?.id}}">
+                    <user-info [userObj]="answer?.userViewModel" [viewDate]="answer?.createdOn"></user-info>
+                    <p class="answer-text" [innerHTML]="answer.text"></p>
+                    <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="answer" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)"> </ap-status>
+                    <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="answer.id"></ap-comment>
+                </div>
             </div>
             <hr />
         </div>
