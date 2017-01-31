@@ -21,6 +21,8 @@ gulp.task("scriptsNStyles", () => {
             '@angular/**',
             'ng2-ckeditor/**',
             "ngx-popover/**",
+            "ngx-quill/**",
+            "quill/dist/*.*",
             'angular2-infinite-scroll/**',
             'ng2-toastr/**',
             'jquery/dist/jquery.*js',

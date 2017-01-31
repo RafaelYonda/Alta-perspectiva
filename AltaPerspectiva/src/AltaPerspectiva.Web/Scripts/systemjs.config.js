@@ -26,7 +26,9 @@
             'rxjs': 'npm:rxjs',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
             'ng2-ckeditor': 'npm:ng2-ckeditor',
-            'angular2-infinite-scroll': 'npm:angular2-infinite-scroll'
+            'angular2-infinite-scroll': 'npm:angular2-infinite-scroll',
+            'ngx-quill': 'npm:ngx-quill/bundles/ngx-quill.umd.js',
+            'quill': 'npm:quill/dist/quill.js'
         }, 
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -49,7 +51,18 @@
                 main: 'angular2-infinite-scroll.js',
                 defaultExtension: 'js'
             },
-            "ngx-popover": { main: "index.js", defaultExtension: "js" }      
+            "ngx-popover": {
+                main: "index.js", defaultExtension: "js"
+            },
+            'ngx-quill': {
+                format: 'cjs',
+                meta: {
+                    deps: ['quill']
+                }
+            },
+            'quill': {
+                format: 'cjs'
+            }
 
         }
     });

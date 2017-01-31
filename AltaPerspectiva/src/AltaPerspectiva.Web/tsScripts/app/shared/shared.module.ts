@@ -31,9 +31,10 @@ import {PopoverModule} from "ngx-popover";
 import {DialogComponent} from "./dialog-modal/dialog.component";
 import { CKEditorModule } from 'ng2-ckeditor';
 import {QuestionReportComponent} from "./question-report/question-report.component";
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, RouterModule, PopoverModule, CKEditorModule],
+    imports: [BrowserModule, FormsModule, RouterModule, PopoverModule, QuillModule, CKEditorModule],
     providers: [
         { provide: 'Window', useValue: window }, CommunicationService
     ],
