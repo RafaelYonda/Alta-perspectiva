@@ -25,12 +25,14 @@ export class ApBannerComponent {
     @HostListener('window:scroll', ['$event'])
     track(event) {
         var searchPanel = document.getElementById('search-box');
+        var tabPanel = document.getElementById('tabs');
         //var categoryPanel = document.getElementById('leftPanel');
         var doc = this._el.nativeElement;
         var nodeBanner = doc.childNodes[0];
         if (this._window.scrollY > 270) {
             searchPanel.style.top = '0'; 
             searchPanel.style.paddingTop = '10px';
+            tabPanel.classList.add("on-scroll-padding");
             this._el.nativeElement.parentNode.classList.add("fixed-top");
             //categoryPanel.classList.add('fixed-category');
             this._el.nativeElement.childNodes[0].classList.add("fixed-height");
@@ -39,6 +41,7 @@ export class ApBannerComponent {
             searchPanel.style.removeProperty('top');
             this._el.nativeElement.parentNode.classList.remove("fixed-top");
             //categoryPanel.classList.remove('fixed-category');
+            tabPanel.classList.remove("on-scroll-padding");
             this._el.nativeElement.childNodes[0].classList.remove("fixed-height");
         }
         // see http://juristr.com/blog/2016/01/learning-ng2-dynamic-styles/

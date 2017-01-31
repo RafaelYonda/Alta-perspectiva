@@ -1,66 +1,73 @@
-﻿<ap-search placeBottom="top-fixed" (onQuestionSubmit)="onQuestionSubmitted($event)"></ap-search>
+﻿
+<ap-search placeBottom="top-fixed" (onQuestionSubmit)="onQuestionSubmitted($event)"></ap-search>
 <div class="row">
     <div #dialogAnchor></div>
     <div #answerAnchor></div>
 </div>
-    <div class="left-panel">
-        <div>.</div>
-        <div id="leftPanel">
-            <level></level>
-            <topfive-question-left-menu > </topfive-question-left-menu>
-            <topfive-user></topfive-user>
-            <topfive-topic></topfive-topic>
-            <category-left-menu [caegoryId]="categoryId"></category-left-menu>
-        </div>
+<div class="left-panel">
+    <div>.</div>
+    <div id="leftPanel">
+        <level></level>
+        <topfive-question-left-menu> </topfive-question-left-menu>
+        <topfive-user></topfive-user>
+        <category-left-menu [caegoryId]="categoryId"></category-left-menu>
     </div>
-    <div class="center-width center-body">
-        <div class="loader" *ngIf="loader.isLoading"></div>
-        <div class="row">
-            <img align="left" class="img-rounded img-category" src="{{categorySelected?.image}}" />
-            <h2 class="category-title">
-                {{categorySelected?.name}}
-                
-                <!--t={{topicId}}
-                c={{categoryId}}
-                l={{levelId}}-->
-            </h2>
-        </div>
-        <div class="row">
-            <button type="button" (click)="addFollower(categorySelected.id)" class="alta-btn alta-btn-lg">Follow</button>
-            <p>
-                {{categorySelected?.description}}
-            </p>
-        </div>
-        <div class="row">
-            <table class="table table-bordered table-nonfluid" width="200">
-                <tr>
-                    <td class="total">{{totalCount?.totalQuestions}} Questions </td>
-                    <td class="total">{{totalCount?.totalFollowers}} Followers</td>
-                </tr>
-            </table>
-        </div>
-        <div class="filter-panel">
-            <div class="read-question-button">
-                <a (click)="getQuestionsAnswered(categorySelected.id)">
-                    <span class="glyphicon glyphicon-question-sign"></span> Question
-                </a>
-                <a (click)="getQuestionNotAnswered(categorySelected.id)" class="pull-right">
-                    <span class="glyphicon glyphicon-pencil"></span> Answers
-                </a>
-            </div>
-            <div class="read-question-button">
-                <div class="col-md-4"><a (click)="GetLatestQuestionByDate(categorySelected.id)" class="pull-left">The latest question</a> </div>
-                <div class="col-md-4 text-center"><a (click)="getbestquestionbytotallike(categorySelected.id)"> The best Question</a></div>
-                <div class="col-md-4 "><a class="pull-right" (click)="getmorequestionbyviewcount(categorySelected.id)">The more views</a></div>
-            </div> 
-        </div>
-        <div infinite-scroll
-             [infiniteScrollDistance]="scrollDistance"
-             [infiniteScrollThrottle]="throttle"
-             (scrolled)="onScrollDown()">
-        </div>
+</div>
+<div class="center-width center-body">
+    <div class="loader" *ngIf="loader.isLoading"></div>
+    <div class="row">
+        <img align="left" class="img-rounded img-category" src="{{categorySelected?.image}}" />
+        <h2 class="category-title">
+            {{categorySelected?.name}}
+            <!--t={{topicId}}
+            c={{categoryId}}
+            l={{levelId}}-->
+        </h2>
+    </div>
 
-        <div *ngFor="let question of questions" class="row">
-            <question-panel [question]="question"></question-panel>
+    <div class="row">
+        <button type="button" (click)="addFollower(categorySelected.id)" class="alta-btn alta-btn-lg">Follow</button>
+        <p>
+            {{categorySelected?.description}}
+        </p>
+    </div>
+    <br />
+    <div class="row">
+        <table class="table table-bordered table-nonfluid col-md-4" width="200">
+            <tr>
+                <td class="total">{{totalCount?.totalQuestions}} Questions </td>
+                <td class="total">{{totalCount?.totalFollowers}} Followers</td>
+            </tr>
+        </table>
+        <div class="tags-container col-md-8">
+
+            <div class="tags" *ngFor="let topic of topFiveTopics">
+                <a [routerLink]="['/question/home',topic?.categoryId,topic?.id,0]"> {{topic.topicName}}</a>
+            </div>
         </div>
     </div>
+    <div class="filter-panel">
+        <div class="read-question-button">
+            <a (click)="getQuestionsAnswered(categorySelected.id)">
+                <span class="glyphicon glyphicon-question-sign"></span> Question
+            </a>
+            <a (click)="getQuestionNotAnswered(categorySelected.id)" class="pull-right">
+                <span class="glyphicon glyphicon-pencil"></span> Answers
+            </a>
+        </div>
+        <div class="read-question-button">
+            <div class="col-md-4"><a (click)="GetLatestQuestionByDate(categorySelected.id)" class="pull-left">The latest question</a> </div>
+            <div class="col-md-4 text-center"><a (click)="getbestquestionbytotallike(categorySelected.id)"> The best Question</a></div>
+            <div class="col-md-4 "><a class="pull-right" (click)="getmorequestionbyviewcount(categorySelected.id)">The more views</a></div>
+        </div>
+    </div>
+    <div infinite-scroll
+         [infiniteScrollDistance]="scrollDistance"
+         [infiniteScrollThrottle]="throttle"
+         (scrolled)="onScrollDown()">
+    </div>
+
+    <div *ngFor="let question of questions" class="row">
+        <question-panel [question]="question"></question-panel>
+    </div>
+</div>
