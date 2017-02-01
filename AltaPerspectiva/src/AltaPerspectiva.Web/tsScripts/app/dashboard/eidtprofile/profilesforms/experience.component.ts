@@ -19,8 +19,21 @@ export class ExperienceFormComponent {
         this.experience = new Experience();
         this.service.profile.experience = this.experience;
     }
-    Submit() {
-        this.service.SaveExperience(this.experience).subscribe(res => {
+
+    ngOnInit() {
+        this.service.GetExperience().subscribe(res => {
+            this.experience = res;
+            console.log(res);
         });
+    }
+    Submit() {
+        if (this.experience.id)
+            this.service.UpdateExperience(this.experience).subscribe(res => {
+                console.log(res);
+            });
+        else
+            this.service.SaveExperience(this.experience).subscribe(res => {
+                console.log(res);
+            });
     }
 }

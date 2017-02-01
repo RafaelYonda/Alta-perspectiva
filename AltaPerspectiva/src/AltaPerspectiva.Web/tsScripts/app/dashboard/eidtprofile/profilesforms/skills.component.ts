@@ -19,9 +19,6 @@ export class SkillFormComponent {
         this.skills = new Skills();
         this.service.profile.skills = this.skills;
     }
-    ngOnInit() {
-        this.skills.skillArea = [];
-    }
     Submit() {
         this.service.SaveSkills(this.skills).subscribe(res => {
         });
@@ -33,6 +30,13 @@ export class SkillFormComponent {
         }
         this.skills.skillName = skillRemoved;
         this.service.DeleteSkills(this.skills).subscribe(res => {
+        });
+    }
+
+    ngOnInit() {
+        this.service.GetPracticeArea().subscribe(res => {
+            this.skills.skillArea = res;
+            console.log(res);
         });
     }
 }

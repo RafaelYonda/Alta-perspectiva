@@ -19,8 +19,22 @@ export class InsightFormComponent {
         this.insight = new Insight();
         this.service.profile.insight = this.insight;
     }
-    Submit() {
-        this.service.SaveInsight(this.insight).subscribe(res => {
+
+    ngOnInit() {
+        this.service.GetInsight().subscribe(res => {
+            this.insight = res;
+            console.log(res);
         });
+    }
+
+    Submit() {
+        if (this.insight.id)
+            this.service.UpdateInsight(this.insight).subscribe(res => {
+                console.log(res);
+            });
+        else
+            this.service.SaveInsight(this.insight).subscribe(res => {
+                console.log(res);
+            });
     }
 }

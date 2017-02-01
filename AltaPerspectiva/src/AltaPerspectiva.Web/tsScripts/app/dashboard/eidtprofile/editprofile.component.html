@@ -2,24 +2,22 @@
 <dash-tab></dash-tab>-->
 <div class="row dash-panel">
     <div class="col-lg-2 col-md-offset-2">
-        <div class="left-panel">
-            <div class="profile-pic">
-                <img class="profile-img" src="{{imageLink}}" />
-                <div class="row title">Photo Edit</div>
-            </div>
-            <img class="profile-border" src="../images/border-horizontal.png" />
-                <input type="file" name="documents" class="custom-file-input" (change)="onChange($event)" [(ngModel)]="doc" #documents="ngModel">
-            <div class="menu-list">
-                <ul>
-                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Contact Info')" routerLink="/dashboard/editprofile/contact">Contact info</button> </li>
-                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Biography')" routerLink="/dashboard/editprofile/biography">Biography</button> </li>
-                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Education')" routerLink="/dashboard/editprofile/education">Education</button></li>
-                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Experience')" routerLink="/dashboard/editprofile/experience">Experience</button></li>
-                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Skills')" routerLink="/dashboard/editprofile/skill">Skills</button></li>
-                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Practice Areas')" routerLink="/dashboard/editprofile/practice">Practice Areas</button></li>
-                    <li><button class="btn btn-default menu-button" (click)="changeHeader('Insight')" routerLink="/dashboard/editprofile/insight">Insight</button></li>
-                </ul>
-            </div>
+        <div class="profile-pic">
+            <img class="profile-img" src="{{imageLink}}" />
+            <div class="row title">Photo Edit</div>
+        </div>
+        <img class="profile-border" src="../images/border-horizontal.png" />
+        <input type="file" name="documents" class="custom-file-input" (change)="onChange($event)" [(ngModel)]="doc" #documents="ngModel">
+        <div class="menu-list">
+            <ul>
+                <li><button class="btn btn-default menu-button" (click)="changeHeader('Contact Info')" routerLink="/dashboard/editprofile/contact">Contact info</button> </li>
+                <li><button class="btn btn-default menu-button" (click)="changeHeader('Biography')" routerLink="/dashboard/editprofile/biography">Biography</button> </li>
+                <li><button class="btn btn-default menu-button" (click)="changeHeader('Education')" routerLink="/dashboard/editprofile/education">Education</button></li>
+                <li><button class="btn btn-default menu-button" (click)="changeHeader('Experience')" routerLink="/dashboard/editprofile/experience">Experience</button></li>
+                <li><button class="btn btn-default menu-button" (click)="changeHeader('Skills')" routerLink="/dashboard/editprofile/skill">Skills</button></li>
+                <li><button class="btn btn-default menu-button" (click)="changeHeader('Practice Areas')" routerLink="/dashboard/editprofile/practice">Practice Areas</button></li>
+                <li><button class="btn btn-default menu-button" (click)="changeHeader('Insight')" routerLink="/dashboard/editprofile/insight">Insight</button></li>
+            </ul>
         </div>
 
     </div>

@@ -19,9 +19,6 @@ export class PracticeFormComponent {
         this.practiceArea = new PracticeArea();
         this.service.profile.practiceArea = this.practiceArea;
     }
-    ngOnInit() {
-        this.practiceArea.practiceArea = [];
-    }
     remove(skillRemoved) {
         var index = this.practiceArea.practiceArea.indexOf(skillRemoved);
         if (index > -1) {
@@ -30,6 +27,13 @@ export class PracticeFormComponent {
     }
     Submit() {
         this.service.SavePracticeArea(this.practiceArea).subscribe(res => {
+        });
+    }
+
+    ngOnInit() {
+        this.service.GetPracticeArea().subscribe(res => {
+            this.practiceArea.practiceArea = res;
+            console.log(res);
         });
     }
 }
