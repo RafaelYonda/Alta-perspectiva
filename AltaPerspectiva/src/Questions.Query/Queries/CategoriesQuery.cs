@@ -17,6 +17,7 @@ namespace Questions.Query
 
         public IEnumerable<Category> Execute()
         {
+            //if category id deleted ..then it will not be shown anywhere
             return DbContext.Categories.Where(d=>d.IsDeleted!=true).OrderBy(x=>x.Sequence); 
         }
     }

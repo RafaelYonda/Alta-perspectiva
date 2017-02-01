@@ -46,6 +46,13 @@
                                 @Html.TextBoxFor(modelItem => item.Title, new { @class = "form-control" })
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Comment</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(modelItem => item.Comment, new { @class = "form-control" ,@placeholder="No comments" })
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="pwd">By user:</label>
                             <div class="col-sm-2">

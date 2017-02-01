@@ -26,7 +26,7 @@ namespace Questions.Query.Queries
                 .Include(q => q.QuestionTopics)
                 .ThenInclude(c => c.Topic)
                 .Include(q => q.Comments)
-                .Where(q => q.QuestionTopics.Any(x => x.TopicId == id && x.QuestionId == q.Id))
+                .Where(q => q.QuestionTopics.Any(x => x.TopicId == id && x.QuestionId == q.Id) && q.IsDeleted!=true)
                 .OrderByDescending(c => c.CreatedOn.Value.Date)
                 .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                 .Take(10)

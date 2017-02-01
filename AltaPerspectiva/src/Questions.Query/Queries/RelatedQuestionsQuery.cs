@@ -20,14 +20,14 @@ namespace Questions.Query
             if (id.ToString().Length < 2)
                 return null;
 
-            IEnumerable<QuestionCategory> CategoryList = DbContext.QuestionCategories.Where(x => x.QuestionId == id)
+            IEnumerable<QuestionCategory> CategoryList = DbContext.QuestionCategories.Where(x => x.QuestionId == id )
                 .ToList<QuestionCategory>();
 
 
             return await DbContext.
                     Questions
                     .Include(q => q.Categories)
-                    .Where(q => q.Categories.Any(x => CategoryList.Any(y => x.CategoryId == y.CategoryId)) && q.Id != id)
+                    .Where(q => q.Categories.Any(x => CategoryList.Any(y => x.CategoryId == y.CategoryId)) && q.Id != id && q.IsDeleted != true)
                     .OrderByDescending(c => c.CreatedOn.Value.Date)
                          .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                     .Take(5)
