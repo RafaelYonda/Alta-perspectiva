@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Questions.Domain.Category>
+
+<div class="row">
+    <div class="col-md-4">
+        .
+    </div>
+    <div class="col-md-4">
+        <div class="panel-body">
+
+            <table class="table" id="myTable">
+                <thead>
+                <tr>
+                    <th style="width:1%">
+                        CategoryName
+                    </th>
+                    <th style="width:10%">
+
+                    </th>
+                    <th style="width:10%">
+
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(modelItem => item.Id)
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            <button id="btnDelete" type="button" class="btn btn-danger" onclick="DeleteCategory(this,'@item.Id','@item.Name')">
+                                DeleteCategory
+                            </button>
+                        </td>
+                            
+                    </tr>
+                }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+<script>
+    function DeleteCategory(element,categoryId,categoryName)
+    {
+        var confrimDelete = confirm("Do you really want me to say hi?");
+        if (confrimDelete == true) {
+            var url = '@Url.Action("DeleteCategory", "Category", new { Area = "Admin" })';
+            var obj = {};
+            obj.categoryId = categoryId;
+            console.log(obj);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: obj,
+                async: false,
+                success: function (respText) {
+                    console.log(respText);
+                    alert(categoryName + ' deleted successfully');
+                    location.reload(true);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+
+                }
+            });
+        } 
+       
+    }
+</script>

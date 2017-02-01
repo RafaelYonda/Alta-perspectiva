@@ -103,5 +103,25 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         {
             return View();
         }
+        [HttpGet("Admin/DeleteCategory")]
+        public IActionResult DeleteCategory()
+        {
+            IEnumerable<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
+            return View("DeleteCategory", categoriesList);
+        }
+        [HttpPost("Admin/DeleteCategory")]
+        public IActionResult DeleteCategory(Guid categoryId)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+            DeleteCategoryCommand command=new DeleteCategoryCommand(loggedinUser,categoryId);
+            commandsFactory.ExecuteQuery(command);
+            return Ok();
+        }
     }
 }

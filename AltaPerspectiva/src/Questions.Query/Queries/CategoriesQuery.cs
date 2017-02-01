@@ -17,7 +17,7 @@ namespace Questions.Query
 
         public IEnumerable<Category> Execute()
         {
-            return DbContext.Categories.OrderBy(x=>x.Sequence); 
+            return DbContext.Categories.Where(d=>d.IsDeleted!=true).OrderBy(x=>x.Sequence); 
         }
     }
 }

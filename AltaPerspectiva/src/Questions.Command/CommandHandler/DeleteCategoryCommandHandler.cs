@@ -24,7 +24,11 @@ namespace Questions.Command.CommandHandler
             Category category = DbContext.Categories.FirstOrDefault(x => x.Id == command.Id);
             if (category != null)
             {
-                DbContext.Categories.Remove(category);
+                category.IsActive = false;
+                category.ModifiedBy = command.UserId;
+                category.ModifiedOn=DateTime.Now;
+                category.IsDeleted = true;
+                DbContext.Categories.Update(category);
                 DbContext.SaveChanges();
             }
             else
