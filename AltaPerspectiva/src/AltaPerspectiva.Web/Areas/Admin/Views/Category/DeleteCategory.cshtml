@@ -47,7 +47,7 @@
 <script>
     function DeleteCategory(element,categoryId,categoryName)
     {
-        var confrimDelete = confirm("Do you really want me to say hi?");
+        var confrimDelete = confirm("Do you really want to delete?");
         if (confrimDelete == true) {
             var url = '@Url.Action("DeleteCategory", "Category", new { Area = "Admin" })';
             var obj = {};
