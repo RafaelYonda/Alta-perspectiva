@@ -132,10 +132,10 @@
                 <h4 class="modal-title">Discard Report </h4>
             </div>
             <div class="modal-body">
-                <input type="text" id="Id" value="1" />
+                <input type="hidden" id="Id" />
                 <div class="form-group">
                     <label class="control-label">Admin Comment</label>
-                    <input id="ModiferComment" type="text" class="form-control" placeholder="Name">
+                    <input id="ModiferComment" type="text" class="form-control" placeholder="Optional comment for future query">
                 </div>
 
             </div>
@@ -158,30 +158,29 @@
     }
     function InvalidReport(Id, ModiferComment) {
         console.log(Id + '->' + ModiferComment);
-        var confrimDelete = confirm("Do you really want to delete?");
-        if (confrimDelete == true) {
-            var obj = {};
-            obj.Id = Id;
-            obj.ModiferComment = ModiferComment;
-            console.log(obj);
-            var url = '@Url.Action("InvalidReport", "QuestionReport", new { Area = "Admin" })';
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: obj,
-                async: false,
-                success: function (respText) {
-                    console.log(respText);
-                    alert('Report discarded successfully');
-                    location.reload(true);
+
+        var obj = {};
+        obj.Id = Id;
+        obj.ModiferComment = ModiferComment;
+        console.log(obj);
+        var url = '@Url.Action("InvalidReport", "QuestionReport", new { Area = "Admin" })';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: obj,
+            async: false,
+            success: function (respText) {
+                console.log(respText);
+                alert('Report discarded successfully');
+                location.reload(true);
 
 
-                },
-                error: function (jqXhr, textStatus, errorThrown) {
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
 
-                }
-            });
-        }
+            }
+        });
+
     }
 
     function Delete(element, Id, QuestionId, AnswerId) {
