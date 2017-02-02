@@ -1,6 +1,7 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewContainerRef } from '@angular/core';
 import { Skills } from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 @Component({
     templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/skills.component.html',
     styleUrls: [
@@ -15,12 +16,14 @@ import { ProfileService } from '../../../services/profile.service';
 export class SkillFormComponent {
     public _headerName: string = 'Skill';
     skills: Skills;
-    constructor(private service: ProfileService) {
+    constructor(private service: ProfileService, public toastr: ToastsManager, vRef: ViewContainerRef) {
         this.skills = new Skills();
         this.service.profile.skills = this.skills;
+        this.toastr.setRootViewContainerRef(vRef);
     }
     Submit() {
         this.service.SaveSkills(this.skills).subscribe(res => {
+            this.showSuccess();
         });
     }
     remove(skillRemoved) {
@@ -38,6 +41,9 @@ export class SkillFormComponent {
             this.skills.skillArea = res;
             console.log(res);
         });
+    }
+    showSuccess() {
+        this.toastr.success('Biography saved successfully!', 'Success!');
     }
 }
 

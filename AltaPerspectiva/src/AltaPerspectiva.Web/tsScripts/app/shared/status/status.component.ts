@@ -75,7 +75,6 @@ export class StatusComponent {
                 }
             );
         }
-
     }
 
     showLikeUserDetails(answerId: string, questionId: string) {

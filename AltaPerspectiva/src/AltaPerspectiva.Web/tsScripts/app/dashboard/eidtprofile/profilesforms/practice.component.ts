@@ -1,6 +1,7 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewContainerRef } from '@angular/core';
 import { PracticeArea } from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 @Component({
     templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/practice.component.html',
     styleUrls: [
@@ -15,9 +16,10 @@ import { ProfileService } from '../../../services/profile.service';
 export class PracticeFormComponent {
     public _headerName: string = 'Practice Area';
     practiceArea: PracticeArea;
-    constructor(private service: ProfileService) {
+    constructor(private service: ProfileService, public toastr: ToastsManager, vRef: ViewContainerRef) {
         this.practiceArea = new PracticeArea();
         this.service.profile.practiceArea = this.practiceArea;
+        this.toastr.setRootViewContainerRef(vRef);
     }
     remove(skillRemoved) {
         var index = this.practiceArea.practiceArea.indexOf(skillRemoved);
@@ -33,7 +35,11 @@ export class PracticeFormComponent {
     ngOnInit() {
         this.service.GetPracticeArea().subscribe(res => {
             this.practiceArea.practiceArea = res;
+            this.showSuccess();
             console.log(res);
         });
+    }
+    showSuccess() {
+        this.toastr.success('Practice Area saved successfully!', 'Success!');
     }
 }

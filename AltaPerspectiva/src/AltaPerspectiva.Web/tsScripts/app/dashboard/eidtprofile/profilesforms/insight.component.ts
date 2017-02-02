@@ -1,6 +1,7 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewContainerRef } from '@angular/core';
 import { Insight } from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 @Component({
     templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/insight.component.html',
     styleUrls: [
@@ -15,14 +16,16 @@ import { ProfileService } from '../../../services/profile.service';
 export class InsightFormComponent {
     public _headerName: string = 'Insight';
     insight: Insight;
-    constructor(private service: ProfileService) {
+    constructor(private service: ProfileService, public toastr: ToastsManager, vRef: ViewContainerRef) {
         this.insight = new Insight();
         this.service.profile.insight = this.insight;
+        this.toastr.setRootViewContainerRef(vRef);
     }
 
     ngOnInit() {
         this.service.GetInsight().subscribe(res => {
             this.insight = res;
+            this.showSuccess();
             console.log(res);
         });
     }
@@ -34,7 +37,11 @@ export class InsightFormComponent {
             });
         else
             this.service.SaveInsight(this.insight).subscribe(res => {
+                this.showSuccess();
                 console.log(res);
             });
+    }
+    showSuccess() {
+        this.toastr.success('Insight saved successfully!', 'Success!');
     }
 }
