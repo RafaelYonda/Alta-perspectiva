@@ -681,7 +681,10 @@ namespace AltaPerspectiva.Web.Area.Questions
         public IActionResult GetLatestAnswer(Guid questionId)
         {
             var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
-
+            //if (question == null)
+            //{
+            //    return NotFound("The content you are looking for is not avaliable/Removed");
+            //}
             question.Answers =
                 question.Answers.OrderByDescending(d => d.AnswerDate.Date)
                             .ThenBy(h => h.AnswerDate.Hour)

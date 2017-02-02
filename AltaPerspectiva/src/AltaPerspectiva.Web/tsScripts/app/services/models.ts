@@ -155,6 +155,7 @@ export class Profile {
     completePercent: number;
 }
 export class Contact {
+    id: string;
     userId: string;
     firstName: string;
     lastName: string;
@@ -167,11 +168,13 @@ export class Contact {
     city: string;
 }
 export class Biography {
+    id: string;
     userId: string;
     tagLine: string;
     aboutMe: string;
 }
 export class Education {
+    id: string;
     userId: string;
     institute: string;
     startDate: number;
@@ -183,6 +186,7 @@ export class Education {
     especiality: string;
 }
 export class Experience {
+    id: string;
     userId: string;
     employer: string;
     positionHeld: string;
@@ -207,6 +211,7 @@ export class PracticeArea {
     PracticeAreaName: string;
 }
 export class Insight {
+    id: string;
     userId: string;
     title: string;
     publication: string;

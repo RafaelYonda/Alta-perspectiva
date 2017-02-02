@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "Index";
 }
+<style>
+      .table {
+                margin-left: 244px;
+        }
+</style>
 <br />
 <br />
 
@@ -48,6 +53,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-sm-2">Commented </label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(modelItem => item.Comment, new { @class = "form-control", @placeholder = "No comments" })
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-sm-2" for="pwd">By user:</label>
                             <div class="col-sm-2">
                                 @Html.TextBoxFor(modelItem => item.UserFullName, new { @class = "form-control" })
@@ -70,7 +81,7 @@
                         </div>
                         <br />
                         <div class="form-group">
-                            <div class="col-sm-4" style="    margin-left: 105px;">
+                            <div class="col-sm-4" style=" margin-left: 105px;">
                                 <button id="btnTopic" type="button" class="btn btn-default" onclick="Discard(this, '@item.Id')">
                                     Ignore Report
                                 </button>
@@ -78,9 +89,9 @@
                                     Delete
                                 </button>
                             </div>
-                            
-                         
-                            
+
+
+
                         </div>
 
                     </form>
@@ -126,10 +137,10 @@
                 <h4 class="modal-title">Discard Report </h4>
             </div>
             <div class="modal-body">
-                <input type="text" id="Id" value="1" />
+                <input type="hidden" id="Id" />
                 <div class="form-group">
                     <label class="control-label">Admin Comment</label>
-                    <input id="ModiferComment" type="text" class="form-control" placeholder="Name">
+                    <input id="ModiferComment" type="text" class="form-control" placeholder="Optional comment for future query">
                 </div>
 
             </div>
@@ -150,13 +161,14 @@
             backdrop: 'static'
         });
     }
+
     function InvalidReport(Id, ModiferComment) {
         console.log(Id + '->' + ModiferComment);
         var obj = {};
         obj.Id = Id;
         obj.ModiferComment = ModiferComment;
         console.log(obj);
-        var url = '@Url.Action("InvalidReport", "QuestionReport", new { Area = "Admin" })';
+        var url = '@Url.Action("InvalidReport", "QuestionReport", new {Area = "Admin"})';
         $.ajax({
             url: url,
             type: 'POST',
@@ -164,39 +176,42 @@
             async: false,
             success: function (respText) {
                 console.log(respText);
-                alert('comment discarded successfully');
+                alert('Report discarded successfully');
                 location.reload(true);
-
-
             },
             error: function (jqXhr, textStatus, errorThrown) {
 
             }
         });
+
 
     }
     function Delete(element, Id, QuestionId, AnswerId) {
         //QuestionDelete
-        var obj = {};
-        obj.Id = Id;
-        obj.QuestionId = QuestionId;
-        obj.AnswerId = AnswerId;
-        console.log(obj);
-        var url = '@Url.Action("Delete", "QuestionReport", new { Area = "Admin" })';
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: obj,
-            async: false,
-            success: function (respText) {
-                console.log(respText);
-                alert('Question deleted successfully');
-                location.reload(true);
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
 
-            }
-        });
+        var confrimDelete = confirm("Do you really want to delete?");
+        if (confrimDelete == true) {
+            var obj = {};
+            obj.Id = Id;
+            obj.QuestionId = QuestionId;
+            obj.AnswerId = AnswerId;
+            console.log(obj);
+            var url = '@Url.Action("Delete", "QuestionReport", new { Area = "Admin" })';
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: obj,
+                async: false,
+                success: function (respText) {
+                    console.log(respText);
+                    alert('Question deleted successfully');
+                    location.reload(true);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+
+                }
+            });
+        }
 
     }
 </script>

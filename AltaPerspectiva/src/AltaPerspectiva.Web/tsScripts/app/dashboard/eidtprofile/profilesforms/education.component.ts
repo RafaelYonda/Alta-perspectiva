@@ -19,8 +19,21 @@ export class EducationFormComponent {
         this.education = new Education();
         this.service.profile.education = this.education;
     }
-    Submit() {
-        this.service.SaveEducation(this.education).subscribe(res => {
+
+    ngOnInit() {
+        this.service.GetEducation().subscribe(res => {
+            this.education = res;
+            console.log(res);
         });
+    }
+    Submit() {
+        if (this.education.id)
+            this.service.UpdateEducation(this.education).subscribe(res => {
+                console.log(res);
+            });
+        else
+            this.service.SaveEducation(this.education).subscribe(res => {
+                console.log(res);
+            });
     }
 }

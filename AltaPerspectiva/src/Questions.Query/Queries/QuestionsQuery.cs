@@ -29,6 +29,7 @@ namespace Questions.Query
                                   .Include(q => q.Likes)
                                   .Include(q => q.QuestionLevels)
                                   .Include(q => q.QuestionTopics)
+                                  .Where(q=> q.IsDeleted != true)
                                       .OrderByDescending(c => c.CreatedOn.Value.Date)
                                           .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                               .Take(20)
@@ -38,19 +39,19 @@ namespace Questions.Query
         {
 
 
-            return await DbContext.Questions.OrderByDescending(x => x.ViewCount).Take(5).ToListAsync();
+            return await DbContext.Questions.Where(q => q.IsDeleted != true).OrderByDescending(x => x.ViewCount).Take(5).ToListAsync();
         }
 
         public async Task<IEnumerable<Question>> GetTopFiveQuestionByCategoryId(Guid categoryId)
         {
-            return await DbContext.Questions.Where(q => q.Categories.Any(x => x.CategoryId == categoryId && x.QuestionId == q.Id)).OrderByDescending(x => x.ViewCount).Take(5).ToListAsync();
+            return await DbContext.Questions.Where(q => q.Categories.Any(x => x.CategoryId == categoryId && x.QuestionId ==q.Id) && q.IsDeleted != true).OrderByDescending(x => x.ViewCount).Take(5).ToListAsync();
         }
 
         public async Task<IEnumerable<Question>> GetQuestionByTopciNCategoryId(Guid topicId, Guid categoryId)
         {
             return
                 await DbContext.Questions
-                .Where(qt => qt.QuestionTopics.Any(q => q.QuestionId == qt.Id && q.Topic.Id == topicId && q.Topic.CategoryId == categoryId))
+                .Where(q => q.QuestionTopics.Any(qt => qt.QuestionId == q.Id && qt.Topic.Id == topicId && qt.Topic.CategoryId == categoryId) && q.IsDeleted != true)
 
                 .Include(a => a.Answers).ThenInclude(a => a.Likes)
                 .Include(a => a.Answers).ThenInclude(a => a.Comments)
@@ -68,7 +69,7 @@ namespace Questions.Query
 
         public async Task<IEnumerable<Question>> GetBookmark(Guid userId)
         {
-            return await DbContext.Questions.Where(x=>x.Bookmarks.Any(u=>u.UserId==userId))
+            return await DbContext.Questions.Where(q=>q.Bookmarks.Any(u=>u.UserId==userId) && q.IsDeleted != true)
                                    .Include(a => a.Answers).ThenInclude(a => a.Likes)
                                    .Include(a => a.Answers).ThenInclude(a => a.Comments)
                                    .Include(q => q.Categories)
@@ -85,7 +86,7 @@ namespace Questions.Query
 
         public async Task<IEnumerable<Question>> GetMoreViewedQuestionByViewCount(Guid categoryId)
         {
-            return await DbContext.Questions.Where(x=>x.Categories.Any(cc=>cc.CategoryId==categoryId))
+            return await DbContext.Questions.Where(q=>q.Categories.Any(cc=>cc.CategoryId==categoryId) && q.IsDeleted != true)
                 
                                   .Include(ql => ql.QuestionLevels)
                                  .Include(a => a.Answers).ThenInclude(a => a.Likes)
@@ -104,7 +105,7 @@ namespace Questions.Query
 
         public async Task<IEnumerable<Question>> GetBestQuestionbyTotalLike(Guid categoryId)
         {
-            return await DbContext.Questions.Where(x => x.Categories.Any(cc => cc.CategoryId == categoryId))
+            return await DbContext.Questions.Where(q => q.Categories.Any(cc => cc.CategoryId == categoryId) && q.IsDeleted != true)
 
                                  .Include(ql => ql.QuestionLevels)
                                 .Include(a => a.Answers).ThenInclude(a => a.Likes)
@@ -133,7 +134,7 @@ namespace Questions.Query
                                   .Include(q => q.Likes)
                                   .Include(q => q.QuestionLevels)
                                   .Include(q => q.QuestionTopics)
-                                  .Where(x=>x.Categories.Any(c=>c.CategoryId==categoryId) &&x.QuestionTopics.Any(qt=>qt.TopicId==topicId) &&x.QuestionLevels.Any(ql=>ql.LevelId==levelId))
+                                  .Where(q=>q.Categories.Any(c=>c.CategoryId==categoryId) &&q.QuestionTopics.Any(qt=>qt.TopicId==topicId) &&q.QuestionLevels.Any(ql=>ql.LevelId==levelId) && q.IsDeleted != true)
                                       .OrderByDescending(c => c.CreatedOn.Value.Date)
                                           .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                               .Take(20)
@@ -151,7 +152,7 @@ namespace Questions.Query
                                   .Include(q => q.Likes)
                                   .Include(q => q.QuestionLevels)
                                   .Include(q => q.QuestionTopics)
-                                  .Where(x => x.Categories.Any(c => c.CategoryId == categoryId) && x.QuestionTopics.Any(qt => qt.TopicId == topicId) )
+                                  .Where(q => q.Categories.Any(c => c.CategoryId == categoryId) && q.QuestionTopics.Any(qt => qt.TopicId == topicId) && q.IsDeleted != true)
                                       .OrderByDescending(c => c.CreatedOn.Value.Date)
                                           .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                               .Take(20)
@@ -169,7 +170,7 @@ namespace Questions.Query
                                  .Include(q => q.Likes)
                                  .Include(q => q.QuestionLevels)
                                  .Include(q => q.QuestionTopics)
-                                 .Where(x => x.Categories.Any(c => c.CategoryId == categoryId)  && x.QuestionLevels.Any(ql => ql.LevelId == levelId))
+                                 .Where(q => q.Categories.Any(c => c.CategoryId == categoryId)  && q.QuestionLevels.Any(ql => ql.LevelId == levelId) && q.IsDeleted != true)
                                      .OrderByDescending(c => c.CreatedOn.Value.Date)
                                          .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                              .Take(20)
@@ -205,7 +206,7 @@ namespace Questions.Query
                                 .Include(q => q.Likes)
                                 .Include(q => q.QuestionLevels)
                                 .Include(q => q.QuestionTopics)
-                                .Where(x => x.Categories.Any(c => c.CategoryId == categoryId) )
+                                .Where(q => q.Categories.Any(c => c.CategoryId == categoryId) && q.IsDeleted != true)
                                     .OrderByDescending(c => c.CreatedOn.Value.Date)
                                         .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                             .Take(20)
@@ -223,7 +224,7 @@ namespace Questions.Query
                                 .Include(q => q.Likes)
                                 .Include(q => q.QuestionLevels)
                                 .Include(q => q.QuestionTopics)
-                                .Where(x => x.QuestionTopics.Any(qt => qt.TopicId == topicId) )
+                                .Where(q => q.QuestionTopics.Any(qt => qt.TopicId == topicId) && q.IsDeleted != true)
                                     .OrderByDescending(c => c.CreatedOn.Value.Date)
                                         .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                             .Take(20)
@@ -241,7 +242,7 @@ namespace Questions.Query
                                 .Include(q => q.Likes)
                                 .Include(q => q.QuestionLevels)
                                 .Include(q => q.QuestionTopics)
-                                .Where(x => x.QuestionLevels.Any(ql => ql.LevelId == levelId))
+                                .Where(q => q.QuestionLevels.Any(ql => ql.LevelId == levelId) && q.IsDeleted != true)
                                     .OrderByDescending(c => c.CreatedOn.Value.Date)
                                         .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                             .Take(20)
@@ -259,7 +260,8 @@ namespace Questions.Query
                                 .Include(q => q.Likes)
                                 .Include(q => q.QuestionLevels)
                                 .Include(q => q.QuestionTopics)
-                                //.Where(x => x.Categories.Any(c => c.CategoryId == null))
+                               // .Where(x => x.Categories.Any(c => c.CategoryId == null))
+                                .Where(q =>q.IsDeleted != true)
                                     .OrderByDescending(c => c.CreatedOn.Value.Date)
                                         .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                             .Take(20)
@@ -277,7 +279,7 @@ namespace Questions.Query
                                  .Include(q => q.Likes)
                                  .Include(q => q.QuestionLevels)
                                  .Include(q => q.QuestionTopics)
-                                 .Where(cc=>cc.Categories.Any(z=>z.CategoryId==categoryId))
+                                 .Where(q=>q.Categories.Any(z=>z.CategoryId==categoryId) && q.IsDeleted != true)
                                      .OrderByDescending(c => c.CreatedOn.Value.Date)
                                          .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                              .Take(20)

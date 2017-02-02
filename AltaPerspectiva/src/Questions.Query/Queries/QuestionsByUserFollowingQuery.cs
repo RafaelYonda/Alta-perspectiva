@@ -25,7 +25,7 @@ namespace Questions.Query
                                 Questions.Include(ql=>ql.QuestionLevels)
                                     .Include(q=>q.Categories)
                                         .ThenInclude(c=>c.Category)
-                                            .Where(q => q.Categories.Any(x => categories.Contains( x.CategoryId) || x.Category.Sequence == 1))
+                                            .Where(q => q.Categories.Any(x => categories.Contains( x.CategoryId) || x.Category.Sequence == 1) && q.IsDeleted != true)
                                             .OrderByDescending(c => c.CreatedOn.Value.Date)
                                                 .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                                     .Take(20)

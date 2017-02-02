@@ -27,7 +27,7 @@ namespace UserProfile.Command.CommandHandler
             biography.AboutMe = command.AboutMe;
             biography.TagLine = command.TagLine;
 
-            DbContext.Biography.Add(biography);
+            DbContext.Biography.Update(biography);
             DbContext.SaveChanges();
 
         }

@@ -20,8 +20,20 @@ export class ContactFormComponent {
         this.contact = new Contact();
         this.service.profile.contact = this.contact;
     }
-    Submit() {
-        this.service.SaveContact(this.contact).subscribe(res => {
+    ngOnInit() {
+        this.service.GetContact().subscribe(res => {
+            this.contact = res;
+            console.log(res);
         });
+    }
+    Submit() {
+        if (this.contact.id)
+            this.service.UpdateContact(this.contact).subscribe(res => {
+                console.log(res);
+            });
+        else
+            this.service.SaveContact(this.contact).subscribe(res => {
+                console.log(res);
+            });
     }
 }
