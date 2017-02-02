@@ -1,4 +1,10 @@
 ﻿@model IEnumerable<Questions.Domain.Category>
+<style>
+    .row {
+        margin-top: 58px;
+        margin-left: -434px;
+    }
+</style>
 
 <div class="row">
     <div class="col-md-4">
@@ -7,36 +13,34 @@
     <div class="col-md-4">
         <div class="panel-body">
 
-            <table class="table" id="myTable">
+            <table class="table table-bordered table-striped" id="myTable">
                 <thead>
-                <tr>
-                    <th style="width:1%">
-                        CategoryName
-                    </th>
-                    <th style="width:10%">
+                    <tr>
+                        <th style="width:1%">
+                            CategoryName
+                        </th>
+                        <th style="width:10%">
+                            Action
+                        </th>
 
-                    </th>
-                    <th style="width:10%">
-
-                    </th>
-                </tr>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.HiddenFor(modelItem => item.Id)
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            <button id="btnDelete" type="button" class="btn btn-danger" onclick="DeleteCategory(this,'@item.Id','@item.Name')">
-                                DeleteCategory
-                            </button>
-                        </td>
-                            
-                    </tr>
-                }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(modelItem => item.Id)
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <button id="btnDelete" type="button" class="btn btn-danger" onclick="DeleteCategory(this,'@item.Id','@item.Name')">
+                                    DeleteCategory
+                                </button>
+                            </td>
+
+                        </tr>
+                    }
                 </tbody>
 
             </table>
@@ -45,8 +49,7 @@
     </div>
 </div>
 <script>
-    function DeleteCategory(element,categoryId,categoryName)
-    {
+    function DeleteCategory(element, categoryId, categoryName) {
         var confrimDelete = confirm("Do you really want to delete?");
         if (confrimDelete == true) {
             var url = '@Url.Action("DeleteCategory", "Category", new { Area = "Admin" })';
@@ -67,7 +70,7 @@
 
                 }
             });
-        } 
-       
+        }
+
     }
 </script>

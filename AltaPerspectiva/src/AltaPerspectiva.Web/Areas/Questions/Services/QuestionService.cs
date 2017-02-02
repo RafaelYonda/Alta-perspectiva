@@ -57,7 +57,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 qv.QuestionTopics = q.QuestionTopics;
                 qv.QuestionLevels = q.QuestionLevels;
 
-                qv.AnswerCount = q.Answers.Where(drafted => drafted.IsDrafted != true).ToList().Count;
+                qv.AnswerCount = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted != true).ToList().Count;
                 qv.IsAnonymous = q.IsAnonymous;
                 foreach (var questionTopic in qv.QuestionTopics)
                 {
@@ -132,7 +132,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
 
             qv.ViewCount = q.ViewCount;
-            qv.AnswerCount = q.Answers.Where(isDrafted=>isDrafted.IsDrafted!=true).ToList().Count;
+            qv.AnswerCount = q.Answers.Where(isDrafted=>isDrafted.IsDrafted!=true && isDrafted.IsDeleted!=true).ToList().Count;
 
             qv.QuestionTopics = q.QuestionTopics;
             qv.QuestionLevels = q.QuestionLevels;

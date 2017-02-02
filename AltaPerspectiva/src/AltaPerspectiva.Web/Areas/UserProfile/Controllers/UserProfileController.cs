@@ -42,7 +42,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             environment = _environment;
         }
 
-        public String GetUserName()
+        //For Login username in admin
+        public UserViewModel GetUserName()
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
@@ -53,7 +54,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             //refractoring:My add from User Repository 
             var model = new UserService().GetUserViewModel(queryFactory, loggedinUser);
-            return model.Name;
+            return model;
         }
         [HttpGet("userprofile/api/getuser")]
         public IActionResult GetUser()
