@@ -3,45 +3,49 @@
         margin-top: 77px;
     }
 
-    .row {
+    .customrow {
         min-height: 100vh;
+    }
+
+    .table {
+        margin-left: 244px;
     }
 </style>
 
-<div class="row">
+<div class="row customrow">
     <div class="col-md-4">.</div>
     <div class="col-md-4">
         <img class="left-border" src="~/images/border.png" />
 
         <section>
-            @using (Html.BeginForm("AddCategory", "Category", FormMethod.Post, new { area = "Admin", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
+@using (Html.BeginForm("AddCategory", "Category", FormMethod.Post, new { area = "Admin", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
             {
                 <h2>Add Category</h2>
                 <div class="form-group">
-                    <div class="col-sm-offset-1 col-md-10">
-                        <input type="text" id="name" name="name" placeholder="Name" class="form-control" minlength="2" required />
-                    </div>
+                <div class="col-sm-offset-1 col-md-10">
+                <input type="text" id="name" name="name" placeholder="Name" class="form-control" minlength="2" required />
+                </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-1 col-md-10">
-                        <input type="text" id="description" name="description" placeholder="Description" class="form-control" minlength="2" required />
-                    </div>
+                <div class="col-sm-offset-1 col-md-10">
+                <input type="text" id="description" name="description" placeholder="Description" class="form-control" minlength="2" required />
+                </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-1 col-md-10">
-                        <input type="file" id="file" placeholder="file" class="form-control-file" minlength="2" accept=".jpg" name="file" />
-                    </div>
+                <div class="col-sm-offset-1 col-md-10">
+                <input type="file" id="file" placeholder="file" class="form-control-file" minlength="2" accept=".jpg" name="file" />
+                </div>
                 </div>
                 <br />
                 <div class="form-group">
-                    <div class="col-sm-offset-1 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default">
-                    </div>
+                <div class="col-sm-offset-1 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default">
+                </div>
                 </div>
 
-            }
+}
         </section>
-        @* =============== *@
+@* =============== *@
 
 
 
