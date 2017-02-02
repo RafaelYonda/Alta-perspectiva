@@ -26,20 +26,8 @@
             </div>
         </div>
         <div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
-        <!--<div [hidden]="answerField.valid || answerField.pristine"
-                 class="alert alert-danger">
-            Please type your answer and then submit!!
-        </div>-->
-
     </div>
     <div class="modal-body">
-        <!--<ckeditor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}" id="answer"
-                  required name="answerField" #answerField="ngModel"
-                  [config]="{   filebrowserUploadUrl : '/browser/browse/type/all',
-                                           filebrowserImageUploadUrl : '/browser/browse/type/image',
-                              removeButtons : 'About,Maximize,TextColor,Styles,Format,Font,FontSize,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Unlink,Anchor,BidiLtr,Language,BidiRtl,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,CreateDiv,Blockquote,Outdent,Indent,BulletedList,NumberedList,CopyFormatting,RemoveFormat,Underline,Strike,Subscript,Superscript,Form,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Scayt,Find,SelectAll,Replace,BGColor,ShowBlocks,Checkbox,Source,Save,Templates,Cut,Undo,Redo,Copy,Paste,PasteText,PasteFromWord,Print,Preview,NewPage,Checkbox'}"
-                  debounce="500">
-        </ckeditor>-->
         <quill-editor  [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}"
                       [modules]="{  toolbar: [['bold', 'italic', 'underline'], ['link', 'image']] }"
                        required name="answerField" #answerField="ngModel"></quill-editor>

@@ -17,8 +17,31 @@ export class QuestionPanelComponent {
 
     //Question report
     questionReports: QuestionReport[];
+    //Edit question popup
+    showQuestionEditForm: boolean
+    editTitle: string
+    editBody: string
+
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private dataService: QuestionAnswerService) { }
 
+    onQuestionDetailClicked(showEditForm: boolean) {
+        this.showQuestionEditForm = showEditForm;
+        this.editTitle = this.question.title;
+        this.editBody = this.question.body;
+    }
+    updateQuestion() {
+        var qv = new Question();
+        qv.title = this.editTitle;
+        qv.body = this.editBody;
+        qv.id = this.question.id;
+
+        this.dataService.updateQuestion(qv).subscribe(res => {
+            this.question.title = this.editTitle;
+            this.question.body = this.editBody;
+            this.showQuestionEditForm = false;
+
+        });
+    }
     @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
     answerDialogBox(question: Question) {
         // Close any already open dialogs

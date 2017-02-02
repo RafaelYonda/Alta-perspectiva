@@ -561,8 +561,16 @@ namespace AltaPerspectiva.Web.Area.Questions
             {
                 levelId = new Guid(question.LevelId);
             }
-
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous);
+            String title = question.Title;
+            if (!String.IsNullOrEmpty(title))
+            {
+                var hasQuestionMark = title.ToCharArray()[title.Length - 1] == '?';
+                if (hasQuestionMark)
+                {
+                    title = title.TrimEnd('?');
+                }
+            }
+            AddQuestionCommand cmd = new AddQuestionCommand(title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
             Guid questionId = cmd.Id;
 
