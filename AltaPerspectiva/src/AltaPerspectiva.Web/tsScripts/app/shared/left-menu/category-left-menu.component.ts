@@ -27,7 +27,7 @@ export class CategoryMenuPanelComponent {
         this.commServ.getCategory().subscribe((logged: string) => {
             console.log('Welcome %s', logged);
         });
-        console.log(this.caegoryId);
+       
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
         });
