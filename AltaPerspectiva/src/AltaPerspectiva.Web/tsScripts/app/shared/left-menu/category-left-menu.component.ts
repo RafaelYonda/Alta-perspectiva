@@ -25,7 +25,7 @@ export class CategoryMenuPanelComponent {
 
     ngOnInit() {
         this.commServ.getCategory().subscribe((logged: string) => {
-            console.log('Welcome %s', logged);
+           
         });
        
         this.categoryService.getAllCategories().subscribe(res => {
