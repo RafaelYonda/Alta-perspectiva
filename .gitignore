@@ -80,3 +80,4 @@ AltaPerspectiva/AltaPerspectiva.vsext
 AltaPerspectiva/src/AltaPerspectiva.Api/bin/Debug/netstandard1.6/AltaPerspectiva.Api.dll
 AltaPerspectiva/src/AltaPerspectiva.Api/bin/Debug/netstandard1.6/AltaPerspectiva.Api.pdb
 /AltaPerspectiva/src/AltaPerspectiva.Web/typings
+AltaPerspectiva/src/AltaPerspectiva/bower_components/
