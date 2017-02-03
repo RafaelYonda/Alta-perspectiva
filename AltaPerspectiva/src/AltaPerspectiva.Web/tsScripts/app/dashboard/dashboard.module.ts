@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashBoardComponent } from './dashboard.component';
 import { EditProfileComponent } from './eidtprofile/editprofile.component';
 import { NavDashboard } from './navdashboard/navdashboard.component';
+import { DashTab } from './dashtab/dashtab.component';
 
 import { ContactFormComponent } from './eidtprofile/profilesforms/contact.component';
 import { BiographyFormComponent } from './eidtprofile/profilesforms/biography.component';
@@ -17,17 +18,10 @@ import { PracticeFormComponent } from './eidtprofile/profilesforms/practice.comp
 import { SkillFormComponent } from './eidtprofile/profilesforms/skills.component';
 
 import { ViewProfileComponent } from './viewprofile/viewprofile.component';
-import { ProfileInfoComponent } from './viewprofile/profile-info/profile-info.component';
-import { ProfileStatComponent } from './viewprofile/profile-stat/profile-stat.component';
-
-
-import { UserAnswerComponent } from './viewprofile/user-answer/user-answer.component';
-import { UserQuestionComponent } from './viewprofile/user-question/user-question.component';
-import { FollowingComponent } from './viewprofile/following/following.component';
-import { FollowerComponent } from './viewprofile/follower/follower.component';
-import { BookmarkComponent } from './viewprofile/bookmark/bookmark.component';
-import { BlogCreateComponent } from './viewprofile/blog-create/blog-create.component';
-import { BlogPostComponent } from './viewprofile/blog-post/blog-post.component';
+import { GeneralProfileComponent } from './viewprofile/profiletabs/general-profile.component';
+import { ProjectlProfileComponent } from './viewprofile/profiletabs/project-profile.component';
+import { QuestionProfileComponent } from './viewprofile/profiletabs/question-profile.component';
+import { ServiceProfileComponent } from './viewprofile/profiletabs/service-profile.component';
 
 import { ProfileService } from '../services/profile.service';
 import { ProfileResolver } from '../services/resolve.services/profile.resolver';
@@ -39,7 +33,7 @@ const DashBoardroutes: Routes = [
     {
         path: 'dashboard', component: DashBoardComponent,
         children: [
-            { path: '', redirectTo: 'viewprofile' },
+            { path: '', redirectTo: 'editprofile' },
             {
                 path: 'editprofile', component: EditProfileComponent,
                 children: [
@@ -57,16 +51,15 @@ const DashBoardroutes: Routes = [
             {
                 path: 'viewprofile', component: ViewProfileComponent,
                 children: [
-                    { path: '', redirectTo: 'user-question' },
-                    { path: 'user-question', component: UserQuestionComponent},
-                    { path: 'user-answer', component: UserAnswerComponent},
-                    { path: 'follower', component: FollowerComponent },
-                    { path: 'following', component: FollowingComponent },
-                    { path: 'bookmark', component: BookmarkComponent },
-                    { path: 'blog-create', component: BlogCreateComponent },
-                ]
-            },
-            { path: 'blog-post', component: BlogPostComponent }
+                    { path: '', redirectTo: 'general' },
+                    { path: 'general', component: GeneralProfileComponent, resolve: { question: ProfileResolver } },
+                    { path: 'general/:id', component: GeneralProfileComponent , resolve: { question: ProfileResolver }},
+                    { path: 'projects', component: ProjectlProfileComponent },
+                    { path: 'questions', component: QuestionProfileComponent },
+                    { path: 'services', component: ServiceProfileComponent },
+
+
+                ]}
         ]
     }
 ];
@@ -79,10 +72,11 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
     ],
     declarations: [
         DashBoardComponent,
+        DashTab, 
         EditProfileComponent,
                 ContactFormComponent, BiographyFormComponent, EducationFormComponent, ExperienceFormComponent, InsightFormComponent,  NavDashboard, PracticeFormComponent, SkillFormComponent,
         ViewProfileComponent,
-        ProfileInfoComponent, ProfileStatComponent, UserAnswerComponent, UserQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent
+                GeneralProfileComponent, ProjectlProfileComponent, QuestionProfileComponent, ServiceProfileComponent
     ],
     exports: [DashBoardComponent],
 })

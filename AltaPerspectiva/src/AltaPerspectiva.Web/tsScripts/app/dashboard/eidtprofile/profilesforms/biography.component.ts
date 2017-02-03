@@ -1,7 +1,6 @@
-﻿import { Component, ViewContainerRef } from '@angular/core';
+﻿import { Component, EventEmitter, Output } from '@angular/core';
 import { Profile, Biography } from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 @Component({
     templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/biography.component.html',
     styleUrls: [
@@ -16,10 +15,10 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class BiographyFormComponent {
     public _headerName: string = 'Biography';
     biography: Biography;
-    constructor(private service: ProfileService,public toastr: ToastsManager, vRef: ViewContainerRef) {
+    @Output() onProfileSubmit = new EventEmitter<string>();
+    constructor(private service: ProfileService) {
         this.biography = new Biography();
         this.service.profile.biography = this.biography;
-        this.toastr.setRootViewContainerRef(vRef);
     }
     ngOnInit() {
         this.service.GetBiography().subscribe(res => {
@@ -30,16 +29,14 @@ export class BiographyFormComponent {
     Submit() {
         if (this.biography.id)
             this.service.UpdateBiography(this.biography).subscribe(res => {
+                this.onProfileSubmit.emit("Biography Saved successfully");
                 console.log(res);
-                this.showSuccess();
             });
         else
             this.service.SaveBiography(this.biography).subscribe(res => {
+                this.onProfileSubmit.emit("Biography Saved successfully");
                 console.log(res);
-                this.showSuccess();
             });
-    }
-    showSuccess() {
-        this.toastr.success('Biography saved successfully!', 'Success!');
+        
     }
 }
