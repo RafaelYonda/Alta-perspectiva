@@ -70,9 +70,34 @@ namespace AltaPerspectiva.Web.Area.Questions
                 questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
             }
 
+            List<Guid> userList = new List<Guid>();
+            
+            foreach (var question in questionList)
+            {
+                userList.Add(question.UserId);
+                List<Guid> anserUserList = question.Answers.Select(x => x.UserId).Distinct().ToList();
+                if (anserUserList.Any())
+                {
+                    userList.AddRange(anserUserList);
+                }
+                List<Guid> answerLikeUser = question.Answers.SelectMany(x => x.Likes.Select(l => l.UserId)).Distinct().ToList();
+                if (answerLikeUser.Any())
+                {
+                    userList.AddRange(answerLikeUser);
+                }
+
+            }
+            userList = userList.Distinct().ToList();
+
+
+
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
 
             questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+
+
+
+            
 
             return Ok(questions);
         }
