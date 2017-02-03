@@ -1,1 +1,60 @@
-﻿<h1>profile-info</h1>
+﻿<style>
+    .profile-info-container {
+        margin-top:30px;
+    }
+
+    .profile-image {
+        height: 120px;
+        width: 120px;
+        border-radius: 60px;
+    }
+    .profile-image-center{
+        width: 120px;
+        margin:0 auto;
+    }
+    .profile-info {
+        float: left;
+        font-family: myriadpro-regular;
+    }
+
+        .profile-info > h1 {
+            font-family: myriadpro-regular;
+        }
+
+        .profile-info > a {
+            display: block;
+            color:#9d9d9b;
+        }
+        .profile-info > ul{
+            margin-top:40px;
+        }
+
+        .profile-info > ul > li {
+            list-style: none;
+            float: left;
+            margin-right: 10px;            
+        }
+        .profile-info > ul > li>a{
+            color:#9d9d9b;
+        }
+</style>
+<div class="profile-info-container">
+    <div class="col-md-2">
+        <div class="profile-image-center">
+            <img class="profile-image" src="../images/avatar.png" />
+        </div>
+    </div>
+    <div class="col-md-10" style="border:1px solid">
+        <div class="profile-info" >
+            <h1> Rafael Yonda </h1>
+            <a> Add Credentials </a>
+            <a> Write Description about yourself </a>
+            <ul>
+                <li><a>Twitter</a></li>
+                <li><a>Facebook</a></li>
+                <li><a>Linkedin</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>

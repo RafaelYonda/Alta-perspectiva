@@ -1,0 +1,40 @@
+﻿@profile-info-color:#9d9d9b;
+@img-width:120px;
+.profile-info-container {
+        margin-top:30px;
+    }
+
+    .profile-image {
+        height: 120px;
+        width: @img-width;
+        border-radius: 60px;
+    }
+    .profile-image-center{
+        width: @img-width;
+        margin:0 auto;
+    }
+    .profile-info {
+        float: left;
+        font-family: myriadpro-regular;
+    }
+
+        .profile-info > h1 {
+            font-family: myriadpro-regular;
+        }
+
+        .profile-info > a {
+            display: block;
+            color: @profile-info-color;
+        }
+        .profile-info > ul{
+            margin-top:40px;
+        }
+
+        .profile-info > ul > li {
+            list-style: none;
+            float: left;
+            margin-right: 10px;            
+        }
+        .profile-info > ul > li>a{
+            color:@profile-info-color;
+        }
