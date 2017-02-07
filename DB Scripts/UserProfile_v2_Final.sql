@@ -14,7 +14,7 @@ GO
 CREATE SCHEMA UserProfile;
 GO
 
-CREATE TABLE [Questions].[QuestionPosts](
+CREATE TABLE [Questions].[UserQuestionPost](
 	[Id] [uniqueidentifier] NOT NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[CreatedOn] [datetime2](7) NULL,

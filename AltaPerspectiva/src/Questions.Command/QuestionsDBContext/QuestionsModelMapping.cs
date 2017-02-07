@@ -171,7 +171,7 @@
                 e.HasKey(c => c.Id);
             });
 
-         model.Entity<QuestionPost>(e =>
+         model.Entity<UserQuestionPost>(e =>
             {
                 e.ToTable("QuestionPosts");
 
