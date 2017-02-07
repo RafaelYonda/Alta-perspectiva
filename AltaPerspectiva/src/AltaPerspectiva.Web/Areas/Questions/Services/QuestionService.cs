@@ -20,7 +20,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             {
                 var qv = new QuestionViewModel();
                 qv.Id = q.Id;
-                qv.Title = q.Title;
+                qv.Title = "¿" + q.Title + "?"; 
                 qv.Body = q.Body;
                 qv.CreatedOn = q.CreatedOn;
                 qv.UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId);
@@ -98,7 +98,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             var q = question;
             var qv = new QuestionViewModel();
             qv.Id = q.Id;
-            qv.Title = q.Title;
+            qv.Title = "¿" + q.Title + "?";
             qv.Body = q.Body;
             qv.CreatedOn = q.CreatedOn;
             qv.UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId);

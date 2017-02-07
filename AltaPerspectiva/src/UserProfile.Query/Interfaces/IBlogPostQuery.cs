@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core;
 using UserProfile.Domain;
+using UserProfile.Domain.AllModels;
 
-namespace UserProfile.Query.Queries
+namespace UserProfile.Query
 {
-    public interface IBiographyQuery:IQuery
+    public interface IBlogPostQuery : IQuery
     {
-        Biography Execute(Guid userId);
+        List<BlogPost> GetBlogPosts(Guid userId);
     }
 }

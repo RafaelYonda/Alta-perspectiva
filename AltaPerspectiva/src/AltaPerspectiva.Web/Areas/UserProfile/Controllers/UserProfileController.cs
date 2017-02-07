@@ -11,13 +11,7 @@ using UserProfile.Command.Commands;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using AltaPerspectiva.Web.Areas.UserProfile.Enums;
-using AltaPerspectiva.Web.Areas.UserProfile.Services;
-using UserProfile.Domain;
-using UserProfile.Query;
-using AltaPerspectiva.Web.Areas.UserProfile.Services;
-using UserProfile.Domain.ReadModel;
+
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,7 +35,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             configuration = _configuration;
             environment = _environment;
         }
-
+        /*
         //For Login username in admin
         public UserViewModel GetUserName()
         {
@@ -565,5 +559,6 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return summeries;
         }
         #endregion
+        */
     }
 }

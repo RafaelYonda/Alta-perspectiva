@@ -127,6 +127,14 @@
                 return Set<QuestionReport>().AsNoTracking();
             }
         }
+        public IQueryable<QuestionPost> QuestionPosts
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<QuestionPost>().AsNoTracking();
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -153,6 +161,9 @@
 
             //questionReport
             modelBuilder.Entity<QuestionReport>().ToTable("QuestionReports");
+
+            //Question post for User
+            modelBuilder.Entity<QuestionPost>().ToTable("QuestionPosts");
 
         }
 

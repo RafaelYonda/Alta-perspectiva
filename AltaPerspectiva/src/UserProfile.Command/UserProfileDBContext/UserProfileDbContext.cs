@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserProfile.Domain;
+using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Command.UserProfileDBContext
 {
@@ -13,14 +14,16 @@ namespace UserProfile.Command.UserProfileDBContext
         : base(options)
         {
         }
-        public DbSet<Biography> Biography { get; set; }
-        public DbSet<ContractInformation> ContractInformation { get; set; }
-        public DbSet<Education> Education { get; set; }
-        public DbSet<Experience> Experience { get; set; }
-        public DbSet<Insight> Insight { get; set; }
-        public DbSet<PracticeArea> PracticeArea { get; set; }
-        public DbSet<Skill> Skill { get; set; }
-        public DbSet<UserImage> UserImage { get; set; }
+        public DbSet<Credential> Credentials { get; set; }
+        public DbSet<Employment> Employments { get; set; }
+        public DbSet<Education> Educations { get; set; }
+        public DbSet<Place> Places { get; set; }
+        public DbSet<OtherExperience> OtherExperiences { get; set; }
+        public DbSet<Following> Followings { get; set; }
+        public DbSet<Follower> Followers { get; set; }
+        public DbSet<UserView> UserViews { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogPost> BlogPosts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configure model mappings

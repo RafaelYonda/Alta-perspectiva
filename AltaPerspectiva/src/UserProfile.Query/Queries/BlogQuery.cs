@@ -8,16 +8,18 @@ using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Query.Queries
 {
-    public class EducationQuery: EFQueryBase<UserProfileQueryDbContext>, IEducationQuery
+    public class BlogQuery : EFQueryBase<UserProfileQueryDbContext>, IBlogQuery
     {
-        public EducationQuery(UserProfileQueryDbContext context)
+        public BlogQuery(UserProfileQueryDbContext context)
 			: base(context)
 		{
         }
 
-        public Education Execute(Guid userId)
+        public Blog GetBlog(Guid userId)
         {
             throw new NotImplementedException();
         }
+
+      
     }
 }

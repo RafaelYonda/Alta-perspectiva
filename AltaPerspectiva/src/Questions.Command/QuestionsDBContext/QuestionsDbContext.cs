@@ -25,6 +25,7 @@
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
         public DbSet<QuestionReport> QuestionReports { get; set; }
+        public DbSet<QuestionPost> QuestionPosts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
        {
             // Configure model mappings

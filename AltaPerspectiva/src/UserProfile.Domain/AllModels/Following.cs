@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core.Infrastructure;
 
-namespace UserProfile.Domain
+namespace UserProfile.Domain.AllModels
 {
-    public class UserImage : Entity
+    public class Following : Entity
     {
         public Guid UserId { get; set; }
-        public String Image { get; set; }
+        public Guid FollowingUserId { get; set; }
     }
 }

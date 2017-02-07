@@ -120,40 +120,38 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<FollowCategoryCommand>, FollowCategoryCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateViewCountCommand>, UpdateViewCountCommandHandler>();
 
-            //UserProfile DepencyInjection 
-            //Biography
-            services.AddTransient<IBiographyQuery, BiographyQuery>();
-            services.AddTransient<ICommandHandler<AddBiographyCommand>, AddBiographyCommandHandler>();
-            services.AddTransient<ICommandHandler<UpdateBiographyCommand>, UpdateBiographyCommandHandler>();
-            //Contract
-            services.AddTransient<IContractInformationQuery, ContractInformationQuery>();
-            services.AddTransient<ICommandHandler<AddContractInfomaionCommand>, AddContractInformationCommandHandler>();
-            services.AddTransient<ICommandHandler<UpdateContractInfomaionCommand>, UpdateContractInformationCommandHandler>();
+            #region UserFrofile
+
+            //Credential
+            services.AddTransient<ICredentialQuery, CredentialQuery>();
+          
+            //Employment
+            services.AddTransient<IEmploymentQuery, EmploymentQuery>();
+           
             //Education
             services.AddTransient<IEducationQuery, EducationQuery>();
-            services.AddTransient<ICommandHandler<AddEducationCommand>, AddEducationCommandHandler>();
-            services.AddTransient<ICommandHandler<UpdateEducationCommand>, UpdateEducationCommandHandler>();
-            //Experience
-            services.AddTransient<IExperienceQuery, ExperienceQuery>();
-            services.AddTransient<ICommandHandler<AddExperienceCommand>, AddExperienceCommandHandler>();
-            services.AddTransient<ICommandHandler<UpdateExperienceCommand>, UpdateExperienceCommandHandler>();
-            //Insight
-            services.AddTransient<IInsightQuery, InsightQuery>();
-            services.AddTransient<ICommandHandler<AddInsightCommand>, AddInsightCommandHandler>();
-            services.AddTransient<ICommandHandler<UpdateInsightCommand>, UpdateInsightCommandHandler>();
-            //Practice
-            services.AddTransient<IPracticeAreaQuery, PracticeAreaQuery>();
-            services.AddTransient<ICommandHandler<AddPracticeAreaCommand>, AddPracticeAreaCommandHandler>();
-            services.AddTransient<ICommandHandler<DeletePracticeAreaCommand>, DeletePracticeAreaCommandHandler>();
-            //Skill
-            services.AddTransient<ISkillQuery, SkillQuery>();
-            services.AddTransient<ICommandHandler<AddSkillCommand>, AddSkillCommandHandler>();
-            services.AddTransient<ICommandHandler<DeleteSkillCommand>, DeleteSkillCommandHandler>();
+            
+            //Place
+            services.AddTransient<IPlaceQuery, PlaceQuery>();
 
-            //UserImage
-            services.AddTransient<IUserImageQuery, UserImageQuery>();
-            services.AddTransient<ICommandHandler<AddUserImageCommand>, AddUserImageCommandHandler>();
-            services.AddTransient<ICommandHandler<UpdateUserImageCommand>, UpdateUserImageCommandHandler>();
+            //OtherExperience
+            services.AddTransient<IOtherExperienceQuery, OtherExperienceQuery>();
+
+            //Following
+            services.AddTransient<IFollowingQuery, FollowingQuery>();
+
+            //Follower
+            services.AddTransient<IFollowerQuery, FollowerQuery>();
+            //UserView
+            services.AddTransient<IUserViewQuery, UserViewQuery>();
+            //Follower
+            services.AddTransient<IFollowerQuery, FollowerQuery>();
+            //Blog
+            services.AddTransient<IBlogQuery, BlogQuery>();
+            //BlogPost
+            services.AddTransient<IBlogPostQuery, BlogPostQuery>();
+
+            #endregion
             //AddCategoryCommand
             services.AddTransient<ICommandHandler<AddCategoryCommand>, AddCategoryCommandHandler>();
             //UpdateCategoryCommand
@@ -316,18 +314,18 @@ namespace AltaPerspectiva
             //    context.Database.EnsureCreated();
             //}
 
-            //using (var context = new QuestionsDbContext(
-            //app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
-            //{
-            //    context.Database.EnsureCreated();
-            //  //  var keywords = context.Keywords.ToList();
+            using (var context = new QuestionsDbContext(
+            app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
+            {
+                context.Database.EnsureCreated();
+                //  var keywords = context.Keywords.ToList();
 
-            //    // cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
-            //    //,new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
-            //    //     .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
+                // cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
+                //,new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
+                //     .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
 
 
-            //}
+            }
         }
     }
 }

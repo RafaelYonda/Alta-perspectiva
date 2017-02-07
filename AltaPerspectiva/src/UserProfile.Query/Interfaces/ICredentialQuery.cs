@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core;
 using UserProfile.Domain;
+using UserProfile.Domain.AllModels;
 
-namespace UserProfile.Query
+namespace UserProfile.Query.Queries
 {
-    public interface IUserImageQuery : IQuery
+    public interface ICredentialQuery : IQuery
     {
-        UserImage Execute(Guid userId);
+        Credential GetCredential(Guid userId);
     }
 }

@@ -1,4 +1,4 @@
-﻿import { Component, Input, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
+﻿import { Component, Input, ViewContainerRef, ComponentFactoryResolver, ViewChild, EventEmitter,Output } from '@angular/core';
 import { Question, QuestionReport } from '../../services/models';
 import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component';
 import { DialogComponent } from '../dialog-modal/dialog.component';
@@ -21,7 +21,7 @@ export class QuestionPanelComponent {
     showQuestionEditForm: boolean
     editTitle: string
     editBody: string
-
+    sendCommentCountToApStatus = new EventEmitter<any>()
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private dataService: QuestionAnswerService) { }
 
     onQuestionDetailClicked(showEditForm: boolean) {
@@ -42,6 +42,12 @@ export class QuestionPanelComponent {
 
         });
     }
+    sendCommentCount(param:any) {
+        console.log('sendCommentCount');
+        this.sendCommentCountToApStatus.emit(null);
+    }
+
+
     @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
     answerDialogBox(question: Question) {
         // Close any already open dialogs

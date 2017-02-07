@@ -21,12 +21,12 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("AddAnswerCommandHandler executed");
 
-            PracticeArea area=new PracticeArea();
-            area.UserId = command.UserId;
-            area.PracticeAreaName = command.PracticeAreaName;
+            //PracticeArea area=new PracticeArea();
+            //area.UserId = command.UserId;
+            //area.PracticeAreaName = command.PracticeAreaName;
 
-            DbContext.PracticeArea.Add(area);
-            DbContext.SaveChanges();
+            //DbContext.PracticeArea.Add(area);
+            //DbContext.SaveChanges();
            
         }
     }

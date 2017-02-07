@@ -8,14 +8,13 @@ using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Query.Queries
 {
-    public class EducationQuery: EFQueryBase<UserProfileQueryDbContext>, IEducationQuery
+    public class UserViewQuery : EFQueryBase<UserProfileQueryDbContext>, IUserViewQuery
     {
-        public EducationQuery(UserProfileQueryDbContext context)
+        public UserViewQuery(UserProfileQueryDbContext context)
 			: base(context)
 		{
         }
-
-        public Education Execute(Guid userId)
+        public UserView GetUserView(Guid userId)
         {
             throw new NotImplementedException();
         }

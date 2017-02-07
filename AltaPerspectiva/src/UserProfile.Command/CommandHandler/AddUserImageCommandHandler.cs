@@ -21,12 +21,12 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("AddUserImageCommandHandler executed");
 
-            UserImage image=new UserImage();
-            image.GenerateNewIdentity();
-            image.UserId = command.UserId;
-            image.Image = command.Image;
-            DbContext.UserImage.Add(image);
-            DbContext.SaveChanges();
+            //UserImage image=new UserImage();
+            //image.GenerateNewIdentity();
+            //image.UserId = command.UserId;
+            //image.Image = command.Image;
+            //DbContext.UserImage.Add(image);
+            //DbContext.SaveChanges();
         }
 
     }

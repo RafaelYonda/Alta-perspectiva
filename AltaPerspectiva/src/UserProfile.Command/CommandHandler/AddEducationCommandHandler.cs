@@ -20,16 +20,16 @@ namespace UserProfile.Command.CommandHandler
         public override void Execute(AddEducationCommand command)
         {
             Debug.WriteLine("AddEducationCommandHandler executed");
-            Education education=new Education();
-            education.UserId = command.UserId;
-            education.Institute = command.Institute;
-            education.TimeFrameFrom = command.TimeFrameFrom;
-            education.TimeFrameTo = command.TimeFrameTo;
-            education.CompletedStudies = command.CompletedStudies;
-            education.Description = command.Description;
-            education.Especiality = command.Especiality;
-            DbContext.Education.Add(education);
-            DbContext.SaveChanges();
+            //Education education=new Education();
+            //education.UserId = command.UserId;
+            //education.Institute = command.Institute;
+            //education.TimeFrameFrom = command.TimeFrameFrom;
+            //education.TimeFrameTo = command.TimeFrameTo;
+            //education.CompletedStudies = command.CompletedStudies;
+            //education.Description = command.Description;
+            //education.Especiality = command.Especiality;
+            //DbContext.Education.Add(education);
+            //DbContext.SaveChanges();
 
         }
 

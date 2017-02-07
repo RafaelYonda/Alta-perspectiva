@@ -21,14 +21,7 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("AddAnswerCommandHandler executed");
 
-            Biography biography = new Biography();
-            biography.GenerateNewIdentity();
-            biography.UserId = command.UserId;
-            biography.AboutMe = command.AboutMe;
-            biography.TagLine = command.TagLine;
-
-            DbContext.Biography.Add(biography);
-            DbContext.SaveChanges();
+           
 
             /*Some ID modification*/
             // Biography contractInformation = GetContractInfo(command.Id);
@@ -50,13 +43,13 @@ namespace UserProfile.Command.CommandHandler
             //command.Id = answer.Id;
         }
 
-        private Biography GetContractInfo(Guid id)
-        {
-            return DbContext
-                    .Biography
-                    // .Where(q => q.Id == id)
-                    .SingleOrDefault();
+        //private Biography GetContractInfo(Guid id)
+        //{
+        //    return DbContext
+        //            .Biography
+        //            // .Where(q => q.Id == id)
+        //            .SingleOrDefault();
 
-        }
+        //}
     }
 }

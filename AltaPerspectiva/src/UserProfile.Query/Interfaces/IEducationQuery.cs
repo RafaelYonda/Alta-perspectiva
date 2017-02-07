@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core;
 using UserProfile.Domain;
+using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Query.Queries
 {
-    public interface IInsightQuery:IQuery
+    public interface IEducationQuery:IQuery
     {
-        Insight Execute(Guid userId);
+        Education Execute(Guid userId);
     }
 }

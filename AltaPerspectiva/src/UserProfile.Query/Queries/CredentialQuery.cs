@@ -8,16 +8,15 @@ using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Query.Queries
 {
-    public class EducationQuery: EFQueryBase<UserProfileQueryDbContext>, IEducationQuery
+    public class CredentialQuery: EFQueryBase<UserProfileQueryDbContext>, ICredentialQuery
     {
-        public EducationQuery(UserProfileQueryDbContext context)
+        public CredentialQuery(UserProfileQueryDbContext context)
 			: base(context)
 		{
         }
-
-        public Education Execute(Guid userId)
+        public Credential GetCredential(Guid userId)
         {
-            throw new NotImplementedException();
+            return DbContext.Credentials.Where(x => x.UserId == userId).FirstOrDefault();
         }
     }
 }

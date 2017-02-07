@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserProfile.Domain;
+using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Query
 {
-    public interface IContractInformationQuery: IQuery
+    public interface IEmploymentQuery : IQuery
     {
-        ContractInformation Execute(Guid userId);
+        Employment GetEmployment(Guid userId);
     }
 }

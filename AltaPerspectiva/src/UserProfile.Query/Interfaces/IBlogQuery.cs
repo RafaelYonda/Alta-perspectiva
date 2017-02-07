@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core;
 using UserProfile.Domain;
+using UserProfile.Domain.AllModels;
 
-namespace UserProfile.Query.Queries
+namespace UserProfile.Query
 {
-    public interface IExperienceQuery:IQuery
+    public interface IBlogQuery : IQuery
     {
-        Experience Execute(Guid Userid);
+        Blog GetBlog(Guid userId);
     }
 }

@@ -21,13 +21,13 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("AddSkillCommandHandler executed");
 
-            Skill skill = new Skill();
-            skill.GenerateNewIdentity();
-            skill.UserId = command.UserId;
-            skill.SkillName = command.SkillName;
+            //Skill skill = new Skill();
+            //skill.GenerateNewIdentity();
+            //skill.UserId = command.UserId;
+            //skill.SkillName = command.SkillName;
             
-            DbContext.Skill.Add(skill);
-            DbContext.SaveChanges();
+            //DbContext.Skill.Add(skill);
+            //DbContext.SaveChanges();
             
         }
 

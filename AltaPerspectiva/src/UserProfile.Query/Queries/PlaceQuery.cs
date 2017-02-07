@@ -8,14 +8,14 @@ using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Query.Queries
 {
-    public class EducationQuery: EFQueryBase<UserProfileQueryDbContext>, IEducationQuery
+    public class PlaceQuery : EFQueryBase<UserProfileQueryDbContext>, IPlaceQuery
     {
-        public EducationQuery(UserProfileQueryDbContext context)
+        public PlaceQuery(UserProfileQueryDbContext context)
 			: base(context)
 		{
         }
 
-        public Education Execute(Guid userId)
+        public Place GetPlace(Guid Userid)
         {
             throw new NotImplementedException();
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserProfile.Domain;
+using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Command.UserProfileDBContext
 {
@@ -22,6 +23,12 @@ namespace UserProfile.Command.UserProfileDBContext
 
 
             //});
+            model.Entity<Blog>(e =>
+            {
+                e.ToTable("Blogs");
+                e.HasKey(a => a.Id);
+                e.HasMany<BlogPost>(q => q.BlogPosts).WithOne(k => k.Blog).HasForeignKey(k => k.BlogId);
+            });
         }
     }
 }

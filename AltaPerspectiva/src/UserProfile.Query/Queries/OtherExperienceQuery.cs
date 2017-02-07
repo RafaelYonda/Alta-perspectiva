@@ -1,21 +1,21 @@
-﻿using System;
+﻿using AltaPerspectiva.Core.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AltaPerspectiva.Core.Infrastructure;
 using UserProfile.Domain;
 using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Query.Queries
 {
-    public class EducationQuery: EFQueryBase<UserProfileQueryDbContext>, IEducationQuery
+    public class OtherExperienceQuery : EFQueryBase<UserProfileQueryDbContext>, IOtherExperienceQuery
     {
-        public EducationQuery(UserProfileQueryDbContext context)
+        public OtherExperienceQuery(UserProfileQueryDbContext context)
 			: base(context)
 		{
         }
 
-        public Education Execute(Guid userId)
+        public OtherExperience GetExperience(Guid userId)
         {
             throw new NotImplementedException();
         }

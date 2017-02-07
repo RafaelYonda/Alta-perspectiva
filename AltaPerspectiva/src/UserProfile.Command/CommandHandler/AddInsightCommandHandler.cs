@@ -20,17 +20,17 @@ namespace UserProfile.Command.CommandHandler
         public override void Execute(AddInsightCommand command)
         {
             Debug.WriteLine("AddAnswerCommandHandler executed");
-            Insight insight=new Insight();
-            insight.UserId = command.UserId;
-            insight.Title = command.Title;
-            insight.Publication = command.Publication;
-            insight.PublicationDate = command.PublicationDate;
-            insight.PublicationHyperlink = command.PublicationHyperlink;
-            insight.PublicationDocument = command.PublicationDocument;
-            insight.Description = command.Description;
+            //Insight insight=new Insight();
+            //insight.UserId = command.UserId;
+            //insight.Title = command.Title;
+            //insight.Publication = command.Publication;
+            //insight.PublicationDate = command.PublicationDate;
+            //insight.PublicationHyperlink = command.PublicationHyperlink;
+            //insight.PublicationDocument = command.PublicationDocument;
+            //insight.Description = command.Description;
 
-            DbContext.Insight.Add(insight);
-            DbContext.SaveChanges();
+            //DbContext.Insight.Add(insight);
+            //DbContext.SaveChanges();
 
 
         }

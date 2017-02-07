@@ -21,21 +21,21 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("AddAnswerCommandHandler executed");
 
-            ContractInformation information =
-                DbContext.ContractInformation.FirstOrDefault(x => x.UserId == command.UserId);
-            information.UserId = command.UserId;
-            information.FirstName = command.FirstName;
-            information.LastName = command.LastName;
-            information.PrefferedEmail = command.PrefferedEmail;
-            information.PhoneNumber = command.PhoneNumber;
-            information.AddressLine1 = command.AddressLine1;
-            information.AddressLine2 = command.AddressLine2;
-            information.Country = command.Region;
-            information.Region = command.Region;
-            information.City = command.City;
+            //ContractInformation information =
+            //    DbContext.ContractInformation.FirstOrDefault(x => x.UserId == command.UserId);
+            //information.UserId = command.UserId;
+            //information.FirstName = command.FirstName;
+            //information.LastName = command.LastName;
+            //information.PrefferedEmail = command.PrefferedEmail;
+            //information.PhoneNumber = command.PhoneNumber;
+            //information.AddressLine1 = command.AddressLine1;
+            //information.AddressLine2 = command.AddressLine2;
+            //information.Country = command.Region;
+            //information.Region = command.Region;
+            //information.City = command.City;
 
-            DbContext.ContractInformation.Add(information);
-            DbContext.SaveChanges();
+            //DbContext.ContractInformation.Add(information);
+            //DbContext.SaveChanges();
             
         }
     }

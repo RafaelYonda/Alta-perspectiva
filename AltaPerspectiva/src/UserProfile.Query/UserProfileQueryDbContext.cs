@@ -5,6 +5,7 @@ namespace UserProfile.Query
     using UserProfile.Domain;
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
+    using Domain.AllModels;
 
     public class UserProfileQueryDbContext : DbContext
     {
@@ -12,23 +13,23 @@ namespace UserProfile.Query
         : base(options)
         {
         }
-        public IQueryable<Biography> Biography
+        public IQueryable<Credential> Credentials
         {
             get
             {
                 // Don't track changes to query results
-                return Set<Biography>().AsNoTracking();
+                return Set<Credential>().AsNoTracking();
             }
         }
-        public IQueryable<ContractInformation> ContractInfomation
+        public IQueryable<Employment> Employments
         {
             get
             {
                 // Don't track changes to query results
-                return Set<ContractInformation>().AsNoTracking();
+                return Set<Employment>().AsNoTracking();
             }
         }
-        public IQueryable<Education> Education
+        public IQueryable<Education> Educations
         {
             get
             {
@@ -36,62 +37,71 @@ namespace UserProfile.Query
                 return Set<Education>().AsNoTracking();
             }
         }
-        public IQueryable<Experience> Experience
+        public IQueryable<Place> Places
         {
             get
             {
                 // Don't track changes to query results
-                return Set<Experience>().AsNoTracking();
+                return Set<Place>().AsNoTracking();
             }
         }
-        public IQueryable<Insight> Insight
+        public IQueryable<OtherExperience> OtherExperiences
         {
             get
             {
                 // Don't track changes to query results
-                return Set<Insight>().AsNoTracking();
+                return Set<OtherExperience>().AsNoTracking();
             }
         }
-        public IQueryable<PracticeArea> PracticeArea
+        public IQueryable<Following> Followings
         {
             get
             {
                 // Don't track changes to query results
-                return Set<PracticeArea>().AsNoTracking();
+                return Set<Following>().AsNoTracking();
             }
         }
-        public IQueryable<Skill> Skill
+        public IQueryable<Follower> Followers
         {
             get
             {
                 // Don't track changes to query results
-                return Set<Skill>().AsNoTracking();
+                return Set<Follower>().AsNoTracking();
             }
         }
 
-        public IQueryable<UserImage> UserImage
+      
+
+        public IQueryable<Blog> Blogs
         {
             get
             {
                 // Don't track changes to query results
-                return Set<UserImage>().AsNoTracking();
+                return Set<Blog>().AsNoTracking();
+            }
+        } public IQueryable<BlogPost> BlogPosts
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<BlogPost>().AsNoTracking();
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("UserProfile");
-            // Need this since there is no DbSet<Customer> property
-            modelBuilder.Entity<Biography>().ToTable("Biography");
-            modelBuilder.Entity<ContractInformation>().ToTable("ContractInformation");
-            modelBuilder.Entity<Education>().ToTable("Education");
-            modelBuilder.Entity<Experience>().ToTable("Experience");
-            modelBuilder.Entity<Insight>().ToTable("Insight");
-            modelBuilder.Entity<PracticeArea>().ToTable("PracticeArea");
-            modelBuilder.Entity<Skill>().ToTable("Skill");
-            modelBuilder.Entity<UserImage>().ToTable("UserImage");
-
-
+    
+            modelBuilder.Entity<Credential>().ToTable("Credentials");
+            modelBuilder.Entity<Employment>().ToTable("Employments");
+            modelBuilder.Entity<Education>().ToTable("Educations");
+            modelBuilder.Entity<Place>().ToTable("Places");
+            modelBuilder.Entity<OtherExperience>().ToTable("OtherExperiences");
+            modelBuilder.Entity<Following>().ToTable("Followings");
+            modelBuilder.Entity<Follower>().ToTable("Followers");
+            modelBuilder.Entity<UserView>().ToTable("UserViews");
+            modelBuilder.Entity<Blog>().ToTable("Blogs");
+            modelBuilder.Entity<BlogPost>().ToTable("BlogPosts");
         }
     }
 }

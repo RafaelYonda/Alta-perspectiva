@@ -569,6 +569,12 @@ namespace AltaPerspectiva.Web.Area.Questions
                 {
                     title = title.TrimEnd('?');
                 }
+                hasQuestionMark = title.ToCharArray()[0] == '?';
+                if (hasQuestionMark)
+                {
+                    title = title.TrimStart('?');
+                }
+
             }
             AddQuestionCommand cmd = new AddQuestionCommand(title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);

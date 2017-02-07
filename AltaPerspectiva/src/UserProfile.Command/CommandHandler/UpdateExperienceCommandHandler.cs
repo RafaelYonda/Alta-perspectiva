@@ -20,18 +20,18 @@ namespace UserProfile.Command.CommandHandler
         public override void Execute(UpdateExperienceCommand command)
         {
             Debug.WriteLine("UpdateExperienceCommandHandler executed");
-            Experience experience = DbContext.Experience.FirstOrDefault(x => x.UserId == command.UserId);
-            experience.UserId = command.UserId;
-            experience.Employer = command.Employer;
-            experience.PositionHeld = command.PositionHeld;
-            experience.Location = command.Location;
-            experience.CurrentlyWorkingHere = command.CurrentlyWorkingHere;
-            experience.TimePeriodFrom=command.TimePeriodFrom;
-            experience.TimePeriodTo = command.TimePeriodTo;
-            experience.Description = experience.Description;
+            //Experience experience = DbContext.Experience.FirstOrDefault(x => x.UserId == command.UserId);
+            //experience.UserId = command.UserId;
+            //experience.Employer = command.Employer;
+            //experience.PositionHeld = command.PositionHeld;
+            //experience.Location = command.Location;
+            //experience.CurrentlyWorkingHere = command.CurrentlyWorkingHere;
+            //experience.TimePeriodFrom=command.TimePeriodFrom;
+            //experience.TimePeriodTo = command.TimePeriodTo;
+            //experience.Description = experience.Description;
 
-            DbContext.Experience.Add(experience);
-            DbContext.SaveChanges();
+            //DbContext.Experience.Add(experience);
+            //DbContext.SaveChanges();
 
         }
 

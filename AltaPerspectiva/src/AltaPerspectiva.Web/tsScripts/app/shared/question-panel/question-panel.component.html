@@ -22,8 +22,8 @@
                         </div>
                     </div>
                     <div *ngIf="question.bestAnswer">
-                        <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"></ap-status>
-                        <ap-comment [isQuestion]='false' [questionId]="question.id" [answerId]="question.bestAnswer?.id"></ap-comment>
+                        <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)" (onQuestionDetailClicked)="onQuestionDetailClicked($event)" (sendCommentCountToApStatus)="sendCommentCountToApStatus($event)"></ap-status>
+                        <ap-comment [isQuestion]='false' [questionId]="question.id" [answerId]="question.bestAnswer?.id" (sendCommentCount)="sendCommentCount($event)"></ap-comment>
                     </div>
                 </div>
             </div>

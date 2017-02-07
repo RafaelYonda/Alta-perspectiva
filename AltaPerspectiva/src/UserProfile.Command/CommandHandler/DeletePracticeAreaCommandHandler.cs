@@ -21,17 +21,17 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("DeletePracticeAreaCommandHandler executed");
 
-            PracticeArea practiceArea = DbContext.PracticeArea.Where(x => x.PracticeAreaName.Contains(command.PracticeAreaName) && x.UserId == command.UserId).FirstOrDefault();
-            if (practiceArea != null)
-            {
-                //Delete
-                DbContext.PracticeArea.Remove(practiceArea);
-                DbContext.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("No skill found to delete in DeletePracticeAreaCommandHandler");
-            }
+            //PracticeArea practiceArea = DbContext.PracticeArea.Where(x => x.PracticeAreaName.Contains(command.PracticeAreaName) && x.UserId == command.UserId).FirstOrDefault();
+            //if (practiceArea != null)
+            //{
+            //    //Delete
+            //    DbContext.PracticeArea.Remove(practiceArea);
+            //    DbContext.SaveChanges();
+            //}
+            //else
+            //{
+            //    throw new Exception("No skill found to delete in DeletePracticeAreaCommandHandler");
+            //}
         }
     }
 }

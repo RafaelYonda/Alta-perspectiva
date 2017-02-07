@@ -20,17 +20,17 @@ namespace UserProfile.Command.CommandHandler
         public override void Execute(UpdateInsightCommand command)
         {
             Debug.WriteLine("UpdateInsightCommandHandler executed");
-            Insight insight = DbContext.Insight.FirstOrDefault(x => x.UserId == command.UserId);
-            insight.UserId = command.UserId;
-            insight.Title = command.Title;
-            insight.Publication = command.Publication;
-            insight.PublicationDate = command.PublicationDate;
-            insight.PublicationHyperlink = command.PublicationHyperlink;
-            insight.PublicationDocument = command.PublicationDocument;
-            insight.Description = command.Description;
+            //Insight insight = DbContext.Insight.FirstOrDefault(x => x.UserId == command.UserId);
+            //insight.UserId = command.UserId;
+            //insight.Title = command.Title;
+            //insight.Publication = command.Publication;
+            //insight.PublicationDate = command.PublicationDate;
+            //insight.PublicationHyperlink = command.PublicationHyperlink;
+            //insight.PublicationDocument = command.PublicationDocument;
+            //insight.Description = command.Description;
 
-            DbContext.Insight.Add(insight);
-            DbContext.SaveChanges();
+            //DbContext.Insight.Add(insight);
+            //DbContext.SaveChanges();
 
 
         }

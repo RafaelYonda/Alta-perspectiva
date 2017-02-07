@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserProfile.Query;
+using UserProfile.Query.Queries;
 
 namespace AltaPerspectiva.Web.Areas.UserProfile.Services
 {
@@ -16,10 +17,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
         public String GetUserFullName(IQueryFactory queryFactory,Guid loggedinUser)
         {
             String fullName = String.Empty;
-            var contact = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
-            if (contact != null)
+            var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
+            if (credential != null)
             {
-                fullName = contact.FirstName + " " + contact.LastName;
+                fullName = credential.FirstName + " " + credential.LastName;
             }
             else
             {
@@ -30,45 +31,27 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
         public UserViewModel GetUserViewModel(IQueryFactory queryFactory, Guid loggedinUser)
         {
             String fullName = String.Empty;
-            String image = String.Empty;
-            String occupassion = String.Empty;
-            //ContractInformation information = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
-            var contact = queryFactory.ResolveQuery<IContractInformationQuery>().Execute(loggedinUser);
-            if (contact != null)
+            String imageUrl = String.Empty;
+            String occupation = String.Empty;
+            var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
+            if (credential != null)
             {
-                fullName = contact.FirstName + " " + contact.LastName;
+                fullName = credential.FirstName + " " + credential.LastName;
+                imageUrl = credential.ImageUrl;
+                occupation = "NO OCCUPATION";
             }
             else
             {
                 fullName = "Guest";
+                imageUrl = "avatar.png";
+                occupation = " ";
             }
-
-            var userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
-            if (userImage != null)
-            {
-                image = userImage.Image;
-            }
-            else
-            {
-                image = "avatar.png";
-            }
-            
            
-            var occupationModel = queryFactory.ResolveQuery<IPracticeAreaQuery>().Execute(loggedinUser);//Return IEnumrable
-            if (occupationModel.Any())
-            {
-                occupassion = String.Join(",", occupationModel.Select(x=>x.PracticeAreaName).ToList());
-            }
-             else
-            {
-                occupassion = " ";
-            }
-
     UserViewModel userViewModel = new UserViewModel
             {
-                ImageUrl = image,
+                ImageUrl = imageUrl,
                 Name = fullName,
-                Occupation = occupassion,
+                Occupation = occupation,
                 UserId = loggedinUser
             };           
 

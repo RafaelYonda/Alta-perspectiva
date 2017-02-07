@@ -1,4 +1,4 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { CommentService } from '../../services/comment.service';
 import {LogInObj, Comment } from '../../services/models';
 
@@ -17,6 +17,8 @@ export class CommentComponent {
     @Input() questionId: string = '';
     @Input() answerId: string = '';
     @Input() isQuestion: any;
+
+    @Output() sendCommentCount = new EventEmitter<any>();
     constructor(private commentService: CommentService) {
         this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
     }
@@ -71,5 +73,6 @@ export class CommentComponent {
                 this.pushComment(res)
             });
         }
+        this.sendCommentCount.emit(null);
     }
 }
