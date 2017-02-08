@@ -395,9 +395,18 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpPost("/questions/api/savequestionasblog/{questionId}")]
-        public async Task<IActionResult> SaveQuestionAsBlog(Guid questionId)
+        public IActionResult SaveQuestionAsBlog(Guid questionId)
         {
-            var likes = await queryFactory.ResolveQuery<ILikeQuery>().Answer(questionId);
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            AddShareQuestionCommand command=new AddShareQuestionCommand(loggedinUser,questionId);
+            commandsFactory.ExecuteQuery(command);
+
 
             //List<UserViewModel> userViewModels = new List<UserViewModel>();
             //foreach (var like in likes)

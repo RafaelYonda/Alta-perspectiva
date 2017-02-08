@@ -130,6 +130,7 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddLikeCommand>, AddLikeCommandHandler>();
             services.AddTransient<ICommandHandler<FollowCategoryCommand>, FollowCategoryCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateViewCountCommand>, UpdateViewCountCommandHandler>();
+            services.AddTransient<ICommandHandler<AddShareQuestionCommand>, AddShareQuestionCommandHandler>();
 
             #region UserFrofile
 
