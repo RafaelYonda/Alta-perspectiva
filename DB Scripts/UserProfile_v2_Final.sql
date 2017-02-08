@@ -13,6 +13,29 @@ DROP SCHEMA UserProfile;
 GO
 CREATE SCHEMA UserProfile;
 GO
+DROP TABLE Question.UserQuestionPost;
+
+GO
+
+CREATE TABLE [Questions].[ShareQuestion](
+	[Id] [uniqueidentifier] NOT NULL,
+	[CreatedBy] [uniqueidentifier] NULL,
+	[CreatedOn] [datetime2](7) NULL,
+	[DTS] [datetime2](7) NOT NULL,
+	[IsActive] [bit] NULL,
+	[IsDeleted] [bit] NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+	[ModifiedOn] [datetime2](7) NULL,
+	[QuestionId] [uniqueidentifier] NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_QuestionPosts] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
 
 GO
 CREATE TABLE [UserProfile].[Credentials](
@@ -28,7 +51,7 @@ CREATE TABLE [UserProfile].[Credentials](
 	[LastName] [nvarchar](max) NULL,
 	[ModifiedBy] [uniqueidentifier] NULL,
 	[ModifiedOn] [datetime2](7) NULL,
-	[ProfileViewCount] [bigint] NOT NULL,
+	[ProfileViewCount] [int]  NULL,
 	[Title] [nvarchar](max) NULL,
 	[UserId] [uniqueidentifier] NOT NULL,
  CONSTRAINT [PK_Credentials] PRIMARY KEY CLUSTERED 

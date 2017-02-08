@@ -11,15 +11,34 @@ using UserProfile.Domain;
 
 namespace UserProfile.Command.CommandHandler
 {
-    public class AddContractInformationCommandHandler :EFCommandHandlerBase<AddContractInfomaionCommand, UserProfileDbContext>,ICommandHandler<AddContractInfomaionCommand>
+    public class AddCredentialCommandHandler : EFCommandHandlerBase<AddCredentialCommand, UserProfileDbContext>, ICommandHandler<AddCredentialCommand>
     {
-        public AddContractInformationCommandHandler(UserProfileDbContext dbContext)
-			: base(dbContext)
-		{
-        }
-        public override void Execute(AddContractInfomaionCommand command)
+        public AddCredentialCommandHandler(UserProfileDbContext dbContext)
+            : base(dbContext)
         {
-            Debug.WriteLine("AddAnswerCommandHandler executed");
+        }
+
+        public override void Execute(AddCredentialCommand command)
+        {
+            Debug.WriteLine("AddCredentialCommandHandler executed");
+
+            Credential credential = new Credential
+            {
+                UserId = command.UserId,
+                ImageUrl = command.ImageUrl,
+                Title = command.Title,
+                FirstName = command.FirstName,
+                LastName = command.LastName,
+                ProfileViewCount = 0,
+                CreatedOn = DateTime.Now,
+                Description = command.Description
+            };
+            DbContext.Credentials.Add(credential);
+
+            DbContext.SaveChanges();
+
+
+
 
             //ContractInformation information=new ContractInformation();
             //information.UserId = command.UserId;
@@ -35,7 +54,7 @@ namespace UserProfile.Command.CommandHandler
 
             //DbContext.ContractInformation.Add(information);
             //DbContext.SaveChanges();
-            
+
         }
     }
 }

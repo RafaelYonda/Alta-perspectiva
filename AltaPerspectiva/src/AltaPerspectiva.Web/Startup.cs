@@ -135,7 +135,8 @@ namespace AltaPerspectiva
 
             //Credential
             services.AddTransient<ICredentialQuery, CredentialQuery>();
-          
+            services.AddTransient<ICommandHandler<AddCredentialCommand>, AddCredentialCommandHandler>();
+
             //Employment
             services.AddTransient<IEmploymentQuery, EmploymentQuery>();
            

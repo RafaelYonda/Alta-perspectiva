@@ -11,13 +11,13 @@ using UserProfile.Domain;
 
 namespace UserProfile.Command.CommandHandler
 {
-    public class AddBiographyCommandHandler : EFCommandHandlerBase<AddBiographyCommand, UserProfileDbContext>, ICommandHandler<AddBiographyCommand>
+    public class AddBiographyCommandHandler : EFCommandHandlerBase<AddCredentialCommand, UserProfileDbContext>, ICommandHandler<AddCredentialCommand>
     {
         public AddBiographyCommandHandler(UserProfileDbContext dbContext)
 			: base(dbContext)
 		{
         }
-        public override void Execute(AddBiographyCommand command)
+        public override void Execute(AddCredentialCommand command)
         {
             Debug.WriteLine("AddAnswerCommandHandler executed");
 

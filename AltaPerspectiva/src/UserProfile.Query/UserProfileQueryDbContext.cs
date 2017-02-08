@@ -70,21 +70,21 @@ namespace UserProfile.Query
             }
         }
 
-      
 
-      
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.HasDefaultSchema("UserProfile");
-    
-        //    modelBuilder.Entity<Credential>().ToTable("Credentials");
-        //    modelBuilder.Entity<Employment>().ToTable("Employments");
-        //    modelBuilder.Entity<Education>().ToTable("Educations");
-        //    modelBuilder.Entity<Place>().ToTable("Places");
-        //    modelBuilder.Entity<OtherExperience>().ToTable("OtherExperiences");
-        //    modelBuilder.Entity<Following>().ToTable("Followings");
-        //    modelBuilder.Entity<Follower>().ToTable("Followers");
-        //}
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("UserProfile");
+
+            modelBuilder.Entity<Credential>().ToTable("Credentials");
+            modelBuilder.Entity<Employment>().ToTable("Employments");
+            modelBuilder.Entity<Education>().ToTable("Educations");
+            modelBuilder.Entity<Place>().ToTable("Places");
+            modelBuilder.Entity<OtherExperience>().ToTable("OtherExperiences");
+            modelBuilder.Entity<Following>().ToTable("Followings");
+            modelBuilder.Entity<Follower>().ToTable("Followers");
+        }
     }
 }

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core.Infrastructure;
+using UserProfile.Domain.AllModels;
 
-namespace UserProfile.Domain.AllModels
+namespace UserProfile.Domain
 {
     /// <summary>
     /// Aggregeated root for user models
@@ -13,12 +14,12 @@ namespace UserProfile.Domain.AllModels
     public class Credential : Entity
     {
         public Guid UserId { get; set; }
-        public String FirstName { get; set; }
-        public String LastName { get; set; }
-        public String Title { get; set; }
-        public String Description { get; set; }
-        public String ImageUrl { get; set; }
-        public long ProfileViewCount { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+        public int? ProfileViewCount { get; set; }
 
         public virtual ICollection<Education> Educations { get; set; }
         public virtual ICollection<Employment> Employments { get; set; }
