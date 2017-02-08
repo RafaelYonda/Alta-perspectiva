@@ -171,7 +171,6 @@ export class QuestionAnswerService implements Resolve<Question> {
          return this._http.get('/questions/api/question/' + questionId + '/questionlike',null)
             .map(this.extractData)
             .catch(this.handleError);
-
     }
 
      getTopFiveQuestion(): Observable<Question[]> {

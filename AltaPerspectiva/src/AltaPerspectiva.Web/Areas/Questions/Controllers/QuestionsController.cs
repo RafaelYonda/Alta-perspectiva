@@ -394,6 +394,24 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         }
 
+        [HttpPost("/questions/api/savequestionasblog/{questionId}")]
+        public async Task<IActionResult> SaveQuestionAsBlog(Guid questionId)
+        {
+            var likes = await queryFactory.ResolveQuery<ILikeQuery>().Answer(questionId);
+
+            //List<UserViewModel> userViewModels = new List<UserViewModel>();
+            //foreach (var like in likes)
+            //{
+            //    Guid userId = like.UserId;
+
+            //    UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
+            //    userViewModels.Add(userViewModel);
+
+            //}
+            //return Ok(userViewModels);
+            return Ok();
+        }
+
         #region Top Five Region
         //Questions
         [HttpGet("/questions/api/gettopfivequestion")]

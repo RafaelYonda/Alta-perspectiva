@@ -3,11 +3,12 @@ import { StatusService } from '../../services/status.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {  Question, Answer, Like} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
+import { QuestionService } from '../../services/question.service';
 @Component({
     selector: 'ap-status',
     templateUrl: 'js/app/shared/status/status.component.html',
     styleUrls: ['js/app/shared/status/status.component.css'],
-    providers: [StatusService]
+    providers: [StatusService, QuestionService]
 })
 export class StatusComponent {
     @Input() questionObj: Question;
@@ -21,7 +22,7 @@ export class StatusComponent {
     CommentCount: number;
     like: Like;
     likedUsers: any;
-    constructor(private statusService: StatusService, private dataService: QuestionAnswerService) {
+    constructor(private statusService: StatusService, private dataService: QuestionAnswerService, private questionService: QuestionService) {
     }
 
     ngOnInit() {
@@ -35,8 +36,15 @@ export class StatusComponent {
             this.commentId = this.answerObj.id;
             this.CommentCount = this.answerObj.comments? this.answerObj.comments.length:0;
         }
-    } 
-   
+    }
+    postClikced(questionId: string) {
+        this.questionService.postQuestionBlog(questionId).subscribe(res => {
+            console.log(questionId + 'saved as bookmark');
+        });;
+    }
+    sendCommentCountToApStatus(param: any) {
+        console.log('sendCommentCountToApStatus');
+    }
     bookmarkClicked(questionId: string) {
            this.dataService.addBookMark(questionId).subscribe(res => {
                  console.log(questionId + 'saved as bookmark');

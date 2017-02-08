@@ -4,7 +4,7 @@
 }
 
     .like-logo:hover {
-        background-repeat:no-repeat;
+        background-repeat: no-repeat;
         height: 40px;
         width: 40px;
         background-image: url('../images/like-logo.png');
@@ -13,7 +13,12 @@
 .other-function {
     padding-bottom: 5px;
     display: inline-block;
-    position:absolute;
+    position: absolute;
+}
+
+.external-img {
+    width: 20px;
+    height: 20px;
 }
 
 .number-box {
@@ -65,15 +70,18 @@ h5 {
     margin-right: 22px;
 }
 
-#img1{
-    left:0
+#img1 {
+    left: 0;
 }
-#img2{
-    left:26px
+
+#img2 {
+    left: 26px;
 }
-#img3{
-    left:50px;
+
+#img3 {
+    left: 50px;
 }
-#img4{
-    left:75px;
+
+#img4 {
+    left: 75px;
 }

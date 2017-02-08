@@ -1,14 +1,14 @@
 ﻿<div class="status-panel">
-    <img *ngIf="questionObj?.answers[0]?.likes?.length<1" (click)="submitLike(answerObj?.id,questionObj.id)"   src='../images/fade-logo.png'  onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
+    <img *ngIf="questionObj?.answers[0]?.likes?.length<1" (click)="submitLike(answerObj?.id,questionObj.id)" src='../images/fade-logo.png' onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
     <img *ngIf="questionObj?.answers[0]?.likes?.length>0" src='../images/like-logo.png' />
-    <a href="#" data-toggle="modal" attr.data-target="#likeModal{{commentId}}" class="number-box" (click)="showLikeUserDetails()" > {{isQuestion?(questionObj.likes.length):(answerObj?.likes?.length)}}</a>
+    <a href="#" data-toggle="modal" attr.data-target="#likeModal{{commentId}}" class="number-box" (click)="showLikeUserDetails()"> {{isQuestion?(questionObj.likes.length):(answerObj?.likes?.length)}}</a>
     <a (click)="submitLike(answerObj?.id,questionObj.id)"><div class="status-line">{{questionObj.likes.length>1?'Likes':'Like'}}</div></a>
     <div class="status-line like-border "></div>
     <div class="status-line number-box">{{questionObj?.viewCount?questionObj?.viewCount:0}}</div>
     <div class="status-line">Leidos</div>
     {{likedUsers?.length}}
-    <div class="number-box" >
-        {{CommentCount}} 
+    <div class="number-box">
+        {{CommentCount}}
     </div>
     <a class="status-line" data-toggle="collapse" aria-expanded="false" attr.data-target="#questionComment{{commentId}}">Comentarios</a>
     <div class="status-line number-box">{{questionObj?.answerCount}}</div>
@@ -27,15 +27,30 @@
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
             <img class="social-image" id="img2" src="../images/twitter.png" />
         </a>
-        <a >
-            <img class="social-image" id="img3" src="../images/icon-external-link.png" />
-        </a>
-        
+        <div class="other-function" id="img3">
+            <a [popover]="externalPop">
+                <img class="external-img"  src="../images/icon-external-link.png" />
+            </a>
+            <popover-content #externalPop
+                             placement="top"
+                             [closeOnClickOutside]="true">
+                <ul style="list-style-type: none;">
+                    <li style="list-style-type: none;width: 50px;">
+                        <a >Linkedin</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <a (click)="postClikced(questionObj?.id)">Post</a>
+                    </li>
+                </ul>
+            </popover-content>
+        </div>
+
+
         <div class="other-function" id="img4">
-            <a [popover]="myPopover"  >...</a>
-            <popover-content #myPopover
-                                placement="top"
-                                [closeOnClickOutside]="true">
+            <a [popover]="otherFunctionPop">...</a>
+            <popover-content #otherFunctionPop
+                             placement="top"
+                             [closeOnClickOutside]="true">
                 <span></span>
                 <ul style="list-style-type: none;">
                     <li style="list-style-type: none;width: 91px;">
@@ -51,8 +66,8 @@
                 </ul>
             </popover-content>
         </div>
-       
-        
+
+
     </div>
 </div>
 
