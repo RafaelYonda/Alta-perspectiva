@@ -37,24 +37,6 @@ namespace UserProfile.Command.CommandHandler
 
             DbContext.SaveChanges();
 
-
-
-
-            //ContractInformation information=new ContractInformation();
-            //information.UserId = command.UserId;
-            //information.FirstName = command.FirstName;
-            //information.LastName = command.LastName;
-            //information.PrefferedEmail = command.PrefferedEmail;
-            //information.PhoneNumber = command.PhoneNumber;
-            //information.AddressLine1 = command.AddressLine1;
-            //information.AddressLine2 = command.AddressLine2;
-            //information.Country = command.Region;
-            //information.Region = command.Region;
-            //information.City = command.City;
-
-            //DbContext.ContractInformation.Add(information);
-            //DbContext.SaveChanges();
-
         }
     }
 }

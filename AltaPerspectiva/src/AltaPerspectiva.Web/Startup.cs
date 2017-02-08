@@ -149,14 +149,14 @@ namespace AltaPerspectiva
             //OtherExperience
             services.AddTransient<IOtherExperienceQuery, OtherExperienceQuery>();
 
-            //Following
+            
+
+            //Follower
+            services.AddTransient<IFollowerQuery, FollowerQuery>();
+
+            //Following AddFollowingCommandHandler
             services.AddTransient<IFollowingQuery, FollowingQuery>();
-
-            //Follower
-            services.AddTransient<IFollowerQuery, FollowerQuery>();
-
-            //Follower
-            services.AddTransient<IFollowerQuery, FollowerQuery>();
+            services.AddTransient<ICommandHandler<AddFollowingCommand>, AddFollowingCommandHandler>();
 
 
             #endregion
