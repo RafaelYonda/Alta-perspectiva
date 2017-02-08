@@ -6,7 +6,7 @@ using AltaPerspectiva.Core.Infrastructure;
 
 namespace Questions.Domain
 {
-    public class UserQuestionPost : Entity
+    public class ShareQuestion : Entity
     {
         public Guid UserId { get; set; }
         public Guid QuestionId { get; set; }

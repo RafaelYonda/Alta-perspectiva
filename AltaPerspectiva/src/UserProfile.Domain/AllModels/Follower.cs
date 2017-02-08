@@ -8,7 +8,10 @@ namespace UserProfile.Domain.AllModels
 {
     public class Follower : Entity
     {
-        public Guid UserId { get; set; }
+      //  public Guid UserId { get; set; }
         public Guid FollowerUserId { get; set; }
+
+        public Guid CredentialId { get; set; }
+        public virtual Credential Credential { get; set; }
     }
 }

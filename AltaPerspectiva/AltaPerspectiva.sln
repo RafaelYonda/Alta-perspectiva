@@ -32,6 +32,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "UserProfile.Command", "src\
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AltaPerspectiva.Api", "src\AltaPerspectiva.Api\AltaPerspectiva.Api.xproj", "{0751190C-4A2A-4E06-A290-975BDD9DE603}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Blog.Domain", "src\Blog.Domain\Blog.Domain.xproj", "{2CB81B2A-2282-40D5-9145-4C4EFDDEF0AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,10 @@ Global
 		{0751190C-4A2A-4E06-A290-975BDD9DE603}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0751190C-4A2A-4E06-A290-975BDD9DE603}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0751190C-4A2A-4E06-A290-975BDD9DE603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB81B2A-2282-40D5-9145-4C4EFDDEF0AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB81B2A-2282-40D5-9145-4C4EFDDEF0AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB81B2A-2282-40D5-9145-4C4EFDDEF0AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB81B2A-2282-40D5-9145-4C4EFDDEF0AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +104,6 @@ Global
 		{FBB83BF0-C645-421A-BB17-C91FDBBC6D8B} = {CB1896FB-904B-4514-8D78-72830F2D3AB3}
 		{E6D9D5D0-DB4B-4E50-A694-461A48BC9052} = {CB1896FB-904B-4514-8D78-72830F2D3AB3}
 		{0751190C-4A2A-4E06-A290-975BDD9DE603} = {CB1896FB-904B-4514-8D78-72830F2D3AB3}
+		{2CB81B2A-2282-40D5-9145-4C4EFDDEF0AF} = {CB1896FB-904B-4514-8D78-72830F2D3AB3}
 	EndGlobalSection
 EndGlobal

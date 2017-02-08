@@ -99,7 +99,6 @@ namespace UserProfile.Query
             modelBuilder.Entity<OtherExperience>().ToTable("OtherExperiences");
             modelBuilder.Entity<Following>().ToTable("Followings");
             modelBuilder.Entity<Follower>().ToTable("Followers");
-            modelBuilder.Entity<UserView>().ToTable("UserViews");
             modelBuilder.Entity<Blog>().ToTable("Blogs");
             modelBuilder.Entity<BlogPost>().ToTable("BlogPosts");
         }

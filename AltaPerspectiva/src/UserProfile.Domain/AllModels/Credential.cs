@@ -6,6 +6,10 @@ using AltaPerspectiva.Core.Infrastructure;
 
 namespace UserProfile.Domain.AllModels
 {
+    /// <summary>
+    /// Aggregeated root for user models
+    /// </summary>
+
     public class Credential : Entity
     {
         public Guid UserId { get; set; }
@@ -14,5 +18,14 @@ namespace UserProfile.Domain.AllModels
         public String Title { get; set; }
         public String Description { get; set; }
         public String ImageUrl { get; set; }
+        public long ProfileViewCount { get; set; }
+
+        public virtual Education Education { get; set; }
+        public virtual Employment Employment { get; set; }
+        public virtual ICollection<Follower> Followers { get; set; }
+        public virtual ICollection<Following> Followings { get; set; }
+        public virtual Place Place { get; set; }
+        
+        
     }
 }

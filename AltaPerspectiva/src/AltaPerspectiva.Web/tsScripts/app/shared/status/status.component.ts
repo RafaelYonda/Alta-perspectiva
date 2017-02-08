@@ -36,9 +36,7 @@ export class StatusComponent {
             this.CommentCount = this.answerObj.comments? this.answerObj.comments.length:0;
         }
     } 
-    sendCommentCountToApStatus(param: any) {
-        console.log('sendCommentCountToApStatus');
-    }
+   
     bookmarkClicked(questionId: string) {
            this.dataService.addBookMark(questionId).subscribe(res => {
                  console.log(questionId + 'saved as bookmark');

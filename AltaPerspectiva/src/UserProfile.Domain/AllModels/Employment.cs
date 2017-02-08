@@ -8,11 +8,14 @@ namespace UserProfile.Domain.AllModels
 {
     public class Employment : Entity
     {
-        public Guid UserId { get; set; }
+        //public Guid UserId { get; set; }
         public String Position { get; set; }
         public String CompanyName { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public Boolean IsCurrentlyWorking { get; set; }
+
+        public Guid CredentialId { get; set; }
+        public virtual Credential Credential { get; set; }
     }
 }

@@ -81,3 +81,8 @@ AltaPerspectiva/src/AltaPerspectiva.Api/bin/Debug/netstandard1.6/AltaPerspectiva
 AltaPerspectiva/src/AltaPerspectiva.Api/bin/Debug/netstandard1.6/AltaPerspectiva.Api.pdb
 /AltaPerspectiva/src/AltaPerspectiva.Web/typings
 AltaPerspectiva/src/AltaPerspectiva/bower_components/
+AltaPerspectiva/src/Blog.Domain/obj/
+AltaPerspectiva/src/Blog.Domain/bin/
+AltaPerspectiva/src/Blog.Query/project.lock.json
+AltaPerspectiva/src/Blog.Domain/project.lock.json
+AltaPerspectiva/src/Blog.Command/project.lock.json

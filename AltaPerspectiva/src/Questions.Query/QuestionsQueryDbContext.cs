@@ -127,12 +127,12 @@
                 return Set<QuestionReport>().AsNoTracking();
             }
         }
-        public IQueryable<UserQuestionPost> UserQuestionPost
+        public IQueryable<ShareQuestion> UserQuestionPost
         {
             get
             {
                 // Don't track changes to query results
-                return Set<UserQuestionPost>().AsNoTracking();
+                return Set<ShareQuestion>().AsNoTracking();
             }
         }
 
@@ -163,7 +163,7 @@
             modelBuilder.Entity<QuestionReport>().ToTable("QuestionReports");
 
             //Question post for User
-            modelBuilder.Entity<UserQuestionPost>().ToTable("UserQuestionPosts");
+            modelBuilder.Entity<ShareQuestion>().ToTable("ShareQuestions");
 
         }
 

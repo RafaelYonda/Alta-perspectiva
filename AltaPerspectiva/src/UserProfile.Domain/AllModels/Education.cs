@@ -9,7 +9,7 @@ namespace UserProfile.Domain.AllModels
 {
     public class Education:Entity
     {
-        public Guid UserId { get; set; }
+       // public Guid UserId { get; set; }
         public String SchoolName { get; set; }
         public String SchoolDegreeName { get; set; }
         public DateTime? SchoolCompletionDate { get; set; }
@@ -20,5 +20,8 @@ namespace UserProfile.Domain.AllModels
 
         public String Certification { get; set; }
         public String CertificationType { get; set; }
+
+        public Guid CredentialId { get; set; }
+        public virtual Credential Credential { get; set; }
     }
 }
