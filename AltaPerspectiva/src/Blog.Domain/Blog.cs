@@ -1,10 +1,10 @@
-﻿using System;
+﻿using AltaPerspectiva.Core.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AltaPerspectiva.Core.Infrastructure;
 
-namespace UserProfile.Domain.AllModels
+namespace Blog.Domain
 {
     public class Blog : Entity
     {

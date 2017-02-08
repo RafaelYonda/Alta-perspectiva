@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { FilterParameter } from './models';
+import { FilterParameter,Comment } from './models';
 
 @Injectable()
 export class CommunicationService {
@@ -14,6 +14,9 @@ export class CommunicationService {
     
     private objChange: Subject<string> = new Subject<string>();
 
+    private comment: Comment;
+    private commentAdded: Subject<Comment> = new Subject<Comment>();
+
     setCategory(catId: string): void {
         this.categoryId = catId;
         this.objChange.next(this.categoryId);
@@ -22,6 +25,15 @@ export class CommunicationService {
     getCategory(): Observable<string> {   
         return this.objChange.asObservable();
     }
+
+    setComment(comment: Comment): void {
+        this.comment = comment;
+        this.commentAdded.next(this.comment);
+    }
+    getComment(): Observable<Comment> {
+        return this.commentAdded.asObservable();
+    }
+
 
     setTopicId(topicId: string) {
        
@@ -48,4 +60,6 @@ export class CommunicationService {
         if(this.levelId) this.filterParameter.levelId = this.levelId;
         return this.filterParameter;
     }
+
+  
 }

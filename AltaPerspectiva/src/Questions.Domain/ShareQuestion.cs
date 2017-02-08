@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core.Infrastructure;
 
-namespace UserProfile.Domain.AllModels
+namespace Questions.Domain
 {
-    public class UserView : Entity
+    public class ShareQuestion : Entity
     {
         public Guid UserId { get; set; }
-        public long ProfileViewCount { get; set; }
+        public Guid QuestionId { get; set; }
     }
 }

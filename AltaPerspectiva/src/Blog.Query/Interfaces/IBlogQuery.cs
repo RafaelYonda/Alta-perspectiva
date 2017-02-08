@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core;
-using UserProfile.Domain;
-using UserProfile.Domain.AllModels;
 
-namespace UserProfile.Query
+namespace Blog.Query.Interfaces
 {
     public interface IBlogQuery : IQuery
     {
-        Blog GetBlog(Guid userId);
+        Domain.Blog GetBlog(Guid userId);
     }
 }

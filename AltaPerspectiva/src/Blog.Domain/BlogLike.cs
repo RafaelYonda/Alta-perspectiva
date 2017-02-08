@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core.Infrastructure;
 
-namespace Questions.Domain
+namespace Blog.Domain
 {
-    public class UserQuestionPost : Entity
+    public class BlogLike:Entity
     {
         public Guid UserId { get; set; }
-        public Guid QuestionId { get; set; }
+        public Guid BlogPostId { get; set; }
+        public virtual BlogPost BlogPost { get; set; }
+
     }
 }
