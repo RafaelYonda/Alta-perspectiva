@@ -52,8 +52,8 @@ export class QuestionService {
             .publishReplay(1)
             .refCount(); ;
     }
-    postQuestionBlog(questionId: string) {
-        return this._http.post('/questions/api/savequestionasblog/' + questionId, null)
+    postQuestionBlog(questionId: string): Observable<any> {
+        return this._http.post('/questions/api/savequestionasblog/' + questionId, questionId)
             .map(this.extractData)
             .catch(this.handleError);
     }
