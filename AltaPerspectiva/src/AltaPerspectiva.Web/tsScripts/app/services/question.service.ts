@@ -9,17 +9,18 @@ import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment
 
 @Injectable()
 export class QuestionService {
-    GetQuestion(id: string): Observable<Question> {
-        console.log(id);
-        return this._http.get('/questions/api/questions/' + id)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }    
+      
 
     constructor(private _http: Http) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('auth_token'));
         let options = new RequestOptions({ headers: headers });
+    }
+    GetQuestion(id: string): Observable<Question> {
+        console.log(id);
+        return this._http.get('/questions/api/questions/' + id)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
     getTopfiveQuestionsByCategory(id: string): Observable<Question[]> {
@@ -51,10 +52,14 @@ export class QuestionService {
             .publishReplay(1)
             .refCount(); ;
     }
-     
+    postQuestionBlog(questionId: string) {
+        return this._http.post('/questions/api/savequestionasblog/' + questionId, null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     private extractData(res: Response) {       
         let body;
-
+        console.log(res);
         // check if empty, before call json
         if (res.text()) {
             body = res.json();
@@ -64,6 +69,7 @@ export class QuestionService {
     }
 
     private handleError(error: Response | any) {
+        console.log(error);
         // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;
         if (error instanceof Response) {

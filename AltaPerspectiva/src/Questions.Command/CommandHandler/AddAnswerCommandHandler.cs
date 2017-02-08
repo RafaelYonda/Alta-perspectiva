@@ -26,7 +26,6 @@
 		public override void Execute(AddAnswerCommand command)
 		{
 			Debug.WriteLine("AddAnswerCommandHandler executed");
-
             Question question = GetQuestionById(command.QuestionId);
             // 
             Answer answer = new Answer();
