@@ -35,11 +35,18 @@
                              placement="top"
                              [closeOnClickOutside]="true">
                 <ul style="list-style-type: none;">
-                    <li style="list-style-type: none;width: 50px;">
-                        <a >Linkedin</a>
+                    <li style="list-style-type: none;width: 100px;">
+                        <i class="fa fa-linkedin-square"></i>
+                        <a  href="http://www.linkedin.com/shareArticle?mini=true&url={{questionObj.shareUrl}}" 
+                           onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">Linkedin</a>
                     </li>
                     <li style="list-style-type: none;">
+                        <i class="fa fa-share-square"></i>
                         <a (click)="postClikced(questionObj?.id)">Post</a>
+                    </li>
+                    <li style="list-style-type: none;">
+                        <i class="fa fa-copy"></i>
+                        <!--<a class="btn" ngxClipboard [cbContent]="questionObj.shareUrl" (click)="copyClipboard()">Copy to clipboard</a>-->
                     </li>
                 </ul>
             </popover-content>
