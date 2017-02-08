@@ -12,23 +12,16 @@ namespace UserProfile.Command.UserProfileDBContext
     {
         public static void ConfigureMappings(this ModelBuilder model)
         {
-            //No need if no one to many mapping
-            //// ContractInformation
-            //model.Entity<ContractInformation>(e =>
-            //{
-            //    e.ToTable("ContractInformation");
-
-            //    e.HasKey(q => q.Id);
-            //   // e.Property(q => q.FirstName).HasColumnName("FirstName").IsRequired();
-
-
-            //});
-            model.Entity<Blog>(e =>
+            //MAping of Credential to multiple Education,Places,Employemnts
+            model.Entity<Credential>(e =>
             {
-                e.ToTable("Blogs");
+                e.ToTable("Credentials");
                 e.HasKey(a => a.Id);
-                e.HasMany<BlogPost>(q => q.BlogPosts).WithOne(k => k.Blog).HasForeignKey(k => k.BlogId);
+                e.HasMany<Education>(q => q.Educations).WithOne(k => k.Credential).HasForeignKey(k => k.CredentialId);
+                e.HasMany<Place>(q => q.Places).WithOne(k => k.Credential).HasForeignKey(k => k.CredentialId);
+                e.HasMany<Employment>(q => q.Employments).WithOne(k => k.Credential).HasForeignKey(k => k.CredentialId);
             });
+
         }
     }
 }

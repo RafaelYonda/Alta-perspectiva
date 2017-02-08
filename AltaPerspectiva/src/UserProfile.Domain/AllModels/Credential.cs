@@ -20,11 +20,11 @@ namespace UserProfile.Domain.AllModels
         public String ImageUrl { get; set; }
         public long ProfileViewCount { get; set; }
 
-        public virtual Education Education { get; set; }
-        public virtual Employment Employment { get; set; }
+        public virtual ICollection<Education> Educations { get; set; }
+        public virtual ICollection<Employment> Employments { get; set; }
         public virtual ICollection<Follower> Followers { get; set; }
         public virtual ICollection<Following> Followings { get; set; }
-        public virtual Place Place { get; set; }
+        public virtual ICollection<Place> Places { get; set; }
         
         
     }

@@ -25,6 +25,10 @@ using Newtonsoft.Json;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text;
 using AltaPerspectiva.Web.Areas.UserProfile.Services;
+using Blog.Command.BlogDbContext;
+using Blog.Command.CommandHandler;
+using Blog.Command.Commands;
+using Blog.Query;
 using Microsoft.AspNetCore.Diagnostics;
 using UserProfile.Query.Queries;
 using UserProfile.Command.Commands;
@@ -36,6 +40,8 @@ using Questions.Command.CommandHandler;
 using Questions.Commands;
 using Questions.Domain.ReadModel;
 using Questions.Query.Queries;
+using Blog.Query.Interfaces;
+using Blog.Query.Queries;
 
 namespace AltaPerspectiva
 {
@@ -85,6 +91,11 @@ namespace AltaPerspectiva
             services.AddDbContext<UserProfileDbContext>(options =>
                             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
             services.AddDbContext<UserProfileQueryDbContext>(options =>
+                            options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+
+            services.AddDbContext<BlogDbContext>(options =>
+                            options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+            services.AddDbContext<BlogQueryDbContext>(options =>
                             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             services.AddTransient<ICommandsFactory, CommandFactory>(serviceProvider => new CommandFactory(x => serviceProvider.GetServices(x).ToArray()));
@@ -142,14 +153,10 @@ namespace AltaPerspectiva
 
             //Follower
             services.AddTransient<IFollowerQuery, FollowerQuery>();
-            //UserView
-            services.AddTransient<IUserViewQuery, UserViewQuery>();
+
             //Follower
             services.AddTransient<IFollowerQuery, FollowerQuery>();
-            //Blog
-            services.AddTransient<IBlogQuery, BlogQuery>();
-            //BlogPost
-            services.AddTransient<IBlogPostQuery, BlogPostQuery>();
+
 
             #endregion
             //AddCategoryCommand
@@ -193,6 +200,17 @@ namespace AltaPerspectiva
             services.AddTransient<IQuestionReportQuery, QuestionReportQuery>();
             services.AddTransient<ICommandHandler<InvalidQuestionReportCommand>, InvalidQuestionReportCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteQuestionReportCommand>, DeleteQuestionReportCommandHandler>();
+
+            #region Blog
+
+            //Blog
+            services.AddTransient<IBlogQuery, BlogQuery>();
+            services.AddTransient<ICommandHandler<AddBlogCommand>, AddBlogCommandHandler>();
+
+            //BlogPost
+            services.AddTransient<IBlogPostQuery, BlogPostQuery>();
+
+            #endregion
 
         }
 
@@ -309,23 +327,23 @@ namespace AltaPerspectiva
                     new { controller = "Home", action = "Index" });
             });
 
-            //using (var context = new UserProfileDbContext(app.ApplicationServices.GetRequiredService<DbContextOptions<UserProfileDbContext>>()))
+            //using (var context = new BlogDbContext(app.ApplicationServices.GetRequiredService<DbContextOptions<BlogDbContext>>()))
             //{
             //    context.Database.EnsureCreated();
             //}
 
-            using (var context = new QuestionsDbContext(
-            app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
-            {
-                context.Database.EnsureCreated();
-                //  var keywords = context.Keywords.ToList();
+            //using (var context = new QuestionsDbContext(
+            //app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
+            //{
+            //    context.Database.EnsureCreated();
+            //    //  var keywords = context.Keywords.ToList();
 
-                // cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
-                //,new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
-                //     .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
+            //    // cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
+            //    //,new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
+            //    //     .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
 
 
-            }
+            //}
         }
     }
 }

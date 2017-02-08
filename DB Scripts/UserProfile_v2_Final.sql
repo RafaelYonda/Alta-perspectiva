@@ -14,72 +14,6 @@ GO
 CREATE SCHEMA UserProfile;
 GO
 
-CREATE TABLE [Questions].[UserQuestionPost](
-	[Id] [uniqueidentifier] NOT NULL,
-	[CreatedBy] [uniqueidentifier] NULL,
-	[CreatedOn] [datetime2](7) NULL,
-	[DTS] [datetime2](7) NOT NULL,
-	[IsActive] [bit] NULL,
-	[IsDeleted] [bit] NULL,
-	[ModifiedBy] [uniqueidentifier] NULL,
-	[ModifiedOn] [datetime2](7) NULL,
-	[QuestionId] [uniqueidentifier] NOT NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
- CONSTRAINT [PK_QuestionPosts] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-CREATE TABLE [UserProfile].[BlogPosts](
-	[Id] [uniqueidentifier] NOT NULL,
-	[BlogId] [uniqueidentifier] NOT NULL,
-	[CreatedBy] [uniqueidentifier] NULL,
-	[CreatedOn] [datetime2](7) NULL,
-	[DTS] [datetime2](7) NOT NULL,
-	[Description] [nvarchar](max) NULL,
-	[IsActive] [bit] NULL,
-	[IsDeleted] [bit] NULL,
-	[ModifiedBy] [uniqueidentifier] NULL,
-	[ModifiedOn] [datetime2](7) NULL,
-	[Title] [nvarchar](max) NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
- CONSTRAINT [PK_BlogPosts] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-
-GO
-/****** Object:  Table [UserProfile].[Blogs]    Script Date: 2/6/2017 8:31:17 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [UserProfile].[Blogs](
-	[Id] [uniqueidentifier] NOT NULL,
-	[BlogName] [nvarchar](max) NULL,
-	[CreatedBy] [uniqueidentifier] NULL,
-	[CreatedOn] [datetime2](7) NULL,
-	[DTS] [datetime2](7) NOT NULL,
-	[IsActive] [bit] NULL,
-	[IsDeleted] [bit] NULL,
-	[ModifiedBy] [uniqueidentifier] NULL,
-	[ModifiedOn] [datetime2](7) NULL,
-	[Url] [nvarchar](max) NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
- CONSTRAINT [PK_Blogs] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-
-GO
-/****** Object:  Table [UserProfile].[Credentials]    Script Date: 2/6/2017 8:31:17 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [UserProfile].[Credentials](
 	[Id] [uniqueidentifier] NOT NULL,
@@ -94,6 +28,7 @@ CREATE TABLE [UserProfile].[Credentials](
 	[LastName] [nvarchar](max) NULL,
 	[ModifiedBy] [uniqueidentifier] NULL,
 	[ModifiedOn] [datetime2](7) NULL,
+	[ProfileViewCount] [bigint] NOT NULL,
 	[Title] [nvarchar](max) NULL,
 	[UserId] [uniqueidentifier] NOT NULL,
  CONSTRAINT [PK_Credentials] PRIMARY KEY CLUSTERED 
@@ -103,7 +38,7 @@ CREATE TABLE [UserProfile].[Credentials](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [UserProfile].[Educations]    Script Date: 2/6/2017 8:31:17 PM ******/
+/****** Object:  Table [UserProfile].[Educations]    Script Date: 2/8/2017 3:12:35 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -117,6 +52,7 @@ CREATE TABLE [UserProfile].[Educations](
 	[CollegeName] [nvarchar](max) NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[CreatedOn] [datetime2](7) NULL,
+	[CredentialId] [uniqueidentifier] NOT NULL,
 	[DTS] [datetime2](7) NOT NULL,
 	[IsActive] [bit] NULL,
 	[IsDeleted] [bit] NULL,
@@ -125,7 +61,6 @@ CREATE TABLE [UserProfile].[Educations](
 	[SchoolCompletionDate] [datetime2](7) NULL,
 	[SchoolDegreeName] [nvarchar](max) NULL,
 	[SchoolName] [nvarchar](max) NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
  CONSTRAINT [PK_Educations] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -133,7 +68,7 @@ CREATE TABLE [UserProfile].[Educations](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [UserProfile].[Employments]    Script Date: 2/6/2017 8:31:17 PM ******/
+/****** Object:  Table [UserProfile].[Employments]    Script Date: 2/8/2017 3:12:35 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -143,6 +78,7 @@ CREATE TABLE [UserProfile].[Employments](
 	[CompanyName] [nvarchar](max) NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[CreatedOn] [datetime2](7) NULL,
+	[CredentialId] [uniqueidentifier] NOT NULL,
 	[DTS] [datetime2](7) NOT NULL,
 	[EndDate] [datetime2](7) NULL,
 	[IsActive] [bit] NULL,
@@ -152,7 +88,6 @@ CREATE TABLE [UserProfile].[Employments](
 	[ModifiedOn] [datetime2](7) NULL,
 	[Position] [nvarchar](max) NULL,
 	[StartDate] [datetime2](7) NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
  CONSTRAINT [PK_Employments] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -160,7 +95,7 @@ CREATE TABLE [UserProfile].[Employments](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [UserProfile].[Followers]    Script Date: 2/6/2017 8:31:17 PM ******/
+/****** Object:  Table [UserProfile].[Followers]    Script Date: 2/8/2017 3:12:35 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -169,13 +104,13 @@ CREATE TABLE [UserProfile].[Followers](
 	[Id] [uniqueidentifier] NOT NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[CreatedOn] [datetime2](7) NULL,
+	[CredentialId] [uniqueidentifier] NOT NULL,
 	[DTS] [datetime2](7) NOT NULL,
 	[FollowerUserId] [uniqueidentifier] NOT NULL,
 	[IsActive] [bit] NULL,
 	[IsDeleted] [bit] NULL,
 	[ModifiedBy] [uniqueidentifier] NULL,
 	[ModifiedOn] [datetime2](7) NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
  CONSTRAINT [PK_Followers] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -183,7 +118,7 @@ CREATE TABLE [UserProfile].[Followers](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [UserProfile].[Followings]    Script Date: 2/6/2017 8:31:17 PM ******/
+/****** Object:  Table [UserProfile].[Followings]    Script Date: 2/8/2017 3:12:35 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -192,13 +127,13 @@ CREATE TABLE [UserProfile].[Followings](
 	[Id] [uniqueidentifier] NOT NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[CreatedOn] [datetime2](7) NULL,
+	[CredentialId] [uniqueidentifier] NOT NULL,
 	[DTS] [datetime2](7) NOT NULL,
 	[FollowingUserId] [uniqueidentifier] NOT NULL,
 	[IsActive] [bit] NULL,
 	[IsDeleted] [bit] NULL,
 	[ModifiedBy] [uniqueidentifier] NULL,
 	[ModifiedOn] [datetime2](7) NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
  CONSTRAINT [PK_Followings] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -206,7 +141,7 @@ CREATE TABLE [UserProfile].[Followings](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [UserProfile].[OtherExperiences]    Script Date: 2/6/2017 8:31:17 PM ******/
+/****** Object:  Table [UserProfile].[OtherExperiences]    Script Date: 2/8/2017 3:12:35 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -216,13 +151,13 @@ CREATE TABLE [UserProfile].[OtherExperiences](
 	[CategoryId] [uniqueidentifier] NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[CreatedOn] [datetime2](7) NULL,
+	[CredentialId] [uniqueidentifier] NOT NULL,
 	[DTS] [datetime2](7) NOT NULL,
 	[Description] [nvarchar](max) NULL,
 	[IsActive] [bit] NULL,
 	[IsDeleted] [bit] NULL,
 	[ModifiedBy] [uniqueidentifier] NULL,
 	[ModifiedOn] [datetime2](7) NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
  CONSTRAINT [PK_OtherExperiences] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -230,7 +165,7 @@ CREATE TABLE [UserProfile].[OtherExperiences](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [UserProfile].[Places]    Script Date: 2/6/2017 8:31:17 PM ******/
+/****** Object:  Table [UserProfile].[Places]    Script Date: 2/8/2017 3:12:35 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -239,6 +174,7 @@ CREATE TABLE [UserProfile].[Places](
 	[Id] [uniqueidentifier] NOT NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[CreatedOn] [datetime2](7) NULL,
+	[CredentialId] [uniqueidentifier] NOT NULL,
 	[DTS] [datetime2](7) NOT NULL,
 	[EndYear] [datetime2](7) NULL,
 	[IsActive] [bit] NULL,
@@ -248,7 +184,6 @@ CREATE TABLE [UserProfile].[Places](
 	[ModifiedBy] [uniqueidentifier] NULL,
 	[ModifiedOn] [datetime2](7) NULL,
 	[StartYear] [datetime2](7) NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
  CONSTRAINT [PK_Places] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -256,32 +191,39 @@ CREATE TABLE [UserProfile].[Places](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [UserProfile].[UserViews]    Script Date: 2/6/2017 8:31:17 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [UserProfile].[UserViews](
-	[Id] [uniqueidentifier] NOT NULL,
-	[CreatedBy] [uniqueidentifier] NULL,
-	[CreatedOn] [datetime2](7) NULL,
-	[DTS] [datetime2](7) NOT NULL,
-	[IsActive] [bit] NULL,
-	[IsDeleted] [bit] NULL,
-	[ModifiedBy] [uniqueidentifier] NULL,
-	[ModifiedOn] [datetime2](7) NULL,
-	[ProfileViewCount] [bigint] NOT NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
- CONSTRAINT [PK_UserViews] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-ALTER TABLE [UserProfile].[BlogPosts]  WITH CHECK ADD  CONSTRAINT [FK_BlogPosts_Blogs_BlogId] FOREIGN KEY([BlogId])
-REFERENCES [UserProfile].[Blogs] ([Id])
+ALTER TABLE [UserProfile].[Educations]  WITH CHECK ADD  CONSTRAINT [FK_Educations_Credentials_CredentialId] FOREIGN KEY([CredentialId])
+REFERENCES [UserProfile].[Credentials] ([Id])
 ON DELETE CASCADE
 GO
-ALTER TABLE [UserProfile].[BlogPosts] CHECK CONSTRAINT [FK_BlogPosts_Blogs_BlogId]
+ALTER TABLE [UserProfile].[Educations] CHECK CONSTRAINT [FK_Educations_Credentials_CredentialId]
+GO
+ALTER TABLE [UserProfile].[Employments]  WITH CHECK ADD  CONSTRAINT [FK_Employments_Credentials_CredentialId] FOREIGN KEY([CredentialId])
+REFERENCES [UserProfile].[Credentials] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [UserProfile].[Employments] CHECK CONSTRAINT [FK_Employments_Credentials_CredentialId]
+GO
+ALTER TABLE [UserProfile].[Followers]  WITH CHECK ADD  CONSTRAINT [FK_Followers_Credentials_CredentialId] FOREIGN KEY([CredentialId])
+REFERENCES [UserProfile].[Credentials] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [UserProfile].[Followers] CHECK CONSTRAINT [FK_Followers_Credentials_CredentialId]
+GO
+ALTER TABLE [UserProfile].[Followings]  WITH CHECK ADD  CONSTRAINT [FK_Followings_Credentials_CredentialId] FOREIGN KEY([CredentialId])
+REFERENCES [UserProfile].[Credentials] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [UserProfile].[Followings] CHECK CONSTRAINT [FK_Followings_Credentials_CredentialId]
+GO
+ALTER TABLE [UserProfile].[OtherExperiences]  WITH CHECK ADD  CONSTRAINT [FK_OtherExperiences_Credentials_CredentialId] FOREIGN KEY([CredentialId])
+REFERENCES [UserProfile].[Credentials] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [UserProfile].[OtherExperiences] CHECK CONSTRAINT [FK_OtherExperiences_Credentials_CredentialId]
+GO
+ALTER TABLE [UserProfile].[Places]  WITH CHECK ADD  CONSTRAINT [FK_Places_Credentials_CredentialId] FOREIGN KEY([CredentialId])
+REFERENCES [UserProfile].[Credentials] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [UserProfile].[Places] CHECK CONSTRAINT [FK_Places_Credentials_CredentialId]
 GO
