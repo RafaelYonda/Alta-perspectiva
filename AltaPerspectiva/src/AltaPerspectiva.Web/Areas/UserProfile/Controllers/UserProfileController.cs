@@ -56,23 +56,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(model);
         }
 
-        [HttpPost("userprofile/api/savethanks/{followingUserId}")] 
-        //It will save to following table
-        public IActionResult savethanks(Guid followingUserId)
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-
-            //refractoring:My add from User Repository 
-            AddFollowingCommand command=new AddFollowingCommand(loggedinUser,followingUserId);
-            commandsFactory.ExecuteQuery(command);
-
-            return Ok();
-        }
+        
 
         /*
         //For Login username in admin
@@ -598,6 +582,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return summeries;
         }
         #endregion
-        
+
+       
+
     }
 }

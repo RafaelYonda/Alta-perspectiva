@@ -17,7 +17,7 @@ DROP TABLE Question.UserQuestionPost;
 
 GO
 
-CREATE TABLE [Questions].[ShareQuestion](
+CREATE TABLE [Questions].[ShareQuestions](
 	[Id] [uniqueidentifier] NOT NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[CreatedOn] [datetime2](7) NULL,
