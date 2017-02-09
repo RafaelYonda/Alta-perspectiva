@@ -32,9 +32,10 @@ import {DialogComponent} from "./dialog-modal/dialog.component";
 import { CKEditorModule } from 'ng2-ckeditor';
 import {QuestionReportComponent} from "./question-report/question-report.component";
 import { QuillModule } from 'ngx-quill';
+//import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, RouterModule, PopoverModule, QuillModule, CKEditorModule],
+    imports: [BrowserModule, FormsModule, RouterModule, PopoverModule, QuillModule, CKEditorModule/*, ClipboardModule*/],
     providers: [
         { provide: 'Window', useValue: window }, CommunicationService
     ],

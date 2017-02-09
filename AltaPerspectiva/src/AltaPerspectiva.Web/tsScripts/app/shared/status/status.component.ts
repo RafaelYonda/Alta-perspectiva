@@ -37,6 +37,8 @@ export class StatusComponent {
             this.CommentCount = this.answerObj.comments? this.answerObj.comments.length:0;
         }
     }
+    copyClipboard() {
+    }
     postClikced(questionId: string) {
         this.questionService.postQuestionBlog(questionId).subscribe(res => {
             console.log(questionId + 'saved as bookmark');
