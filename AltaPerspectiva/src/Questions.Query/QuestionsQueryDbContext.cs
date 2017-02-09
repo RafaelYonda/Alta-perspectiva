@@ -135,6 +135,7 @@
                 return Set<ShareQuestion>().AsNoTracking();
             }
         }
+
         public IQueryable<DirectQuestion> DirectQuestions
         {
             get
@@ -142,6 +143,7 @@
                 // Don't track changes to query results
                 return Set<DirectQuestion>().AsNoTracking();
             }
+        }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
