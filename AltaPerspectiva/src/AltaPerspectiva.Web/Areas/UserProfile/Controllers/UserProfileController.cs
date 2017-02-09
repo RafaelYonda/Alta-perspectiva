@@ -157,10 +157,12 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(command.Id);
         }
         [HttpPost("userprofile/api/credential/saveuserimage")]
-        public IActionResult SaveUserImage(IFormFile file, Guid credentialId)
+        public IActionResult SaveUserImage([FromBody]UserImageViewModel model)//(IFormFile file, Guid credentialId)
         {
             var categoryImagepath = configuration["ProfileUpload"];
             //IHostingEnvironment environment = new HostingEnvironment();
+            var file = model.File;
+            var credentialId = model.CredentialId;
             String image = file.FileName;
 
             var webRoot = environment.WebRootPath;
