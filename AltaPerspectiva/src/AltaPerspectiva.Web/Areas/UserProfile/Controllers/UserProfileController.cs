@@ -84,12 +84,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             var emps = queryFactory.ResolveQuery<IEmploymentQuery>().GetEmployment(loggedinUser);
             */
-            /*
-            AddEducationCommand command=new AddEducationCommand(loggedinUser,"schoolname","degreename",DateTime.Now, "collagename","collegeDegree",DateTime.Now, "certificaation","certification type");
-            commandsFactory.ExecuteQuery(command);
-
-            var edu = queryFactory.ResolveQuery<IEducationQuery>().GetEducation(loggedinUser);
-            */
+         
             /*
             AddPlaceCommand command=new AddPlaceCommand(loggedinUser,"locatioName",DateTime.Now, DateTime.Now, true);
             commandsFactory.ExecuteQuery(command);
@@ -115,7 +110,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
         #region Credentials
 
-        [HttpGet("userprofile/api/getcredential/{credentialId}")]
+        [HttpGet("userprofile/api/credential/get/{credentialId}")]
         public IActionResult GetCredential(Guid credentialId)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
@@ -157,12 +152,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(command.Id);
         }
         [HttpPost("userprofile/api/credential/saveuserimage")]
-        public IActionResult SaveUserImage([FromBody]UserImageViewModel model)//(IFormFile file, Guid credentialId)
+        public IActionResult SaveUserImage(IFormFile file, Guid credentialId)
         {
             var categoryImagepath = configuration["ProfileUpload"];
             //IHostingEnvironment environment = new HostingEnvironment();
-            var file = model.File;
-            var credentialId = model.CredentialId;
+            
             String image = file.FileName;
 
             var webRoot = environment.WebRootPath;
@@ -187,11 +181,58 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             Guid createdId = cmd.Id;
             return Ok();
         }
-        
+
 
         #endregion
 
+        #region Education 
+        [HttpGet("userprofile/api/education/geteducation/{credentialId}")]
+        public IActionResult AddEducation(Guid credentialId)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
+            }
+            var edu = queryFactory.ResolveQuery<IEducationQuery>().GetEducation(credentialId);
+
+            return Ok();
+        }
+
+        [HttpPost("userprofile/api/education/addeducation")]
+        public IActionResult AddEducation([FromBody]AddEducationViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+            }
+            AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.SchoolName, model.SchoolDegreeName, model.SchoolCompletionDate, "collagename", "collegeDegree", DateTime.Now, "certificaation", "certification type");
+            commandsFactory.ExecuteQuery(command);
+
+            return Ok();
+        }
+
+        #endregion
+
+        #region Employment  
+
+
+        #endregion
+
+        #region Place   
+
+
+        #endregion
+
+        #region Other   
+
+
+        #endregion
 
         /*
         //For Login username in admin
