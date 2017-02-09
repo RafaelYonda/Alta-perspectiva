@@ -129,7 +129,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(credential);
         }
         [HttpPost("userprofile/api/credential/savefirstnamelastname")]
-        public IActionResult savefirstnamelastname(String firstName,String lastName)
+        public IActionResult SaveFirstNameLastName(String firstName,String lastName)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
@@ -143,7 +143,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(command.Id);
         }
         [HttpPost("userprofile/api/credential/update")]
-        public IActionResult savetitle([FromBody]CredentialViewModel model)
+        public IActionResult UpdateCredential([FromBody]CredentialViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)

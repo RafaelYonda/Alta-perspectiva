@@ -35,49 +35,6 @@ CREATE TABLE [Questions].[ShareQuestions](
 ) ON [PRIMARY]
 
 GO
-
-CREATE TABLE [Questions].[DirectQuestions](
-	[Id] [uniqueidentifier] NOT NULL,
-	[Body] [nvarchar](max) NULL,
-	[CreatedBy] [uniqueidentifier] NULL,
-	[CreatedOn] [datetime2](7) NULL,
-	[DTS] [datetime2](7) NOT NULL,
-	[IsActive] [bit] NULL,
-	[IsDeleted] [bit] NULL,
-	[ModifiedBy] [uniqueidentifier] NULL,
-	[ModifiedOn] [datetime2](7) NULL,
-	[QuestionId] [uniqueidentifier] NOT NULL,
-	[QuestionId1] [uniqueidentifier] NULL,
-	[Title] [nvarchar](max) NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
-	[ViewCount] [int] NULL,
- CONSTRAINT [PK_DirectQuestions] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-
-GO
-
-ALTER TABLE [Questions].[DirectQuestions]  WITH CHECK ADD  CONSTRAINT [FK_DirectQuestions_Questions_QuestionId] FOREIGN KEY([QuestionId])
-REFERENCES [Questions].[Questions] ([Id])
-ON DELETE CASCADE
-GO
-
-ALTER TABLE [Questions].[DirectQuestions] CHECK CONSTRAINT [FK_DirectQuestions_Questions_QuestionId]
-GO
-
-ALTER TABLE [Questions].[DirectQuestions]  WITH CHECK ADD  CONSTRAINT [FK_DirectQuestions_Questions_QuestionId1] FOREIGN KEY([QuestionId1])
-REFERENCES [Questions].[Questions] ([Id])
-GO
-
-ALTER TABLE [Questions].[DirectQuestions] CHECK CONSTRAINT [FK_DirectQuestions_Questions_QuestionId1]
-GO
-
-
-
-
-GO
 CREATE TABLE [UserProfile].[Credentials](
 	[Id] [uniqueidentifier] NOT NULL,
 	[CreatedBy] [uniqueidentifier] NULL,

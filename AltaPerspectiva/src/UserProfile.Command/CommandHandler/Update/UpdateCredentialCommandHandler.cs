@@ -37,11 +37,7 @@ namespace UserProfile.Command.CommandHandler
                 {
                     credential.LastName = command.LastName;
                 }
-                //Dfferent logic ..so it is seperated
-                //if (!string.IsNullOrEmpty(command.ImageUrl))
-                //{
-                //    credential.ImageUrl = command.ImageUrl;
-                //}
+               
                 if (!string.IsNullOrEmpty(command.Title))
                 {
                     credential.Title = command.Title;
@@ -51,13 +47,6 @@ namespace UserProfile.Command.CommandHandler
             DbContext.Credentials.Update(credential);
             DbContext.SaveChanges();
 
-            //Skill skill = new Skill();
-            //skill.GenerateNewIdentity();
-            //skill.UserId = command.UserId;
-            //skill.SkillName = command.SkillName;
-
-            //DbContext.Skill.Add(skill);
-            //DbContext.SaveChanges();
 
         }
 

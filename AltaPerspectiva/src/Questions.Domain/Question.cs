@@ -30,7 +30,7 @@
         public virtual ICollection<Bookmark> Bookmarks { get; set; }
         public int? ViewCount { get; set; }
 
-        public virtual ICollection<DirectQuestion> DirectQuestions { get; set; }
+      //  public virtual ICollection<DirectQuestion> DirectQuestions { get; set; }
         public Question() {
 
             Categories = new List<QuestionCategory>();

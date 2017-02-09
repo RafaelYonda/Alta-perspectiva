@@ -46,7 +46,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             AddBlogCommand  command=new AddBlogCommand(loggedinUser,"test","test");
             commandsFactory.ExecuteQuery(command);
 
-            var blogs = queryFactory.ResolveQuery<IBlogQuery>().GetBlog(loggedinUser);
+            //var blogs = queryFactory.ResolveQuery<IBlogQuery>().GetBlog(loggedinUser);
 
             return Ok();
         }
