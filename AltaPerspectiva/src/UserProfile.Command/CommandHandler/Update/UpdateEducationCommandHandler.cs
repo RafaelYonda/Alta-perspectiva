@@ -20,7 +20,8 @@ namespace UserProfile.Command.CommandHandler
         public override void Execute(UpdateEducationCommand command)
         {
             Debug.WriteLine("UpdateEducationCommand executed");
-            //Education education = DbContext.Education.FirstOrDefault(x => x.UserId == command.UserId);
+            Education education = DbContext.Educations.FirstOrDefault(x => x.CredentialId == command.CredentialId);
+
             //education.UserId = command.UserId;
             //education.Institute = command.Institute;
             //education.TimeFrameFrom = command.TimeFrameFrom;
@@ -28,8 +29,8 @@ namespace UserProfile.Command.CommandHandler
             //education.CompletedStudies = command.CompletedStudies;
             //education.Description = command.Description;
             //education.Especiality = command.Especiality;
-            //DbContext.Education.Add(education);
-            //DbContext.SaveChanges();
+            DbContext.Educations.Update(education);
+            DbContext.SaveChanges();
 
         }
 

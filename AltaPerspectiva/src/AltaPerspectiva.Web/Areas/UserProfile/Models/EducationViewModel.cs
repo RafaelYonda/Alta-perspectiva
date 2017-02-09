@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AltaPerspectiva.Web.Areas.UserProfile.Models
 {
-    public class AddEducationViewModel
+    public class EducationViewModel
     {
         //public Guid Id { get; set; }
         //public Guid UserId { get; set; }

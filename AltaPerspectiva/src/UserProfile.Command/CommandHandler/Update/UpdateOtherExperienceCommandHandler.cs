@@ -11,15 +11,15 @@ using UserProfile.Domain;
 
 namespace UserProfile.Command.CommandHandler
 {
-    public class UpdateBiographyCommandHandler : EFCommandHandlerBase<UpdateBiographyCommand, UserProfileDbContext>, ICommandHandler<UpdateBiographyCommand>
+    public class UpdateOtherExperienceCommandHandler : EFCommandHandlerBase<UpdateOtherExperienceCommand, UserProfileDbContext>, ICommandHandler<UpdateOtherExperienceCommand>
     {
-        public UpdateBiographyCommandHandler(UserProfileDbContext dbContext)
+        public UpdateOtherExperienceCommandHandler(UserProfileDbContext dbContext)
 			: base(dbContext)
 		{
         }
-        public override void Execute(UpdateBiographyCommand command)
+        public override void Execute(UpdateOtherExperienceCommand command)
         {
-            Debug.WriteLine("AddAnswerCommandHandler executed");
+            Debug.WriteLine("UpdateOtherExperienceCommand executed");
 
             //Biography biography = DbContext.Biography.FirstOrDefault(x => x.UserId == command.UserId);
             ////biography.GenerateNewIdentity();

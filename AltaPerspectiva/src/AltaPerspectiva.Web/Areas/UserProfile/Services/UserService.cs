@@ -33,8 +33,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             string fullName = string.Empty;
             string imageUrl = string.Empty;
             string occupation = string.Empty;
-            string education = string.Empty;
-            string places = string.Empty;
+            
             var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
             if (credential != null)
             {

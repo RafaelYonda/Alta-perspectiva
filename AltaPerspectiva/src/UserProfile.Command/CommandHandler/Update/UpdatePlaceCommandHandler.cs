@@ -11,18 +11,18 @@ using UserProfile.Domain;
 
 namespace UserProfile.Command.CommandHandler
 {
-    public class UpdateContractInformationCommandHandler : EFCommandHandlerBase<UpdateContractInfomaionCommand, UserProfileDbContext>,ICommandHandler<UpdateContractInfomaionCommand>
+    public class UpdatePlaceCommandHandler : EFCommandHandlerBase<UpdatePlaceCommand, UserProfileDbContext>,ICommandHandler<UpdatePlaceCommand>
     {
-        public UpdateContractInformationCommandHandler(UserProfileDbContext dbContext)
+        public UpdatePlaceCommandHandler(UserProfileDbContext dbContext)
 			: base(dbContext)
 		{
         }
-        public override void Execute(UpdateContractInfomaionCommand command)
+        public override void Execute(UpdatePlaceCommand command)
         {
-            Debug.WriteLine("AddAnswerCommandHandler executed");
+            Debug.WriteLine("UpdatePlaceCommand executed");
 
-            //ContractInformation information =
-            //    DbContext.ContractInformation.FirstOrDefault(x => x.UserId == command.UserId);
+            Place place =
+                DbContext.Places.FirstOrDefault(x => x.CredentialId == command.CredentialId);
             //information.UserId = command.UserId;
             //information.FirstName = command.FirstName;
             //information.LastName = command.LastName;
@@ -34,8 +34,8 @@ namespace UserProfile.Command.CommandHandler
             //information.Region = command.Region;
             //information.City = command.City;
 
-            //DbContext.ContractInformation.Add(information);
-            //DbContext.SaveChanges();
+            DbContext.Places.Add(place);
+            DbContext.SaveChanges();
             
         }
     }

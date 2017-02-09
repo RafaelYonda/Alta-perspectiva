@@ -11,16 +11,16 @@ using UserProfile.Domain;
 
 namespace UserProfile.Command.CommandHandler
 {
-    public class UpdateExperienceCommandHandler : EFCommandHandlerBase<UpdateExperienceCommand, UserProfileDbContext>, ICommandHandler<UpdateExperienceCommand>
+    public class UpdateEmploymentCommandHandler : EFCommandHandlerBase<UpdateEmploymentCommand, UserProfileDbContext>, ICommandHandler<UpdateEmploymentCommand>
     {
-        public UpdateExperienceCommandHandler(UserProfileDbContext dbContext)
+        public UpdateEmploymentCommandHandler(UserProfileDbContext dbContext)
 			: base(dbContext)
 		{
         }
-        public override void Execute(UpdateExperienceCommand command)
+        public override void Execute(UpdateEmploymentCommand command)
         {
             Debug.WriteLine("UpdateExperienceCommandHandler executed");
-            //Experience experience = DbContext.Experience.FirstOrDefault(x => x.UserId == command.UserId);
+            Employment employment= DbContext.Employments.FirstOrDefault(x => x.CredentialId == command.CredentialId);
             //experience.UserId = command.UserId;
             //experience.Employer = command.Employer;
             //experience.PositionHeld = command.PositionHeld;
@@ -30,8 +30,8 @@ namespace UserProfile.Command.CommandHandler
             //experience.TimePeriodTo = command.TimePeriodTo;
             //experience.Description = experience.Description;
 
-            //DbContext.Experience.Add(experience);
-            //DbContext.SaveChanges();
+            DbContext.Employments.Add(employment);
+            DbContext.SaveChanges();
 
         }
 

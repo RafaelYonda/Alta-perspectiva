@@ -144,18 +144,22 @@ namespace AltaPerspectiva
             //Employment
             services.AddTransient<IEmploymentQuery, EmploymentQuery>();
             services.AddTransient<ICommandHandler<AddEmploymentCommand>, AddEmploymentCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateEmploymentCommand>, UpdateEmploymentCommandHandler>();
 
             //Education
             services.AddTransient<IEducationQuery, EducationQuery>();
             services.AddTransient<ICommandHandler<AddEducationCommand>, AddEducationCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateEducationCommand>, UpdateEducationCommandHandler>();
 
             //Place
             services.AddTransient<IPlaceQuery, PlaceQuery>();
             services.AddTransient<ICommandHandler<AddPlaceCommand>, AddPlaceCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdatePlaceCommand>, UpdatePlaceCommandHandler>();
             
             //OtherExperience
             services.AddTransient<IOtherExperienceQuery, OtherExperienceQuery>();
             services.AddTransient<ICommandHandler<AddOtherExperienceCommand>, AddOtherExperienceCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateOtherExperienceCommand>, UpdateOtherExperienceCommandHandler>();
 
             //Follower
             services.AddTransient<IFollowerQuery, FollowerQuery>();
