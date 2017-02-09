@@ -1,15 +1,101 @@
 ﻿<style>
-    
+    #edit span{
+        visibility:hidden;
+    }
+    #edit:hover span{
+        visibility:visible;
+    }
+    .user-name{
+        margin-top:10px;
+    }
+    .profile-info  input {
+        font-family: "myriadpro-regular";
+        font-size: 25px;
+        font-weight: 700;
+        line-height: 27.5px;
+        border: 1px solid #bdbdbd;
+        border-radius:3px;
+    }
+    .profile-info h1{
+            display:inline;
+        }
+    .panel-heading {
+        position: relative;
+    }
+
+    .heading {
+        display: inline;
+    }
+
+    .dash-panel {
+        margin-top: 130px;
+        font-family: 'myriadpro-regular';
+    }
+    /*============Input type: file custom CSS====*/
+    .custom-file-input {
+        width: 125px;
+        height: 50px;
+        margin: 0 auto;
+    }
+
+        .custom-file-input:focus {
+            outline: none;
+        }
+
+        .custom-file-input::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+
+        .custom-file-input::before {
+            text-align: center;
+            width: 100%;
+            content: 'Upload Image';
+            display: inline-block;
+            border-radius: 3px;
+            background-color: #ededed;
+            padding: 5px 8px;
+            outline: none;
+            white-space: nowrap;
+            -webkit-user-select: none;
+            cursor: pointer;
+            font-family: typogroteskrounded;
+            font-weight: 700;
+            font-size: 10pt;
+        }
+
+        .custom-file-input:hover::before {
+            border-color: black;
+        }
+
+        .custom-file-input:active::before {
+            background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+        }
+        
 </style>
 <div class="profile-info-container">
     <div class="col-md-2">
         <div class="profile-image-center">
-            <img class="profile-image" src="../images/avatar.png" />
+            <img class="profile-image" src="{{imageLink}}" />
+            <input type="file" name="documents" class="custom-file-input" (change)="onChange($event)" [(ngModel)]="doc" #documents="ngModel">
         </div>
     </div>
     <div class="col-md-10" style="border:1px solid">
-        <div class="profile-info" >
-            <h1> Rafael Yonda </h1>
+        <div class="profile-info">
+            <div class="user-name">
+                <div [hidden]="!isHidden">
+                    <h1> {{username}} </h1>
+                    <a (click)="isHidden = fales" id="edit"><span><i class="fa fa-edit"></i>Edit</span> </a>
+                </div>
+                
+               
+                <div [hidden]="isHidden">
+                    <input [(ngModel)]="username" type="text" />
+                    <a (click)="isHidden = true">cancel</a>
+                    <button class="btn btn-primary" (click)="UpdateUserName()">Update</button>
+                </div>
+                
+            </div>
+
             <a> Add Credentials </a>
             <a> Write Description about yourself </a>
             <ul>
