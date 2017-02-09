@@ -17,7 +17,7 @@ DROP TABLE Question.UserQuestionPost;
 
 GO
 
-CREATE TABLE [Questions].[ShareQuestion](
+CREATE TABLE [Questions].[ShareQuestions](
 	[Id] [uniqueidentifier] NOT NULL,
 	[CreatedBy] [uniqueidentifier] NULL,
 	[CreatedOn] [datetime2](7) NULL,
@@ -250,3 +250,138 @@ ON DELETE CASCADE
 GO
 ALTER TABLE [UserProfile].[Places] CHECK CONSTRAINT [FK_Places_Credentials_CredentialId]
 GO
+
+-----------------------Alter Scripts----------------
+USE [AltaPerspectiva]
+GO
+/****** Object:  StoredProcedure [dbo].[SpTopUserCalculation]    Script Date: 2/8/2017 6:08:30 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Batch submitted through debugger: SQLQuery1.sql|19|0|C:\Users\Akash\AppData\Local\Temp\~vsC2D6.sql
+ALTER proc [dbo].[SpTopUserCalculation]
+(
+  @userId nvarchar(200)=null,
+  @catgeoryId nvarchar(200)=null
+)
+as
+BEGIN
+--for Top Five user
+if (@userId is null)
+	BEGIN
+	;with CTE
+	as(
+	SELECT  [Id]
+	,[UserName],
+	(select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) FullName,
+	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,
+	(select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id) TotalLike,
+	(select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) TotalComment,
+	(select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) TotalQuestion,
+	(select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) TotalAnswer,
+	(
+	 (select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id)*1+
+	 (select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) *2+
+	 (select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) *3+
+	 (select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) *4
+	) TotalCommulativePoint
+	
+	FROM [Identity].AspNetUsers u
+
+	)
+	select top 5 * from CTE order by TotalCommulativePoint desc
+	END
+	---top user by category Id
+ELSE IF (@userId is null and @catgeoryId is not null)
+BEGIN
+;with TopFiveUserCTE
+as
+(
+SELECT  [Id]
+	,[UserName],
+	(select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) FullName,
+	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,
+	(select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id) TotalLike,
+	(select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) TotalComment,
+	(select ISNULL(count(*),0) TotalQuestion 
+	from Questions.Questions q 
+	inner join Questions.QuestionCategories qc
+	on q.Id=qc.QuestionId
+	where qc.CategoryId=@catgeoryId and q.UserId=u.Id) TotalQuestion,
+	(
+	select ISNULL(count(*),0) TotalAnswer from Questions.Answers a
+	inner join Questions.QuestionCategories qc
+	on a.QuestionId=qc.QuestionId
+	where CategoryId=@catgeoryId and  UserId=u.Id
+	) TotalAnswer,
+	(
+	 (select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id)*1+
+	 (select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) *2+
+	 (select ISNULL(count(*),0) TotalQuestion 
+	from Questions.Questions q 
+	inner join Questions.QuestionCategories qc
+	on q.Id=qc.QuestionId
+	where qc.CategoryId=@catgeoryId and q.UserId=u.Id) *3+
+	 (select ISNULL(count(*),0) TotalAnswer from Questions.Answers a
+	inner join Questions.QuestionCategories qc
+	on a.QuestionId=qc.QuestionId
+	where CategoryId=@catgeoryId and  UserId=u.Id) *4
+	) TotalCommulativePoint
+	
+	FROM [Identity].AspNetUsers u
+
+)
+select top 5 * from TopFiveUserCTE order by TotalCommulativePoint desc 
+END
+
+ELSE
+	BEGIN
+	SELECT  [Id]
+	,[UserName],
+	(select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) FullName,
+	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,
+	(select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id) TotalLike,
+	(select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) TotalComment,
+	(select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) TotalQuestion,
+	(select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) TotalAnswer,
+	(
+	 (select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id)*1+
+	 (select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) *2+
+	 (select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) *3+
+	 (select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) *4
+	) TotalCommulativePoint
+	
+	FROM [Identity].AspNetUsers u
+	where u.Id=@userId
+	END
+
+END
+
+GO
+ALTER proc [dbo].[SpGetUserViewModel]
+(
+@userId nvarchar(256)
+)
+AS
+BEGIN
+--Default ImageUrl =avatar.png
+--        PracticeAreaName = ""
+--        fullName="Guest"
+select Id UserId,
+ISNULL((
+select top 1 ImageUrl from UserProfile.Credentials where UserId=u.Id
+),'avatar.png') ImageUrl,
+ISNULL((
+select top 1 ISNULL(FirstName,'')+' '+ISNULL(LastName ,'') from UserProfile.Credentials where UserId=u.Id
+),'Guest' )Name,
+ISNULL(STUFF((
+select pa.Position+','
+from UserProfile.Employments pa
+where CredentialId=(select top 1 CredentialId from UserProfile.Credentials c where c.UserId=@userId)
+FOR XML PATH('')
+),1,1,''),'') Occupation
+from [Identity].[AspNetUsers] u
+where u.Id=@userId
+
+END

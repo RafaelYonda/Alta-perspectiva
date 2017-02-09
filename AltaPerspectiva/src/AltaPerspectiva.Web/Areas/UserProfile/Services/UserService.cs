@@ -30,15 +30,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
         }
         public UserViewModel GetUserViewModel(IQueryFactory queryFactory, Guid loggedinUser)
         {
-            String fullName = String.Empty;
-            String imageUrl = String.Empty;
-            String occupation = String.Empty;
+            string fullName = string.Empty;
+            string imageUrl = string.Empty;
+            string occupation = string.Empty;
+            string education = string.Empty;
+            string places = string.Empty;
             var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
             if (credential != null)
             {
                 fullName = credential.FirstName + " " + credential.LastName;
-                imageUrl = credential.ImageUrl;
-                occupation = "NO OCCUPATION";
+                imageUrl = credential.ImageUrl?? "avatar.png";
+                occupation = "PLZ ADD Your occupation";
             }
             else
             {

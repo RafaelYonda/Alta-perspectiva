@@ -11,6 +11,8 @@ using UserProfile.Command.Commands;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using UserProfile.Domain.ReadModel;
+using AltaPerspectiva.Web.Areas.UserProfile.Services;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -48,12 +50,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             //refractoring:My add from User Repository 
             AddCredentialCommand command=new AddCredentialCommand(loggedinUser,"firstname","lastname","title","description","image");
 
-            commandsFactory.ExecuteQuery(command);
+            //commandsFactory.ExecuteQuery(command);
 
             var model = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
             return Ok(model);
         }
 
+        
 
         /*
         //For Login username in admin
@@ -544,16 +547,16 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok();
         }
         #endregion
-
+        */
         #region topFiveUser ,topFiveUserByCategoryId and UserSummary
 
         //redunandt user Top five willlbe done by other apis
-        [HttpGet("userprofile/api/gettopFiveUser")]
-        public async Task<List<UserSummary>> GetTopFiveUser()
-        {
-            var summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetTopFiveUserSummary();
-            return summeries;
-        }
+        //[HttpGet("userprofile/api/gettopFiveUser")]
+        //public async Task<List<UserSummary>> GetTopFiveUser()
+        //{
+        //    var summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetTopFiveUserSummary();
+        //    return summeries;
+        //}
         [HttpGet("userprofile/api/{categoryId}/gettopFiveUserbycategoryid")]
         public async Task<List<UserSummary>> GetTopFiveUserByCategoryId(Guid categoryId)
         {
@@ -579,6 +582,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return summeries;
         }
         #endregion
-        */
+
+       
+
     }
 }
