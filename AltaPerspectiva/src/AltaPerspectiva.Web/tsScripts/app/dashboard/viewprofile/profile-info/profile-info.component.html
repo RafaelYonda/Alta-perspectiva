@@ -72,6 +72,9 @@
         }
         
 </style>
+<div>
+    <div #credentialDialogAnchor></div>
+</div>
 <div class="profile-info-container">
     <div class="col-md-2">
         <div class="profile-image-center">
@@ -96,7 +99,7 @@
                 
             </div>
 
-            <a> Add Credentials </a>
+            <a (click)="openCredentialDialogBox()"> Add Credentials </a>
             <a> Write Description about yourself </a>
             <ul>
                 <li><a>Twitter</a></li>
