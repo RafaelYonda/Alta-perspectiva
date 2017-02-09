@@ -19,7 +19,8 @@ import { SkillFormComponent } from './eidtprofile/profilesforms/skills.component
 import { ViewProfileComponent } from './viewprofile/viewprofile.component';
 import { ProfileInfoComponent } from './viewprofile/profile-info/profile-info.component';
 import { ProfileStatComponent } from './viewprofile/profile-stat/profile-stat.component';
-
+//Edit Profile Forms 
+import { AddCredentialComponent } from './viewprofile/edit-profile/add-credential.component';
 
 import { UserAnswerComponent } from './viewprofile/user-answer/user-answer.component';
 import { UserQuestionComponent } from './viewprofile/user-question/user-question.component';
@@ -82,9 +83,12 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
         EditProfileComponent,
                 ContactFormComponent, BiographyFormComponent, EducationFormComponent, ExperienceFormComponent, InsightFormComponent,  NavDashboard, PracticeFormComponent, SkillFormComponent,
         ViewProfileComponent,
-        ProfileInfoComponent, ProfileStatComponent, UserAnswerComponent, UserQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent
+        ProfileInfoComponent, ProfileStatComponent, UserAnswerComponent, UserQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent,
+        //Edit Profile
+        AddCredentialComponent
     ],
     exports: [DashBoardComponent],
+    entryComponents: [AddCredentialComponent]
 })
 export class DashBoardModule { }
 
