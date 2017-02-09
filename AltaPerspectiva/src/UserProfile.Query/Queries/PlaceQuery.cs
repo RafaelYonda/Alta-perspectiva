@@ -15,9 +15,9 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-        public Place GetPlace(Guid Userid)
+        public Place GetPlace(Guid credentialId)
         {
-            throw new NotImplementedException();
+            return DbContext.Places.Where(x => x.CredentialId == credentialId).FirstOrDefault();
         }
     }
 }

@@ -10,6 +10,6 @@ namespace UserProfile.Query.Queries
 {
     public interface IFollowerQuery : IQuery
     {
-        Follower GetFollower(Guid userId);
+        Follower GetFollower(Guid credentialId);
     }
 }

@@ -10,6 +10,6 @@ namespace UserProfile.Query.Queries
 {
     public interface IOtherExperienceQuery : IQuery
     {
-        OtherExperience GetExperience(Guid userId);
+        OtherExperience GetOtherExperience(Guid credentialId);
     }
 }

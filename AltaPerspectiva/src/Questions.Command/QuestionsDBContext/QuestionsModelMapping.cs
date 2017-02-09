@@ -30,6 +30,7 @@
                 e.HasMany<Like>(l => l.Likes).WithOne(q => q.Question).HasForeignKey(l => l.QuestionId);
 
                 e.HasMany<QuestionCategory>(c => c.Categories).WithOne().HasForeignKey("QuestionId");
+                e.HasMany<DirectQuestion>(c => c.DirectQuestions).WithOne().HasForeignKey("QuestionId");
                // e.HasMany<Bookmark>(c => c.Bookmarks).WithOne().HasForeignKey("QuestionId");
 
 
@@ -177,6 +178,14 @@
 
                 e.HasKey(c => c.Id);
             });
+
+            model.Entity<DirectQuestion>(e =>
+            {
+                e.ToTable("DirectQuestions");
+
+                e.HasKey(c => c.Id);
+            });
+
         }
     }
 }

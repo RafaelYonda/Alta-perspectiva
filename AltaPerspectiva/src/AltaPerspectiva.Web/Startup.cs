@@ -42,6 +42,7 @@ using Questions.Domain.ReadModel;
 using Questions.Query.Queries;
 using Blog.Query.Interfaces;
 using Blog.Query.Queries;
+using UserProfile.Query.Interfaces;
 
 namespace AltaPerspectiva
 {
@@ -137,28 +138,36 @@ namespace AltaPerspectiva
             //Credential
             services.AddTransient<ICredentialQuery, CredentialQuery>();
             services.AddTransient<ICommandHandler<AddCredentialCommand>, AddCredentialCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateCredentialCommand>, UpdateCredentialCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateUserImageCommand>, UpdateUserImageCommandHandler>();
 
             //Employment
             services.AddTransient<IEmploymentQuery, EmploymentQuery>();
-           
+            services.AddTransient<ICommandHandler<AddEmploymentCommand>, AddEmploymentCommandHandler>();
+
             //Education
             services.AddTransient<IEducationQuery, EducationQuery>();
-            
+            services.AddTransient<ICommandHandler<AddEducationCommand>, AddEducationCommandHandler>();
+
             //Place
             services.AddTransient<IPlaceQuery, PlaceQuery>();
-
+            services.AddTransient<ICommandHandler<AddPlaceCommand>, AddPlaceCommandHandler>();
+            
             //OtherExperience
             services.AddTransient<IOtherExperienceQuery, OtherExperienceQuery>();
-
-            
+            services.AddTransient<ICommandHandler<AddOtherExperienceCommand>, AddOtherExperienceCommandHandler>();
 
             //Follower
             services.AddTransient<IFollowerQuery, FollowerQuery>();
+            
 
             //Following AddFollowingCommandHandler
             services.AddTransient<IFollowingQuery, FollowingQuery>();
             services.AddTransient<ICommandHandler<AddFollowingCommand>, AddFollowingCommandHandler>();
 
+            //readmodels
+            services.AddTransient<IProfileParameterCount, ProfileParameterCount>();
+            services.AddTransient<ITopUserQuery, TopUserQuery>();
 
             #endregion
             //AddCategoryCommand
@@ -174,7 +183,7 @@ namespace AltaPerspectiva
 
             //Get all like
             services.AddTransient<ILikeQuery, LikeQuery>();
-            services.AddTransient<ITopUserQuery, TopUserQuery>();
+            
 
 
             //Add Topic and Level
@@ -287,7 +296,8 @@ namespace AltaPerspectiva
                 ClientSecret = "aLtaseCreT!@#",
 
 
-               PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+
+                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
 
                // PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
 

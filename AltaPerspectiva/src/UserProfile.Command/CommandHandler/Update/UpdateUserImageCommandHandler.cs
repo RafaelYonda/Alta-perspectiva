@@ -19,14 +19,16 @@ namespace UserProfile.Command.CommandHandler
         }
         public override void Execute(UpdateUserImageCommand command)
         {
-            Debug.WriteLine("AddUserImageCommandHandler executed");
+            Debug.WriteLine("UpdateUserImageCommandHandler executed");
+            Credential credential = DbContext.Credentials.Where(x => x.Id == command.CredentialId).FirstOrDefault();
 
-          //  UserImage image = DbContext.UserImage.FirstOrDefault(x => x.UserId == command.UserId);
-          //  //image.GenerateNewIdentity();
-          //  image.UserId = command.UserId;
-          //  image.Image = command.Image;
-          ////  DbContext.UserImage.Add(image);
-          //  DbContext.SaveChanges();
+            if (credential != null)
+            {
+                credential.ImageUrl = command.ImageUrl;
+            }
+            DbContext.Credentials.Update(credential);
+            DbContext.SaveChanges();
+
         }
 
     }

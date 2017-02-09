@@ -8,6 +8,7 @@ using AltaPerspectiva.Core.Infrastructure;
 using UserProfile.Command.Commands;
 using UserProfile.Command.UserProfileDBContext;
 using UserProfile.Domain;
+using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Command.CommandHandler
 {
@@ -20,16 +21,24 @@ namespace UserProfile.Command.CommandHandler
         public override void Execute(AddEducationCommand command)
         {
             Debug.WriteLine("AddEducationCommandHandler executed");
-            //Education education=new Education();
-            //education.UserId = command.UserId;
-            //education.Institute = command.Institute;
-            //education.TimeFrameFrom = command.TimeFrameFrom;
-            //education.TimeFrameTo = command.TimeFrameTo;
-            //education.CompletedStudies = command.CompletedStudies;
-            //education.Description = command.Description;
-            //education.Especiality = command.Especiality;
-            //DbContext.Education.Add(education);
-            //DbContext.SaveChanges();
+
+            Education education = new Education
+            {
+                SchoolName = command.SchoolName,
+                SchoolDegreeName = command.SchoolDegreeName,
+                SchoolCompletionDate = command.SchoolCompletionDate,
+                CreatedOn = DateTime.Now,
+                CredentialId = command.CredentialId,
+                CollegeName = command.CollegeName,
+                Certification = command.Certification,
+                CertificationType = command.CertificationType,
+                CollegeCompletionDate = command.CollegeCompletionDate,
+                CollegeDegree = command.CollegeDegree,
+
+            };
+            DbContext.Educations.Add(education);
+            DbContext.SaveChanges();
+           
 
         }
 

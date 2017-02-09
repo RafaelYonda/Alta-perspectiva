@@ -8,18 +8,32 @@ using AltaPerspectiva.Core.Infrastructure;
 using UserProfile.Command.Commands;
 using UserProfile.Command.UserProfileDBContext;
 using UserProfile.Domain;
+using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Command.CommandHandler
 {
-    public class AddExperienceCommandHandler : EFCommandHandlerBase<AddExperienceCommand, UserProfileDbContext>, ICommandHandler<AddExperienceCommand>
+    public class AddEmploymentCommandHandler : EFCommandHandlerBase<AddEmploymentCommand, UserProfileDbContext>, ICommandHandler<AddEmploymentCommand>
     {
-        public AddExperienceCommandHandler(UserProfileDbContext dbContext)
+        public AddEmploymentCommandHandler(UserProfileDbContext dbContext)
 			: base(dbContext)
 		{
         }
-        public override void Execute(AddExperienceCommand command)
+        public override void Execute(AddEmploymentCommand command)
         {
-            Debug.WriteLine("AddAnswerCommandHandler executed");
+            Debug.WriteLine("AddEmploymentCommandHandler executed");
+
+            Employment employment = new Employment
+            {
+                CredentialId = command.CredentialId,
+                CreatedOn = DateTime.Now,
+                StartDate = command.StartDate,
+                EndDate = command.EndDate,
+                CompanyName = command.CompanyName,
+                IsCurrentlyWorking = command.IsCurrentlyWorking
+                // CreatedBy = command.UserId
+            };
+            DbContext.Employments.Add(employment);
+            DbContext.SaveChanges();
             //Experience experience=new Experience();
             //experience.UserId = command.UserId;
             //experience.Employer = command.Employer;

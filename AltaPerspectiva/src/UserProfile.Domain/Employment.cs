@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core.Infrastructure;
 
-namespace UserProfile.Domain.AllModels
+namespace UserProfile.Domain
 {
     public class Employment : Entity
     {

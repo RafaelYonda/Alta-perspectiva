@@ -15,9 +15,9 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-        public Education Execute(Guid userId)
+        public Education GetEducation(Guid credentialId)
         {
-            throw new NotImplementedException();
+            return DbContext.Educations.Where(x => x.CredentialId == credentialId).FirstOrDefault();
         }
     }
 }

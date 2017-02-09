@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using AltaPerspectiva.Core.Infrastructure;
 
-namespace UserProfile.Domain.AllModels
+namespace UserProfile.Domain
 {
     public class Education:Entity
     {

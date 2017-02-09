@@ -8,13 +8,13 @@ namespace UserProfile.Command.Commands
 {
     public class UpdateUserImageCommand : ICommand
     {
-        public UpdateUserImageCommand(Guid userId, String image)
+        public UpdateUserImageCommand(Guid credentialId, String imageUrl)
         {
-            UserId = userId;
-            Image = image;
+            CredentialId = credentialId;
+            ImageUrl = imageUrl;
         }
         public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public String Image { get; set; }
+        public Guid CredentialId { get; set; }
+        public String ImageUrl { get; set; }
     }
 }

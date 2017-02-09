@@ -36,6 +36,46 @@ CREATE TABLE [Questions].[ShareQuestions](
 
 GO
 
+CREATE TABLE [Questions].[DirectQuestions](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Body] [nvarchar](max) NULL,
+	[CreatedBy] [uniqueidentifier] NULL,
+	[CreatedOn] [datetime2](7) NULL,
+	[DTS] [datetime2](7) NOT NULL,
+	[IsActive] [bit] NULL,
+	[IsDeleted] [bit] NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+	[ModifiedOn] [datetime2](7) NULL,
+	[QuestionId] [uniqueidentifier] NOT NULL,
+	[QuestionId1] [uniqueidentifier] NULL,
+	[Title] [nvarchar](max) NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[ViewCount] [int] NULL,
+ CONSTRAINT [PK_DirectQuestions] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [Questions].[DirectQuestions]  WITH CHECK ADD  CONSTRAINT [FK_DirectQuestions_Questions_QuestionId] FOREIGN KEY([QuestionId])
+REFERENCES [Questions].[Questions] ([Id])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [Questions].[DirectQuestions] CHECK CONSTRAINT [FK_DirectQuestions_Questions_QuestionId]
+GO
+
+ALTER TABLE [Questions].[DirectQuestions]  WITH CHECK ADD  CONSTRAINT [FK_DirectQuestions_Questions_QuestionId1] FOREIGN KEY([QuestionId1])
+REFERENCES [Questions].[Questions] ([Id])
+GO
+
+ALTER TABLE [Questions].[DirectQuestions] CHECK CONSTRAINT [FK_DirectQuestions_Questions_QuestionId1]
+GO
+
+
+
 
 GO
 CREATE TABLE [UserProfile].[Credentials](
@@ -252,15 +292,12 @@ ALTER TABLE [UserProfile].[Places] CHECK CONSTRAINT [FK_Places_Credentials_Crede
 GO
 
 -----------------------Alter Scripts----------------
-USE [AltaPerspectiva]
+go
+DROP PROC [dbo].[SpTopUserCalculation];
 GO
-/****** Object:  StoredProcedure [dbo].[SpTopUserCalculation]    Script Date: 2/8/2017 6:08:30 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
 GO
 -- Batch submitted through debugger: SQLQuery1.sql|19|0|C:\Users\Akash\AppData\Local\Temp\~vsC2D6.sql
-ALTER proc [dbo].[SpTopUserCalculation]
+CREATE proc [dbo].[SpTopUserCalculation]
 (
   @userId nvarchar(200)=null,
   @catgeoryId nvarchar(200)=null
@@ -357,9 +394,10 @@ ELSE
 	END
 
 END
-
+go
+DROP PROC [dbo].[SpGetUserViewModel];
 GO
-ALTER proc [dbo].[SpGetUserViewModel]
+CREATE proc [dbo].[SpGetUserViewModel]
 (
 @userId nvarchar(256)
 )
@@ -383,5 +421,29 @@ FOR XML PATH('')
 ),1,1,''),'') Occupation
 from [Identity].[AspNetUsers] u
 where u.Id=@userId
+
+END
+
+Go
+DROP PROC SpProfileParameterCount;
+GO
+CREATE proc SpProfileParameterCount
+(
+@credentialId nvarchar(255)
+)
+as
+BEGIN 
+
+--select top 1 UserId  from UserProfile.[Credentials] c where c.Id='9f5b4ead-f9e7-49da-b0fa-1683195cfcba'
+select 
+(select Count(*) from UserProfile.Followings f where f.CredentialId=c.Id ) FollowingsCount,
+(select Count(*) from UserProfile.Followers f where f.CredentialId=c.Id ) FollowersCount,
+(select count(*) from Questions.Bookmarks b where b.UserId=c.UserId ) BookmarksCount,
+(select count(*) from Questions.Answers b where b.UserId=c.UserId) AnswersCount,
+(select count(*) from Questions.Questions b where b.UserId=c.UserId)  QuestionsCount,
+0 DirectQuestionCount,
+(select count(*) from Blog.Blogs b where b.UserId=c.UserId) BlogsCount
+from UserProfile.[Credentials] c  
+where c.Id=@credentialId
 
 END

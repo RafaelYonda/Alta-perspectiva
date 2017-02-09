@@ -36,6 +36,7 @@ namespace UserProfile.Command.CommandHandler
             DbContext.Credentials.Add(credential);
 
             DbContext.SaveChanges();
+            command.Id = credential.Id;
 
         }
     }

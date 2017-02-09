@@ -15,9 +15,9 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-        public OtherExperience GetExperience(Guid userId)
+        public OtherExperience GetOtherExperience(Guid credentialId)
         {
-            throw new NotImplementedException();
+            return DbContext.OtherExperiences.Where(x => x.CredentialId == credentialId).FirstOrDefault();
         }
     }
 }

@@ -10,6 +10,6 @@ namespace UserProfile.Query
 {
     public interface IEmploymentQuery : IQuery
     {
-        Employment GetEmployment(Guid userId);
+        Employment GetEmployment(Guid credentialId);
     }
 }

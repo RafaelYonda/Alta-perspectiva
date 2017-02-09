@@ -14,9 +14,9 @@ namespace UserProfile.Query.Queries
 			: base(context)
 		{
         }
-        public Employment GetEmployment(Guid userId)
+        public Employment GetEmployment(Guid credentialId)
         {
-            throw new NotImplementedException();
+            return DbContext.Employments.FirstOrDefault(x => x.CredentialId == credentialId);
         }
     }
 }

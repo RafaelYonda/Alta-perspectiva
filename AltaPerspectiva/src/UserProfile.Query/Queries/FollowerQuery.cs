@@ -14,9 +14,9 @@ namespace UserProfile.Query.Queries
 			: base(context)
 		{
         }
-        public Follower GetFollower(Guid userId)
+        public Follower GetFollower(Guid credentialId)
         {
-            throw new NotImplementedException();
+            return DbContext.Followers.Where(x => x.CredentialId == credentialId).FirstOrDefault();
         }
     }
 }

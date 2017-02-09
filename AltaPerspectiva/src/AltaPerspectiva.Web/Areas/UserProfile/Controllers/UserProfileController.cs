@@ -13,6 +13,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using UserProfile.Domain.ReadModel;
 using AltaPerspectiva.Web.Areas.UserProfile.Services;
+using UserProfile.Command.CommandHandler;
+using UserProfile.Query;
+using UserProfile.Query.Interfaces;
+using System.IO;
+using UserProfile.Domain;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -56,7 +61,135 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(model);
         }
 
+        [HttpGet("userprofile/api/test")]
+        public IActionResult Test()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+
+            //refractoring:My add from User Repository 
+            //AddCredentialCommand command = new AddCredentialCommand(loggedinUser, "firstname", "lastname", "title", "description", "image");
+
+            //commandsFactory.ExecuteQuery(command);
+
+            //var model = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
+            /*
+             * ok
+            AddEmploymentCommand command=new AddEmploymentCommand(loggedinUser,"position","companies",DateTime.Now, DateTime.Now, true);
+            commandsFactory.ExecuteQuery(command);
+
+            var emps = queryFactory.ResolveQuery<IEmploymentQuery>().GetEmployment(loggedinUser);
+            */
+            /*
+            AddEducationCommand command=new AddEducationCommand(loggedinUser,"schoolname","degreename",DateTime.Now, "collagename","collegeDegree",DateTime.Now, "certificaation","certification type");
+            commandsFactory.ExecuteQuery(command);
+
+            var edu = queryFactory.ResolveQuery<IEducationQuery>().GetEducation(loggedinUser);
+            */
+            /*
+            AddPlaceCommand command=new AddPlaceCommand(loggedinUser,"locatioName",DateTime.Now, DateTime.Now, true);
+            commandsFactory.ExecuteQuery(command);
+
+            var place = queryFactory.ResolveQuery<IPlaceQuery>().GetPlace(loggedinUser);
+            */
+            /*
+            AddOtherExperienceCommand command=new  AddOtherExperienceCommand(loggedinUser,null,"description");
+            commandsFactory.ExecuteQuery(command);
+            var otherExp= queryFactory.ResolveQuery<IOtherExperienceQuery>().GetOtherExperience(loggedinUser);
+            */
+            /*
+            AddFollowerCommand command=new AddFollowerCommand(loggedinUser,loggedinUser);
+            commandsFactory.ExecuteQuery(command);
+
+            var follower = queryFactory.ResolveQuery<IFollowerQuery>().GetFollower(loggedinUser);
+            */
+            /*
+            var profileparameter = queryFactory.ResolveQuery<IProfileParameterCount>().GetProfileParameter(loggedinUser);
+            */
+            return Ok();
+        }
+
+        #region Credentials
+
+        [HttpGet("userprofile/api/getcredential/{credentialId}")]
+        public IActionResult GetCredential(Guid credentialId)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+            }
+            Credential  credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(credentialId);
+            return Ok(credential);
+        }
+        [HttpPost("userprofile/api/credential/savefirstnamelastname")]
+        public IActionResult savefirstnamelastname(String firstName,String lastName)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+            }
+            AddCredentialCommand command=new AddCredentialCommand(loggedinUser,firstName,lastName,"","","");
+            commandsFactory.ExecuteQuery(command);
+            return Ok(command.Id);
+        }
+        [HttpPost("userprofile/api/credential/update")]
+        public IActionResult savetitle([FromBody]CredentialViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+            }
+            UpdateCredentialCommand command=new UpdateCredentialCommand(model.Id,model.FirstName,model.LastName,model.Title,model.Description,null);
+            commandsFactory.ExecuteQuery(command);
+            return Ok(command.Id);
+        }
+        [HttpPost("userprofile/api/credential/saveuserimage")]
+        public IActionResult SaveUserImage(IFormFile file, Guid credentialId)
+        {
+            var categoryImagepath = configuration["ProfileUpload"];
+            //IHostingEnvironment environment = new HostingEnvironment();
+            String image = file.FileName;
+
+            var webRoot = environment.WebRootPath;
+
+
+            var uploads = Path.Combine(webRoot, categoryImagepath);
+            using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            //Add and update is done after credential .So no need for seperate commandHandler
+            UpdateUserImageCommand cmd = new UpdateUserImageCommand(credentialId, image);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+            return Ok();
+        }
         
+
+        #endregion
+
+
 
         /*
         //For Login username in admin
@@ -477,75 +610,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
         #region UserImage
 
-        [HttpGet("userprofile/api/getprofileimage")]
-        public IActionResult GetUserImage()
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
-            UserImage userImage = queryFactory.ResolveQuery<IUserImageQuery>().Execute(loggedinUser);
-            return Ok(userImage);
-        }
-        [HttpPost("userprofile/api/fileupload")]
-        public IActionResult SaveUserImage(IFormFile file)
-        {
-            var categoryImagepath = configuration["ProfileUpload"];
-            //IHostingEnvironment environment = new HostingEnvironment();
-            String image = file.FileName;
-
-            var webRoot = environment.WebRootPath;
-
-
-            var uploads = Path.Combine(webRoot, categoryImagepath);
-            using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
-            {
-                file.CopyTo(fileStream);
-            }
-
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            AddUserImageCommand cmd=new AddUserImageCommand(loggedinUser,image);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-            return Ok();
-        }
-        [HttpPost("userprofile/api/changeuserimage")]
-        public IActionResult ChangeUserImage(IFormFile file)
-        {
-            var categoryImagepath = configuration["ProfileUpload"];
-            //IHostingEnvironment environment = new HostingEnvironment();
-            String image = file.FileName;
-
-            var webRoot = environment.WebRootPath;
-
-
-            var uploads = Path.Combine(webRoot, categoryImagepath);
-            using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
-            {
-                file.CopyTo(fileStream);
-            }
-
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            UpdateUserImageCommand cmd = new UpdateUserImageCommand(loggedinUser, image);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-            return Ok();
-        }
+       
         #endregion
         */
         #region topFiveUser ,topFiveUserByCategoryId and UserSummary
