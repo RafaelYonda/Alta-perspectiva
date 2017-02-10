@@ -22,6 +22,46 @@ namespace UserProfile.Command.CommandHandler
             Debug.WriteLine("UpdateEducationCommand executed");
             Education education = DbContext.Educations.FirstOrDefault(x => x.CredentialId == command.CredentialId);
 
+            if (education != null)
+            {
+                if (!string.IsNullOrEmpty(command.Certification))
+                {
+                    command.Certification = command.Certification;
+                }
+                if (!string.IsNullOrEmpty(command.CertificationType))
+                {
+                    command.CertificationType = command.CertificationType;
+                }
+                if (!string.IsNullOrEmpty(command.CollegeDegree))
+                {
+                    command.CollegeDegree = command.CollegeDegree;
+                }
+                if (!string.IsNullOrEmpty(command.CollegeName))
+                {
+                    command.CollegeName = command.CollegeName;
+                }
+                if (!string.IsNullOrEmpty(command.SchoolDegreeName))
+                {
+                    command.SchoolDegreeName = command.SchoolDegreeName;
+                }
+                if (!string.IsNullOrEmpty(command.SchoolName))
+                {
+                    command.SchoolName = command.SchoolName;
+                }
+                if (!string.IsNullOrEmpty(command.SchoolDegreeName))
+                {
+                    command.SchoolDegreeName = command.SchoolDegreeName;
+                }
+                if (command.CollegeCompletionDate!=null)
+                {
+                    command.CollegeCompletionDate = command.CollegeCompletionDate;
+                }
+                if (command.SchoolCompletionDate!=null)
+                {
+                    command.SchoolCompletionDate = command.SchoolCompletionDate;
+                }
+            }
+
             //education.UserId = command.UserId;
             //education.Institute = command.Institute;
             //education.TimeFrameFrom = command.TimeFrameFrom;

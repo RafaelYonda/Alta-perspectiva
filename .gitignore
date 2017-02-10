@@ -90,3 +90,6 @@ AltaPerspectiva/src/Blog.Query/obj/
 AltaPerspectiva/src/Blog.Command/obj/
 AltaPerspectiva/src/Blog.Query/bin/
 AltaPerspectiva/src/Blog.Command/bin/
+AltaPerspectiva/src/Blog.Query/Blog.Query.xproj.user
+AltaPerspectiva/src/Blog.Command/Blog.Command.xproj.user
+AltaPerspectiva/src/Blog.Domain/Blog.Domain.xproj.user
