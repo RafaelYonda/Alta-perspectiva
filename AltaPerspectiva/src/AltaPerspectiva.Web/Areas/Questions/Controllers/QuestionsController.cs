@@ -17,6 +17,8 @@ using Questions.Domain.ReadModel;
 using Questions.Query.Queries;
 using Questions.Commands;
 using UserProfile.Command.Commands;
+using UserProfile.Domain;
+using UserProfile.Query.Queries;
 
 
 //using Questions.Domain;
@@ -71,10 +73,35 @@ namespace AltaPerspectiva.Web.Area.Questions
             {
                 questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
             }
+            List<Guid> userList = new List<Guid>();
+
+            foreach (var question in questionList)
+            {
+                userList.Add(question.UserId);
+                List<Guid> anserUserList = question.Answers.Select(x => x.UserId).Distinct().ToList();
+                if (anserUserList.Any())
+                {
+                    userList.AddRange(anserUserList);
+                }
+                List<Guid> answerLikeUser = question.Answers.SelectMany(x => x.Likes.Select(l => l.UserId)).Distinct().ToList();
+                if (answerLikeUser.Any())
+                {
+                    userList.AddRange(answerLikeUser);
+                }
+
+            }
+            userList = userList.Distinct().ToList();
+            List<UserViewModel> UserViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList).Select(x=>new UserViewModel
+            {
+                CredentialId = x.Id,
+                UserId = x.UserId,
+                Name = x.FirstName+""+x.LastName,
+                ImageUrl = x.ImageUrl
+            }).ToList();
 
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
 
-            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory, UserViewModels);
 
             return Ok(questions);
         }
@@ -98,10 +125,34 @@ namespace AltaPerspectiva.Web.Area.Questions
             {
                 questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().GetQuestionByTopciNCategoryId(topicId, categoryId);
             }
+            List<Guid> userList = new List<Guid>();
 
+            foreach (var question in questionList)
+            {
+                userList.Add(question.UserId);
+                List<Guid> anserUserList = question.Answers.Select(x => x.UserId).Distinct().ToList();
+                if (anserUserList.Any())
+                {
+                    userList.AddRange(anserUserList);
+                }
+                List<Guid> answerLikeUser = question.Answers.SelectMany(x => x.Likes.Select(l => l.UserId)).Distinct().ToList();
+                if (answerLikeUser.Any())
+                {
+                    userList.AddRange(answerLikeUser);
+                }
+
+            }
+            userList = userList.Distinct().ToList();
+            List<UserViewModel> UserViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList).Select(x => new UserViewModel
+            {
+                CredentialId = x.Id,
+                UserId = x.UserId,
+                Name = x.FirstName + "" + x.LastName,
+                ImageUrl = x.ImageUrl
+            }).ToList();
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
 
-            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory, UserViewModels);
 
             return Ok(questions);
         }

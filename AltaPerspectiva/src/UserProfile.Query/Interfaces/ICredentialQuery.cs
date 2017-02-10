@@ -11,5 +11,6 @@ namespace UserProfile.Query.Queries
     public interface ICredentialQuery : IQuery
     {
         Credential GetCredential(Guid userId);
+        List<Credential> GetCredentials(List<Guid> userIds );
     }
 }
