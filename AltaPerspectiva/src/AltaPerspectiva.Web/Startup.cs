@@ -43,6 +43,7 @@ using Questions.Query.Queries;
 using Blog.Query.Interfaces;
 using Blog.Query.Queries;
 using UserProfile.Query.Interfaces;
+using UserProfile.Command.Commands.Update;
 
 namespace AltaPerspectiva
 {
@@ -140,6 +141,7 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddCredentialCommand>, AddCredentialCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateCredentialCommand>, UpdateCredentialCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateUserImageCommand>, UpdateUserImageCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateProfileViewCountCommand>, UpdateProfileViewCountCommandHandler>();
 
             //Employment
             services.AddTransient<IEmploymentQuery, EmploymentQuery>();
@@ -168,10 +170,13 @@ namespace AltaPerspectiva
             //Following AddFollowingCommandHandler
             services.AddTransient<IFollowingQuery, FollowingQuery>();
             services.AddTransient<ICommandHandler<AddFollowingCommand>, AddFollowingCommandHandler>();
+           
 
             //readmodels
             services.AddTransient<IProfileParameterCount, ProfileParameterCount>();
             services.AddTransient<ITopUserQuery, TopUserQuery>();
+
+           
 
             #endregion
             //AddCategoryCommand
