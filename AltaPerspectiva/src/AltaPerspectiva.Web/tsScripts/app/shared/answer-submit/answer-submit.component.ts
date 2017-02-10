@@ -19,7 +19,7 @@ export class AnswerSubmitComponent {
     answerText: string;
     constructor(private dataService: QuestionAnswerService, private _router: Router) {
         var user: User = new User();
-        user.userid = -1
+        user.userid = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {

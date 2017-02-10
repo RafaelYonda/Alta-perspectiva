@@ -21,7 +21,7 @@ export class ApNav {
     constructor(private authService: AuthenticationService) {
         this._authService = authService;
         var user: User = new User();
-        user.userid=-1
+        user.userid = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {

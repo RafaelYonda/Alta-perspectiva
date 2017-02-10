@@ -4,13 +4,13 @@ import { Router, ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment, Like, Config, Topic, Level, QuestionSaveViewModel, FilterParameter, QuestionReport} from './models';
+import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment, Like, Config, Topic, Level, QuestionSaveViewModel, FilterParameter, QuestionReport, QuestionFollowing} from './models';
 
 @Injectable()
 export class QuestionAnswerService implements Resolve<Question> {
 
-    QuestionFollowing(question: Question): Observable<any> {
-        return this._http.post('/questions/api/'+question.id+'/addquestionfollowing',question)
+    QuestionFollowing(questionFollowing: QuestionFollowing): Observable<any> {
+        return this._http.post('/questions/api/' + questionFollowing.questionId + '/addquestionfollowing', questionFollowing)
             .map(this.extractData)
             .catch(this.handleError);
     }

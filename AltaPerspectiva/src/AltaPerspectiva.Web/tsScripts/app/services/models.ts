@@ -5,13 +5,13 @@
 }
 
 export class User {
-    userid: number;
+    userid: string;
     name: string;
     occupassion: string;
     imageUrl: string;
-    credentialId:string;
+    credentialId: string;
 }
-export class LogInObj {    
+export class LogInObj {
     user: User;
     isLoggedIn: boolean;
 }
@@ -27,11 +27,10 @@ export class Category {
     image: string;
     active: string;
     description: string;
-    sequence: number;   
+    sequence: number;
 }
 
-export class CacheCategory
-{
+export class CacheCategory {
     /// cache data for later user
     _data: Category[];
     get data() {
@@ -47,12 +46,12 @@ export class Comment {
     questionId: string;
     answerId: string;
     user: User;
-    commentText: string;    
+    commentText: string;
 }
 
 export class Config {
     categoryImage: string;
-    profileImage: string;    
+    profileImage: string;
 }
 
 export class Like {
@@ -64,23 +63,23 @@ export class Like {
 
 export class Question {
     id: string;
-    title: string;    
+    title: string;
     body: string;
     categoryIds: string[];
     likes: Like[];
     commentCount: number;
     comments: Comment[];
-    date: Date;    
+    date: Date;
     user: User;
     answers: AnswerViewModel[];
     bestAnswer: AnswerViewModel;
     shareUrl: string;
-    viewCount: number;  
-    createdOn:Date;
-    answerCount:number;
+    viewCount: number;
+    createdOn: Date;
+    answerCount: number;
     topicId: string;
     levelId: string;
-    isAnonymous:boolean;//IsAnonymous added 
+    isAnonymous: boolean;//IsAnonymous added 
     constructor() {
         this.user = new User();
         this.answers = new Array();
@@ -107,40 +106,43 @@ export class AskQuestionViewModel {
 export class Keyword {
     Id: number;
     text: string;
-    categoryId: string;   
+    categoryId: string;
 }
 
 export class Answer {
     id: string;
-    questionId: number;
+    questionId: string;
     user: User;
     answerText: string;
     date: Date;
-    isDrafted:boolean; //IsDrafted added 
+    isDrafted: boolean; //IsDrafted added 
     IsAnonymous: boolean; //IsAnonymouss added 
-    likes: Like[];    
+    likes: Like[];
     comments: Comment[];
-   constructor() {
-       
+    constructor() {
+
         this.likes = new Array();
-       this.comments = new Array();
-   }
+        this.comments = new Array();
+    }
 }
 
 export class AnswerViewModel {
     id: string;
     text: string;
-    questionId: string;   
+    questionId: string;
     likes: Like[];
     comments: Comment[];
     createdOn: Date;
     isAnonymous: boolean;//IsAnonymous added 
-    isDrafted:boolean;
-constructor() {
-       
+    isDrafted: boolean;
+    userId: string;
+    isFollowing:boolean;
+    constructor() {
+
         this.likes = new Array();
-       this.comments = new Array();
-   }
+        this.comments = new Array();
+        this.isFollowing = false;
+    }
 }
 
 
@@ -223,33 +225,33 @@ export class Insight {
     description: string;
     isHyperLink: boolean;
     isDocument: boolean;
-    
+
 }
 //================..Profile Objects..
 export class DateName {
-     monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
+    monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
 }
 
 //====Topic class
 
 export class Topic {
-    topicName:string;
+    topicName: string;
     id: string;
     categoryId: string;
 }
 
 export class Level {
-    levelName:string;
-    id:string;
+    levelName: string;
+    id: string;
 }
 
 export class QuestionSaveViewModel {
-    title:string;
-    categoryId:string;
-    topicId:string;
-    levelId:string;
+    title: string;
+    categoryId: string;
+    topicId: string;
+    levelId: string;
     body: string;
     isAnonymous: boolean;//IsAnonymous added 
 }
@@ -264,5 +266,11 @@ export class QuestionReport {
     questionId: string;
     title: string;
     comment: string;
-    answerId:string;
+    answerId: string;
+}
+
+export class QuestionFollowing {
+    followedUserId: string;
+    questionId: string;
+    answerId: string;
 }

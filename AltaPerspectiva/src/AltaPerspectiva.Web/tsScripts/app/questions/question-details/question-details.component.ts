@@ -1,7 +1,7 @@
 ﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
-import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName, LogInObj, User,QuestionReport} from '../../services/models';
+import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName, LogInObj, User, QuestionReport, QuestionFollowing} from '../../services/models';
 import { AuthenticationService } from '../../services/authentication.service';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { RelatedQuestionMenu } from '../question-left-menu/related-question-left-menu.component';
@@ -42,6 +42,7 @@ export class QuestionDetailComponent {
 
     //Question report
     questionReports: QuestionReport[];
+    //isFollowing: boolean;
     
     constructor(private router: Router, private _route: ActivatedRoute, private questionService: QuestionResolver,
         private dataService: QuestionAnswerService, private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver) {
@@ -49,7 +50,7 @@ export class QuestionDetailComponent {
         //this.question = questionService.getFakeQuestion();
         this.date = new DateName();
         var user: User = new User();
-        user.userid = -1
+        user.userid = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
@@ -70,6 +71,28 @@ export class QuestionDetailComponent {
                     this.question.viewCount += 1;
                 });
             });
+    }
+    QuestionFollowing(answer: AnswerViewModel) {
+
+
+        let questionFollowing = new QuestionFollowing();
+        questionFollowing.questionId = answer.questionId;
+        questionFollowing.answerId = answer.id;
+        questionFollowing.followedUserId = answer.userId;
+
+        console.log(questionFollowing);
+
+        this.dataService.QuestionFollowing(questionFollowing).subscribe(res => {
+            console.log('successfullt passed')
+
+            var isFollowing= this.question.answers.find(x=>x.id==answer.id).isFollowing
+
+            if (isFollowing == true) {
+                this.question.answers.find(x => x.id == answer.id).isFollowing = false;
+            } else {
+                this.question.answers.find(x => x.id == answer.id).isFollowing = true;
+            }
+        })
     }
     //anonymous checkbox
     onChange(event) {

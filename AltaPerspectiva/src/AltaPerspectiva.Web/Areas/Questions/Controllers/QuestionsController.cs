@@ -630,7 +630,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpPost("/questions/api/{questionId}/addquestionfollowing")]
-        public IActionResult AddQuestionFollowing([FromBody]QuestionViewModel model)
+        public IActionResult AddQuestionFollowing([FromBody]QuestionFollowingViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -639,7 +639,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            AddQuestionFollowingCommand command=new AddQuestionFollowingCommand(loggedinUser,model.Answers[0].UserId,model.Id,model.Answers[0].Id);
+            AddQuestionFollowingCommand command=new AddQuestionFollowingCommand(loggedinUser,model.FollowedUserId,model.QuestionId,model.AnswerId);
            commandsFactory.ExecuteQuery(command);
 
             return Ok();

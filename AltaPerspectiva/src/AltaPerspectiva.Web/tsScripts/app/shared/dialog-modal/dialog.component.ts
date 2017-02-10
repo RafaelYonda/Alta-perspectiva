@@ -1,5 +1,5 @@
 ﻿import { Component, EventEmitter } from '@angular/core';
-import { Question} from '../../services/models';
+import { Question, QuestionFollowing} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { Router } from '@angular/router';
 @Component({
@@ -37,8 +37,16 @@ export class DialogComponent {
             this.close.emit('event');
     }
     QuestionFollowing(question: Question) {
-        console.log(question);
-        this.dataService.QuestionFollowing(question).subscribe(res => {
+        
+        
+        let questionFollowing = new QuestionFollowing();
+        questionFollowing.questionId = question.id;
+        questionFollowing.answerId = question.bestAnswer.id;
+        questionFollowing.followedUserId = question.bestAnswer.userId;
+
+        console.log(questionFollowing);
+
+        this.dataService.QuestionFollowing(questionFollowing).subscribe(res => {
             console.log('successfullt passed')
             if (this.isFollowing == true) {
                 this.isFollowing = false;
