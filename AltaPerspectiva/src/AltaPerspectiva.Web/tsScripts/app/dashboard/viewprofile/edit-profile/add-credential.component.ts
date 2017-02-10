@@ -1,9 +1,13 @@
 ﻿import { Component, EventEmitter } from '@angular/core';
+import { CredentialViewModel } from '../../../services/models/models.profile';
+import { ProfileService } from '../../../services/profile.service';
 @Component({
     selector: 'add-credential',
-    templateUrl: 'js/app/dashboard/viewprofile/edit-profile/add-credential.component.html'
+    templateUrl: 'js/app/dashboard/viewprofile/edit-profile/add-credential.component.html',
+    providers: [ProfileService],
 })
 export class AddCredentialComponent {
+    constructor(private profileService:ProfileService) { }
     close = new EventEmitter();
     
     onClickedExit() {
@@ -16,6 +20,12 @@ export class AddCredentialComponent {
         if (value == 'dialogModal')
             this.close.emit('event');
     }
-    saveCredential() {
+    saveCredential(titile: string) {
+        var credential: CredentialViewModel = new CredentialViewModel();
+        credential.title = titile;
+        console.log(titile);
+        this.profileService.saveCredentialTitle(credential).subscribe(res => {
+            console.log(res);
+        });
     }
 }

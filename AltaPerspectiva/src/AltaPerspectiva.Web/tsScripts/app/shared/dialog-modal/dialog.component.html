@@ -14,6 +14,7 @@
                 <div class="details-container">
                     <div class="article-details">
                         <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
+                        <div class="pull-right">xxx</div>
                         <div>
                             <p class="answer-text" [innerHTML]="question.bestAnswer?.text"></p>
                             <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question?.bestAnswer" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"> </ap-status>

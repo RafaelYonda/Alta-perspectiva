@@ -20,7 +20,7 @@ export class Employment {
     endDate: Date;
     isCurrentlyWorking: boolean;
     credentialId: string
-        }
+}
 export class Education {
     schoolName: string
     schoolDegreeName: string
@@ -34,24 +34,19 @@ export class Education {
     certificationType: string
 
     credentialId: string;
-        
 }
-export class Follower 
-{
-    followerUserId:string
+export class Follower {
+    followerUserId: string
     fredentialId: string
 }
-export class Place
-{
+export class Place {
     locationName: string;
     startYear: Date;
     endYear: Date;
     isCurrentyLiving: boolean;
     credentialId: string;
 }
-export class Following
-{
-    //  public Guid UserId { get; set; }
+export class Following {
     followingUserId: string
-    credentialId:string
+    credentialId: string
 }
