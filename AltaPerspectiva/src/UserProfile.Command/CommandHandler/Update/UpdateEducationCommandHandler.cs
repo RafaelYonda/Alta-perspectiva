@@ -61,14 +61,6 @@ namespace UserProfile.Command.CommandHandler
                     command.SchoolCompletionDate = command.SchoolCompletionDate;
                 }
             }
-
-            //education.UserId = command.UserId;
-            //education.Institute = command.Institute;
-            //education.TimeFrameFrom = command.TimeFrameFrom;
-            //education.TimeFrameTo = command.TimeFrameTo;
-            //education.CompletedStudies = command.CompletedStudies;
-            //education.Description = command.Description;
-            //education.Especiality = command.Especiality;
             DbContext.Educations.Update(education);
             DbContext.SaveChanges();
 

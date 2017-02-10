@@ -21,14 +21,26 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("UpdateExperienceCommandHandler executed");
             Employment employment= DbContext.Employments.FirstOrDefault(x => x.CredentialId == command.CredentialId);
-            //experience.UserId = command.UserId;
-            //experience.Employer = command.Employer;
-            //experience.PositionHeld = command.PositionHeld;
-            //experience.Location = command.Location;
-            //experience.CurrentlyWorkingHere = command.CurrentlyWorkingHere;
-            //experience.TimePeriodFrom=command.TimePeriodFrom;
-            //experience.TimePeriodTo = command.TimePeriodTo;
-            //experience.Description = experience.Description;
+            if (employment != null)
+            {
+                if (!string.IsNullOrEmpty(command.CompanyName))
+                {
+                    employment.CompanyName = command.CompanyName;
+                }
+                if (!string.IsNullOrEmpty(command.Position))
+                {
+                    employment.Position = command.Position;
+                }
+                if (command.EndDate!=null)
+                {
+                    employment.EndDate = command.EndDate;
+                }
+                employment.IsCurrentlyWorking = command.IsCurrentlyWorking;
+                if (command.StartDate != null)
+                {
+                    employment.StartDate = command.StartDate;
+                }
+            }
 
             DbContext.Employments.Add(employment);
             DbContext.SaveChanges();

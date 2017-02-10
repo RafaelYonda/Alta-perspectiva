@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Questions.Domain;
 using AltaPerspectiva.Web.Areas.Questions.Services;
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
+using Questions.Command.Commands;
 using Questions.Domain.ReadModel;
 using Questions.Query.Queries;
 using Questions.Commands;
@@ -624,6 +625,23 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             UpdateQuestionCommand cmd = new UpdateQuestionCommand(model.Id, model.Title, model.Body, model.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
+            return Ok();
+
+        }
+
+        [HttpPost("/questions/api/{questionId}/addquestionfollowing")]
+        public IActionResult AddQuestionFollowing([FromBody]QuestionFollowingViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            AddQuestionFollowingCommand command=new AddQuestionFollowingCommand(loggedinUser,model.FollowedUserId,model.QuestionId,model.AnswerId);
+            commandsFactory.ExecuteQuery(command);
+
             return Ok();
 
         }

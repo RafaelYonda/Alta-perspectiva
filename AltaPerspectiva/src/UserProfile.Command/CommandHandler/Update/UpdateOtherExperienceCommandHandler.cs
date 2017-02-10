@@ -21,6 +21,7 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("UpdateOtherExperienceCommand executed");
 
+
             //Biography biography = DbContext.Biography.FirstOrDefault(x => x.UserId == command.UserId);
             ////biography.GenerateNewIdentity();
             //biography.UserId = command.UserId;

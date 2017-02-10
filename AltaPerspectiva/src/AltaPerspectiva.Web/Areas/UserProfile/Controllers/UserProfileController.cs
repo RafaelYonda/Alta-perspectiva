@@ -175,8 +175,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             //Add and update is done after credential .So no need for seperate commandHandler
             UpdateUserImageCommand cmd = new UpdateUserImageCommand(credentialId, image);
             commandsFactory.ExecuteQuery(cmd);
+
             Guid createdId = cmd.Id;
-            return Ok();
+
+            Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
+            return Ok(credential);
         }
 
 

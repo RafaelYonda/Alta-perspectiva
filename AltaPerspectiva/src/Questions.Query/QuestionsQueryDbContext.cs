@@ -2,10 +2,10 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Questions.Domain;
-    
+
     using System.Linq;
 
-    public class QuestionsQueryDbContext:DbContext
+    public class QuestionsQueryDbContext : DbContext
     {
         public QuestionsQueryDbContext(DbContextOptions<QuestionsQueryDbContext> options)
         : base(options)
@@ -135,8 +135,16 @@
                 return Set<ShareQuestion>().AsNoTracking();
             }
         }
+        public IQueryable<QuestionFollowing> QuestionFollowings
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<QuestionFollowing>().AsNoTracking();
+            }
+        }
 
-        
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -167,6 +175,7 @@
 
             //Question post for User
             modelBuilder.Entity<ShareQuestion>().ToTable("ShareQuestions");
+            modelBuilder.Entity<QuestionFollowing>().ToTable("QuestionFollowings");
 
         }
 
