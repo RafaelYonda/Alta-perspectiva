@@ -42,7 +42,18 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             configuration = _configuration;
             environment = _environment;
         }
-      
+        [HttpGet("userprofile/api/getuser")]
+        public IActionResult GetUser()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            var model = new UserService().GetUserViewModel(queryFactory, loggedinUser);
+            return Ok(model);
+        }
 
         [HttpGet("userprofile/api/test")]
         public IActionResult Test()
@@ -89,7 +100,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
 
         #region Credentials
-        [HttpGet("userprofile/api/credential/getuser")]
+
+        [HttpGet("userprofile/api/credential/getusercredential")]
         public IActionResult GetUsercredential()
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
@@ -102,19 +114,19 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             var model = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
             return Ok(model);
         }
-        //[HttpGet("userprofile/api/credential/get/{credentialId}")]
-        //public IActionResult GetCredential(Guid credentialId)
-        //{
-        //    Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-        //        loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+        [HttpGet("userprofile/api/credential/getusercredential/{credentialId}")]
+        public IActionResult GetCredentialByCredentialId(Guid credentialId)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-        //    }
-        //    Credential  credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(credentialId);
-        //    return Ok(credential);
-        //}
+            }
+            Credential  credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(credentialId);
+            return Ok(credential);
+        }
         [HttpPost("userprofile/api/credential/savefirstnamelastname")]
         public IActionResult SaveFirstNameLastName(String firstName,String lastName)
         {
