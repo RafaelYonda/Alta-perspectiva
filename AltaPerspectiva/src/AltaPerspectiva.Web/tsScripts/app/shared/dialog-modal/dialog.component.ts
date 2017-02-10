@@ -15,6 +15,7 @@ export class DialogComponent {
 
     //Edit question popup
     showQuestionEditForm: boolean
+    isFollowing: boolean
     editTitle: string
     editBody: string
     _router: Router;
@@ -25,7 +26,8 @@ export class DialogComponent {
         this._router = router;
     }
     ngOnInit() {
-        console.log('My question'+this.question);
+        //console.log('My question' + this.question);
+        this.isFollowing = true;
     }
     handleClick(event) {
         //removel the modal on clicking out side the panel
@@ -34,6 +36,18 @@ export class DialogComponent {
         if (value =='dialogModal')
             this.close.emit('event');
     }
+    QuestionFollowing(question: Question) {
+        console.log(question);
+        this.dataService.QuestionFollowing(question).subscribe(res => {
+            console.log('successfullt passed')
+            if (this.isFollowing == true) {
+                this.isFollowing = false;
+            } else {
+                this.isFollowing = true;
+            }
+        })
+    }
+    //<a (click)="QuestionFollowing(question?.id,question?.bestAnswer?.id)" > <img src="../images/FollowingImage.jpg" /></a>
     //Edit Question Popup
     onQuestionDetailClicked(showEditForm: boolean) {
         this.showQuestionEditForm = showEditForm;

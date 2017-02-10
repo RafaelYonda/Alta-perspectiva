@@ -20,7 +20,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
 
         public virtual ICollection<CategoryViewModel> Categories { get; set; }
 
-        public virtual ICollection<AnswerViewModel> Answers { get; set; }
+        public  List<AnswerViewModel> Answers { get; set; }
 
         public virtual ICollection<QuestionCommentViewModel> Comments { get; set; }
 
