@@ -44,61 +44,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             configuration = _configuration;
             environment = _environment;
         }
+
         [HttpGet("userprofile/api/getuser")]
         public IActionResult GetUser()
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             var model = new UserService().GetUserViewModel(queryFactory, loggedinUser);
             return Ok(model);
-        }
-
-        [HttpGet("userprofile/api/test")]
-        public IActionResult Test()
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-
-            //refractoring:My add from User Repository 
-            //AddCredentialCommand command = new AddCredentialCommand(loggedinUser, "firstname", "lastname", "title", "description", "image");
-
-            //commandsFactory.ExecuteQuery(command);
-
-            //var model = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
-            /*
-             * ok
-            
-            commandsFactory.ExecuteQuery(command);
-
-            var emps = queryFactory.ResolveQuery<IEmploymentQuery>().GetEmployment(loggedinUser);
-            */
-         
-            /*
-            
-            */
-            /*
-            AddOtherExperienceCommand command=new  AddOtherExperienceCommand(loggedinUser,null,"description");
-            commandsFactory.ExecuteQuery(command);
-            var otherExp= queryFactory.ResolveQuery<IOtherExperienceQuery>().GetOtherExperience(loggedinUser);
-            */
-            /*
-            AddFollowerCommand command=new AddFollowerCommand(loggedinUser,loggedinUser);
-            commandsFactory.ExecuteQuery(command);
-
-            var follower = queryFactory.ResolveQuery<IFollowerQuery>().GetFollower(loggedinUser);
-            */
-            /*
-            var profileparameter = queryFactory.ResolveQuery<IProfileParameterCount>().GetProfileParameter(loggedinUser);
-            */
-            return Ok();
         }
 
         #region Credentials
