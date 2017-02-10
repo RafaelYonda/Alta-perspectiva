@@ -1,24 +1,31 @@
 ﻿<style>
-    #edit span{
-        visibility:hidden;
+    #edit span {
+        visibility: hidden;
     }
-    #edit:hover span{
-        visibility:visible;
+
+    #edit:hover span {
+        visibility: visible;
     }
-    .user-name{
-        margin-top:10px;
+
+    .user-name {
+        margin-top: 10px;
     }
-    .profile-info  input {
+
+    .profile-info input {
         font-family: "myriadpro-regular";
         font-size: 25px;
         font-weight: 700;
         line-height: 27.5px;
         border: 1px solid #bdbdbd;
-        border-radius:3px;
+        border-radius: 3px;
     }
-    .profile-info h1{
-            display:inline;
-        }
+
+    .profile-info h1 {
+        display: inline;
+    }
+    .user-name a{
+        display:inline-block;
+    }
     .panel-heading {
         position: relative;
     }
@@ -35,7 +42,7 @@
     .custom-file-input {
         width: 125px;
         height: 50px;
-        margin: 0 auto;
+        margin: 5px auto;
     }
 
         .custom-file-input:focus {
@@ -70,7 +77,18 @@
         .custom-file-input:active::before {
             background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
         }
-        
+
+    .description-panel {
+        min-height: 50px;
+        min-width: 100%;
+    }
+    .btn-container{
+        text-align:right;
+        margin-top:10px;
+    }
+     .btn-container a{
+         display:inline-block;
+     }
 </style>
 <div>
     <div #credentialDialogAnchor></div>
@@ -79,7 +97,7 @@
     <div class="col-md-2">
         <div class="profile-image-center">
             <img class="profile-image" src="{{imageLink}}" />
-            <input type="file" name="documents" class="custom-file-input" (change)="onChange($event)" [(ngModel)]="doc" #documents="ngModel">
+            <input type="file" name="documents" class="custom-file-input" (change)="onChangeImage($event)" [(ngModel)]="doc" #documents="ngModel">
         </div>
     </div>
     <div class="col-md-10" style="border:1px solid">
@@ -89,18 +107,26 @@
                     <h1> {{username}} </h1>
                     <a (click)="isHidden = fales" id="edit"><span><i class="fa fa-edit"></i>Edit</span> </a>
                 </div>
-                
-               
                 <div [hidden]="isHidden">
                     <input [(ngModel)]="username" type="text" />
                     <a (click)="isHidden = true">cancel</a>
                     <button class="btn btn-primary" (click)="UpdateUserName()">Update</button>
                 </div>
+            </div>
+            <a (click)="openCredentialDialogBox()"> Add Credentials </a>
+            <div  [hidden]="!showDescription">
+                <a (click)="showDescription = false">Write Description about yourself</a>
+            </div>
+            <div class="description-panel" style="border:1px solid;width:100%" [hidden]="showDescription">
+                <quill-editor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}"
+                              [modules]="{  toolbar: [['bold', 'italic', 'underline'], ['link', 'image']] }"
+                              required name="answerField" #answerField="ngModel"></quill-editor>
+                <div class="btn-container">
+                    <a (click)="showDescription = true">cancel</a>
+                    <button class="btn btn-primary" (click)="updateDecription(answerText)">Update</button>
+                </div>
                 
             </div>
-
-            <a (click)="openCredentialDialogBox()"> Add Credentials </a>
-            <a> Write Description about yourself </a>
             <ul>
                 <li><a>Twitter</a></li>
                 <li><a>Facebook</a></li>

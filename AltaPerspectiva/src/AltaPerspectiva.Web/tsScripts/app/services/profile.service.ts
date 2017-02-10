@@ -75,6 +75,10 @@ export class ProfileService {
     saveCredentialTitle(credential: CredentialViewModel) {
         return this.saveCredential(credential, 'userprofile/api/credential/update');        
     }
+
+    saveDescription(credential: CredentialViewModel) {
+        return this.saveCredential(credential, 'userprofile/api/credential/update');
+    }
     //#endregion
 
     //#region =========Update user profile single========
