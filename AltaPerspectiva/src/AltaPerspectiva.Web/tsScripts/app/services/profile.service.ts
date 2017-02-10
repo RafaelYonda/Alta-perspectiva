@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import {User, Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword} from './models';
+import { CredentialViewModel }     from './models/models.profile';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -51,12 +52,12 @@ export class ProfileService {
     //#endregion
 
     //#region ==========Save user profile single
-    SaveProfile(profileObj: any, url: string): Observable<any> {
+    //SaveProfile(profileObj: any, url: string): Observable<any> {
 
-        return this._http.post(url, profileObj)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    //    return this._http.post(url, profileObj)
+    //        .map(this.extractData)
+    //        .catch(this.handleError);
+    //}
 
     SaveUserName(firstName: string) {
         let model = new FormData();
@@ -65,6 +66,14 @@ export class ProfileService {
         return this._http.post('userprofile/api/credential/savefirstnamelastname', model)
             .map(this.extractData)
             .catch(this.handleError);
+    }
+    saveCredential(profileObj: any, url: string): Observable<any> {
+        return this._http.post(url, profileObj)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    saveCredentialTitle(credential: CredentialViewModel) {
+        return this.saveCredential(credential, 'userprofile/api/credential/update');        
     }
     //#endregion
 

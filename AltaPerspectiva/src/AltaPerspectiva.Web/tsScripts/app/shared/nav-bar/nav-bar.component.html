@@ -1,0 +1,50 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top z-header backgroundset" [ngClass]="className">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand logo">
+            <img class="navbar-brand logo" src="../images/LOGO CUADRADO.png" />
+        </div>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="nav-home"><a routerLink="/">Alta Perspectiva</a></li>
+            <li><a routerLink="/question/home/1">Questions</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
+            <li><a routerLink="/dashboard" for="contain" data-toggle="dropdown" (click)="goToDashBoard" class="padding-middle"> Profile </a></li>
+            <li><a href="/signin">Log in</a></li>
+            <li><a href="/signin">Register</a></li>
+        </ul>;
+        <ul class="nav navbar-nav navbar-right" *ngIf="_logObj.isLoggedIn">           
+            <li>
+                <a href="#" class="dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false">
+                    <img class="user-image" src="{{_logObj.user.imageUrl}}" />{{_logObj.user.name}}
+                </a>
+                <!-- ======= -->
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="lef-column padding-middle"><span class="fa fa-user"></span> <a routerLink="/dashboard" for="contain" data-toggle="dropdown" (click)="goToDashBoard"  class="padding-middle"> Profile </a></div>
+                            
+                        </div>                        
+                        <div class="form-group">
+                            <div class="lef-column padding-middle"><span class="fa fa-sign-out"></span> <a href="/questions/getcategory" for="contain" class="padding-middle" > Manage Categories </a></div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="lef-column padding-middle"><span class="fa fa-sign-out"></span> <a href="/signout" for="contain" class="padding-middle" (click)="LogOut()"> Sign Out </a></div>
+                        </div>
+                    </form>
+                </div>
+                <!-- ======== -->
+
+            </li>
+        </ul>
+    </div>
+</div>
+<div style="margin-top:66px;"></div>

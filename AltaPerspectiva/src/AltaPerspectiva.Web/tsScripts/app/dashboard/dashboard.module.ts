@@ -1,9 +1,11 @@
-﻿import { NgModule } from '@angular/core';
+﻿/// <reference path="../shared/nav-bar/nav-bar.component.ts" />
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { ModuleWithProviders }  from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { NavBarComponent } from '../shared/nav-bar/nav-bar.component';
 import { DashBoardComponent } from './dashboard.component';
 import { NavDashboard } from './navdashboard/navdashboard.component';
 
@@ -25,7 +27,6 @@ import { ProfileService } from '../services/profile.service';
 import { ProfileResolver } from '../services/resolve.services/profile.resolver';
 
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
-
 
 const DashBoardroutes: Routes = [
     {
@@ -50,14 +51,12 @@ const DashBoardroutes: Routes = [
     }
 ];
 export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBoardroutes);
-
-
 @NgModule({
     providers: [ProfileResolver],
     imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule
     ],
     declarations: [
-        DashBoardComponent,  NavDashboard,
+        DashBoardComponent, NavDashboard, NavBarComponent,
         ViewProfileComponent,
         ProfileInfoComponent, ProfileStatComponent, UserAnswerComponent, UserQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent,
         //Edit Profile
