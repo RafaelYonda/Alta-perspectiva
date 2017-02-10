@@ -33,13 +33,14 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             string fullName = string.Empty;
             string imageUrl = string.Empty;
             string occupation = string.Empty;
-            
+            Guid credentialId=Guid.Empty;
             var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
             if (credential != null)
             {
                 fullName = credential.FirstName + " " + credential.LastName;
                 imageUrl = credential.ImageUrl?? "avatar.png";
                 occupation = "PLZ ADD Your occupation";
+                credentialId = credential.Id;
             }
             else
             {
@@ -53,8 +54,9 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
                 ImageUrl = imageUrl,
                 Name = fullName,
                 Occupation = occupation,
-                UserId = loggedinUser
-            };           
+                UserId = loggedinUser,
+                CredentialId = credentialId
+    };           
 
             return userViewModel;
         }      

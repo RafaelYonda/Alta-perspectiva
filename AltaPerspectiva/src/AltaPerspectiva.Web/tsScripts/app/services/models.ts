@@ -9,6 +9,7 @@ export class User {
     name: string;
     occupassion: string;
     imageUrl: string;
+    credentialId:string;
 }
 export class LogInObj {    
     user: User;
