@@ -27,6 +27,7 @@ import { ProfileService } from '../services/profile.service';
 import { ProfileResolver } from '../services/resolve.services/profile.resolver';
 
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { QuillModule } from 'ngx-quill';
 
 const DashBoardroutes: Routes = [
     {
@@ -53,7 +54,7 @@ const DashBoardroutes: Routes = [
 export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBoardroutes);
 @NgModule({
     providers: [ProfileResolver],
-    imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule
+    imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule, QuillModule
     ],
     declarations: [
         DashBoardComponent, NavDashboard, NavBarComponent,

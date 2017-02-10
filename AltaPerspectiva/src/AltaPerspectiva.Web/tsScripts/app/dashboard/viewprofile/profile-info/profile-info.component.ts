@@ -1,6 +1,7 @@
 ﻿import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { ImageUploadService } from '../../../services/image-upload.service';
 import { ConfigService } from '../../../services/config.service';
+import { CredentialViewModel } from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 
 import { AddCredentialComponent } from '../edit-profile/add-credential.component';
@@ -12,7 +13,9 @@ import { AddCredentialComponent } from '../edit-profile/add-credential.component
 export class ProfileInfoComponent {
     username='Rafael Yonda'
     isHidden = true;
+    showDescription = true;
     imageLink: string;
+    credential: CredentialViewModel = new CredentialViewModel();
     constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
     }
     ngOnInit() {
@@ -26,7 +29,7 @@ export class ProfileInfoComponent {
             });
         });
     }
-    onChange(event) {
+    onChangeImage(event) {
         let file = event.srcElement.files;
         //Upload the image 
         this._imgService
@@ -40,6 +43,13 @@ export class ProfileInfoComponent {
             this.ngOnInit();
         });
         console.log(this.username);
+    }
+    updateDecription(description) {
+        this.credential.description = description;
+        this.profileService.saveDescription(this.credential).subscribe(res => {
+            this.ngOnInit();
+        });
+        console.log(description);
     }
     @ViewChild('credentialDialogAnchor', { read: ViewContainerRef }) credentialDialogAnchor: ViewContainerRef;
     openCredentialDialogBox() {
