@@ -34,6 +34,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         private readonly IConfigurationRoot configuration;
         private readonly IHostingEnvironment environment;
 
+
+
         public UserProfileController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IDistributedCache _cache, IConfigurationRoot _configuration, IHostingEnvironment _environment)
         {
             commandsFactory = _commandsFactory;
