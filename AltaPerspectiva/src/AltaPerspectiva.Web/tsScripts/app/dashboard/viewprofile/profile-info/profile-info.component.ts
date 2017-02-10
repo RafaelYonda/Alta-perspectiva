@@ -36,6 +36,9 @@ export class ProfileInfoComponent {
             });
     }
     UpdateUserName() {
+        this.profileService.SaveUserName(this.username).subscribe(res => {
+            this.ngOnInit();
+        });
         console.log(this.username);
     }
     @ViewChild('credentialDialogAnchor', { read: ViewContainerRef }) credentialDialogAnchor: ViewContainerRef;

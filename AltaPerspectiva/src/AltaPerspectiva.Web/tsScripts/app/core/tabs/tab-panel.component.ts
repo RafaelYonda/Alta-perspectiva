@@ -2,7 +2,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { AuthenticationService } from '../../services/authentication.service';
-import { LogInObj } from '../../services/models';
+import { LogInObj, User } from '../../services/models';
 
 //Comment added
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
@@ -29,7 +29,9 @@ export class TabPanelComponent {
     
     constructor( private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
         this.route = _route;
-        this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
+        var user: User = new User();
+        user.userid = -1
+        this._logObj = { isLoggedIn: false, user: user };
     }
 
     

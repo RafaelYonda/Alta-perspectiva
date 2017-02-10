@@ -20,7 +20,9 @@ export class ApNav {
 
     constructor(private authService: AuthenticationService) {
         this._authService = authService;
-        this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
+        var user: User = new User();
+        user.userid=-1
+        this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
         var currentUser = localStorage.getItem('auth_token');  

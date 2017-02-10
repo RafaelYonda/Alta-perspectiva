@@ -5,6 +5,7 @@
 })
 export class AddCredentialComponent {
     close = new EventEmitter();
+    
     onClickedExit() {
         this.close.emit('event');
     }
@@ -14,5 +15,7 @@ export class AddCredentialComponent {
         var value = idAttr ? idAttr.nodeValue : undefined;
         if (value == 'dialogModal')
             this.close.emit('event');
+    }
+    saveCredential() {
     }
 }

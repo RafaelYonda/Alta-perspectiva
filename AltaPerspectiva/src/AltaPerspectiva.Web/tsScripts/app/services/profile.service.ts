@@ -58,35 +58,13 @@ export class ProfileService {
             .catch(this.handleError);
     }
 
-    SaveContact(contact: Contact) {
-        return this.SaveProfile(contact, 'userprofile/api/setcontractinformation')
-    }
-
-    SaveBiography(biography: Biography) {
-        return this.SaveProfile(biography, 'userprofile/api/setbiography')
-    }
-    SaveEducation(education: Education) {
-        education.timeFrameFrom = new Date(education.startDate == null ? 1 : education.startDate, 1);
-        education.timeFrameTo = new Date(education.endDate == null ? 1 : education.endDate, 1);
-        return this.SaveProfile(education, 'userprofile/api/seteducation')
-    }
-    SaveExperience(experience: Experience) {
-        experience.timePeriodFrom = new Date(experience.startYear == null ? 1 : experience.startYear, experience.startMonth == null ? 1 : experience.startMonth);
-        experience.timePeriodTo = new Date(experience.endYear, experience.endMonth);
-        return this.SaveProfile(experience, 'userprofile/api/setexperience')
-    }
-    SaveSkills(skills: Skills) {
-        return this.SaveProfile(skills, 'userprofile/api/setskill')
-    }
-    DeleteSkills(skills: Skills) {
-        return this.SaveProfile(skills, 'userprofile/api/deleteskill')
-    }
-    SavePracticeArea(praqcticeArea: PracticeArea) {
-        return this.SaveProfile(praqcticeArea, 'userprofile/api/setpracticeArea')
-    }
-    SaveInsight(insight: Insight) {
-        insight.publicationDate = new Date(insight.dateYear, insight.dateMonth);
-        return this.SaveProfile(insight, 'userprofile/api/setinsight')
+    SaveUserName(firstName: string) {
+        let model = new FormData();
+        model.append("firstName", firstName);
+        model.append("lastName", '');
+        return this._http.post('userprofile/api/credential/savefirstnamelastname', model)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
     //#endregion
 

@@ -1,6 +1,6 @@
 ﻿import { Component, Input, EventEmitter } from '@angular/core';
 import { QuestionAnswerService } from '../../services/question-answer.service';
-import {LogInObj, Question, AnswerViewModel } from '../../services/models';
+import {LogInObj, Question, AnswerViewModel, User } from '../../services/models';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,7 +18,9 @@ export class AnswerSubmitComponent {
     answerVM: AnswerViewModel;
     answerText: string;
     constructor(private dataService: QuestionAnswerService, private _router: Router) {
-        this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
+        var user: User = new User();
+        user.userid = -1
+        this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
         var currentUserName = localStorage.getItem('currentUserName');

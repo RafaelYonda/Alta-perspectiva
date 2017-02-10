@@ -3,7 +3,7 @@ import { QuestionAnswerService } from '../../services/question-answer.service';
 import { QuestionService } from '../../services/question.service';
 import { CategoryService } from '../../services/category.service';
 import { ConfigService } from '../../services/config.service';
-import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Config, LogInObj, FilterParameter, Topic} from '../../services/models';
+import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Config, LogInObj, FilterParameter, Topic, User} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
 import { CommunicationService } from '../../services/communication.service';
 
@@ -57,7 +57,9 @@ export class QuestionBodyComponent {
 
         /// load spinner for when  component initialize
         this.loader.isLoading = true;
-        this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
+        var user: User = new User();
+        user.userid = -1
+        this._logObj = { isLoggedIn: false, user: user };
 
     }
     onQuestionSubmitted(event) {

@@ -1,6 +1,6 @@
 ﻿import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { CommentService } from '../../services/comment.service';
-import {LogInObj, Comment } from '../../services/models';
+import {LogInObj, Comment, User } from '../../services/models';
 
 @Component({
     selector: 'ap-comment',
@@ -20,7 +20,9 @@ export class CommentComponent {
 
     @Output() sendCommentCount = new EventEmitter<any>();
     constructor(private commentService: CommentService) {
-        this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
+        var user: User = new User();
+        user.userid = -1
+        this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
         var temp = this;

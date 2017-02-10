@@ -48,7 +48,9 @@ export class QuestionDetailComponent {
         this.route = _route;
         //this.question = questionService.getFakeQuestion();
         this.date = new DateName();
-        this._logObj = { isLoggedIn: false, user: { name: "", imageUrl: "", occupassion: "", userid: -1 } };
+        var user: User = new User();
+        user.userid = -1
+        this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
         window.scrollTo(0, 0);
