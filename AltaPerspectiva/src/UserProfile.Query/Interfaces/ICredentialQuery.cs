@@ -9,6 +9,7 @@ namespace UserProfile.Query.Queries
 {
     public interface ICredentialQuery : IQuery
     {
+        Credential GetCredentialByCredentialId(Guid credentialId);
         Credential GetCredential(Guid userId);
         List<Credential> GetCredentials(List<Guid> userIds );
     }

@@ -21,6 +21,13 @@ namespace UserProfile.Query.Queries
                 .FirstOrDefault();
         }
 
+        public Credential GetCredentialByCredentialId(Guid credentialId)
+        {
+            return DbContext.Credentials.Include(x => x.Employments).Where(x => x.Id == credentialId)
+
+               .FirstOrDefault();
+        }
+
         public List<Credential> GetCredentials(List<Guid> userIds)
         {
             return DbContext.Credentials.Include(x=>x.Employments).Where(x => userIds.Contains(x.UserId)).ToList();

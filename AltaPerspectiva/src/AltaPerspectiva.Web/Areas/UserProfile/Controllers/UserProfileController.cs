@@ -354,8 +354,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
 
         #region QuestionAnswerDirectQuestion
-        [HttpGet("userprofile/api/questionbyuserId")]
-        public async Task<IActionResult> QuestionByUserId()
+        [HttpGet("userprofile/api/questionbycredentialId/{credentialId}")]
+        public async Task<IActionResult> QuestionByUserId(Guid credentialId)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
@@ -366,12 +366,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-
-            IEnumerable<Question> questions = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(loggedinUser);
+            Guid profileUserId =
+                queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialByCredentialId(credentialId).UserId;
+            IEnumerable<Question> questions = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(profileUserId);
             return Ok(questions);
         }
-        [HttpGet("userprofile/api/answerbyuserId")]
-        public async Task<IActionResult> AnswerByUserId()
+        [HttpGet("userprofile/api/answerbycredentialId/{credentialId}")]
+        public async Task<IActionResult> AnswerByUserId(Guid credentialId)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
@@ -382,9 +383,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
+            Guid profileUserId =
+                queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialByCredentialId(credentialId).UserId;
 
             IEnumerable<Question> questions =
-                await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(loggedinUser);
+                await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(profileUserId);
             return Ok(questions);
         }
         [HttpGet("userprofile/api/directquestion")]
@@ -399,7 +402,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-
+             
          //   throw new Exception("Not yet implemented");
             return Ok();
         }
