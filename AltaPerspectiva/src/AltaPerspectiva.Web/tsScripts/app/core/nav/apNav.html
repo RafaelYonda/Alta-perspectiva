@@ -20,7 +20,7 @@
 
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
-            <li><a routerLink="/dashboard" for="contain" data-toggle="dropdown" (click)="goToDashBoard" class="padding-middle"> Profile </a></li>
+            <li><a [routerLink]="['/dashboard/viewprofile/user-question',credential.id]" for="contain" data-toggle="dropdown" (click)="goToDashBoard" class="padding-middle"> Profile </a></li>
             <li><a href="/signin">Log in</a></li>
             <li><a href="/signin">Register</a></li>
         </ul>
@@ -33,7 +33,7 @@
                 <div class="dropdown-menu dropdown-menu-right" role="menu">
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
-                            <div class="lef-column padding-middle"><span class="fa fa-user"></span> <a routerLink="/dashboard" for="contain" data-toggle="dropdown" (click)="goToDashBoard"  class="padding-middle"> Profile </a></div>
+                            <div class="lef-column padding-middle"><span class="fa fa-user"></span> <a routerLink="/dashboard/viewprofile/user-question/4AA7344B-9224-48B3-95CF-BFD25485DEBB" for="contain" data-toggle="dropdown"   class="padding-middle"> Profilexxx </a></div>
                             
                         </div>                        
                         <div class="form-group">

@@ -5,7 +5,7 @@
         <li *ngFor="let topFiveUser of topFiveUsers">
             <img class="user-image img-circle" src="../../../../profile/{{topFiveUser?.imageUrl}}" />
             <div class="top-user-info">
-                <a [routerLink]="['/dashboard/detail/',topFiveUser?.id]"> {{topFiveUser?.name}}</a>
+                <a [routerLink]="['/dashboard/viewprofile/user-question',credential.id]"> {{topFiveUser?.name}}</a>
                 <span>,Occupation of the user</span>
                 <div>000 vistas</div>
             </div>

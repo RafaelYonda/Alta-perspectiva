@@ -2,6 +2,7 @@
 import { ProfileService } from '../../services/profile.service';
 import { CommunicationService } from '../../services/communication.service';
 import {User} from '../../services/models';
+import { CredentialViewModel } from '../../services/models/models.profile';
 
 @Component({
     selector: 'topfive-user',
@@ -12,17 +13,17 @@ import {User} from '../../services/models';
 export class TopFiveUserComponent {
 
     topFiveUsers:User[];
-    userService: ProfileService;
+    //userService: ProfileService;
 
-    constructor(questionService: ProfileService, private commServ: CommunicationService) {
+    constructor(private profileService: ProfileService, private commServ: CommunicationService) {
         this.topFiveUsers = [];
-        this.userService = questionService;                      
+        //this.userService = profileService;                      
     }
 
     ngOnInit() {
+        
         this.commServ.getCategory().subscribe((catId: string) => {
-
-            this.userService.GetTopFiveUserByCategory(catId).subscribe(res => {
+            this.profileService.GetTopFiveUserByCategory(catId).subscribe(res => {
                 this.topFiveUsers = res;
                 
             });

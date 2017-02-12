@@ -56,6 +56,16 @@ export class QuestionService {
         return this._http.post('/questions/api/savequestionasblog/' + questionId, null)
             .map(this.extractData)
             .catch(this.handleError);
+    } 
+    getQuestionsbyCredentialId(credentialId: string) {
+        return this._http.get('/userprofile/api/questionbycredentialId/' + credentialId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    } 
+    getAnswerbyCredentialId(credentialId: string) {
+        return this._http.get('userprofile/api/answerbycredentialId/' + credentialId)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
     private extractData(res: Response) {       
         let body;
