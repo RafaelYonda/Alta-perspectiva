@@ -64,7 +64,19 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             var model = new UserService().GetUserViewModel(queryFactory, loggedinUser);
+
+            UserInfoDetails userInfoDetails =
+                queryFactory.ResolveQuery<IProfileParameters>().GetUserInfoDetails(loggedinUser);
+
             return Ok(model);
+        }
+        [HttpGet("userprofile/api/userinfodetails/{userId}")]
+        public IActionResult UserInfoDetails(Guid userId)
+        {
+            UserInfoDetails userInfoDetails =
+                queryFactory.ResolveQuery<IProfileParameters>().GetUserInfoDetails(userId);
+
+            return Ok(userInfoDetails);
         }
 
         #region Credentials

@@ -25,7 +25,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 qv.Title = "¿" + q.Title + "?";
                 qv.Body = q.Body;
                 qv.CreatedOn = q.CreatedOn;
-                qv.UserViewModel = userViewModels.Where(uv => uv.UserId == qv.UserId).FirstOrDefault();
+                qv.UserViewModel = userViewModels.Where(uv => uv.UserId == q.UserId).FirstOrDefault();
                 qv.Answers = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted != true).OrderByDescending(y => y.Likes.Count).Take(1).Select(x =>
                                         new AnswerViewModel
                                         {
@@ -35,11 +35,16 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                             UserId = x.UserId,
                                             QuestionId = x.QuestionId.Value,
                                             CreatedOn = x.CreatedOn,
-                                            UserViewModel = userViewModels.Where(uv => uv.UserId == qv.UserId).FirstOrDefault(),
-                                            Comments = x.Comments?.Select(y => new AnswerCommentViewModel { Id = y.Id, AnswerId = y.AnswerId, CommentText = y.CommentText, UserId = y.UserID, UserViewModel = new UserService().GetUserViewModel(queryFactory, y.UserID) }).ToList(),
+                                            UserViewModel = userViewModels.Where(uv => uv.UserId == q.UserId).FirstOrDefault(),
+                                            Comments = x.Comments?.Select(y => new AnswerCommentViewModel { Id = y.Id,
+                                                AnswerId = y.AnswerId,
+                                                CommentText = y.CommentText,
+                                                UserId = y.UserID,
+                                                UserViewModel = userViewModels.Where(uv => uv.UserId == q.UserId).FirstOrDefault()
+                                            }).ToList(),
                                             Likes = x.Likes?.Select(z => new AnswerLikeViewModel
                                             {
-                                                UserViewModel = userViewModels.Where(uv => uv.UserId == qv.UserId).FirstOrDefault(),
+                                                UserViewModel = userViewModels.Where(uv => uv.UserId == q.UserId).FirstOrDefault(),
                                                 AnswerId = z.AnswerId,
                                                 Id = z.Id,
                                                 UserId = z.UserId

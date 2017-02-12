@@ -176,7 +176,7 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<DeleteOtherExperienceCommand>, DeleteOtherExperienceCommandHandler>();
 
             //readmodels
-            services.AddTransient<IProfileParameterCount, ProfileParameterCount>();
+            services.AddTransient<IProfileParameters, ProfileParameters>();
             services.AddTransient<ITopUserQuery, TopUserQuery>();
 
            

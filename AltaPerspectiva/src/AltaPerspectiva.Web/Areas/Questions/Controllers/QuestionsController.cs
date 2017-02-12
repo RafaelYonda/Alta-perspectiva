@@ -92,17 +92,20 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             }
             userList = userList.Distinct().ToList();
-            List<UserViewModel> UserViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList).Select(x => new UserViewModel
+            List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList).Select(x => new UserViewModel
             {
                 CredentialId = x.Id,
                 UserId = x.UserId,
                 Name = x.FirstName + "" + x.LastName,
-                ImageUrl = x.ImageUrl
+                ImageUrl = x.ImageUrl,
+                Occupation = "Plz add"
             }).ToList();
 
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
 
-            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory, UserViewModels);
+            questions = new QuestionService().GetQuestionViewModel(questionList, queryFactory, userViewModels);
+
+            
 
             return Ok(questions);
         }

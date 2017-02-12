@@ -7,8 +7,10 @@ using UserProfile.Domain.ReadModel;
 
 namespace UserProfile.Query.Interfaces
 {
-    public interface IProfileParameterCount : IQuery
+    public interface IProfileParameters : IQuery
     {
         ProfileParameter GetProfileParameter(Guid credentialId);
+
+        UserInfoDetails GetUserInfoDetails(Guid userId);
     }
 }
