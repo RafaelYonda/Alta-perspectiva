@@ -1,5 +1,45 @@
 USE [AltaPerspectiva]
 GO
+DROP PROC SpUserInfoDetails
+Go
+CREATE PROC SpUserInfoDetails --'9f5b4ead-f9e7-49da-b0fa-1683195cfcba'
+(
+@userId nvarchar(255)
+)
+AS
+BEGIN
+
+select top 1 ImageUrl,FirstName+' '+LastName FullName,Title,
+(select COUNT(*) AnswerCount from Questions.Answers a where a.UserId=c.UserId) AnswerCount,
+(select COUNT(*) QuestionCount from Questions.Questions q where q.UserId=c.UserId) QuestionCount,
+(select SUM(ISNULL(q.ViewCount,0)) QuestionViewCount from Questions.Questions q where q.UserId=c.UserId) QuestionViewCount,
+(select top 1 ISNULL(Certification,'')+' , '+ISNULL(CertificationType,'')+', '+ISNULL(CollegeDegree,'') As Education
+from UserProfile.Educations  edu 
+where  edu.CredentialId=c.Id
+order by CreatedOn desc) Education,
+(
+select top 1 Position+' , '+CompanyName as Employment
+from UserProfile.Employments  emp 
+where  emp.CredentialId=c.Id
+order by CreatedOn desc
+) Employment,
+(
+select top 1 LocationName as LocationName
+from UserProfile.Places  p 
+where  p.CredentialId=c.Id
+order by CreatedOn desc
+) Place,
+(
+select top 1 [Description] 
+from UserProfile.OtherExperiences o
+where o.CredentialId=c.Id
+order by CreatedOn desc
+) OtherExperience
+
+from UserProfile.[Credentials] c 
+where c.UserId=@userId;
+END
+GO
 GO
 DROP TABLE [UserProfile].[Followers]
 GO
