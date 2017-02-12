@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { ModuleWithProviders }  from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 import { NavBarComponent } from '../shared/nav-bar/nav-bar.component';
 import { DashBoardComponent } from './dashboard.component';
@@ -38,13 +39,13 @@ const DashBoardroutes: Routes = [
             {
                 path: 'viewprofile', component: ViewProfileComponent,
                 children: [
-                    { path: '', redirectTo: 'user-question' },
-                    { path: 'user-question', component: UserQuestionComponent},
-                    { path: 'user-answer', component: UserAnswerComponent},
-                    { path: 'follower', component: FollowerComponent },
-                    { path: 'following', component: FollowingComponent },
-                    { path: 'bookmark', component: BookmarkComponent },
-                    { path: 'blog-create', component: BlogCreateComponent },
+                    { path: '', redirectTo: 'user-question/1' },
+                    { path: 'user-question/:credentialId', component: UserQuestionComponent},
+                    { path: 'user-answer/:credentialId', component: UserAnswerComponent},
+                    { path: 'follower/:credentialId', component: FollowerComponent },
+                    { path: 'following/:credentialId', component: FollowingComponent },
+                    { path: 'bookmark/:credentialId', component: BookmarkComponent },
+                    { path: 'blog-create/:credentialId', component: BlogCreateComponent },
                 ]
             },
             { path: 'blog-post', component: BlogPostComponent }
@@ -54,7 +55,7 @@ const DashBoardroutes: Routes = [
 export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBoardroutes);
 @NgModule({
     providers: [ProfileResolver],
-    imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule, QuillModule
+    imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule, QuillModule, SharedModule
     ],
     declarations: [
         DashBoardComponent, NavDashboard, NavBarComponent,

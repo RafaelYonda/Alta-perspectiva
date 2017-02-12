@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ImageUploadService } from '../../services/image-upload.service';
 import { ProfileService } from '../../services/profile.service';
 import { ConfigService } from '../../services/config.service';
+import { CredentialViewModel } from '../../services/models/models.profile';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/viewprofile.component.html',
     providers: [ProfileService, ConfigService]
@@ -11,10 +12,17 @@ import { ConfigService } from '../../services/config.service';
 export class ViewProfileComponent {
     route: any;
     imageLink: string;
-    constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService) {
+    credential: CredentialViewModel = new CredentialViewModel();
+    constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService, private _router: Router) {
         this.route = _route;
     }
     ngOnInit() {
+        var user = this.profileService.GetUserCredential().subscribe(usr => {     //Get User Image
+            this.credential = usr;
+            console.log(usr);
+            this._router.navigateByUrl('dashboard/viewprofile/user-question/' + usr.id, { skipLocationChange: true });
+
+        });
         //this.SetImage();
     }
     //SetImage() {
