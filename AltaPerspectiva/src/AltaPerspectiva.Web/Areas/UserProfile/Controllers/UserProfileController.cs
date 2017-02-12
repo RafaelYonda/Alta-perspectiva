@@ -21,6 +21,8 @@ using Questions.Domain;
 using Questions.Query;
 using UserProfile.Domain;
 using Questions.Query.Intefaces;
+using AltaPerspectiva.Web.Areas.Questions.Models;
+using AltaPerspectiva.Web.Areas.Questions.Services;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -368,8 +370,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
             Guid profileUserId =
                 queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialByCredentialId(credentialId).UserId;
-            IEnumerable<Question> questions = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(profileUserId);
-            return Ok(questions);
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(profileUserId);
+
+            List<QuestionViewModel> questionViewModels =
+                new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+            return Ok(questionViewModels);
         }
         [HttpGet("userprofile/api/answerbycredentialId/{credentialId}")]
         public async Task<IActionResult> AnswerByUserId(Guid credentialId)
@@ -386,9 +391,12 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             Guid profileUserId =
                 queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialByCredentialId(credentialId).UserId;
 
-            IEnumerable<Question> questions =
+            IEnumerable<Question> questionList =
                 await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(profileUserId);
-            return Ok(questions);
+
+            List<QuestionViewModel> questionViewModels =
+                new QuestionService().GetQuestionViewModelForProfile(questionList, queryFactory, profileUserId);
+            return Ok(questionViewModels);
         }
         [HttpGet("userprofile/api/directquestion")]
         public IActionResult DirectQuestion()

@@ -99,11 +99,88 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             {
                 var qv = new QuestionViewModel();
                 qv.Id = q.Id;
+                qv.Title = "¿" + q.Title + "?";
+                qv.Body = q.Body;
+                qv.CreatedOn = q.CreatedOn;
+                qv.UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId);
+                qv.Answers = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted != true).OrderByDescending(y => y.Likes.Count).Take(1).Select(x =>
+                                        new AnswerViewModel
+                                        {
+                                            Id = x.Id,
+                                            Text = x.Text,
+                                            AnswerDate = x.CreatedOn,
+                                            UserId = x.UserId,
+                                            QuestionId = x.QuestionId.Value,
+                                            CreatedOn = x.CreatedOn,
+                                            UserViewModel = new UserService().GetUserViewModel(queryFactory, x.UserId),
+                                            Comments = x.Comments?.Select(y => new AnswerCommentViewModel { Id = y.Id, AnswerId = y.AnswerId, CommentText = y.CommentText, UserId = y.UserID, UserViewModel = new UserService().GetUserViewModel(queryFactory, y.UserID) }).ToList(),
+                                            Likes = x.Likes?.Select(z => new AnswerLikeViewModel
+                                            {
+                                                UserViewModel = new UserService().GetUserViewModel(queryFactory, z.UserId),
+                                                AnswerId = z.AnswerId,
+                                                Id = z.Id,
+                                                UserId = z.UserId
+                                            }).ToList(),
+                                            IsAnonymous = x.IsAnonymous
+
+                                        }).ToList();
+
+                qv.Likes = q.Likes.Select(l => new QuestionLikeViewModel { Id = l.Id, QuestionId = l.QuestionId.Value, UserId = l.UserId }).ToList();
+
+                qv.Comments = q.Comments.Select(c => new QuestionCommentViewModel { Id = c.Id, CommentText = c.CommentText, QuestionId = c.QuestionID, UserId = c.UserID }).ToList();
+
+                qv.Categories = q.Categories.Select(ct => new CategoryViewModel { Name = ct.Category.Name, Id = ct.CategoryId }).ToList();
+
+                qv.ViewCount = q.ViewCount;
+
+                qv.QuestionTopics = q.QuestionTopics;
+                qv.QuestionLevels = q.QuestionLevels;
+
+                qv.AnswerCount = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted != true).ToList().Count;
+                qv.IsAnonymous = q.IsAnonymous;
+                foreach (var questionTopic in qv.QuestionTopics)
+                {
+                    var topicId = questionTopic.TopicId;
+                    if (topicId != null)
+                    {
+                        Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId.Value);
+                        if (topic != null)
+                        {
+                            qv.QuestionTopicNames.Add(topic.TopicName);
+                        }
+                    }
+
+                }
+                foreach (var questionLevel in qv.QuestionLevels)
+                {
+                    var levelId = questionLevel.LevelId;
+                    if (levelId != null)
+                    {
+                        Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId.Value);
+                        if (level != null)
+                        {
+                            qv.QuestionLevelNames.Add(level.LevelName);
+                        }
+                    }
+
+                }
+                questions.Add(qv);
+            }
+
+            return questions.ToList();
+        }
+        public List<QuestionViewModel> GetQuestionViewModelForProfile(IEnumerable<Question> questionList, IQueryFactory queryFactory,Guid userId)
+        {
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+            foreach (var q in questionList)
+            {
+                var qv = new QuestionViewModel();
+                qv.Id = q.Id;
                 qv.Title = "¿" + q.Title + "?"; 
                 qv.Body = q.Body;
                 qv.CreatedOn = q.CreatedOn;
                 qv.UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId);
-                qv.Answers = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted!=true).OrderByDescending(y => y.Likes.Count).Take(1).Select(x =>
+                qv.Answers = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted!=true && drafted.UserId==userId).OrderByDescending(y => y.Likes.Count).Take(1).Select(x =>
                                       new AnswerViewModel
                                       {
                                           Id = x.Id,
