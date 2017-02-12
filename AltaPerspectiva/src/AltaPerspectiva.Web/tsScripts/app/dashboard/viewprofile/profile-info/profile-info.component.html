@@ -1,12 +1,15 @@
 ﻿<style>
-    #edit span {
+    .edit{
+        margin-left:5px;
+    }
+    .edit span {
         visibility: hidden;
     }
 
-    #edit:hover span {
+    .edit:hover span {
         visibility: visible;
+        color: #f6912b;
     }
-
     .user-name {
         margin-top: 10px;
     }
@@ -29,7 +32,9 @@
     .panel-heading {
         position: relative;
     }
-
+    .credential a{
+        display:inline-block;
+    }
     .heading {
         display: inline;
     }
@@ -102,18 +107,26 @@
     </div>
     <div class="col-md-10" style="border:1px solid">
         <div class="profile-info">
+            <!-- ===================User Name================== -->
             <div class="user-name">
                 <div [hidden]="!isHidden">
                     <h1> {{username}} </h1>
-                    <a (click)="isHidden = fales" id="edit"><span><i class="fa fa-edit"></i>Edit</span> </a>
+                    <a (click)="isHidden = fales" class="edit"><span><i class="fa fa-edit"></i>Edit</span> </a>
                 </div>
                 <div [hidden]="isHidden">
-                    <input [(ngModel)]="username" type="text" />
+                    <input [(ngModel)]="credential.firstName" type="text" />
                     <a (click)="isHidden = true">cancel</a>
                     <button class="btn btn-primary" (click)="UpdateUserName()">Update</button>
                 </div>
             </div>
-            <a (click)="openCredentialDialogBox()"> Add Credentials </a>
+            <!-- ================Credential================== -->
+            <div [hidden]="!hasCredential">
+                <a (click)="openCredentialDialogBox()" class="edit"> Add Credentials </a>
+            </div>
+            <div [hidden]="hasCredential" class="credential">
+                <a>{{credential.title}}</a>
+                <a (click)="openCredentialDialogBox()"><span><i class="fa fa-edit"></i>Edit</span> </a>
+            </div>
             <div  [hidden]="!showDescription">
                 <a (click)="showDescription = false">Write Description about yourself</a>
             </div>

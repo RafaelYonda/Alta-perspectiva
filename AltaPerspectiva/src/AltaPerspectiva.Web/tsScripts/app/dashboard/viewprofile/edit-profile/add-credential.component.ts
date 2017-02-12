@@ -7,7 +7,9 @@ import { ProfileService } from '../../../services/profile.service';
     providers: [ProfileService],
 })
 export class AddCredentialComponent {
-    constructor(private profileService:ProfileService) { }
+    credential: CredentialViewModel = new CredentialViewModel();
+    constructor(private profileService: ProfileService) {
+    }
     close = new EventEmitter();
     
     onClickedExit() {
@@ -20,11 +22,16 @@ export class AddCredentialComponent {
         if (value == 'dialogModal')
             this.close.emit('event');
     }
-    saveCredential(titile: string) {
-        var credential: CredentialViewModel = new CredentialViewModel();
-        credential.title = titile;
-        console.log(titile);
-        this.profileService.saveCredentialTitle(credential).subscribe(res => {
+    saveCredentialTitle() {
+        this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
+            this.close.emit('event');
+            console.log(res);
+        });
+    }
+    DeleteCredentialTitle() {
+        this.credential.title = "";
+        this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
+            this.close.emit('event');
             console.log(res);
         });
     }

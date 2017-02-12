@@ -121,6 +121,12 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    GetUserCredential(): Observable<CredentialViewModel> {
+        var url = 'userprofile/api/credential/getusercredential';
+        return this._http.get(url)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
     GetTopFiveUser(): Observable<User[]> {
 

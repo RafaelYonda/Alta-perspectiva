@@ -15,16 +15,16 @@ export class ViewProfileComponent {
         this.route = _route;
     }
     ngOnInit() {
-        this.SetImage();
+        //this.SetImage();
     }
-    SetImage() {
-        this._configService.getConfig().subscribe(res => {
-            this.imageLink = res.profileImage;
-            var user = this.profileService.GetUser().subscribe(usr => {
-                if (usr.imageUrl != '')
-                    this.imageLink += '/' + usr.imageUrl;
-                else this.imageLink = '../images/userAdd.png';
-            });
-        });
-    }
+    //SetImage() {
+    //    this._configService.getConfig().subscribe(res => {
+    //        this.imageLink = res.profileImage;
+    //        var user = this.profileService.GetUser().subscribe(usr => {
+    //            if (usr.imageUrl != '')
+    //                this.imageLink += usr.imageUrl;
+    //            else this.imageLink = '../images/userAdd.png';
+    //        });
+    //    });
+    //}
 }

@@ -16,16 +16,21 @@ export class ProfileInfoComponent {
     showDescription = true;
     imageLink: string;
     credential: CredentialViewModel = new CredentialViewModel();
+    hasCredential: boolean;
     constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
     }
     ngOnInit() {
         this._configService.getConfig().subscribe(res => {      //Get config for image
+            console.log(res);
             this.imageLink = res.profileImage;
-            var user = this.profileService.GetUser().subscribe(usr => {     //Get User Image
+            var user = this.profileService.GetUserCredential().subscribe(usr => {     //Get User Image
+                this.credential = usr;
+                this.hasCredential = this.credential.title.trim() != "" ? false : true;
                 console.log(usr);
-                if (usr.imageUrl&&(usr.imageUrl != ''))
-                    this.imageLink += '/' + usr.imageUrl;
+                if (usr.imageUrl && (usr.imageUrl != ''))
+                    this.imageLink += usr.imageUrl;
                 else this.imageLink = '../images/userAdd.png';
+                console.log(this.imageLink);
             });
         });
     }
@@ -42,6 +47,7 @@ export class ProfileInfoComponent {
         this.profileService.SaveUserName(this.username).subscribe(res => {
             this.ngOnInit();
         });
+        
         console.log(this.username);
     }
     updateDecription(description) {
@@ -59,8 +65,10 @@ export class ProfileInfoComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddCredentialComponent);
         let dialogComponentRef = this.credentialDialogAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.credential = this.credential;
         //dialogComponentRef.instance.question = question; // Not sure about the translation here
         dialogComponentRef.instance.close.subscribe(() => {
+            this.ngOnInit();
             dialogComponentRef.destroy();
         });
     }
