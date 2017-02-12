@@ -46,6 +46,8 @@ using UserProfile.Query.Interfaces;
 using UserProfile.Command.Commands.Update;
 using UserProfile.CommandHandler;
 using Questions.Query.Intefaces;
+using UserProfile.Command.Commands.Delete;
+using UserProfile.Command.CommandHandler.Delete;
 
 namespace AltaPerspectiva
 {
@@ -151,24 +153,27 @@ namespace AltaPerspectiva
             services.AddTransient<IEmploymentQuery, EmploymentQuery>();
             services.AddTransient<ICommandHandler<AddEmploymentCommand>, AddEmploymentCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateEmploymentCommand>, UpdateEmploymentCommandHandler>();
+            services.AddTransient<ICommandHandler<DeleteEmploymentCommand>, DeleteEmploymentCommandHandler>();
+           
 
             //Education
             services.AddTransient<IEducationQuery, EducationQuery>();
             services.AddTransient<ICommandHandler<AddEducationCommand>, AddEducationCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateEducationCommand>, UpdateEducationCommandHandler>();
+            services.AddTransient<ICommandHandler<DeleteEducationCommand>, DeleteEducationCommandHandler>();
 
             //Place
             services.AddTransient<IPlaceQuery, PlaceQuery>();
             services.AddTransient<ICommandHandler<AddPlaceCommand>, AddPlaceCommandHandler>();
             services.AddTransient<ICommandHandler<UpdatePlaceCommand>, UpdatePlaceCommandHandler>();
+            services.AddTransient<ICommandHandler<DeletePlaceCommand>, DeletePlaceCommandHandler>();
+            
             
             //OtherExperience
             services.AddTransient<IOtherExperienceQuery, OtherExperienceQuery>();
             services.AddTransient<ICommandHandler<AddOtherExperienceCommand>, AddOtherExperienceCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateOtherExperienceCommand>, UpdateOtherExperienceCommandHandler>();
-
-            
-           
+            services.AddTransient<ICommandHandler<DeleteOtherExperienceCommand>, DeleteOtherExperienceCommandHandler>();
 
             //readmodels
             services.AddTransient<IProfileParameterCount, ProfileParameterCount>();

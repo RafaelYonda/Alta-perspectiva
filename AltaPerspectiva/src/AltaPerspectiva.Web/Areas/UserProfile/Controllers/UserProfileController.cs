@@ -23,6 +23,7 @@ using UserProfile.Domain;
 using Questions.Query.Intefaces;
 using AltaPerspectiva.Web.Areas.Questions.Models;
 using AltaPerspectiva.Web.Areas.Questions.Services;
+using UserProfile.Command.Commands.Delete;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -205,6 +206,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok();
         }
+        [HttpPost("userprofile/api/education/deleteeducation")]
+        public IActionResult DeleteEducation([FromBody]EducationViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+            }
+            DeleteEducationCommand command=new DeleteEducationCommand(model.CredentialId,model.Id);
+            commandsFactory.ExecuteQuery(command);
+
+            return Ok();
+        }
         #endregion
 
         #region Employment  
@@ -253,7 +269,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok();
         }
+        [HttpPost("userprofile/api/education/deleteemployment")]
+        public IActionResult DeleteEducation([FromBody]EmploymentViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
+            }
+            DeleteEmploymentCommand command = new DeleteEmploymentCommand(model.CredentialId, model.Id);
+            commandsFactory.ExecuteQuery(command);
+
+            return Ok();
+        }
         #endregion
 
         #region Place   
@@ -299,11 +329,24 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
             UpdatePlaceCommand command = new UpdatePlaceCommand(loggedinUser, model.LocationName, model.StartYear, model.EndYear, model.IsCurrentyLiving);
             commandsFactory.ExecuteQuery(command);
+
+            return Ok();
+        }
+        [HttpPost("userprofile/api/place/deleteplace")]
+        public IActionResult DeletePlace([FromBody]PlaceViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+            }
+            DeletePlaceCommand command = new DeletePlaceCommand(model.CredentialId,model.id);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
         }
-
         #endregion
 
         #region OtherExperience   
@@ -352,7 +395,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok();
         }
+        [HttpPost("userprofile/api/OtherExperience/deleteOtherExperience")]
+        public IActionResult DeleteOtherExperience([FromBody]OtherExperienceViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
+            }
+            DeleteOtherExperienceCommand command=new DeleteOtherExperienceCommand(model.CredentialId,model.Id);
+            commandsFactory.ExecuteQuery(command);
+
+            return Ok();
+        }
         #endregion
 
         #region QuestionAnswerDirectQuestion

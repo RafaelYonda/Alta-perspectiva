@@ -7,8 +7,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
 {
     public class EducationViewModel
     {
-        //public Guid Id { get; set; }
-        //public Guid UserId { get; set; }
+        public Guid Id { get; set; }
         public String SchoolName { get; set; }
         public String SchoolDegreeName { get; set; }
         public DateTime? SchoolCompletionDate { get; set; }

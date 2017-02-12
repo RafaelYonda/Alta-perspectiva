@@ -7,6 +7,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
 {
     public class PlaceViewModel
     {
+        public Guid id { get; set; }
         public String LocationName { get; set; }
         public DateTime? StartYear { get; set; }
         public DateTime? EndYear { get; set; }

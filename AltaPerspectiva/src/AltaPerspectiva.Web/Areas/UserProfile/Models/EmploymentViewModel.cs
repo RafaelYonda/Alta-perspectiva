@@ -7,6 +7,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
 {
     public class EmploymentViewModel
     {
+        public Guid Id { get; set; }
         public String Position { get; set; }
         public String CompanyName { get; set; }
         public DateTime? StartDate { get; set; }
