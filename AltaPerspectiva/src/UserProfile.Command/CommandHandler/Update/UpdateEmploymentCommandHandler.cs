@@ -42,7 +42,7 @@ namespace UserProfile.Command.CommandHandler
                 }
             }
 
-            DbContext.Employments.Add(employment);
+            DbContext.Employments.Update(employment);
             DbContext.SaveChanges();
 
         }
