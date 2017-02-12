@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AltaPerspectiva.Core.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using UserProfile.Domain;
-using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Query.Queries
 {
@@ -17,7 +16,7 @@ namespace UserProfile.Query.Queries
         }
         public Credential GetCredential(Guid userId)
         {
-            return DbContext.Credentials.Where(x => x.UserId == userId)
+            return DbContext.Credentials.Include(x => x.Employments).Where(x => x.UserId == userId)
                 
                 .FirstOrDefault();
         }

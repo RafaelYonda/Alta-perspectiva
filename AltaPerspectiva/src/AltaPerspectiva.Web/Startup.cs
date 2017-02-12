@@ -44,6 +44,8 @@ using Blog.Query.Interfaces;
 using Blog.Query.Queries;
 using UserProfile.Query.Interfaces;
 using UserProfile.Command.Commands.Update;
+using UserProfile.CommandHandler;
+using Questions.Query.Intefaces;
 
 namespace AltaPerspectiva
 {
@@ -134,6 +136,8 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<UpdateViewCountCommand>, UpdateViewCountCommandHandler>();
             services.AddTransient<ICommandHandler<AddShareQuestionCommand>, AddShareQuestionCommandHandler>();
 
+            services.AddTransient<IQuestionFollowingQuery, QuestionFollowingQuery>();
+
             #region UserFrofile
 
             //Credential
@@ -163,13 +167,7 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddOtherExperienceCommand>, AddOtherExperienceCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateOtherExperienceCommand>, UpdateOtherExperienceCommandHandler>();
 
-            //Follower
-            services.AddTransient<IFollowerQuery, FollowerQuery>();
             
-
-            //Following AddFollowingCommandHandler
-            services.AddTransient<IFollowingQuery, FollowingQuery>();
-            services.AddTransient<ICommandHandler<AddFollowingCommand>, AddFollowingCommandHandler>();
            
 
             //readmodels
@@ -225,8 +223,8 @@ namespace AltaPerspectiva
             #region Blog
 
             //Blog
-            services.AddTransient<IBlogQuery, BlogQuery>();
-            services.AddTransient<ICommandHandler<AddBlogCommand>, AddBlogCommandHandler>();
+            //services.AddTransient<IBlogQuery, BlogQuery>();
+           // services.AddTransient<ICommandHandler<AddBlogCommand>, AddBlogCommandHandler>();
 
             //BlogPost
             services.AddTransient<IBlogPostQuery, BlogPostQuery>();

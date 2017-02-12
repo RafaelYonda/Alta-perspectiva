@@ -26,7 +26,7 @@
         public DbSet<Bookmark> Bookmarks { get; set; }
         public DbSet<QuestionReport> QuestionReports { get; set; }
         public DbSet<ShareQuestion> ShareQuestions { get; set; }
-        public DbSet<QuestionFollowing> QuestionFollowings { get; set; }
+        public DbSet<QuestionUserFollowing> QuestionFollowings { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
        {
             // Configure model mappings

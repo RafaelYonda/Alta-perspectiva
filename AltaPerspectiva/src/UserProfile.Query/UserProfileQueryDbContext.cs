@@ -5,8 +5,6 @@ namespace UserProfile.Query
     using UserProfile.Domain;
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
-    using Domain.AllModels;
-
     public class UserProfileQueryDbContext : DbContext
     {
         public UserProfileQueryDbContext(DbContextOptions<UserProfileQueryDbContext> options)
@@ -53,27 +51,7 @@ namespace UserProfile.Query
                 return Set<OtherExperience>().AsNoTracking();
             }
         }
-        public IQueryable<Following> Followings
-        {
-            get
-            {
-                // Don't track changes to query results
-                return Set<Following>().AsNoTracking();
-            }
-        }
-        public IQueryable<Follower> Followers
-        {
-            get
-            {
-                // Don't track changes to query results
-                return Set<Follower>().AsNoTracking();
-            }
-        }
-
-
-
-
-
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("UserProfile");
@@ -83,8 +61,7 @@ namespace UserProfile.Query
             modelBuilder.Entity<Education>().ToTable("Educations");
             modelBuilder.Entity<Place>().ToTable("Places");
             modelBuilder.Entity<OtherExperience>().ToTable("OtherExperiences");
-            modelBuilder.Entity<Following>().ToTable("Followings");
-            modelBuilder.Entity<Follower>().ToTable("Followers");
+            
         }
     }
 }

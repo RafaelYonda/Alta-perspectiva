@@ -179,9 +179,9 @@
                 e.HasKey(c => c.Id);
             });
 
-            model.Entity<QuestionFollowing>(e =>
+            model.Entity<QuestionUserFollowing>(e =>
             {
-                e.ToTable("QuestionFollowings");
+                e.ToTable("QuestionUserFollowings");
 
                 e.HasKey(c => c.Id);
             });

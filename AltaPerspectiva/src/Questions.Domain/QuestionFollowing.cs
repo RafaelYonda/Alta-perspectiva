@@ -6,7 +6,7 @@ using AltaPerspectiva.Core.Infrastructure;
 
 namespace Questions.Domain
 {
-    public class QuestionFollowing : Entity
+    public class QuestionUserFollowing : Entity
     {
         public Guid UserId { get; set; }
         public Guid FollowedUserId { get; set; }

@@ -135,12 +135,12 @@
                 return Set<ShareQuestion>().AsNoTracking();
             }
         }
-        public IQueryable<QuestionFollowing> QuestionFollowings
+        public IQueryable<QuestionUserFollowing> QuestionUserFollowings
         {
             get
             {
                 // Don't track changes to query results
-                return Set<QuestionFollowing>().AsNoTracking();
+                return Set<QuestionUserFollowing>().AsNoTracking();
             }
         }
 
@@ -175,7 +175,7 @@
 
             //Question post for User
             modelBuilder.Entity<ShareQuestion>().ToTable("ShareQuestions");
-            modelBuilder.Entity<QuestionFollowing>().ToTable("QuestionFollowings");
+            modelBuilder.Entity<QuestionUserFollowing>().ToTable("QuestionUserFollowings");
 
         }
 

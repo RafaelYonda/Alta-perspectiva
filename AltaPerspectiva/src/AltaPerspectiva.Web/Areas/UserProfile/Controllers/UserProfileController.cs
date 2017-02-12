@@ -20,6 +20,7 @@ using System.IO;
 using Questions.Domain;
 using Questions.Query;
 using UserProfile.Domain;
+using Questions.Query.Intefaces;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -387,7 +388,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(questions);
         }
         [HttpGet("userprofile/api/directquestion")]
-        public async Task<IActionResult> DirectQuestion()
+        public IActionResult DirectQuestion()
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
@@ -399,9 +400,48 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
-            IEnumerable<Question> questions =
-                await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(loggedinUser);
-            return Ok(questions);
+         //   throw new Exception("Not yet implemented");
+            return Ok();
+        }
+        [HttpGet("userprofile/api/follower")]
+        public IActionResult Follower()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+
+            List<Guid> followingUsers =
+                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowers(loggedinUser).Select(x=>x.UserId).Distinct().ToList();
+
+            List<Credential> credentials = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers);
+
+            return Ok(credentials);
+        }
+        [HttpGet("userprofile/api/following")]
+        public IActionResult Following()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+
+            List<Guid> followingUsers =
+                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowings(loggedinUser).Select(x=>x.UserId).Distinct().ToList();
+
+            List<Credential> credentials = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers);
+
+            return Ok(credentials);
         }
         #endregion
 

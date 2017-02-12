@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserProfile.Domain;
-using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Command.UserProfileDBContext
 {
@@ -19,9 +18,6 @@ namespace UserProfile.Command.UserProfileDBContext
         public DbSet<Education> Educations { get; set; }
         public DbSet<Place> Places { get; set; }
         public DbSet<OtherExperience> OtherExperiences { get; set; }
-        public DbSet<Following> Followings { get; set; }
-        public DbSet<Follower> Followers { get; set; }
-       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configure model mappings

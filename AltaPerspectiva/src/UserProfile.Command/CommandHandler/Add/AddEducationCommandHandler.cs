@@ -8,9 +8,8 @@ using AltaPerspectiva.Core.Infrastructure;
 using UserProfile.Command.Commands;
 using UserProfile.Command.UserProfileDBContext;
 using UserProfile.Domain;
-using UserProfile.Domain.AllModels;
 
-namespace UserProfile.Command.CommandHandler
+namespace UserProfile.CommandHandler
 {
     public class AddEducationCommandHandler : EFCommandHandlerBase<AddEducationCommand, UserProfileDbContext>, ICommandHandler<AddEducationCommand>
     {

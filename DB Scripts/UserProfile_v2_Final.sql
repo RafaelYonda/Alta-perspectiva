@@ -9,29 +9,14 @@ DROP TABLE UserProfile.Insight;
 DROP TABLE UserProfile.PracticeArea;
 DROP TABLE UserProfile.Skill;
 DROP TABLE UserProfile.UserImage;
+GO
+DROP TABLE [UserProfile].[Followers]
+GO
+DROP TABLE [UserProfile].[Followings]
+GO
 DROP SCHEMA UserProfile;
-GO
-CREATE SCHEMA UserProfile;
 
-GO
-CREATE TABLE [Questions].[QuestionFollowings](
-	[Id] [uniqueidentifier] NOT NULL,
-	[CreatedBy] [uniqueidentifier] NULL,
-	[CreatedOn] [datetime2](7) NULL,
-	[DTS] [datetime2](7) NOT NULL,
-	[IsActive] [bit] NULL,
-	[IsDeleted] [bit] NULL,
-	[ModifiedBy] [uniqueidentifier] NULL,
-	[ModifiedOn] [datetime2](7) NULL,
-	[QuestionId] [uniqueidentifier] NOT NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
-	[FollowedUserId] [uniqueidentifier] NOT NULL,
-	[AnswerId] [uniqueidentifier] NULL,
- CONSTRAINT [PK_QuestionFollowings] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+CREATE SCHEMA UserProfile;
 
 GO
 DROP TABLE Question.UserQuestionPost;
@@ -54,6 +39,32 @@ CREATE TABLE [Questions].[ShareQuestions](
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+
+GO
+DROP TABLE Questions.QuestionFollowings
+GO
+
+CREATE TABLE [Questions].[QuestionUserFollowings](
+	[Id] [uniqueidentifier] NOT NULL,
+	[CreatedBy] [uniqueidentifier] NULL,
+	[CreatedOn] [datetime2](7) NULL,
+	[DTS] [datetime2](7) NOT NULL,
+	[IsActive] [bit] NULL,
+	[IsDeleted] [bit] NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+	[ModifiedOn] [datetime2](7) NULL,
+	[QuestionId] [uniqueidentifier] NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[FollowedUserId] [uniqueidentifier] NOT NULL,
+	[AnswerId] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_QuestionFollowings] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
 
 GO
 CREATE TABLE [UserProfile].[Credentials](

@@ -28,12 +28,12 @@
 		{
 			Debug.WriteLine("AddQuestionFollowingCommandHandler executed");
 
-		    QuestionFollowing alreadyFollowing =
+		    QuestionUserFollowing alreadyFollowing =
 		        DbContext.QuestionFollowings.Where(x => x.UserId == command.UserId &&x.FollowedUserId==command.FollowedUserId).FirstOrDefault();
             //First time add
 		    if (alreadyFollowing == null)
 		    {
-                QuestionFollowing questionFollowing = new QuestionFollowing
+                QuestionUserFollowing questionFollowing = new QuestionUserFollowing
                 {
                     UserId = command.UserId,
                     FollowedUserId = command.FollowedUserId,

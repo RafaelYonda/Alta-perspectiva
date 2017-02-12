@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core.Infrastructure;
-using UserProfile.Domain.AllModels;
 
 namespace UserProfile.Domain
 {
@@ -23,8 +22,6 @@ namespace UserProfile.Domain
 
         public virtual ICollection<Education> Educations { get; set; }
         public virtual ICollection<Employment> Employments { get; set; }
-        public virtual ICollection<Follower> Followers { get; set; }
-        public virtual ICollection<Following> Followings { get; set; }
         public virtual ICollection<Place> Places { get; set; }
         
         
