@@ -357,7 +357,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
         #region QuestionAnswerDirectQuestion
         [HttpGet("userprofile/api/questionbycredentialId/{credentialId}")]
-        public async Task<IActionResult> QuestionByUserId(Guid credentialId)
+        public async Task<IActionResult> QuestionByCredentialId(Guid credentialId)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
@@ -377,7 +377,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(questionViewModels);
         }
         [HttpGet("userprofile/api/answerbycredentialId/{credentialId}")]
-        public async Task<IActionResult> AnswerByUserId(Guid credentialId)
+        public async Task<IActionResult> AnswerByCredentialId(Guid credentialId)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
