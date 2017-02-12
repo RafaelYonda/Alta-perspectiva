@@ -95,6 +95,19 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             Credential  credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(credentialId);
             return Ok(credential);
         }
+        [HttpGet("userprofile/api/credential/getcredentialbyuserid/{userId}")]
+        public IActionResult GetCredentialByUserid(Guid userId)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+            }
+            Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(userId);
+            return Ok(credential);
+        }
         [HttpPost("userprofile/api/credential/savefirstnamelastname")]
         public IActionResult SaveFirstNameLastName(String firstName,String lastName)
         {

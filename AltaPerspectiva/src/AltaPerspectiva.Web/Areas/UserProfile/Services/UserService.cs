@@ -39,7 +39,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             {
                 fullName = credential.FirstName + " " + credential.LastName;
                 imageUrl = credential.ImageUrl?? "avatar.png";
-                occupation = "PLZ ADD Your occupation";
+                occupation = credential.Employments.Select(x => x.Position).FirstOrDefault();
                 credentialId = credential.Id;
             }
             else
