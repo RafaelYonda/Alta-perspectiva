@@ -17,6 +17,8 @@ using UserProfile.Command.CommandHandler;
 using UserProfile.Query;
 using UserProfile.Query.Interfaces;
 using System.IO;
+using Questions.Domain;
+using Questions.Query;
 using UserProfile.Domain;
 
 
@@ -27,15 +29,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
     [Area("UserProfile")]
     public class UserProfileController : Controller
     {
+        #region Ctor
 
         ICommandsFactory commandsFactory;
         IQueryFactory queryFactory;
         IDistributedCache cache;
         private readonly IConfigurationRoot configuration;
         private readonly IHostingEnvironment environment;
-
-
-
         public UserProfileController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IDistributedCache _cache, IConfigurationRoot _configuration, IHostingEnvironment _environment)
         {
             commandsFactory = _commandsFactory;
@@ -44,6 +44,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             configuration = _configuration;
             environment = _environment;
         }
+
+        #endregion
 
         [HttpGet("userprofile/api/getuser")]
         public IActionResult GetUser()
@@ -348,6 +350,59 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok();
         }
 
+        #endregion
+
+        #region QuestionAnswerDirectQuestion
+        [HttpGet("userprofile/api/questionbyuserId")]
+        public async Task<IActionResult> QuestionByUserId()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+
+            IEnumerable<Question> questions = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(loggedinUser);
+            return Ok(questions);
+        }
+        [HttpGet("userprofile/api/answerbyuserId")]
+        public async Task<IActionResult> AnswerByUserId()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+
+            IEnumerable<Question> questions =
+                await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(loggedinUser);
+            return Ok(questions);
+        }
+        [HttpGet("userprofile/api/directquestion")]
+        public async Task<IActionResult> DirectQuestion()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+
+            IEnumerable<Question> questions =
+                await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(loggedinUser);
+            return Ok(questions);
+        }
         #endregion
 
         /*

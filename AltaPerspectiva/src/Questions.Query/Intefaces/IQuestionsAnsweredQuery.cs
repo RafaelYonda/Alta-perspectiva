@@ -9,5 +9,6 @@ namespace Questions.Query
     public interface IQuestionsAnsweredQuery : IQuery
     {
         Task<IEnumerable<Question>> Execute(Guid CategoryId);
+        Task<IEnumerable<Question>> ExecuteByUserId(Guid userId);
     }
 }

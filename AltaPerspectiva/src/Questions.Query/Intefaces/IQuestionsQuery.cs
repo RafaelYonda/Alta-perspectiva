@@ -8,8 +8,10 @@ namespace Questions.Query
 {
     public interface IQuestionsQuery:IQuery
     {
-        Task<IEnumerable<Question>> GetLatestQuestion(Guid UserId, Guid categoryId);
         Task<IEnumerable<Question>> Execute();
+        Task<IEnumerable<Question>> ExecuteByUserId(Guid userId);
+        Task<IEnumerable<Question>> GetLatestQuestion(Guid UserId, Guid categoryId);
+        
         Task<IEnumerable<Question>> GetTopFiveQuestion();
 
         Task<IEnumerable<Question>> GetTopFiveQuestionByCategoryId(Guid categoryId);

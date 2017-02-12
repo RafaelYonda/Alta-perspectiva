@@ -10,13 +10,13 @@ using UserProfile.Command.UserProfileDBContext;
 using UserProfile.Domain;
 using UserProfile.Domain.AllModels;
 
-namespace UserProfile.Command.CommandHandler
+namespace UserProfile.CommandHandler
 {
     public class UpdateCredentialCommandHandler : EFCommandHandlerBase<UpdateCredentialCommand, UserProfileDbContext>, ICommandHandler<UpdateCredentialCommand>
     {
         public UpdateCredentialCommandHandler(UserProfileDbContext dbContext)
-			: base(dbContext)
-		{
+            : base(dbContext)
+        {
         }
         public override void Execute(UpdateCredentialCommand command)
         {
@@ -25,24 +25,19 @@ namespace UserProfile.Command.CommandHandler
             Credential credential = DbContext.Credentials.Where(x => x.Id == command.CredentialId).FirstOrDefault();
             if (credential != null)
             {
-                if (!string.IsNullOrEmpty(command.Description))
-                {
-                    credential.Description = command.Description;
-                }
-                if (!string.IsNullOrEmpty(command.FirstName))
-                {
-                    credential.FirstName = command.FirstName;
-                }
-                if (!string.IsNullOrEmpty(command.LastName))
-                {
-                    credential.LastName = command.LastName;
-                }
-               
-                if (!string.IsNullOrEmpty(command.Title))
-                {
-                    credential.Title = command.Title;
-                }
-               
+
+                credential.Description = command.Description;
+
+                credential.FirstName = command.FirstName;
+
+
+                credential.LastName = command.LastName;
+
+
+
+                credential.Title = command.Title;
+
+
             }
             DbContext.Credentials.Update(credential);
             DbContext.SaveChanges();
@@ -51,5 +46,5 @@ namespace UserProfile.Command.CommandHandler
         }
 
     }
-    
+
 }
