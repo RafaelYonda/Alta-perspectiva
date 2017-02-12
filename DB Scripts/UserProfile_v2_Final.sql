@@ -1,5 +1,10 @@
 USE [AltaPerspectiva]
 GO
+GO
+DROP TABLE [UserProfile].[Followers]
+GO
+DROP TABLE [UserProfile].[Followings]
+Go
 /****** Object:  Schema [UserProfile]    Script Date: 2/6/2017 7:10:43 PM ******/
 DROP TABLE UserProfile.Biography;
 DROP TABLE UserProfile.ContractInformation;
@@ -9,10 +14,7 @@ DROP TABLE UserProfile.Insight;
 DROP TABLE UserProfile.PracticeArea;
 DROP TABLE UserProfile.Skill;
 DROP TABLE UserProfile.UserImage;
-GO
-DROP TABLE [UserProfile].[Followers]
-GO
-DROP TABLE [UserProfile].[Followings]
+
 GO
 DROP SCHEMA UserProfile;
 
@@ -146,57 +148,7 @@ CREATE TABLE [UserProfile].[Employments](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
-GO
-/****** Object:  Table [UserProfile].[Followers]    Script Date: 2/8/2017 3:12:35 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [UserProfile].[Followers](
-	[Id] [uniqueidentifier] NOT NULL,
-	[CreatedBy] [uniqueidentifier] NULL,
-	[CreatedOn] [datetime2](7) NULL,
-	[CredentialId] [uniqueidentifier] NOT NULL,
-	[DTS] [datetime2](7) NOT NULL,
-	[FollowerUserId] [uniqueidentifier] NOT NULL,
-	[IsActive] [bit] NULL,
-	[IsDeleted] [bit] NULL,
-	[ModifiedBy] [uniqueidentifier] NULL,
-	[ModifiedOn] [datetime2](7) NULL,
- CONSTRAINT [PK_Followers] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
 
-GO
-/****** Object:  Table [UserProfile].[Followings]    Script Date: 2/8/2017 3:12:35 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [UserProfile].[Followings](
-	[Id] [uniqueidentifier] NOT NULL,
-	[CreatedBy] [uniqueidentifier] NULL,
-	[CreatedOn] [datetime2](7) NULL,
-	[CredentialId] [uniqueidentifier] NOT NULL,
-	[DTS] [datetime2](7) NOT NULL,
-	[FollowingUserId] [uniqueidentifier] NOT NULL,
-	[IsActive] [bit] NULL,
-	[IsDeleted] [bit] NULL,
-	[ModifiedBy] [uniqueidentifier] NULL,
-	[ModifiedOn] [datetime2](7) NULL,
- CONSTRAINT [PK_Followings] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-/****** Object:  Table [UserProfile].[OtherExperiences]    Script Date: 2/8/2017 3:12:35 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [UserProfile].[OtherExperiences](
 	[Id] [uniqueidentifier] NOT NULL,
