@@ -19,8 +19,19 @@ namespace UserProfile.Command.CommandHandler
         }
         public override void Execute(UpdateOtherExperienceCommand command)
         {
-            Debug.WriteLine("UpdateOtherExperienceCommand executed");
+            Debug.WriteLine("UpdateOtherExperienceCommandHandler executed");
 
+            OtherExperience experience =
+                DbContext.OtherExperiences.FirstOrDefault(x => x.CredentialId == command.CredentialId);
+            if (experience != null)
+            {
+                experience.CategoryId = command.CategoryId;
+                experience.Description = command.Description;
+                
+            }
+
+            DbContext.Update(experience);
+            DbContext.SaveChanges();
 
             //Biography biography = DbContext.Biography.FirstOrDefault(x => x.UserId == command.UserId);
             ////biography.GenerateNewIdentity();

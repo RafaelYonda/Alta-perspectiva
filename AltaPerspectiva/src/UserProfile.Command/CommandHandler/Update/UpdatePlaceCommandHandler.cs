@@ -23,9 +23,17 @@ namespace UserProfile.Command.CommandHandler
 
             Place place =
                 DbContext.Places.FirstOrDefault(x => x.CredentialId == command.CredentialId);
-            
+            if (place != null)
+            {
+                place.EndYear = command.EndYear;
+                place.IsCurrentyLiving = command.IsCurrentyLiving;
+                place.LocationName = command.LocationName;
+                place.StartYear = command.StartYear;
+               
+                place.ModifiedOn=DateTime.Now;
+            }
 
-            DbContext.Places.Add(place);
+            DbContext.Places.Update(place);
             DbContext.SaveChanges();
             
         }
