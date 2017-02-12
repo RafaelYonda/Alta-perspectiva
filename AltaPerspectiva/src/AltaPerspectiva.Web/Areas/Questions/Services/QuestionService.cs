@@ -277,6 +277,26 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             }
             return commentVMs.ToList();
         }
+
+
+        public String RemoveQuestionMark(String title)
+        {
+            if (!String.IsNullOrEmpty(title))
+            {
+                var hasQuestionMark = title.ToCharArray()[title.Length - 1] == '?';
+                if (hasQuestionMark)
+                {
+                    title = title.TrimEnd('?');
+                }
+                hasQuestionMark = title.ToCharArray()[0] == '?';
+                if (hasQuestionMark)
+                {
+                    title = title.TrimStart('?');
+                }
+
+            }
+            return title;
+        }
     }
 }
 
