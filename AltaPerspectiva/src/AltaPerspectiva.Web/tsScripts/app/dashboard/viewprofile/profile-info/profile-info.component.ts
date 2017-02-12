@@ -17,6 +17,7 @@ export class ProfileInfoComponent {
     imageLink: string;
     credential: CredentialViewModel = new CredentialViewModel();
     hasCredential: boolean;
+    hasDescription: boolean;
     constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
     }
     ngOnInit() {
@@ -26,6 +27,7 @@ export class ProfileInfoComponent {
             var user = this.profileService.GetUserCredential().subscribe(usr => {     //Get User Image
                 this.credential = usr;
                 this.hasCredential = this.credential.title.trim() != "" ? false : true;
+                this.hasDescription = this.credential.description.trim() != "" ? false : true;
                 console.log(usr);
                 if (usr.imageUrl && (usr.imageUrl != ''))
                     this.imageLink += usr.imageUrl;
@@ -50,12 +52,13 @@ export class ProfileInfoComponent {
         
         console.log(this.username);
     }
-    updateDecription(description) {
-        this.credential.description = description;
+    updateDecription() {
+        //this.credential.description = description;
         this.profileService.saveDescription(this.credential).subscribe(res => {
+            this.showDescription = true;
             this.ngOnInit();
         });
-        console.log(description);
+        //console.log(description);
     }
     @ViewChild('credentialDialogAnchor', { read: ViewContainerRef }) credentialDialogAnchor: ViewContainerRef;
     openCredentialDialogBox() {
