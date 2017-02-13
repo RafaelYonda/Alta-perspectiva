@@ -283,7 +283,6 @@ export class UserInfoDetails {
     employment: string;
     place: string;
     otherExperience: string;
-
     imageUrl: string;
     fullName: string;
     title: string;
