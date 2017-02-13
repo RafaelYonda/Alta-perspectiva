@@ -445,21 +445,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
          //   throw new Exception("Not yet implemented");
             return Ok();
         }
-        [HttpGet("userprofile/api/follower")]
-        public IActionResult Follower()
+        [HttpGet("userprofile/api/followerbyuserid/{userId}")]
+        public IActionResult Follower(Guid userId)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
+            
 
             List<Guid> followingUsers =
-                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowers(loggedinUser).Select(x=>x.UserId).Distinct().ToList();
+                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowers(userId).Select(x=>x.UserId).Distinct().ToList();
 
             List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x=>new UserViewModel
             {
@@ -472,21 +464,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(userViewModels);
         }
-        [HttpGet("userprofile/api/following")]
-        public IActionResult Following()
+        [HttpGet("userprofile/api/followingbyuserId/{userId}")]
+        public IActionResult Following(Guid userId)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-
             List<Guid> followingUsers =
-                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowings(loggedinUser).Select(x=>x.UserId).Distinct().ToList();
+                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowings(userId).Select(x=>x.UserId).Distinct().ToList();
 
             List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x => new UserViewModel
             {
