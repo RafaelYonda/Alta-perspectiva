@@ -74,7 +74,7 @@ namespace UserProfile.Query.Queries
                     userInfoDetails.Title= Convert.ToString(reader["Title"]);
                     userInfoDetails.AnswerCount = Convert.ToInt32(reader["AnswerCount"]);
                     userInfoDetails.QuestionCount = Convert.ToInt32(reader["QuestionCount"]);  
-                    userInfoDetails.QuestionViewCount = Convert.ToInt32(reader["QuestionViewCount"]);  
+                    //userInfoDetails.QuestionViewCount = Convert.ToInt32(reader["QuestionViewCount"]);  
 
                 }
             }
