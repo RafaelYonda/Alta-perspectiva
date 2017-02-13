@@ -1,9 +1,20 @@
-﻿<div class="row row-fix inline-display">
+﻿<style>
+    .topAlign {
+        margin-top: 47px;
+        font-family: "myriadpro-regular";
+        font-size: 16px;
+        line-height: 27.5px;
+    }
+</style>
+
+
+<div class="row row-fix inline-display">
     <div *ngIf="!isAnonymous">
         <div *ngIf="userObj">
-            <img class="user-image " src="../../../../profile/{{userObj?.imageUrl}}" />
+            <img class="user-image " src="../../../../profile/{{userObj?.imageUrl}}" (mouseover)='over(userObj?.userId)' [popover]="userInfoDetailsPopover" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
+                 [popoverCloseOnMouseOutside]="true" />
             <div class="user-info">
-                <div class="user-detail">{{userObj?.name}}, {{userObj?.occupation}}  </div>
+                <div class="user-detail">{{userObj?.name}}, {{userObj?.occupation}} </div>
                 <div class="user-detail light-gray">{{viewDate | date: 'dd MMM, yyyy'}}</div>
             </div>
         </div>
@@ -19,3 +30,92 @@
         </div>
     </div>
 </div>
+<popover-content #userInfoDetailsPopover>
+    <ul style="list-style-type: none;">
+        <li>
+            <img class="user-image " src="../../../../profile/{{userInfoDetails?.imageUrl}}" />
+            <!--<div class="user-info" style="margin-top: 10px;">
+                <div class="user-detail">
+                    {{userInfoDetails?.fullName}}, {{userInfoDetails?.title}}
+                </div>
+            </div>-->
+            <div class="user-info">
+                <div class="user-detail" style="font-size: 22px;">
+                    {{userInfoDetails?.fullName}},<br />
+                    <span style="font-size: 12px;"> {{userInfoDetails?.title}}</span>
+                </div>
+                <!--<div class="user-detail light-gray">{{viewDate | date: 'dd MMM, yyyy'}}</div>-->
+            </div>
+        </li>
+
+    </ul>
+    <br />
+    <div class="topAlign">
+
+        <ul class="fa-ul">
+
+            <li>
+                <i class="fa-li fa fa-check-square"></i>Answers: {{userInfoDetails?.answerCount}}
+            </li>
+            <li><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
+
+            <li>
+                <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
+            </li>
+            <li><i class="fa-li fa fa-address-book"></i>employment: {{userInfoDetails?.employment}}</li>
+            <li>
+                <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
+            </li>
+            <li>
+                <i class="fa-li fa fa-cog"></i>otherExperience: {{userInfoDetails?.otherExperience}}
+            </li>
+            
+            <li>
+                <i class="fa-li fa fa-eye">
+
+                </i>Question Views: {{userInfoDetails?.questionViewCount}}
+
+            </li>
+
+
+        </ul>
+    </div>
+
+    <!--<ul style="list-style-type: none;" class="fa-ul">
+    <li style="list-style-type: none;">
+        <a>{{userInfoDetails?.userId}}</a>
+    </li>
+    <li>
+        <img class="user-image " src="../../../../profile/{{userInfoDetails?.imageUrl}}"/>
+        <div class="user-info">
+            <div class="user-detail">
+                {{userInfoDetails?.fullName}}, {{userInfoDetails?.title}}
+            </div>
+        </div>
+    </li>
+    <li class="fa-li fa fa-check-square">
+        List icons
+    </li>-->
+    <!--<li>
+        <a>{{userInfoDetails?.answerCount}}</a>
+    </li>
+    <li>
+        <a></a>
+    </li>
+    <li>
+        <a>{{userInfoDetails?.education}}</a>
+    </li>
+    <li>
+        <a>{{userInfoDetails?.employment}}</a>
+    </li>
+    <li>
+        <a>{{userInfoDetails?.place}}</a>
+    </li>
+    <li>
+        <a>{{userInfoDetails?.otherExperience}}</a>
+    </li>
+    <li>
+        <a>{{userInfoDetails?.questionViewCount}}</a>
+    </li>
+    </ul>-->
+</popover-content>

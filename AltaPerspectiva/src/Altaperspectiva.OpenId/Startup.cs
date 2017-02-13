@@ -172,14 +172,14 @@ namespace Altaperspectiva.OpenId {
                     //     Type = OpenIddictConstants.ClientTypes.Confidential
                     // });
 
-                    applications.Add(new OpenIddictApplication {
-                        ClientId = "myClient",
-                        ClientSecret = Crypto.HashPassword("secret_secret_secret"),
-                        DisplayName = "My client application",
-                        LogoutRedirectUri = "http://localhost:53507",
-                        RedirectUri = "http://localhost:53507/signin-oidc",
-                        Type = OpenIddictConstants.ClientTypes.Confidential
-                    });
+                    //applications.Add(new OpenIddictApplication {
+                    //    ClientId = "myClient",
+                    //    ClientSecret = Crypto.HashPassword("secret_secret_secret"),
+                    //    DisplayName = "My client application",
+                    //    LogoutRedirectUri = "http://localhost:53507",
+                    //    RedirectUri = "http://localhost:53507/signin-oidc",
+                    //    Type = OpenIddictConstants.ClientTypes.Confidential
+                    //});
 
                     applications.Add(new OpenIddictApplication
                     {
@@ -191,15 +191,15 @@ namespace Altaperspectiva.OpenId {
                         Type = OpenIddictConstants.ClientTypes.Confidential
                     });
 
-                    applications.Add(new OpenIddictApplication
-                    {
-                        ClientId = "azure",
-                        ClientSecret = Crypto.HashPassword("aLtaseCreT!@#"),
-                        DisplayName = "Azure Application",
-                        LogoutRedirectUri = "http://altap.azurewebsites.net/",
-                        RedirectUri = "http://altap.azurewebsites.net/signin-oidc",
-                        Type = OpenIddictConstants.ClientTypes.Confidential
-                    });
+                    //applications.Add(new OpenIddictApplication
+                    //{
+                    //    ClientId = "azure",
+                    //    ClientSecret = Crypto.HashPassword("aLtaseCreT!@#"),
+                    //    DisplayName = "Azure Application",
+                    //    LogoutRedirectUri = "http://altap.azurewebsites.net/",
+                    //    RedirectUri = "http://altap.azurewebsites.net/signin-oidc",
+                    //    Type = OpenIddictConstants.ClientTypes.Confidential
+                    //});
 
 
                     context.SaveChanges();

@@ -252,42 +252,7 @@ namespace AltaPerspectiva
 
             app.UseDeveloperExceptionPage();
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
-            //            app.UseExceptionHandler(
-            //                             options =>
-            //                             {
-            //                                 options.Run(
-            //                                 async context =>
-            //                                 {
-            //                                     String contextPath = context.Request.Path.Value;
-            //                                     //api request 
-            //                                     if (contextPath.Contains("/api") && contextPath != "/")
-            //                                     {
-            //                                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            //                                         context.Response.ContentType = "text/html";
-            //                                         context.Response.StatusCode = 500;
-            //                                         //context.Response.HttpContext.
-            //                                         var ex = context.Features.Get<IExceptionHandlerFeature>();
-
-            //                                        // MethodBase site = ex.Error.Source;
-            //                                        // string methodName = site == null ? null : site.Name;
-            //                                         //if (ex != null)
-            //                                         //{
-            //                                         var err = $"<h1>Error: {ex.Error.Message}</h1>{ex.Error.StackTrace }";
-            //                                         await context.Response.WriteAsync(err).ConfigureAwait(false);
-            //                                        // await  StatusCode(500);
-            //                                         //  }
-
-            //                                     }
-            //                                     //Route request
-            //                                     else
-            //                                     {
-            //                                         context.Response.Redirect("/home/error");
-            //                                         await Task.FromResult<object>(null);
-            //                                     }
-
-            //                                 });
-            //                             }
-            //);
+            
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -327,9 +292,9 @@ namespace AltaPerspectiva
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
 
-               //Authority = "http://localhost:54540",
+               Authority = "http://localhost:54540",
 
-                Authority = "http://altaauth.azurewebsites.net",
+               // Authority = "http://altaauth.azurewebsites.net",
 
                 Scope = { "email", "roles", "offline_access" }
             });

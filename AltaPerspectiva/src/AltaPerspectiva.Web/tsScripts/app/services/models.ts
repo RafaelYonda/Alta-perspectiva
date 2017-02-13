@@ -136,7 +136,7 @@ export class AnswerViewModel {
     isAnonymous: boolean;//IsAnonymous added 
     isDrafted: boolean;
     userId: string;
-    isFollowing:boolean;
+    isFollowing: boolean;
     constructor() {
 
         this.likes = new Array();
@@ -273,4 +273,19 @@ export class QuestionFollowing {
     followedUserId: string;
     questionId: string;
     answerId: string;
+}
+
+export class UserInfoDetails {
+    userId: string;
+    answerCount: number;
+    questionCount: number;
+    education: string;
+    employment: string;
+    place: string;
+    otherExperience: string;
+
+    imageUrl: string;
+    fullName: string;
+    title: string;
+    questionViewCount: string;
 }

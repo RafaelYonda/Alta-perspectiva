@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import {User, Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword} from './models';
+import {User, Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword, UserInfoDetails} from './models';
 import { CredentialViewModel }     from './models/models.profile';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
@@ -27,7 +27,11 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
+    userInfoDetails(userId: string): Observable<UserInfoDetails> {
+        return this._http.get('userprofile/api/userinfodetails/'+userId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     GetContact() {
         return this.GetSingleProfile('userprofile/api/getcontractinformation')
     }
