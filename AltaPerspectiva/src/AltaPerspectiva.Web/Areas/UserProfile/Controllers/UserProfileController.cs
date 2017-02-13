@@ -81,19 +81,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
         #region Credentials
 
-        [HttpGet("userprofile/api/credential/getusercredential")]
-        public IActionResult GetUsercredential()
+        [HttpGet("userprofile/api/credential/getusercredentialbyuserid/{userId}")]
+        public IActionResult GetUsercredentialByUserId(Guid userId)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-
-            var model = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
+            var model = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(userId);
             return Ok(model);
         }
+       
         [HttpGet("userprofile/api/credential/getusercredential/{credentialId}")]
         public IActionResult GetCredentialByCredentialId(Guid credentialId)
         {
