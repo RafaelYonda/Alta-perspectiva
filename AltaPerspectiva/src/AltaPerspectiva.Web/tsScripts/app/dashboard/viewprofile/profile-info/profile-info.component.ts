@@ -23,6 +23,7 @@ export class ProfileInfoComponent {
     }
     ngOnInit() {
         this._configService.getConfig().subscribe(res => {      //Get config for image
+            this.imageLink = res.profileImage;
             this.hasCredential = this.credential.title.trim() != "" ? false : true;
             this.hasDescription = this.credential.description.trim() != "" ? false : true;
             console.log(this.credential);

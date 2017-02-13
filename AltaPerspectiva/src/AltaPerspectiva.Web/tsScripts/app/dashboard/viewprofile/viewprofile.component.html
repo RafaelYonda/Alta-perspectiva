@@ -5,13 +5,13 @@
         <div class="row">
             <div class="col-md-3" >
                 <ul class="profile-leftmenu">
-                    <li id="question"><a [routerLink]="['/dashboard/viewprofile/user-question',credential.id]">Question<span>5</span> </a></li>
-                    <li><a [routerLink]="['/dashboard/viewprofile/user-answer',credential.id]">Answer<span>5</span> </a></li>
-                    <li><a [routerLink]="['/dashboard/viewprofile/follower',credential.id]" >follower <span>5</span></a></li>
-                    <li><a [routerLink]="['/dashboard/viewprofile/following',credential.id]">following <span>5</span></a></li>
-                    <li><a [routerLink]="['/dashboard/viewprofile/bookmark',credential.id]">bookmark</a></li>
-                    <li><a [routerLink]="['/dashboard/viewprofile/blog-create',credential.id]">Blog Create</a></li>
-                    <li><a [routerLink]="['/dashboard/blog-post',credential.id]">Blog Post</a></li>
+                    <li id="question"><a [routerLink]="['/dashboard/viewprofile',credential.userId,'user-question']">Question<span>5</span> </a></li>
+                    <li><a [routerLink]="['/dashboard/viewprofile',credential.userId,'user-answer']">Answer<span>5</span> </a></li>
+                    <li><a [routerLink]="['/dashboard/viewprofile',credential.userId,'follower']" >follower <span>5</span></a></li>
+                    <li><a [routerLink]="['/dashboard/viewprofile',credential.userId,'following']">following <span>5</span></a></li>
+                    <li><a [routerLink]="['/dashboard/viewprofile',credential.userId,'bookmark']">bookmark</a></li>
+                    <li><a [routerLink]="['/dashboard/viewprofile',credential.userId,'blog-create']">Blog Create</a></li>
+                    <li><a [routerLink]="['/dashboard/blog-post']">Blog Post</a></li>
                 </ul>
             </div>
             <div class="col-md-9" >

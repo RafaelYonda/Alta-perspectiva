@@ -1,10 +1,12 @@
-﻿import { Component } from '@angular/core';
+﻿/// <reference path="profile-info/profile-info.component.ts" />
+import { Component, ViewChild } from '@angular/core';
 import { Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight } from '../../services/models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ImageUploadService } from '../../services/image-upload.service';
 import { ProfileService } from '../../services/profile.service';
 import { ConfigService } from '../../services/config.service';
 import { CredentialViewModel } from '../../services/models/models.profile';
+import { ProfileInfoComponent } from './profile-info/profile-info.component';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/viewprofile.component.html',
     providers: [ProfileService, ConfigService]
@@ -16,10 +18,13 @@ export class ViewProfileComponent {
     constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService, private _router: Router) {
         this.route = _route;
     }
+    @ViewChild(ProfileInfoComponent) profileInfo: ProfileInfoComponent
     ngOnInit() {
         this._route.params.subscribe(params => {
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
+                this.profileInfo.credential = this.credential;
+                this.profileInfo.ngOnInit();
                 console.log(this.credential);
             });
         });

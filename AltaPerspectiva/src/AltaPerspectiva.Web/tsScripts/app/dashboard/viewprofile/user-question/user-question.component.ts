@@ -16,7 +16,7 @@ export class UserQuestionComponent {
     ngOnInit() {
         this.sub = this._route.parent.params.subscribe(params => {
             //console.log(params);
-            this.questionService.getQuestionsbyCredentialId(params['credentialId']).subscribe(res => {
+            this.questionService.getQuestionsbyUserId(params['userId']).subscribe(res => {
                 this.questions = res;
                 for (var q = 0; q < this.questions.length; q++) {
                     // answers[0] is the best answer
