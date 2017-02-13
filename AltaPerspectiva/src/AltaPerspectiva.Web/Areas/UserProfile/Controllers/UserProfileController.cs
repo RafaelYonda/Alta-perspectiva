@@ -512,7 +512,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             List<Guid> followingUsers =
                 queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowers(loggedinUser).Select(x=>x.UserId).Distinct().ToList();
 
-            List<UserViewModel> credentials = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x=>new UserViewModel
+            List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x=>new UserViewModel
             {
                 CredentialId = x.Id,
                 UserId = x.UserId,
@@ -521,7 +521,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 Occupation = x.Employments.Select(y=>y.Position).Take(1).FirstOrDefault()
             }).ToList();
 
-            return Ok(credentials);
+            return Ok(userViewModels);
         }
         [HttpGet("userprofile/api/following")]
         public IActionResult Following()
@@ -539,9 +539,16 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             List<Guid> followingUsers =
                 queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowings(loggedinUser).Select(x=>x.UserId).Distinct().ToList();
 
-            List<Credential> credentials = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers);
+            List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x => new UserViewModel
+            {
+                CredentialId = x.Id,
+                UserId = x.UserId,
+                ImageUrl = x.ImageUrl,
+                Name = x.FirstName + " " + x.LastName,
+                Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
+            }).ToList();
 
-            return Ok(credentials);
+            return Ok(userViewModels);
         }
         #endregion
 
