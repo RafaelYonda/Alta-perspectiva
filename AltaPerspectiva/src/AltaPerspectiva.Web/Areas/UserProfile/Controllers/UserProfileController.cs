@@ -450,8 +450,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            Guid profileUserId =
-                queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialByCredentialId(credentialId).UserId;
+            Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialByCredentialId(credentialId);
+
+            Guid profileUserId =Guid.Empty;
+            if (credential != null)
+            {
+                profileUserId = credential.UserId;
+            }
             IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(profileUserId);
 
             List<QuestionViewModel> questionViewModels =

@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import {User, Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword, UserInfoDetails} from './models';
+import {User, Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword,UserInfoDetails} from './models';
 import { CredentialViewModel }     from './models/models.profile';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
@@ -27,9 +27,8 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
     userInfoDetails(userId: string): Observable<UserInfoDetails> {
-        return this._http.get('userprofile/api/userinfodetails/'+userId)
+        return this._http.get('userprofile/api/userinfodetails/' + userId)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -57,12 +56,6 @@ export class ProfileService {
     //#endregion
 
     //#region ==========Save user profile single
-    //SaveProfile(profileObj: any, url: string): Observable<any> {
-
-    //    return this._http.post(url, profileObj)
-    //        .map(this.extractData)
-    //        .catch(this.handleError);
-    //}
 
     SaveUserName(firstName: string) {
         let model = new FormData();
@@ -147,7 +140,12 @@ export class ProfileService {
             .catch(this.handleError);
     }
 
-
+    GetFollowerByCredential(credentialId): Observable<User[]> {
+        return this._http.get('userprofile/api/following')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+     
     private extractData(res: Response) {
         let body;
 
