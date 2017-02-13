@@ -27,6 +27,7 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
     userInfoDetails(userId: string): Observable<UserInfoDetails> {
         return this._http.get('userprofile/api/userinfodetails/'+userId)
             .map(this.extractData)
