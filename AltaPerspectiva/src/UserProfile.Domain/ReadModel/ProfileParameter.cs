@@ -14,6 +14,11 @@ namespace UserProfile.Domain.ReadModel
         public int QuestionsCount { get; set; }
         public int DirectQuestionCount { get; set; }
         public int BlogsCount { get; set; }
-        
+        public int QuestionViewCount { get; set; }
+        public int ProfileViewCount { get; set; }
+        public int AnswerLikeCount { get; set; }
+        public int AnswerMadeThisMonth { get; set; }
+        public int QuestionMadeThisMonth { get; set; }
+
     }
 }

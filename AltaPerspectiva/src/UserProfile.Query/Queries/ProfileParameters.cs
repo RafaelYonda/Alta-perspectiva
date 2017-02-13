@@ -18,7 +18,7 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-        public ProfileParameter GetProfileParameter(Guid credentialId)
+        public ProfileParameter GetProfileParameter(Guid userId)
         {
             ProfileParameter profileParameter=new ProfileParameter();
             using (var connection = (SqlConnection)DbContext.Database.GetDbConnection())
@@ -28,7 +28,7 @@ namespace UserProfile.Query.Queries
                 var command = connection.CreateCommand();
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "SpProfileParameterCount";
-                command.Parameters.AddWithValue("@credentialId", credentialId);
+                command.Parameters.AddWithValue("@userId", userId);
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -40,6 +40,10 @@ namespace UserProfile.Query.Queries
                     profileParameter.QuestionsCount = Convert.ToInt32(reader["QuestionsCount"]);
                     profileParameter.AnswersCount = Convert.ToInt32(reader["DirectQuestionCount"]);
                     profileParameter.BlogsCount = Convert.ToInt32(reader["BlogsCount"]);
+                    profileParameter.AnswerLikeCount = Convert.ToInt32(reader["AnswerLikeCount"]);
+                    profileParameter.ProfileViewCount = Convert.ToInt32(reader["ProfileViewCount"]);
+                    profileParameter.AnswerMadeThisMonth = Convert.ToInt32(reader["AnswerMadeThisMonth"]);
+                    profileParameter.QuestionMadeThisMonth = Convert.ToInt32(reader["QuestionMadeThisMonth"]);
 
                 }
             }
