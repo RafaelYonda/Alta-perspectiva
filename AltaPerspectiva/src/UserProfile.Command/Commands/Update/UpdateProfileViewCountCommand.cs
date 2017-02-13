@@ -8,11 +8,11 @@ namespace UserProfile.Command.Commands.Update
 {
     public class UpdateProfileViewCountCommand:ICommand
     {
-        public UpdateProfileViewCountCommand(Guid credentialId)
+        public UpdateProfileViewCountCommand(Guid userId)
         {
-            CredentialId = credentialId;
+            UserId = userId;
         }
         public Guid Id { get; set; }
-        public Guid? CredentialId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

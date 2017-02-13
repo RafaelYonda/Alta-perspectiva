@@ -21,7 +21,7 @@ namespace UserProfile.Command.CommandHandler
         public override void Execute(UpdateProfileViewCountCommand command)
         {
             Debug.WriteLine("UpdateProfileViewCountCommand executed");
-            Credential credential = DbContext.Credentials.Where(x => x.Id == command.CredentialId).FirstOrDefault();
+            Credential credential = DbContext.Credentials.Where(x => x.UserId == command.UserId).FirstOrDefault();
             if (credential != null)
             {
                 if (credential.ProfileViewCount.HasValue)

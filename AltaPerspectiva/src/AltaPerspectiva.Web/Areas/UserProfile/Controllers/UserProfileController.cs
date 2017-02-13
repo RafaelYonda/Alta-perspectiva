@@ -24,6 +24,7 @@ using Questions.Query.Intefaces;
 using AltaPerspectiva.Web.Areas.Questions.Models;
 using AltaPerspectiva.Web.Areas.Questions.Services;
 using UserProfile.Command.Commands.Delete;
+using UserProfile.Command.Commands.Update;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -409,51 +410,23 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
 
         #region QuestionAnswerDirectQuestion
-        [HttpGet("userprofile/api/questionbycredentialId/{credentialId}")]
-        public async Task<IActionResult> QuestionByCredentialId(Guid credentialId)
+        [HttpGet("userprofile/api/questionbyuserid/{userId}")]
+        public async Task<IActionResult> QuestionByCredentialId(Guid userId)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialByCredentialId(credentialId);
-
-            Guid profileUserId =Guid.Empty;
-            if (credential != null)
-            {
-                profileUserId = credential.UserId;
-            }
-            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(profileUserId);
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(userId);
 
             List<QuestionViewModel> questionViewModels =
                 new QuestionService().GetQuestionViewModel(questionList, queryFactory);
             return Ok(questionViewModels);
         }
-        [HttpGet("userprofile/api/answerbycredentialId/{credentialId}")]
-        public async Task<IActionResult> AnswerByCredentialId(Guid credentialId)
+        [HttpGet("userprofile/api/answerbyuserid/{userId}")]
+        public async Task<IActionResult> AnswerByCredentialId(Guid userId)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            Guid profileUserId =
-                queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialByCredentialId(credentialId).UserId;
-
             IEnumerable<Question> questionList =
-                await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(profileUserId);
+                await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(userId);
 
             List<QuestionViewModel> questionViewModels =
-                new QuestionService().GetQuestionViewModelForProfile(questionList, queryFactory, profileUserId);
+                new QuestionService().GetQuestionViewModelForProfile(questionList, queryFactory, userId);
             return Ok(questionViewModels);
         }
         [HttpGet("userprofile/api/directquestion")]
@@ -570,7 +543,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
         #endregion
 
-       
+
+        #region ProfileViewCount
+        [HttpGet("userprofile/api/profileviewcount/{userId}")]
+        public IActionResult ProfileViewCount(Guid userId)
+        {
+           UpdateProfileViewCountCommand command=new UpdateProfileViewCountCommand(userId);
+            commandsFactory.ExecuteQuery(command);
+            return Ok();
+        }
+        #endregion
+
 
     }
 }
