@@ -1,5 +1,27 @@
-﻿import { Component } from '@angular/core';
+﻿/// <reference path="../../../services/profile.service.ts" />
+/// <reference path="../../../services/models.ts" />
+import { Component } from '@angular/core';
+import { ProfileService } from '../../../services/profile.service';
+import { User } from '../../../services/models';
+import { ActivatedRoute } from '@angular/router';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/follower/follower.component.html'
 })
-export class FollowerComponent { }
+export class FollowerComponent {
+    private sub: any;
+    user: User[];
+    constructor(private _route: ActivatedRoute,private profileServ: ProfileService) {
+        
+    }
+    ngOnInit() {
+        this.sub = this._route.params.subscribe(params => {
+            this.profileServ.GetFollowerByCredential(params['credentialId']).subscribe(usr => {     //Get User Image
+                this.user = usr;
+                console.log(this.user);
+            });
+        });
+    }
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
+}

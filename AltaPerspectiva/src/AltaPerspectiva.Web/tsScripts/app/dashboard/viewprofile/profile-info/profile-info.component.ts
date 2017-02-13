@@ -11,7 +11,6 @@ import { AddCredentialComponent } from '../edit-profile/add-credential.component
     providers: [ImageUploadService, ConfigService],
 })
 export class ProfileInfoComponent {
-    username='Rafael Yonda'
     isHidden = true;
     showDescription = true;
     imageLink: string;
@@ -46,11 +45,9 @@ export class ProfileInfoComponent {
             });
     }
     UpdateUserName() {
-        this.profileService.SaveUserName(this.username).subscribe(res => {
+        this.profileService.SaveUserName(this.credential.firstName).subscribe(res => {
             this.ngOnInit();
         });
-        
-        console.log(this.username);
     }
     updateDecription() {
         //this.credential.description = description;

@@ -1,1 +1,5 @@
-﻿<h1>follower</h1>
+﻿<div class="row">
+    <div class="col-md-4" *ngFor="let usr of user">
+        <user-info [userObj]="usr"></user-info>
+    </div>
+</div>
