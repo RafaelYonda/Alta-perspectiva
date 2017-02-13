@@ -88,19 +88,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(model);
         }
        
-        [HttpGet("userprofile/api/credential/getusercredential/{credentialId}")]
-        public IActionResult GetCredentialByCredentialId(Guid credentialId)
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
-            Credential  credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(credentialId);
-            return Ok(credential);
-        }
+       
         [HttpGet("userprofile/api/credential/getcredentialbyuserid/{userId}")]
         public IActionResult GetCredentialByUserid(Guid userId)
         {
@@ -115,16 +103,9 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(credential);
         }
         [HttpPost("userprofile/api/credential/savefirstnamelastname")]
-        public IActionResult SaveFirstNameLastName(String firstName,String lastName)
+        public IActionResult SaveFirstNameLastName(String firstName,String lastName,Guid userId)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
-            AddCredentialCommand command=new AddCredentialCommand(loggedinUser,firstName,lastName,"","","");
+            AddCredentialCommand command=new AddCredentialCommand(userId,firstName,lastName,"","","");
             commandsFactory.ExecuteQuery(command);
             return Ok(command.Id);//CredentialId
         }
@@ -138,41 +119,22 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            UpdateCredentialCommand command=new UpdateCredentialCommand(model.Id,model.FirstName,model.LastName,model.Title,model.Description,null);
+            UpdateCredentialCommand command=new UpdateCredentialCommand(model.UserId,model.FirstName,model.LastName,model.Title,model.Description,null);
             commandsFactory.ExecuteQuery(command);
             return Ok(command.Id);
         }
         [HttpPost("userprofile/api/credential/saveuserimage")]
-        public IActionResult SaveUserImage(IFormFile file, Guid credentialId)
+        public IActionResult SaveUserImage(IFormFile file, Guid userId)
         {
-            var categoryImagepath = configuration["ProfileUpload"];
-            //IHostingEnvironment environment = new HostingEnvironment();
-            
-            String image = file.FileName;
-
-            var webRoot = environment.WebRootPath;
-
-
-            var uploads = Path.Combine(webRoot, categoryImagepath);
-            using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
+            var uploads = Path.Combine(environment.WebRootPath, configuration["ProfileUpload"]);
+            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
             {
                 file.CopyTo(fileStream);
             }
-
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            //Add and update is done after credential .So no need for seperate commandHandler
-            UpdateUserImageCommand cmd = new UpdateUserImageCommand(credentialId, image);
+            UpdateUserImageCommand cmd = new UpdateUserImageCommand(userId, file.FileName);
             commandsFactory.ExecuteQuery(cmd);
-
             Guid createdId = cmd.Id;
-
-            Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
+            Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(userId);
             return Ok(credential);
         }
 
@@ -211,7 +173,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.SchoolName, model.SchoolDegreeName, model.SchoolCompletionDate, model.CollegeName, model.CollegeDegree,model.CollegeCompletionDate, model.Certification, model.CertificationType);
+            AddEducationCommand command = new AddEducationCommand(model.UserId, model.SchoolName, model.SchoolDegreeName, model.SchoolCompletionDate, model.CollegeName, model.CollegeDegree,model.CollegeCompletionDate, model.Certification, model.CertificationType);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
@@ -219,30 +181,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpPost("userprofile/api/education/updateeducation")]
         public IActionResult UpdateEducation([FromBody]EducationViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
-            UpdateEducationCommand command = new UpdateEducationCommand(model.CredentialId, model.SchoolName, model.SchoolDegreeName, model.SchoolCompletionDate, model.CollegeName, model.CollegeDegree, model.CollegeCompletionDate, model.Certification, model.CertificationType);
-            commandsFactory.ExecuteQuery(command);
+          
+            //UpdateEducationCommand command = new UpdateEducationCommand(model.CredentialId, model.SchoolName, model.SchoolDegreeName, model.SchoolCompletionDate, model.CollegeName, model.CollegeDegree, model.CollegeCompletionDate, model.Certification, model.CertificationType);
+            //commandsFactory.ExecuteQuery(command);
 
             return Ok();
         }
         [HttpPost("userprofile/api/education/deleteeducation")]
         public IActionResult DeleteEducation([FromBody]EducationViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
-            DeleteEducationCommand command=new DeleteEducationCommand(model.CredentialId,model.Id);
-            commandsFactory.ExecuteQuery(command);
+            //DeleteEducationCommand command=new DeleteEducationCommand(model.CredentialId,model.Id);
+            //commandsFactory.ExecuteQuery(command);
 
             return Ok();
         }

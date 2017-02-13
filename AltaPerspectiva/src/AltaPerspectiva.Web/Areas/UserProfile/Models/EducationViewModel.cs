@@ -19,6 +19,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
         public String Certification { get; set; }
         public String CertificationType { get; set; }
 
-        public Guid CredentialId { get; set; }
+      //  public Guid CredentialId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

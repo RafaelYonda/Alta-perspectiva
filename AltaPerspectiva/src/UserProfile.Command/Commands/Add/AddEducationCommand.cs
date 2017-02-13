@@ -8,9 +8,10 @@ namespace UserProfile.Command.Commands
 {
     public class AddEducationCommand : ICommand
     {
-        public AddEducationCommand(Guid credentialId, String schoolName, String schoolDegreeName, DateTime? schoolCompletionDate, String collegeName, String collegeDegree, DateTime? collegeCompletionDate, String certification, String certificationType)
+        public AddEducationCommand(Guid userId, String schoolName, String schoolDegreeName, DateTime? schoolCompletionDate, String collegeName, String collegeDegree, DateTime? collegeCompletionDate, String certification, String certificationType)
         {
-            CredentialId = credentialId;
+            UserId = userId;
+           // CredentialId = credentialId;
             SchoolName = schoolName;
             SchoolDegreeName = schoolDegreeName;
             SchoolCompletionDate = schoolCompletionDate;
@@ -32,6 +33,7 @@ namespace UserProfile.Command.Commands
         public String Certification { get; set; }
         public String CertificationType { get; set; }
 
-        public Guid CredentialId { get; set; }
+       // public Guid CredentialId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

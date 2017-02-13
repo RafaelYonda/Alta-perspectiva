@@ -8,7 +8,6 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
 {
     public class CredentialViewModel
     {
-        public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

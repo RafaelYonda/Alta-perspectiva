@@ -22,24 +22,17 @@ namespace UserProfile.CommandHandler
         {
             Debug.WriteLine("UpdateCredentialCommandHandler executed");
 
-            Credential credential = DbContext.Credentials.Where(x => x.Id == command.CredentialId).FirstOrDefault();
+            Credential credential = DbContext.Credentials.Where(x => x.UserId == command.UserId).FirstOrDefault();
             if (credential != null)
             {
-
                 credential.Description = command.Description;
-
                 credential.FirstName = command.FirstName;
-
-
                 credential.LastName = command.LastName;
-
-
-
                 credential.Title = command.Title;
 
-
+                DbContext.Credentials.Update(credential);
             }
-            DbContext.Credentials.Update(credential);
+            
             DbContext.SaveChanges();
 
 

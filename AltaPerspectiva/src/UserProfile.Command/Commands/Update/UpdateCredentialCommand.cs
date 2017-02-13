@@ -9,9 +9,9 @@ namespace UserProfile.Command.Commands
     public class UpdateCredentialCommand : ICommand
     {
         
-        public UpdateCredentialCommand(Guid credentialId, String firstName, String lastName, String title, String description, String imageUrl)
+        public UpdateCredentialCommand(Guid userId, String firstName, String lastName, String title, String description, String imageUrl)
         {
-            CredentialId = credentialId;
+            UserId = userId;
             FirstName = firstName;
             LastName = lastName;
             Title = title;
@@ -20,7 +20,7 @@ namespace UserProfile.Command.Commands
 
         }
         public Guid Id { get; set; }
-        public Guid CredentialId { get; set; }
+        public Guid UserId { get; set; }
         public String FirstName { get; set; }
         public String LastName { get; set; }
         public String Title { get; set; }

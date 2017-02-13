@@ -21,23 +21,62 @@ namespace UserProfile.CommandHandler
         {
             Debug.WriteLine("AddEducationCommandHandler executed");
 
-            Education education = new Education
+            Credential credential = DbContext.Credentials.Where(x => x.UserId == command.UserId).FirstOrDefault();
+            if (credential != null)
             {
-                SchoolName = command.SchoolName,
-                SchoolDegreeName = command.SchoolDegreeName,
-                SchoolCompletionDate = command.SchoolCompletionDate,
-                CreatedOn = DateTime.Now,
-                CredentialId = command.CredentialId,
-                CollegeName = command.CollegeName,
-                Certification = command.Certification,
-                CertificationType = command.CertificationType,
-                CollegeCompletionDate = command.CollegeCompletionDate,
-                CollegeDegree = command.CollegeDegree,
+                Guid credentialId = credential.Id;
+                Education education = new Education
+                {
+                    SchoolName = command.SchoolName,
+                    SchoolDegreeName = command.SchoolDegreeName,
+                    SchoolCompletionDate = command.SchoolCompletionDate,
+                    CreatedOn = DateTime.Now,
+                    CredentialId = credentialId,
+                    CollegeName = command.CollegeName,
+                    Certification = command.Certification,
+                    CertificationType = command.CertificationType,
+                    CollegeCompletionDate = command.CollegeCompletionDate,
+                    CollegeDegree = command.CollegeDegree,
+                };
+                DbContext.Educations.Add(education);
+            }
+            else
+            {
+                Credential newcredential = new Credential
+                {
+                    UserId = command.UserId,
+                    CreatedOn = DateTime.Now,
+                    Title = "",
+                    ProfileViewCount = 0,
+                    FirstName = "",
+                    LastName = "",
+                    Description = "",
+                    ImageUrl = "",
 
-            };
-            DbContext.Educations.Add(education);
-            DbContext.SaveChanges();
+                };
+                DbContext.Credentials.Add(newcredential);
+                DbContext.SaveChanges();
+
+                Guid credentialId = newcredential.Id;
+                Education education = new Education
+                {
+                    SchoolName = command.SchoolName,
+                    SchoolDegreeName = command.SchoolDegreeName,
+                    SchoolCompletionDate = command.SchoolCompletionDate,
+                    CreatedOn = DateTime.Now,
+                    CredentialId = credentialId,
+                    CollegeName = command.CollegeName,
+                    Certification = command.Certification,
+                    CertificationType = command.CertificationType,
+                    CollegeCompletionDate = command.CollegeCompletionDate,
+                    CollegeDegree = command.CollegeDegree,
+                };
+                DbContext.Educations.Add(education);
+            }
            
+            DbContext.SaveChanges();
+
+
 
         }
 
