@@ -34,21 +34,21 @@ const DashBoardroutes: Routes = [
     {
         path: 'dashboard', component: DashBoardComponent,
         children: [
-            { path: '', redirectTo: 'viewprofile' },
+            { path: '', redirectTo: 'viewprofile/-1' },
             
             {
-                path: 'viewprofile', component: ViewProfileComponent,
+                path: 'viewprofile/:userId', component: ViewProfileComponent,
                 children: [
-                    { path: '', redirectTo: 'user-question/1' },
-                    { path: 'user-question/:credentialId', component: UserQuestionComponent},
-                    { path: 'user-answer/:credentialId', component: UserAnswerComponent},
-                    { path: 'follower/:credentialId', component: FollowerComponent },
-                    { path: 'following/:credentialId', component: FollowingComponent },
-                    { path: 'bookmark/:credentialId', component: BookmarkComponent },
-                    { path: 'blog-create/:credentialId', component: BlogCreateComponent },
+                    { path: '', redirectTo: 'user-question' },
+                    { path: 'user-question', component: UserQuestionComponent},
+                    { path: 'user-answer', component: UserAnswerComponent},
+                    { path: 'follower', component: FollowerComponent },
+                    { path: 'following', component: FollowingComponent },
+                    { path: 'bookmark', component: BookmarkComponent },
+                    { path: 'blog-create', component: BlogCreateComponent },
                 ]
-            },
-            { path: 'blog-post', component: BlogPostComponent }
+            }
+            //,{ path: 'blog-post', component: BlogPostComponent }
         ]
     }
 ];

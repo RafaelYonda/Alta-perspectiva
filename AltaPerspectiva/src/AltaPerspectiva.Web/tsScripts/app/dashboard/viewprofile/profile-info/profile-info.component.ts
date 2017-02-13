@@ -1,7 +1,8 @@
-﻿import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
+﻿import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver,Input } from '@angular/core';
 import { ImageUploadService } from '../../../services/image-upload.service';
 import { ConfigService } from '../../../services/config.service';
 import { CredentialViewModel } from '../../../services/models/models.profile';
+import {User} from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
 
 import { AddCredentialComponent } from '../edit-profile/add-credential.component';
@@ -11,6 +12,7 @@ import { AddCredentialComponent } from '../edit-profile/add-credential.component
     providers: [ImageUploadService, ConfigService],
 })
 export class ProfileInfoComponent {
+    @Input() userObj: User;
     isHidden = true;
     showDescription = true;
     imageLink: string;
@@ -39,7 +41,7 @@ export class ProfileInfoComponent {
         let file = event.srcElement.files;
         //Upload the image 
         this._imgService
-            .upload(file)
+            .upload(file,'')
             .subscribe(res => {
                 this.ngOnInit();
             });

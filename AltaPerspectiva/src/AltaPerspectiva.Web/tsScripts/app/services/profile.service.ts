@@ -20,6 +20,7 @@ export class ProfileService {
         return ProfileService.instance = ProfileService.instance || this;
     }
     //#region  ======= Get user profiles by type==========
+    "userprofile/api/credential/getusercredentialbyuserid/{userId}"
     GetSingleProfile(url: string): Observable<any> {
         //url = 'userprofile/api/getuserprofile';
 
@@ -70,6 +71,11 @@ export class ProfileService {
 
     GetFollowerByCredential(credentialId): Observable<User[]> {
         return this._http.get('userprofile/api/following')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    GetUsercredentialByUserId(userId): Observable<CredentialViewModel> {
+        return this._http.get("userprofile/api/credential/getusercredentialbyuserid/" + userId)
             .map(this.extractData)
             .catch(this.handleError);
     }

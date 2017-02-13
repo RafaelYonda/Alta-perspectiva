@@ -17,22 +17,19 @@ export class ViewProfileComponent {
         this.route = _route;
     }
     ngOnInit() {
-        var user = this.profileService.GetUserCredential().subscribe(usr => {     //Get User Image
-            this.credential = usr;
-            console.log(usr);
-            this._router.navigateByUrl('dashboard/viewprofile/user-question/' + usr.id, { skipLocationChange: true });
-
+        this._route.params.subscribe(params => {
+            this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
+                this.credential = usr;
+                console.log(this.credential);
+            });
         });
+        //document.getElementById("question").focus();
+        //var user = this.profileService.GetUserCredential().subscribe(usr => {     //Get User Image
+        //    this.credential = usr;
+        //    console.log(usr);
+        //    this._router.navigateByUrl('dashboard/viewprofile/user-question/' + usr.id, { skipLocationChange: true });
+
+        //});
         //this.SetImage();
     }
-    //SetImage() {
-    //    this._configService.getConfig().subscribe(res => {
-    //        this.imageLink = res.profileImage;
-    //        var user = this.profileService.GetUser().subscribe(usr => {
-    //            if (usr.imageUrl != '')
-    //                this.imageLink += usr.imageUrl;
-    //            else this.imageLink = '../images/userAdd.png';
-    //        });
-    //    });
-    //}
 }

@@ -1,6 +1,4 @@
-﻿/// <reference path="../../../services/profile.service.ts" />
-/// <reference path="../../../services/models.ts" />
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { ProfileService } from '../../../services/profile.service';
 import { User } from '../../../services/models';
 import { ActivatedRoute } from '@angular/router';
@@ -14,7 +12,7 @@ export class FollowerComponent {
         
     }
     ngOnInit() {
-        this.sub = this._route.params.subscribe(params => {
+        this.sub = this._route.parent.params.subscribe(params => {
             this.profileServ.GetFollowerByCredential(params['credentialId']).subscribe(usr => {     //Get User Image
                 this.user = usr;
                 console.log(this.user);

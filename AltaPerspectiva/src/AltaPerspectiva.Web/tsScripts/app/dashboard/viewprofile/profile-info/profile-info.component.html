@@ -113,17 +113,18 @@
             <input type="file" name="documents" class="custom-file-input" (change)="onChangeImage($event)" [(ngModel)]="doc" #documents="ngModel">
         </div>
     </div>
-    <div class="col-md-9" style="border:1px solid">
+    <div class="col-md-9" >
         <div class="profile-info">
             <!-- ===================User Name================== -->
             <div class="user-name">
-                <div [hidden]="!isHidden">
-                    <h1> {{credential.firstName}} </h1>
-                    <a (click)="isHidden = fales" class="edit"><span><i class="fa fa-edit"></i>Edit</span> </a>
+                <div [hidden]="!isUserHidden">
+                    <h1> {{credential.firstName}} {{credential.lastName}} </h1>
+                    <a (click)="isUserHidden = fales" class="edit"><span><i class="fa fa-edit"></i>Edit</span> </a>
                 </div>
-                <div [hidden]="isHidden">
-                    <input [(ngModel)]="credential.firstName" type="text" />
-                    <a (click)="isHidden = true">cancel</a>
+                <div [hidden]="isUserHidden">
+                    <input placeholder="First Name" [(ngModel)]="credential.firstName" type="text" />
+                    <input placeholder="Last Name" [(ngModel)]="credential.lastName" type="text" />
+                    <a (click)="isUserHidden = true">cancel</a>
                     <button class="btn btn-primary" (click)="UpdateUserName()">Update</button>
                 </div>
             </div>
@@ -145,7 +146,7 @@
                 <div [innerHTML]="credential.description"></div>
                 <a class="edit"><span (click)="showDescription = false"><i class="fa fa-edit"></i>Edit</span> </a>
             </div>
-            <div class="description-panel" style="border:1px solid;width:100%" [hidden]="showDescription">
+            <div class="description-panel" [hidden]="showDescription">
                 <quill-editor [(ngModel)]="credential.description" [ngModelOptions]="{standalone: true}"
                               [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link', 'image']]}"
                               required name="answerField" #answerField="ngModel"></quill-editor>

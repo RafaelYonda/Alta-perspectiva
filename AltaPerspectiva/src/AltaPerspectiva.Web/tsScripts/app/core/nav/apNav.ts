@@ -24,7 +24,7 @@ export class ApNav {
     constructor(private authService: AuthenticationService, private profileService: ProfileService) {
         this._authService = authService;
         var user: User = new User();
-        user.userid = '-1';
+        //user.userid = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
@@ -38,6 +38,8 @@ export class ApNav {
                 this._logObj.user.name = res.name;
                 this._logObj.user.imageUrl ='../../../../profile/'+ res.imageUrl;
                 this._logObj.isLoggedIn = true;
+                this._logObj.user.userid = res.userId;
+
                 localStorage.setItem('currentUserName', this._logObj.user.name);
                 localStorage.setItem('currentUserImage', this._logObj.user.imageUrl);
             }

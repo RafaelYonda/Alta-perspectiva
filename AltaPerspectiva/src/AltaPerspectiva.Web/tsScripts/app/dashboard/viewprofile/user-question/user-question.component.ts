@@ -14,8 +14,8 @@ export class UserQuestionComponent {
 
     constructor(private questionService: QuestionService, private profileService: ProfileService, private _route: ActivatedRoute) { }
     ngOnInit() {
-        this.sub = this._route.params.subscribe(params => {
-            console.log(params);
+        this.sub = this._route.parent.params.subscribe(params => {
+            //console.log(params);
             this.questionService.getQuestionsbyCredentialId(params['credentialId']).subscribe(res => {
                 this.questions = res;
                 for (var q = 0; q < this.questions.length; q++) {
