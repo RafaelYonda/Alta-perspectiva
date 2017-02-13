@@ -2,44 +2,84 @@ USE [AltaPerspectiva]
 GO
 DROP PROC SpUserInfoDetails
 Go
-CREATE PROC SpUserInfoDetails --'9f5b4ead-f9e7-49da-b0fa-1683195cfcba'
+USE [AltaPerspectiva]
+GO
+/****** Object:  StoredProcedure [dbo].[SpUserInfoDetails]    Script Date: 2/13/2017 6:48:44 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[SpUserInfoDetails] --'a61da2ca-aa87-4a07-ab6f-e66cb6242e1b'
 (
 @userId nvarchar(255)
 )
 AS
 BEGIN
 
-select top 1 ImageUrl,FirstName+' '+LastName FullName,Title,
-(select COUNT(*) AnswerCount from Questions.Answers a where a.UserId=c.UserId) AnswerCount,
-(select COUNT(*) QuestionCount from Questions.Questions q where q.UserId=c.UserId) QuestionCount,
-(select SUM(ISNULL(q.ViewCount,0)) QuestionViewCount from Questions.Questions q where q.UserId=c.UserId) QuestionViewCount,
-(select top 1 ISNULL(Certification,'')+' , '+ISNULL(CertificationType,'')+', '+ISNULL(CollegeDegree,'') As Education
+DECLARE @ImageUrl nvarchar(500);
+DECLARE @FullName nvarchar(500);
+DECLARE @Title nvarchar(500);
+
+--Extra
+DECLARE @credentialId nvarchar(255);
+select top 1 @credentialId=Id, @ImageUrl=ImageUrl,@FullName=ISNULL(FirstName,'')+' '+ISNULL(LastName,''),@Title=Title
+from  UserProfile.[Credentials] c 
+where c.UserId=@userId;
+--Depends on credentialId
+DECLARE @Education nvarchar(500);
+set @Education=(select top 1 ISNULL(Certification,'')+' , '+ISNULL(CertificationType,'')+', '+ISNULL(CollegeDegree,'') As Education
 from UserProfile.Educations  edu 
-where  edu.CredentialId=c.Id
-order by CreatedOn desc) Education,
-(
+where  edu.CredentialId=@credentialId
+order by CreatedOn desc);
+
+DECLARE @Employment nvarchar(500);
+set @Employment=(
 select top 1 Position+' , '+CompanyName as Employment
 from UserProfile.Employments  emp 
-where  emp.CredentialId=c.Id
+where  emp.CredentialId=@credentialId
 order by CreatedOn desc
-) Employment,
-(
+)
+DECLARE @Place nvarchar(500);
+
+set @Place=(
 select top 1 LocationName as LocationName
 from UserProfile.Places  p 
-where  p.CredentialId=c.Id
+where  p.CredentialId=@credentialId
 order by CreatedOn desc
-) Place,
-(
+);
+DECLARE @OtherExperience nvarchar(500);
+
+set @OtherExperience=(
 select top 1 [Description] 
 from UserProfile.OtherExperiences o
-where o.CredentialId=c.Id
+where o.CredentialId=@credentialId
 order by CreatedOn desc
-) OtherExperience
+);
 
-from UserProfile.[Credentials] c 
-where c.UserId=@userId;
+--Dependes on userId
+DECLARE @AnswerCount int;
+set @AnswerCount=(select count(*) as TotalAnswer from Questions.Answers a where a.UserId=@userId)
+DECLARE @QuestionCount int;
+set @QuestionCount=(select COUNT(*) QuestionCount from Questions.Questions q where q.UserId=@UserId);
+DECLARE @QuestionViewCount int;
+set @QuestionViewCount=(select SUM(ISNULL(q.ViewCount,0)) QuestionViewCount from Questions.Questions q where q.UserId=@userId);
+
+
+
+select  
+@ImageUrl ImageUrl,
+@FullName FullName,
+@Title Title,
+@AnswerCount AnswerCount,
+@QuestionCount QuestionCount,
+ISNULL(@QuestionViewCount,0) QuestionViewCount,
+@Education Education,
+@Employment Employment,
+@Place Place,
+@OtherExperience OtherExperience;
+
 END
-GO
+
 GO
 DROP TABLE [UserProfile].[Followers]
 GO
