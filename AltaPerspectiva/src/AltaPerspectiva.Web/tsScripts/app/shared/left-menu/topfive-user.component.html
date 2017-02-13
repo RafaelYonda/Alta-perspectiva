@@ -46,25 +46,25 @@
     <br />
     <div class="topAlign">
         <ul class="fa-ul">
-            <li ngIf="userInfoDetails?.answerCount!=0">
+            <li *ngIf="userInfoDetails?.answerCount!=0">
                 <i class="fa-li fa fa-check-square"></i>Answers: {{userInfoDetails?.answerCount}}
             </li>
-            <li ngIf="userInfoDetails?.questionCount!=0"><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
+            <li *ngIf="userInfoDetails?.questionCount!=0"><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
 
-            <li ngIf="userInfoDetails?.education!=''">
+            <li *ngIf="userInfoDetails?.education!=''">
                 <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
             </li>
-            <li ngIf="userInfoDetails?.employment!=''">
+            <li *ngIf="userInfoDetails?.employment!=''">
                 <i class="fa-li fa fa-info-circle"></i>employment: {{userInfoDetails?.employment}}
             </li>
-            <li ngIf="userInfoDetails?.place!=''">
+            <li *ngIf="userInfoDetails?.place!=''">
                 <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
             </li>
-            <li ngIf="userInfoDetails?.otherExperience!=''">
+            <li *ngIf="userInfoDetails?.otherExperience!=''">
                 <i class="fa-li fa fa-cog"></i>otherExperience: {{userInfoDetails?.otherExperience}}
             </li>
 
-            <li ngIf="userInfoDetails?.questionViewCount!=0">
+            <li *ngIf="userInfoDetails?.questionViewCount!=0">
                 <i class="fa-li fa fa-eye">
 
                 </i>Question Views: {{userInfoDetails?.questionViewCount}}
