@@ -12,42 +12,38 @@ import { AddCredentialComponent } from '../edit-profile/add-credential.component
     providers: [ImageUploadService, ConfigService],
 })
 export class ProfileInfoComponent {
-    @Input() userObj: User;
-    isHidden = true;
+    //@Input() userObj: User;
+    isUserHidden = true;
     showDescription = true;
     imageLink: string;
-    credential: CredentialViewModel = new CredentialViewModel();
+    @Input() credential: CredentialViewModel = new CredentialViewModel();
     hasCredential: boolean;
     hasDescription: boolean;
     constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
     }
     ngOnInit() {
         this._configService.getConfig().subscribe(res => {      //Get config for image
-            console.log(res);
-            this.imageLink = res.profileImage;
-            var user = this.profileService.GetUserCredential().subscribe(usr => {     //Get User Image
-                this.credential = usr;
-                this.hasCredential = this.credential.title.trim() != "" ? false : true;
-                this.hasDescription = this.credential.description.trim() != "" ? false : true;
-                console.log(usr);
-                if (usr.imageUrl && (usr.imageUrl != ''))
-                    this.imageLink += usr.imageUrl;
-                else this.imageLink = '../images/userAdd.png';
-                console.log(this.imageLink);
-            });
+            this.hasCredential = this.credential.title.trim() != "" ? false : true;
+            this.hasDescription = this.credential.description.trim() != "" ? false : true;
+            console.log(this.credential);
+            if (this.credential.imageUrl && (this.credential.imageUrl != ''))
+                this.imageLink += this.credential.imageUrl;
+            else this.imageLink = '../images/userAdd.png';
+            console.log(this.imageLink);
         });
     }
     onChangeImage(event) {
         let file = event.srcElement.files;
         //Upload the image 
         this._imgService
-            .upload(file,'')
+            .upload(file, this.credential.userId)
             .subscribe(res => {
                 this.ngOnInit();
             });
     }
     UpdateUserName() {
         this.profileService.SaveUserName(this.credential.firstName, this.credential.lastName, this.credential.userId).subscribe(res => {
+            this.isUserHidden = true;
             this.ngOnInit();
         });
     }
