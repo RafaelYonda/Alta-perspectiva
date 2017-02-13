@@ -132,7 +132,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
             AddCredentialCommand command=new AddCredentialCommand(loggedinUser,firstName,lastName,"","","");
             commandsFactory.ExecuteQuery(command);
-            return Ok(command.Id);
+            return Ok(command.Id);//CredentialId
         }
         [HttpPost("userprofile/api/credential/update")]
         public IActionResult UpdateCredential([FromBody]CredentialViewModel model)
@@ -200,6 +200,12 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(education);
         }
+        [HttpGet("userprofile/api/education/geteducationbyuserid/{userId}")]
+        public IActionResult GetEducationByUserId(Guid userId)
+        {
+            var education = queryFactory.ResolveQuery<IEducationQuery>().GetEducationByUserId(userId);
+            return Ok(education);
+        }
 
         [HttpPost("userprofile/api/education/addeducation")]
         public IActionResult AddEducation([FromBody]EducationViewModel model)
@@ -263,7 +269,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(education);
         }
+        [HttpGet("userprofile/api/employment/getemploymentbyuserid/{userId}")]
+        public IActionResult GetEmploymentByUserId(Guid userId)
+        {
+            var education = queryFactory.ResolveQuery<IEmploymentQuery>().GetEmploymentByUserId(userId);
 
+            return Ok(education);
+        }
         [HttpPost("userprofile/api/employment/addemployment")]
         public IActionResult AddEmployment([FromBody]EmploymentViewModel model)
         {
@@ -323,6 +335,15 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             //}
             var education = queryFactory.ResolveQuery<IPlaceQuery>().GetPlace(credentialId);
+
+            return Ok(education);
+        }
+
+        [HttpGet("userprofile/api/place/getplacebyuserid/{userId}")]
+        public IActionResult GetPlaceByUserId(Guid userId)
+        {
+            
+            var education = queryFactory.ResolveQuery<IPlaceQuery>().GetPlaceByUserId(userId);
 
             return Ok(education);
         }
@@ -389,7 +410,14 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(education);
         }
+        [HttpGet("userprofile/api/otherexperience/getotherexperiencebyuserid/{userId}")]
+        public IActionResult GetOtherExperienceByUserId(Guid userId)
+        {
+           
+            var education = queryFactory.ResolveQuery<IOtherExperienceQuery>().GetOtherExperienceByUserId(userId);
 
+            return Ok(education);
+        }
         [HttpPost("userprofile/api/OtherExperience/addOtherExperience")]
         public IActionResult AddOtherExperience([FromBody]OtherExperienceViewModel model)
         {

@@ -18,5 +18,16 @@ namespace UserProfile.Query.Queries
         {
             return DbContext.OtherExperiences.Where(x => x.CredentialId == credentialId).FirstOrDefault();
         }
+
+        public OtherExperience GetOtherExperienceByUserId(Guid userId)
+        {
+            Credential credential = DbContext.Credentials.Where(x => x.UserId == userId).FirstOrDefault();
+            if (credential != null)
+            {
+                Guid credentialId = credential.Id;
+                return DbContext.OtherExperiences.Where(x => x.CredentialId == credentialId).FirstOrDefault();
+            }
+            return null;
+        }
     }
 }

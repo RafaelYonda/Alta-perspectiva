@@ -1,7 +1,7 @@
 ﻿import { Component} from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { CommunicationService } from '../../services/communication.service';
-import {User} from '../../services/models';
+import {User,UserInfoDetails} from '../../services/models';
 import { CredentialViewModel } from '../../services/models/models.profile';
 
 @Component({
@@ -14,7 +14,7 @@ export class TopFiveUserComponent {
 
     topFiveUsers:User[];
     //userService: ProfileService;
-
+    userInfoDetails: UserInfoDetails;
     constructor(private profileService: ProfileService, private commServ: CommunicationService) {
         this.topFiveUsers = [];
         //this.userService = profileService;                      
@@ -27,6 +27,15 @@ export class TopFiveUserComponent {
                 this.topFiveUsers = res;
                 
             });
+        });
+    }
+    userover(userId: string) {
+        this.userInfoDetails = null;
+        //console.log(userId);
+        this.profileService.userInfoDetails(userId).subscribe(res => {
+            // console.log(res);
+            this.userInfoDetails = res;
+
         });
     }
 }

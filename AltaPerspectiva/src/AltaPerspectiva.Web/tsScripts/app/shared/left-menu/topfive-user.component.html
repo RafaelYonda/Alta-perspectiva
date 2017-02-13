@@ -3,13 +3,67 @@
     <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
     <ul class="user-list" *ngIf="topFiveUsers.length>0">
         <li *ngFor="let topFiveUser of topFiveUsers">
-            <img class="user-image img-circle" src="../../../../profile/{{topFiveUser?.imageUrl}}" />
-            <div class="top-user-info">
-                <!--<a [routerLink]="['/dashboard/viewprofile/user-question',credential.id]"> {{topFiveUser?.name}}</a>-->
-                <span>,Occupation of the user</span>
-                <div>000 vistas</div>
-            </div>
-            <div class="clearfix"></div>
+           
+                <img class="user-image img-circle" src="../../../../profile/{{topFiveUser?.imageUrl}}" (mouseover)='userover(topFiveUser?.id)' [popover]="userInfoDetailsPopoveruser" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"/>
+                <div class="top-user-info">
+                    <!--<a [routerLink]="['/dashboard/viewprofile/user-question',credential.id]"> {{topFiveUser?.name}}</a>-->
+                    <span>,Occupation of the user</span>
+                    <div>000 vistas</div>
+                </div>
+                <div class="clearfix"></div>
+
+            
         </li>
     </ul>
 </div>
+<popover-content #userInfoDetailsPopoveruser>
+    <ul style="list-style-type: none;">
+        <li>
+            <img class="user-image " src="../../../../profile/{{userInfoDetails?.imageUrl}}" />
+            <!--<div class="user-info" style="margin-top: 10px;">
+                <div class="user-detail">
+                    {{userInfoDetails?.fullName}}, {{userInfoDetails?.title}}
+                </div>
+            </div>-->
+            <div class="user-info">
+                <div class="user-detail">
+                    {{userInfoDetails?.fullName}},<br />
+                    <span style="font-size: 12px;"> {{userInfoDetails?.title}}</span>
+                </div>
+                <!--<div class="user-detail light-gray">{{viewDate | date: 'dd MMM, yyyy'}}</div>-->
+            </div>
+        </li>
+
+    </ul>
+    <br />
+    <div class="topAlign">
+
+        <ul class="fa-ul">
+
+            <li>
+                <i class="fa-li fa fa-check-square"></i>Answers: {{userInfoDetails?.answerCount}}
+            </li>
+            <li><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
+
+            <li>
+                <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
+            </li>
+            <li><i class="fa-li fa fa-info-circle"></i>employment: {{userInfoDetails?.employment}}</li>
+            <li>
+                <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
+            </li>
+            <li>
+                <i class="fa-li fa fa-cog"></i>otherExperience: {{userInfoDetails?.otherExperience}}
+            </li>
+
+            <li>
+                <i class="fa-li fa fa-eye">
+
+                </i>Question Views: {{userInfoDetails?.questionViewCount}}
+
+            </li>
+
+
+        </ul>
+    </div>
+</popover-content>

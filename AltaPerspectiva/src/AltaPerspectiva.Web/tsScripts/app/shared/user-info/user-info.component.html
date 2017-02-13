@@ -11,8 +11,8 @@
 <div class="row row-fix inline-display">
     <div *ngIf="!isAnonymous">
         <div *ngIf="userObj">
-            <img class="user-image " src="../../../../profile/{{userObj?.imageUrl}}" (mouseover)='over(userObj?.userId)' [popover]="userInfoDetailsPopover" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"
-                 [popoverCloseOnMouseOutside]="true" />
+            <img class="user-image " src="../../../../profile/{{userObj?.imageUrl}}" 
+                  (mouseover)='over(userObj?.userId)' [popover]="userInfoDetailsPopover" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"/>
             <div class="user-info">
                 <div class="user-detail">{{userObj?.name}}, {{userObj?.occupation}} </div>
                 <div class="user-detail light-gray">{{viewDate | date: 'dd MMM, yyyy'}}</div>
@@ -40,7 +40,7 @@
                 </div>
             </div>-->
             <div class="user-info">
-                <div class="user-detail" style="font-size: 22px;">
+                <div class="user-detail">
                     {{userInfoDetails?.fullName}},<br />
                     <span style="font-size: 12px;"> {{userInfoDetails?.title}}</span>
                 </div>
@@ -62,7 +62,7 @@
             <li>
                 <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
             </li>
-            <li><i class="fa-li fa fa-address-book"></i>employment: {{userInfoDetails?.employment}}</li>
+            <li><i class="fa-li fa fa-info-circle"></i>employment: {{userInfoDetails?.employment}}</li>
             <li>
                 <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
             </li>

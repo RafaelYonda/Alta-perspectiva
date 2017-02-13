@@ -22,21 +22,35 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("AddCredentialCommandHandler executed");
 
-            Credential credential = new Credential
+            var previousCredential = DbContext.Credentials.Where(x => x.UserId == command.UserId).FirstOrDefault();
+
+            if (previousCredential != null)
             {
-                UserId = command.UserId,
-                ImageUrl = command.ImageUrl,
-                Title = command.Title,
-                FirstName = command.FirstName,
-                LastName = command.LastName,
-                ProfileViewCount = 0,
-                CreatedOn = DateTime.Now,
-                Description = command.Description
-            };
-            DbContext.Credentials.Add(credential);
+                previousCredential.FirstName = command.FirstName;
+                previousCredential.LastName = command.LastName;
+                command.Id = previousCredential.Id;
+            }
+            else
+            {
+                Credential credential = new Credential
+                {
+                    UserId = command.UserId,
+                    ImageUrl = command.ImageUrl,
+                    Title = command.Title,
+                    FirstName = command.FirstName,
+                    LastName = command.LastName,
+                    ProfileViewCount = 0,
+                    CreatedOn = DateTime.Now,
+                    Description = command.Description
+                };
+                DbContext.Credentials.Add(credential);
+                command.Id = credential.Id;
+            }
+
+            
 
             DbContext.SaveChanges();
-            command.Id = credential.Id;
+            
 
         }
     }

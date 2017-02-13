@@ -18,9 +18,9 @@ export class UserInfoComponent {
     }
     over(userId: string) {
         this.userInfoDetails = null;
-        console.log(userId);
+        //console.log(userId);
         this.profileService.userInfoDetails(userId).subscribe(res => {
-            console.log(res);
+           // console.log(res);
             this.userInfoDetails = res;
 
         });

@@ -10,5 +10,6 @@ namespace UserProfile.Query.Queries
     public interface IPlaceQuery : IQuery
     {
         Place GetPlace(Guid credentialId);
+        Place GetPlaceByUserId(Guid userId);
     }
 }

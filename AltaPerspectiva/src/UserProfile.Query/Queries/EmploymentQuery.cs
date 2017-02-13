@@ -17,5 +17,17 @@ namespace UserProfile.Query.Queries
         {
             return DbContext.Employments.FirstOrDefault(x => x.CredentialId == credentialId);
         }
+
+        public Employment GetEmploymentByUserId(Guid userId)
+        {
+            Credential credential = DbContext.Credentials.Where(x => x.UserId == userId).FirstOrDefault();
+            if (credential != null)
+            {
+                Guid credentialId = credential.Id;
+                return DbContext.Employments.FirstOrDefault(x => x.CredentialId == credentialId);
+            }
+            return null;
+
+        }
     }
 }

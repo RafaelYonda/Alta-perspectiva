@@ -9,5 +9,6 @@ namespace UserProfile.Query.Queries
     public interface IEducationQuery:IQuery
     {
         Education GetEducation(Guid credentialId);
+        Education GetEducationByUserId(Guid userId);
     }
 }
