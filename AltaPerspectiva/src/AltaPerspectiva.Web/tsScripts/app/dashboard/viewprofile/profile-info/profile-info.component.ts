@@ -45,7 +45,7 @@ export class ProfileInfoComponent {
             });
     }
     UpdateUserName() {
-        this.profileService.SaveUserName(this.credential.firstName).subscribe(res => {
+        this.profileService.SaveUserName(this.credential.firstName, this.credential.lastName, this.credential.userId).subscribe(res => {
             this.ngOnInit();
         });
     }

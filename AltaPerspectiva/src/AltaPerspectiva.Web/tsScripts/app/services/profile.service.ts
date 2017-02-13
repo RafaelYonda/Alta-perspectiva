@@ -32,35 +32,12 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    GetContact() {
-        return this.GetSingleProfile('userprofile/api/getcontractinformation')
-    }
-    GetBiography() {
-        return this.GetSingleProfile('userprofile/api/getbiography')
-    }
-    GetEducation() {
-        return this.GetSingleProfile('userprofile/api/geteducation')
-    }
-    GetExperience() {
-        return this.GetSingleProfile('userprofile/api/getexperience')
-    }
-    GetSkills() {
-        return this.GetSingleProfile('userprofile/api/getskill')
-    }
-    GetPracticeArea() {
-        return this.GetSingleProfile('userprofile/api/getpracticeArea')
-    }
-    GetInsight() {
-        return this.GetSingleProfile('userprofile/api/getinsight')
-    }
-    //#endregion
 
-    //#region ==========Save user profile single
-
-    SaveUserName(firstName: string) {
+    SaveUserName(firstName: string, lastName:string,userId:string) {
         let model = new FormData();
         model.append("firstName", firstName);
-        model.append("lastName", '');
+        model.append("lastName", lastName);
+        model.append("userId", userId);
         return this._http.post('userprofile/api/credential/savefirstnamelastname', model)
             .map(this.extractData)
             .catch(this.handleError);
@@ -77,62 +54,13 @@ export class ProfileService {
     saveDescription(credential: CredentialViewModel) {
         return this.saveCredential(credential, 'userprofile/api/credential/update');
     }
-    //#endregion
-
-    //#region =========Update user profile single========
-    UpdateProfile(profileObj: any, url: string): Observable<any> {
-        console.log(profileObj);
-        console.log(url);
-        return this._http.post(url, profileObj)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    UpdateContact(contact: Contact) {
-        return this.UpdateProfile(contact, 'userprofile/api/updatecontact');
-    }
-    UpdateBiography(biography: Biography) {
-        return this.UpdateProfile(biography, 'userprofile/api/updatebiography');
-    }
-    UpdateEducation(education: Education) {
-        return this.UpdateProfile(education, 'userprofile/api/updateeducation');
-    }
-    UpdateExperience(experience: Experience) {
-        return this.UpdateProfile(experience, 'userprofile/api/updateexperience');
-    }
-    UpdateInsight(insight: Insight) {
-        return this.UpdateProfile(insight, 'userprofile/api/updateinsight');
-    }
-    //#endregion
-
-    //Get user profiles
-    GetProfile(url: string): Observable<any> {
-        url = 'userprofile/api/getuserprofile';
-
-        return this._http.get(url)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-
-    GetUser(): Observable<User> {
-        var url = 'userprofile/api/getuser';
-        return this._http.get(url)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+   
     GetUserCredential(): Observable<CredentialViewModel> {
         var url = 'userprofile/api/credential/getusercredential';
         return this._http.get(url)
             .map(this.extractData)
             .catch(this.handleError);
     }
-
-    GetTopFiveUser(): Observable<User[]> {
-
-        return this._http.get('userprofile/api/gettopFiveUser')
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-
     GetTopFiveUserByCategory(id): Observable<User[]> {
 
         return this._http.get('userprofile/api/' + id + '/gettopFiveUserbycategoryid')
