@@ -1,4 +1,12 @@
-﻿<div class="menu-container">
+﻿<style>
+    .topAlign {
+        margin-top: 47px;
+        font-family: "myriadpro-regular";
+        font-size: 16px;
+        line-height: 27.5px;
+    }
+</style>
+<div class="menu-container">
     <div class="list-title"><h4>Usuarios más destacados</h4></div>
     <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
     <ul class="user-list" *ngIf="topFiveUsers.length>0">
@@ -22,7 +30,7 @@
             <img class="user-image " src="../../../../profile/{{userInfoDetails?.imageUrl}}" />
             <!--<div class="user-info" style="margin-top: 10px;">
                 <div class="user-detail">
-                    {{userInfoDetails?.fullName}}, {{userInfoDetails?.title}}
+                    {{userInfoDetails?.fullName}} {{userInfoDetails?.title}}
                 </div>
             </div>-->
             <div class="user-info">
@@ -37,26 +45,26 @@
     </ul>
     <br />
     <div class="topAlign">
-
         <ul class="fa-ul">
-
-            <li>
+            <li ngIf="userInfoDetails?.answerCount!=0">
                 <i class="fa-li fa fa-check-square"></i>Answers: {{userInfoDetails?.answerCount}}
             </li>
-            <li><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
+            <li ngIf="userInfoDetails?.questionCount!=0"><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
 
-            <li>
+            <li ngIf="userInfoDetails?.education!=''">
                 <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
             </li>
-            <li><i class="fa-li fa fa-info-circle"></i>employment: {{userInfoDetails?.employment}}</li>
-            <li>
+            <li ngIf="userInfoDetails?.employment!=''">
+                <i class="fa-li fa fa-info-circle"></i>employment: {{userInfoDetails?.employment}}
+            </li>
+            <li ngIf="userInfoDetails?.place!=''">
                 <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
             </li>
-            <li>
+            <li ngIf="userInfoDetails?.otherExperience!=''">
                 <i class="fa-li fa fa-cog"></i>otherExperience: {{userInfoDetails?.otherExperience}}
             </li>
 
-            <li>
+            <li ngIf="userInfoDetails?.questionViewCount!=0">
                 <i class="fa-li fa fa-eye">
 
                 </i>Question Views: {{userInfoDetails?.questionViewCount}}
