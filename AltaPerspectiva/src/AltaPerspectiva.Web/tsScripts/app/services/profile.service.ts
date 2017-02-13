@@ -20,7 +20,6 @@ export class ProfileService {
         return ProfileService.instance = ProfileService.instance || this;
     }
     //#region  ======= Get user profiles by type==========
-    "userprofile/api/credential/getusercredentialbyuserid/{userId}"
     GetSingleProfile(url: string): Observable<any> {
         //url = 'userprofile/api/getuserprofile';
 

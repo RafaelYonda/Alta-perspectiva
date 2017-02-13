@@ -16,7 +16,7 @@ export class UserAnswerComponent {
     constructor(private questionService: QuestionService, private _route: ActivatedRoute, private profileService: ProfileService) { }
     ngOnInit() {
         this.sub = this._route.parent.params.subscribe(params => {
-            this.questionService.getAnswerbyCredentialId(params['credentialId']).subscribe(res => {
+            this.questionService.getAnswerbyUserId(params['userId']).subscribe(res => {
                 this.questions = res;
                 for (var q = 0; q < this.questions.length; q++) {
                     // answers[0] is the best answer

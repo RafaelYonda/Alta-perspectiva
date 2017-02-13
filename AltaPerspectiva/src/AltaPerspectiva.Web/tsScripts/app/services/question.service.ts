@@ -57,13 +57,13 @@ export class QuestionService {
             .map(this.extractData)
             .catch(this.handleError);
     } 
-    getQuestionsbyCredentialId(credentialId: string) {
-        return this._http.get('/userprofile/api/questionbycredentialId/' + credentialId)
+    getQuestionsbyUserId(credentialId: string) {
+        return this._http.get('/userprofile/api/questionbyuserid/' + credentialId)
             .map(this.extractData)
             .catch(this.handleError);
     } 
-    getAnswerbyCredentialId(credentialId: string) {
-        return this._http.get('userprofile/api/answerbycredentialId/' + credentialId)
+    getAnswerbyUserId(credentialId: string) {
+        return this._http.get('userprofile/api/answerbyuserid/' + credentialId)
             .map(this.extractData)
             .catch(this.handleError);
     }
