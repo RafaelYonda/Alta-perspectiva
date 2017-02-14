@@ -1,6 +1,23 @@
-﻿<div style="height:20vh; border:1px solid">
-    <h1>Top Categories</h1>
-</div>
-<div style="height:20vh; border:1px solid">
-    <h1>Statistics Info</h1>
+﻿<style>
+    .statistic-panel{
+        min-height:20vh;
+    }
+    .profile-rightmenu {
+        color: #9d9d9b;
+        width: 100%;
+        margin: 0 auto;
+        border-top: 1px solid #eeeeee;
+        padding-top: 10px;
+        list-style: none;
+        padding-left:20px;
+    }
+</style>
+<div class="statistic-panel">
+    <ul class="profile-rightmenu">
+        <li>{{profileParam?.profileViewCount}} Profile views </li>
+        <li>{{profileParam?.questions}} Answers views </li>
+        <li>{{profileParam?.answerLikeCount}} Answers Likes </li>
+        <li>{{profileParam?.answerMadeThisMonth}} Answer made this month </li>
+        <li>{{profileParam?.questionMadeThisMonth}} Questions made this month </li>
+    </ul>
 </div>
