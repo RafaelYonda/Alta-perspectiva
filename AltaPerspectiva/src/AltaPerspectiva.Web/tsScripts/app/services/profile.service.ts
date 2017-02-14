@@ -68,8 +68,13 @@ export class ProfileService {
             .catch(this.handleError);
     }
 
-    GetFollowerByCredential(credentialId): Observable<User[]> {
-        return this._http.get('userprofile/api/following')
+    GetFollowersByUserId(userId): Observable<User[]> {
+        return this._http.get('userprofile/api/followerbyuserid/' + userId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    GetFollowingsByUserId(userId): Observable<User[]> {
+        return this._http.get('userprofile/api/followingbyuserId/' + userId)
             .map(this.extractData)
             .catch(this.handleError);
     }
