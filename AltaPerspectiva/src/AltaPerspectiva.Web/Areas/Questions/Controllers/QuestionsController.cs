@@ -949,6 +949,14 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         #endregion
 
+        [HttpPost("/questions/api/getdirectquestion")]
+        public async Task<IActionResult> GetDirectQuestion()
+        {
+           var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+            return Ok(questionList);
+        }
+
+
         [HttpPost("/questions/api/savedirectquestion")]
         public IActionResult SaveDirectQuestion([FromBody]AddQuestionViewModel question)
         {
