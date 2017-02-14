@@ -20,7 +20,7 @@ namespace Questions.Query
         {
             var answeredQuestions = DbContext
                                             .Answers
-                                            .Where(q => q.QuestionId != null && q.IsDeleted != true)
+                                            .Where(q => q.QuestionId != null && q.IsDeleted != true )
                                             .Select(x => x.QuestionId.Value).ToList();
             return await DbContext.
                                 Questions
@@ -29,7 +29,7 @@ namespace Questions.Query
                                     .Include(q=>q.Categories)
                                         .ThenInclude(c=>c.Category)
                                         .Where(q=>answeredQuestions.Contains(q.Id) 
-                                                && q.Categories.Any(x => x.CategoryId == CategoryId && x.QuestionId == q.Id) && q.IsDeleted != true)
+                                                && q.Categories.Any(x => x.CategoryId == CategoryId && x.QuestionId == q.Id) && q.IsDeleted != true && q.IsDirectQuestion == false)
                                             .OrderByDescending(c => c.CreatedOn.Value.Date)
                                                 .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                                     .Take(20)
@@ -49,7 +49,7 @@ namespace Questions.Query
                                     .Include(q => q.Categories)
                                         .ThenInclude(c => c.Category)
                                         .Where(q => answeredQuestions.Contains(q.Id)
-                                                && q.Categories.Any(x =>  x.QuestionId == q.Id) && q.IsDeleted != true)
+                                                && q.Categories.Any(x =>  x.QuestionId == q.Id) && q.IsDeleted != true && q.IsDirectQuestion == false)
                                             .OrderByDescending(c => c.CreatedOn.Value.Date)
                                                 .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                                     .Take(20)

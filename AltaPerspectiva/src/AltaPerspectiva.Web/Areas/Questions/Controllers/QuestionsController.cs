@@ -660,7 +660,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 levelId = new Guid(question.LevelId);
             }
             question.Title = new QuestionService().RemoveQuestionMark(question.Title);
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous);
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous,false);
             commandsFactory.ExecuteQuery(cmd);
             Guid questionId = cmd.Id;
 
@@ -949,7 +949,40 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         #endregion
 
+        [HttpPost("/questions/api/savereport")]
+        public IActionResult SaveDirectQuestion([FromBody]AddQuestionViewModel question)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            Guid? topicId;
+            Guid? levelId;
+            if (string.IsNullOrEmpty(question.TopicId))
+            {
+                topicId = null;
+            }
+            else
+            {
+                topicId = new Guid(question.TopicId);
+            }
+            if (string.IsNullOrEmpty(question.LevelId))
+            {
+                levelId = null;
+            }
+            else
+            {
+                levelId = new Guid(question.LevelId);
+            }
+            question.Title = new QuestionService().RemoveQuestionMark(question.Title);
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous, true);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid questionId = cmd.Id;
+            return Ok();
+        }
 
     }
 }

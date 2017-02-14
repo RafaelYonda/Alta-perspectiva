@@ -8,7 +8,7 @@
 
     public class AddQuestionCommand:ICommand
     {
-        public AddQuestionCommand(string _title, string _body, DateTime _date,Guid _userId,List<Guid> _categoryIds,Guid? topicId,Guid? levelId,bool? isAnonymous)
+        public AddQuestionCommand(string _title, string _body, DateTime _date,Guid _userId,List<Guid> _categoryIds,Guid? topicId,Guid? levelId,bool? isAnonymous,bool isDirectQuestion)
         {            
             Title = _title;
             Body = _body;
@@ -18,6 +18,7 @@
             TopicId = topicId;
             LevelId = levelId;
             IsAnonymous = isAnonymous;
+            IsDirectQuestion = isDirectQuestion;
         }    
         public string Title { get; set; }
         public string Body { get; set; }
@@ -28,6 +29,7 @@
         public Guid? TopicId { get; set; }
         public Guid? LevelId { get; set; }
         public bool? IsAnonymous { get; set; }
+        public bool IsDirectQuestion { get; set; }
     }
 }
 

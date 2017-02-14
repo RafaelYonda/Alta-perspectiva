@@ -25,7 +25,7 @@ namespace Questions.Query
                                 Questions.Include(ql=>ql.QuestionLevels)
                                     .Include(q=>q.Categories)
                                         .ThenInclude(c=>c.Category)
-                                            .Where(q => q.Categories.Any(x => categories.Contains( x.CategoryId) || x.Category.Sequence == 1) && q.IsDeleted != true)
+                                            .Where(q => q.Categories.Any(x => categories.Contains( x.CategoryId) || x.Category.Sequence == 1) && q.IsDeleted != true && q.IsDirectQuestion == false)
                                             .OrderByDescending(c => c.CreatedOn.Value.Date)
                                                 .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                                     .Take(20)
@@ -42,7 +42,7 @@ namespace Questions.Query
                                 .Where(qt => qt.QuestionTopics.Any(q => q.QuestionId == qt.Id && q.Topic.CategoryId == categoryId))
                                     .Include(q => q.Categories)
                                         .ThenInclude(c => c.Category)
-                                            .Where(q => q.Categories.Any(x => categories.Contains(x.CategoryId) || x.Category.Sequence == 1))
+                                            .Where(q => q.Categories.Any(x => categories.Contains(x.CategoryId) || x.Category.Sequence == 1) && q.IsDirectQuestion == false)
                                             .OrderByDescending(qq=>qq.ViewCount)
                                                 .Take(20)
                                                         .ToListAsync();
@@ -57,7 +57,7 @@ namespace Questions.Query
                                 .Where(qt => qt.QuestionTopics.Any(q => q.QuestionId == qt.Id && q.Topic.Id == topicId && q.Topic.CategoryId == categoryId))
                                     .Include(q => q.Categories)
                                         .ThenInclude(c => c.Category)
-                                            .Where(q => q.Categories.Any(x => categories.Contains(x.CategoryId) || x.Category.Sequence == 1))
+                                            .Where(q => q.Categories.Any(x => categories.Contains(x.CategoryId) || x.Category.Sequence == 1) && q.IsDirectQuestion == false)
                                             .OrderByDescending(c => c.CreatedOn.Value.Date)
                                                 .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                                     .Take(20)
@@ -78,7 +78,7 @@ namespace Questions.Query
                 .Include(q => q.Likes)
                 .Include(q => q.QuestionLevels)
                 .Include(q => q.QuestionTopics)
-                .Where(q => q.Categories.Any(x => categories.Contains(x.CategoryId) || x.Category.Sequence == 1))
+                .Where(q => q.Categories.Any(x => categories.Contains(x.CategoryId) || x.Category.Sequence == 1) && q.IsDirectQuestion == false)
                 .OrderByDescending(y => y.Likes.Count)
                 .Take(20).ToListAsync();
         }

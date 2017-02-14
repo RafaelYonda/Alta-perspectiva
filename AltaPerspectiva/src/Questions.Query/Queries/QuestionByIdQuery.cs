@@ -26,7 +26,7 @@ namespace Questions.Query
                             .Include(q=>q.Likes)
                             .Include(q=>q.Categories)
                                 .ThenInclude(c=>c.Category)                
-                            .Where(q=>q.Id == questionId && q.IsDeleted != true)
+                            .Where(q=>q.Id == questionId && q.IsDeleted != true &&q.IsDirectQuestion==false)
                             .FirstOrDefault(); 
         }
 

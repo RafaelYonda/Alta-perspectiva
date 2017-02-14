@@ -79,7 +79,8 @@ export class Question {
     answerCount: number;
     topicId: string;
     levelId: string;
-    isAnonymous: boolean;//IsAnonymous added 
+    isAnonymous: boolean;//IsAnonymous added
+    isDirectQuestion:boolean;//Directquestion added 
     constructor() {
         this.user = new User();
         this.answers = new Array();
@@ -94,11 +95,12 @@ export class AskQuestionViewModel {
     title: string;
     body: string;
     categoryId: number;
-
-    constructor(_title: string, _detials: string, _categoryId: number) {
+    isDirectQuestion:boolean;
+    constructor(_title: string, _detials: string, _categoryId: number, _isDirectQuestion:boolean) {
         this.title = _title;
         this.body = _detials;
         this.categoryId = _categoryId;
+        this.isDirectQuestion = _isDirectQuestion;
     }
 }
 

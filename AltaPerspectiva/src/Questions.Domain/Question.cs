@@ -14,6 +14,7 @@
 
         public Guid UserId { get; set; }  
         public bool? IsAnonymous { get; set; }
+        
 
         public virtual ICollection<QuestionCategory> Categories { get; set; }
 
@@ -29,8 +30,7 @@
 
         public virtual ICollection<Bookmark> Bookmarks { get; set; }
         public int? ViewCount { get; set; }
-
-      //  public virtual ICollection<DirectQuestion> DirectQuestions { get; set; }
+        public bool IsDirectQuestion { get; set; }
         public Question() {
 
             Categories = new List<QuestionCategory>();
