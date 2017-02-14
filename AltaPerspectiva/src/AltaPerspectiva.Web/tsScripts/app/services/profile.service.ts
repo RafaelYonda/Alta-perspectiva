@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import {User, Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword,UserInfoDetails} from './models';
-import { CredentialViewModel, ProfileParameter }     from './models/models.profile';
+import { CredentialViewModel }     from './models/models.profile';
+import {  ProfileParameter }     from './models/models.ProfileParameter';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';

@@ -1,5 +1,4 @@
-﻿/// <reference path="../shared/nav-bar/nav-bar.component.ts" />
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { ModuleWithProviders }  from '@angular/core';
@@ -12,7 +11,8 @@ import { NavDashboard } from './navdashboard/navdashboard.component';
 
 import { ViewProfileComponent } from './viewprofile/viewprofile.component';
 import { ProfileInfoComponent } from './viewprofile/profile-info/profile-info.component';
-import { ProfileStatComponent } from './viewprofile/profile-stat/profile-stat.component';
+import { ProfileStatComponent } from './viewprofile/profile-stat/profile-stat.component'; 
+import { ProfileCategoryComponent } from './viewprofile/profile-category/profile-category.component';
 //Edit Profile Forms 
 import { AddCredentialComponent } from './viewprofile/edit-profile/add-credential.component';
 
@@ -60,7 +60,7 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
     declarations: [
         DashBoardComponent, NavDashboard,
         ViewProfileComponent,
-        ProfileInfoComponent, ProfileStatComponent, UserAnswerComponent, UserQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent,
+        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent,
         //Edit Profile
         AddCredentialComponent
     ],

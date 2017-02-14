@@ -1,9 +1,9 @@
-﻿/// <reference path="profile-info/profile-info.component.ts" />
-import { Component, ViewChild } from '@angular/core';
-import { Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight } from '../../services/models';
+﻿import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ImageUploadService } from '../../services/image-upload.service';
 import { ProfileService } from '../../services/profile.service';
+import { ProfileParameter } from '../../services/models/models.profileparameter';
+
 import { ConfigService } from '../../services/config.service';
 import { CredentialViewModel } from '../../services/models/models.profile';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
@@ -12,6 +12,7 @@ import { ProfileInfoComponent } from './profile-info/profile-info.component';
     providers: [ProfileService, ConfigService]
 })
 export class ViewProfileComponent {
+    profileParam: ProfileParameter;
     route: any;
     imageLink: string;
     credential: CredentialViewModel = new CredentialViewModel();
@@ -21,7 +22,7 @@ export class ViewProfileComponent {
     @ViewChild(ProfileInfoComponent) profileInfo: ProfileInfoComponent
     ngOnInit() {
         document.getElementById('question-route').focus();
-        document.getElementById('question-link').focus();
+        //document.getElementById('question-link').focus();
         this._route.params.subscribe(params => {
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
@@ -29,14 +30,11 @@ export class ViewProfileComponent {
                 this.profileInfo.ngOnInit();
                 console.log(this.credential);
             });
-        });
-        //document.getElementById("question").focus();
-        //var user = this.profileService.GetUserCredential().subscribe(usr => {     //Get User Image
-        //    this.credential = usr;
-        //    console.log(usr);
-        //    this._router.navigateByUrl('dashboard/viewprofile/user-question/' + usr.id, { skipLocationChange: true });
+            this.profileService.getProfileParameter(params['userId']).subscribe(profileParam => {
+                this.profileParam = profileParam;
+                console.log(profileParam);
+            });
 
-        //});
-        //this.SetImage();
+        });
     }
 }
