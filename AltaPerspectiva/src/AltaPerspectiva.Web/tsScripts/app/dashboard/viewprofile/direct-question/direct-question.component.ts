@@ -4,12 +4,12 @@ import { QuestionService } from '../../../services/question.service';
 import { Category, Question, QuestionSaveViewModel } from '../../../services/models';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/direct-question/direct-question.component.html',
-    providers: [CategoryService]
+    providers: [CategoryService, QuestionService]
 })
 export class DirectQuestionComponent {
     categories: Category[];
     selectedCategory: Category;
-    question: QuestionSaveViewModel;
+    question: QuestionSaveViewModel = new QuestionSaveViewModel();
     constructor(private categoryService: CategoryService, private questionsService: QuestionService) {
     }
     ngOnInit() {
