@@ -9,8 +9,8 @@ namespace UserProfile.Query.Interfaces
 {
     public interface IProfileParameters : IQuery
     {
-        ProfileParameter GetProfileParameter(Guid userId);
+        ProfileParameter GetProfileParameter(Guid userId,string connectionString);
 
-        UserInfoDetails GetUserInfoDetails(Guid userId);
+        UserInfoDetails GetUserInfoDetails(Guid userId,String connectionString);
     }
 }

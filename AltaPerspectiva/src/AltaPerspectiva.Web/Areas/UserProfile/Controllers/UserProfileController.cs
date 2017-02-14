@@ -66,16 +66,24 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
             var model = new UserService().GetUserViewModel(queryFactory, loggedinUser);
 
+            String connectionString =
+                configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
             UserInfoDetails userInfoDetails =
-                queryFactory.ResolveQuery<IProfileParameters>().GetUserInfoDetails(loggedinUser);
+                queryFactory.ResolveQuery<IProfileParameters>().GetUserInfoDetails(loggedinUser, connectionString);
+
+            
+            //ProfileParameter profileParameter =
+            //    queryFactory.ResolveQuery<IProfileParameters>().GetProfileParameter(loggedinUser, connectionString);
 
             return Ok(model);
         }
         [HttpGet("userprofile/api/userinfodetails/{userId}")]
         public IActionResult UserInfoDetails(Guid userId)
         {
+            String connectionString =
+              configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
             UserInfoDetails userInfoDetails =
-                queryFactory.ResolveQuery<IProfileParameters>().GetUserInfoDetails(userId);
+                queryFactory.ResolveQuery<IProfileParameters>().GetUserInfoDetails(userId, connectionString);
 
             return Ok(userInfoDetails);
         }

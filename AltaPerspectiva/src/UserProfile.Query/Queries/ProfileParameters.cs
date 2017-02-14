@@ -18,10 +18,12 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-        public ProfileParameter GetProfileParameter(Guid userId)
+       
+
+        public ProfileParameter GetProfileParameter(Guid userId,string connectionString)
         {
             ProfileParameter profileParameter=new ProfileParameter();
-            using (var connection = (SqlConnection)DbContext.Database.GetDbConnection())
+            using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 //String query = String.Format(@"select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=@UserId");
@@ -33,13 +35,15 @@ namespace UserProfile.Query.Queries
                 while (reader.Read())
                 {
 
-                    profileParameter.FollowingsCount = Convert.ToInt32(reader["FollowingsCount"]);
-                    profileParameter.FollowersCount = Convert.ToInt32(reader["FollowersCount"]);
-                    profileParameter.BookmarksCount = Convert.ToInt32(reader["BookmarksCount"]);
-                    profileParameter.AnswersCount = Convert.ToInt32(reader["AnswersCount"]);
-                    profileParameter.QuestionsCount = Convert.ToInt32(reader["QuestionsCount"]);
-                    profileParameter.AnswersCount = Convert.ToInt32(reader["DirectQuestionCount"]);
-                    profileParameter.BlogsCount = Convert.ToInt32(reader["BlogsCount"]);
+                    profileParameter.Followings = Convert.ToInt32(reader["Followings"]);
+                    profileParameter.Followers = Convert.ToInt32(reader["Followers"]);
+                    profileParameter.Bookmarks = Convert.ToInt32(reader["Bookmarks"]);
+                    profileParameter.Answers = Convert.ToInt32(reader["Answers"]);
+                    profileParameter.Questions = Convert.ToInt32(reader["Questions"]);
+                    
+                    profileParameter.Blogs = Convert.ToInt32(reader["Blogs"]);
+
+
                     profileParameter.AnswerLikeCount = Convert.ToInt32(reader["AnswerLikeCount"]);
                     profileParameter.ProfileViewCount = Convert.ToInt32(reader["ProfileViewCount"]);
                     profileParameter.AnswerMadeThisMonth = Convert.ToInt32(reader["AnswerMadeThisMonth"]);
@@ -50,10 +54,10 @@ namespace UserProfile.Query.Queries
             return profileParameter;
         }
 
-        public UserInfoDetails GetUserInfoDetails(Guid userId)
+        public UserInfoDetails GetUserInfoDetails(Guid userId, string connectionString)
         {
             UserInfoDetails userInfoDetails=new UserInfoDetails();
-            using (var connection = (SqlConnection)DbContext.Database.GetDbConnection())
+            using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 //String query = String.Format(@"select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=@UserId");
@@ -73,9 +77,8 @@ namespace UserProfile.Query.Queries
                     userInfoDetails.FullName= Convert.ToString(reader["FullName"]);
                     userInfoDetails.Title= Convert.ToString(reader["Title"]);
                     userInfoDetails.AnswerCount = Convert.ToInt32(reader["AnswerCount"]);
-                    userInfoDetails.QuestionCount = Convert.ToInt32(reader["QuestionCount"]);  
-                    userInfoDetails.QuestionViewCount = Convert.ToInt32(reader["QuestionViewCount"]);  
-
+                    userInfoDetails.QuestionCount = Convert.ToInt32(reader["QuestionCount"]);
+                    userInfoDetails.QuestionViewCount = Convert.ToInt32(reader["QuestionViewCount"]);
                 }
             }
             return userInfoDetails;

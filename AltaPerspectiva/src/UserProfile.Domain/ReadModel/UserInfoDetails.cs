@@ -10,6 +10,7 @@ namespace UserProfile.Domain.ReadModel
         public Guid UserId { get; set; }
         public int AnswerCount { get; set; }
         public int QuestionCount { get; set; }
+        public int QuestionViewCount { get; set; }
         public string Education { get; set; }
         public string Employment { get; set; }
         public string Place { get; set; }
