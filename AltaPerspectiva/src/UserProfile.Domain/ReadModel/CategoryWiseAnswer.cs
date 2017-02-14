@@ -9,5 +9,6 @@ namespace UserProfile.Domain.ReadModel
     {
         public string CategoryName { get; set; }
         public int AnswerCount { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
