@@ -43,8 +43,9 @@ export class ProfileInfoComponent {
             });
     }
     UpdateUserName() {
+        this.isUserHidden = true;
         this.profileService.SaveUserName(this.credential.firstName, this.credential.lastName, this.credential.userId).subscribe(res => {
-            this.isUserHidden = true;
+            
             this.ngOnInit();
         });
     }
