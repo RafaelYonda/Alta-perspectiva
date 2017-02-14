@@ -6,7 +6,7 @@ import { ModuleWithProviders }  from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
-import { NavBarComponent } from '../shared/nav-bar/nav-bar.component';
+//import { NavBarComponent } from '../shared/nav-bar/nav-bar.component';
 import { DashBoardComponent } from './dashboard.component';
 import { NavDashboard } from './navdashboard/navdashboard.component';
 
@@ -58,7 +58,7 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
     imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule, QuillModule, SharedModule
     ],
     declarations: [
-        DashBoardComponent, NavDashboard, NavBarComponent,
+        DashBoardComponent, NavDashboard,
         ViewProfileComponent,
         ProfileInfoComponent, ProfileStatComponent, UserAnswerComponent, UserQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent,
         //Edit Profile

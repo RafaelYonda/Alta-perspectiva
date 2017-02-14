@@ -28,10 +28,7 @@ export class ApNav {
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
-        var user = this.profileService.GetUserCredential().subscribe(usr => {
-            this.credential = usr;
-            console.log(usr);
-        });
+        
         var currentUser = localStorage.getItem('auth_token');  
         this._authService.getLoggedinObj().subscribe(res => {
             if (res && currentUser != "null") {

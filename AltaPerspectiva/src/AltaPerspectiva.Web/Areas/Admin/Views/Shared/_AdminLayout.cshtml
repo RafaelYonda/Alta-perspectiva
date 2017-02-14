@@ -48,9 +48,32 @@
         </script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
+    <link href="~/css/fonts/alta-fonts.css" rel="stylesheet" />
     <style>
+        /*html * {
+            font-family: myriadpro-regular !important;
+        }
+*/
+        .container {
+           font-family: myriadpro-regular!important;
+           
+        }
+
+        .navbar-nav > li > a {
+            color: #fff !important;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .navbar-nav {
+            margin-left: -45px;
+            color: #fff !important;
+            font-family: typogroteskrounded;
+        }
+
         .fixHeader {
             margin-left: 25px !important;
+             font-size: 16px;
         }
 
         .body-minHeight {
@@ -71,17 +94,14 @@
             padding-top: 135px;
         }
 
-         .footer {
+        .footer {
             height: 63px;
             width: 100%;
             background-color: darkgray;
             color: white;
-           
             right: 0;
             bottom: 0;
             left: 0;
-            
-            
         }
 
         .footer-left {
@@ -142,7 +162,7 @@
         }
 
         .navbar-brand {
-            margin-top: 17px;
+            margin-top: -1px;
         }
 
         .navbar {
@@ -152,7 +172,7 @@
 
         .headerText {
             color: aliceblue;
-            font-size: 14px;
+          //  font-size: 14px;
             margin-top: 2px;
             cursor: pointer;
         }
@@ -160,19 +180,27 @@
         .align-of-header {
             margin-top: 6px;
         }
-   
-      
+
+
         .navbar-header {
-                margin-left: -79px!important;
+            margin-left: -79px !important;
         }
+
         .user-menu {
-                margin-top: -10px;
+            margin-top: -10px;
+        }
+
+        .nav-home {
+            border-right: 1px solid white;
+            font-family: myriadpro-regular!important;
+            color: #fff !important;
+            margin-top: 2px;
         }
         /*For H*/
     </style>
 </head>
 <body class="body-minHeight">
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top backgroundset" style="">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -181,10 +209,15 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/LOGO CUADRADO.png" /></a>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand fixHeader">Altaperspectiva</a>
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li class="nav-home">
+                        <a asp-controller="Home" asp-action="Index" class="navbar-brand fixHeader ">Alta Perspectiva</a>
+                    </li>
+
+                    <li><a href="/question/home/1">Questions</a></li>
                     @*<li class="align-of-header"><a asp-controller="Home" asp-action="Index">My Bookmark</a></li>*@
                 </ul>
                 <ul></ul>
@@ -256,7 +289,7 @@
 
                     </ul>
                 </li>
-               
+
             </ul>
         </div><!-- /#sidebar-wrapper -->
     </div>

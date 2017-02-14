@@ -1,10 +1,12 @@
-﻿import { NgModule } from '@angular/core';
+﻿/// <reference path="nav-bar/nav-bar.component.ts" />
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 
 import { CommentComponent } from './comment/comment.component';
+
 import { UserInfoComponent } from './user-info/user-info.component';
 import { QuestionHeaderComponent } from './question-header/question-header.component';
 import { StatusComponent } from './status/status.component';
@@ -32,6 +34,8 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import {QuestionReportComponent} from "./question-report/question-report.component";
 import { QuillModule } from 'ngx-quill';
 //import { ClipboardModule } from 'ngx-clipboard';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+
 
 @NgModule({
     imports: [BrowserModule, FormsModule, RouterModule, PopoverModule, QuillModule, CKEditorModule/*, ClipboardModule*/],
@@ -39,12 +43,12 @@ import { QuillModule } from 'ngx-quill';
         { provide: 'Window', useValue: window }, CommunicationService
     ],
     declarations: [
-        ApSearchComponent, ApSearchDropDownComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent, AnswerSubmitComponent, QuestionPanelComponent, QuestionReportComponent
+        ApSearchComponent, ApSearchDropDownComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent, AnswerSubmitComponent, QuestionPanelComponent, QuestionReportComponent, NavBarComponent
         //Plug ins
 
     ],
     exports: [
-        ApSearchComponent, ApSearchDropDownComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent, AnswerSubmitComponent, QuestionPanelComponent, QuestionReportComponent
+        ApSearchComponent, ApSearchDropDownComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent, AnswerSubmitComponent, QuestionPanelComponent, QuestionReportComponent, NavBarComponent
     ],
     entryComponents: [DialogComponent, AnswerDialogComponent, QuestionReportComponent]
 })

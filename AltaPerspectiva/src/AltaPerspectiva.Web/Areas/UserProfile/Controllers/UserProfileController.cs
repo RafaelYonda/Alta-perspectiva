@@ -87,6 +87,16 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(userInfoDetails);
         }
+        [HttpGet("userprofile/api/getprofileparameter/{userId}")]
+        public IActionResult GetProfileParameter(Guid userId)
+        {
+            String connectionString =
+              configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
+            ProfileParameter profileParameter =
+                queryFactory.ResolveQuery<IProfileParameters>().GetProfileParameter(userId,connectionString);
+
+            return Ok(profileParameter);
+        }
 
         #region Credentials
 

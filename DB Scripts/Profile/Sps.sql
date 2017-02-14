@@ -18,9 +18,12 @@ DECLARE @Title nvarchar(500);
 DECLARE @ProfileViewCount int;
 --Extra
 DECLARE @credentialId nvarchar(255);
-select top 1 @credentialId=Id, @ImageUrl=ImageUrl,@FullName=ISNULL(FirstName,'')+' '+ISNULL(LastName,''),@Title=Title,@ProfileViewCount=ISNULL(ProfileViewCount,0)
+select top 1 @credentialId=Id, @ImageUrl=ImageUrl,@FullName=ISNULL(FirstName,'')+' '+ISNULL(LastName,''),@ProfileViewCount=ISNULL(ProfileViewCount,0)
 from  UserProfile.[Credentials] c 
 where c.UserId=@userId;
+
+--
+set @Title=(select Position from UserProfile.Employments e where e.CredentialId=@credentialId);
 --Depends on credentialId
 DECLARE @Education nvarchar(500);
 set @Education=(select top 1 ISNULL(Certification,'')+' , '+ISNULL(CertificationType,'')+', '+ISNULL(CollegeDegree,'') As Education
@@ -95,8 +98,10 @@ ISNULL(@QuestionViewCount,0) QuestionViewCount,
 @Employment Employment,
 @Place Place,
 @OtherExperience OtherExperience,
+
 ISNULL(@QuestionViewCount,0) QuestionViewCount
 END
+
 
 GO
 

@@ -32,7 +32,11 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             queryFactory = _queryFactory;
             environment = _environment;
         }
-
+        [HttpGet("Admin/")]
+        public IActionResult Index()
+        {
+            return RedirectToAction("AddCategory");
+        }
         [HttpPost]
         public IActionResult SaveTopic(Guid categoryId, String topicName)
         {
@@ -43,13 +47,13 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             return Ok(topicName);
         }
 
-        [HttpGet("Admin/getcategory")]
-        public IActionResult GetCategory()
-        {
-            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+        //[HttpGet("Admin/getcategory")]
+        //public IActionResult GetCategory()
+        //{
+        //    List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
 
-            return View(categoriesList);
-        }
+        //    return View(categoriesList);
+        //}
 
         [HttpGet("Admin/addcategory")]
         public IActionResult AddCategory()
