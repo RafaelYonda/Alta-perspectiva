@@ -1,6 +1,6 @@
 USE [AltaPerspectiva]
 GO
-drop proc [dbo].SpCategoryWiseAnswer;
+drop proc [dbo].[SpCategoryWiseAnswer];
 GO
 
 create proc [dbo].SpCategoryWiseAnswer
@@ -10,7 +10,7 @@ create proc [dbo].SpCategoryWiseAnswer
 AS
 BEGIN
 
-select COUNT(*) TotalAnswer,(select Name from Questions.Categories c where c.Id=qc.CategoryId) Name
+select COUNT(*) AnswerCount,(select Name from Questions.Categories c where c.Id=qc.CategoryId) CategoryName,(select Image from Questions.Categories cc where cc.Id=qc.CategoryId) ImageUrl
 from Questions.Answers a 
 inner join Questions.Questions q
 on a.QuestionId=q.Id
@@ -18,6 +18,7 @@ inner join Questions.QuestionCategories qc
 on q.Id=qc.QuestionId
 where a.UserId=@userId
 group by qc.CategoryId
+
 
 END
 GO

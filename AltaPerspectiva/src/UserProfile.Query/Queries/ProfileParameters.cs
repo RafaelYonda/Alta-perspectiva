@@ -34,6 +34,7 @@ namespace UserProfile.Query.Queries
                     CategoryWiseAnswer categoryWiseAnswer=new CategoryWiseAnswer();
                     categoryWiseAnswer.AnswerCount = Convert.ToInt32(reader["AnswerCount"]);
                     categoryWiseAnswer.CategoryName = Convert.ToString(reader["CategoryName"]);
+                    categoryWiseAnswer.ImageUrl = Convert.ToString(reader["ImageUrl"]);
                     categoryWiseAnswers.Add(categoryWiseAnswer);
                 }
             }
