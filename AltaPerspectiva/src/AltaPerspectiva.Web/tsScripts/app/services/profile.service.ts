@@ -2,6 +2,7 @@
 import {User, Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword,UserInfoDetails} from './models';
 import { CredentialViewModel }     from './models/models.profile';
 import {  ProfileParameter }     from './models/models.ProfileParameter';
+import {  CategoryWiseAnswer }     from './models/models.CategoryWiseAnswer';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -84,8 +85,15 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
     getProfileParameter(userId: string): Observable<ProfileParameter> {
         return this._http.get('userprofile/api/getprofileparameter/' + userId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    getCategoryWiseAnswer(userId: string): Observable<CategoryWiseAnswer[]> {
+        return this._http.get('userprofile/api/categorywiseanswer/' + userId)
             .map(this.extractData)
             .catch(this.handleError);
     }
