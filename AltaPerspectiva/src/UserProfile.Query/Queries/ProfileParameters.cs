@@ -18,7 +18,27 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-       
+        public List<CategoryWiseAnswer> CategoryWiseAnswerCount(Guid userId, string connectionString)
+        {
+            List<CategoryWiseAnswer> categoryWiseAnswers=new List<CategoryWiseAnswer>();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "SpCategoryWiseAnswer";
+                command.Parameters.AddWithValue("@userId", userId);
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    CategoryWiseAnswer categoryWiseAnswer=new CategoryWiseAnswer();
+                    categoryWiseAnswer.AnswerCount = Convert.ToInt32(reader["AnswerCount"]);
+                    categoryWiseAnswer.CategoryName = Convert.ToString(reader["CategoryName"]);
+                    categoryWiseAnswers.Add(categoryWiseAnswer);
+                }
+            }
+            return categoryWiseAnswers;
+        }
 
         public ProfileParameter GetProfileParameter(Guid userId,string connectionString)
         {

@@ -12,5 +12,7 @@ namespace UserProfile.Query.Interfaces
         ProfileParameter GetProfileParameter(Guid userId,string connectionString);
 
         UserInfoDetails GetUserInfoDetails(Guid userId,String connectionString);
+
+        List<CategoryWiseAnswer> CategoryWiseAnswerCount(Guid userId, string connectionString);
     }
 }

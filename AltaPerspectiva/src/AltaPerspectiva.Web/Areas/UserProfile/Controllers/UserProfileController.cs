@@ -97,7 +97,16 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(profileParameter);
         }
+        [HttpGet("userprofile/api/categorywiseanswer/{userId}")]
+        public IActionResult GetCategoryWiseAnswer(Guid userId)
+        {
+            String connectionString =
+              configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
+            List<CategoryWiseAnswer> categoryWiseAnswers=
+                queryFactory.ResolveQuery<IProfileParameters>().CategoryWiseAnswerCount(userId, connectionString).OrderByDescending(x=>x.AnswerCount).ThenByDescending(x=>x.CategoryName).ToList();
 
+            return Ok(categoryWiseAnswers);
+        }
         #region Credentials
 
         [HttpGet("userprofile/api/credential/getusercredentialbyuserid/{userId}")]
@@ -553,6 +562,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok();
         }
         #endregion
+
+
 
 
     }

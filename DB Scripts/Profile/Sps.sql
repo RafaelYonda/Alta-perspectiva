@@ -1,5 +1,27 @@
 USE [AltaPerspectiva]
 GO
+drop proc [dbo].SpCategoryWiseAnswer;
+GO
+
+create proc [dbo].SpCategoryWiseAnswer
+(
+@userId nvarchar(255)
+)
+AS
+BEGIN
+
+select COUNT(*) TotalAnswer,(select Name from Questions.Categories c where c.Id=qc.CategoryId) Name
+from Questions.Answers a 
+inner join Questions.Questions q
+on a.QuestionId=q.Id
+inner join Questions.QuestionCategories qc
+on q.Id=qc.QuestionId
+where a.UserId=@userId
+group by qc.CategoryId
+
+END
+GO
+
 
 DROP PROC [dbo].[SpUserInfoDetails];
 GO
