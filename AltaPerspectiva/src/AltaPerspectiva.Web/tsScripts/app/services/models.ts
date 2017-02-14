@@ -95,12 +95,11 @@ export class AskQuestionViewModel {
     title: string;
     body: string;
     categoryId: number;
-    isDirectQuestion:boolean;
-    constructor(_title: string, _detials: string, _categoryId: number, _isDirectQuestion:boolean) {
+    
+    constructor(_title: string, _detials: string, _categoryId: number) {
         this.title = _title;
         this.body = _detials;
         this.categoryId = _categoryId;
-        this.isDirectQuestion = _isDirectQuestion;
     }
 }
 
