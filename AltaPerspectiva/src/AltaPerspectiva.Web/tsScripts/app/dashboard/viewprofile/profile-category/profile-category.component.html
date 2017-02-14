@@ -1,3 +1,20 @@
-﻿<div style="height:20vh; border:1px solid">
-    <h1>Top Categories</h1>
+﻿<style>
+    .statistic-panel {
+        min-height: 20vh;
+    }
+
+    .profile-rightmenu {
+        color: #9d9d9b;
+        width: 100%;
+        margin: 0 auto;
+        border-top: 1px solid #eeeeee;
+        padding-top: 10px;
+        list-style: none;
+        padding-left: 20px;
+    }
+</style>
+<div class="statistic-panel">
+    <ul class="profile-rightmenu" *ngFor="let categoryWiseAnswer of categoryWiseAnswers">
+        <li>{{categoryWiseAnswer.categoryName}} Profile views </li>
+    </ul>
 </div>
