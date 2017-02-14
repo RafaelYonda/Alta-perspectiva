@@ -7,6 +7,7 @@ import { Category, Question, QuestionSaveViewModel } from '../../../services/mod
     providers: [CategoryService, QuestionService]
 })
 export class DirectQuestionComponent {
+    questions: Question[];
     categories: Category[];
     selectedCategory: Category;
     question: QuestionSaveViewModel = new QuestionSaveViewModel();
@@ -16,13 +17,19 @@ export class DirectQuestionComponent {
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
         });
+        this.questionsService.getQuestionsByCategory('7639B416-8D1C-4119-B58E-143CB860E8A6').subscribe(res => {
+            console.log(res);
+            this.questions = res;
+        });
     }
     selectCategory(cat: Category) {
+        this.selectedCategory = cat;
         this.question.categoryId = cat.id;
     }
     submitQuestion() {
         this.questionsService.saveDirectQuestion(this.question).subscribe(res => {
             this.question = res;
+            this.ngOnInit();
             console.log(res);
 
         });

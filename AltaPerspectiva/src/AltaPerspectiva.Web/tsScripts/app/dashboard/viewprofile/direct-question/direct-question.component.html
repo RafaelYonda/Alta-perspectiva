@@ -1,22 +1,24 @@
 ﻿<style>
     .from-md {
         width: 60%;
-        margin: 10px auto;
+        margin: 10px auto 65px;
     }
-    .btn-select{
-        text-align:left;
+
+    .btn-select {
+        text-align: left;
     }
-    .bottom-margin{
-        margin-bottom:10px;
+
+    .bottom-margin {
+        margin-bottom: 10px;
     }
 </style>
 <form>
     <div class="form-group from-md">
         <input type="text" class="form-control bottom-margin" placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off"
-               [(ngModel)]="question.title" required name="titleName" #titleName="ngModel"/>
+               [(ngModel)]="question.title" required name="titleName" #titleName="ngModel" />
         <div class="dropdown">
             <button class="btn btn-block dropdown-toggle btn-select bottom-margin" type="button" data-toggle="dropdown">
-                Select Category
+                {{selectedCategory?selectedCategory.name:'Select a category'}}
                 <span class="caret pull-right"></span>
             </button>
             <ul class="dropdown-menu">
@@ -29,4 +31,9 @@
             Submit Question
         </button>
     </div>
+    <div class="clearfix"></div>
 </form>
+
+<div class="tab" *ngFor="let question of questions">
+    <question-panel [question]="question"></question-panel>
+</div>
