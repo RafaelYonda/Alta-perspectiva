@@ -15,8 +15,11 @@
                     <li><a [routerLink]="['/dashboard/blog-post']">Direct Question</a></li>
                 </ul>
             </div>
-            <div class="col-md-9" >
-                <router-outlet></router-outlet>
+            <div class="col-md-9 border-top-grey" >
+                <div style="margin-top:-1px;">  <!--tricks to hide question top border--> 
+                    <router-outlet></router-outlet>
+                </div>
+                
             </div>
         </div>
     </div>
