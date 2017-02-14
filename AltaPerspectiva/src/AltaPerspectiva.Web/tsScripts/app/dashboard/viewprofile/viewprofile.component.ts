@@ -20,6 +20,8 @@ export class ViewProfileComponent {
     }
     @ViewChild(ProfileInfoComponent) profileInfo: ProfileInfoComponent
     ngOnInit() {
+        document.getElementById('question-route').focus();
+        document.getElementById('question-link').focus();
         this._route.params.subscribe(params => {
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
