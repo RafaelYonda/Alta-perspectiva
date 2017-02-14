@@ -57,6 +57,11 @@ export class QuestionService {
             .map(this.extractData)
             .catch(this.handleError);
     } 
+    saveDirectQuestion(question: QuestionSaveViewModel) {
+        return this._http.post('/questions/api/savedirectquestion', question)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     getQuestionsbyUserId(credentialId: string) {
         return this._http.get('/userprofile/api/questionbyuserid/' + credentialId)
             .map(this.extractData)
@@ -67,7 +72,6 @@ export class QuestionService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-   
 
     private extractData(res: Response) {       
         let body;

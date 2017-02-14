@@ -1,6 +1,7 @@
 ﻿<style>
-    .statistic-panel {
+    /*.statistic-panel {
         min-height: 20vh;
+        padding-right: 30%;
     }
 
     .profile-rightmenu {
@@ -11,7 +12,7 @@
         padding-top: 10px;
         list-style: none;
         padding-left: 20px;
-    }
+    }*/
 
     .profile-cat-img {
         float: left;
@@ -24,7 +25,7 @@
     <h3>Sabe sobre</h3>
     <ul class="profile-rightmenu" *ngFor="let categoryWiseAnswer of categoryWiseAnswers">
         <li>
-            <img class="profile-cat-img" src="../categories/{{categoryWiseAnswer?.imageUrl}}" />
+            <img class="profile-cat-img" src="../categories/{{categoryWiseAnswer?.imageUrl}}" /> 
             <h3>{{categoryWiseAnswer?.categoryName}}</h3>
             <div>{{categoryWiseAnswer?.answerCount}} answer</div>
         </li>

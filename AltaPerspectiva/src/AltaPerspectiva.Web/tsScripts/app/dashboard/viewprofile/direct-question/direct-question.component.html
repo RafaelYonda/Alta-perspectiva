@@ -1,0 +1,29 @@
+﻿<style>
+    .from-md {
+        width: 60%;
+        margin: 10px auto;
+    }
+    .btn-select{
+        text-align:left;
+    }
+</style>
+<form>
+    <div class="form-group from-md">
+        <input type="text" class="form-control" placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off"
+               [(ngModel)]="question.title" required name="titleName" #titleName="ngModel" (keyup)=filterQuestions($event) />
+        <div class="dropdown">
+            <button class="btn btn-block dropdown-toggle btn-select" type="button" data-toggle="dropdown">
+                Select Category
+                <span class="caret pull-right"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li *ngFor="let category of categories"><a (click)="selectCategory(category)">{{category}}</a></li>
+            </ul>
+        </div>
+
+        <textarea class="form-control" rows="5" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="question.body" [ngModelOptions]="{standalone: true}"></textarea>
+        <button type="submit" class="btn btn-primary pull-right" [disabled]="!titleName.valid">
+            Submit Question
+        </button>
+    </div>
+</form>

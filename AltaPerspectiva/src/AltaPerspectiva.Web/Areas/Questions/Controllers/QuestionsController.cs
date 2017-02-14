@@ -949,7 +949,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         #endregion
 
-        [HttpPost("/questions/api/savereport")]
+        [HttpPost("/questions/api/savedirectquestion")]
         public IActionResult SaveDirectQuestion([FromBody]AddQuestionViewModel question)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
