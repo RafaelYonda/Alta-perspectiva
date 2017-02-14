@@ -12,9 +12,22 @@
         list-style: none;
         padding-left: 20px;
     }
+
+    .profile-cat-img {
+        float: left;
+        height: 50px;
+        width: 50px;
+        border-radius: 4px;
+    }
 </style>
 <div class="statistic-panel">
+    <h3>Sabe sobre</h3>
     <ul class="profile-rightmenu" *ngFor="let categoryWiseAnswer of categoryWiseAnswers">
-        <li>{{categoryWiseAnswer.categoryName}} Profile views </li>
+        <li>
+            <img class="profile-cat-img" src="../categories/{{categoryWiseAnswer?.imageUrl}}" />
+            <h3>{{categoryWiseAnswer?.categoryName}}</h3>
+            <div>{{categoryWiseAnswer?.answerCount}} answer</div>
+        </li>
+        <!--<li>{{categoryWiseAnswer?.categoryName}}</li>-->
     </ul>
 </div>
