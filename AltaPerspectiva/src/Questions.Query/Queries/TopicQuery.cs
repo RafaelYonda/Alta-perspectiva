@@ -33,7 +33,7 @@ namespace Questions.Query.Queries
 
         public async Task<IEnumerable<Topic>> GetTopFiveTopicsByCategoryId(Guid categoryId)
         {
-            String query = String.Format(@"select top 5 T.Id, t.TopicName ,
+            String query = String.Format(@"select  T.Id, t.TopicName ,
 
 (select CategoryId from Questions.Topics where Id=t.Id) CategoryId,cast(cast(0 as binary) as uniqueidentifier) CreatedBy,GETDATE() CreatedOn,GETDATE() DTS,null [IsActive]
       ,null [IsDeleted]
@@ -55,7 +55,7 @@ order by SUM(q.ViewCount) DESC
 
         public async Task<IEnumerable<Topic>> GetTopFiveTopics()
         {
-            String query = String.Format(@"select top 5 T.Id, t.TopicName ,
+            String query = String.Format(@"select  T.Id, t.TopicName ,
 
 (select CategoryId from Questions.Topics where Id=t.Id) CategoryId,cast(cast(0 as binary) as uniqueidentifier) CreatedBy,GETDATE() CreatedOn,GETDATE() DTS,null [IsActive]
       ,null [IsDeleted]
