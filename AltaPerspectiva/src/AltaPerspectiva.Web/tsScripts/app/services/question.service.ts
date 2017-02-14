@@ -5,7 +5,7 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment, Like, Config, Topic, Level, QuestionSaveViewModel, ProfileParameter } from './models';
+import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment, Like, Config, Topic, Level, QuestionSaveViewModel} from './models';
 
 @Injectable()
 export class QuestionService {
@@ -67,11 +67,7 @@ export class QuestionService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getProfileParameter(userId: string): Observable<ProfileParameter> {
-        return this._http.get('userprofile/api/getprofileparameter/'+userId)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+   
 
     private extractData(res: Response) {       
         let body;

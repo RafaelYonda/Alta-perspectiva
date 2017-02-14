@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import {User, Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword,UserInfoDetails} from './models';
-import { CredentialViewModel }     from './models/models.profile';
+import { CredentialViewModel, ProfileParameter }     from './models/models.profile';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -83,7 +83,11 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-     
+    getProfileParameter(userId: string): Observable<ProfileParameter> {
+        return this._http.get('userprofile/api/getprofileparameter/' + userId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     private extractData(res: Response) {
         let body;
 

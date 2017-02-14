@@ -64,5 +64,4 @@ export class  ProfileParameter {
    answerLikeCount: number;
    answerMadeThisMonth: number;
    questionMadeThisMonth: number;
-
-    }
+}
