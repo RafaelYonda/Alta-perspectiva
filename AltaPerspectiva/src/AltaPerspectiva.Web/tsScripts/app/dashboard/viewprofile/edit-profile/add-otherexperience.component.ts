@@ -38,6 +38,10 @@ export class AddOtherExperienceComponent {
 
     saveOtherExperience() {
         console.log(this.otherExperience);
+        this.profileService.AddOtherExperience(this.otherExperience).subscribe(res => {
+            this.close.emit('event');
+            console.log(res);
+        });
     }
     
 }

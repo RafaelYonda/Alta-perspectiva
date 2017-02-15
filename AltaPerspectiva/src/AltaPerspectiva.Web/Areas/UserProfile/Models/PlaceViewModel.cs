@@ -9,8 +9,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
     {
         public Guid id { get; set; }
         public String LocationName { get; set; }
-        public DateTime? StartYear { get; set; }
-        public DateTime? EndYear { get; set; }
+        public string StartYear { get; set; }
+        public string EndYear { get; set; }
         public Boolean IsCurrentyLiving { get; set; }
 
         public Guid CredentialId { get; set; }

@@ -28,7 +28,7 @@ export class AddEmploymentComponent {
          this.profileService.AddEmployment(this.employment).subscribe(res => {
             this.close.emit('event');
             console.log(res);
-             this.employment = null;
+            // this.employment = null;
          });
     }
     //DeleteCredentialTitle() {

@@ -205,7 +205,20 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            AddEducationCommand command = new AddEducationCommand(model.UserId, model.SchoolName, model.SchoolDegreeName, model.SchoolCompletionDate, model.CollegeName, model.CollegeDegree,model.CollegeCompletionDate, model.Certification, model.CertificationType);
+        
+          DateTime? schoolCompletionDate = null;
+          DateTime? collegeCompletionDate = null;
+            if (!String.IsNullOrEmpty(model.SchoolCompletionDate))
+            {
+                schoolCompletionDate = new DateTime(int.Parse(model.SchoolCompletionDate),1,1);
+            }
+            if (!String.IsNullOrEmpty(model.CollegeCompletionDate))
+            {
+                collegeCompletionDate = new DateTime(int.Parse(model.CollegeCompletionDate),1,1);
+            }
+
+
+AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.SchoolName, model.SchoolDegreeName, schoolCompletionDate, model.CollegeName, model.CollegeDegree,collegeCompletionDate, model.Certification, model.CertificationType);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
@@ -344,7 +357,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            AddPlaceCommand command = new AddPlaceCommand(loggedinUser, model.LocationName, model.StartYear, model.EndYear, model.IsCurrentyLiving);
+            DateTime? startYear = null;
+            DateTime? endYear = null;
+            if (!String.IsNullOrEmpty(model.StartYear))
+            {
+                startYear = new DateTime(int.Parse(model.StartYear), 1, 1);
+            }
+            if (!String.IsNullOrEmpty(model.EndYear))
+            {
+                endYear = new DateTime(int.Parse(model.EndYear), 1, 1);
+            }
+            AddPlaceCommand command = new AddPlaceCommand(loggedinUser, model.LocationName, startYear, endYear, model.IsCurrentyLiving);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
@@ -359,7 +382,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            UpdatePlaceCommand command = new UpdatePlaceCommand(loggedinUser, model.LocationName, model.StartYear, model.EndYear, model.IsCurrentyLiving);
+            DateTime? startYear = null;
+            DateTime? endYear = null;
+            if (!String.IsNullOrEmpty(model.StartYear))
+            {
+                startYear = new DateTime(int.Parse(model.StartYear), 1, 1);
+            }
+            if (!String.IsNullOrEmpty(model.EndYear))
+            {
+                endYear = new DateTime(int.Parse(model.EndYear), 1, 1);
+            }
+            UpdatePlaceCommand command = new UpdatePlaceCommand(loggedinUser, model.LocationName, startYear, endYear, model.IsCurrentyLiving);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
@@ -414,7 +447,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            AddOtherExperienceCommand command = new AddOtherExperienceCommand(loggedinUser, model.CategoryId, model.Description);
+            AddOtherExperienceCommand command = new AddOtherExperienceCommand(model.CredentialId, model.CategoryId, model.Description);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();

@@ -24,6 +24,10 @@ export class AddPlaceComponent {
     }
     savePlace() {
         console.log(this.place);
+        this.profileService.AddPlace(this.place).subscribe(res => {
+            this.close.emit('event');
+            console.log(res);
+        });
     }
     
 }
