@@ -15,8 +15,7 @@
     <script src="~/libs/zone.js/dist/zone.js"></script>
     <script src="~/libs/reflect-metadata/Reflect.js"></script>
     <script src="~/libs/systemjs/dist/system.src.js"></script>
-    <script src="https://cdn.ckeditor.com/4.6.1/standard-all/ckeditor.js"></script>
-    <script src="~/lib/clipboard/dist/clipboard.js"></script>
+    <script src="https://cdn.ckeditor.com/4.6.1/standard-all/ckeditor.js"></script>   
     <link href="https://cdn.quilljs.com/1.1.9/quill.snow.css" rel="stylesheet">
     <link href="https://cdn.quilljs.com/1.1.9/quill.bubble.css" rel="stylesheet">
     <!-- 2. Configure SystemJS -->
@@ -95,8 +94,7 @@
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>       
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -106,8 +104,7 @@
         <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </script>       
     </environment>
 
     @RenderSection("scripts", required: false)
