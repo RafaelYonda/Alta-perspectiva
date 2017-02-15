@@ -22,7 +22,7 @@ export class NavBarComponent {
     constructor(private authService: AuthenticationService) {
         this._authService = authService;
         var user: User = new User();
-        user.userid = '-1';
+        //user.userid = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
@@ -30,8 +30,10 @@ export class NavBarComponent {
         this._authService.getLoggedinObj().subscribe(res => {
             if (res && currentUser != "null") {
                 this._logObj.user.name = res.name;
-                this._logObj.user.imageUrl ='../../../../profile/'+ res.imageUrl;
+                this._logObj.user.imageUrl = '../../../../profile/' + res.imageUrl;
                 this._logObj.isLoggedIn = true;
+                this._logObj.user.userid = res.userId;
+
                 localStorage.setItem('currentUserName', this._logObj.user.name);
                 localStorage.setItem('currentUserImage', this._logObj.user.imageUrl);
             }
