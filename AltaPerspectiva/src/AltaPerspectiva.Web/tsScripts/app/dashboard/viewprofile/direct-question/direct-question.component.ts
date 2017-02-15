@@ -24,7 +24,7 @@ export class DirectQuestionComponent {
     }
     selectCategory(cat: Category) {
         this.selectedCategory = cat;
-        this.question.categoryId = cat.id;
+        this.question.categoryIds.push(cat.id);
     }
     submitQuestion() {
         this.questionsService.saveDirectQuestion(this.question).subscribe(res => {

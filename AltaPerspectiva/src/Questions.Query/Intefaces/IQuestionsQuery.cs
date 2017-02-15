@@ -9,6 +9,7 @@ namespace Questions.Query
     public interface IQuestionsQuery:IQuery
     {
         Task<IEnumerable<Question>> Execute();
+        Task<IEnumerable<Question>> ExecuteDirectQuestion();
         Task<IEnumerable<Question>> ExecuteByUserId(Guid userId);
         Task<IEnumerable<Question>> GetLatestQuestion(Guid UserId, Guid categoryId);
         

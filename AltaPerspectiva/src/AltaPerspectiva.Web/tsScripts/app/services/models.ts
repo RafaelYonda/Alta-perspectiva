@@ -250,11 +250,15 @@ export class Level {
 
 export class QuestionSaveViewModel {
     title: string;
-    categoryId: string;
+    categoryIds: string[];
     topicId: string;
     levelId: string;
     body: string;
     isAnonymous: boolean;//IsAnonymous added 
+    constructor() {
+      this.categoryIds = new Array();
+    }
+
 }
 
 export class FilterParameter {
