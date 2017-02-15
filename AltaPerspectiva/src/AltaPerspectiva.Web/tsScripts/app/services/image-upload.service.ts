@@ -16,11 +16,11 @@ export class ImageUploadService {
         this.http = http;
     }
 
-    upload(fileToUpload: any, credentialId: string) {
+    upload(fileToUpload: any, userId: string) {
         let _urlParams = new URLSearchParams();
         let model = new FormData();
         model.append("file", fileToUpload[0]);
-        model.append("credentialId", credentialId);
+        model.append("userId", userId);
         return this.http
             .post("/userprofile/api/credential/saveuserimage/", model);
     }
