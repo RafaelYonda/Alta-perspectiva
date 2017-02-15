@@ -58,6 +58,7 @@ export class ApSearchComponent {
 
     submitQuestion() {
         this.searchDropDown.submitEmitter.subscribe(() => {
+            console.log(this.onQuestionSubmit);
             this.onQuestionSubmit.emit(true);
             this.removeModal();
         });

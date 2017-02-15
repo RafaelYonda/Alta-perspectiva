@@ -31,7 +31,7 @@ export class ApBannerComponent {
         var nodeBanner = doc.childNodes[0];
         if (this._window.scrollY > 270) {
             searchPanel.style.top = '0'; 
-            searchPanel.style.paddingTop = '10px';
+            searchPanel.style.paddingTop = '5px';
             searchPanel.classList.remove("z-search");
             tabPanel.classList.add("on-scroll-padding");
             this._el.nativeElement.parentNode.classList.add("fixed-top");
