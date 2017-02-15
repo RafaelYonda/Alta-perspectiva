@@ -660,7 +660,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 levelId = new Guid(question.LevelId);
             }
             question.Title = new QuestionService().RemoveQuestionMark(question.Title);
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous,false);
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
             Guid questionId = cmd.Id;
 
@@ -949,10 +949,11 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         #endregion
 
-        [HttpGet("/questions/api/getdirectquestion")]
-        public async Task<IActionResult> GetDirectQuestion()
+        [HttpGet("/questions/api/getdirectquestion/{questionAskedToUser}")]
+        public async Task<IActionResult> GetDirectQuestion(Guid questionAskedToUser)
         {
-           var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteDirectQuestion();
+
+            var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteDirectQuestion(questionAskedToUser);
           // var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
             return Ok(questionList);
         }
@@ -987,9 +988,12 @@ namespace AltaPerspectiva.Web.Area.Questions
                 levelId = new Guid(question.LevelId);
             }
             question.Title = new QuestionService().RemoveQuestionMark(question.Title);
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous, true);
+            
+            DirectQuestionCommand cmd = new DirectQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous, true, question.QuestionAskedToUser.Value);
             commandsFactory.ExecuteQuery(cmd);
             Guid questionId = cmd.Id;
+
+           
             return Ok();
         }
 

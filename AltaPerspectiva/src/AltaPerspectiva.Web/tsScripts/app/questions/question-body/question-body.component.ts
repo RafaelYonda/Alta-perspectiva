@@ -76,7 +76,9 @@ export class QuestionBodyComponent {
         window.scrollTo(0,0);
         var currentUserName = localStorage.getItem('currentUserName');
         var currentUserImage = localStorage.getItem('currentUserImage');
-        console.log(currentUserName);
+        this.commServ.informQuestionSubmit().subscribe(res => {
+            this.onQuestionSubmitted(res);
+        });;
         if (currentUserName != null) {
             this._logObj.user.name = currentUserName;
             this._logObj.user.imageUrl = currentUserImage;

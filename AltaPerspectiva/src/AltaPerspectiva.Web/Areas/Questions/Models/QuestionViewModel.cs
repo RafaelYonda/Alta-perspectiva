@@ -42,6 +42,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         public bool? IsAnonymous { get; set; }
 
         public bool IsDirectQuestion { get; set; }
+
+        public Guid? QuestionAskedToUser { get; set; }
         public QuestionViewModel()
         {
             Categories = new List<CategoryViewModel>();

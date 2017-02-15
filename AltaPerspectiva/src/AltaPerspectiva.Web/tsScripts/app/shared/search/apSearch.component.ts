@@ -1,9 +1,9 @@
-﻿/// <reference path="search-dropdown.component.ts" />
-import { Component, Input, ElementRef, ViewChild, Output, EventEmitter  } from '@angular/core';
+﻿import { Component, Input, ElementRef, ViewChild, Output, EventEmitter  } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ApSearchDropDownComponent } from './search-dropdown.component';
 
-import { CategoryService } from '../../services/category.service'
+import { CommunicationService } from '../../services/communication.service';
+import { CategoryService } from '../../services/category.service';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { Category, Question, Keyword, AskQuestionViewModel,Topic,Level,QuestionSaveViewModel } from '../../services/models';
 
@@ -26,7 +26,7 @@ export class ApSearchComponent {
     //levels:Level[];
     questionSaveViewModel: QuestionSaveViewModel;
 
-    constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private myElement: ElementRef) {
+    constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private commServ: CommunicationService , private myElement: ElementRef) {
         this.elementRef = myElement;
     }
     ngOnInit() {
@@ -58,8 +58,10 @@ export class ApSearchComponent {
 
     submitQuestion() {
         this.searchDropDown.submitEmitter.subscribe(() => {
+            console.log(this.onQuestionSubmit);
             this.onQuestionSubmit.emit(true);
             this.removeModal();
+            this.commServ.questionSubmit(this.title);
         });
         this.searchDropDown.submitQuestion();
     }
@@ -153,7 +155,7 @@ export class ApSearchComponent {
         this.searchClass = document.getElementById("search-box").className;
         document.getElementById("search-box").className = "modal-overlay z-modal";
         var form = document.getElementById("search-box");
-        form.style.paddingTop = '10px';
+        form.style.paddingTop = '5px';
         this.isOnModal = true;
     }
     removeModal() {

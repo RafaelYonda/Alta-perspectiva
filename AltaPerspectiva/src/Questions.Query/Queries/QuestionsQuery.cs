@@ -35,8 +35,13 @@ namespace Questions.Query
                                               .Take(20)
                                                   .ToListAsync();
         }
-        public  async Task<IEnumerable<Question>> ExecuteDirectQuestion()
+        public  async Task<IEnumerable<Question>> ExecuteDirectQuestion(Guid questionAskedToUser)
         {
+            List<Guid> questionIds =
+                DbContext.DirectQuestions.Where(x => x.QuestionAskedToUser == questionAskedToUser)
+                    .Select(x => x.QuestionId)
+                    .ToList();
+
             return await DbContext.Questions
                                  .Include(a => a.Answers).ThenInclude(a => a.Likes)
                                  .Include(a => a.Answers).ThenInclude(a => a.Comments)
@@ -46,7 +51,7 @@ namespace Questions.Query
                                  .Include(q => q.Likes)
                                  .Include(q => q.QuestionLevels)
                                  .Include(q => q.QuestionTopics)
-                                 .Where(q => q.IsDeleted != true && q.IsDirectQuestion == true)
+                                 .Where(q => q.IsDeleted != true && q.IsDirectQuestion == true && questionIds.Any(a=>a==q.Id))
                                      .OrderByDescending(c => c.CreatedOn.Value.Date)
                                          .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                              .Take(20)

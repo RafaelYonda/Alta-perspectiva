@@ -186,6 +186,13 @@
                 e.HasKey(c => c.Id);
             });
 
+            model.Entity<DirectQuestion>(e =>
+            {
+                e.ToTable("DirectQuestions");
+
+                e.HasKey(c => c.Id);
+            });
+
           
 
         }

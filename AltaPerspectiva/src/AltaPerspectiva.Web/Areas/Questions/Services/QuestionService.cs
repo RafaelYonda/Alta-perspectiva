@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
 using Questions.Query;
 using Questions.Query.Queries;
+using Questions.Query.Intefaces;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
@@ -66,6 +67,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
                 qv.AnswerCount = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted != true).ToList().Count;
                 qv.IsAnonymous = q.IsAnonymous;
+
+         
                 foreach (var questionTopic in qv.QuestionTopics)
                 {
                     var topicId = questionTopic.TopicId;
@@ -91,6 +94,12 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                         }
                     }
 
+                }
+                qv.IsDirectQuestion = q.IsDirectQuestion;
+                if (qv.IsDirectQuestion)
+                {
+                    qv.QuestionAskedToUser =
+                        queryFactory.ResolveQuery<IDirectQuestionQuery>().GetDirectQuestionUser(q.Id);
                 }
                 questions.Add(qv);
             }

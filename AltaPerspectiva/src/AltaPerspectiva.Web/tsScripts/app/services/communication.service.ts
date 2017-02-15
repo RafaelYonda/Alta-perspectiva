@@ -5,27 +5,9 @@ import { FilterParameter,Comment } from './models';
 
 @Injectable()
 export class CommunicationService {
-    //========Category Change==========
-    private categoryId: string;
-    private topicId: string;
-    private levelId: string;
-
-    private filterParameter: FilterParameter;
-    
-    private objChange: Subject<string> = new Subject<string>();
-
+    //=========Comment Change communication========
     private comment: Comment;
     private commentAdded: Subject<Comment> = new Subject<Comment>();
-
-    setCategory(catId: string): void {
-        this.categoryId = catId;
-        this.objChange.next(this.categoryId);
-    }
-
-    getCategory(): Observable<string> {   
-        return this.objChange.asObservable();
-    }
-
     setComment(comment: Comment): void {
         this.comment = comment;
         this.commentAdded.next(this.comment);
@@ -33,33 +15,65 @@ export class CommunicationService {
     getComment(): Observable<Comment> {
         return this.commentAdded.asObservable();
     }
+    //========Category Change==========
+    private categoryId: string;
+    private objChange: Subject<string> = new Subject<string>();
 
+    setCategory(catId: string): void {
+        this.categoryId = catId;
+        this.objChange.next(this.categoryId);
+    }
 
+    getCategory(): Observable<string> {
+        return this.objChange.asObservable();
+    }
+    //=========Topic Change===========
+    private topicId: string;
     setTopicId(topicId: string) {
-       
         this.topicId = topicId;
     }
     getTopicId() {
         return this.topicId;
     }
+    //============Level change==============
+    private levelId: string;
     setLevelId(levelId: string) {
-        
+
         this.levelId = levelId;
     }
     getLevelId() {
         return this.levelId;
     }
+    //=============Filter param change=========
+    private filterParameter: FilterParameter;
+    getFilterParameter() {
+        this.filterParameter = new FilterParameter();
+        if (this.categoryId) this.filterParameter.categoryId = this.categoryId;
+        if (this.topicId) this.filterParameter.topicId = this.topicId;
+        if (this.levelId) this.filterParameter.levelId = this.levelId;
+        return this.filterParameter;
+    }
+    //=====Question submitted=======
+    private questionSubmitted: Subject<string> = new Subject<string>();
+
+    questionSubmit(question: string): void {
+        this.questionSubmitted.next(question);
+    }
+
+    informQuestionSubmit(): Observable<string> {
+        return this.questionSubmitted.asObservable();
+    }
+
+
+
+
+   
+
 
     //setFilterParameter(filterParameter: FilterParameter) {
     //    this.filterParameter = filterParameter;
     //}
-    getFilterParameter() {
-        this.filterParameter = new FilterParameter();
-        if (this.categoryId) this.filterParameter.categoryId = this.categoryId;
-        if (this.topicId)this.filterParameter.topicId = this.topicId;
-        if(this.levelId) this.filterParameter.levelId = this.levelId;
-        return this.filterParameter;
-    }
+    
 
   
 }

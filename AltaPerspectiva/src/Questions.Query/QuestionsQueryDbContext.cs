@@ -143,9 +143,14 @@
                 return Set<QuestionUserFollowing>().AsNoTracking();
             }
         }
-
-
-
+        public IQueryable<DirectQuestion> DirectQuestions
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<DirectQuestion>().AsNoTracking();
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -176,6 +181,7 @@
             //Question post for User
             modelBuilder.Entity<ShareQuestion>().ToTable("ShareQuestions");
             modelBuilder.Entity<QuestionUserFollowing>().ToTable("QuestionUserFollowings");
+            modelBuilder.Entity<DirectQuestion>().ToTable("DirectQuestions");
 
         }
 
