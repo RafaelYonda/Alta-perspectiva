@@ -5,13 +5,14 @@
     <div #answerAnchor></div>
 </div>
 <div class="left-panel">
-    <div>.</div>
     <div id="leftPanel">
         <level></level>
         <topfive-question-left-menu> </topfive-question-left-menu>
         <topfive-user></topfive-user>
-        <category-left-menu [caegoryId]="categoryId"></category-left-menu>
     </div>
+</div>
+<div class="right-panel">
+    <category-left-menu [caegoryId]="categoryId"></category-left-menu>
 </div>
 <div class="center-width center-body z-ground">
     <div class="loader" *ngIf="loader.isLoading"></div>
@@ -71,3 +72,4 @@
         <question-panel [question]="question"></question-panel>
     </div>
 </div>
+

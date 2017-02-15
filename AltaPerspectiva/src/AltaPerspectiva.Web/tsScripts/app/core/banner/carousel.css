@@ -64,3 +64,6 @@ ul {
     font-family: myriadpro-regular;
     text-shadow: 2px 2px 5px black;
 }
+.carousel-indicators li{
+    border:1px solid #d0cece;
+}
