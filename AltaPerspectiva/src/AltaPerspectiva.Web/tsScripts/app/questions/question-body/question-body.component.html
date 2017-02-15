@@ -1,6 +1,6 @@
 ﻿<!--<ap-search placeBottom="top-fixed" [onQuestionSubmit]="onQuestionSubmitted($event)"></ap-search>-->
 <!--<ap-search placeBottom="top-fixed" (onQuestionSubmit)="onQuestionSubmitted($event)"></ap-search>-->
-<div class="row">
+<div class="row row-fix">
     <div #dialogAnchor></div>
     <div #answerAnchor></div>
 </div>
@@ -14,8 +14,10 @@
 <div class="right-panel">
     <category-left-menu [caegoryId]="categoryId"></category-left-menu>
 </div>
-<div class="center-width center-body z-ground">
-    <div class="loader" *ngIf="loader.isLoading"></div>
+<div class="center-width center-body z-ground" >
+    <div class="modal-overlay z-modal" *ngIf="loader.isLoading">
+        <div class="loader"></div>
+    </div>
     <div class="row">
         <img align="left" class="img-rounded img-category" src="{{categorySelected?.image}}" />
         <h2 class="category-title">
@@ -26,14 +28,14 @@
         </h2>
     </div>
 
-    <div class="row">
+    <div class="row row-fix">
         <button type="button" (click)="addFollower(categorySelected.id)" class="alta-btn alta-btn-lg">Follow</button>
         <p>
             {{categorySelected?.description}}
         </p>
     </div>
     <br />
-    <div class="row">
+    <div class="row row-fix">
         <table class="table table-bordered table-nonfluid col-md-4" width="200">
             <tr>
                 <td class="total">{{totalCount?.totalQuestions}} Questions </td>
