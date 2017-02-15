@@ -17,7 +17,6 @@ export class QuestionService {
         let options = new RequestOptions({ headers: headers });
     }
     GetQuestion(id: string): Observable<Question> {
-        console.log(id);
         return this._http.get('/questions/api/questions/' + id)
             .map(this.extractData)
             .catch(this.handleError);
@@ -94,7 +93,6 @@ export class QuestionService {
 
     private extractData(res: Response) {       
         let body;
-        console.log(res);
         // check if empty, before call json
         if (res.text()) {
             body = res.json();
@@ -104,7 +102,6 @@ export class QuestionService {
     }
 
     private handleError(error: Response | any) {
-        console.log(error);
         // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;
         if (error instanceof Response) {
@@ -114,7 +111,6 @@ export class QuestionService {
         } else {
             errMsg = error.message ? error.message : error.toString();
         }
-        console.error(errMsg);
         return Observable.throw(errMsg);
     }
 

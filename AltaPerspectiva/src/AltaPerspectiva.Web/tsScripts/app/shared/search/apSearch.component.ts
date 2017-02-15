@@ -57,10 +57,9 @@ export class ApSearchComponent {
     question: Question;
 
     submitQuestion() {
+        this.removeModal();
         this.searchDropDown.submitEmitter.subscribe(() => {
-            console.log(this.onQuestionSubmit);
-            this.onQuestionSubmit.emit(true);
-            this.removeModal();
+            //this.onQuestionSubmit.emit(true);
             this.commServ.questionSubmit(this.title);
         });
         this.searchDropDown.submitQuestion();
@@ -161,7 +160,7 @@ export class ApSearchComponent {
     removeModal() {
         this.filteredQuestionList = [];
         this.categoryMatched = "";
-        document.getElementById("search-box").className = this.placeBottom +" z-search" ;
+        document.getElementById("search-box").className = this.placeBottom ;
         //document.getElementById("search-box").className = this.searchClass;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
