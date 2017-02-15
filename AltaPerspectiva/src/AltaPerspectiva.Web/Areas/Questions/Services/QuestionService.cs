@@ -144,7 +144,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 qv.Comments = q.Comments.Select(c => new QuestionCommentViewModel { Id = c.Id, CommentText = c.CommentText, QuestionId = c.QuestionID, UserId = c.UserID }).ToList();
 
                 qv.Categories = q.Categories.Select(ct => new CategoryViewModel { Name = ct.Category.Name, Id = ct.CategoryId }).ToList();
-
+               
                 qv.ViewCount = q.ViewCount;
 
                 qv.QuestionTopics = q.QuestionTopics;

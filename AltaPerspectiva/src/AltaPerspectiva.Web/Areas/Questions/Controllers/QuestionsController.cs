@@ -954,8 +954,11 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
 
             var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteDirectQuestion(questionAskedToUser);
-          // var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-            return Ok(questionList);
+
+            List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModel(questionList,
+                queryFactory);
+           // var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+            return Ok(questionViewModels);
         }
 
 
