@@ -1,4 +1,10 @@
-﻿.like-logo {
+﻿.status-line{
+    display:inline-block;
+    font-size:12px;
+    font-family:myriadpro-regular;
+    color:#a29996;
+}
+.like-logo {
     height: 30px;
     width: 30px;
 }
