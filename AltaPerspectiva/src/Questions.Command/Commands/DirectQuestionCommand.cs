@@ -8,7 +8,7 @@ namespace Questions.Command.Commands
 {
     public class DirectQuestionCommand:ICommand
     {
-        public DirectQuestionCommand(string _title, string _body, DateTime _date, Guid _userId, List<Guid> _categoryIds, Guid? topicId, Guid? levelId, bool? isAnonymous, bool isDirectQuestion,Guid profileUserId)
+        public DirectQuestionCommand(string _title, string _body, DateTime _date, Guid _userId, List<Guid> _categoryIds, Guid? topicId, Guid? levelId, bool? isAnonymous, bool isDirectQuestion,Guid questionAskedToUser)
         {
             Title = _title;
             Body = _body;
@@ -19,7 +19,7 @@ namespace Questions.Command.Commands
             LevelId = levelId;
             IsAnonymous = isAnonymous;
             IsDirectQuestion = isDirectQuestion;
-            ProfileUserId = profileUserId;
+            QuestionAskedToUser = questionAskedToUser;
         }
         public string Title { get; set; }
         public string Body { get; set; }
@@ -32,6 +32,6 @@ namespace Questions.Command.Commands
         public Guid? LevelId { get; set; }
         public bool? IsAnonymous { get; set; }
         public bool IsDirectQuestion { get; set; }
-        public Guid ProfileUserId { get; set; }
+        public Guid QuestionAskedToUser { get; set; }
     }
 }

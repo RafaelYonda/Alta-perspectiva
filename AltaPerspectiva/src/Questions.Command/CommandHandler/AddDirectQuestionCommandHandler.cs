@@ -36,18 +36,7 @@ namespace Questions.Command.CommandHandler
             question.CreatedBy = command.UserId;
             question.DTS = command.Date;
 
-            var keywords = question.Title.Trim('?', ',', '.', ':').Split(' ');
-            var ids = GetMatchedCategories(keywords);
-
-
-            foreach (var id in ids)
-            {
-                if (!command.CategoryIds.Contains(id))
-                {
-                    command.CategoryIds.Add(id);
-                }
-
-            }
+        
 
             foreach (var cid in command.CategoryIds)
             {
@@ -60,23 +49,7 @@ namespace Questions.Command.CommandHandler
             DbContext.Questions.Add(question);
 
 
-            /*Topics and Level added s*/
-            if (command.TopicId != null)
-            {
-                QuestionTopic questionTopic = new QuestionTopic();
-                questionTopic.QuestionId = question.Id;
-                questionTopic.TopicId = command.TopicId;
-
-                DbContext.QuestionTopics.Add(questionTopic);
-            }
-            if (command.LevelId != null)
-            {
-                QuestionLevel questionLevel = new QuestionLevel();
-                questionLevel.QuestionId = question.Id;
-                questionLevel.LevelId = command.LevelId;
-
-                DbContext.QuestionLevels.Add(questionLevel);
-            }
+            
 
 
             DbContext.SaveChanges();
@@ -86,18 +59,12 @@ namespace Questions.Command.CommandHandler
 
             DirectQuestion directQuestion=new DirectQuestion();
             directQuestion.QuestionId = question.Id;
-            directQuestion.UserId = command.UserId;
+            directQuestion.QuestionAskedToUser = command.QuestionAskedToUser;
 
             DbContext.DirectQuestions.Add(directQuestion);
             DbContext.SaveChanges();
             //command.Id = directQuestion.Id;
         }
-        private List<Guid> GetMatchedCategories(string[] keywords)
-        {
-            return DbContext.Keywords
-                .Where(k => keywords.Contains(k.Text))
-                    .Select(k => k.CategoryId)
-                        .ToList();
-        }
+       
     }
 }

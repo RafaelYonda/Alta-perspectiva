@@ -85,6 +85,13 @@ export class QuestionService {
 
     }
 
+    GetDirectQuestion(questionAskedToUser: string): Observable<Question[]>{
+        
+        return this._http.get('/questions/api/getdirectquestion/' + questionAskedToUser)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     private extractData(res: Response) {       
         let body;
         console.log(res);

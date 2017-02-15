@@ -1,4 +1,5 @@
 ﻿import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import { QuestionService } from '../../../services/question.service';
 import { Category, Question, QuestionSaveViewModel } from '../../../services/models';
@@ -7,17 +8,23 @@ import { Category, Question, QuestionSaveViewModel } from '../../../services/mod
     providers: [CategoryService, QuestionService]
 })
 export class DirectQuestionComponent {
+    private sub: any;
+    questionAskedToUser:string;
     questions: Question[];
     categories: Category[];
     selectedCategory: Category;
     question: QuestionSaveViewModel = new QuestionSaveViewModel();
-    constructor(private categoryService: CategoryService, private questionsService: QuestionService) {
+    constructor(private categoryService: CategoryService, private _route: ActivatedRoute, private questionsService: QuestionService) {
     }
     ngOnInit() {
+        this.sub = this._route.parent.params.subscribe(params => {
+            this.questionAskedToUser = params['userId'];
+        });
+
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
         });
-        this.questionsService.getQuestionsByCategory('7639B416-8D1C-4119-B58E-143CB860E8A6').subscribe(res => {
+        this.questionsService.GetDirectQuestion(this.questionAskedToUser).subscribe(res => {
             console.log(res);
             this.questions = res;
         });
@@ -27,10 +34,14 @@ export class DirectQuestionComponent {
         this.question.categoryIds.push(cat.id);
     }
     submitQuestion() {
+        console.log(this.questionAskedToUser);
+        this.question.questionAskedToUser = this.questionAskedToUser;
+        
         this.questionsService.saveDirectQuestion(this.question).subscribe(res => {
             this.question = res;
             this.ngOnInit();
             console.log(res);
+
 
         });
     }

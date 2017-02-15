@@ -255,6 +255,7 @@ export class QuestionSaveViewModel {
     levelId: string;
     body: string;
     isAnonymous: boolean;//IsAnonymous added 
+    questionAskedToUser:string;
     constructor() {
       this.categoryIds = new Array();
     }
