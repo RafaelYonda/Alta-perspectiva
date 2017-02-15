@@ -9,7 +9,7 @@ namespace Questions.Domain
     public class DirectQuestion 
     {
         public long Id { get; set; }
-        public Guid UserId { get; set; }
+        public Guid QuestionAskedToUser { get; set; }
         public Guid QuestionId { get; set; }
     }
 }
