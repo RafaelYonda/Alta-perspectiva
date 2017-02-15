@@ -22,7 +22,6 @@ export class UserInfoComponent {
         this.profileService.userInfoDetails(userId).subscribe(res => {
            // console.log(res);
             this.userInfoDetails = res;
-
         });
     }
     onfocus() {

@@ -8,8 +8,13 @@
     margin-right: 5px;
 }
 .question-header > li {
+    font-family:myriadpro-regular;
     list-style: none;
     float: left;
+    color: #a29996;
+}
+.question-header > li>a{
+    font-family:myriadpro-regular;
     color: #a29996;
 }
 .question-title{

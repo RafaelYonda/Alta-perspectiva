@@ -8,6 +8,25 @@
         margin-left: 10px;
         float: left;
     }
+
+    .social-share {
+        float: right;
+        position: relative;
+        width: 40px;
+        margin-top: 10px;
+    }
+
+    .img {
+        margin-right: 22px;
+    }
+
+    #img1 {
+        left: 0;
+    }
+
+    #img2 {
+        left: 26px;
+    }
 </style>
 <form #answerVM="ngForm" class="form-horizontal " role="form">
     <div class="modal-header">
@@ -16,7 +35,7 @@
             <div class="img-container" *ngIf="!isAnonymous">
                 <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
             </div>
-            <div class="img-container" *ngIf="isAnonymous" >
+            <div class="img-container" *ngIf="isAnonymous">
                 <img class="user-image " src="../../../../profile/Anonymous.png" />
             </div>
 
@@ -28,14 +47,27 @@
         <div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
     </div>
     <div class="modal-body">
-        <quill-editor  [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}"
+        <quill-editor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}"
                       [modules]="{  toolbar: [['bold', 'italic', 'underline'], ['link', 'image']] }"
-                       required name="answerField" #answerField="ngModel"></quill-editor>
+                      required name="answerField" #answerField="ngModel"></quill-editor>
     </div>
     <div class="modal-footer">
         <div style="float:left;color:#737373;line-height: 34px;">
             <button type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Submit</button>
             <button type="button" (click)="submitAnswerAsDraft(question.id)" data-dismiss="modal" class="btn btn-primary">Save As Draft</button>
+        </div>
+        <div class="social-share">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{question.shareUrl}}"
+               class="SHARE FACEBOOK"
+               onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
+                <img class="social-image" id="img1" src="../images/facebooklogo.jpg" />
+            </a>
+
+            <a href="https://twitter.com/home?status={{question.shareUrl}}"
+               class="SHARE TWITTER"
+               onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
+                <img class="social-image" id="img2" src="../images/twitter.png" />
+            </a>
         </div>
     </div>
 </form>
