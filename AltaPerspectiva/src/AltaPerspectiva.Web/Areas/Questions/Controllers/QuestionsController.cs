@@ -949,11 +949,11 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         #endregion
 
-        [HttpPost("/questions/api/getdirectquestion")]
+        [HttpGet("/questions/api/getdirectquestion")]
         public async Task<IActionResult> GetDirectQuestion()
         {
-          // var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteDirectQuestion();
-           var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+           var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteDirectQuestion();
+          // var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
             return Ok(questionList);
         }
 
