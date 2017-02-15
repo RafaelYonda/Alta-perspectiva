@@ -72,6 +72,8 @@ export class ViewProfileComponent {
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEducationComponent);
         let dialogComponentRef = this.educationDialogAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.education = this.education;
+
+        dialogComponentRef.instance.education.credentialId = this.credential.id;
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
@@ -85,6 +87,7 @@ export class ViewProfileComponent {
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEmploymentComponent);
         let dialogComponentRef = this.employmentDialogAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.employment = this.employment;
+        dialogComponentRef.instance.employment.credentialId = this.credential.id;
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
@@ -98,6 +101,7 @@ export class ViewProfileComponent {
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddOtherExperienceComponent);
         let dialogComponentRef = this.otherexperienceDialogAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.otherExperience = this.otherExperience;
+        dialogComponentRef.instance.otherExperience.credentialId = this.credential.id;
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
@@ -111,6 +115,7 @@ export class ViewProfileComponent {
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddPlaceComponent);
         let dialogComponentRef = this.placeDialogAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.place = this.place;
+        dialogComponentRef.instance.place.credentialId = this.credential.id;
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();

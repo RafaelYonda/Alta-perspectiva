@@ -1,12 +1,15 @@
 ﻿import { Injectable } from '@angular/core';
 import {User, Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword,UserInfoDetails} from './models';
-import { CredentialViewModel }     from './models/models.profile';
-import {  ProfileParameter }     from './models/models.ProfileParameter';
-import {  CategoryWiseAnswer }     from './models/models.CategoryWiseAnswer';
+
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+//Models
+import { CredentialViewModel }     from './models/models.profile';
+import {  ProfileParameter }     from './models/models.ProfileParameter';
+import {  Employment }     from './models/models.Employment';
+import {  CategoryWiseAnswer }     from './models/models.CategoryWiseAnswer';
 
 @Injectable()
 export class ProfileService {
@@ -94,6 +97,11 @@ export class ProfileService {
 
     getCategoryWiseAnswer(userId: string): Observable<CategoryWiseAnswer[]> {
         return this._http.get('userprofile/api/categorywiseanswer/' + userId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    AddEmployment(employment: Employment):Observable<any> {
+        return this._http.post('userprofile/api/employment/addemployment', employment)
             .map(this.extractData)
             .catch(this.handleError);
     }

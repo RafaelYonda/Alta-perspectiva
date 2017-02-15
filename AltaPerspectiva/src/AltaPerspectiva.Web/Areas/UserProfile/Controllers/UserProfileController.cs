@@ -261,7 +261,18 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            AddEmploymentCommand command = new AddEmploymentCommand(loggedinUser, "position", "companies", DateTime.Now, DateTime.Now, true);
+            DateTime? startDate=null;
+            DateTime? endDate=null;
+            if (!String.IsNullOrEmpty(model.StartDate))
+            {
+                startDate=new DateTime(int.Parse(model.StartDate),1,1);
+            }
+            if (!String.IsNullOrEmpty(model.EndDate))
+            {
+                endDate = new DateTime(int.Parse(model.EndDate),1,1);
+            }
+
+            AddEmploymentCommand command = new AddEmploymentCommand(model.CredentialId, model.Position, model.CompanyName, startDate, endDate, model.IsCurrentlyWorking);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
