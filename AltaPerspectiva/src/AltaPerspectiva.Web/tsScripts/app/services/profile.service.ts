@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import {User, Profile, Contact, Biography, Education, Experience, Skills, PracticeArea, Insight, Keyword,UserInfoDetails} from './models';
+import {User, Profile, Contact, Biography, Experience, Skills, PracticeArea, Insight, Keyword,UserInfoDetails} from './models';
 
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
@@ -9,6 +9,9 @@ import 'rxjs/add/operator/catch';
 import { CredentialViewModel }     from './models/models.profile';
 import {  ProfileParameter }     from './models/models.ProfileParameter';
 import {  Employment }     from './models/models.Employment';
+import {  Education }     from './models/models.Education';
+import {  Place }     from './models/models.Place';
+import {  OtherExperience }     from './models/models.OtherExperience';
 import {  CategoryWiseAnswer }     from './models/models.CategoryWiseAnswer';
 
 @Injectable()
@@ -102,6 +105,22 @@ export class ProfileService {
     }
     AddEmployment(employment: Employment):Observable<any> {
         return this._http.post('userprofile/api/employment/addemployment', employment)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    AddEducation(education: Education): Observable<any> {
+        return this._http.post('userprofile/api/education/addeducation', education)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    AddPlace(place: Place): Observable<any> {
+        return this._http.post('userprofile/api/place/addplace', Place)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    AddOtherExperience(otherExperience: OtherExperience): Observable<any> {
+        return this._http.post('userprofile/api/OtherExperience/addOtherExperience', otherExperience)
             .map(this.extractData)
             .catch(this.handleError);
     }

@@ -46,7 +46,7 @@ from  UserProfile.[Credentials] c
 where c.UserId=@userId;
 
 --
-set @Title=(select Position from UserProfile.Employments e where e.CredentialId=@credentialId);
+set @Title=(select top 1 Position from UserProfile.Employments e where e.CredentialId=@credentialId);
 --Depends on credentialId
 DECLARE @Education nvarchar(500);
 set @Education=(select top 1 ISNULL(Certification,'')+' , '+ISNULL(CertificationType,'')+', '+ISNULL(CollegeDegree,'') As Education
@@ -237,7 +237,7 @@ DROP proc [dbo].[SpProfileParameterCount];
 
 GO
 
-CREATE proc [dbo].[SpProfileParameterCount]
+CREATE proc [dbo].[SpProfileParameterCount] --'3a3e773a-614f-48b6-af14-96be31589001'
 (
 @userId nvarchar(255)
 )
@@ -270,11 +270,17 @@ where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()))
 
 
 DECLARE @Followings int;
+select @Followings=count(*) from Questions.QuestionUserFollowings qf where qf.UserId=@userId
 DECLARE @Followers int;
+select @Followers=count(*) from Questions.QuestionUserFollowings qf where qf.FollowedUserId=@userId
 DECLARE @Bookmarks int;
+select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
 DECLARE @Answers int;
+select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId
 DECLARE @Questions int ;
+select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and q.IsDirectQuestion=0
 DECLARE @DirectQuestions int;
+select @DirectQuestions=COUNT(*) from Questions.DirectQuestions q where q.QuestionAskedToUser=@userId 
 DECLARE @Blogs int;
 select 
 ISNULL(@ProfileViewCount,0) ProfileViewCount,

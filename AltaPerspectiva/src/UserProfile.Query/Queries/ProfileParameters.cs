@@ -69,6 +69,7 @@ namespace UserProfile.Query.Queries
                     profileParameter.ProfileViewCount = Convert.ToInt32(reader["ProfileViewCount"]);
                     profileParameter.AnswerMadeThisMonth = Convert.ToInt32(reader["AnswerMadeThisMonth"]);
                     profileParameter.QuestionMadeThisMonth = Convert.ToInt32(reader["QuestionMadeThisMonth"]);
+                    profileParameter.DirectQuestions = Convert.ToInt32(reader["DirectQuestions"]);
 
                 }
             }

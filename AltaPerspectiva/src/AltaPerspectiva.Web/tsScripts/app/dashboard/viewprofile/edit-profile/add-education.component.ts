@@ -25,10 +25,10 @@ export class AddEducationComponent {
     saveEducation() {
 
         console.log(this.education);
-        //this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
-        //    this.close.emit('event');
-        //    console.log(res);
-        //});
+        this.profileService.AddEducation(this.education).subscribe(res => {
+            this.close.emit('event');
+            console.log(res);
+        });
     }
     
 }
