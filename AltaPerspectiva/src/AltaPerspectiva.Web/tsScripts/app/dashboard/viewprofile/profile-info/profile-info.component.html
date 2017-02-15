@@ -122,12 +122,12 @@
             <div class="user-name">
                 <div [hidden]="!isUserHidden">
                     <h1> {{credential.firstName}} {{credential.lastName}} </h1>
-                    <a (click)="isUserHidden = false" class="edit"><span><i class="fa fa-edit"></i>Edit</span> </a>
+                    <a (click)="isUserHidden = false" class="edit"><span><i class="fa fa-edit"></i>Edit Name</span> </a>
                 </div>
                 <div [hidden]="isUserHidden">
                     <input placeholder="First Name" [(ngModel)]="credential.firstName" type="text" />
                     <input placeholder="Last Name" [(ngModel)]="credential.lastName" type="text" />
-                    <a (click)="isUserHidden = true">cancel</a>
+                    <a (click)="isUserHidden = true">Cancel</a>
                     <button class="btn btn-primary" (click)="UpdateUserName()">Update</button>
                 </div>
             </div>

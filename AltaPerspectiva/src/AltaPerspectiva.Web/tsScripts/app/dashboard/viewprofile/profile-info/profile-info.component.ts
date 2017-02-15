@@ -24,11 +24,11 @@ export class ProfileInfoComponent {
     }
     ngOnInit() {
 
-        if (!this.credential.firstName  || !this.credential.lastName || this.credential.firstName.length == 0 ||
-            this.credential.lastName.length == 0)
-        {
-            this.isUserHidden = false;
-        }
+        //if (!this.credential.firstName  || !this.credential.lastName || this.credential.firstName.length == 0 ||
+        //    this.credential.lastName.length == 0)
+        //{
+        //    this.isUserHidden = false;
+        //}
         this.loadData()
         
     }

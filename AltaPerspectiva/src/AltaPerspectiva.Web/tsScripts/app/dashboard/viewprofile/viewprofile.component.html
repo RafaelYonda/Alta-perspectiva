@@ -19,7 +19,7 @@
 </div>
 <div class="row">
     <div class="col-md-9" >
-        <div class="row" ><profile-info [credential]="credential"></profile-info></div>
+        <div class="row" *ngIf="credential" ><profile-info  [credential]="credential"></profile-info></div>
         <div class="row">
             <div class="col-md-3" >
                 <ul class="profile-leftmenu">
