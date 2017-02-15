@@ -13,7 +13,7 @@ export class FollowingComponent {
     }
     ngOnInit() {
         this.sub = this._route.parent.params.subscribe(params => {
-            this.profileServ.GetFollowersByUserId(params['userId']).subscribe(usr => {     //Get User Image
+            this.profileServ.GetFollowingsByUserId(params['userId']).subscribe(usr => {     //Get User Image
                 this.user = usr;
                 console.log(this.user);
             });
