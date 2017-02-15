@@ -1,4 +1,12 @@
 ﻿<nav-bar></nav-bar>
+
+<div>
+    <!--<div #credentialDialogAnchor></div>-->
+    <div #employmentDialogAnchor></div>
+    <div #educationDialogAnchor></div>
+    <div #otherexperienceDialogAnchor></div>
+    <div #placeDialogAnchor></div>
+</div>
 <div class="row">
     <div class="col-md-9" >
         <div class="row" ><profile-info [credential]="credential"></profile-info></div>
@@ -25,6 +33,11 @@
     <div class="col-md-3" >
         <div>
             <h3>Credentials</h3>
+            <a (click)="openEmploymentDialogAnchor()" class="edit"><span>openEmploymentDialogAnchor</span> </a>
+            <a (click)="openEducationDialogAnchor()" class="edit"><span>openEducationDialogAnchor</span> </a>
+            <a (click)="openOtherexperienceDialogAnchor()" class="edit"><span>openOtherexperience</span> </a>
+
+            <a (click)="openPlaceDialogAnchor()" class="edit"><span>openPlaceDialogAnchor</span> </a>
         </div>
         <profile-category [categoryWiseAnswers]="categoryWiseAnswers"></profile-category>
         <profile-stat [profileParam]="profileParam"></profile-stat>

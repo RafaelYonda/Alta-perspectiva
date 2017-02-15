@@ -1,5 +1,5 @@
 ﻿/// <reference path="../../services/models/models.categorywiseanswer.ts" />
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ImageUploadService } from '../../services/image-upload.service';
 import { ProfileService } from '../../services/profile.service';
@@ -9,6 +9,12 @@ import { ConfigService } from '../../services/config.service';
 import { CredentialViewModel } from '../../services/models/models.profile';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { CategoryWiseAnswer } from '../../services/models/models.categorywiseanswer';
+//Modals
+import { AddEducationComponent } from './edit-profile/add-education.component';
+import { AddEmploymentComponent } from './edit-profile/add-employment.component';//done
+
+import { AddOtherExperienceComponent } from './edit-profile/add-otherexperience.component';
+import { AddPlaceComponent } from './edit-profile/add-place.component';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/viewprofile.component.html',
     providers: [ProfileService, ConfigService]
@@ -19,7 +25,7 @@ export class ViewProfileComponent {
     route: any;
     imageLink: string;
     credential: CredentialViewModel = new CredentialViewModel();
-    constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService, private _router: Router) {
+    constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService, private _router: Router, private componentFactoryResolver: ComponentFactoryResolver ) {
         this.route = _route;
     }
     @ViewChild(ProfileInfoComponent) profileInfo: ProfileInfoComponent
@@ -45,4 +51,57 @@ export class ViewProfileComponent {
 
         });
     }
+    @ViewChild('educationDialogAnchor', { read: ViewContainerRef }) educationDialogAnchor: ViewContainerRef;
+    openEducationDialogAnchor() {
+
+        this.educationDialogAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEducationComponent);
+        let dialogComponentRef = this.educationDialogAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.credential = this.credential;
+        dialogComponentRef.instance.close.subscribe(() => {
+            //this.loadData();
+            dialogComponentRef.destroy();
+        });
+    }
+    @ViewChild('employmentDialogAnchor', { read: ViewContainerRef }) employmentDialogAnchor: ViewContainerRef;
+    openEmploymentDialogAnchor() {
+
+        this.employmentDialogAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEmploymentComponent);
+        let dialogComponentRef = this.employmentDialogAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.credential = this.credential;
+        dialogComponentRef.instance.close.subscribe(() => {
+            //this.loadData();
+            dialogComponentRef.destroy();
+        });
+    }
+    @ViewChild('otherexperienceDialogAnchor', { read: ViewContainerRef }) otherexperienceDialogAnchor: ViewContainerRef;
+    openOtherexperienceDialogAnchor() {
+
+        this.otherexperienceDialogAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddOtherExperienceComponent);
+        let dialogComponentRef = this.otherexperienceDialogAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.credential = this.credential;
+        dialogComponentRef.instance.close.subscribe(() => {
+            //this.loadData();
+            dialogComponentRef.destroy();
+        });
+    }
+    @ViewChild('placeDialogAnchor', { read: ViewContainerRef }) placeDialogAnchor: ViewContainerRef;
+    openPlaceDialogAnchor() {
+
+        this.placeDialogAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddPlaceComponent);
+        let dialogComponentRef = this.placeDialogAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.credential = this.credential;
+        dialogComponentRef.instance.close.subscribe(() => {
+            //this.loadData();
+            dialogComponentRef.destroy();
+        });
+    }
+   
 }

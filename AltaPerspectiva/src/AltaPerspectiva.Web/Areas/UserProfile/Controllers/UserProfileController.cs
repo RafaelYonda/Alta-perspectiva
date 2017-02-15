@@ -154,16 +154,20 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpPost("userprofile/api/credential/saveuserimage")]
         public IActionResult SaveUserImage(IFormFile file, Guid userId)
         {
-            var uploads = Path.Combine(environment.WebRootPath, configuration["ProfileUpload"]);
-            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+            if (file != null)
             {
-                file.CopyTo(fileStream);
+                var uploads = Path.Combine(environment.WebRootPath, configuration["ProfileUpload"]);
+                using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                UpdateUserImageCommand cmd = new UpdateUserImageCommand(userId, file.FileName);
+                commandsFactory.ExecuteQuery(cmd);
+                Guid createdId = cmd.Id;
+                Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(userId);
+                return Ok(credential);
             }
-            UpdateUserImageCommand cmd = new UpdateUserImageCommand(userId, file.FileName);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-            Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(userId);
-            return Ok(credential);
+            return Ok();
         }
 
 

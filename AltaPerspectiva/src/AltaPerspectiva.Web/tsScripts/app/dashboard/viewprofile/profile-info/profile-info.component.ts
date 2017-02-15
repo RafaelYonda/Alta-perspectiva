@@ -4,8 +4,9 @@ import { ConfigService } from '../../../services/config.service';
 import { CredentialViewModel } from '../../../services/models/models.profile';
 import {User} from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
-
+//Modal
 import { AddCredentialComponent } from '../edit-profile/add-credential.component';
+
 @Component({
     selector: 'profile-info',
     templateUrl: 'js/app/dashboard/viewprofile/profile-info/profile-info.component.html',
@@ -33,16 +34,20 @@ export class ProfileInfoComponent {
     }
 
     loadData() {
-        this._configService.getConfig().subscribe(res => {      //Get config for image
-            this.imageLink = res.profileImage;
-            this.hasCredential = this.credential.title ? this.credential.title.trim() != "" ? false : true : false;
-            this.hasDescription = this.credential.description ? this.credential.description.trim() != "" ? false : true : false;
+        this.profileService.GetUsercredentialByUserId(this.credential.userId).subscribe(usr => {
+            this.credential = usr;
+            this._configService.getConfig().subscribe(res => {      //Get config for image
+                this.imageLink = res.profileImage;
+                this.hasCredential = this.credential.title ? this.credential.title.trim() != "" ? false : true : false;
+                this.hasDescription = this.credential.description ? this.credential.description.trim() != "" ? false : true : false;
 
-            if (this.credential.imageUrl && (this.credential.imageUrl != ''))
-                this.imageLink += this.credential.imageUrl;
-            else this.imageLink = '../images/userAdd.png';
+                if (this.credential.imageUrl && (this.credential.imageUrl != ''))
+                    this.imageLink += this.credential.imageUrl;
+                else this.imageLink = '../images/userAdd.png';
 
+            });
         });
+        
     }
     onChangeImage(event) {
         let file = event.srcElement.files;
@@ -81,4 +86,5 @@ export class ProfileInfoComponent {
             dialogComponentRef.destroy();
         });
     }
+   
 }

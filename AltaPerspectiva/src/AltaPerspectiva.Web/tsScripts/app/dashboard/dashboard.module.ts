@@ -15,8 +15,13 @@ import { ProfileInfoComponent } from './viewprofile/profile-info/profile-info.co
 import { ProfileStatComponent } from './viewprofile/profile-stat/profile-stat.component'; 
 import { ProfileCategoryComponent } from './viewprofile/profile-category/profile-category.component';
 import { DirectQuestionComponent } from './viewprofile/direct-question/direct-question.component';
-//Edit Profile Forms 
+//Edit Profile Forms +Modal
 import { AddCredentialComponent } from './viewprofile/edit-profile/add-credential.component';
+import { AddEducationComponent } from './viewprofile/edit-profile/add-education.component';
+import { AddEmploymentComponent } from './viewprofile/edit-profile/add-employment.component';//Done 
+
+import { AddOtherExperienceComponent } from './viewprofile/edit-profile/add-otherexperience.component';
+import { AddPlaceComponent } from './viewprofile/edit-profile/add-place.component';
 
 import { UserAnswerComponent } from './viewprofile/user-answer/user-answer.component';
 import { UserQuestionComponent } from './viewprofile/user-question/user-question.component';
@@ -65,10 +70,10 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
         ViewProfileComponent,
         ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent,
         //Edit Profile
-        AddCredentialComponent
+        AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent
     ],
     exports: [DashBoardComponent],
-    entryComponents: [AddCredentialComponent]
+    entryComponents: [AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent]
 })
 export class DashBoardModule { }
 
