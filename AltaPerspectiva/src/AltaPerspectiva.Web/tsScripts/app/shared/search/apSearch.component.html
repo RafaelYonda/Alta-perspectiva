@@ -1,4 +1,4 @@
-﻿<div [ngClass]="placeBottom" id="search-box" (click)="handleClick($event)" class="z-search">
+﻿<div [ngClass]="placeBottom" id="search-box" (click)="handleClick($event)">
     <div class="center-width" id="adv-search">
         <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="z-header" role="form" id="search-panel">
             <div class="icon-container">
@@ -12,7 +12,7 @@
                 <!-- Question Text -->
                 <search-dropdown [title]="title"></search-dropdown>
                 <!-- Question Suggestion -->
-                <div class="suggestion-container" *ngIf="(filteredQuestionList.length>0) || (categoryMatched?.length > 0)">
+                <div class="suggestion-container" *ngIf="(filteredQuestionList?.length>0) || (categoryMatched?.length > 0)">
                     <div class="arrow-container"></div>
                     <ul class="question-List">
                         <li *ngFor="let item of filteredQuestionList">

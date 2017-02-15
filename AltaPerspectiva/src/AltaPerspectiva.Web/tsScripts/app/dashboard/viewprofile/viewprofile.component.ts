@@ -30,8 +30,7 @@ export class ViewProfileComponent {
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
                 this.profileInfo.credential = this.credential;
-                this.profileInfo.ngOnInit();
-                console.log(this.credential);
+                this.profileInfo.ngOnInit();               
             });
             //========Statistics=======
             this.profileService.getProfileParameter(params['userId']).subscribe(profileParam => {
