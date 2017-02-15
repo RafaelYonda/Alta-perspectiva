@@ -1,33 +1,25 @@
-﻿namespace Questions.Command
+﻿using AltaPerspectiva.Core;
+using AltaPerspectiva.Core.Infrastructure;
+using Questions.Command.Commands;
+using Questions.Command.DbContext;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Questions.Domain;
+
+namespace Questions.Command.CommandHandler
 {
-    using AltaPerspectiva.Core;
-    using AltaPerspectiva.Core.Infrastructure;
-    using DbContext;
-    using System.Diagnostics;
-    using System.Linq;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Routing;
-    using Domain;
-    using System.Collections.Generic;
-    using System;
-
-    /// <summary>
-    ///     Create new inactive user
-    /// </summary>
-    /// 
-
-    public class AddQuestionCommandHandler : EFCommandHandlerBase<AddQuestionCommand, QuestionsDbContext>,
-        ICommandHandler<AddQuestionCommand>
+    public class AddDirectQuestionCommandHandler : EFCommandHandlerBase<DirectQuestionCommand, QuestionsDbContext>,
+        ICommandHandler<DirectQuestionCommand>
     {
-        public AddQuestionCommandHandler(QuestionsDbContext dbContext)
-            : base(dbContext)
-        {
+        public AddDirectQuestionCommandHandler(QuestionsDbContext dbContext)
+			: base(dbContext)
+		{
         }
 
-        public override void Execute(AddQuestionCommand command)
+        public override void Execute(DirectQuestionCommand command)
         {
-            Debug.WriteLine("AddQuestionCommandHandler executed");
-
             // 
             Question question = new Question();
             question.GenerateNewIdentity();
@@ -39,7 +31,7 @@
             //IsAnonums added
             question.IsAnonymous = command.IsAnonymous;
             //DirectQuestionAdded
-            question.IsDirectQuestion = false;
+            question.IsDirectQuestion = command.IsDirectQuestion;
             question.CreatedOn = command.Date;
             question.CreatedBy = command.UserId;
             question.DTS = command.Date;
@@ -67,7 +59,7 @@
 
             DbContext.Questions.Add(question);
 
-          
+
             /*Topics and Level added s*/
             if (command.TopicId != null)
             {
@@ -90,8 +82,16 @@
             DbContext.SaveChanges();
 
             command.Id = question.Id;
-        }
 
+
+            DirectQuestion directQuestion=new DirectQuestion();
+            directQuestion.QuestionId = question.Id;
+            directQuestion.UserId = command.UserId;
+
+            DbContext.DirectQuestions.Add(directQuestion);
+            DbContext.SaveChanges();
+            //command.Id = directQuestion.Id;
+        }
         private List<Guid> GetMatchedCategories(string[] keywords)
         {
             return DbContext.Keywords

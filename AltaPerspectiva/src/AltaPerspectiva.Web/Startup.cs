@@ -139,6 +139,8 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddShareQuestionCommand>, AddShareQuestionCommandHandler>();
 
             services.AddTransient<IQuestionFollowingQuery, QuestionFollowingQuery>();
+            //Direct question
+            services.AddTransient<ICommandHandler<DirectQuestionCommand>, AddDirectQuestionCommandHandler>();
 
             #region UserFrofile
 
@@ -230,6 +232,7 @@ namespace AltaPerspectiva
             //Blog
             //services.AddTransient<IBlogQuery, BlogQuery>();
            // services.AddTransient<ICommandHandler<AddBlogCommand>, AddBlogCommandHandler>();
+            
 
             //BlogPost
             services.AddTransient<IBlogPostQuery, BlogPostQuery>();
