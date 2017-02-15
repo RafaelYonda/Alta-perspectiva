@@ -1,5 +1,5 @@
 ﻿import { Component, EventEmitter } from '@angular/core';
-import { CredentialViewModel } from '../../../services/models/models.profile';
+import { OtherExperience } from '../../../services/models/models.OtherExperience';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     selector: 'add-otherexperience',
@@ -7,7 +7,7 @@ import { ProfileService } from '../../../services/profile.service';
     providers: [ProfileService],
 })
 export class AddOtherExperienceComponent {
-    credential: CredentialViewModel = new CredentialViewModel();
+    otherExperience: OtherExperience = new OtherExperience();
     constructor(private profileService: ProfileService) {
     }
     close = new EventEmitter();
@@ -22,17 +22,8 @@ export class AddOtherExperienceComponent {
         if (value == 'dialogModal')
             this.close.emit('event');
     }
-    saveCredentialTitle() {
-        this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
-            this.close.emit('event');
-            console.log(res);
-        });
+    saveOtherExperience() {
+        console.log(this.otherExperience);
     }
-    DeleteCredentialTitle() {
-        this.credential.title = "";
-        this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
-            this.close.emit('event');
-            console.log(res);
-        });
-    }
+    
 }

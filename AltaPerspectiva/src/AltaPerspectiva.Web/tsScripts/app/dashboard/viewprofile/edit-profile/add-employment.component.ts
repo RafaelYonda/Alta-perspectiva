@@ -1,5 +1,5 @@
 ﻿import { Component, EventEmitter } from '@angular/core';
-import { CredentialViewModel } from '../../../services/models/models.profile';
+import { Employment } from '../../../services/models/models.Employment';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     selector: 'add-employment',
@@ -7,7 +7,7 @@ import { ProfileService } from '../../../services/profile.service';
     providers: [ProfileService],
 })
 export class AddEmploymentComponent {
-    credential: CredentialViewModel = new CredentialViewModel();
+    employment: Employment = new Employment();
     constructor(private profileService: ProfileService) {
     }
     close = new EventEmitter();
@@ -22,17 +22,14 @@ export class AddEmploymentComponent {
         if (value == 'dialogModal')
             this.close.emit('event');
     }
-    saveCredentialTitle() {
-        this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
-            this.close.emit('event');
-            console.log(res);
-        });
+    onEmploymentSubmit() {
+        
     }
-    DeleteCredentialTitle() {
-        this.credential.title = "";
-        this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
-            this.close.emit('event');
-            console.log(res);
-        });
-    }
+    //DeleteCredentialTitle() {
+    //    this.credential.title = "";
+    //    this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
+    //        this.close.emit('event');
+    //        console.log(res);
+    //    });
+    //}
 }

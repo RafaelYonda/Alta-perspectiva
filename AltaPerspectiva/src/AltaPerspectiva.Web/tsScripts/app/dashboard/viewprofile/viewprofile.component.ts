@@ -7,6 +7,13 @@ import { ProfileParameter } from '../../services/models/models.profileparameter'
 
 import { ConfigService } from '../../services/config.service';
 import { CredentialViewModel } from '../../services/models/models.profile';
+import { Employment } from '../../services/models/models.Employment';
+import { Education } from '../../services/models/models.Education';
+import { Place } from '../../services/models/models.Place';
+import { OtherExperience } from '../../services/models/models.OtherExperience';
+
+
+
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { CategoryWiseAnswer } from '../../services/models/models.categorywiseanswer';
 //Modals
@@ -25,6 +32,12 @@ export class ViewProfileComponent {
     route: any;
     imageLink: string;
     credential: CredentialViewModel = new CredentialViewModel();
+    employment: Employment = new Employment();
+    education: Education = new Education();
+    place: Place = new Place();
+    otherExperience: OtherExperience = new OtherExperience();
+
+
     constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService, private _router: Router, private componentFactoryResolver: ComponentFactoryResolver ) {
         this.route = _route;
     }
@@ -58,7 +71,7 @@ export class ViewProfileComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEducationComponent);
         let dialogComponentRef = this.educationDialogAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.credential = this.credential;
+        dialogComponentRef.instance.education = this.education;
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
@@ -71,7 +84,7 @@ export class ViewProfileComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEmploymentComponent);
         let dialogComponentRef = this.employmentDialogAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.credential = this.credential;
+        dialogComponentRef.instance.employment = this.employment;
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
@@ -84,7 +97,7 @@ export class ViewProfileComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddOtherExperienceComponent);
         let dialogComponentRef = this.otherexperienceDialogAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.credential = this.credential;
+        dialogComponentRef.instance.otherExperience = this.otherExperience;
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
@@ -97,7 +110,7 @@ export class ViewProfileComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddPlaceComponent);
         let dialogComponentRef = this.placeDialogAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.credential = this.credential;
+        dialogComponentRef.instance.place = this.place;
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();

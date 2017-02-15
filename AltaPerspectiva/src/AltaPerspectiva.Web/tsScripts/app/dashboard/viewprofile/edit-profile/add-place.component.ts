@@ -1,5 +1,5 @@
 ﻿import { Component, EventEmitter } from '@angular/core';
-import { CredentialViewModel } from '../../../services/models/models.profile';
+import { Place } from '../../../services/models/models.Place';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     selector: 'add-place',
@@ -7,7 +7,7 @@ import { ProfileService } from '../../../services/profile.service';
     providers: [ProfileService],
 })
 export class AddPlaceComponent {
-    credential: CredentialViewModel = new CredentialViewModel();
+    place: Place = new Place();
     constructor(private profileService: ProfileService) {
     }
     close = new EventEmitter();
@@ -22,17 +22,8 @@ export class AddPlaceComponent {
         if (value == 'dialogModal')
             this.close.emit('event');
     }
-    saveCredentialTitle() {
-        this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
-            this.close.emit('event');
-            console.log(res);
-        });
+    savePlace() {
+        console.log(this.place);
     }
-    DeleteCredentialTitle() {
-        this.credential.title = "";
-        this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
-            this.close.emit('event');
-            console.log(res);
-        });
-    }
+    
 }
