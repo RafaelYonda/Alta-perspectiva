@@ -3,9 +3,9 @@
         margin-left: 5px;
     }
 
-        .edit span {
+        /*.edit span {
             visibility: hidden;
-        }
+        }*/
 
         .edit:hover span {
             visibility: visible;
@@ -122,7 +122,7 @@
             <div class="user-name">
                 <div [hidden]="!isUserHidden">
                     <h1> {{credential.firstName}} {{credential.lastName}} </h1>
-                    <a (click)="isUserHidden = fales" class="edit"><span><i class="fa fa-edit"></i>Edit</span> </a>
+                    <a (click)="isUserHidden = false" class="edit"><span><i class="fa fa-edit"></i>Edit</span> </a>
                 </div>
                 <div [hidden]="isUserHidden">
                     <input placeholder="First Name" [(ngModel)]="credential.firstName" type="text" />
@@ -132,12 +132,12 @@
                 </div>
             </div>
             <!-- ================Credential================== -->
-            <div [hidden]="!hasCredential">
+            <!--<div [hidden]="!hasCredential">
                 <a (click)="openCredentialDialogBox()" class="edit"> Add Credentials </a>
-            </div>
+            </div>-->
             <div [hidden]="hasCredential" class="credential">
                 <a>{{credential.title}}</a>
-                <a (click)="openCredentialDialogBox()" class="edit"><span><i class="fa fa-edit"></i>Edit</span> </a>
+                <a (click)="openCredentialDialogBox()" class="edit"><span>Edit Credential</span> </a>
             </div>
             <!-- ================Description============= -->
             <div [hidden]="!hasDescription">
@@ -147,7 +147,7 @@
             </div>
             <div [hidden]="(!hasDescription && !showDescription)">
                 <div [innerHTML]="credential.description"></div>
-                <a class="edit"><span (click)="showDescription = false"><i class="fa fa-edit"></i>Edit</span> </a>
+                <a class="edit"><span (click)="showDescription = false">Write Description about yourself</span> </a>
             </div>
             <div class="description-panel" [hidden]="showDescription">
                 <quill-editor [(ngModel)]="credential.description" [ngModelOptions]="{standalone: true}"
