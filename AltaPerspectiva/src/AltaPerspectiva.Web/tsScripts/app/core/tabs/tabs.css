@@ -53,6 +53,12 @@ span {
         min-width: 150px;
         text-align: center;
     }
+    .tabs > .tab:hover{
+        background-color: #fdbc1e;
+    }
+    .tabs > .tab > a:hover{
+        color: white;
+    }
 
 .tab-text {
     font-family: myriadpro-regular;
