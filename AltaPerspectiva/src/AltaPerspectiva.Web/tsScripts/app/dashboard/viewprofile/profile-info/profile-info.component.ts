@@ -22,6 +22,13 @@ export class ProfileInfoComponent {
     constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
     }
     ngOnInit() {
+
+        if (!this.credential.firstName  || !this.credential.lastName || this.credential.firstName.length == 0 ||
+            this.credential.lastName.length == 0)
+        {
+            this.isUserHidden = false;
+        }
+
         this._configService.getConfig().subscribe(res => {      //Get config for image
             this.imageLink = res.profileImage;
             this.hasCredential = this.credential.title ? this.credential.title.trim() != "" ? false : true : false;
