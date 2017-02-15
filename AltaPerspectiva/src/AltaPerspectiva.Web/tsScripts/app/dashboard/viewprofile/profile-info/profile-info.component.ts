@@ -28,16 +28,20 @@ export class ProfileInfoComponent {
         {
             this.isUserHidden = false;
         }
+        this.loadData()
+        
+    }
 
+    loadData() {
         this._configService.getConfig().subscribe(res => {      //Get config for image
             this.imageLink = res.profileImage;
             this.hasCredential = this.credential.title ? this.credential.title.trim() != "" ? false : true : false;
             this.hasDescription = this.credential.description ? this.credential.description.trim() != "" ? false : true : false;
-            console.log(this.credential);
+
             if (this.credential.imageUrl && (this.credential.imageUrl != ''))
                 this.imageLink += this.credential.imageUrl;
             else this.imageLink = '../images/userAdd.png';
-            console.log(this.imageLink);
+
         });
     }
     onChangeImage(event) {
@@ -46,36 +50,34 @@ export class ProfileInfoComponent {
         this._imgService
             .upload(file, this.credential.userId)
             .subscribe(res => {
-                this.ngOnInit();
+                this.loadData()
             });
     }
     UpdateUserName() {
         this.isUserHidden = true;
         this.profileService.SaveUserName(this.credential.firstName, this.credential.lastName, this.credential.userId).subscribe(res => {
-            
-            this.ngOnInit();
+
+            this.loadData();
         });
     }
     updateDecription() {
         //this.credential.description = description;
         this.profileService.saveDescription(this.credential).subscribe(res => {
             this.showDescription = true;
-            this.ngOnInit();
+            this.loadData();
         });
         //console.log(description);
     }
     @ViewChild('credentialDialogAnchor', { read: ViewContainerRef }) credentialDialogAnchor: ViewContainerRef;
     openCredentialDialogBox() {
-        console.log('AddCredentialComponent');
-        // Close any already open dialogs
+       
         this.credentialDialogAnchor.clear();
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddCredentialComponent);
         let dialogComponentRef = this.credentialDialogAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.credential = this.credential;
-        //dialogComponentRef.instance.question = question; // Not sure about the translation here
+        dialogComponentRef.instance.credential = this.credential;        
         dialogComponentRef.instance.close.subscribe(() => {
-            this.ngOnInit();
+            this.loadData();
             dialogComponentRef.destroy();
         });
     }
