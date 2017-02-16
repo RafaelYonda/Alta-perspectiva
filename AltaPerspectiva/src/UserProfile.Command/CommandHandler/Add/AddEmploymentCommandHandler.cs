@@ -28,7 +28,8 @@ namespace UserProfile.Command.CommandHandler
                 StartDate = command.StartDate,
                 EndDate = command.EndDate,
                 CompanyName = command.CompanyName,
-                IsCurrentlyWorking = command.IsCurrentlyWorking
+                IsCurrentlyWorking = command.IsCurrentlyWorking,
+                Position = command.Position
                 // CreatedBy = command.UserId
             };
             DbContext.Employments.Add(employment);

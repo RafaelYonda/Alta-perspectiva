@@ -98,7 +98,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 UserId = x.UserId,
                 Name = x.FirstName + "" + x.LastName,
                 ImageUrl = x.ImageUrl,
-                Occupation = "Plz add"
+                Occupation = x.Employments.Select(y=>y.Position).Take(1).FirstOrDefault()
             }).ToList();
 
             List<QuestionViewModel> questions = new List<QuestionViewModel>();

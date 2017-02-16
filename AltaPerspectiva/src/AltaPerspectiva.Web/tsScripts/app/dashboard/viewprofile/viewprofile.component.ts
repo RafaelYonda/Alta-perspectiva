@@ -61,6 +61,10 @@ export class ViewProfileComponent {
                 this.categoryWiseAnswers = categoryWiseAnswer;
                 console.log(categoryWiseAnswer);
             });
+            //================ProfileViewCount
+            this.profileService.ProfileViewCount(params['userId']).subscribe(res => {
+                
+            })
 
         });
     }
