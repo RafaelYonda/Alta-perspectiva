@@ -131,7 +131,7 @@ GO
 DROP PROC [dbo].[SpTopUserCalculation];
 GO
 
-CREATE proc [dbo].[SpTopUserCalculation]
+CREATE proc [dbo].[SpTopUserCalculation] 
 (
   @userId nvarchar(200)=null,
   @catgeoryId nvarchar(200)=null
@@ -162,7 +162,7 @@ if (@userId is null)
 where CredentialId=(select top 1 CredentialId from UserProfile.Credentials c where c.UserId=u.Id)
 order by CreatedOn desc
 	) Occupation,
-	ISNULL((select ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
+	ISNULL((select top 1 ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
 	
 	FROM [Identity].AspNetUsers u
 

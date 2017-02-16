@@ -1,4 +1,6 @@
-﻿<div class="navbar navbar-inverse navbar-fixed-top z-header" [ngClass]="className">
+﻿<div #loginDialogAnchor></div>
+
+<div class="navbar navbar-inverse navbar-fixed-top z-header" [ngClass]="className">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -17,30 +19,27 @@
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
             <!--<li><a [routerLink]="['/dashboard/viewprofile','80a2b9fe-609f-435b-86f8-97b567189b22']" for="contain" data-toggle="dropdown" class="padding-middle"> PP </a></li>-->
-            <li><a href="/signin">Log in</a></li>
+            <li><a (click)="openLoginDialogAnchor()">Log in</a></li>
             <li><a href="/signin">Register</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right" *ngIf="_logObj.isLoggedIn">
-            <li>
-                <a href="#" class="dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false">
-                    <img class="user-image" src="{{_logObj.user.imageUrl}}" />{{_logObj.user.name}}
-                </a>
-                <!-- ======= -->
-                <div class="dropdown-menu dropdown-menu-right" role="menu">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <div class="lef-column padding-middle"><span class="fa fa-user"></span> <a [routerLink]="['/dashboard/viewprofile',_logObj.user.userid]" for="contain" data-toggle="dropdown" class="padding-middle"> Profile</a></div>
+        <div class="navbar-right" *ngIf="_logObj.isLoggedIn">
+            <a href="#" class="dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false">
+                <img class="user-image img-circle" src="{{_logObj.user.imageUrl}}" />
+                <span class="nav-user-info">{{_logObj.user.name}}</span>
+            </a>
+            <!-- ======= -->
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div class="lef-column padding-middle"><span class="fa fa-user"></span> <a [routerLink]="['/dashboard/viewprofile',_logObj.user.userid]" for="contain" data-toggle="dropdown" class="padding-middle"> Profile</a></div>
 
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="lef-column padding-middle"><span class="fa fa-sign-out"></span> <a href="/signout" for="contain" class="padding-middle" (click)="LogOut()"> Sign Out </a></div>
-                        </div>
-                    </form>
-                </div>
-                <!-- ======== -->
+                    </div>
 
-            </li>
-        </ul>
+                    <div class="form-group">
+                        <div class="lef-column padding-middle"><span class="fa fa-sign-out"></span> <a href="/signout" for="contain" class="padding-middle" (click)="LogOut()"> Sign Out </a></div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
