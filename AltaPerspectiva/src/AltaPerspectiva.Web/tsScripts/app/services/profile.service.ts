@@ -103,6 +103,12 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    //===========viewcount
+    ProfileViewCount(userId: string): Observable<any> {
+        return this._http.post('userprofile/api/profileviewcount/'+userId,userId)
+            .map(this.extractData).catch(this.handleError);
+    }
+
     AddEmployment(employment: Employment):Observable<any> {
         return this._http.post('userprofile/api/employment/addemployment', employment)
             .map(this.extractData)

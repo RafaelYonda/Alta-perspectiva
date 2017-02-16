@@ -15,6 +15,7 @@
                 <img class="user-image img-circle" src="../../../../profile/{{topFiveUser?.imageUrl}}" (mouseover)='userover(topFiveUser?.id)' [popover]="userInfoDetailsPopoveruser" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"/>
                 <div class="top-user-info">
                     <!--<a [routerLink]="['/dashboard/viewprofile/user-question',credential.id]"> {{topFiveUser?.name}}</a>-->
+
                     {{topFiveUser?.name}}
                     <span>,Occupation of the user</span>
                     <div>000 vistas</div>
@@ -26,49 +27,51 @@
     </ul>
 </div>
 <popover-content #userInfoDetailsPopoveruser>
-    <ul style="list-style-type: none;">
-        <li>
-            <img class="user-image " src="../../../../profile/{{userInfoDetails?.imageUrl}}" />
-           
-            <div class="user-info">
-                <div class="user-detail">
-                    {{userInfoDetails?.fullName}} <br />
-                    <span style="font-size: 12px;"> {{userInfoDetails?.title}}</span>
+    <div *ngIf="userInfoDetails">
+        <ul style="list-style-type: none;">
+            <li>
+                <img class="user-image " src="../../../../profile/{{userInfoDetails?.imageUrl}}" />
+
+                <div class="user-info">
+                    <div class="user-detail">
+                        {{userInfoDetails?.fullName}} <br />
+                        <span style="font-size: 12px;"> {{userInfoDetails?.title}}</span>
+                    </div>
+                    <!--<div class="user-detail light-gray">{{viewDate | date: 'dd MMM, yyyy'}}</div>-->
                 </div>
-                <!--<div class="user-detail light-gray">{{viewDate | date: 'dd MMM, yyyy'}}</div>-->
-            </div>
-        </li>
-
-    </ul>
-    <br />
-    <div class="topAlign">
-        <ul class="fa-ul">
-            <li *ngIf="userInfoDetails?.answerCount!=0">
-                <i class="fa-li fa fa-check-square"></i>Answers: {{userInfoDetails?.answerCount}}
             </li>
-            <li *ngIf="userInfoDetails?.questionCount!=0"><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
-
-            <li *ngIf="userInfoDetails?.education!=''">
-                <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
-            </li>
-            <li *ngIf="userInfoDetails?.employment!=''">
-                <i class="fa-li fa fa-info-circle"></i>employment: {{userInfoDetails?.employment}}
-            </li>
-            <li *ngIf="userInfoDetails?.place!=''">
-                <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
-            </li>
-            <li *ngIf="userInfoDetails?.otherExperience!=''">
-                <i class="fa-li fa fa-cog"></i>otherExperience: {{userInfoDetails?.otherExperience}}
-            </li>
-
-            <li *ngIf="userInfoDetails?.questionViewCount">
-                <i class="fa-li fa fa-eye">
-
-                </i>Question Views: {{userInfoDetails?.questionViewCount}}
-
-            </li>
-
 
         </ul>
+        <br />
+        <div class="">
+            <ul class="fa-ul">
+                <li *ngIf="userInfoDetails?.answerCount!=0">
+                    <i class="fa-li fa fa-check-square"></i>Answers: {{userInfoDetails?.answerCount}}
+                </li>
+                <li *ngIf="userInfoDetails?.questionCount!=0"><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
+
+                <li *ngIf="userInfoDetails?.education!=''">
+                    <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
+                </li>
+                <li *ngIf="userInfoDetails?.employment!=''">
+                    <i class="fa-li fa fa-info-circle"></i>employment: {{userInfoDetails?.employment}}
+                </li>
+                <li *ngIf="userInfoDetails?.place!=''">
+                    <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
+                </li>
+                <li *ngIf="userInfoDetails?.otherExperience!=''">
+                    <i class="fa-li fa fa-cog"></i>otherExperience: {{userInfoDetails?.otherExperience}}
+                </li>
+
+                <li *ngIf="userInfoDetails?.questionViewCount">
+                    <i class="fa-li fa fa-eye">
+
+                    </i>Question Views: {{userInfoDetails?.questionViewCount}}
+
+                </li>
+
+
+            </ul>
+        </div>
     </div>
 </popover-content>

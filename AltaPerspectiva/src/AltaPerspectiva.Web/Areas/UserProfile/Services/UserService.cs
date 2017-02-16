@@ -13,6 +13,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
 {
     public class UserService
     {
+        //public List<UserViewModel> GetUserViewModels(IQueryFactory queryFactory, List<Question> questions,List<Guid> userIds )
+        //{
+            
+        //}
         
         public String GetUserFullName(IQueryFactory queryFactory,Guid loggedinUser)
         {
@@ -39,7 +43,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             {
                 fullName = credential.FirstName + " " + credential.LastName;
                 imageUrl = credential.ImageUrl?? "avatar.png";
-                occupation = credential.Employments.Select(x => x.Position).FirstOrDefault();
+                occupation = credential.Employments.Select(x => x.Position).Take(1).FirstOrDefault();
                 credentialId = credential.Id;
             }
             else
