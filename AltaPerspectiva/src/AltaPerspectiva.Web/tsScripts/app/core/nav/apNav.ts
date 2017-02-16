@@ -6,6 +6,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { CredentialViewModel } from '../../services/models/models.profile';
 import { LoginComponent } from '../../shared/login/login.component';
+import { RegisterComponent } from '../../shared/login/register.component';
 
 @Component({
     selector: 'ap-nav',
@@ -53,6 +54,21 @@ export class ApNav {
       //  dialogComponentRef.instance.education = this.education;
 
        // dialogComponentRef.instance.education.credentialId = this.credential.id;
+        dialogComponentRef.instance.close.subscribe(() => {
+            //this.loadData();
+            dialogComponentRef.destroy();
+        });
+    }
+    @ViewChild('registerDialogAnchor', { read: ViewContainerRef }) registerDialogAnchor: ViewContainerRef;
+    openRegisterDialogAnchor() {
+
+        this.registerDialogAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(RegisterComponent);
+        let dialogComponentRef = this.registerDialogAnchor.createComponent(dialogComponentFactory);
+        //  dialogComponentRef.instance.education = this.education;
+
+        // dialogComponentRef.instance.education.credentialId = this.credential.id;
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
