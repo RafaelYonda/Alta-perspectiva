@@ -491,17 +491,17 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
             IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(userId);
 
             List<QuestionViewModel> questionViewModels =
-                new QuestionService().GetQuestionViewModel(questionList, queryFactory);
+                new QuestionService().GetQuestionViewModels(questionList, queryFactory);
             return Ok(questionViewModels);
         }
         [HttpGet("userprofile/api/answerbyuserid/{userId}")]
-        public async Task<IActionResult> AnswerByCredentialId(Guid userId)
+        public async Task<IActionResult> AnswerByUserId(Guid userId)
         {
             IEnumerable<Question> questionList =
                 await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(userId);
 
             List<QuestionViewModel> questionViewModels =
-                new QuestionService().GetQuestionViewModelForProfile(questionList, queryFactory, userId);
+                new QuestionService().GetQuestionViewModels(questionList, queryFactory);
             return Ok(questionViewModels);
         }
         [HttpGet("userprofile/api/directquestion")]
