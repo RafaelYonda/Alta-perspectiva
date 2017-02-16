@@ -1,12 +1,10 @@
-﻿/// <reference path="viewprofile/direct-question/direct-question.component.ts" />
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { ModuleWithProviders }  from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
-//import { NavBarComponent } from '../shared/nav-bar/nav-bar.component';
 import { DashBoardComponent } from './dashboard.component';
 import { NavDashboard } from './navdashboard/navdashboard.component';
 
@@ -29,7 +27,8 @@ import { FollowingComponent } from './viewprofile/following/following.component'
 import { FollowerComponent } from './viewprofile/follower/follower.component';
 import { BookmarkComponent } from './viewprofile/bookmark/bookmark.component';
 import { BlogCreateComponent } from './viewprofile/blog-create/blog-create.component';
-import { BlogPostComponent } from './viewprofile/blog-post/blog-post.component';
+import { BlogPostComponent } from './viewprofile/blog-post/blog-post.component'; 
+import { PostedQuestionComponent } from './viewprofile/posted-question/posted-question.component';
 
 import { ProfileService } from '../services/profile.service';
 import { ProfileResolver } from '../services/resolve.services/profile.resolver';
@@ -53,7 +52,8 @@ const DashBoardroutes: Routes = [
                     { path: 'following', component: FollowingComponent },
                     { path: 'bookmark', component: BookmarkComponent },
                     { path: 'blog-create', component: BlogCreateComponent },
-                    { path: 'direct-question', component: DirectQuestionComponent },
+                    { path: 'direct-question', component: DirectQuestionComponent }, 
+                    { path: 'post', component: PostedQuestionComponent }
                 ]
             }
             //,{ path: 'blog-post', component: BlogPostComponent }
@@ -68,7 +68,7 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
     declarations: [
         DashBoardComponent, NavDashboard,
         ViewProfileComponent,
-        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent,
+        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, PostedQuestionComponent,
         //Edit Profile
         AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent
     ],
