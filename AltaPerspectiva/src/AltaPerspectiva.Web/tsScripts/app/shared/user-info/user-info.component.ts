@@ -5,7 +5,6 @@ import {PopoverModule} from "ngx-popover";
 @Component({
     selector: 'user-info',
     templateUrl: 'js/app/shared/user-info/user-info.component.html',
-    styleUrls: ['js/app/shared/user-info/user-info.component.css'],
     providers: [ProfileService]
 })
 export class UserInfoComponent {
