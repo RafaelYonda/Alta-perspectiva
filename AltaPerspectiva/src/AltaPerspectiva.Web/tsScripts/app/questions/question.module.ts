@@ -8,7 +8,6 @@ import {HttpModule  } from '@angular/http';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 //====question components============
-import { questionNav } from './nav/question-nav.component';
 import { QuestionHomeComponent } from './question-home.component';
 import { QuestionDetailComponent } from './question-details/question-details.component';
 import { QuestionBodyComponent } from './question-body/question-body.component';
@@ -48,7 +47,7 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
     )],
     declarations: [
         //Core Components
-        QuestionBodyComponent, QuestionHomeComponent, questionNav, QuestionMenuPanelComponent, QuestionDetailComponent, QuestionFullscreenComponent
+        QuestionBodyComponent, QuestionHomeComponent, QuestionMenuPanelComponent, QuestionDetailComponent, QuestionFullscreenComponent
     ],
     exports: [QuestionMenuPanelComponent
     ]

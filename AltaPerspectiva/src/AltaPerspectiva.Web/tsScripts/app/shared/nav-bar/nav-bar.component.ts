@@ -1,10 +1,12 @@
 ﻿/// <reference path="../left-menu/category-left-menu.component.ts" />
-import { Component, ViewEncapsulation, Input } from '@angular/core';
 import {LogInObj, User} from '../../services/models';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
+import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, ViewEncapsulation} from '@angular/core';
 
+import { LoginComponent } from '../../shared/login/login.component';
+import { RegisterComponent } from '../../shared/login/register.component';
 @Component({
     selector: 'nav-bar',
     encapsulation: ViewEncapsulation.None,
@@ -19,7 +21,7 @@ export class NavBarComponent {
     _logObj: LogInObj;
     _authService: AuthenticationService;
 
-    constructor(private authService: AuthenticationService) {
+    constructor(private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver) {
         this._authService = authService;
         var user: User = new User();
         //user.userid = '-1';
@@ -41,5 +43,35 @@ export class NavBarComponent {
     }
     goToDashBoard() {
         this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
+    }
+    @ViewChild('loginDialogAnchor', { read: ViewContainerRef }) loginDialogAnchor: ViewContainerRef;
+    openLoginDialogAnchor() {
+
+        this.loginDialogAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(LoginComponent);
+        let dialogComponentRef = this.loginDialogAnchor.createComponent(dialogComponentFactory);
+        //  dialogComponentRef.instance.education = this.education;
+
+        // dialogComponentRef.instance.education.credentialId = this.credential.id;
+        dialogComponentRef.instance.close.subscribe(() => {
+            //this.loadData();
+            dialogComponentRef.destroy();
+        });
+    }
+    @ViewChild('registerDialogAnchor', { read: ViewContainerRef }) registerDialogAnchor: ViewContainerRef;
+    openRegisterDialogAnchor() {
+
+        this.registerDialogAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(RegisterComponent);
+        let dialogComponentRef = this.registerDialogAnchor.createComponent(dialogComponentFactory);
+        //  dialogComponentRef.instance.education = this.education;
+
+        // dialogComponentRef.instance.education.credentialId = this.credential.id;
+        dialogComponentRef.instance.close.subscribe(() => {
+            //this.loadData();
+            dialogComponentRef.destroy();
+        });
     }
 }

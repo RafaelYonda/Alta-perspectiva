@@ -15,6 +15,7 @@ import { AnswerDialogComponent } from './answer-dialog/answer-dialog.component';
 import { AnswerSubmitComponent } from './answer-submit/answer-submit.component';
 import { QuestionPanelComponent } from './question-panel/question-panel.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './login/register.component';
 //Search panel
 import { ApSearchComponent } from './search/apsearch.component';
 import { ApSearchDropDownComponent } from './search/search-dropdown.component';
@@ -44,13 +45,13 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
         { provide: 'Window', useValue: window }, CommunicationService
     ],
     declarations: [
-        ApSearchComponent, ApSearchDropDownComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent, AnswerSubmitComponent, QuestionPanelComponent, QuestionReportComponent, NavBarComponent, LoginComponent
+        ApSearchComponent, ApSearchDropDownComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent, AnswerSubmitComponent, QuestionPanelComponent, QuestionReportComponent, NavBarComponent, LoginComponent, RegisterComponent
         //Plug ins
 
     ],
     exports: [
-        ApSearchComponent, ApSearchDropDownComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent, AnswerSubmitComponent, QuestionPanelComponent, QuestionReportComponent, NavBarComponent, LoginComponent
+        ApSearchComponent, ApSearchDropDownComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent, AnswerSubmitComponent, QuestionPanelComponent, QuestionReportComponent, NavBarComponent, LoginComponent, RegisterComponent
     ],
-    entryComponents: [DialogComponent, AnswerDialogComponent, QuestionReportComponent, LoginComponent]
+    entryComponents: [DialogComponent, AnswerDialogComponent, QuestionReportComponent, LoginComponent, RegisterComponent]
 })
 export class SharedModule { }
