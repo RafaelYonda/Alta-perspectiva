@@ -90,10 +90,12 @@ namespace UserProfile.Query.Queries
                     summary.Name = Convert.ToString(reader["FullName"]);
                     summary.Id = Convert.ToString(reader["Id"]);
                     summary.ImageUrl = Convert.ToString(reader["ImageUrl"]);
-                    summary.TotalLike = Convert.ToInt16(reader["TotalLike"]);
-                    summary.TotalComment = Convert.ToInt16(reader["TotalComment"]);
-                    summary.TotalQuestion = Convert.ToInt16(reader["TotalQuestion"]);
-                    summary.TotalAnswer = Convert.ToInt16(reader["TotalAnswer"]);
+                    summary.Occupation = Convert.ToString(reader["Occupation"]);
+                    summary.TotalLike = Convert.ToInt32(reader["TotalLike"]);
+                    summary.TotalComment = Convert.ToInt32(reader["TotalComment"]);
+                    summary.TotalQuestion = Convert.ToInt32(reader["TotalQuestion"]);
+                    summary.TotalAnswer = Convert.ToInt32(reader["TotalAnswer"]);
+                    summary.ProfileViewCount = Convert.ToInt32(reader["ProfileViewCount"]);
                     userSummery.Add(summary);
                 }
 

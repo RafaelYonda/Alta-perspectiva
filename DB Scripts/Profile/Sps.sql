@@ -56,7 +56,7 @@ order by CreatedOn desc);
 
 DECLARE @Employment nvarchar(500);
 set @Employment=(
-select top 1 Position+' , '+CompanyName as Employment
+select top 1 Position+' , '+ISNULL(CompanyName,'') as Employment
 from UserProfile.Employments  emp 
 where  emp.CredentialId=@credentialId
 order by CreatedOn desc
@@ -156,7 +156,13 @@ if (@userId is null)
 	 (select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) *2+
 	 (select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) *3+
 	 (select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) *4
-	) TotalCommulativePoint
+	) TotalCommulativePoint,
+	(
+	select top 1 e.Position from UserProfile.Employments e 
+where CredentialId=(select top 1 CredentialId from UserProfile.Credentials c where c.UserId=u.Id)
+order by CreatedOn desc
+	) Occupation,
+	ISNULL((select ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
 	
 	FROM [Identity].AspNetUsers u
 
@@ -199,7 +205,13 @@ SELECT  [Id]
 	on a.QuestionId=qc.QuestionId
 	where CategoryId=@catgeoryId and  UserId=u.Id) *4
 	) TotalCommulativePoint
-	
+	,
+	(
+	select top 1 e.Position from UserProfile.Employments e 
+where CredentialId=(select top 1 CredentialId from UserProfile.Credentials c where c.UserId=u.Id)
+order by CreatedOn desc
+	) Occupation,
+	ISNULL((select ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
 	FROM [Identity].AspNetUsers u
 
 )
@@ -221,7 +233,14 @@ ELSE
 	 (select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) *2+
 	 (select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) *3+
 	 (select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) *4
-	) TotalCommulativePoint
+	) TotalCommulativePoint,
+	
+	(
+	select top 1 e.Position from UserProfile.Employments e 
+where CredentialId=(select top 1 CredentialId from UserProfile.Credentials c where c.UserId=@userId)
+order by CreatedOn desc
+	) Occupation,
+	ISNULL((select ProfileViewCount from UserProfile.Credentials where UserId=@userId),0) ProfileViewCount
 	
 	FROM [Identity].AspNetUsers u
 	where u.Id=@userId

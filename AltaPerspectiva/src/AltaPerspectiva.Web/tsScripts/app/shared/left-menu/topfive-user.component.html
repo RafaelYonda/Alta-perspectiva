@@ -17,8 +17,8 @@
                     <!--<a [routerLink]="['/dashboard/viewprofile/user-question',credential.id]"> {{topFiveUser?.name}}</a>-->
 
                     {{topFiveUser?.name}}
-                    <span>,Occupation of the user</span>
-                    <div>000 vistas</div>
+                    <span *ngIf="topFiveUser.occupation">,{{topFiveUser.occupation}}</span>
+                    <div>{{topFiveUser.profileViewCount}} vistas</div>
                 </div>
                 <div class="clearfix"></div>
 
