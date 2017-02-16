@@ -1,10 +1,11 @@
-﻿import { Component, ViewEncapsulation, Input } from '@angular/core';
+﻿import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, ViewEncapsulation} from '@angular/core';
 import {LogInObj, User} from '../../services/models';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ProfileService } from '../../services/profile.service';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { CredentialViewModel } from '../../services/models/models.profile';
+import { LoginComponent } from '../../shared/login/login.component';
 
 @Component({
     selector: 'ap-nav',
@@ -21,7 +22,7 @@ export class ApNav {
     _authService: AuthenticationService;
     credential: CredentialViewModel = new CredentialViewModel();
 
-    constructor(private authService: AuthenticationService, private profileService: ProfileService) {
+    constructor(private authService: AuthenticationService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
         this._authService = authService;
         var user: User = new User();
         //user.userid = '-1';
@@ -40,6 +41,24 @@ export class ApNav {
                 localStorage.setItem('currentUserName', this._logObj.user.name);
                 localStorage.setItem('currentUserImage', this._logObj.user.imageUrl);
             }
+        });
+    }
+    onLogin() {
+        console.log("working");
+    }
+    @ViewChild('loginDialogAnchor', { read: ViewContainerRef }) loginDialogAnchor: ViewContainerRef;
+    openLoginDialogAnchor() {
+
+        this.loginDialogAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(LoginComponent);
+        let dialogComponentRef = this.loginDialogAnchor.createComponent(dialogComponentFactory);
+      //  dialogComponentRef.instance.education = this.education;
+
+       // dialogComponentRef.instance.education.credentialId = this.credential.id;
+        dialogComponentRef.instance.close.subscribe(() => {
+            //this.loadData();
+            dialogComponentRef.destroy();
         });
     }
 }

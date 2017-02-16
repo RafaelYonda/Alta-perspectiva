@@ -1,4 +1,6 @@
-﻿<div class="navbar navbar-inverse navbar-fixed-top z-header" [ngClass]="className">
+﻿<div #loginDialogAnchor></div>
+
+<div class="navbar navbar-inverse navbar-fixed-top z-header" [ngClass]="className">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -17,7 +19,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
             <!--<li><a [routerLink]="['/dashboard/viewprofile','80a2b9fe-609f-435b-86f8-97b567189b22']" for="contain" data-toggle="dropdown" class="padding-middle"> PP </a></li>-->
-            <li><a href="/signin">Log in</a></li>
+            <li><a (click)="openLoginDialogAnchor()">Log in</a></li>
             <li><a href="/signin">Register</a></li>
         </ul>
         <div class="navbar-right" *ngIf="_logObj.isLoggedIn">
