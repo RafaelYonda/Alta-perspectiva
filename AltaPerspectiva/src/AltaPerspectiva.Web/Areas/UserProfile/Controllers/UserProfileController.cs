@@ -491,7 +491,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
             IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(userId);
 
             List<QuestionViewModel> questionViewModels =
-                new QuestionService().GetQuestionViewModels(questionList, queryFactory);
+                new QuestionService().GetQuestionViewModels(questionList, queryFactory,configuration);
             return Ok(questionViewModels);
         }
         [HttpGet("userprofile/api/answerbyuserid/{userId}")]
@@ -501,7 +501,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(userId);
 
             List<QuestionViewModel> questionViewModels =
-                new QuestionService().GetQuestionViewModels(questionList, queryFactory);
+                new QuestionService().GetQuestionViewModels(questionList, queryFactory,configuration);
             return Ok(questionViewModels);
         }
         [HttpGet("userprofile/api/directquestion")]

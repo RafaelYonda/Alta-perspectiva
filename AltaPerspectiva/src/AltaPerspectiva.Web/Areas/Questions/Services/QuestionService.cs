@@ -7,9 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
+using Microsoft.Extensions.Configuration;
 using Questions.Query;
 using Questions.Query.Queries;
 using Questions.Query.Intefaces;
+using UserProfile.Domain;
 using UserProfile.Query.Queries;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Services
@@ -17,7 +19,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
     public class QuestionService
     {
 
-        public List<QuestionViewModel> GetQuestionViewModels(IEnumerable<Question> questionList, IQueryFactory queryFactory)
+        public List<QuestionViewModel> GetQuestionViewModels(IEnumerable<Question> questionList, IQueryFactory queryFactory, IConfigurationRoot configuration)
         {
             #region UserPrefetchOptimization
             List<Guid> userList = new List<Guid>();
@@ -37,14 +39,48 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
             }
             userList = userList.Distinct().ToList();
-            List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList).Select(x => new UserViewModel
+            List<UserViewModel> userViewModels = new List<UserViewModel>();
+
+            List<Credential> credentials= queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList);
+
+            foreach (Guid userId in userList)
             {
-                CredentialId = x.Id,
-                UserId = x.UserId,
-                Name = x.FirstName + "" + x.LastName,
-                ImageUrl = x.ImageUrl,
-                Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
-            }).ToList();
+                Credential credential = credentials.FirstOrDefault(x => x.UserId == userId);
+                if (credential != null)
+                {
+                    userViewModels.Add(new UserViewModel
+                    {
+                        CredentialId = credential.Id,
+                        UserId = credential.UserId,
+                        Name = credential.FirstName + "" + credential.LastName,
+                        ImageUrl = credential.ImageUrl,
+                        Occupation = credential.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
+                    });
+                }
+                else
+                {
+                    //No credential .Fetech from aspNetUser
+                    String connectionString =
+                configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
+                    userViewModels.Add(new UserViewModel
+                    {
+                        Name = queryFactory.ResolveQuery<ICredentialQuery>().GetUserNameAspNetUsers(userId,connectionString),
+                        ImageUrl = "avatar.png",
+                        Occupation = "",
+                        CredentialId = Guid.Empty,
+                        UserId = userId
+                    });
+
+                }
+            }
+            //List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList).Select(x => new UserViewModel
+            //{
+            //    CredentialId = x.Id,
+            //    UserId = x.UserId,
+            //    Name = x.FirstName + "" + x.LastName,
+            //    ImageUrl = x.ImageUrl,
+            //    Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
+            //}).ToList();
             #endregion
 
             List<QuestionViewModel> questions = new List<QuestionViewModel>();

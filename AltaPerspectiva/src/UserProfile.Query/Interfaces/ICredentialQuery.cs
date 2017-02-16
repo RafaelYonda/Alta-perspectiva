@@ -12,5 +12,7 @@ namespace UserProfile.Query.Queries
         Credential GetCredentialByCredentialId(Guid credentialId);
         Credential GetCredential(Guid userId);
         List<Credential> GetCredentials(List<Guid> userIds );
+
+        string GetUserNameAspNetUsers(Guid userId,String connectionString);
     }
 }
