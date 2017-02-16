@@ -50,9 +50,11 @@ export class ViewProfileComponent {
         document.getElementById('question-route').focus();
         //document.getElementById('question-link').focus();
         this._route.params.subscribe(params => {
+            
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
                 this.profileInfo.credential = this.credential;
+                this.credential.userId = params['userId'];      // in case credential is null then preserve the userId
                 this.profileInfo.ngOnInit();               
             });
             //========Statistics=======
