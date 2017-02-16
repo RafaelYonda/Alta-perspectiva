@@ -114,7 +114,7 @@ export class ProfileService {
             .catch(this.handleError);
     }
     AddPlace(place: Place): Observable<any> {
-        return this._http.post('userprofile/api/place/addplace', Place)
+        return this._http.post('userprofile/api/place/addplace', place)
             .map(this.extractData)
             .catch(this.handleError);
     }
