@@ -46,16 +46,36 @@
             
             <ul style="list-style-type: none;">
                 <li>
-                    <a (click)="openEmploymentDialogAnchor()" class="edit">Add Employment</a>
+                    <div *ngIf="employmentExists">                
+                            <i class="fa-li fa fa-info-circle"></i> {{employment}}                
+    `               </div>
+                    <a  *ngIf="!employmentExists" (click)="openEmploymentDialogAnchor()" class="edit">
+                        Add Employment
+                    </a>
                 </li>
                 <li>
-                    <a (click)="openEducationDialogAnchor()" class="edit">Add Education</a>
+                    <div *ngIf="educationExists">
+                        <i class="fa-li fa fa-university"></i> {{education}}                        
+                    </div>
+                    <a  *ngIf="!educationExists" (click)="openEducationDialogAnchor()" class="edit">
+                        Add Education
+                    </a>
                 </li>
                 <li>
-                    <a (click)="openPlaceDialogAnchor()" class="edit">Add Place </a>
+                    <div *ngIf="placeExists">
+                        <i class="fa-li fa fa-home"></i> {{place}}                        
+                    </div>
+                    <a  *ngIf="!placeExists" (click)="openPlaceDialogAnchor()" class="edit">
+                        Add Place
+                    </a>
                 </li>
                 <li>
-                    <a (click)="openOtherexperienceDialogAnchor()" class="edit">Add Others</a>
+                    <div *ngIf="othersExists">
+                        <i class="fa-li fa fa-cog"></i> {{others}}                        
+                    </div>
+                    <a *ngIf="!othersExists" (click)="openOtherexperienceDialogAnchor()" class="edit">
+                        Add Others
+                    </a>
                 </li>
                 
             </ul>

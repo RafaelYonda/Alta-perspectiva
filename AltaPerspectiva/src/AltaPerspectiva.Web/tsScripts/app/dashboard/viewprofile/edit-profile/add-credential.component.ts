@@ -24,15 +24,13 @@ export class AddCredentialComponent {
     }
     saveCredentialTitle() {
         this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
-            this.close.emit('event');
-            console.log(res);
+            this.close.emit('event');            
         });
     }
     DeleteCredentialTitle() {
         this.credential.title = "";
         this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
-            this.close.emit('event');
-            console.log(res);
+            this.close.emit('event');            
         });
     }
 }

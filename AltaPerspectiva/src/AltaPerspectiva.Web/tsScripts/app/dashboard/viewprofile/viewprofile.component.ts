@@ -35,6 +35,7 @@ export class ViewProfileComponent {
     employment: Employment = new Employment();
     education: Education = new Education();
     place: Place = new Place();
+    userId: string;
     otherExperience: OtherExperience = new OtherExperience();
 
 
@@ -45,6 +46,9 @@ export class ViewProfileComponent {
     ngOnInit() {
         document.getElementById('question-route').focus();
         //document.getElementById('question-link').focus();
+
+        this.userId = this._route.snapshot.params['userId'];
+
         this._route.params.subscribe(params => {
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
@@ -68,6 +72,16 @@ export class ViewProfileComponent {
 
         });
     }
+
+    refreshData()
+    {
+        this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
+            this.credential = usr;
+            this.profileInfo.credential = this.credential;
+            this.profileInfo.ngOnInit();
+        });
+    }
+
     @ViewChild('educationDialogAnchor', { read: ViewContainerRef }) educationDialogAnchor: ViewContainerRef;
     openEducationDialogAnchor() {
 
@@ -78,9 +92,9 @@ export class ViewProfileComponent {
         dialogComponentRef.instance.education = this.education;
 
         dialogComponentRef.instance.education.credentialId = this.credential.id;
-        dialogComponentRef.instance.close.subscribe(() => {
-            //this.loadData();
+        dialogComponentRef.instance.close.subscribe(() => {           
             dialogComponentRef.destroy();
+            this.refreshData();
         });
     }
     @ViewChild('employmentDialogAnchor', { read: ViewContainerRef }) employmentDialogAnchor: ViewContainerRef;
@@ -92,9 +106,9 @@ export class ViewProfileComponent {
         let dialogComponentRef = this.employmentDialogAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.employment = this.employment;
         dialogComponentRef.instance.employment.credentialId = this.credential.id;
-        dialogComponentRef.instance.close.subscribe(() => {
-            //this.loadData();
+        dialogComponentRef.instance.close.subscribe(() => {            
             dialogComponentRef.destroy();
+            this.refreshData();
         });
     }
     @ViewChild('otherexperienceDialogAnchor', { read: ViewContainerRef }) otherexperienceDialogAnchor: ViewContainerRef;
@@ -106,9 +120,9 @@ export class ViewProfileComponent {
         let dialogComponentRef = this.otherexperienceDialogAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.otherExperience = this.otherExperience;
         dialogComponentRef.instance.otherExperience.credentialId = this.credential.id;
-        dialogComponentRef.instance.close.subscribe(() => {
-            //this.loadData();
+        dialogComponentRef.instance.close.subscribe(() => {           
             dialogComponentRef.destroy();
+            this.refreshData();
         });
     }
     @ViewChild('placeDialogAnchor', { read: ViewContainerRef }) placeDialogAnchor: ViewContainerRef;
@@ -120,9 +134,9 @@ export class ViewProfileComponent {
         let dialogComponentRef = this.placeDialogAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.place = this.place;
         dialogComponentRef.instance.place.credentialId = this.credential.id;
-        dialogComponentRef.instance.close.subscribe(() => {
-            //this.loadData();
+        dialogComponentRef.instance.close.subscribe(() => {            
             dialogComponentRef.destroy();
+            this.refreshData();
         });
     }
    
