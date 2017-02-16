@@ -248,7 +248,7 @@
                             success: function (respText) {
                                 console.log(respText);
                                 $('#headerUserName').text(respText.name);
-                                $('#my_image').attr('src', '../images/' + respText.imageUrl);
+                                $('#my_image').attr('src', '../profile/' + respText.imageUrl);
                             },
                             error: function (jqXhr, textStatus, errorThrown) {
 
