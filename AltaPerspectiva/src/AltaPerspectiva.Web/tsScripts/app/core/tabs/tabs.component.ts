@@ -65,7 +65,6 @@ export class TabsComponent {
     }
     selectTab(id,sequence) {
         this.categories.forEach(element => {
-
             if (element.id == id) {
                 element.active = 'active';
                

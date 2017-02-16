@@ -68,62 +68,71 @@ export class ViewProfileComponent {
 
         });
     }
-    @ViewChild('educationDialogAnchor', { read: ViewContainerRef }) educationDialogAnchor: ViewContainerRef;
-    openEducationDialogAnchor() {
 
-        this.educationDialogAnchor.clear();
-
-        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEducationComponent);
-        let dialogComponentRef = this.educationDialogAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.education = this.education;
-
-        dialogComponentRef.instance.education.credentialId = this.credential.id;
-        dialogComponentRef.instance.close.subscribe(() => {
-            //this.loadData();
-            dialogComponentRef.destroy();
-        });
+    keppSelected(element: Element) {
+        var routes = document.getElementsByClassName('route');
+        console.log(routes[0].classList.remove('route-focus'));
+        for (var i = 0; i < routes.length; i++) {
+            routes[i].classList.remove('route-focus');
+        }
+        element.classList.add('route-focus');
     }
-    @ViewChild('employmentDialogAnchor', { read: ViewContainerRef }) employmentDialogAnchor: ViewContainerRef;
-    openEmploymentDialogAnchor() {
+    //@ViewChild('educationDialogAnchor', { read: ViewContainerRef }) educationDialogAnchor: ViewContainerRef;
+    //openEducationDialogAnchor() {
 
-        this.employmentDialogAnchor.clear();
+    //    this.educationDialogAnchor.clear();
 
-        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEmploymentComponent);
-        let dialogComponentRef = this.employmentDialogAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.employment = this.employment;
-        dialogComponentRef.instance.employment.credentialId = this.credential.id;
-        dialogComponentRef.instance.close.subscribe(() => {
-            //this.loadData();
-            dialogComponentRef.destroy();
-        });
-    }
-    @ViewChild('otherexperienceDialogAnchor', { read: ViewContainerRef }) otherexperienceDialogAnchor: ViewContainerRef;
-    openOtherexperienceDialogAnchor() {
+    //    let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEducationComponent);
+    //    let dialogComponentRef = this.educationDialogAnchor.createComponent(dialogComponentFactory);
+    //    dialogComponentRef.instance.education = this.education;
 
-        this.otherexperienceDialogAnchor.clear();
+    //    dialogComponentRef.instance.education.credentialId = this.credential.id;
+    //    dialogComponentRef.instance.close.subscribe(() => {
+    //        //this.loadData();
+    //        dialogComponentRef.destroy();
+    //    });
+    //}
+    //@ViewChild('employmentDialogAnchor', { read: ViewContainerRef }) employmentDialogAnchor: ViewContainerRef;
+    //openEmploymentDialogAnchor() {
 
-        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddOtherExperienceComponent);
-        let dialogComponentRef = this.otherexperienceDialogAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.otherExperience = this.otherExperience;
-        dialogComponentRef.instance.otherExperience.credentialId = this.credential.id;
-        dialogComponentRef.instance.close.subscribe(() => {
-            //this.loadData();
-            dialogComponentRef.destroy();
-        });
-    }
-    @ViewChild('placeDialogAnchor', { read: ViewContainerRef }) placeDialogAnchor: ViewContainerRef;
-    openPlaceDialogAnchor() {
+    //    this.employmentDialogAnchor.clear();
 
-        this.placeDialogAnchor.clear();
+    //    let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEmploymentComponent);
+    //    let dialogComponentRef = this.employmentDialogAnchor.createComponent(dialogComponentFactory);
+    //    dialogComponentRef.instance.employment = this.employment;
+    //    dialogComponentRef.instance.employment.credentialId = this.credential.id;
+    //    dialogComponentRef.instance.close.subscribe(() => {
+    //        //this.loadData();
+    //        dialogComponentRef.destroy();
+    //    });
+    //}
+    //@ViewChild('otherexperienceDialogAnchor', { read: ViewContainerRef }) otherexperienceDialogAnchor: ViewContainerRef;
+    //openOtherexperienceDialogAnchor() {
 
-        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddPlaceComponent);
-        let dialogComponentRef = this.placeDialogAnchor.createComponent(dialogComponentFactory);
-        dialogComponentRef.instance.place = this.place;
-        dialogComponentRef.instance.place.credentialId = this.credential.id;
-        dialogComponentRef.instance.close.subscribe(() => {
-            //this.loadData();
-            dialogComponentRef.destroy();
-        });
-    }
+    //    this.otherexperienceDialogAnchor.clear();
+
+    //    let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddOtherExperienceComponent);
+    //    let dialogComponentRef = this.otherexperienceDialogAnchor.createComponent(dialogComponentFactory);
+    //    dialogComponentRef.instance.otherExperience = this.otherExperience;
+    //    dialogComponentRef.instance.otherExperience.credentialId = this.credential.id;
+    //    dialogComponentRef.instance.close.subscribe(() => {
+    //        //this.loadData();
+    //        dialogComponentRef.destroy();
+    //    });
+    //}
+    //@ViewChild('placeDialogAnchor', { read: ViewContainerRef }) placeDialogAnchor: ViewContainerRef;
+    //openPlaceDialogAnchor() {
+
+    //    this.placeDialogAnchor.clear();
+
+    //    let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddPlaceComponent);
+    //    let dialogComponentRef = this.placeDialogAnchor.createComponent(dialogComponentFactory);
+    //    dialogComponentRef.instance.place = this.place;
+    //    dialogComponentRef.instance.place.credentialId = this.credential.id;
+    //    dialogComponentRef.instance.close.subscribe(() => {
+    //        //this.loadData();
+    //        dialogComponentRef.destroy();
+    //    });
+    //}
    
 }

@@ -17,6 +17,7 @@ export class DirectQuestionComponent {
     constructor(private categoryService: CategoryService, private _route: ActivatedRoute, private questionsService: QuestionService) {
     }
     ngOnInit() {
+        window.scrollTo(0, 0);
         this.sub = this._route.parent.params.subscribe(params => {
             this.questionAskedToUser = params['userId'];
         });

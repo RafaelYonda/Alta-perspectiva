@@ -71,6 +71,16 @@ export class QuestionService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getBookmarkUserId(userId: string){
+        return this._http.get('/questions/api/getbookmark/' + userId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    } 
+    getPostedQuestionUserId(userId: string) {
+        return this._http.get("/questions/api/getsharequestion/" + userId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     getQuestionsByCategory(categoryId: string): Observable<Question[]> {
         if (categoryId === "1")
             return this._http.get('/questions/api/questions')
