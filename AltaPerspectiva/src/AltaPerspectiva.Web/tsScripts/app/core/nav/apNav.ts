@@ -43,9 +43,6 @@ export class ApNav {
             }
         });
     }
-    onLogin() {
-        console.log("working");
-    }
     @ViewChild('loginDialogAnchor', { read: ViewContainerRef }) loginDialogAnchor: ViewContainerRef;
     openLoginDialogAnchor() {
 

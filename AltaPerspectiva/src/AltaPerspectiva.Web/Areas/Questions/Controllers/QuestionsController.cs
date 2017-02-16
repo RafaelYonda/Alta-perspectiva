@@ -403,32 +403,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         }
 
-        [HttpPost("/questions/api/savequestionasblog/{questionId}")]
-        public IActionResult SaveQuestionAsBlog(Guid questionId)
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            AddShareQuestionCommand command = new AddShareQuestionCommand(loggedinUser, questionId);
-            commandsFactory.ExecuteQuery(command);
-
-
-            //List<UserViewModel> userViewModels = new List<UserViewModel>();
-            //foreach (var like in likes)
-            //{
-            //    Guid userId = like.UserId;
-
-            //    UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
-            //    userViewModels.Add(userViewModel);
-
-            //}
-            //return Ok(userViewModels);
-            return Ok();
-        }
+       
 
         #region Top Five Region
         //Questions
@@ -563,6 +538,44 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         #endregion
 
+        #region Sharequestion
+
+        [HttpGet("/questions/api/getsharequestion/{userId}")]
+        public async Task<IActionResult> GetShareQuestion(Guid userId)
+        {
+            var questionByBookmarked = await queryFactory.ResolveQuery<IQuestionsQuery>().GetBookmark(userId);
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+
+            questions = new QuestionService().GetQuestionViewModels(questionByBookmarked, queryFactory, configuration);
+            return Ok(questions);
+        }
+        [HttpPost("/questions/api/savesharequestion/{questionId}")]
+        public IActionResult SaveShareQuestion(Guid questionId)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            AddShareQuestionCommand command = new AddShareQuestionCommand(loggedinUser, questionId);
+            commandsFactory.ExecuteQuery(command);
+
+
+            //List<UserViewModel> userViewModels = new List<UserViewModel>();
+            //foreach (var like in likes)
+            //{
+            //    Guid userId = like.UserId;
+
+            //    UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
+            //    userViewModels.Add(userViewModel);
+
+            //}
+            //return Ok(userViewModels);
+            return Ok();
+        }
+        #endregion
 
         #region Question
         [HttpPost("/questions/api/savequestion")]

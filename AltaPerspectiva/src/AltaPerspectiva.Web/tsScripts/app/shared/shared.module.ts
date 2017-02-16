@@ -51,6 +51,6 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     exports: [
         ApSearchComponent, ApSearchDropDownComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, AnswerDialogComponent, AnswerSubmitComponent, QuestionPanelComponent, QuestionReportComponent, NavBarComponent, LoginComponent
     ],
-    entryComponents: [DialogComponent, AnswerDialogComponent, QuestionReportComponent]
+    entryComponents: [DialogComponent, AnswerDialogComponent, QuestionReportComponent, LoginComponent]
 })
 export class SharedModule { }
