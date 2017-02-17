@@ -27,7 +27,7 @@ namespace Blog.Query.Queries
         {
             return DbContext.Blogs
               //.Include(bp=>bp.BlogPosts)
-              .Where(x => x.UserId == userId && x.IsDeleted==null).ToList();
+              .Where(x => x.UserId == userId && x.IsDeleted==null).OrderByDescending(x=>x.CreatedOn).ToList();
         }
     }
 }

@@ -141,7 +141,7 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    SaveBlog(blog: Blog): Observable<any> {
+    SaveBlog(blog: Blog): Observable<Blog> {
         return this._http.post('blog/api/saveblog', blog)
             .map(this.extractData)
             .catch(this.handleError);

@@ -27,7 +27,10 @@ export class BlogCreateComponent {
         this.blog.userId = this.userId;
         this.profileService.SaveBlog(this.blog).subscribe(res => {
             console.log(res);
-            this.blogList.push(this.blog);
+           // this.blogList.push(res);
+            this.profileService.GetBlogList(this.userId).subscribe(blist => {
+                this.blogList = blist;
+            });
             this.blog = new Blog();
         });
         

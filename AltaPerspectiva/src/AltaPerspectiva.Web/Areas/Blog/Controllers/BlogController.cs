@@ -57,6 +57,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             {
                 AddBlogCommand command = new AddBlogCommand(model.UserId, model.Title, model.Url, model.Description);
                 commandsFactory.ExecuteQuery(command);
+                model.Id = command.Id;
             }
             else
             {
