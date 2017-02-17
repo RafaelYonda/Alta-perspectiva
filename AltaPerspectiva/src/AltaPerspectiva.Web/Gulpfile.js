@@ -11,29 +11,29 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
-gulp.task("scriptsNStyles", () => {
-    gulp.src([
-            'core-js/client/**',
-            'systemjs/dist/system.src.js',
-            'reflect-metadata/**',
-            'rxjs/**',
-            'zone.js/dist/**',
-            '@angular/**',
-            'ng2-ckeditor/**',
-            "ngx-popover/**",
-            "ngx-quill/**",
-            "quill/dist/*.*",
-            "ngx-clipboard/**",
-            "clipboard/**",
-            'angular2-infinite-scroll/**',
-            'ng2-toastr/**',
-            'jquery/dist/jquery.*js',
-            'bootstrap/dist/js/bootstrap.*js'
-    ], {
-        cwd: "node_modules/**"
-    })
-        .pipe(gulp.dest("wwwroot/libs/"));
-});
+//gulp.task("scriptsNStyles", () => {
+//    gulp.src([
+//            'core-js/client/**',
+//            'systemjs/dist/system.src.js',
+//            'reflect-metadata/**',
+//            'rxjs/**',
+//            'zone.js/dist/**',
+//            '@angular/**',
+//            'ng2-ckeditor/**',
+//            "ngx-popover/**",
+//            "ngx-quill/**",
+//            "quill/dist/*.*",
+//            "ngx-clipboard/**",
+//            "clipboard/**",
+//            'angular2-infinite-scroll/**',
+//            'ng2-toastr/**',
+//            'jquery/dist/jquery.*js',
+//            'bootstrap/dist/js/bootstrap.*js'
+//    ], {
+//        cwd: "node_modules/**"
+//    })
+//        .pipe(gulp.dest("wwwroot/libs/"));
+//});
 
 var tsProject = ts.createProject('tsScripts/tsconfig.json', {
     typescript: require('typescript')
