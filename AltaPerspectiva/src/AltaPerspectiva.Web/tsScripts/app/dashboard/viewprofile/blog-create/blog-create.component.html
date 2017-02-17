@@ -25,23 +25,25 @@
 <form (ngSubmit)="saveBlog()" #blogForm="ngForm">
     <div class="form-horizontal">
         <div class="form-group">
-            <label class="control-label col-sm-3"> Nombre del blog</label>
+            <label class="control-label col-sm-3"> Nombre del blog*</label>
             <div class="col-sm-3">
                 <input type="text" class="form-control" placeholder="My Blog" id="blogName" [(ngModel)]="blog.title" required name="blogName"
                        #blogName="ngModel">
                 <div [hidden]="blogName.valid || blogName.pristine"
                      class="alert alert-danger">
+                    Blog name required!
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-3"> URL</label>
+            <label class="control-label col-sm-3">URL*</label>
             <div class="col-sm-1"><label class="control-label">https://</label></div>
             <div class="col-sm-3">
                 <input type="text" class="form-control" placeholder="myblog" id="url" [(ngModel)]="blog.url" required name="url"
                        #url="ngModel">
                 <div [hidden]="url.valid || url.pristine"
                      class="alert alert-danger">
+                    Url is required
                 </div>
             </div>
             <div class="col-sm-3 "><label class="control-label">altraperspectiva.com</label></div>
@@ -50,7 +52,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3">Description</label>
             <div class="col-sm-9">
-                <textarea class="form-control bottom-margin" rows="5" placeholder="Description" [(ngModel)]="blog.description" [ngModelOptions]="{standalone: true}"></textarea>
+                <textarea class="form-control bottom-margin" rows="5" placeholder="Description (optional)" [(ngModel)]="blog.description" [ngModelOptions]="{standalone: true}"></textarea>
             </div>
         </div>
         <div class="form-group">
@@ -61,23 +63,15 @@
     </div>
 </form>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <div class="blog-list-panel">
-            <h2>Blog Name</h2>
-            <div class="post-info">Post a blog</div>
+<div *ngIf="blogList">
+    <div class="row">
+
+            <div class="col-md-4" *ngFor="let blog of blogList">
+                <div class="blog-list-panel">
+                    <h2>{{blog?.title}}</h2>
+                    <button class="btn btn-primary">Create Post</button>
+                </div>
+            </div>
+           
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="blog-list-panel">
-            <h2>Blog Name</h2>
-            <p class="post-info">Post a blog</p>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="blog-list-panel">
-            <h2>Blog Name</h2>
-            <p class="post-info">Post a blog</p>
-        </div>
-    </div>
 </div>
