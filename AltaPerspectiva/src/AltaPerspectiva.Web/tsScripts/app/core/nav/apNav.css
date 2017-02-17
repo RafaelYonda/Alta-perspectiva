@@ -1,43 +1,46 @@
-﻿    /*======set back ground for question home page.=======*/
-    .navbar-right {
-        padding-right:10px;
-    }
-    .backgroundset {
-        min-height: 66px !important;
-        background-image: url(../images/background.png);
-    }
+﻿/*======set back ground for question home page.=======*/
+.navbar-right {
+    padding-right: 40px;
+    margin-right: 0;
+}
 
-    .notification-font {
-        font-size: 20px;
-        padding-top: 5px;
-    }
+.backgroundset {
+    min-height: 66px !important;
+    background-image: url(../images/background.png);
+}
 
-    /*.user-image {
+.notification-font {
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+/*.user-image {
         height: 30px;
         width: 30px;
         border-radius: 20px;
     }*/
 
-    .badge {
-        /*display: block;*/
-        position: absolute;
-        top: 7px;
-        right: 7px;
-        line-height: 16px;
-        height: 16px;
-        padding: 0 5px;
-        font-family: Arial, sans-serif;
-        color: white;
-        text-shadow: 0 1px rgba(0, 0, 0, 0.25);
-        border: 1px solid;
-        border-radius: 10px;
-        -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px rgba(0, 0, 0, 0.08);
-        box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px rgba(0, 0, 0, 0.08);
-    }
-    .form-horizontal .form-group{
-        margin-left:5px;
-    }
-    
+.badge {
+    /*display: block;*/
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    line-height: 16px;
+    height: 16px;
+    padding: 0 5px;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+    border: 1px solid;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+.form-horizontal .form-group {
+    margin-left: 5px;
+}
+
 .dropdown-toggle:focus {
     color: #fff;
     background-color: transparent !important;

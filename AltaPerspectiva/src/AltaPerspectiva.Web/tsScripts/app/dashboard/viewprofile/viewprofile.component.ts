@@ -35,6 +35,7 @@ export class ViewProfileComponent {
     employment: Employment = new Employment();
     education: Education = new Education();
     place: Place = new Place();
+    userId: string;
     otherExperience: OtherExperience = new OtherExperience();
 
 
@@ -43,12 +44,17 @@ export class ViewProfileComponent {
     }
     @ViewChild(ProfileInfoComponent) profileInfo: ProfileInfoComponent
     ngOnInit() {
+
+        this.userId = this._route.snapshot.params['userId'];
+
         document.getElementById('question-route').focus();
         //document.getElementById('question-link').focus();
         this._route.params.subscribe(params => {
+            
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
                 this.profileInfo.credential = this.credential;
+                this.credential.userId = params['userId'];      // in case credential is null then preserve the userId
                 this.profileInfo.ngOnInit();               
             });
             //========Statistics=======
@@ -68,6 +74,25 @@ export class ViewProfileComponent {
 
         });
     }
+
+    keppSelected(element: Element) {
+        var routes = document.getElementsByClassName('route');
+        console.log(routes[0].classList.remove('route-focus'));
+        for (var i = 0; i < routes.length; i++) {
+            routes[i].classList.remove('route-focus');
+        }
+        element.classList.add('route-focus');
+    }
+
+    refreshData() {
+        this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
+            this.credential = usr;
+            this.profileInfo.credential = this.credential;
+            this.profileInfo.ngOnInit();
+        });
+    }
+
+
     @ViewChild('educationDialogAnchor', { read: ViewContainerRef }) educationDialogAnchor: ViewContainerRef;
     openEducationDialogAnchor() {
 
@@ -81,8 +106,10 @@ export class ViewProfileComponent {
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
+            this.refreshData();
         });
     }
+
     @ViewChild('employmentDialogAnchor', { read: ViewContainerRef }) employmentDialogAnchor: ViewContainerRef;
     openEmploymentDialogAnchor() {
 
