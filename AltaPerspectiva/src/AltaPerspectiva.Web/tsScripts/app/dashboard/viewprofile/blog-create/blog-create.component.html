@@ -1,1 +1,49 @@
-﻿<h1>blog-create</h1>
+﻿<style>
+    .move-left-35{
+        margin-left:-35px;
+    }
+</style>
+<form (ngSubmit)="saveBlog()" #blogForm="ngForm">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-3"> Nombre del blog</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="My Blog" id="blogName" [(ngModel)]="blog.title" required name="blogName"
+                       #blogName="ngModel">
+                <div [hidden]="blogName.valid || blogName.pristine"
+                     class="alert alert-danger">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3"> URL</label>
+            <div class="col-sm-1"><label class="control-label">https://</label></div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="myblog" id="url" [(ngModel)]="blog.url" required name="url"
+                       #url="ngModel">
+                <div [hidden]="url.valid || url.pristine"
+                     class="alert alert-danger">
+                </div>
+            </div>
+            <div class="col-sm-3 "><label class="control-label">altraperspectiva.com</label></div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3" >Description</label>
+            <div class="col-sm-9">
+                <textarea class="form-control bottom-margin" rows="5" placeholder="Description" [(ngModel)]="blog.description" [ngModelOptions]="{standalone: true}"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-alta-primary pull-right" [disabled]="!blogForm.form.valid">Create Blog</button>
+            </div>
+        </div>
+    </div>
+</form>
+<hr />
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+</div>

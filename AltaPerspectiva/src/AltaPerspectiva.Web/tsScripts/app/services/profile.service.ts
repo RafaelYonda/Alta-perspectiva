@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import {User, Profile, Contact, Biography, Experience, Skills, PracticeArea, Insight, Keyword,UserInfoDetails} from './models';
-
+import { Blog, BlogComment, BlogLike, BlogPost } from './models/models.blogpost';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -13,7 +13,6 @@ import {  Education }     from './models/models.Education';
 import {  Place }     from './models/models.Place';
 import {  OtherExperience }     from './models/models.OtherExperience';
 import {  CategoryWiseAnswer }     from './models/models.CategoryWiseAnswer';
-import {  BlogPost }     from './models/models.BlogPost';
 
 @Injectable()
 export class ProfileService {
@@ -131,7 +130,18 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    //=====blog post
+    //=====blog post==
+    GetBlog(userId: string): Observable<any> {
+        return this._http.get('blog/api/getblog/' + userId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    SaveBlog(blogPost: Blog): Observable<any> {
+        return this._http.post('blog/api/saveblog', blogPost)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     GetBlogPost(userId: string): Observable<any> {
         return this._http.get('blog/api/getblogpost/'+ userId)
             .map(this.extractData)
