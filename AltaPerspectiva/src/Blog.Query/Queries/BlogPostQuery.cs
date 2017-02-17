@@ -22,6 +22,7 @@ namespace Blog.Query.Queries
                 DbContext
                 .BlogPosts
                 .Include(x=>x.BlogComments)
+                .Include(x=>x.BlogLikes)
                 .Where(x => x.BlogId == blogId &&x.IsDeleted==null).ToListAsync();
         }
 

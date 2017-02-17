@@ -6,8 +6,10 @@ export class BlogPost {
     userId: string;
     blogViewCount: number;
     blogComments: BlogComment[];
+    blogLike: BlogLike[];
     constructor() {
         this.blogComments = new Array();
+        this.blogLike = new Array();
     }
 }
 export class Blog {
