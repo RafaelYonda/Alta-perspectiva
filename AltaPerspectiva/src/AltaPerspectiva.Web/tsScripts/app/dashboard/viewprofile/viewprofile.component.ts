@@ -31,12 +31,23 @@ export class ViewProfileComponent {
     categoryWiseAnswers: CategoryWiseAnswer[];
     route: any;
     imageLink: string;
+
     credential: CredentialViewModel = new CredentialViewModel();
     employment: Employment = new Employment();
     education: Education = new Education();
     place: Place = new Place();
+
     userId: string;
     otherExperience: OtherExperience = new OtherExperience();
+    employmentExists: boolean;
+    educationExists: boolean;
+    placeExists: boolean;
+    otherExperienceExists: boolean;
+
+    employmentHtml: string;
+    educationHtml: string;
+    placeHtml: string;
+    othersHtml: string;
 
 
     constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService, private _router: Router, private componentFactoryResolver: ComponentFactoryResolver ) {
@@ -53,6 +64,7 @@ export class ViewProfileComponent {
             
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
+                this.changeCredentialStatus();
                 this.profileInfo.credential = this.credential;
                 this.credential.userId = params['userId'];      // in case credential is null then preserve the userId
                 this.profileInfo.ngOnInit();               
@@ -87,9 +99,57 @@ export class ViewProfileComponent {
     refreshData() {
         this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
             this.credential = usr;
+
+            this.changeCredentialStatus();
+
             this.profileInfo.credential = this.credential;
             this.profileInfo.ngOnInit();
         });
+    }
+
+    changeCredentialStatus()
+    {
+        
+        if (this.credential.educations && this.credential.educations.length > 0)
+        {
+            this.generateEducationHtml();
+        }
+        if (this.credential.employments && this.credential.employments.length > 0)
+        {
+            this.generateEmploymentHtml();
+        }
+        if (this.credential.places && this.credential.places.length > 0)
+            this.placeExists = true;
+        if (this.credential.otherExperiences && this.credential.otherExperiences.length > 0)
+            this.otherExperienceExists = true;
+    }
+
+    generateEmploymentHtml() {
+
+        this.employmentExists = true;        
+        
+
+        this.employmentHtml = this.credential.employments[0].position.concat(" at ")
+            .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/> ")
+            .concat(this.credential.employments[0].startDate.getFullYear().toString()).concat("-")
+            .concat( this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate.getFullYear().toString());
+    }
+
+    generateEducationHtml()
+    {
+        this.educationExists = true;
+        var secondary = "";   
+
+        if (this.credential.educations[0].secondaryConcentration) {
+            if (this.credential.educations[0].secondaryConcentration.length > 1) {
+                secondary = " & " + this.credential.educations[0].secondaryConcentration + " ";
+            }
+        }
+
+        this.employmentHtml = this.credential.educations[0].degreeType + " "
+            + this.credential.educations[0].concentration +
+            + " <br />"
+            + "Graduated " + this.credential.educations[0].graduaionYear
     }
 
 

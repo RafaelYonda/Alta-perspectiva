@@ -112,7 +112,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/credential/getusercredentialbyuserid/{userId}")]
         public IActionResult GetUsercredentialByUserId(Guid userId)
         {
-            var model = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(userId);
+            var model = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialForProfile(userId);
             return Ok(model);
         }
        

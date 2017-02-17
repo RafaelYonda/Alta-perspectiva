@@ -8,10 +8,9 @@
     imageUrl: string
     profileViewCount: string;
     educations: Education[];
-    employments: Employment[]
-    followers: Follower[]
-    followings: Following[]
-    places: Place[]
+    employments: Employment[];
+    places: Place[];
+    otherExperiences: OtherExperiences[];
 }
 export class Employment {
     position: string;
@@ -21,19 +20,22 @@ export class Employment {
     isCurrentlyWorking: boolean;
     credentialId: string;
 }
-export class Education {
-    schoolName: string
-    schoolDegreeName: string
-    schoolCompletionDate: Date
-
-    collegeName: string
-    collegeDegree: string
-    collegeCompletionDate: Date
-
-    certification: string
-    certificationType: string
-
+export class OtherExperiences {
     credentialId: string;
+    categoryText: string;
+    categoryId: string;
+    description: string;
+}
+
+export class Education {
+
+    schoolName: string;
+    concentration: string;
+    secondaryConcentration: string;
+    degreeType: string;
+    graduaionYear: string;
+    credentialId: string;
+
 }
 export class Follower {
     followerUserId: string
