@@ -13,6 +13,7 @@ import {  Education }     from './models/models.Education';
 import {  Place }     from './models/models.Place';
 import {  OtherExperience }     from './models/models.OtherExperience';
 import {  CategoryWiseAnswer }     from './models/models.CategoryWiseAnswer';
+import {  BlogPost }     from './models/models.BlogPost';
 
 @Injectable()
 export class ProfileService {
@@ -130,6 +131,24 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    //=====blog post
+    GetBlogPost(userId: string): Observable<any> {
+        return this._http.get('blog/api/getblogpost/'+ userId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    SaveBlogPost(blogPost: BlogPost): Observable<any> {
+        return this._http.post('blog/api/saveblogpost', blogPost)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    DeleteBlogPost(blogPostId: string): Observable<any> {
+        return this._http.post('blog/api/deleteblogpost/' + blogPostId, blogPostId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     private extractData(res: Response) {
         let body;
 

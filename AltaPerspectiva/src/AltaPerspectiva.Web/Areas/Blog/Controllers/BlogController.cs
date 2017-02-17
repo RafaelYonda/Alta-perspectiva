@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
-
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+using AltaPerspectiva.Web.Areas.Blog.Models;
+using Blog.Domain;
 
 namespace AltaPerspectiva.Web.Areas.Blog.Controllers
 {
@@ -38,8 +38,8 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
             }
 
             //refractoring:My add from User Repository 
@@ -50,10 +50,69 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
 
             return Ok();
         }
-        // GET: /<controller>/
-        public IActionResult Index()
+
+        [HttpGet("blog/api/getblogpost/{userId}")]
+        public async Task<IActionResult> GetBlogPost(Guid userId)
         {
-            return View();
+            List<BlogPost> blogPost=new List<BlogPost>();
+            global::Blog.Domain.Blog blog = queryFactory.ResolveQuery<IBlogQuery>().GetBlog(userId);
+            if (blog != null)
+            {
+                //add blog 
+                blogPost = await queryFactory.ResolveQuery<IBlogPostQuery>().GetBlogPostsByBlogId(blog.Id);
+            }
+            else
+            {
+                //you have not create a blog yet
+            }
+            
+            return Ok(blogPost);
         }
+
+        [HttpPost("blog/api/saveblogpost")]
+        public IActionResult SaveBlogPost([FromBody]AddBlogPostViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
+            }
+            
+
+            AddBlogPostCommand command=new AddBlogPostCommand(loggedinUser,model.Title,model.Description,Guid.Empty);
+            commandsFactory.ExecuteQuery(command);
+
+            global::Blog.Domain.Blog blog = queryFactory.ResolveQuery<IBlogQuery>().GetBlog(loggedinUser);
+            if (blog != null)
+            {
+                //add blog 
+            }
+            else
+            {
+                //you have not create a blog yet
+            }
+
+
+            return Ok();
+        }
+
+        [HttpPost("blog/api/deleteblogpost/{id}")]
+        public IActionResult DeleteBlogPost(Guid id)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
+            }
+            DeleteBlogPostCommand command=new DeleteBlogPostCommand(id);
+            commandsFactory.ExecuteQuery(command);
+
+            return Ok();
+        }
+
+
+
     }
 }
