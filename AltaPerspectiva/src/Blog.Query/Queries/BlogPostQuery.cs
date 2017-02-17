@@ -18,7 +18,12 @@ namespace Blog.Query.Queries
 
         public async Task<List<BlogPost>> GetBlogPostsByBlogId(Guid blogId)
         {
-            return await DbContext.BlogPosts.Where(x => x.BlogId == blogId &&x.IsDeleted==null).ToListAsync();
+            return await
+                DbContext
+                .BlogPosts
+                .Include(x=>x.BlogComments)
+                .Include(x=>x.BlogLikes)
+                .Where(x => x.BlogId == blogId &&x.IsDeleted==null).ToListAsync();
         }
 
 

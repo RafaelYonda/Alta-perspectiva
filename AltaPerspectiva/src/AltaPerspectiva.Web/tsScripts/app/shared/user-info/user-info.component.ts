@@ -1,5 +1,6 @@
 ﻿import { Component, Input } from '@angular/core';
-import {User, Comment, UserInfoDetails} from '../../services/models';
+import {User, Comment} from '../../services/models';
+import {UserInfoDetails} from '../../services/models/models.profile';
 import { ProfileService } from '../../services/profile.service';
 import {PopoverModule} from "ngx-popover";
 @Component({

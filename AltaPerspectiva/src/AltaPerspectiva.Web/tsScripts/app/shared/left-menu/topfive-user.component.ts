@@ -1,7 +1,8 @@
 ﻿import { Component} from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { CommunicationService } from '../../services/communication.service';
-import {User,UserInfoDetails} from '../../services/models';
+import {User} from '../../services/models';
+import {UserInfoDetails} from '../../services/models/models.profile';
 import { CredentialViewModel } from '../../services/models/models.profile';
 
 @Component({

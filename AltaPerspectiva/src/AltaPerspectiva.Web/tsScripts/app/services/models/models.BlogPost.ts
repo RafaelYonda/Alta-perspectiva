@@ -1,10 +1,16 @@
-﻿export class BlogPost {
+﻿import { CredentialViewModel } from './models.profile';
+export class BlogPost {
     id: string;
     title: string;
     description: string;
     userId: string;
     blogViewCount: number;
     blogComments: BlogComment[];
+    blogLike: BlogLike[];
+    constructor() {
+        this.blogComments = new Array();
+        this.blogLike = new Array();
+    }
 }
 export class Blog {
     id: string;
@@ -13,16 +19,15 @@ export class Blog {
     url: string;
     description: string;
     blogs: BlogPost[];
-}
-export class BlogComment {
-    id: string;
-    userId: string;
-    commentText: string;
-    commentDate: Date;
-    blogPostId: string;
+    credential: CredentialViewModel;
 }
 export class BlogLike {
     id: string;
     userId: string;
     blogPostId: string;
+}
+export class BlogComment {
+    userId: string;
+    commentText: string;
+    createdOn: Date;
 }

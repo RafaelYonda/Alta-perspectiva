@@ -52,3 +52,16 @@ export class Following {
     followingUserId: string
     credentialId: string
 }
+export class UserInfoDetails {
+    userId: string;
+    answerCount: number;
+    questionCount: number;
+    education: string;
+    employment: string;
+    place: string;
+    otherExperience: string;
+    imageUrl: string;
+    fullName: string;
+    title: string;
+    questionViewCount: string;
+}

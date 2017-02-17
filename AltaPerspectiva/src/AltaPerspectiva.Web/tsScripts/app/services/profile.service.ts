@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
-import {User, Profile, Contact, Biography, Experience, Skills, PracticeArea, Insight, Keyword,UserInfoDetails} from './models';
+import {User, Profile, Contact, Biography, Experience, Skills, PracticeArea, Insight, Keyword, } from './models';
+import { UserInfoDetails }     from './models/models.profile';
 import { Blog, BlogComment, BlogLike, BlogPost } from './models/models.blogpost';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
@@ -136,8 +137,12 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
-    GetblogPostByBlogId(id: string): Observable<Blog> {
+    GetBlogById(id: string): Observable<Blog> {
+        return this._http.get('blog/api/getblogbyid/' + id)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    GetBlogPostByBlogId(id: string): Observable<BlogPost[]> {
         return this._http.get('blog/api/getblogpostbyblogid/' + id)
             .map(this.extractData)
             .catch(this.handleError);
