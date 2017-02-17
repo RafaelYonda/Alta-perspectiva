@@ -16,9 +16,21 @@
         </ul>
     </form>
 }
-else {
+else
+{
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-controller="Account" asp-action="Register">Sign Up</a></li>
-        <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
+        <li>
+            <a asp-controller="Account" asp-action="Register">
+                <font style="color: #000000;">
+                    Sign Up
+                </font>
+            </a>
+        </li>
+        <li><a asp-controller="Account" asp-action="Login">
+                <font style="color: #000000;">
+                    Log in
+                </font>
+            
+        </a></li>
     </ul>
 }

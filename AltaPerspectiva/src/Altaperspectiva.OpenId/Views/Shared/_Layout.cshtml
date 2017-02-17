@@ -63,45 +63,62 @@
             width: 85%;
             margin: 0 auto;
         }
+
         .logo {
             float: left;
             width: 61px;
             height: auto;
             background: url('../../images/logo cuadrado.png');
         }
-/*=============Log in  CSS*/
- h2 {
-        text-align: center;
-        margin-bottom: 25px;
-    }
+        /*=============Log in  CSS*/
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
-    input {
-        max-width: 100%;
-    }
+        input {
+            max-width: 100%;
+        }
 
-    .form-horizontal {
-        position: relative;
-        padding: 10px;
-        background-color: #ededed;
-        margin-top: 40px;
-        height: 305px;
-    }
+        .form-horizontal {
+            position: relative;
+            padding: 10px;
+            background-color: #ededed;
+            margin-top: 40px;
+            height: 305px;
+        }
 
-    .left-border {
-        background-image: url('../../images/border.png');
-        width: 4px;
-        margin-top: 40px;
-        position: absolute;
-        right: 0;
-        margin-right: -15px;
-        height: 305px;
-    }
+        .left-border {
+            background-image: url('../../images/border.png');
+            width: 4px;
+            margin-top: 40px;
+            position: absolute;
+            right: 0;
+            margin-right: -15px;
+            height: 305px;
+        }
 
-    .btn {
-        min-width: 100px;
-        background-color:#f7a30c;
-        color:white;
-    }
+        .btn {
+            min-width: 100px;
+            background-color: #f7a30c;
+            color: white;
+        }
+
+        body {
+            background-image: url('../images/backgroudimage.jpg');
+            background-size: 1541px 841px;
+            background-repeat: no-repeat;
+        }
+
+        .navbar-inverse {
+            background-color: #f7f6f6;
+            opacity: .9;
+            border-color: #eeeeee;
+        }
+
+        .navbar-brand {
+            color: #0c0c0c;
+        }
     </style>
 </head>
 
@@ -115,7 +132,11 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a asp-controller="Home" asp-action="Index"><img class="logo" src="../images/LOGO CUADRADO.png" /></a>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">Altaperspectiva</a>
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+                    <font style="color: #000000;">
+                        Altaperspectiva
+                    </font>
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 @*<ul class="nav navbar-nav">
@@ -129,7 +150,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        
+
     </div>
     <div class="footer">
         <div class="footer-container">
