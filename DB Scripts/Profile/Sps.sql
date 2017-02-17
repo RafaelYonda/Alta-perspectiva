@@ -27,7 +27,7 @@ GO
 DROP PROC [dbo].[SpUserInfoDetails];
 GO
 
-CREATE PROC [dbo].[SpUserInfoDetails] --'a61da2ca-aa87-4a07-ab6f-e66cb6242e1b'
+CREATE PROC [dbo].[SpUserInfoDetails] '9f5b4ead-f9e7-49da-b0fa-1683195cfcba'
 (
 @userId nvarchar(255)
 )
@@ -49,7 +49,7 @@ where c.UserId=@userId;
 set @Title=(select top 1 Position from UserProfile.Employments e where e.CredentialId=@credentialId);
 --Depends on credentialId
 DECLARE @Education nvarchar(500);
-set @Education=(select top 1 ISNULL(Certification,'')+' , '+ISNULL(CertificationType,'')+', '+ISNULL(CollegeDegree,'') As Education
+set @Education=(select top 1 ISNULL(Concentration,'')+' , '+ISNULL(SchoolName,'')+', '+ISNULL(SecondaryConcentration,'') As Education
 from UserProfile.Educations  edu 
 where  edu.CredentialId=@credentialId
 order by CreatedOn desc);
