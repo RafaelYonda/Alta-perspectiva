@@ -148,7 +148,6 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
     private extractData(res: Response) {
         let body;
 
