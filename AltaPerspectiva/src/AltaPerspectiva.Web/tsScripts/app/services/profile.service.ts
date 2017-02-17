@@ -136,7 +136,11 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
+    GetBlogById(id: string): Observable<Blog> {
+        return this._http.get('blog/api/getblogbyid/' + id)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     GetblogPostByBlogId(id: string): Observable<Blog> {
         return this._http.get('blog/api/getblogpostbyblogid/' + id)
             .map(this.extractData)
