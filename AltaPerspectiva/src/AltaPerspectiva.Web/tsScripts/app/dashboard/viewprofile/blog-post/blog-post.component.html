@@ -1,1 +1,59 @@
-﻿<h1>blog-post</h1>
+﻿<style>
+    .blog-edit-panel {
+        width: 45%;
+        margin: 5px auto;
+        text-align: center;
+    }
+
+    .blog-post {
+        text-align: left;
+    }
+
+    .blog-header {
+        text-align: center;
+    }
+
+    .blog-list {
+        width: 75%;
+        margin: 5px auto;
+    }
+</style>
+
+<div class="blog-edit-panel" style="border:1px solid">
+    <h1>Blog Name</h1>
+    <div>Description</div>
+    <div>Image</div>
+    <h1>Rafel Younda</h1>
+    <h3>Write Post</h3>
+    <div class="blog-post">
+        <h1>Add Title Post</h1>
+        <div>
+            <quill-editor [(ngModel)]="credential.description" [ngModelOptions]="{standalone: true}"
+                          [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link', 'image']]}"
+                          required name="answerField" #answerField="ngModel"></quill-editor>
+            <button class="btn btn-default"></button>
+        </div>
+    </div>
+    <hr />
+</div>
+<div class="blog-list" style="border:1px solid">
+    <div class="blog-header">
+        <h2>Blog Title</h2>
+        <h4>Date</h4>
+    </div>
+    <div>
+        adfmaldmf
+        [sjpasdfpadlkmfadfjasfadksfj
+        adsfa[dsfasdfkaskdf
+        aksdf]apksf
+        amsf
+        amd
+        glmaglma
+        d;gm
+        adg
+        ;adm,g
+        ;adm,g
+        ;adm,gdam,gmad;lmgaldgma\dgm
+        admgag]
+    </div>
+</div>

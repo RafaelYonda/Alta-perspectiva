@@ -53,10 +53,10 @@ const DashBoardroutes: Routes = [
                     { path: 'bookmark', component: BookmarkComponent },
                     { path: 'blog-create', component: BlogCreateComponent },
                     { path: 'direct-question', component: DirectQuestionComponent }, 
-                    { path: 'post', component: PostedQuestionComponent }
+                    //{ path: 'blog-post', component: PostedQuestionComponent }
                 ]
             }
-            //,{ path: 'blog-post', component: BlogPostComponent }
+            ,{ path: 'blog-post', component: BlogPostComponent }
         ]
     }
 ];
