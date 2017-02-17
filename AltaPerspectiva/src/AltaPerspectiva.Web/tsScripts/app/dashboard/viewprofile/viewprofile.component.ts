@@ -126,13 +126,13 @@ export class ViewProfileComponent {
 
     generateEmploymentHtml() {
 
-        this.employmentExists = true;
-        var secondary = "";      
+        this.employmentExists = true;        
+        
 
-        this.employmentHtml = this.credential.employments[0].position  + " at " + " "
-            + this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "" + " <br/> "
-            + this.credential.employments[0].startDate.getFullYear() + "-"
-            + this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate.getFullYear().toString();
+        this.employmentHtml = this.credential.employments[0].position.concat(" at ")
+            .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/> ")
+            .concat(this.credential.employments[0].startDate.getFullYear().toString()).concat("-")
+            .concat( this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate.getFullYear().toString());
     }
 
     generateEducationHtml()
