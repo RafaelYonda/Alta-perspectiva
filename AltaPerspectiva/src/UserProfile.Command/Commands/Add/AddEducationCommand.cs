@@ -8,30 +8,23 @@ namespace UserProfile.Command.Commands
 {
     public class AddEducationCommand : ICommand
     {
-        public AddEducationCommand(Guid credentialId, String schoolName, String schoolDegreeName, DateTime? schoolCompletionDate, String collegeName, String collegeDegree, DateTime? collegeCompletionDate, String certification, String certificationType)
+        public AddEducationCommand(Guid credentialId, String schoolName, String concentration,  String secondaryConcentration, String degreeType, DateTime? graduationYear)
         {
             CredentialId = credentialId;
            // CredentialId = credentialId;
             SchoolName = schoolName;
-            SchoolDegreeName = schoolDegreeName;
-            SchoolCompletionDate = schoolCompletionDate;
-            CollegeName = collegeName;
-            CollegeCompletionDate = collegeCompletionDate;
-            Certification = certification;
-            CertificationType = certificationType;
+            Concentration = concentration;
+            SecondaryConcentration = secondaryConcentration;
+            DegreeType =degreeType;
+            GraduationYear = graduationYear;
 
         }
         public Guid Id { get; set; }
         public String SchoolName { get; set; }
-        public String SchoolDegreeName { get; set; }
-        public DateTime? SchoolCompletionDate { get; set; }
-
-        public String CollegeName { get; set; }
-        public String CollegeDegree { get; set; }
-        public DateTime? CollegeCompletionDate { get; set; }
-
-        public String Certification { get; set; }
-        public String CertificationType { get; set; }
+        public String Concentration { get; set; }
+        public String SecondaryConcentration { get; set; }
+        public String DegreeType { get; set; }
+        public DateTime? GraduationYear { get; set; }
 
         public Guid CredentialId { get; set; }
        // public Guid UserId { get; set; }

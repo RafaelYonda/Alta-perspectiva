@@ -25,15 +25,13 @@ namespace UserProfile.CommandHandler
             Education education = new Education
             {
                 SchoolName = command.SchoolName,
-                SchoolDegreeName = command.SchoolDegreeName,
-                SchoolCompletionDate = command.SchoolCompletionDate,
-                CreatedOn = DateTime.Now,
+                DegreeType = command.DegreeType,
                 CredentialId = command.CredentialId,
-                CollegeName = command.CollegeName,
-                Certification = command.Certification,
-                CertificationType = command.CertificationType,
-                CollegeCompletionDate = command.CollegeCompletionDate,
-                CollegeDegree = command.CollegeDegree,
+                GraduationYear = command.GraduationYear,
+                SecondaryConcentration = command.SecondaryConcentration,
+                Concentration = command.Concentration,
+                CreatedOn = DateTime.Now
+               
             };
             DbContext.Educations.Add(education);
 

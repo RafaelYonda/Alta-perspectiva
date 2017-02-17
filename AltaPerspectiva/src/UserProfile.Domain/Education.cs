@@ -11,15 +11,19 @@ namespace UserProfile.Domain
     {
        // public Guid UserId { get; set; }
         public String SchoolName { get; set; }
-        public String SchoolDegreeName { get; set; }
-        public DateTime? SchoolCompletionDate { get; set; }
+        //public String SchoolDegreeName { get; set; }
+        //public DateTime? SchoolCompletionDate { get; set; }
 
-        public String CollegeName { get; set; }
-        public String CollegeDegree { get; set; }
-        public DateTime? CollegeCompletionDate { get; set; }
+        //public String CollegeName { get; set; }
+        //public String CollegeDegree { get; set; }
+        //public DateTime? CollegeCompletionDate { get; set; }
 
-        public String Certification { get; set; }
-        public String CertificationType { get; set; }
+        //public String Certification { get; set; }
+        //public String CertificationType { get; set; }
+        public String Concentration { get; set; }
+        public String SecondaryConcentration { get; set; }
+        public String DegreeType { get; set; }
+        public DateTime? GraduationYear { get; set; }
 
         public Guid CredentialId { get; set; }
         public virtual Credential Credential { get; set; }
