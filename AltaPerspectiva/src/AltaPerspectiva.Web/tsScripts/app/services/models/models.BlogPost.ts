@@ -6,6 +6,9 @@ export class BlogPost {
     userId: string;
     blogViewCount: number;
     blogComments: BlogComment[];
+    constructor() {
+        blogComments = new Array();
+    }
 }
 export class Blog {
     id: string;
@@ -16,15 +19,13 @@ export class Blog {
     blogs: BlogPost[];
     credential: CredentialViewModel;
 }
-export class BlogComment {
-    id: string;
-    userId: string;
-    commentText: string;
-    commentDate: Date;
-    blogPostId: string;
-}
 export class BlogLike {
     id: string;
     userId: string;
     blogPostId: string;
+}
+export class BlogComment {
+    userId: string;
+    commentText: string;
+    createdOn: Date;
 }
