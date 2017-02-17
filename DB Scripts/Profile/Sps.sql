@@ -27,7 +27,7 @@ GO
 DROP PROC [dbo].[SpUserInfoDetails];
 GO
 
-CREATE PROC [dbo].[SpUserInfoDetails] '9f5b4ead-f9e7-49da-b0fa-1683195cfcba'
+CREATE PROC [dbo].[SpUserInfoDetails] --'9f5b4ead-f9e7-49da-b0fa-1683195cfcba'
 (
 @userId nvarchar(255)
 )
