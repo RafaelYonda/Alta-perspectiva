@@ -7,7 +7,7 @@ export class BlogPost {
     blogViewCount: number;
     blogComments: BlogComment[];
     constructor() {
-        blogComments = new Array();
+        this.blogComments = new Array();
     }
 }
 export class Blog {
