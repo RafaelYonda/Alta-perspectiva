@@ -51,7 +51,7 @@
             <ul style="list-style-type: none;">
                 <li>
                     <div *ngIf="employmentExists">                
-                            <i class="fa-li fa fa-info-circle"></i> {{employment}}                
+                            <i class="fa-li fa fa-info-circle"></i> {{employmentHtml}}                
     `               </div>
                     <a  *ngIf="!employmentExists" (click)="openEmploymentDialogAnchor()" class="edit">
                         Add Employment
@@ -59,7 +59,7 @@
                 </li>
                 <li>
                     <div *ngIf="educationExists">
-                        <i class="fa-li fa fa-university"></i> {{education}}                        
+                        <i class="fa-li fa fa-university"></i>                         
                     </div>
                     <a  *ngIf="!educationExists" (click)="openEducationDialogAnchor()" class="edit">
                         Add Education
@@ -67,7 +67,7 @@
                 </li>
                 <li>
                     <div *ngIf="placeExists">
-                        <i class="fa-li fa fa-home"></i> {{place}}                        
+                        <i class="fa-li fa fa-home"></i> {{placeHtml}}                        
                     </div>
                     <a  *ngIf="!placeExists" (click)="openPlaceDialogAnchor()" class="edit">
                         Add Place
@@ -75,7 +75,7 @@
                 </li>
                 <li>
                     <div *ngIf="othersExists">
-                        <i class="fa-li fa fa-cog"></i> {{others}}                        
+                        <i class="fa-li fa fa-cog"></i> {{othersHtml}}                        
                     </div>
                     <a *ngIf="!othersExists" (click)="openOtherexperienceDialogAnchor()" class="edit">
                         Add Others
