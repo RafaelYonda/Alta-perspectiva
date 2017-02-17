@@ -88,6 +88,14 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             
             return Ok(blogPost);
         }
+        [HttpGet("blog/api/getblogpostbyblogid/{id}")]
+        public async Task<IActionResult> GetBlogPostByBlogId(Guid id)
+        {
+           
+             List<BlogPost> blogPost = await queryFactory.ResolveQuery<IBlogPostQuery>().GetBlogPostsByBlogId(id);
+            
+            return Ok(blogPost);
+        }
 
         [HttpPost("blog/api/saveblogpost")]
         public IActionResult SaveBlogPost([FromBody]AddBlogPostViewModel model)
