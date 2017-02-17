@@ -16,3 +16,20 @@ ADD Title nvarchar(MAX) null
 GO
 ALTER TABLE [Blog].Blogs 
 ADD [Description] nvarchar(MAX) null
+
+Go 
+ALTER TABLE UserProfile.Educations
+DROP COLUMN SchoolDegreeName,SchoolCompletionDate,CollegeName,CollegeDegree,CollegeCompletionDate,Certification,CertificationType
+GO 
+ALTER TABLE UserProfile.Educations
+ADD [Concentration] nvarchar(MAX) null
+GO
+ALTER TABLE UserProfile.Educations
+ADD SecondaryConcentration nvarchar(MAX) null
+GO
+ALTER TABLE UserProfile.Educations
+ADD DegreeType nvarchar(MAX) null
+GO
+ALTER TABLE UserProfile.Educations
+ADD GraduationYear datetime null
+GO
