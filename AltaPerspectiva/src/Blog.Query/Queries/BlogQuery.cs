@@ -23,6 +23,13 @@ namespace Blog.Query.Queries
                 .Where(x => x.UserId == userId).FirstOrDefault();
         }
 
+        public Domain.Blog GetBlogById(Guid id)
+        {
+            return DbContext.Blogs
+                //.Include(bp=>bp.BlogPosts)
+                .Where(x => x.Id == id).FirstOrDefault();
+        }
+
         public List<Domain.Blog> GetBlogList(Guid userId)
         {
             return DbContext.Blogs

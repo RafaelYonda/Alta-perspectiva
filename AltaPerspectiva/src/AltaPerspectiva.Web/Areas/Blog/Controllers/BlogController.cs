@@ -38,6 +38,12 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
            global::Blog.Domain.Blog blog = queryFactory.ResolveQuery<IBlogQuery>().GetBlog(userId);
             return Ok(blog);
         }
+        [HttpGet("blog/api/getblogbyid/{id}")]
+        public IActionResult GetBlogById(Guid id)
+        {
+            global::Blog.Domain.Blog blog = queryFactory.ResolveQuery<IBlogQuery>().GetBlogById(id);
+            return Ok(blog);
+        }
         [HttpGet("blog/api/getbloglist/{userId}")]
         public IActionResult GetBlogList(Guid userId)
         {
@@ -63,9 +69,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             {
                 //Update
             }
-          
-
-            return Ok();
+            return Ok(model);
         }
         [HttpGet("blog/api/getblogpost/{userId}")]
         public async Task<IActionResult> GetBlogPost(Guid userId)

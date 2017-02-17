@@ -9,6 +9,7 @@ namespace Blog.Query.Interfaces
     public interface IBlogQuery : IQuery
     {
         Domain.Blog GetBlog(Guid userId);
+        Domain.Blog GetBlogById(Guid id);
         List<Domain.Blog> GetBlogList(Guid userId);
     }
 }
