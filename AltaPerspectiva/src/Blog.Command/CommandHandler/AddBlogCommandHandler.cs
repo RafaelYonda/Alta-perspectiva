@@ -24,12 +24,17 @@ namespace Blog.Command.CommandHandler
             Domain.Blog blog = new Domain.Blog
             {
                 UserId = command.UserId,
-                BlogName = command.BlogName,
+                CreatedOn = DateTime.Now,
+                Title = command.Title,
+                Description = command.Description,
                 Url = command.Url,
-                CreatedOn = DateTime.Now
+                CreatedBy = command.UserId
             };
             DbContext.Blogs.Add(blog);
+            
+
             DbContext.SaveChanges();
+            command.Id = blog.Id;
         }
     }
 }

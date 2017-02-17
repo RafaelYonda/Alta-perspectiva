@@ -32,8 +32,20 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             environment = _environment;
         }
 
-        [HttpGet("blog/api/test")]
-        public IActionResult Test()
+        [HttpGet("blog/api/getblog/{userId}")]
+        public IActionResult GetBlog(Guid userId)
+        {
+           global::Blog.Domain.Blog blog = queryFactory.ResolveQuery<IBlogQuery>().GetBlog(userId);
+            return Ok(blog);
+        }
+        [HttpGet("blog/api/getbloglist/{userId}")]
+        public IActionResult GetBlogList(Guid userId)
+        {
+          List< global::Blog.Domain.Blog> blogs = queryFactory.ResolveQuery<IBlogQuery>().GetBlogList(userId);
+            return Ok(blogs);
+        }
+        [HttpPost("blog/api/saveblog")]
+        public IActionResult SaveBlog([FromBody]AddBlogViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
@@ -41,16 +53,19 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
                 var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
             }
-
-            //refractoring:My add from User Repository 
-            AddBlogCommand  command=new AddBlogCommand(loggedinUser,"test","test");
-            commandsFactory.ExecuteQuery(command);
-
-            //var blogs = queryFactory.ResolveQuery<IBlogQuery>().GetBlog(loggedinUser);
+            if (model.Id == Guid.Empty)
+            {
+                AddBlogCommand command = new AddBlogCommand(model.UserId, model.Title, model.Url, model.Description);
+                commandsFactory.ExecuteQuery(command);
+            }
+            else
+            {
+                //Update
+            }
+          
 
             return Ok();
         }
-
         [HttpGet("blog/api/getblogpost/{userId}")]
         public async Task<IActionResult> GetBlogPost(Guid userId)
         {

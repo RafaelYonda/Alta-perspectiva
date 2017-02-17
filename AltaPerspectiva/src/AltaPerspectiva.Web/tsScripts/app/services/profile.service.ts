@@ -130,15 +130,19 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    //=====blog post==
-    GetBlog(userId: string): Observable<any> {
+    //=====blog and hi=this post==
+    GetBlog(userId: string): Observable<Blog> {
         return this._http.get('blog/api/getblog/' + userId)
             .map(this.extractData)
             .catch(this.handleError);
     }
-
-    SaveBlog(blogPost: Blog): Observable<any> {
-        return this._http.post('blog/api/saveblog', blogPost)
+    GetBlogList(userId: string): Observable<Blog[]> {
+        return this._http.get('blog/api/getbloglist/' + userId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    SaveBlog(blog: Blog): Observable<any> {
+        return this._http.post('blog/api/saveblog', blog)
             .map(this.extractData)
             .catch(this.handleError);
     }
