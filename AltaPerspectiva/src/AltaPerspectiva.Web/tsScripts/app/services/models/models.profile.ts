@@ -15,10 +15,10 @@
 export class Employment {
     position: string;
     companyName: string;
-    startDate: Date
+    startDate: Date;
     endDate: Date;
     isCurrentlyWorking: boolean;
-    credentialId: string
+    credentialId: string;
 }
 export class OtherExperiences {
     credentialId: string;

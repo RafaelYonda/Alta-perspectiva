@@ -7,6 +7,7 @@
 
     .blog-post {
         text-align: left;
+        margin-top: 10px;
     }
 
     .blog-header {
@@ -17,21 +18,42 @@
         width: 75%;
         margin: 5px auto;
     }
+
+    .btn-blog-edit {
+        border-bottom: 1px solid #ece4e4;
+        width: 50%;
+        margin: 0 auto;
+        text-align: right;
+        padding-right: 3px;
+        color: #908c8c;
+    }
+
+    .transparent-input {
+        border: 1px;
+    }
+
+    .txt-small-grey {
+        color: #a4a1a1;
+    }
 </style>
 
 <div class="blog-edit-panel" style="border:1px solid">
     <h1>Blog Name</h1>
-    <div>Description</div>
-    <div>Image</div>
-    <h1>Rafel Younda</h1>
-    <h3>Write Post</h3>
+    <h4>Description</h4>
+    <div class="btn-blog-edit">Edit</div>
+    <div><img class="profile-image" src="../../../../profile/zafrul.png" /></div>
+    <h1>Zafrul Hasan</h1>
+    <div class="txt-small-grey">Write Post</div>
     <div class="blog-post">
-        <h1>Add Title Post</h1>
+        <h1>
+            <input class="transparent-input" />
+            Add Title Post
+        </h1>
         <div>
             <quill-editor [(ngModel)]="credential.description" [ngModelOptions]="{standalone: true}"
                           [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link', 'image']]}"
                           required name="answerField" #answerField="ngModel"></quill-editor>
-            <button class="btn btn-default"></button>
+            <button class="btn btn-alta-primary pull-right">Post Blog</button>
         </div>
     </div>
     <hr />

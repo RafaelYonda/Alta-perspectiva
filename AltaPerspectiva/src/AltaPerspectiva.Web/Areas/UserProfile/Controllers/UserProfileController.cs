@@ -206,19 +206,15 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             }
         
-          DateTime? schoolCompletionDate = null;
-          DateTime? collegeCompletionDate = null;
-            if (!String.IsNullOrEmpty(model.SchoolCompletionDate))
+         
+          DateTime? graduationYear = null;
+            if (!String.IsNullOrEmpty(model.GraduationYear))
             {
-                schoolCompletionDate = new DateTime(int.Parse(model.SchoolCompletionDate),1,1);
+                graduationYear = new DateTime(int.Parse(model.GraduationYear),1,1);
             }
-            if (!String.IsNullOrEmpty(model.CollegeCompletionDate))
-            {
-                collegeCompletionDate = new DateTime(int.Parse(model.CollegeCompletionDate),1,1);
-            }
+           
 
-
-AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.SchoolName, model.SchoolDegreeName, schoolCompletionDate, model.CollegeName, model.CollegeDegree,collegeCompletionDate, model.Certification, model.CertificationType);
+AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.SchoolName,model.Concentration,model.SecondaryConcentration,model.DegreeType,graduationYear);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();

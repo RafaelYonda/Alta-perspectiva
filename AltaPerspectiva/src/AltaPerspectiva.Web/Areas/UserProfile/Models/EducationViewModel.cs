@@ -9,16 +9,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
     {
         public Guid Id { get; set; }
         public String SchoolName { get; set; }
-        public String SchoolDegreeName { get; set; }
-        public string SchoolCompletionDate { get; set; }
-
-        public String CollegeName { get; set; }
-        public String CollegeDegree { get; set; }
-        public string CollegeCompletionDate { get; set; }
-
-        public String Certification { get; set; }
-        public String CertificationType { get; set; }
-
+        public String Concentration { get; set; }
+        public String SecondaryConcentration { get; set; }
+        public String DegreeType { get; set; }
+        public string GraduationYear { get; set; }
         public Guid CredentialId { get; set; }
        // public Guid UserId { get; set; }
     }

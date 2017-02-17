@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 //Models
 import { CredentialViewModel }     from './models/models.profile';
 import {  ProfileParameter }     from './models/models.ProfileParameter';
-import {  Employment }     from './models/models.Employment';
+import {  Employment }     from './models/models.profile';
 import {  Education }     from './models/models.Education';
 import {  Place }     from './models/models.Place';
 import {  OtherExperience }     from './models/models.OtherExperience';
@@ -130,15 +130,26 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    //=====blog post==
-    GetBlog(userId: string): Observable<any> {
+    //=====blog and hi=this post==
+    GetBlog(userId: string): Observable<Blog> {
         return this._http.get('blog/api/getblog/' + userId)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    SaveBlog(blogPost: Blog): Observable<any> {
-        return this._http.post('blog/api/saveblog', blogPost)
+    GetblogPostByBlogId(id: string): Observable<Blog> {
+        return this._http.get('blog/api/getblogpostbyblogid/' + id)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    GetBlogList(userId: string): Observable<Blog[]> {
+        return this._http.get('blog/api/getbloglist/' + userId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    SaveBlog(blog: Blog): Observable<Blog> {
+        return this._http.post('blog/api/saveblog', blog)
             .map(this.extractData)
             .catch(this.handleError);
     }

@@ -8,60 +8,102 @@
     ViewData["Title"] = "Log in";
 }
 @*<style>
-    h2 {
-        text-align: center;
-        margin-bottom: 25px;
-    }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
-    input {
-        max-width: 100%;
+        input {
+            max-width: 100%;
+        }
+
+        .form-horizontal {
+            position: relative;
+            padding: 10px;
+            background-color: #ededed;
+            margin-top: 40px;
+            height: 305px;
+        }
+
+        .left-border {
+            background-image: url('../../images/border.png');
+            width: 4px;
+            margin-top: 40px;
+            position: absolute;
+            right: 0;
+            margin-right: -15px;
+            height: 305px;
+        }
+
+        .btn {
+            min-width: 100px;
+            background-color:#f7a30c;
+            color:white;
+        }
+    </style>*@
+<style>
+    .loginForm {
+        opacity: .95;
+        margin-top: 57px;
+        width: 577px;
+        margin-left: 102px;
     }
 
     .form-horizontal {
-        position: relative;
-        padding: 10px;
-        background-color: #ededed;
-        margin-top: 40px;
-        height: 305px;
+        border-radius: 10px;
+        height: 355px;
     }
 
-    .left-border {
-        background-image: url('../../images/border.png');
-        width: 4px;
-        margin-top: 40px;
-        position: absolute;
-        right: 0;
-        margin-right: -15px;
-        height: 305px;
+    .login-header {
+        text-align: center;
+        margin-bottom: 26px;
+        color: #5491c6;
+        font-size: 21px;
     }
 
-    .btn {
-        min-width: 100px;
-        background-color:#f7a30c;
-        color:white;
+    .form-control {
+        background-color: #cccccc;
+        height: 41px;
+        border-radius: 7px;
     }
-</style>*@
+
+    .btn-default {
+        background-color: #fba409;
+        border-radius: 10px;
+        height: 45px;
+        font-size: 21px;
+        min-width: 174px;
+    }
+    .forget-password {
+            margin-left: 4px;
+    }
+</style>
 <div class="row">
-    <div class="col-md-4">
-        <img class="left-border" src="~/images/border.png" />
+    <div class="col-md-2">
+        @*<img class="left-border" src="~/images/border.png" />*@
+        .
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 loginForm">
 
         <section>
 
             <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+                <h2 class="login-header">
 
-                <h2>Log In</h2>
-                <div asp-validation-summary="All" class="text-danger"></div>
+                    Log in
+
+                </h2>
+
+              
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-md-10">
-                        <input asp-for="Email" placeholder="Email" class="form-control" />
+                        <input asp-for="Email" placeholder="EMAIL ADDRESS" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-md-10">
-                        <input asp-for="Password" placeholder="Password" class="form-control" />
+                        <input asp-for="Password" placeholder="PASSWORD" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
@@ -71,7 +113,7 @@
                     </div>
                 </div>
                 <p class="col-sm-offset-1">
-                    <a asp-action="ForgotPassword">Forgot password?</a>
+                    <a asp-action="ForgotPassword" class="forget-password">Forgot password?</a>
                 </p>
             </form>
         </section>

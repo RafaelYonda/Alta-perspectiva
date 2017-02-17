@@ -1,5 +1,5 @@
 ﻿import { Component, EventEmitter } from '@angular/core';
-import { Employment } from '../../../services/models/models.Employment';
+import { Employment } from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     selector: 'add-employment',
