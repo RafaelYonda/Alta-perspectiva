@@ -56,7 +56,7 @@ const DashBoardroutes: Routes = [
                     //{ path: 'blog-post', component: PostedQuestionComponent }
                 ]
             }
-            ,{ path: 'blog-post', component: BlogPostComponent }
+            ,{ path: 'blog-post/:blogId', component: BlogPostComponent }
         ]
     }
 ];

@@ -35,6 +35,9 @@
     .txt-small-grey {
         color: #a4a1a1;
     }
+    .margin-top-5{
+        margin-top:5px;
+    }
 </style>
 
 <div class="blog-edit-panel" style="border:1px solid">
@@ -43,19 +46,23 @@
     <div class="btn-blog-edit">Edit</div>
     <div><img class="profile-image" src="../../../../profile/zafrul.png" /></div>
     <h1>Zafrul Hasan</h1>
-    <div class="txt-small-grey">Write Post</div>
-    <div class="blog-post">
-        <h1>
-            <input class="transparent-input" />
-            Add Title Post
-        </h1>
-        <div>
-            <quill-editor [(ngModel)]="credential.description" [ngModelOptions]="{standalone: true}"
-                          [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link', 'image']]}"
-                          required name="answerField" #answerField="ngModel"></quill-editor>
-            <button class="btn btn-alta-primary pull-right">Post Blog</button>
+    <div class="txt-small-grey">Write post</div>
+    <form (ngSubmit)="saveBlogPost()" #blogPostForm="ngForm">
+        <div class="blog-post">
+            <h1>
+                <input class="transparent-input" id="title" [(ngModel)]="blogPost.title" required name="title"
+                       #title="ngModel" />
+            </h1>
+            <div>
+                <quill-editor  [ngModelOptions]="{standalone: true}"
+                              [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link', 'image']]}"
+                               id="description" [(ngModel)]="blogPost.description"  name="description"
+                      ></quill-editor>
+                <button class="btn btn-alta-primary pull-right margin-top-5 btn-sm" [disabled]="!blogPostForm.form.valid">Post Blog</button>
+            </div>
         </div>
-    </div>
+    </form>
+
     <hr />
 </div>
 <div class="blog-list" style="border:1px solid">

@@ -1,4 +1,5 @@
-﻿export class BlogPost {
+﻿import { CredentialViewModel } from './models.profile';
+export class BlogPost {
     id: string;
     title: string;
     description: string;
@@ -13,6 +14,7 @@ export class Blog {
     url: string;
     description: string;
     blogs: BlogPost[];
+    credential: CredentialViewModel;
 }
 export class BlogComment {
     id: string;
