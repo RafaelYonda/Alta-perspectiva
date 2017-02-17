@@ -7,7 +7,7 @@ import { ProfileParameter } from '../../services/models/models.profileparameter'
 
 import { ConfigService } from '../../services/config.service';
 import { CredentialViewModel } from '../../services/models/models.profile';
-import { Employment } from '../../services/models/models.Employment';
+import { Employment } from '../../services/models/models.profile';
 import { Education } from '../../services/models/models.Education';
 import { Place } from '../../services/models/models.Place';
 import { OtherExperience } from '../../services/models/models.OtherExperience';

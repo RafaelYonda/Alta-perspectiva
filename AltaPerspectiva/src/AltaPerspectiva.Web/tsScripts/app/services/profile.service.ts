@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 //Models
 import { CredentialViewModel }     from './models/models.profile';
 import {  ProfileParameter }     from './models/models.ProfileParameter';
-import {  Employment }     from './models/models.Employment';
+import {  Employment }     from './models/models.profile';
 import {  Education }     from './models/models.Education';
 import {  Place }     from './models/models.Place';
 import {  OtherExperience }     from './models/models.OtherExperience';
