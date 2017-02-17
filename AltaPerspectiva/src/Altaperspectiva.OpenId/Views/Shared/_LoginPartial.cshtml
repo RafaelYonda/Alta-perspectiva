@@ -4,14 +4,33 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-@if (SignInManager.IsSignedIn(User)) {
+@if (SignInManager.IsSignedIn(User))
+{
+    <style>
+        .btn {
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+
+
+        .anchaor {
+            cursor: pointer;
+            color: #100101;
+        }
+
+        .navbar-inverse .navbar-nav > li > a:hover {
+            text-decoration: underline;
+            color: #100101;
+            font-weight: bolder;
+        }
+    </style>
     <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                <a asp-controller="Manage" asp-action="Index" title="Manage" class="anchaor">Hello @UserManager.GetUserName(User)!</a>
             </li>
             <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>
+                <button type="submit" class="btn ">Log off</button>
             </li>
         </ul>
     </form>
@@ -26,11 +45,13 @@ else
                 </font>
             </a>
         </li>
-        <li><a asp-controller="Account" asp-action="Login">
+        <li>
+            <a asp-controller="Account" asp-action="Login">
                 <font style="color: #000000;">
                     Log in
                 </font>
-            
-        </a></li>
+
+            </a>
+        </li>
     </ul>
 }
