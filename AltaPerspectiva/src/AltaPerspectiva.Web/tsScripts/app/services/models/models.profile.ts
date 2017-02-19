@@ -10,7 +10,7 @@
     educations: Education[];
     employments: Employment[];
     places: Place[];
-    otherExperience: OtherExperience[];
+    otherExperiences: OtherExperience[];
 }
 export class Employment {
     position: string;

@@ -23,7 +23,7 @@ namespace UserProfile.Domain
         public virtual ICollection<Education> Educations { get; set; }
         public virtual ICollection<Employment> Employments { get; set; }
         public virtual ICollection<Place> Places { get; set; }
-        public virtual ICollection<OtherExperience> Others { get; set; }
+        public virtual ICollection<OtherExperience> OthersExperiences { get; set; }
 
     }
 }
