@@ -34,10 +34,10 @@ export class ViewProfileComponent {
 
     userId: string;
     otherExperience: OtherExperience = new OtherExperience();
-    //employmentExists: boolean;
-    //educationExists: boolean;
-    //placeExists: boolean;
-    //otherExperienceExists: boolean;
+    employmentExists: boolean;
+    educationExists: boolean;
+    placeExists: boolean;
+    otherExperienceExists: boolean;
 
     employmentHtml: string;
     educationHtml: string;
@@ -81,80 +81,76 @@ export class ViewProfileComponent {
 
         });
     }   
-    changeCredentialStatus() {
-        console.log('changeCredentialStatus');
-        
 
+    refreshData() {
+        this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
+            this.credential = usr;
+
+            this.changeCredentialStatus();
+
+            this.profileInfo.credential = this.credential;
+            this.profileInfo.ngOnInit();
+        });
     }
-    //refreshData() {
-    //    this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
-    //        this.credential = usr;
 
-    //        this.changeCredentialStatus();
-
-    //        this.profileInfo.credential = this.credential;
-    //        this.profileInfo.ngOnInit();
-    //    });
-    //}
-
-    //changeCredentialStatus()
-    //{
+    changeCredentialStatus()
+    {
         
-    //    if (this.credential.educations && this.credential.educations.length > 0)
-    //    {
-    //        this.generateEducationHtml();
-    //    }
-    //    if (this.credential.employments && this.credential.employments.length > 0)
-    //    {
-    //        //this.generateEmploymentHtml();
-    //    }
-    //    if (this.credential.places && this.credential.places.length > 0)
-    //        this.placeExists = true;
-    //    if (this.credential.otherExperience && this.credential.otherExperience.length > 0)
-    //        this.otherExperienceExists = true;
-    //}
+        if (this.credential.educations && this.credential.educations.length > 0)
+        {
+            this.generateEducationHtml();
+        }
+        if (this.credential.employments && this.credential.employments.length > 0)
+        {
+            //this.generateEmploymentHtml();
+        }
+        if (this.credential.places && this.credential.places.length > 0)
+            this.placeExists = true;
+        if (this.credential.otherExperiences && this.credential.otherExperiences.length > 0)
+            this.otherExperienceExists = true;
+    }
 
-    //generateEmploymentHtml() {
+    generateEmploymentHtml() {
 
-    //    this.employmentExists = true;                
+        this.employmentExists = true;                
 
-    //    //this.employmentHtml = this.credential.employments[0].position.concat(" at ")
-    //    //    .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/> ")
-    //    //    .concat(this.credential.employments[0].startDate.getFullYear().toString()).concat("-")
-    //    //    .concat( this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate.getFullYear().toString());
-    //}
+        //this.employmentHtml = this.credential.employments[0].position.concat(" at ")
+        //    .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/> ")
+        //    .concat(this.credential.employments[0].startDate.getFullYear().toString()).concat("-")
+        //    .concat( this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate.getFullYear().toString());
+    }
 
-    //generateEducationHtml()
-    //{
-    //    /// set education flag to make it visible
-    //    this.educationExists = true;
+    generateEducationHtml()
+    {
+        /// set education flag to make it visible
+        this.educationExists = true;
 
-    //    var primary = "<i class='fa fa-university'></i> ";
+        var primary = "";
 
-    //    if (this.credential.educations[0].concentration) {
-    //        if (this.credential.educations[0].concentration.length > 1) {
-    //           primary = primary.concat(this.credential.educations[0].concentration);
-    //        }
-    //    }
+        if (this.credential.educations[0].concentration) {
+            if (this.credential.educations[0].concentration.length > 1) {
+               primary = primary.concat(this.credential.educations[0].concentration);
+            }
+        }
 
-    //    var secondary = "";   
+        var secondary = "";   
 
-    //    if (this.credential.educations[0].secondaryConcentration) {
-    //        if (this.credential.educations[0].secondaryConcentration.length > 1) {
-    //            secondary = this.credential.educations[0].secondaryConcentration;
-    //        }
-    //    }
+        if (this.credential.educations[0].secondaryConcentration) {
+            if (this.credential.educations[0].secondaryConcentration.length > 1) {
+                secondary = this.credential.educations[0].secondaryConcentration;
+            }
+        }
 
-    //    var degree = "";
+        var degree = "";
 
-    //    if (this.credential.educations[0].degreeType) {
-    //        if (this.credential.educations[0].degreeType.length > 1) {
-    //            degree = "<br /> ".concat( this.credential.educations[0].degreeType);
-    //        }
-    //    }
+        if (this.credential.educations[0].degreeType) {
+            if (this.credential.educations[0].degreeType.length > 1) {
+                degree = "<br /> ".concat( this.credential.educations[0].degreeType);
+            }
+        }
 
-    //    this.educationHtml = primary.concat(" & ").concat(secondary).concat(degree);
-    //}
+        this.educationHtml = primary.concat(" & ").concat(secondary).concat(degree);
+    }
 
 
     @ViewChild('educationDialogAnchor', { read: ViewContainerRef }) educationDialogAnchor: ViewContainerRef;
@@ -168,9 +164,8 @@ export class ViewProfileComponent {
 
         dialogComponentRef.instance.education.credentialId = this.credential.id;
         dialogComponentRef.instance.close.subscribe(() => {
-            //this.loadData();
             dialogComponentRef.destroy();
-           // this.refreshData();
+            this.refreshData();
         });
     }
 
@@ -186,6 +181,7 @@ export class ViewProfileComponent {
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
+            this.refreshData();
         });
     }
     @ViewChild('otherexperienceDialogAnchor', { read: ViewContainerRef }) otherexperienceDialogAnchor: ViewContainerRef;
@@ -200,6 +196,7 @@ export class ViewProfileComponent {
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
+            this.refreshData();
         });
     }
     @ViewChild('placeDialogAnchor', { read: ViewContainerRef }) placeDialogAnchor: ViewContainerRef;
@@ -214,6 +211,7 @@ export class ViewProfileComponent {
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
+            this.refreshData();
         });
     }
    
