@@ -50,9 +50,9 @@
 
             <ul style="list-style-type: none;">
                 <li>
-                    <div *ngIf="employmentExists" [innerHTML]="employmentHtml">
+                    <div *ngIf="credential.employments[0]" [innerHTML]="employmentHtml">
                     </div>
-                    <a *ngIf="!employmentExists" (click)="openEmploymentDialogAnchor()" class="edit">
+                    <a *ngIf="!credential.employments[0]" (click)="openEmploymentDialogAnchor()" class="edit">
                         Add Employment
                     </a>
                 </li>

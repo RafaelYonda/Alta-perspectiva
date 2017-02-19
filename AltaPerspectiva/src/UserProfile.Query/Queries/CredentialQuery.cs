@@ -30,7 +30,7 @@ namespace UserProfile.Query.Queries
                             .Include(x => x.Employments)
                             .Include(x=>x.Educations)
                             .Include(x=>x.Places)
-                            .Include(x=>x.Others)
+                            .Include(x=>x.OthersExperiences)
                             .Where(x => x.UserId == userId)
                 .FirstOrDefault();
         }

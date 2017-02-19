@@ -1,7 +1,9 @@
-﻿import { Component } from '@angular/core';
+﻿/// <reference path="blogpost-detail.component.ts" />
+import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { Blog, BlogComment, BlogLike, BlogPost,UserViewModel } from '../../../services/models/models.blogpost';
 import {UserInfoDetails} from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
+import { BlogpostDetailComponent } from './blogpost-detail.component';
 import { ActivatedRoute } from '@angular/router';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/blog-post/blog-post.component.html',
@@ -13,10 +15,7 @@ export class BlogPostComponent {
     blogPost: BlogPost = new BlogPost();
     blogposts: BlogPost[];
     userInfoDetails: UserInfoDetails
-    constructor(private _route: ActivatedRoute, private profileService: ProfileService) {
-        //this.userInfoDetails.imageUrl
-        //this.userInfoDetails.fullName;
-        ;
+    constructor(private _route: ActivatedRoute, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
     }
     ngOnInit() {
         //this.blogPost.description
@@ -63,8 +62,20 @@ export class BlogPostComponent {
         // clear form
         this.blogPost = new BlogPost();
     }
-    
-        
+    @ViewChild('blogPostDetail', { read: ViewContainerRef }) blogPostDetailDialogAnchor: ViewContainerRef;
+    openPostDetailDialog(post: BlogPost) {
+        this.blogPostDetailDialogAnchor.clear();
 
-     
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(BlogpostDetailComponent);
+        let dialogComponentRef = this.blogPostDetailDialogAnchor.createComponent(dialogComponentFactory);
+        console.log(post);
+        dialogComponentRef.instance.post = post;
+
+        //dialogComponentRef.instance.education.credentialId = this.credential.id;
+        dialogComponentRef.instance.close.subscribe(() => {
+            //this.loadData();
+            dialogComponentRef.destroy();
+            //this.refreshData();
+        });
+    }
 }

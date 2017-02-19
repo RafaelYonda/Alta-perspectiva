@@ -1,0 +1,75 @@
+﻿<style>
+    .blog-edit-panel {
+        width: 45%;
+        margin: 5px auto;
+        text-align: center;
+    }
+
+    .blog-post {
+        text-align: left;
+        margin-top: 10px;
+    }
+
+    .blog-header {
+        text-align: center;
+    }
+
+    .blog-list {
+        width: 60%;
+        margin: 5px auto;
+    }
+
+    .btn-blog-edit {
+        border-bottom: 1px solid #ece4e4;
+        width: 50%;
+        margin: 0 auto;
+        text-align: right;
+        padding-right: 3px;
+        color: #908c8c;
+    }
+
+    .transparent-input {
+        border: 1px;
+    }
+
+    .txt-small-grey {
+        color: #a4a1a1;
+    }
+
+    .margin-top-5 {
+        margin-top: 5px;
+    }
+    /*//========post Detail=============*/
+    .postDetail-body{
+        padding:10px;
+        margin-left:15px;
+    }
+    .post-dialog{
+        margin:80px auto;
+        width:60%;
+    }
+</style>
+
+<div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
+    <div class="modal-content post-dialog">
+        <div class="exit-button" (click)="onClickedExit()">x</div>
+        <div class="postDetail-body">
+            <div class="blog-header">
+                <h2>{{post?.title}}</h2>
+                <h4>{{post?.createdOn}}</h4>
+            </div>
+            <div>
+                {{post?.description}}
+
+                <div class="article-details">
+                    <div *ngIf="post?.description">
+                        <p [innerHTML]="post?.description"></p><span><a>Read more..</a></span>
+                    </div>
+                    <post-status [blogPost]="post"></post-status>
+                    <blogpost-comment [blogPost]="post"></blogpost-comment>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
