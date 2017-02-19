@@ -28,6 +28,7 @@ import { FollowerComponent } from './viewprofile/follower/follower.component';
 import { BookmarkComponent } from './viewprofile/bookmark/bookmark.component';
 import { BlogCreateComponent } from './viewprofile/blog-create/blog-create.component';
 import { BlogPostComponent } from './viewprofile/blog-post/blog-post.component'; 
+import { PostStatusComponent } from './viewprofile/blog-post/post-status.component'; 
 import { PostedQuestionComponent } from './viewprofile/posted-question/posted-question.component';
 
 import { ProfileService } from '../services/profile.service';
@@ -35,6 +36,7 @@ import { ProfileResolver } from '../services/resolve.services/profile.resolver';
 
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { QuillModule } from 'ngx-quill';
+import {PopoverModule} from "ngx-popover";
 
 const DashBoardroutes: Routes = [
     {
@@ -63,12 +65,12 @@ const DashBoardroutes: Routes = [
 export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBoardroutes);
 @NgModule({
     providers: [ProfileResolver],
-    imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule, QuillModule, SharedModule
+    imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule, QuillModule, SharedModule, PopoverModule
     ],
     declarations: [
         DashBoardComponent, NavDashboard,
         ViewProfileComponent,
-        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, PostedQuestionComponent,
+        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, PostStatusComponent, PostedQuestionComponent,
         //Edit Profile
         AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent
     ],
