@@ -1,6 +1,7 @@
 ﻿import { Component, EventEmitter } from '@angular/core';
-import { OtherExperience } from '../../../services/models/models.OtherExperience';
-import { Category} from '../../../services/models';
+
+import { Category } from '../../../services/models';
+import { OtherExperience } from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 import { CategoryService } from '../../../services/category.service';
 @Component({

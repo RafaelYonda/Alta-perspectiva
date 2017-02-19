@@ -7,13 +7,8 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 //Models
-import { CredentialViewModel }     from './models/models.profile';
-import {  ProfileParameter }     from './models/models.ProfileParameter';
-import {  Employment }     from './models/models.profile';
-import {  Education }     from './models/models.Education';
-import {  Place }     from './models/models.Place';
-import {  OtherExperience }     from './models/models.OtherExperience';
-import {  CategoryWiseAnswer }     from './models/models.CategoryWiseAnswer';
+import { CredentialViewModel, ProfileParameter, Employment, Education, Place, OtherExperience, CategoryWiseAnswer }     from './models/models.profile';
+
 
 @Injectable()
 export class ProfileService {
