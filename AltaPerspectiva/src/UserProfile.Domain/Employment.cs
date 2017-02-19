@@ -11,8 +11,8 @@ namespace UserProfile.Domain
         //public Guid UserId { get; set; }
         public String Position { get; set; }
         public String CompanyName { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public int? StartDate { get; set; }
+        public int? EndDate { get; set; }
         public Boolean IsCurrentlyWorking { get; set; }
 
         public Guid CredentialId { get; set; }

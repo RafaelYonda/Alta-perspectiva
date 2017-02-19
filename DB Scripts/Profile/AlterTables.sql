@@ -40,3 +40,38 @@ GO
 ALTER TABLE UserProfile.Educations ADD 	GraduationYear int NULL
 GO
 
+GO
+
+ALTER TABLE UserProfile.Employments drop column StartDate
+GO
+
+ALTER TABLE UserProfile.Employments ADD StartDate int NULL
+GO
+GO
+
+ALTER TABLE UserProfile.Employments drop column EndDate
+GO
+
+ALTER TABLE UserProfile.Employments  ADD 	EndDate int NULL
+GO
+GO
+
+ALTER TABLE UserProfile.Places drop column StartYear
+GO
+
+ALTER TABLE UserProfile.Places ADD StartYear int NULL
+GO
+GO
+
+ALTER TABLE UserProfile.Places drop column EndYear
+GO
+
+ALTER TABLE UserProfile.Places  ADD EndYear int NULL
+GO
+ALTER TABLE Blog.Blogs ADD Title nvarchar(MAX) null
+GO
+GO
+ALTER TABLE Blog.Blogs ADD Description nvarchar(MAX) null
+GO
+
+

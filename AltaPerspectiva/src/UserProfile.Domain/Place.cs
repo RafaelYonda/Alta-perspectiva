@@ -10,8 +10,8 @@ namespace UserProfile.Domain
     {
       //  public Guid UserId { get; set; }
         public String LocationName { get; set; }
-        public DateTime? StartYear { get; set; }
-        public DateTime? EndYear { get; set; }
+        public int? StartYear { get; set; }
+        public int? EndYear { get; set; }
         public Boolean IsCurrentyLiving { get; set; }
 
         public Guid CredentialId { get; set; }

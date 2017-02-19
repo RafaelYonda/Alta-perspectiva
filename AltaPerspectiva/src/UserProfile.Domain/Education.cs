@@ -23,7 +23,7 @@ namespace UserProfile.Domain
         public String Concentration { get; set; }
         public String SecondaryConcentration { get; set; }
         public String DegreeType { get; set; }
-        public DateTime? GraduationYear { get; set; }
+        public int? GraduationYear { get; set; }
 
         public Guid CredentialId { get; set; }
         public virtual Credential Credential { get; set; }

@@ -8,7 +8,7 @@ namespace UserProfile.Command.Commands
 {
     public class AddPlaceCommand:ICommand
     {
-        public AddPlaceCommand(Guid credentialId, String locationName, DateTime? startYear, DateTime? endYear, Boolean isCurrentyLiving)
+        public AddPlaceCommand(Guid credentialId, String locationName, int? startYear, int? endYear, Boolean isCurrentyLiving)
         {
             CredentialId = credentialId;
             LocationName = locationName;
@@ -18,8 +18,8 @@ namespace UserProfile.Command.Commands
         }
         public Guid Id { get; set; }
         public String LocationName { get; set; }
-        public DateTime? StartYear { get; set; }
-        public DateTime? EndYear { get; set; }
+        public int? StartYear { get; set; }
+        public int? EndYear { get; set; }
         public Boolean IsCurrentyLiving { get; set; }
 
         public Guid CredentialId { get; set; }

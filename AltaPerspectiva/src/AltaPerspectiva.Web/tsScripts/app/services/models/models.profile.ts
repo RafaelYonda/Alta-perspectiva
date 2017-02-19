@@ -15,8 +15,8 @@
 export class Employment {
     position: string;
     companyName: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: number;
+    endDate: number;
     isCurrentlyWorking: boolean;
     credentialId: string;
 }
@@ -33,7 +33,7 @@ export class Education {
     concentration: string;
     secondaryConcentration: string;
     degreeType: string;
-    graduaionYear: string;
+    graduaionYear: number;
     credentialId: string;
 
 }
@@ -43,8 +43,8 @@ export class Follower {
 }
 export class Place {
     locationName: string;
-    startYear: Date;
-    endYear: Date;
+    startYear: number;
+    endYear: number;
     isCurrentyLiving: boolean;
     credentialId: string;
 }

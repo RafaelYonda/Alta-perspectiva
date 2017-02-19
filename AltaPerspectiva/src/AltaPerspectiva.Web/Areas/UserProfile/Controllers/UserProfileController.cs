@@ -207,14 +207,14 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
         
          
-          DateTime? graduationYear = null;
-            if (!String.IsNullOrEmpty(model.GraduationYear))
-            {
-                graduationYear = new DateTime(int.Parse(model.GraduationYear),1,1);
-            }
+          //DateTime? graduationYear = null;
+          //  if (!String.IsNullOrEmpty(model.GraduationYear))
+          //  {
+          //      graduationYear = new DateTime(int.Parse(model.GraduationYear),1,1);
+          //  }
            
 
-AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.SchoolName,model.Concentration,model.SecondaryConcentration,model.DegreeType,graduationYear);
+AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.SchoolName,model.Concentration,model.SecondaryConcentration,model.DegreeType,model.GraduationYear);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
@@ -270,18 +270,9 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            DateTime? startDate=null;
-            DateTime? endDate=null;
-            if (!String.IsNullOrEmpty(model.StartDate))
-            {
-                startDate=new DateTime(int.Parse(model.StartDate),1,1);
-            }
-            if (!String.IsNullOrEmpty(model.EndDate))
-            {
-                endDate = new DateTime(int.Parse(model.EndDate),1,1);
-            }
+           
 
-            AddEmploymentCommand command = new AddEmploymentCommand(model.CredentialId, model.Position, model.CompanyName, startDate, endDate, model.IsCurrentlyWorking);
+            AddEmploymentCommand command = new AddEmploymentCommand(model.CredentialId, model.Position, model.CompanyName, model.StartDate, model.EndDate, model.IsCurrentlyWorking);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
@@ -296,8 +287,8 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            UpdateEmploymentCommand command = new UpdateEmploymentCommand(loggedinUser, "position", "companies", DateTime.Now, DateTime.Now, true);
-            commandsFactory.ExecuteQuery(command);
+            //UpdateEmploymentCommand command = new UpdateEmploymentCommand(loggedinUser, "position", "companies", model., DateTime.Now, true);
+          //  commandsFactory.ExecuteQuery(command);
 
             return Ok();
         }
@@ -353,17 +344,8 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            DateTime? startYear = null;
-            DateTime? endYear = null;
-            if (!String.IsNullOrEmpty(model.StartYear))
-            {
-                startYear = new DateTime(int.Parse(model.StartYear), 1, 1);
-            }
-            if (!String.IsNullOrEmpty(model.EndYear))
-            {
-                endYear = new DateTime(int.Parse(model.EndYear), 1, 1);
-            }
-            AddPlaceCommand command = new AddPlaceCommand(loggedinUser, model.LocationName, startYear, endYear, model.IsCurrentyLiving);
+            
+            AddPlaceCommand command = new AddPlaceCommand(loggedinUser, model.LocationName, model.StartYear, model.EndYear, model.IsCurrentyLiving);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
@@ -378,17 +360,8 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            DateTime? startYear = null;
-            DateTime? endYear = null;
-            if (!String.IsNullOrEmpty(model.StartYear))
-            {
-                startYear = new DateTime(int.Parse(model.StartYear), 1, 1);
-            }
-            if (!String.IsNullOrEmpty(model.EndYear))
-            {
-                endYear = new DateTime(int.Parse(model.EndYear), 1, 1);
-            }
-            UpdatePlaceCommand command = new UpdatePlaceCommand(loggedinUser, model.LocationName, startYear, endYear, model.IsCurrentyLiving);
+            
+            UpdatePlaceCommand command = new UpdatePlaceCommand(loggedinUser, model.LocationName, model.StartYear, model.EndYear, model.IsCurrentyLiving);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
