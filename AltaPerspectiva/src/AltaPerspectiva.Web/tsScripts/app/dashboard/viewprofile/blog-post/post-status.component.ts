@@ -9,7 +9,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
     providers: [BlogService]
 })
 export class PostStatusComponent {
-    @Input() blogpost: BlogPost;
+    @Input() blogPost: BlogPost;
 
     @Output() onQuestionDetailClicked = new EventEmitter<boolean>();
     @Output() onQuestionReportClicked = new EventEmitter<any>();
@@ -23,31 +23,26 @@ export class PostStatusComponent {
     }
 
     ngOnInit() {
-        if (this.blogpost) {
-            this.commentId = this.blogpost.id;
-            this.CommentCount = this.blogpost.blogComments.length;
-        }
-        //else {
-        //    this.commentId = this.answerObj.id;
-        //    this.CommentCount = this.answerObj.comments ? this.answerObj.comments.length : 0;
-        //}
+        if (this.blogPost.blogComments) {            
+            this.CommentCount = this.blogPost.blogComments.length;
+        }       
     }
 
 
     submitLike(postId: string) {
         this.like = new BlogLike();
-        this.blogService.getPostAlreadyLiked(this.blogpost.id).subscribe(res => {
+        this.blogService.getPostAlreadyLiked(this.blogPost.id).subscribe(res => {
             if (res == true) return;
             else {
-                this.blogService.addPostLike(this.blogpost.id, this.like).subscribe(res => {
-                    this.blogpost.blogLike.push(this.like);
+                this.blogService.addPostLike(this.blogPost.id, this.like).subscribe(res => {
+                    this.blogPost.blogLike.push(this.like);
                 });
             }
         });
     }
 
     showLikeUserDetails() {
-        this.blogService.showLikeUserDetailsByBlogPost(this.blogpost.id).subscribe(res => {
+        this.blogService.showLikeUserDetailsByBlogPost(this.blogPost.id).subscribe(res => {
             this.likedUsers = res;
         });
     }
