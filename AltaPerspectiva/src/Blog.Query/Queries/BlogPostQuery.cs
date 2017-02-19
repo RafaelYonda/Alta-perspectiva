@@ -16,8 +16,6 @@ namespace Blog.Query.Queries
         {
         }
 
-       
-
         public async Task<List<BlogPost>> GetBlogPostsByBlogId(Guid blogId)
         {
             return await
@@ -27,7 +25,5 @@ namespace Blog.Query.Queries
                 .Include(x=>x.BlogLikes)
                 .Where(x => x.BlogId == blogId &&x.IsDeleted==null).OrderByDescending(x=>x.CreatedOn).ToListAsync();
         }
-
-
     }
 }

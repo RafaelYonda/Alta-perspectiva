@@ -1,4 +1,5 @@
-﻿import { NgModule } from '@angular/core';
+﻿/// <reference path="viewprofile/blog-post/post-comment.component.ts" />
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { ModuleWithProviders }  from '@angular/core';
@@ -29,6 +30,7 @@ import { BookmarkComponent } from './viewprofile/bookmark/bookmark.component';
 import { BlogCreateComponent } from './viewprofile/blog-create/blog-create.component';
 import { BlogPostComponent } from './viewprofile/blog-post/blog-post.component'; 
 import { PostStatusComponent } from './viewprofile/blog-post/post-status.component'; 
+import { BlogpostCommentComponent } from './viewprofile/blog-post/post-comment.component'; 
 import { PostedQuestionComponent } from './viewprofile/posted-question/posted-question.component';
 
 import { ProfileService } from '../services/profile.service';
@@ -70,7 +72,7 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
     declarations: [
         DashBoardComponent, NavDashboard,
         ViewProfileComponent,
-        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, PostStatusComponent, PostedQuestionComponent,
+        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, PostStatusComponent, BlogpostCommentComponent, PostedQuestionComponent,
         //Edit Profile
         AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent
     ],

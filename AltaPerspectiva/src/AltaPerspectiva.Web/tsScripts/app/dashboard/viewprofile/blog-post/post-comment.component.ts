@@ -16,8 +16,6 @@ export class BlogpostCommentComponent {
     commentId: string;
     _logObj: LogInObj;
     @Input() blogPostId: string = '';
-    @Input() answerId: string = '';
-    @Input() isQuestion: any;
 
     @Output() sendCommentCount = new EventEmitter<any>();
     constructor(private commentService: BlogService) {
