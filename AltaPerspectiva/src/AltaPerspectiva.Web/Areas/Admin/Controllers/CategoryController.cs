@@ -32,7 +32,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             queryFactory = _queryFactory;
             environment = _environment;
         }
-        [HttpGet("Admin/")]
+        [HttpGet("sitemanagement/")]
         public IActionResult Index()
         {
             return RedirectToAction("AddCategory");

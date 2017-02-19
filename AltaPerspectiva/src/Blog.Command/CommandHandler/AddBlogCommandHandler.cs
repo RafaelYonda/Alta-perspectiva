@@ -21,20 +21,33 @@ namespace Blog.Command.CommandHandler
         public override void Execute(AddBlogCommand command)
         {
             Debug.WriteLine("AddBlogCommandHandler executed");
-            Domain.Blog blog = new Domain.Blog
+
+            Domain.Blog alreadyExist = DbContext.Blogs.Where(x => x.Url == command.Url).FirstOrDefault();
+            if (alreadyExist == null)
             {
-                UserId = command.UserId,
-                CreatedOn = DateTime.Now,
-                Title = command.Title,
-                Description = command.Description,
-                Url = command.Url,
-                CreatedBy = command.UserId
-            };
-            DbContext.Blogs.Add(blog);
+                Domain.Blog blog = new Domain.Blog
+                {
+                    UserId = command.UserId,
+                    CreatedOn = DateTime.Now,
+                    Title = command.Title,
+                    Description = command.Description,
+                    Url = command.Url,
+                    CreatedBy = command.UserId
+                };
+                blog.GenerateNewIdentity();
+                DbContext.Blogs.Add(blog);
+                DbContext.SaveChanges();
+                command.Id = blog.Id;
+            }
+            else
+            {
+               command.Id=Guid.Empty;
+            }
+
+            
             
 
-            DbContext.SaveChanges();
-            command.Id = blog.Id;
+            
         }
     }
 }

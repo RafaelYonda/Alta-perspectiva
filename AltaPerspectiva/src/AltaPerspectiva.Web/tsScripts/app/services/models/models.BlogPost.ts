@@ -4,7 +4,9 @@ export class BlogPost {
     title: string;
     description: string;
     userId: string;
+    blogId:string;
     blogViewCount: number;
+    createdOn:string;
     blogComments: BlogComment[];
     blogLike: BlogLike[];
     constructor() {
@@ -20,6 +22,7 @@ export class Blog {
     description: string;
     blogs: BlogPost[];
     credential: CredentialViewModel;
+    userViewModel: UserViewModel;
 }
 export class BlogLike {
     id: string;
@@ -30,4 +33,11 @@ export class BlogComment {
     userId: string;
     commentText: string;
     createdOn: Date;
+}
+export class UserViewModel {
+    userid: string;
+    name: string;
+    occupassion: string;
+    imageUrl: string;
+    credentialId: string;
 }

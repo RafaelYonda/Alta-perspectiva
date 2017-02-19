@@ -32,6 +32,7 @@ namespace UserProfile.Command.CommandHandler
                 Position = command.Position
                 // CreatedBy = command.UserId
             };
+            employment.GenerateNewIdentity();
             DbContext.Employments.Add(employment);
             DbContext.SaveChanges();
             //Experience experience=new Experience();

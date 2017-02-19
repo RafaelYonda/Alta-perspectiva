@@ -24,6 +24,7 @@ namespace Questions.Command.CommandHandler
             Level level=new Level();
             level.LevelName = command.LevelName;
             level.LevelRank = command.LevelRank;
+            level.GenerateNewIdentity();
             DbContext.Levels.Add(level);
             DbContext.SaveChanges();
 

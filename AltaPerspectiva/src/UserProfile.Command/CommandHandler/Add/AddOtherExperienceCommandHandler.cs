@@ -29,6 +29,7 @@ namespace UserProfile.Command.CommandHandler
                 CategoryId = command.CategoryId,
 
             };
+            experience.GenerateNewIdentity();
             DbContext.OtherExperiences.Add(experience);
             DbContext.SaveChanges();
 

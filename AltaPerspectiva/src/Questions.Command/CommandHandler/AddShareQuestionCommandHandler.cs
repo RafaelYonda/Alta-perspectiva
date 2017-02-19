@@ -34,6 +34,7 @@
 		        CreatedOn = DateTime.Now,
 		        CreatedBy = command.UserId
 		    };
+            question.GenerateNewIdentity();
 		    DbContext.ShareQuestions.Add(question);
 		    
             DbContext.SaveChanges();

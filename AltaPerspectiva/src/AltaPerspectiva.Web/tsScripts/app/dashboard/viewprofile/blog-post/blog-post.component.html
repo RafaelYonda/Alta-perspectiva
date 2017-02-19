@@ -41,23 +41,23 @@
 </style>
 
 <div class="blog-edit-panel" style="border:1px solid">
-    <h1>Blog Name</h1>
-    <h4>Description</h4>
+    <h1>{{blog?.title}}</h1>
+    <h4>{{blog?.description}}</h4>
     <div class="btn-blog-edit">Edit</div>
-    <div><img class="profile-image" src="../../../../profile/zafrul.png" /></div>
-    <h1>Zafrul Hasan</h1>
+    <div><img class="profile-image" src="../../../../profile/{{blog?.userViewModel?.imageUrl}}" /></div>
+    <h1>{{blog?.userViewModel?.name}}</h1>
     <div class="txt-small-grey">Write post</div>
     <form (ngSubmit)="saveBlogPost()" #blogPostForm="ngForm">
         <div class="blog-post">
             <h1>
                 <input class="transparent-input" id="title" [(ngModel)]="blogPost.title" required name="title"
-                       #title="ngModel" />
+                       #title="ngModel" placeholder="Add Title Post" />
             </h1>
             <div>
                 <quill-editor  [ngModelOptions]="{standalone: true}"
-                              [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link', 'image']]}"
+                               [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link', 'image']]}"
                                id="description" [(ngModel)]="blogPost.description"  name="description"
-                      ></quill-editor>
+                ></quill-editor>
                 <button class="btn btn-alta-primary pull-right margin-top-5 btn-sm" [disabled]="!blogPostForm.form.valid">Post Blog</button>
             </div>
         </div>
@@ -65,24 +65,16 @@
 
     <hr />
 </div>
-<div class="blog-list" style="border:1px solid">
-    <div class="blog-header">
-        <h2>Blog Title</h2>
-        <h4>Date</h4>
-    </div>
-    <div>
-        adfmaldmf
-        [sjpasdfpadlkmfadfjasfadksfj
-        adsfa[dsfasdfkaskdf
-        aksdf]apksf
-        amsf
-        amd
-        glmaglma
-        d;gm
-        adg
-        ;adm,g
-        ;adm,g
-        ;adm,gdam,gmad;lmgaldgma\dgm
-        admgag]
+<div *ngIf="blogposts">
+    
+    
+    <div class="blog-list" style="border: 1px solid" *ngFor="let blogpost of blogposts">
+        <div class="blog-header">
+            <h2>{{blogpost?.title}}</h2>
+            <h4>{{blogpost?.createdOn}}</h4>
+        </div>
+        <div>
+            {{blogpost?.description}}
+        </div>
     </div>
 </div>

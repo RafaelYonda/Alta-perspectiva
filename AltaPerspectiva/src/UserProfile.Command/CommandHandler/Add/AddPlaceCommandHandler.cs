@@ -30,6 +30,7 @@ namespace UserProfile.Command.CommandHandler
                 LocationName = command.LocationName,
                 IsCurrentyLiving = command.IsCurrentyLiving
             };
+            place.GenerateNewIdentity();
             DbContext.Places.Add(place);
             DbContext.SaveChanges();
 

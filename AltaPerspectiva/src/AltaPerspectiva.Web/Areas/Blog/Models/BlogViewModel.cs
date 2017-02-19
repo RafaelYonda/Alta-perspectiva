@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AltaPerspectiva.Web.Areas.UserProfile.Models;
 
 namespace AltaPerspectiva.Web.Areas.Blog.Models
 {
-    public class AddBlogViewModel
+    public class BlogViewModel
     {
         public Guid UserId { get; set; }
         // public String BlogName { get; set; }
@@ -13,5 +14,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Models
         public String Title { get; set; }
         public String Url { get; set; }
         public String Description { get; set; }
+
+        public UserViewModel UserViewModel { get; set; }
     }
 }
