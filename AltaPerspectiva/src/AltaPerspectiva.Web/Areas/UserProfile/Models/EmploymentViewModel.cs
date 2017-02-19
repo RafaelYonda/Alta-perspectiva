@@ -10,8 +10,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
         public Guid Id { get; set; }
         public String Position { get; set; }
         public String CompanyName { get; set; }
-        public int? StartDate { get; set; }
-        public int? EndDate { get; set; }
+        public int StartDate { get; set; }
+        public int EndDate { get; set; }
         public Boolean IsCurrentlyWorking { get; set; }
 
         public Guid CredentialId { get; set; }
