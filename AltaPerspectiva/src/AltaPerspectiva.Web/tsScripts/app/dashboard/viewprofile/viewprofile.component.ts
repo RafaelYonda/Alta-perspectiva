@@ -85,16 +85,7 @@ export class ViewProfileComponent {
             })
 
         });
-    }
-
-    keppSelected(element: Element) {
-        var routes = document.getElementsByClassName('route');
-        console.log(routes[0].classList.remove('route-focus'));
-        for (var i = 0; i < routes.length; i++) {
-            routes[i].classList.remove('route-focus');
-        }
-        element.classList.add('route-focus');
-    }
+    }   
 
     refreshData() {
         this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
@@ -126,30 +117,44 @@ export class ViewProfileComponent {
 
     generateEmploymentHtml() {
 
-        this.employmentExists = true;        
-        
+        this.employmentExists = true;                
 
-        this.employmentHtml = this.credential.employments[0].position.concat(" at ")
-            .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/> ")
-            .concat(this.credential.employments[0].startDate.getFullYear().toString()).concat("-")
-            .concat( this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate.getFullYear().toString());
+        //this.employmentHtml = this.credential.employments[0].position.concat(" at ")
+        //    .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/> ")
+        //    .concat(this.credential.employments[0].startDate.getFullYear().toString()).concat("-")
+        //    .concat( this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate.getFullYear().toString());
     }
 
     generateEducationHtml()
     {
+        /// set education flag to make it visible
         this.educationExists = true;
+
+        var primary = "<i class='fa fa-university'></i> ";
+
+        if (this.credential.educations[0].concentration) {
+            if (this.credential.educations[0].concentration.length > 1) {
+               primary = primary.concat(this.credential.educations[0].concentration);
+            }
+        }
+
         var secondary = "";   
 
         if (this.credential.educations[0].secondaryConcentration) {
             if (this.credential.educations[0].secondaryConcentration.length > 1) {
-                secondary = " & " + this.credential.educations[0].secondaryConcentration + " ";
+                secondary = this.credential.educations[0].secondaryConcentration;
             }
         }
 
-        this.employmentHtml = this.credential.educations[0].degreeType + " "
-            + this.credential.educations[0].concentration +
-            + " <br />"
-            + "Graduated " + this.credential.educations[0].graduaionYear
+        var degree = "";
+
+        if (this.credential.educations[0].degreeType) {
+            if (this.credential.educations[0].degreeType.length > 1) {
+                degree = "<br /> ".concat( this.credential.educations[0].degreeType);
+            }
+        }
+
+        this.educationHtml = primary.concat(" & ").concat(secondary).concat(degree);
     }
 
 

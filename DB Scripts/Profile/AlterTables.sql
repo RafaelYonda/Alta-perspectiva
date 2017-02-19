@@ -33,3 +33,10 @@ GO
 ALTER TABLE UserProfile.Educations
 ADD GraduationYear datetime null
 GO
+
+ALTER TABLE UserProfile.Educations drop column GraduationYear
+GO
+
+ALTER TABLE UserProfile.Educations ADD 	GraduationYear int NULL
+GO
+

@@ -4,9 +4,9 @@
         color: #f6912b;
     }
 
-        .edit:hover {
-            text-decoration: underline;
-        }
+    .edit:hover {
+        text-decoration: underline;
+    }
 </style>
 
 
@@ -49,18 +49,16 @@
             <h3>Credentials</h3>
 
             <ul style="list-style-type: none;">
-                <li>
-                    <div *ngIf="employmentExists">                
-                            <i class="fa-li fa fa-info-circle"></i> {{employmentHtml}}                
-    `               </div>
+                <li>                    
+                    <div *ngIf="employmentExists" [innerHTML]="employmentHtml">
+                    </div>
                     <a  *ngIf="!employmentExists" (click)="openEmploymentDialogAnchor()" class="edit">
                         Add Employment
                     </a>
                 </li>
                 <li>
-                    <div *ngIf="educationExists">
-                        <i class="fa-li fa fa-university"></i>                         
-                    </div>
+                   <div *ngIf="educationExists" [innerHTML]="educationHtml">                                                       
+                   </div>
                     <a  *ngIf="!educationExists" (click)="openEducationDialogAnchor()" class="edit">
                         Add Education
                     </a>
