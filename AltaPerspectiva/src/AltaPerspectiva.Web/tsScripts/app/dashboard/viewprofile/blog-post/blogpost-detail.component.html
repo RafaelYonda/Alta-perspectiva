@@ -59,7 +59,6 @@
                 <h4>{{post?.createdOn}}</h4>
             </div>
             <div>
-                {{post?.description}}
                 <div class="article-details">
                     <div *ngIf="post?.description">
                         <p [innerHTML]="post?.description"></p><span><a>Read more..</a></span>
