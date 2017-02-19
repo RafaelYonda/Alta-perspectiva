@@ -1,5 +1,4 @@
-﻿/// <reference path="viewprofile/blog-post/post-comment.component.ts" />
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { ModuleWithProviders }  from '@angular/core';
@@ -17,7 +16,7 @@ import { DirectQuestionComponent } from './viewprofile/direct-question/direct-qu
 //Edit Profile Forms +Modal
 import { AddCredentialComponent } from './viewprofile/edit-profile/add-credential.component';
 import { AddEducationComponent } from './viewprofile/edit-profile/add-education.component';
-import { AddEmploymentComponent } from './viewprofile/edit-profile/add-employment.component';//Done 
+import { AddEmploymentComponent } from './viewprofile/edit-profile/add-employment.component';
 
 import { AddOtherExperienceComponent } from './viewprofile/edit-profile/add-otherexperience.component';
 import { AddPlaceComponent } from './viewprofile/edit-profile/add-place.component';
@@ -27,11 +26,12 @@ import { UserQuestionComponent } from './viewprofile/user-question/user-question
 import { FollowingComponent } from './viewprofile/following/following.component';
 import { FollowerComponent } from './viewprofile/follower/follower.component';
 import { BookmarkComponent } from './viewprofile/bookmark/bookmark.component';
+import { PostedQuestionComponent } from './viewprofile/posted-question/posted-question.component';
 import { BlogCreateComponent } from './viewprofile/blog-create/blog-create.component';
 import { BlogPostComponent } from './viewprofile/blog-post/blog-post.component'; 
 import { PostStatusComponent } from './viewprofile/blog-post/post-status.component'; 
 import { BlogpostCommentComponent } from './viewprofile/blog-post/post-comment.component'; 
-import { PostedQuestionComponent } from './viewprofile/posted-question/posted-question.component';
+import { BlogpostDetailComponent } from './viewprofile/blog-post/blogpost-detail.component';
 
 import { ProfileService } from '../services/profile.service';
 import { ProfileResolver } from '../services/resolve.services/profile.resolver';
@@ -72,12 +72,12 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
     declarations: [
         DashBoardComponent, NavDashboard,
         ViewProfileComponent,
-        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, PostStatusComponent, BlogpostCommentComponent, PostedQuestionComponent,
+        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, PostStatusComponent, BlogpostCommentComponent, BlogpostDetailComponent, PostedQuestionComponent,
         //Edit Profile
         AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent
     ],
     exports: [DashBoardComponent],
-    entryComponents: [AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent]
+    entryComponents: [AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, BlogpostDetailComponent]
 })
 export class DashBoardModule { }
 
