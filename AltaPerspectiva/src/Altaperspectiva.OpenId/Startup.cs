@@ -111,14 +111,15 @@ namespace Altaperspectiva.OpenId {
             // Using it is recommended if your resource server is in a
             // different application/separated from the authorization server.
             // 
-            // app.UseOAuthIntrospection(options => {
-            //     options.AutomaticAuthenticate = true;
-            //     options.AutomaticChallenge = true;
-            //     options.Authority = "http://localhost:54540/";
-            //     options.Audience = "resource_server";
-            //     options.ClientId = "resource_server";
-            //     options.ClientSecret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd";
-            // });
+            app.UseOAuthIntrospection(options =>
+            {
+                options.AutomaticAuthenticate = true;
+                options.AutomaticChallenge = true;
+                options.Authority = "http://localhost:54540/";
+                options.Audience = "resource_server";
+                options.ClientId = "resource_server";
+                options.ClientSecret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd";
+            });
             app.UseSession();
             app.UseCsp(options => options.DefaultSources(directive => directive.Self())
                 .ImageSources(directive => directive.Self()
