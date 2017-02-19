@@ -41,6 +41,7 @@
                     AnswerId = command.AnswerId,
                     CreatedOn = DateTime.Now
                 };
+                questionFollowing.GenerateNewIdentity();
                 DbContext.QuestionFollowings.Add(questionFollowing);
                 
             }

@@ -33,6 +33,7 @@ namespace UserProfile.CommandHandler
                 CreatedOn = DateTime.Now
                
             };
+            education.GenerateNewIdentity();
             DbContext.Educations.Add(education);
 
 

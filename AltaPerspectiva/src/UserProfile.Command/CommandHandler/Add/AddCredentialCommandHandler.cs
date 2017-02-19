@@ -43,6 +43,7 @@ namespace UserProfile.Command.CommandHandler
                     CreatedOn = DateTime.Now,
                     Description = command.Description
                 };
+                credential.GenerateNewIdentity();
                 DbContext.Credentials.Add(credential);
                 command.Id = credential.Id;
             }

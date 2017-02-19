@@ -30,7 +30,7 @@ namespace Blog.Query.Queries
                 .Where(x => x.Id == id).FirstOrDefault();
         }
 
-        public List<Domain.Blog> GetBlogList(Guid userId)
+        public List<Domain.Blog> GetBlogs(Guid userId)
         {
             return DbContext.Blogs
               //.Include(bp=>bp.BlogPosts)

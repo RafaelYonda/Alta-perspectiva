@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 
 namespace AltaPerspectiva.Web.Areas.Blog.Models
 {
-    public class AddBlogPostViewModel
+    public class BlogPostViewModel
     {
+        public Guid BlogId { get; set; }
+        //public Guid UserId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public DateTime? CreatedOn { get; set; }
     }
 }

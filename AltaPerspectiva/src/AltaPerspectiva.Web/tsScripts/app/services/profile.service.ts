@@ -132,8 +132,8 @@ export class ProfileService {
             .catch(this.handleError);
     }
     //=====blog and hi=this post==
-    GetBlog(userId: string): Observable<Blog> {
-        return this._http.get('blog/api/getblog/' + userId)
+    GetBlogs(userId: string): Observable<Blog[]> {
+        return this._http.get('blog/api/getblogs/' + userId)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -142,33 +142,34 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    GetBlogPostByBlogId(id: string): Observable<BlogPost[]> {
-        return this._http.get('blog/api/getblogpostbyblogid/' + id)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
 
-    GetBlogList(userId: string): Observable<Blog[]> {
-        return this._http.get('blog/api/getbloglist/' + userId)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
     SaveBlog(blog: Blog): Observable<Blog> {
         return this._http.post('blog/api/saveblog', blog)
             .map(this.extractData)
             .catch(this.handleError);
     }
-    GetBlogPost(userId: string): Observable<any> {
+    UpdateBlog(blog: Blog): Observable<Blog> {
+        return this._http.post('blog/api/updateblog', blog)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    GetBlogPosts(userId: string): Observable<BlogPost[]> {
         return this._http.get('blog/api/getblogpost/'+ userId)
             .map(this.extractData)
             .catch(this.handleError);
     }
-
+    GetBlogPostsByBlogId(blogId: string): Observable<BlogPost[]> {
+        return this._http.get('blog/api/getblogpostsbyblogid/' + blogId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+   
     SaveBlogPost(blogPost: BlogPost): Observable<any> {
         return this._http.post('blog/api/saveblogpost', blogPost)
             .map(this.extractData)
             .catch(this.handleError);
     }
+    
     DeleteBlogPost(blogPostId: string): Observable<any> {
         return this._http.post('blog/api/deleteblogpost/' + blogPostId, blogPostId)
             .map(this.extractData)
