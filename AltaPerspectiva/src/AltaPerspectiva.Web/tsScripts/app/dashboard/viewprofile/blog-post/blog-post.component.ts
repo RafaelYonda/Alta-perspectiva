@@ -21,6 +21,8 @@ export class BlogPostComponent {
     ngOnInit() {
         //this.blogPost.description
         //this.blogPost.title = "Add Title Post";
+        this.isEditDescription = false;
+        this.isEditTitle = false;
         this._route.params.subscribe(params => {
             this.profileService.GetBlogById(params['blogId']).subscribe(res => {
                 console.log(res);
@@ -32,6 +34,20 @@ export class BlogPostComponent {
                 });
                // this.SetBlogPosts(res.id);
             });
+        });
+    }
+    isEditDescription: boolean;
+    isEditTitle: boolean;
+    updateDescription() {
+
+        this.profileService.UpdateBlog(this.blog).subscribe(res => {
+            this.isEditDescription = false;
+        });
+    }
+    updateTitle() {
+
+        this.profileService.UpdateBlog(this.blog).subscribe(res => {
+            this.isEditTitle = false;
         });
     }
     //SetBlogPosts(blogId: string) {

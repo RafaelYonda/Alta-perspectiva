@@ -36,11 +36,12 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
         [HttpGet("blog/api/getblogs/{userId}")]
         public IActionResult GetBlogs(Guid userId)
         {
-           List< global::Blog.Domain.Blog> blogs = queryFactory.ResolveQuery<IBlogQuery>().GetBlogs(userId);
+            List<global::Blog.Domain.Blog> blogs = queryFactory.ResolveQuery<IBlogQuery>().GetBlogs(userId);
             List<BlogViewModel> blogViewModels = new BlogServices().GetBlogViewModels(queryFactory, blogs);
 
             return Ok(blogViewModels);
         }
+
         [HttpGet("blog/api/getblogbyid/{blogId}")]
         public IActionResult GetBlogById(Guid blogId)
         {
@@ -48,7 +49,8 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
 
             BlogViewModel blogViewModel = new BlogServices().GetBlogViewModel(queryFactory, blog);
             return Ok(blogViewModel);
-        
+        }
+
         [HttpPost("blog/api/saveblog")]
         public IActionResult SaveBlog([FromBody]BlogViewModel model)
         {
@@ -58,20 +60,35 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
                 var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
             }
-            ////  if (model.Id == Guid.Empty)
-            //{
+
             AddBlogCommand command = new AddBlogCommand(model.UserId, model.Title, model.Url, model.Description);
             commandsFactory.ExecuteQuery(command);
             model.Id = command.Id;
-            // }
-            // else
-            // {
-            //Update
-            // }
+
             if (model.Id == Guid.Empty)
             {
                 return Ok("Blog already created");
             }
+            return Ok(model);
+        }
+        [HttpPost("blog/api/updateblog")]
+        public IActionResult UpdateBlog([FromBody]BlogViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
+            }
+            if (model.Id == Guid.Empty)
+            {
+                return Ok("Blog already created");
+            }
+            UpdateBlogCommand command = new UpdateBlogCommand(model.Id,model.Title,model.Description);
+            commandsFactory.ExecuteQuery(command);
+            model.Id = command.Id;
+
+            
             return Ok(model);
         }
         #region BlogPost

@@ -148,6 +148,11 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    UpdateBlog(blog: Blog): Observable<Blog> {
+        return this._http.post('blog/api/updateblog', blog)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     GetBlogPosts(userId: string): Observable<BlogPost[]> {
         return this._http.get('blog/api/getblogpost/'+ userId)
             .map(this.extractData)
@@ -164,6 +169,7 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    
     DeleteBlogPost(blogPostId: string): Observable<any> {
         return this._http.post('blog/api/deleteblogpost/' + blogPostId, blogPostId)
             .map(this.extractData)
