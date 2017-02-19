@@ -25,7 +25,7 @@ namespace Blog.Query.Queries
                 .BlogPosts
                 .Include(x=>x.BlogComments)
                 .Include(x=>x.BlogLikes)
-                .Where(x => x.BlogId == blogId &&x.IsDeleted==null).ToListAsync();
+                .Where(x => x.BlogId == blogId &&x.IsDeleted==null).OrderByDescending(x=>x.CreatedOn).ToListAsync();
         }
 
 

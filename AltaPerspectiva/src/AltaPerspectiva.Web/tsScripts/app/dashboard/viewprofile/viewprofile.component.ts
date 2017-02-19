@@ -116,7 +116,7 @@ export class ViewProfileComponent {
         }
         if (this.credential.employments && this.credential.employments.length > 0)
         {
-            this.generateEmploymentHtml();
+            //this.generateEmploymentHtml();
         }
         if (this.credential.places && this.credential.places.length > 0)
             this.placeExists = true;

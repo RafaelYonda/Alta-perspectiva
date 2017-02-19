@@ -50,18 +50,7 @@ export class BlogPostComponent {
             this.isEditTitle = false;
         });
     }
-    //SetBlogPosts(blogId: string) {
-    //    this.profileService.GetBlogPostByBlogId(blogId).subscribe(res => {
-    //        console.log(res);
-    //        this.blogposts = res;
-    //    });
-    //}
-    //SetUserInfo(userId: string) {
-    //    this.profileService.userInfoDetails(userId).subscribe(res => {
-    //        console.log(res);
-    //        this.userInfoDetails = res;
-    //    });
-    //}
+    
     saveBlogPost() {
         this.blogPost.blogId = this.blogId;
         console.log(this.blogPost);

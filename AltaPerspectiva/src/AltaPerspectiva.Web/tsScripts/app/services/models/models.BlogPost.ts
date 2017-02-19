@@ -30,6 +30,7 @@ export class BlogLike {
     blogPostId: string;
 }
 export class BlogComment {
+    blogPostId: string;
     userId: string;
     commentText: string;
     createdOn: Date;

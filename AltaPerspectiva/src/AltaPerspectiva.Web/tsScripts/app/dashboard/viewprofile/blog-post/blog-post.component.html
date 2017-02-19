@@ -44,11 +44,11 @@
 <div class="blog-edit-panel" style="border:1px solid">
     <h1 *ngIf="!isEditTitle">{{blog?.title}}</h1>
     <div class="btn-blog-edit">
-        <div *ngIf="!isEditDescription">
+        <div *ngIf="!isEditTitle">
             <a (click)="isEditTitle=true">edit</a>
         </div>
         <div *ngIf="isEditTitle">
-            <input placeholder="update description" [(ngModel)]="blog.title" type="text" />
+            <input placeholder="update title" [(ngModel)]="blog.title" type="text" />
             <button class="btn btn-primary" (click)="updateTitle()">Update</button>
         </div>
 
@@ -87,15 +87,23 @@
     <hr />
 </div>
 <div *ngIf="blogposts">
-
-
-    <div class="blog-list" style="border: 1px solid" *ngFor="let blogpost of blogposts">
+    <div class="blog-list" style="border: 1px solid" *ngFor="let post of blogposts">
         <div class="blog-header">
-            <h2>{{blogpost?.title}}</h2>
-            <h4>{{blogpost?.createdOn}}</h4>
+            <h2>{{post?.title}}</h2>
+            <h4>{{post?.createdOn}}</h4>
         </div>
         <div>
-            {{blogpost?.description}}
+            {{post?.description}}
+
+            <div class="article-details">
+                    <div *ngIf="post?.description">
+                <p [innerHTML]="post?.description.substring(0, 200)"></p><span><a>Read more..</a></span>
+            </div>
+                    <!--<div>
+                        <p>Test skfdso  spdfjksp df[oksdf [skdof [sld;fkk[k'sdfkjsdhfiujhbjanfd adf afjpa fai fpisa]]]]</p><span><a>Read more..</a></span>
+                    </div>-->
+                <post-status></post-status>
+            </div>
         </div>
     </div>
 </div>
