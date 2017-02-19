@@ -81,7 +81,11 @@ export class ViewProfileComponent {
 
         });
     }   
-
+    onUpdatedProfile(updated)
+    {
+        if (updated)
+            this.refreshData();
+    }
     refreshData() {
         this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
             this.credential = usr;

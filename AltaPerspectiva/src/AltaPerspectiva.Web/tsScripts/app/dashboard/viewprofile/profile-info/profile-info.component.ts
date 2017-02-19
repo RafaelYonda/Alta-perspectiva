@@ -1,4 +1,4 @@
-﻿import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver,Input } from '@angular/core';
+﻿import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, Output, EventEmitter } from '@angular/core';
 import { ImageUploadService } from '../../../services/image-upload.service';
 import { ConfigService } from '../../../services/config.service';
 import { CredentialViewModel } from '../../../services/models/models.profile';
@@ -20,6 +20,9 @@ export class ProfileInfoComponent {
     @Input() credential: CredentialViewModel = new CredentialViewModel();
     hasCredential: boolean;
     hasDescription: boolean;
+
+    @Output() onUpdated = new EventEmitter<boolean>();
+
     constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
     }
     ngOnInit() {
@@ -61,7 +64,7 @@ export class ProfileInfoComponent {
     UpdateUserName() {
         this.isUserHidden = true;
         this.profileService.SaveUserName(this.credential.firstName, this.credential.lastName, this.credential.userId).subscribe(res => {
-
+            this.onUpdated.emit(true);
             this.loadData();
         });
     }
