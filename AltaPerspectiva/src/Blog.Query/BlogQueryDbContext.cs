@@ -31,6 +31,24 @@ namespace Blog.Query
             }
         }
 
+        public IQueryable<BlogLike> BlogLikes
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<BlogLike>().AsNoTracking();
+            }
+        }
+
+        public IQueryable<BlogComment> BlogComments
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<BlogComment>().AsNoTracking();
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("Blog");

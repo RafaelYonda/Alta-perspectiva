@@ -12,7 +12,7 @@ import { BlogPost, BlogLike, BlogComment } from '../../../services/models/models
 export class BlogpostCommentComponent {
 
     commentText: string;
-    comment: BlogComment;
+    comment: BlogComment = new BlogComment();
     comments: BlogComment[];    
 
     _logObj: LogInObj;
@@ -45,6 +45,7 @@ export class BlogpostCommentComponent {
         this.comment = result;
         this.comments.push(this.comment);
     }
+
     submitComment(blogPostId: string) {
 
         if (this.comment.commentText.trim() == "")

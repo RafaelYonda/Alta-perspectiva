@@ -64,6 +64,41 @@ namespace AltaPerspectiva.Web.Areas.Blog.Services
                 blogPostViewModels.Add(blogPostViewModel);
             }
             return blogPostViewModels;
-        } 
+        }
+
+        public List<BlogCommentViewModel> GetBlogPostCommentViewModels(List<BlogComment> blogPosts, IQueryFactory queryFactory)
+        {
+            List<BlogCommentViewModel> commentsVM = new List<BlogCommentViewModel>();
+            foreach (var vm in commentsVM)
+            {
+                BlogCommentViewModel commentViewModel = new BlogCommentViewModel
+                {
+                    Id = vm.Id,
+                    UserId = vm.UserId,
+                    User = new UserService().GetUserViewModel(queryFactory, vm.UserId),
+                    CommentText = vm.CommentText,
+                   BlogPostId = vm.BlogPostId
+                };
+                commentsVM.Add(commentViewModel);
+            }
+            return commentsVM;
+        }
+
+        public List<BlogLikeViewModel> GetBlogPostLikeViewModels(IQueryFactory queryFactory, List<BlogLike> likes)
+        {
+            List<BlogLikeViewModel> likesVM = new List<BlogLikeViewModel>();
+            foreach (var vm in likes)
+            {
+                BlogLikeViewModel lvm = new BlogLikeViewModel
+                {
+                    Id = vm.Id,
+                    BlogPostId = vm.BlogPostId,
+                    UserId = vm.BlogPostId,
+                    User = new UserService().GetUserViewModel(queryFactory,vm.UserId)
+                };
+                likesVM.Add(lvm);
+            }
+            return likesVM;
+        }
     }
 }

@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using AltaPerspectiva.Web.Areas.Blog.Models;
 using AltaPerspectiva.Web.Areas.Blog.Services;
 using Blog.Domain;
+using AltaPerspectiva.Web.Areas.UserProfile.Models;
+using AltaPerspectiva.Web.Areas.UserProfile.Services;
 
 namespace AltaPerspectiva.Web.Areas.Blog.Controllers
 {
@@ -135,6 +137,85 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
 
             return Ok();
         }
+
+
+        [HttpPost("blog/api/{blogPostId}/addcomment")]
+        public IActionResult AddCommentToBlogPost([FromBody]BlogCommentViewModel comment)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
+            }
+
+            AddBlogCommentCommand command = new AddBlogCommentCommand(comment.CommentText,comment.BlogPostId,comment.UserId);
+            commandsFactory.ExecuteQuery(command);
+
+            return Ok();
+        }
+
+
+        [HttpPost("blog/api/{blogPostId}/addlike")]
+        public IActionResult AddLikeToBlogPost([FromBody]BlogLikeViewModel like)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
+            }
+
+            AddBlogLikeCommand command = new AddBlogLikeCommand(like.BlogPostId,like.UserId);
+            commandsFactory.ExecuteQuery(command);
+
+            return Ok();
+        }
+
+
+        [HttpGet("blog/api/{{blogPostId}}/getalreadyLiked")]
+        public async Task<IActionResult> GetBlogAlreadyLiked(Guid blogPostId)
+        {
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            var likes = await queryFactory.ResolveQuery<IBlogPostLikeQuery>().GetBlogPostIdUserAlreadyLiked(blogPostId, loggedinUser);
+            Boolean alreadyLiked = false;
+            if (likes.Count > 0)
+                alreadyLiked = true;
+            return Ok(new { result = alreadyLiked });
+        }
+
+
+        [HttpGet("blog/api/{{blogPostId}}/like")]
+        public async Task<IActionResult> GetBlogLikes(Guid blogPostId)
+        {
+            var likes = await queryFactory.ResolveQuery<IBlogPostLikeQuery>().GetBlogPostLikesById(blogPostId);
+
+            List<UserViewModel> userViewModels = new List<UserViewModel>();
+            foreach (var like in likes)
+            {
+                Guid userId = like.UserId;
+                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
+                userViewModels.Add(userViewModel);
+            }
+            return Ok(userViewModels);
+
+        }
+
+        [HttpGet("blog/api/{{blogPostId}}/comments")]
+        public async Task<IActionResult> GetBlogComments(Guid blogPostId)
+        {
+            var comments = await queryFactory.ResolveQuery<IBlogPostCommentQuery>().GetBlogPostCommentsById(blogPostId);
+            var commentsVM = new BlogServices().GetBlogPostCommentViewModels(comments,queryFactory);
+            return Ok(commentsVM);
+        }
+
         #endregion
 
 
