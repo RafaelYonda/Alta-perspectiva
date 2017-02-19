@@ -83,7 +83,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="pwd">Graduation Year</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="CertificationType" placeholder="Msc." [(ngModel)]="education.graduaionYear" [ngModelOptions]="{standalone: true}">
+                            <input type="number" class="form-control" id="graduaionYear" placeholder="eg.2000" [(ngModel)]="education.graduaionYear" minLength="4" maxLength="4" [ngModelOptions]="{standalone: true}" />
                         </div>
                     </div>
 

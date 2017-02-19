@@ -17,6 +17,7 @@
     .blog-list {
         width: 60%;
         margin: 5px auto;
+        cursor: pointer;
     }
 
     .btn-blog-edit {
@@ -64,7 +65,7 @@
             <input placeholder="update description" [(ngModel)]="blog.description" type="text" />
             <button class="btn btn-primary" (click)="updateDescription()">Update</button>
         </div>
-        
+
     </div>
     <div><img class="profile-image" src="../../../../profile/{{blog?.userViewModel?.imageUrl}}" /></div>
     <h1>{{blog?.userViewModel?.name}}</h1>
@@ -89,26 +90,20 @@
 <br />
 <div *ngIf="blogposts">
 
-    <div class="blog-list" *ngFor="let post of blogposts" (click)="openPostDetailDialog(post)">
+    <div class="blog-list" *ngFor="let post of blogposts" >
         <hr />
         <br />
-        <div class="blog-header">
+        <div class="blog-header" (click)="openPostDetailDialog(post)">
             <h2>{{post?.title}}</h2>
             <h4>{{post?.createdOn}}</h4>
         </div>
-        <div >
-            {{post?.description}}
-
-            <div class="article-details">
-                    <div *ngIf="post?.description">
-                <p [innerHTML]="post?.description.substring(0, 200)"></p><span><a>Read more..</a></span>
-            </div> 
-                                  
-            <post-status  [blogPost]="post"></post-status>
-
-            <blogpost-comment [blogPost]="post"></blogpost-comment>
-
-
+        <div>
+            <div class="article-details" >
+                <div *ngIf="post?.description" (click)="openPostDetailDialog(post)">
+                    <p [innerHTML]="post?.description.substring(0, 200)"></p><span><a>Read more..</a></span>
+                </div>
+                <post-status [blogPost]="post"></post-status>
+                <blogpost-comment [blogPost]="post"></blogpost-comment>
             </div>
         </div>
     </div>

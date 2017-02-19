@@ -18,19 +18,6 @@ export class BlogpostDetailComponent {
     }
     ngOnInit() {
         console.log(this.post);
-        //this.isEditDescription = false;
-        //this.isEditTitle = false;
-        //this._route.params.subscribe(params => {
-        //    this.profileService.GetBlogById(params['blogId']).subscribe(res => {
-        //        console.log(res);
-        //        this.blogId = params['blogId'];
-        //        this.blog = res;
-        //        this.profileService.GetBlogPostsByBlogId(this.blogId).subscribe(res => {
-        //            console.log(res);
-        //            this.blogposts = res;
-        //        });
-        //    });
-        //});
     }
     isEditDescription: boolean;
     isEditTitle: boolean;
@@ -62,7 +49,4 @@ export class BlogpostDetailComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-        
-
-     
 }

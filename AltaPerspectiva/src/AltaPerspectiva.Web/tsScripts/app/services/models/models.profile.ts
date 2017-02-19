@@ -38,7 +38,7 @@ export class Education {
     concentration: string;
     secondaryConcentration: string;
     degreeType: string;
-    graduaionYear: number;
+    graduationYear: number;
     credentialId: string;
 }
 export class Follower {

@@ -345,7 +345,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
 
             }
             
-            AddPlaceCommand command = new AddPlaceCommand(loggedinUser, model.LocationName, model.StartYear, model.EndYear, model.IsCurrentyLiving);
+            AddPlaceCommand command = new AddPlaceCommand(model.CredentialId, model.LocationName, model.StartYear, model.EndYear, model.IsCurrentyLiving);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();

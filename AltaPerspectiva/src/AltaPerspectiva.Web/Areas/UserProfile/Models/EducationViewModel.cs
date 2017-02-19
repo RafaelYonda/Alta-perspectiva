@@ -12,7 +12,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
         public String Concentration { get; set; }
         public String SecondaryConcentration { get; set; }
         public String DegreeType { get; set; }
-        public int? GraduationYear { get; set; }
+        public int GraduationYear { get; set; }
         public Guid CredentialId { get; set; }
        // public Guid UserId { get; set; }
     }
