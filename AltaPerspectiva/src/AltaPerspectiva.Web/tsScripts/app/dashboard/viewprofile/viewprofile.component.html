@@ -7,6 +7,9 @@
         .edit:hover {
             text-decoration: underline;
         }
+        .fa-li {
+            position: static;
+        }
 </style>
 
 
@@ -20,8 +23,14 @@
     <div #placeDialogAnchor></div>
 </div>
 <div class="row">
+    
+    <div class="alert alert-danger center-width" *ngIf="!credential.id">
+        Please add first name and last name to start.
+
+    </div>
     <div class="col-md-9">
-        <div class="row" *ngIf="credential"><profile-info [credential]="credential"></profile-info></div>
+        <div class="row" *ngIf="credential"><profile-info [credential]="credential"></profile-info>
+        </div>
         <div class="row">
             <div class="col-md-3">
                 <ul id="profile-route" class="profile-leftmenu">
@@ -37,45 +46,47 @@
                 </ul>
             </div>
             <div class="col-md-9 border-top-grey">
-                <div style="margin-top:-1px;">
+                <div style="margin-top: -1px;">
                     <!--tricks to hide question top border-->
                     <router-outlet></router-outlet>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" >
         <div>
             <h3>Credentials</h3>
 
             <ul style="list-style-type: none;">
                 <li>
-                    <div *ngIf="employmentExists" [innerHTML]="employmentHtml">
+                    <div *ngIf="employmentExists" innerHTML='<i class="fa fa-suitcase"></i>{{employmentHtml}}'>
+
                     </div>
                     <a *ngIf="!employmentExists" (click)="openEmploymentDialogAnchor()" class="edit">
                         Add Employment
                     </a>
                 </li>
                 <li>
-                    <div *ngIf="educationExists" [innerHTML]="educationHtml">
+                    <div *ngIf="educationExists" innerHTML='<i class="fa fa-university"></i> {{educationHtml}}'>
+                       
                     </div>
                     <a *ngIf="!educationExists" (click)="openEducationDialogAnchor()" class="edit">
                         Add Education
                     </a>
                 </li>
                 <li>
-                    <div *ngIf="placeExists">
-                        <i class="fa-li fa fa-home"></i> {{placeHtml}}
+                    <div *ngIf="placeExists" innerHtml='<i class="fa fa-home"></i> {{placeHtml}}'>
+                        
                     </div>
                     <a *ngIf="!placeExists" (click)="openPlaceDialogAnchor()" class="edit">
                         Add Place
                     </a>
                 </li>
                 <li>
-                    <div *ngIf="othersExists">
-                        <i class="fa-li fa fa-cog"></i> {{othersHtml}}
+                    <div *ngIf="otherExperienceExists" innerHTML='<i class="fa fa-cog"></i> {{othersHtml}}'>
+                        
                     </div>
-                    <a *ngIf="!othersExists" (click)="openOtherexperienceDialogAnchor()" class="edit">
+                    <a *ngIf="!otherExperienceExists" (click)="openOtherexperienceDialogAnchor()" class="edit">
                         Add Others
                     </a>
                 </li>

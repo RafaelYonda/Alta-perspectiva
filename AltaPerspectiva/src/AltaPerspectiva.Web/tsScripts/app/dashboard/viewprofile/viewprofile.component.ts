@@ -50,7 +50,7 @@ export class ViewProfileComponent {
     }
     @ViewChild(ProfileInfoComponent) profileInfo: ProfileInfoComponent
     ngOnInit() {
-
+        
         this.userId = this._route.snapshot.params['userId'];
 
         document.getElementById('question-route').focus();
@@ -102,22 +102,25 @@ export class ViewProfileComponent {
         }
         if (this.credential.employments && this.credential.employments.length > 0)
         {
-            //this.generateEmploymentHtml();
+            this.generateEmploymentHtml();
         }
-        if (this.credential.places && this.credential.places.length > 0)
-            this.placeExists = true;
-        if (this.credential.otherExperiences && this.credential.otherExperiences.length > 0)
-            this.otherExperienceExists = true;
+        if (this.credential.places && this.credential.places.length > 0) {
+            this.generatePlaceHtml();
+        }
+           
+        if (this.credential.otherExperiences && this.credential.otherExperiences.length > 0) {
+              this.generateOtherHtml();
+        }
     }
 
     generateEmploymentHtml() {
 
         this.employmentExists = true;                
 
-        //this.employmentHtml = this.credential.employments[0].position.concat(" at ")
-        //    .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/> ")
-        //    .concat(this.credential.employments[0].startDate.getFullYear().toString()).concat("-")
-        //    .concat( this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate.getFullYear().toString());
+        this.employmentHtml = " "+this.credential.employments[0].position.concat(" at ")
+            .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/> ")
+            .concat(this.credential.employments[0].startDate ? this.credential.employments[0].startDate.toString():"")
+            .concat(this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
     }
 
     generateEducationHtml()
@@ -125,7 +128,7 @@ export class ViewProfileComponent {
         /// set education flag to make it visible
         this.educationExists = true;
 
-        var primary = "";
+        var primary = " ";
 
         if (this.credential.educations[0].concentration) {
             if (this.credential.educations[0].concentration.length > 1) {
@@ -145,17 +148,39 @@ export class ViewProfileComponent {
 
         if (this.credential.educations[0].degreeType) {
             if (this.credential.educations[0].degreeType.length > 1) {
-                degree = "<br /> ".concat( this.credential.educations[0].degreeType);
+                degree = "<br />".concat( this.credential.educations[0].degreeType);
             }
         }
 
         this.educationHtml = primary.concat(" & ").concat(secondary).concat(degree);
     }
-
+    generatePlaceHtml() {
+        this.placeExists = true;
+        let place = this.credential.places[0];
+        var placeHtml = "";
+        if (place.isCurrentyLiving) {
+            placeHtml = "lives at " + place.locationName ;
+        } else {
+            if (place.locationName) {
+                placeHtml = "from " + place.locationName;
+            }
+            
+        }
+        this.placeHtml = placeHtml;
+    }
+    generateOtherHtml() {
+        this.otherExperienceExists = true;
+        let otherExperience = this.credential.otherExperiences[0];
+        var placeHtml = "";
+        if (otherExperience.description) {
+            placeHtml = otherExperience.description;
+        } 
+        this.othersHtml = placeHtml;
+    }
 
     @ViewChild('educationDialogAnchor', { read: ViewContainerRef }) educationDialogAnchor: ViewContainerRef;
     openEducationDialogAnchor() {
-
+        if (!this.credential.id) return;
         this.educationDialogAnchor.clear();
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEducationComponent);
@@ -171,7 +196,7 @@ export class ViewProfileComponent {
 
     @ViewChild('employmentDialogAnchor', { read: ViewContainerRef }) employmentDialogAnchor: ViewContainerRef;
     openEmploymentDialogAnchor() {
-
+        if (!this.credential.id) return;
         this.employmentDialogAnchor.clear();
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEmploymentComponent);
@@ -186,7 +211,7 @@ export class ViewProfileComponent {
     }
     @ViewChild('otherexperienceDialogAnchor', { read: ViewContainerRef }) otherexperienceDialogAnchor: ViewContainerRef;
     openOtherexperienceDialogAnchor() {
-
+        if (!this.credential.id) return;
         this.otherexperienceDialogAnchor.clear();
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddOtherExperienceComponent);
@@ -201,7 +226,7 @@ export class ViewProfileComponent {
     }
     @ViewChild('placeDialogAnchor', { read: ViewContainerRef }) placeDialogAnchor: ViewContainerRef;
     openPlaceDialogAnchor() {
-
+        if (!this.credential.id) return;
         this.placeDialogAnchor.clear();
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddPlaceComponent);

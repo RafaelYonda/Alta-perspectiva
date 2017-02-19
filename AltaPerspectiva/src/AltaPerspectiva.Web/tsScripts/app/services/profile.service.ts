@@ -65,24 +65,24 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    GetTopFiveUserByCategory(id): Observable<User[]> {
+    GetTopFiveUserByCategory(id:string): Observable<User[]> {
 
         return this._http.get('userprofile/api/' + id + '/gettopFiveUserbycategoryid')
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    GetFollowersByUserId(userId): Observable<User[]> {
+    GetFollowersByUserId(userId:string): Observable<User[]> {
         return this._http.get('userprofile/api/followerbyuserid/' + userId)
             .map(this.extractData)
             .catch(this.handleError);
     }
-    GetFollowingsByUserId(userId): Observable<User[]> {
+    GetFollowingsByUserId(userId:string): Observable<User[]> {
         return this._http.get('userprofile/api/followingbyuserId/' + userId)
             .map(this.extractData)
             .catch(this.handleError);
     }
-    GetUsercredentialByUserId(userId): Observable<CredentialViewModel> {
+    GetUsercredentialByUserId(userId:string): Observable<CredentialViewModel> {
         return this._http.get("userprofile/api/credential/getusercredentialbyuserid/" + userId)
             .map(this.extractData)
             .catch(this.handleError);
