@@ -1,21 +1,16 @@
-﻿/// <reference path="../../services/models/models.categorywiseanswer.ts" />
+﻿
 import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ImageUploadService } from '../../services/image-upload.service';
 import { ProfileService } from '../../services/profile.service';
-import { ProfileParameter } from '../../services/models/models.profileparameter';
 
 import { ConfigService } from '../../services/config.service';
-import { CredentialViewModel } from '../../services/models/models.profile';
-import { Employment } from '../../services/models/models.profile';
-import { Education } from '../../services/models/models.Education';
-import { Place } from '../../services/models/models.Place';
-import { OtherExperience } from '../../services/models/models.OtherExperience';
+import { CredentialViewModel, Employment, Education, Place, OtherExperience, ProfileParameter} from '../../services/models/models.profile';
 
 
 
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
-import { CategoryWiseAnswer } from '../../services/models/models.categorywiseanswer';
+import { CategoryWiseAnswer } from '../../services/models/models.profile';
 //Modals
 import { AddEducationComponent } from './edit-profile/add-education.component';
 import { AddEmploymentComponent } from './edit-profile/add-employment.component';//done
@@ -111,7 +106,7 @@ export class ViewProfileComponent {
         }
         if (this.credential.places && this.credential.places.length > 0)
             this.placeExists = true;
-        if (this.credential.otherExperiences && this.credential.otherExperiences.length > 0)
+        if (this.credential.otherExperience && this.credential.otherExperience.length > 0)
             this.otherExperienceExists = true;
     }
 

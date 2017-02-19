@@ -10,7 +10,7 @@
     educations: Education[];
     employments: Employment[];
     places: Place[];
-    otherExperiences: OtherExperiences[];
+    otherExperience: OtherExperience[];
 }
 export class Employment {
     position: string;
@@ -20,22 +20,26 @@ export class Employment {
     isCurrentlyWorking: boolean;
     credentialId: string;
 }
-export class OtherExperiences {
-    credentialId: string;
-    categoryText: string;
+//export class OtherExperiences {
+//    credentialId: string;
+//    categoryText: string;
+//    categoryId: string;
+//    description: string;
+//}
+export class OtherExperience {
     categoryId: string;
     description: string;
+    credentialId: string;
+
 }
 
 export class Education {
-
     schoolName: string;
     concentration: string;
     secondaryConcentration: string;
     degreeType: string;
     graduaionYear: number;
     credentialId: string;
-
 }
 export class Follower {
     followerUserId: string
@@ -48,6 +52,7 @@ export class Place {
     isCurrentyLiving: boolean;
     credentialId: string;
 }
+
 export class Following {
     followingUserId: string
     credentialId: string
@@ -64,4 +69,24 @@ export class UserInfoDetails {
     fullName: string;
     title: string;
     questionViewCount: string;
+}
+export class ProfileParameter {
+    followings: number;
+    followers: number;
+    bookmarks: number;
+    answers: number;
+    questions: number;
+    directQuestions: number;
+    blogs: number;
+
+    //others
+    profileViewCount: number;
+    answerLikeCount: number;
+    answerMadeThisMonth: number;
+    questionMadeThisMonth: number;
+}
+export class CategoryWiseAnswer {
+    categoryName: string;
+    answerCount: number;
+    imageUrl: string;
 }

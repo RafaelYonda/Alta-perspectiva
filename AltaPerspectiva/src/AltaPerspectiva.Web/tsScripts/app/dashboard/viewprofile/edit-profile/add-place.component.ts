@@ -1,5 +1,5 @@
 ﻿import { Component, EventEmitter } from '@angular/core';
-import { Place } from '../../../services/models/models.Place';
+import { Place } from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     selector: 'add-place',

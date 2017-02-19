@@ -1,5 +1,6 @@
-﻿import { Component, EventEmitter } from '@angular/core';
-import { Education } from '../../../services/models/models.Education';
+﻿/// <reference path="../../../services/models/models.profile.ts" />
+import { Component, EventEmitter } from '@angular/core';
+import { Education } from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     selector: 'add-education',
