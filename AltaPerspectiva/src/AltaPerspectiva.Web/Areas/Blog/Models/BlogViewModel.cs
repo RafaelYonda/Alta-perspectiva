@@ -14,7 +14,6 @@ namespace AltaPerspectiva.Web.Areas.Blog.Models
         public String Title { get; set; }
         public String Url { get; set; }
         public String Description { get; set; }
-
-        public UserViewModel UserViewModel { get; set; }
+        public UserViewModel User { get; set; }
     }
 }

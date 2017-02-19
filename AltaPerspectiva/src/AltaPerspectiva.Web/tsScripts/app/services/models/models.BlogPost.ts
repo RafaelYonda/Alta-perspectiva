@@ -1,9 +1,11 @@
 ﻿import { CredentialViewModel } from './models.profile';
+
 export class BlogPost {
     id: string;
     title: string;
     description: string;
     userId: string;
+    user: UserViewModel;
     blogId:string;
     blogViewCount: number;
     createdOn:string;
@@ -22,19 +24,27 @@ export class Blog {
     description: string;
     blogs: BlogPost[];
     credential: CredentialViewModel;
-    userViewModel: UserViewModel;
+    user: UserViewModel;
 }
+
+
 export class BlogLike {
     id: string;
     userId: string;
+    user: UserViewModel
     blogPostId: string;
 }
+
+
 export class BlogComment {
     blogPostId: string;
     userId: string;
+    user: UserViewModel
     commentText: string;
     createdOn: Date;
 }
+
+
 export class UserViewModel {
     userid: string;
     name: string;

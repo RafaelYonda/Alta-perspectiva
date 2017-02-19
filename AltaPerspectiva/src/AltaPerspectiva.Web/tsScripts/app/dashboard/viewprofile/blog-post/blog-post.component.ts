@@ -52,8 +52,7 @@ export class BlogPostComponent {
     }
     
     saveBlogPost() {
-        this.blogPost.blogId = this.blogId;
-        console.log(this.blogPost);
+        this.blogPost.blogId = this.blogId;        
         this.profileService.SaveBlogPost(this.blogPost).subscribe(res => {
             console.log(res);
             this.profileService.GetBlogPostsByBlogId(this.blogId).subscribe(res => {
@@ -61,7 +60,8 @@ export class BlogPostComponent {
                 this.blogposts = res;
             });
         });
-        
+        // clear form
+        this.blogPost = new BlogPost();
     }
     
         

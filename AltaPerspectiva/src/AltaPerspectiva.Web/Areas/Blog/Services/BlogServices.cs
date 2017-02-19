@@ -27,7 +27,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Services
                     blogViewModel.Url = blog.Url;
 
                     blogViewModel.UserId = blog.UserId;
-                    blogViewModel.UserViewModel = userViewModel;
+                    blogViewModel.User = userViewModel;
                     blogViewModels.Add(blogViewModel);
                 }
             }
@@ -42,7 +42,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Services
             blogViewModel.Url = blog.Url;
 
             blogViewModel.UserId = blog.UserId;
-            blogViewModel.UserViewModel = new UserService().GetUserViewModel(queryFactory, blog.UserId);
+            blogViewModel.User = new UserService().GetUserViewModel(queryFactory, blog.UserId);
 
 
             return blogViewModel;
@@ -58,8 +58,9 @@ namespace AltaPerspectiva.Web.Areas.Blog.Services
                     CreatedOn = blogPost.CreatedOn,
                     Title = blogPost.Title,
                     Description = blogPost.Description,
-                    BlogId = blogPost.BlogId
-                };
+                    BlogId = blogPost.BlogId,
+                    User = new UserService().GetUserViewModel(queryFactory, blogPost.UserId)
+            };
                 blogPostViewModels.Add(blogPostViewModel);
             }
             return blogPostViewModels;

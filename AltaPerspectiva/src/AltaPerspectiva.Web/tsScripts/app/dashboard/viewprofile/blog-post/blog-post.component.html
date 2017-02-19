@@ -102,12 +102,12 @@
             <div class="article-details">
                     <div *ngIf="post?.description">
                 <p [innerHTML]="post?.description.substring(0, 200)"></p><span><a>Read more..</a></span>
-            </div>
-                    <!--<div>
-                        <p>Test skfdso  spdfjksp df[oksdf [skdof [sld;fkk[k'sdfkjsdhfiujhbjanfd adf afjpa fai fpisa]]]]</p><span><a>Read more..</a></span>
-                    </div>-->
-                <post-status></post-status>
-                <blogpost-comment [blogPostId]="blogPost.id"></blogpost-comment>
+            </div> 
+                                  
+            <post-status  [blogPost]="post"></post-status>
+
+            <blogpost-comment [blogPost]="post"></blogpost-comment>
+
             </div>
         </div>
     </div>

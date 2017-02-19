@@ -10,22 +10,25 @@ import { BlogPost, BlogLike, BlogComment } from '../../../services/models/models
     providers: [BlogService]
 })
 export class BlogpostCommentComponent {
+
     commentText: string;
     comment: BlogComment;
-    comments: BlogComment[];
-    commentId: string;
+    comments: BlogComment[];    
+
     _logObj: LogInObj;
-    @Input() blogPostId: string = '';
+
+    @Input() blogPost: BlogPost;
 
     @Output() sendCommentCount = new EventEmitter<any>();
+
     constructor(private commentService: BlogService) {
         var user: User = new User();
         user.userid = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
-        this.commentId = this.blogPostId;
-        this.commentService.getPostCommentsByPostId(this.blogPostId).subscribe(res => {
+        
+        this.commentService.getPostCommentsByPostId(this.blogPost.id).subscribe(res => {
             this.comments = res;
         });
             
@@ -42,16 +45,19 @@ export class BlogpostCommentComponent {
         this.comment = result;
         this.comments.push(this.comment);
     }
-    submitComment(questionId: string, answerId: string) {
-        this.comment = new BlogComment();
-        
-        this.comment.commentText = this.commentText;
+    submitComment(blogPostId: string) {
+
         if (this.comment.commentText.trim() == "")
             return;
-        this.comment.blogPostId = this.blogPostId;
+
+        this.comment = new BlogComment();
+        this.comment.blogPostId = blogPostId;
+        this.comment.commentText = this.commentText;        
+        
         this.commentService.addPostComment(this.comment).subscribe(res => {
             this.pushComment(res);
         });
+
         this.sendCommentCount.emit(null);
     }
 }
