@@ -19,9 +19,10 @@ export class PostStatusComponent {
     }
 
     ngOnInit() {
-        if (this.blogPost.blogComments) {            
-            this.CommentCount = this.blogPost.blogComments.length;
-        }       
+        console.log(this.blogPost.likes.length);
+        //if (this.blogPost.comments) {
+        //    this.CommentCount = this.blogPost.comments.length;
+        //}       
     }
 
     submitLike(postId: string) {
@@ -30,7 +31,7 @@ export class PostStatusComponent {
             if (res == true) return;
             else {
                 this.blogService.addPostLike(this.blogPost.id, this.like).subscribe(res => {
-                    this.blogPost.blogLike.push(this.like);
+                    this.blogPost.likes.push(this.like);
                 });
             }
         });

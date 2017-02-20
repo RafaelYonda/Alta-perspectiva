@@ -101,7 +101,7 @@
                 <div *ngIf="post?.description" (click)="openPostDetailDialog(post)">
                     <p [innerHTML]="post?.description.substring(0, 200)"></p><span><a>Read more..</a></span>
                 </div>
-                <div *ngIf="post.id">
+                <div *ngIf="post">
                     <post-status [blogPost]="post"></post-status>
                     <blogpost-comment [blogPost]="post"></blogpost-comment>
                 </div>

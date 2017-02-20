@@ -2,18 +2,18 @@
 
 export class BlogPost {
     id: string;
-    title: string;
-    description: string;
+    blogId: string;
     userId: string;
     user: UserViewModel;
-    blogId:string;
+    title: string;
+    description: string;
     blogViewCount: number;
-    createdOn:string;
-    blogComments: BlogComment[];
-    blogLike: BlogLike[];
+    createdOn: string;
+    comments: BlogComment[];
+    likes: BlogLike[];
     constructor() {
-        this.blogComments = new Array();
-        this.blogLike = new Array();
+        this.comments = new Array();
+        this.likes = new Array();
     }
 }
 export class Blog {

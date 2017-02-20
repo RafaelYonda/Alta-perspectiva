@@ -27,11 +27,11 @@ export class BlogpostCommentComponent {
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
-        
-        this.commentService.getPostCommentsByPostId(this.blogPost.id).subscribe(res => {
-            console.log(res);
-            this.comments = res;
-        });
+        this.comments = this.blogPost.comments;
+        //this.commentService.getPostCommentsByPostId(this.blogPost.id).subscribe(res => {
+        //    console.log(res);
+        //    this.comments = res;
+        //});
             
         var currentUserName = localStorage.getItem('currentUserName');
         var currentUserImage = localStorage.getItem('currentUserImage');

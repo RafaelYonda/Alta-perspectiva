@@ -1,5 +1,5 @@
 ﻿<div class="row">
-    <div class="collapse comment-panel" id="postComment{{commentId}}">
+    <div class="collapse comment-panel" id="postComment{{blogPost.id}}">
         <form #commentForm="ngForm" class="form-horizontal " role="form">
             <div class="comment-input">
                 <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
@@ -9,12 +9,12 @@
         </form>
         <div class="card card-block">
             <div *ngFor="let comment of comments" class="clearfix">
+                <hr />
                 <div *ngIf="comment">
                     <img class="user-image comment-img" src="../../../../profile/{{comment?.user?.imageUrl}}" />
                     <div class="header-info">{{comment?.user?.name}}</div>
                     <p class="answer-text">{{comment.commentText}}</p>
                 </div>
-                <hr />
             </div>
         </div>
     </div>
