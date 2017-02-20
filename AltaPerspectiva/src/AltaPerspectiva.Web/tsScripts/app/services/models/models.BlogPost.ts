@@ -37,13 +37,13 @@ export class BlogLike {
 
 
 export class BlogComment {
+    Id: string;
     blogPostId: string;
     userId: string;
     user: UserViewModel
     commentText: string;
     createdOn: Date;
 }
-
 
 export class UserViewModel {
     userid: string;

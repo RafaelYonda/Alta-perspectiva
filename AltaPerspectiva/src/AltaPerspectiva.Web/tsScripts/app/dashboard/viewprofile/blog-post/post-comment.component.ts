@@ -29,6 +29,7 @@ export class BlogpostCommentComponent {
     ngOnInit() {
         
         this.commentService.getPostCommentsByPostId(this.blogPost.id).subscribe(res => {
+            console.log(res);
             this.comments = res;
         });
             
@@ -50,12 +51,8 @@ export class BlogpostCommentComponent {
 
         if (this.comment.commentText.trim() == "")
             return;
-
-        this.comment = new BlogComment();
         this.comment.blogPostId = blogPostId;
-        this.comment.commentText = this.commentText;        
-        
-        this.commentService.addPostComment(this.comment).subscribe(res => {
+        this.commentService.addPostComment(this.blogPost.id, this.comment).subscribe(res => {
             this.pushComment(res);
         });
 

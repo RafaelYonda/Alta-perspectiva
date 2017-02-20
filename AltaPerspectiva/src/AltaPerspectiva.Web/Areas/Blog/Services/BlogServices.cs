@@ -55,6 +55,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Services
             {
                 BlogPostViewModel blogPostViewModel = new BlogPostViewModel
                 {
+                    Id=blogPost.Id,
                     CreatedOn = blogPost.CreatedOn,
                     Title = blogPost.Title,
                     Description = blogPost.Description,

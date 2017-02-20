@@ -208,7 +208,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
 
         }
 
-        [HttpGet("blog/api/{{blogPostId}}/comments")]
+        [HttpGet("blog/api/{blogPostId}/comments")]
         public async Task<IActionResult> GetBlogComments(Guid blogPostId)
         {
             var comments = await queryFactory.ResolveQuery<IBlogPostCommentQuery>().GetBlogPostCommentsById(blogPostId);

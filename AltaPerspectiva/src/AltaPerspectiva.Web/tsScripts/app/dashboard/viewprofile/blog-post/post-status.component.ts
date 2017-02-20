@@ -11,15 +11,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class PostStatusComponent {
     @Input() blogPost: BlogPost;
 
-    @Output() onQuestionDetailClicked = new EventEmitter<boolean>();
-    @Output() onQuestionReportClicked = new EventEmitter<any>();
-
     commentId: string;
     CommentCount: number;
     like: BlogLike;
     likedUsers: any;
     constructor(private blogService: BlogService) {
-        //this.blogpost.blogLike
     }
 
     ngOnInit() {
@@ -27,7 +23,6 @@ export class PostStatusComponent {
             this.CommentCount = this.blogPost.blogComments.length;
         }       
     }
-
 
     submitLike(postId: string) {
         this.like = new BlogLike();
