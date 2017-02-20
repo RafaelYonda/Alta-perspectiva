@@ -19,7 +19,7 @@
 
     .profile-info input {
         font-family: "myriadpro-regular";
-        font-size: 25px;
+        font-size: 18px;
         font-weight: 700;
         line-height: 27.5px;
         border: 1px solid #bdbdbd;
@@ -37,12 +37,14 @@
     .panel-heading {
         position: relative;
     }
-    .credential{
-        margin-bottom:5px;
+
+    .credential {
+        margin-bottom: 5px;
     }
-    .credential a {
-        display: inline-block;
-    }
+
+        .credential a {
+            display: inline-block;
+        }
 
     .heading {
         display: inline;
@@ -116,7 +118,7 @@
             <input type="file" name="documents" class="custom-file-input" (change)="onChangeImage($event)" [(ngModel)]="doc" #documents="ngModel">
         </div>
     </div>
-    <div class="col-md-9" >
+    <div class="col-md-9">
         <div class="profile-info">
             <!-- ===================User Name================== -->
             <div class="user-name">

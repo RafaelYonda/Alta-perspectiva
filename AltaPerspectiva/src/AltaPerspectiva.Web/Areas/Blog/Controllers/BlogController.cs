@@ -155,11 +155,13 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
                 var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
             }
-
-            AddBlogCommentCommand command = new AddBlogCommentCommand(comment.CommentText,comment.BlogPostId,comment.UserId);
+            
+            AddBlogCommentCommand command = new AddBlogCommentCommand(comment.CommentText,comment.BlogPostId, loggedinUser);
             commandsFactory.ExecuteQuery(command);
 
-            return Ok();
+            comment.User = new UserService().GetUserViewModel(queryFactory, comment.UserId);
+            comment.Id = command.Id;
+            return Ok(comment);
         }
 
 
@@ -180,7 +182,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
         }
 
 
-        [HttpGet("blog/api/{{blogPostId}}/getalreadyLiked")]
+        [HttpGet("blog/api/{blogPostId}/getalreadyLiked")]
         public async Task<IActionResult> GetBlogAlreadyLiked(Guid blogPostId)
         {
 
@@ -195,7 +197,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             Boolean alreadyLiked = false;
             if (likes.Count > 0)
                 alreadyLiked = true;
-            return Ok(new { result = alreadyLiked });
+            return Ok( alreadyLiked );
         }
 
 

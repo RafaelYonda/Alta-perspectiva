@@ -8,7 +8,7 @@
             </div>
         </form>
         <div class="card card-block">
-            <div *ngFor="let comment of comments" class="clearfix">
+            <div *ngFor="let comment of blogPost.comments" class="clearfix">
                 <hr />
                 <div *ngIf="comment">
                     <img class="user-image comment-img" src="../../../../profile/{{comment?.user?.imageUrl}}" />
