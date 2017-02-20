@@ -1,6 +1,7 @@
 ﻿    /*======set back ground for question home page.=======*/
     .navbar-right {
         padding-right:10px;
+        position:relative;
     }
 
 

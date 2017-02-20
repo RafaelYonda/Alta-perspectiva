@@ -3,12 +3,6 @@
 <div class="navbar navbar-inverse navbar-fixed-top z-header backgroundset" [ngClass]="className">
     <ap-search placeBottom="top-fixed"></ap-search>
     <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
         <div asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand logo">
             <img class="navbar-brand logo" src="../images/LOGO CUADRADO.png" />
         </div>
@@ -19,8 +13,6 @@
             <li><a routerLink="/question/home/1">Questions</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
-            <!--<li><a (click)="openLoginDialogAnchor()">Log in</a></li>
-            <li><a (click)="openRegisterDialogAnchor()">Register</a></li>-->
             <li><a href="/signin">Log in</a></li>
             <li><a href="/signin">Register</a></li>
         </ul>
@@ -45,4 +37,5 @@
         </div>
     </div>
 </div>
+<!-- Space showing as it is floating element -->
 <div style="margin-top:66px;"></div>
