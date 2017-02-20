@@ -1,16 +1,16 @@
 ﻿<div class="status-panel">
     <div>
-        <img *ngIf="blogpost?.blogLike?.length<1" src='../images/fade-logo.png' onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
-        <img *ngIf="blogpost?.blogLike?.length>0" src='../images/like-logo.png' />
-        <a href="#"  data-toggle='modal'  attr.data-target="#likeModal{{commentId}}" class="number-box" (click)="showLikeUserDetails()">{{blogpost?.blogLike.length}} </a>
-        <a (click)="submitLike(blogpost?.id)"><div class="status-line">{{blogpost?.blogLike.length>1?'Likes':'Like'}}</div></a>
-        <div class="status-line like-border "></div>
+        <img *ngIf="blogPost?.likes?.length<1" src='../images/fade-logo.png' onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
+        <img *ngIf="blogPost?.likes?.length>0" src='../images/like-logo.png' />
+        <a href="#"  data-toggle='modal'  attr.data-target="#likeModal{{blogPost.id}}" class="status-line number-box" (click)="showLikeUserDetails()">{{blogPost?.likes?.length}} </a>
+        <a (click)="submitLike(blogpost?.id)"><div class="status-line">{{blogPost?.likes?.length>1?'Likes':'Like'}}</div></a>
+        <div class="status-line like-border"></div>
         <div class="status-line number-box">{{blogpost?.blogViewCount?blogpost?.blogViewCount:0}}</div>
         <div class="status-line">Leidos</div>
-        <div class="number-box">
-            {{CommentCount}}
+        <div class="status-line number-box">
+            {{blogPost.comments.length}}
         </div>
-        <a class="status-line" data-toggle="collapse" aria-expanded="false" attr.data-target="#postComment{{commentId}}">Comentarios</a>
+        <a class="status-line" data-toggle="collapse" aria-expanded="false" attr.data-target="#postComment{{blogPost.id}}">Comentarios</a>
 
         <div class="social-icon">
             <a href="https://www.facebook.com/sharer/sharer.php?u={{blogpost?.sharedUrl}}"

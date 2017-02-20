@@ -38,13 +38,13 @@ export class BlogService {
             .publishReplay(1)
             .refCount();
     }
-    addPostComment( comment: BlogComment): Observable<any> {
-        return this._http.post('/questions/api/categories/addfollowers/' , null)
+    addPostComment(postId: string, comment: BlogComment): Observable<any> {
+        return this._http.post('/blog/api/' + postId + '/addcomment/', comment)
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getPostCommentsByPostId(postId: string): Observable<BlogComment[]> {
-        return this._http.get('/questions/api/categories/')
+    getPostCommentsByPostId(blogPostId: string): Observable<BlogComment[]> {
+        return this._http.get('/blog/api/' + blogPostId +'/comments')
             .map(this.extractData)
             .catch(this.handleError)
             .publishReplay(1)

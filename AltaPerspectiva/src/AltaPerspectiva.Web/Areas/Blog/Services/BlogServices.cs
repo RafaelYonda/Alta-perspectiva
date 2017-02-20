@@ -14,7 +14,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Services
     {
         public List<BlogViewModel> GetBlogViewModels(IQueryFactory queryFactory, List<global::Blog.Domain.Blog> blogs)
         {
-            List<BlogViewModel> blogViewModels=new List<BlogViewModel>();
+            List<BlogViewModel> blogViewModels = new List<BlogViewModel>();
             if (blogs.Any())
             {
                 UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, blogs[0].UserId);
@@ -50,17 +50,40 @@ namespace AltaPerspectiva.Web.Areas.Blog.Services
 
         public List<BlogPostViewModel> GetBlogPostViewModels(IQueryFactory queryFactory, List<BlogPost> blogPosts)
         {
-            List<BlogPostViewModel> blogPostViewModels=new List<BlogPostViewModel>();
+            List<BlogPostViewModel> blogPostViewModels = new List<BlogPostViewModel>();
             foreach (var blogPost in blogPosts)
             {
                 BlogPostViewModel blogPostViewModel = new BlogPostViewModel
                 {
+                    Id = blogPost.Id,
                     CreatedOn = blogPost.CreatedOn,
                     Title = blogPost.Title,
                     Description = blogPost.Description,
                     BlogId = blogPost.BlogId,
                     User = new UserService().GetUserViewModel(queryFactory, blogPost.UserId)
-            };
+                };
+
+                //BlogCommentViewModel
+                List<BlogCommentViewModel> blogCommentViewModels = blogPost.BlogComments.Select(x => new BlogCommentViewModel
+                {
+                    CommentText = x.CommentText,
+                    UserId = x.UserId,
+                    Id = x.Id,
+                    BlogPostId = x.BlogPostId,
+                    User = new UserService().GetUserViewModel(queryFactory, x.UserId)
+                }).ToList();
+                blogPostViewModel.Comments = blogCommentViewModels;
+
+                //BlogLikeViewModel
+                List<BlogLikeViewModel> blogLikes = blogPost.BlogLikes.Select(x => new BlogLikeViewModel
+                {
+                    UserId = x.UserId,
+                    Id = x.Id,
+                    BlogPostId = x.BlogPostId,
+                    User = new UserService().GetUserViewModel(queryFactory, x.UserId)
+                }).ToList();
+                blogPostViewModel.Likes = blogLikes;
+
                 blogPostViewModels.Add(blogPostViewModel);
             }
             return blogPostViewModels;
@@ -77,7 +100,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Services
                     UserId = vm.UserId,
                     User = new UserService().GetUserViewModel(queryFactory, vm.UserId),
                     CommentText = vm.CommentText,
-                   BlogPostId = vm.BlogPostId
+                    BlogPostId = vm.BlogPostId
                 };
                 commentsVM.Add(commentViewModel);
             }
@@ -94,7 +117,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Services
                     Id = vm.Id,
                     BlogPostId = vm.BlogPostId,
                     UserId = vm.BlogPostId,
-                    User = new UserService().GetUserViewModel(queryFactory,vm.UserId)
+                    User = new UserService().GetUserViewModel(queryFactory, vm.UserId)
                 };
                 likesVM.Add(lvm);
             }

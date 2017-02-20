@@ -27,10 +27,11 @@ export class BlogpostCommentComponent {
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
-        
-        this.commentService.getPostCommentsByPostId(this.blogPost.id).subscribe(res => {
-            this.comments = res;
-        });
+        this.comments = this.blogPost.comments;
+        //this.commentService.getPostCommentsByPostId(this.blogPost.id).subscribe(res => {
+        //    console.log(res);
+        //    this.comments = res;
+        //});
             
         var currentUserName = localStorage.getItem('currentUserName');
         var currentUserImage = localStorage.getItem('currentUserImage');
@@ -50,12 +51,8 @@ export class BlogpostCommentComponent {
 
         if (this.comment.commentText.trim() == "")
             return;
-
-        this.comment = new BlogComment();
         this.comment.blogPostId = blogPostId;
-        this.comment.commentText = this.commentText;        
-        
-        this.commentService.addPostComment(this.comment).subscribe(res => {
+        this.commentService.addPostComment(this.blogPost.id, this.comment).subscribe(res => {
             this.pushComment(res);
         });
 

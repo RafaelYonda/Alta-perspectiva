@@ -11,23 +11,19 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class PostStatusComponent {
     @Input() blogPost: BlogPost;
 
-    @Output() onQuestionDetailClicked = new EventEmitter<boolean>();
-    @Output() onQuestionReportClicked = new EventEmitter<any>();
-
     commentId: string;
     CommentCount: number;
     like: BlogLike;
     likedUsers: any;
     constructor(private blogService: BlogService) {
-        //this.blogpost.blogLike
     }
 
     ngOnInit() {
-        if (this.blogPost.blogComments) {            
-            this.CommentCount = this.blogPost.blogComments.length;
-        }       
+        console.log(this.blogPost.likes.length);
+        //if (this.blogPost.comments) {
+        //    this.CommentCount = this.blogPost.comments.length;
+        //}       
     }
-
 
     submitLike(postId: string) {
         this.like = new BlogLike();
@@ -35,7 +31,7 @@ export class PostStatusComponent {
             if (res == true) return;
             else {
                 this.blogService.addPostLike(this.blogPost.id, this.like).subscribe(res => {
-                    this.blogPost.blogLike.push(this.like);
+                    this.blogPost.likes.push(this.like);
                 });
             }
         });

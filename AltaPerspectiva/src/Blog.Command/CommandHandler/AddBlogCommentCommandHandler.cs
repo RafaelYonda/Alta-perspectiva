@@ -26,8 +26,8 @@ namespace Blog.Command.CommandHandler
 
             BlogComment comment = new BlogComment();
             comment.GenerateNewIdentity();
-           
 
+            comment.BlogPostId = command.BlogPostId;
             comment.CommentText = command.CommentText;
             comment.UserId = command.UserId;
             

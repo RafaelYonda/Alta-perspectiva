@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class BlogPostComponent {
     blogId:string;
     blog: Blog;
-    blogPost: BlogPost = new BlogPost();
+    blogPost: BlogPost= new BlogPost();
     blogposts: BlogPost[];
     userInfoDetails: UserInfoDetails
     constructor(private _route: ActivatedRoute, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
@@ -28,8 +28,8 @@ export class BlogPostComponent {
                 this.blogId = params['blogId'];
                 this.blog = res;
                 this.profileService.GetBlogPostsByBlogId(this.blogId).subscribe(res => {
-                    console.log(res);
                     this.blogposts = res;
+                    console.log(this.blogposts);
                 });
                // this.SetBlogPosts(res.id);
             });
