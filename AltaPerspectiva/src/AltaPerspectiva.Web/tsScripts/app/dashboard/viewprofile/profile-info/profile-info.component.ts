@@ -1,4 +1,5 @@
-﻿import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, Output, EventEmitter } from '@angular/core';
+﻿import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, Output, EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ImageUploadService } from '../../../services/image-upload.service';
 import { ConfigService } from '../../../services/config.service';
 import { CredentialViewModel } from '../../../services/models/models.profile';
@@ -17,23 +18,65 @@ export class ProfileInfoComponent {
     isUserHidden = true;
     showDescription = true;
     imageLink: string;
-    @Input() credential: CredentialViewModel = new CredentialViewModel();
+    profilePath: string;
     hasCredential: boolean;
     hasDescription: boolean;
+    credentialParent: CredentialViewModel;
 
     @Output() onUpdated = new EventEmitter<boolean>();
 
-    constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
-    }
-    ngOnInit() {
+    private _CredentialData = new BehaviorSubject<CredentialViewModel>(null);
 
-        //if (!this.credential.firstName  || !this.credential.lastName || this.credential.firstName.length == 0 ||
-        //    this.credential.lastName.length == 0)
-        //{
-        //    this.isUserHidden = false;
-        //}
-        this.loadData()
+    @Input() credential: CredentialViewModel;
+    //set credential(value) {
+    //    this._CredentialData.next(value);
+    //};
+
+    //get credential() {
+    //    return this._CredentialData.getValue();
+    //}
+
+
+    constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
+    }   
+
+    ngOnInit() {
+        this._configService.getConfig().subscribe(res => {
+
+            //Get config for image
+            this.profilePath = res.profileImage;            
+
+        });
         
+        //this._CredentialData.   //.takeWhile(() => !this.credentialParent) // unsubscribe once groupPosts has value
+        //    subscribe(x => {
+        //        this.credentialParent = this.getCredetialOnParentLoaded(this.credential);
+                
+        //    });
+        
+       
+    }
+    ngOnChanges(changes: SimpleChanges) {
+        // only run when property "data" changed
+        if (changes['credential']) {
+            this.getCredetialOnParentLoaded(this.credential);
+        }
+    }
+
+
+    getCredetialOnParentLoaded(data: CredentialViewModel): CredentialViewModel {
+        if (!data.userId) return;
+        
+        this.credential = data;
+
+        this.hasCredential = this.credential.title ? this.credential.title.trim() != "" ? false : true : false;
+        this.hasDescription = this.credential.description ? this.credential.description.trim() != "" ? false : true : false;
+
+        if (this.credential.imageUrl && (this.credential.imageUrl != ''))
+            this.imageLink = this.profilePath.concat(this.credential.imageUrl);
+        else this.imageLink = '../images/userAdd.png';
+
+        return data;
     }
 
     loadData() {

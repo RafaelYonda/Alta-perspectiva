@@ -48,7 +48,7 @@ export class ViewProfileComponent {
     constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService, private _router: Router, private componentFactoryResolver: ComponentFactoryResolver ) {
         this.route = _route;
     }
-    @ViewChild(ProfileInfoComponent) profileInfo: ProfileInfoComponent
+    
     ngOnInit() {
         
         this.userId = this._route.snapshot.params['userId'];
@@ -59,15 +59,12 @@ export class ViewProfileComponent {
             
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
-                this.changeCredentialStatus();
-                this.profileInfo.credential = this.credential;
-                this.credential.userId = params['userId'];      // in case credential is null then preserve the userId
-                this.profileInfo.ngOnInit();               
+                this.changeCredentialStatus();                
+                this.credential.userId = params['userId'];      // in case credential is null then preserve the userId                              
             });
             //========Statistics=======
-            this.profileService.getProfileParameter(params['userId']).subscribe(profileParam => {
-                this.profileParam = profileParam;
-                console.log(profileParam);
+            this.profileService.getProfileStatistics(params['userId']).subscribe(profileParam => {
+                this.profileParam = profileParam;               
             });
             //========Category=======
             this.profileService.getCategoryWiseAnswer(params['userId']).subscribe(categoryWiseAnswer => {
@@ -75,7 +72,7 @@ export class ViewProfileComponent {
                 console.log(categoryWiseAnswer);
             });
             //================ProfileViewCount
-            this.profileService.ProfileViewCount(params['userId']).subscribe(res => {
+            this.profileService.addProfileViewCount(params['userId']).subscribe(res => {
                 
             })
 
@@ -89,11 +86,7 @@ export class ViewProfileComponent {
     refreshData() {
         this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
             this.credential = usr;
-
-            this.changeCredentialStatus();
-
-            this.profileInfo.credential = this.credential;
-            this.profileInfo.ngOnInit();
+            this.changeCredentialStatus();           
         });
     }
 

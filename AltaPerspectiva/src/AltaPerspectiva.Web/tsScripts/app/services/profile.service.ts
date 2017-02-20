@@ -88,7 +88,7 @@ export class ProfileService {
             .catch(this.handleError);
     }
 
-    getProfileParameter(userId: string): Observable<ProfileParameter> {
+    getProfileStatistics(userId: string): Observable<ProfileParameter> {
         return this._http.get('userprofile/api/getprofileparameter/' + userId)
             .map(this.extractData)
             .catch(this.handleError);
@@ -100,7 +100,7 @@ export class ProfileService {
             .catch(this.handleError);
     }
     //===========viewcount
-    ProfileViewCount(userId: string): Observable<any> {
+    addProfileViewCount(userId: string): Observable<any> {
         return this._http.post('userprofile/api/profileviewcount/'+userId,userId)
             .map(this.extractData).catch(this.handleError);
     }
