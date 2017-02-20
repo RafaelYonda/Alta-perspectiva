@@ -2,6 +2,7 @@
 .navbar-right {
     padding-right: 40px;
     margin-right: 0;
+    position:relative;
 }
 
 .backgroundset {
