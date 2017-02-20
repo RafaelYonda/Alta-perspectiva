@@ -26,8 +26,8 @@ namespace UserProfile.Command.CommandHandler
 
             if (previousCredential != null)
             {
-                previousCredential.FirstName = command.FirstName;
-                previousCredential.LastName = command.LastName;
+                previousCredential.FirstName = command.FirstName??"";
+                previousCredential.LastName = command.LastName??"";
                 command.Id = previousCredential.Id;
             }
             else
