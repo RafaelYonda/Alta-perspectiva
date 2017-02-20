@@ -22,18 +22,25 @@ export class PostStatusComponent {
         console.log(this.blogPost.likes.length);
         //if (this.blogPost.comments) {
         //    this.CommentCount = this.blogPost.comments.length;
-        //}       
+        //}     
+        this.blogService.IncreaseBlogPostViewCount(this.blogPost).subscribe(res => {
+            if (this.blogPost.blogViewCount && res==true) {
+                this.blogPost.blogViewCount = this.blogPost.blogViewCount + 1;
+            }
+        })
     }
 
     submitLike(postId: string) {
         this.like = new BlogLike();
+        this.like.userId = this.blogPost.userId;
+        this.like.blogPostId = this.blogPost.id;
         this.blogService.getPostAlreadyLiked(this.blogPost.id).subscribe(res => {
             if (res == true) return;
-            else {
-                this.blogService.addPostLike(this.blogPost.id, this.like).subscribe(res => {
-                    this.blogPost.likes.push(this.like);
-                });
-            }
+
+            this.blogService.addPostLike(this.blogPost.id, this.like).subscribe(res => {
+                this.blogPost.likes.push(this.like);
+            });
+
         });
     }
 

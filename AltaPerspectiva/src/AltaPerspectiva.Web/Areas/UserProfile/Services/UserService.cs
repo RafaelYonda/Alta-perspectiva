@@ -43,6 +43,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             {
                 fullName = credential.FirstName + " " + credential.LastName;
                 imageUrl = credential.ImageUrl?? "avatar.png";
+                if (credential.ImageUrl == "")
+                {
+                    imageUrl = "avatar.png";
+                }
+
                 occupation = credential.Employments.Select(x => x.Position).Take(1).FirstOrDefault();
                 credentialId = credential.Id;
             }

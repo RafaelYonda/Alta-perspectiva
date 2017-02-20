@@ -45,9 +45,10 @@
 
     .form-horizontal {
         border-radius: 10px;
-        height: 355px;
+        height: 377px;
         padding-left: 1px;
         padding-right: 0px;
+        margin-top: 4px;
     }
 
     .login-header {
@@ -89,7 +90,7 @@
                 <h2 class="login-header">
                     Sign Up
                 </h2>
-                @*<div asp-validation-summary="All" class="text-danger"></div>*@
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-md-10">
                         <input asp-for="Email" placeholder="Email" class="form-control" />

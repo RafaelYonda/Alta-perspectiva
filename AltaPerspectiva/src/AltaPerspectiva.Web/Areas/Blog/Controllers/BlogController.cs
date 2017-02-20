@@ -108,12 +108,25 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             return Ok(blogPostViewModels);
         }
 
-        [HttpGet("blog/api/increaseblogpostviewcount/{blogPostId}")]
-        public IActionResult IncreaseBlogPostViewCount(Guid blogPostId)
+        [HttpPost("blog/api/increaseblogpostviewcount/{blogPostId}")]
+        public IActionResult IncreaseBlogPostViewCount([FromBody] BlogPostViewModel model)
         {
-            UpdateBlogPostViewCountCommand command=new UpdateBlogPostViewCountCommand(blogPostId);
-            commandsFactory.ExecuteQuery(command);
-            return Ok();
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
+            }
+            Boolean increased = false;
+            if (loggedinUser != model.UserId)
+            {
+
+                UpdateBlogPostViewCountCommand command = new UpdateBlogPostViewCountCommand(model.Id);
+                commandsFactory.ExecuteQuery(command);
+                increased = true;
+            }
+
+            return Ok(increased);
         }
         //saves a blog post
         [HttpPost("blog/api/saveblogpost")]
@@ -155,11 +168,13 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
                 var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
             }
-
-            AddBlogCommentCommand command = new AddBlogCommentCommand(comment.CommentText,comment.BlogPostId,comment.UserId);
+            
+            AddBlogCommentCommand command = new AddBlogCommentCommand(comment.CommentText,comment.BlogPostId, loggedinUser);
             commandsFactory.ExecuteQuery(command);
 
-            return Ok();
+            comment.User = new UserService().GetUserViewModel(queryFactory, comment.UserId);
+            comment.Id = command.Id;
+            return Ok(comment);
         }
 
 
@@ -180,7 +195,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
         }
 
 
-        [HttpGet("blog/api/{{blogPostId}}/getalreadyLiked")]
+        [HttpGet("blog/api/{blogPostId}/getalreadyLiked")]
         public async Task<IActionResult> GetBlogAlreadyLiked(Guid blogPostId)
         {
 
@@ -195,7 +210,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             Boolean alreadyLiked = false;
             if (likes.Count > 0)
                 alreadyLiked = true;
-            return Ok(new { result = alreadyLiked });
+            return Ok( alreadyLiked );
         }
 
 
