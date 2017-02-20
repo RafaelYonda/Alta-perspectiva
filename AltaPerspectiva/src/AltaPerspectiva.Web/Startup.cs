@@ -243,6 +243,7 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<DeleteBlogPostCommand>, DeleteBlogPostCommandHandler>();
             services.AddTransient<ICommandHandler<AddBlogCommentCommand>, AddBlogCommentCommandHandler>();
             services.AddTransient<ICommandHandler<AddBlogLikeCommand>, AddBlogLikeCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateBlogPostViewCountCommand>, UpdateBlogPostViewCountCommandHandler>();
 
             #endregion
 

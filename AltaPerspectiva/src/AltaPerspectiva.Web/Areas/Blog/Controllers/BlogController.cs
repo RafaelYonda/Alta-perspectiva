@@ -108,6 +108,13 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             return Ok(blogPostViewModels);
         }
 
+        [HttpGet("blog/api/increaseblogpostviewcount/{blogPostId}")]
+        public IActionResult IncreaseBlogPostViewCount(Guid blogPostId)
+        {
+            UpdateBlogPostViewCountCommand command=new UpdateBlogPostViewCountCommand(blogPostId);
+            commandsFactory.ExecuteQuery(command);
+            return Ok();
+        }
         //saves a blog post
         [HttpPost("blog/api/saveblogpost")]
         public IActionResult SaveBlogPost([FromBody]BlogPostViewModel model)
