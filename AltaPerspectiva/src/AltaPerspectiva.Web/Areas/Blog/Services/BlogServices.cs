@@ -61,7 +61,8 @@ namespace AltaPerspectiva.Web.Areas.Blog.Services
                     Description = blogPost.Description,
                     BlogId = blogPost.BlogId,
                     User = new UserService().GetUserViewModel(queryFactory, blogPost.UserId),
-                    UserId=blogPost.UserId
+                    UserId=blogPost.UserId,
+                    BlogViewCount = blogPost.BlogViewCount
                 };
 
                 //BlogCommentViewModel

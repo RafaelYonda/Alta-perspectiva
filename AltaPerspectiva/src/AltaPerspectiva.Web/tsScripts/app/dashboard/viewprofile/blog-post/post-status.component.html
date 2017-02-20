@@ -5,7 +5,7 @@
         <a href="#"  data-toggle='modal'  attr.data-target="#likeModal{{blogPost.id}}" class="status-line number-box" (click)="showLikeUserDetails()">{{blogPost?.likes?.length}} </a>
         <a (click)="submitLike(blogpost?.id)"><div class="status-line">{{blogPost?.likes?.length>1?'Likes':'Like'}}</div></a>
         <div class="status-line like-border"></div>
-        <div class="status-line number-box">{{blogpost?.blogViewCount?blogpost?.blogViewCount:0}}</div>
+        <div class="status-line number-box">{{blogPost?.blogViewCount? blogPost?.blogViewCount:0}}</div>
         <div class="status-line">Leidos</div>
         <div class="status-line number-box">
             {{blogPost.comments.length}}

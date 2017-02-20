@@ -22,7 +22,12 @@ export class PostStatusComponent {
         console.log(this.blogPost.likes.length);
         //if (this.blogPost.comments) {
         //    this.CommentCount = this.blogPost.comments.length;
-        //}       
+        //}     
+        this.blogService.IncreaseBlogPostViewCount(this.blogPost).subscribe(res => {
+            if (this.blogPost.blogViewCount && res==true) {
+                this.blogPost.blogViewCount = this.blogPost.blogViewCount + 1;
+            }
+        })
     }
 
     submitLike(postId: string) {

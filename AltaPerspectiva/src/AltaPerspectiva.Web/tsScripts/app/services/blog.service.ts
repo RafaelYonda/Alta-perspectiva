@@ -12,6 +12,11 @@ export class BlogService {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('auth_token'));
         let options = new RequestOptions({ headers: headers });
     }
+    IncreaseBlogPostViewCount(blogPost: BlogPost): Observable<boolean> {
+        return this._http.post('blog/api/increaseblogpostviewcount/' + blogPost.id, blogPost)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     addPostLike(postIdId: string, like: BlogLike): Observable<any> {
         return this._http.post('/blog/api/' + postIdId+'/addlike', like)
             .map(this.extractData)
