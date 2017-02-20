@@ -285,9 +285,9 @@ namespace AltaPerspectiva
 
 
 
-                //PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
 
-                PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
+                //PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
 
 
                 RequireHttpsMetadata = false,
