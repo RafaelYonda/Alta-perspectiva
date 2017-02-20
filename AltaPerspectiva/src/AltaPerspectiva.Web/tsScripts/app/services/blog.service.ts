@@ -13,7 +13,7 @@ export class BlogService {
         let options = new RequestOptions({ headers: headers });
     }
     addPostLike(postIdId: string, like: BlogLike): Observable<any> {
-        return this._http.post('/questions/api/categories/addfollowers/' + postIdId, null)
+        return this._http.post('/blog/api/' + postIdId+'/addlike', like)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -25,7 +25,7 @@ export class BlogService {
             .refCount();        
     }
     getPostAlreadyLiked(postId: string): Observable<boolean> {
-        return this._http.get('/questions/api/categories/')
+        return this._http.get('/blog/api/' + postId+'/getalreadyLiked')
             .map(this.extractData)
             .catch(this.handleError)
             .publishReplay(1)
@@ -38,7 +38,7 @@ export class BlogService {
             .publishReplay(1)
             .refCount();
     }
-    addPostComment(postId: string, comment: BlogComment): Observable<any> {
+    addPostComment(postId: string, comment: BlogComment): Observable<BlogComment> {
         return this._http.post('/blog/api/' + postId + '/addcomment/', comment)
             .map(this.extractData)
             .catch(this.handleError);

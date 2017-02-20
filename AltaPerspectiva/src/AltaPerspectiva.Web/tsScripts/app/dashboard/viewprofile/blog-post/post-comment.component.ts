@@ -41,19 +41,22 @@ export class BlogpostCommentComponent {
         }
     }
 
-    pushComment(result) {
-        this.commentText = "";
-        this.comment = result;
-        this.comments.push(this.comment);
-    }
+    //pushComment(result) {
+    //    this.commentText = "";
+    //    this.comment = result;
+    //    this.comments.push(this.comment);
+    //}
 
     submitComment(blogPostId: string) {
 
         if (this.comment.commentText.trim() == "")
             return;
         this.comment.blogPostId = blogPostId;
+        this.comment.userId = this.blogPost.userId;
         this.commentService.addPostComment(this.blogPost.id, this.comment).subscribe(res => {
-            this.pushComment(res);
+            //  this.pushComment(res);
+            this.blogPost.comments.push(res);
+            this.comment.commentText = '';
         });
 
         this.sendCommentCount.emit(null);

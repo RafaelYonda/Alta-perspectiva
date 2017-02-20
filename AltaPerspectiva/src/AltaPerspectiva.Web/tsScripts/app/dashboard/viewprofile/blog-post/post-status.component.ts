@@ -27,13 +27,15 @@ export class PostStatusComponent {
 
     submitLike(postId: string) {
         this.like = new BlogLike();
+        this.like.userId = this.blogPost.userId;
+        this.like.blogPostId = this.blogPost.id;
         this.blogService.getPostAlreadyLiked(this.blogPost.id).subscribe(res => {
             if (res == true) return;
-            else {
-                this.blogService.addPostLike(this.blogPost.id, this.like).subscribe(res => {
-                    this.blogPost.likes.push(this.like);
-                });
-            }
+
+            this.blogService.addPostLike(this.blogPost.id, this.like).subscribe(res => {
+                this.blogPost.likes.push(this.like);
+            });
+
         });
     }
 
