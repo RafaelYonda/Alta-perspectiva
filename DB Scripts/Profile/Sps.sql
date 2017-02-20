@@ -301,6 +301,7 @@ select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and
 DECLARE @DirectQuestions int;
 select @DirectQuestions=COUNT(*) from Questions.DirectQuestions q where q.QuestionAskedToUser=@userId 
 DECLARE @Blogs int;
+SELECT @Blogs=count(*) FROM [AltaPerspectiva].[Blog].[Blogs] where UserId=@userId;
 select 
 ISNULL(@ProfileViewCount,0) ProfileViewCount,
 ISNULL(@AnswerLikeCount,0) AnswerLikeCount,
