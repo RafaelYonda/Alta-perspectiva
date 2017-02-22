@@ -7,9 +7,21 @@
         .edit:hover {
             text-decoration: underline;
         }
-        .fa-li {
-            position: static;
-        }
+
+    .fa-li {
+        position: static;
+    }
+
+    .top-spacing {
+        margin-top: 20px;
+    }
+    .credential-panel
+    {
+        list-style:none;
+    }
+    .credential-panel li{
+        margin-bottom:10px;
+    }
 </style>
 
 
@@ -23,13 +35,14 @@
     <div #placeDialogAnchor></div>
 </div>
 <div class="row">
-    
+
     <div class="alert alert-danger center-width" *ngIf="!credential.id">
         Please add first name and last name to start.
 
     </div>
     <div class="col-md-9">
-        <div class="row" *ngIf="credential"><profile-info [credential]="credential" (onUpdated)="onUpdatedProfile($event)"></profile-info>
+        <div class="row" *ngIf="credential">
+            <profile-info [credential]="credential" (onUpdated)="onUpdatedProfile($event)"></profile-info>
         </div>
         <div class="row">
             <div class="col-md-3">
@@ -41,8 +54,7 @@
                     <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'bookmark']" routerLinkActive="active-link">Bookmarks <span>{{profileParam?.bookmarks}}</span></a></li>
                     <!--<li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'post']" routerLinkActive="active-link">Posts<span>0</span></a></li>-->
                     <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'blog-create']" routerLinkActive="active-link">Blogs<span>{{profileParam?.blogs}}</span></a></li>
-                    
-                    <!--<li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'direct-question']" routerLinkActive="active-link">Direct Question<span>{{profileParam?.directQuestions}}</span></a></li>-->
+                    <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'direct-question']" routerLinkActive="active-link">Direct Question</a></li>
                 </ul>
             </div>
             <div class="col-md-9 border-top-grey">
@@ -53,11 +65,11 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3" >
+    <div class="col-md-3 top-spacing">
         <div>
             <h3>Credentials</h3>
 
-            <ul style="list-style-type: none;">
+            <ul class="credential-panel">
                 <li>
                     <div *ngIf="employmentExists" innerHTML='<i class="fa fa-suitcase"></i>{{employmentHtml}}'>
 
@@ -68,7 +80,7 @@
                 </li>
                 <li>
                     <div *ngIf="educationExists" innerHTML='<i class="fa fa-university"></i> {{educationHtml}}'>
-                       
+
                     </div>
                     <a *ngIf="!educationExists" (click)="openEducationDialogAnchor()" class="edit">
                         Add Education
@@ -76,7 +88,7 @@
                 </li>
                 <li>
                     <div *ngIf="placeExists" innerHtml='<i class="fa fa-home"></i> {{placeHtml}}'>
-                        
+
                     </div>
                     <a *ngIf="!placeExists" (click)="openPlaceDialogAnchor()" class="edit">
                         Add Place
@@ -84,7 +96,7 @@
                 </li>
                 <li>
                     <div *ngIf="otherExperienceExists" innerHTML='<i class="fa fa-cog"></i> {{othersHtml}}'>
-                        
+
                     </div>
                     <a *ngIf="!otherExperienceExists" (click)="openOtherexperienceDialogAnchor()" class="edit">
                         Add Others
