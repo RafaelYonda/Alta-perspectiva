@@ -17,6 +17,9 @@
     font-family:myriadpro-regular;
     color: #a29996;
 }
+.question-header > li>a:hover{
+    color: #f5c759;
+}
 .question-title{
     clear:both;
 }

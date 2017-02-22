@@ -5,11 +5,14 @@
     }
 
     .btn-select {
-        text-align: left;
+        text-align: left !important;
     }
 
     .bottom-margin {
         margin-bottom: 10px;
+    }
+    .caret{
+        margin-top:8px;
     }
 </style>
 <form>
@@ -17,7 +20,7 @@
         <input type="text" class="form-control bottom-margin" placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off"
                [(ngModel)]="question.title" required name="titleName" #titleName="ngModel" />
         <div class="dropdown">
-            <button class="btn btn-block dropdown-toggle btn-select bottom-margin" type="button" data-toggle="dropdown">
+            <button class="btn btn-block dropdown-toggle btn-primary btn-select bottom-margin" type="button" data-toggle="dropdown">
                 {{selectedCategory?selectedCategory.name:'Select a category'}}
                 <span class="caret pull-right"></span>
             </button>
