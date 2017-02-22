@@ -15,14 +15,12 @@
                     <button class="answer-button" (click)="answerDialogBox(question)">Answer</button>
                 </div>
                 <div *ngIf="(question.answerCount>0)">
-                    <div (click)="openDialogBox(question)">
-                        <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
-                        <div *ngIf="question.bestAnswer?.text">
-                            <p [innerHTML]="question.bestAnswer?.text.substring(0, 300)"></p><span><a (click)="openDialogBox(question)">Read more..</a></span>
-                        </div>
+                    <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
+                    <div *ngIf="question.bestAnswer?.text" (click)="openDialogBox(question)">
+                        <p [innerHTML]="question.bestAnswer?.text.substring(0, 300)"></p><span><a (click)="openDialogBox(question)">Read more..</a></span>
                     </div>
                     <div *ngIf="question.bestAnswer">
-                        <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)" (onQuestionDetailClicked)="onQuestionDetailClicked($event)" ></ap-status>
+                        <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"></ap-status>
                         <ap-comment [isQuestion]='false' [questionId]="question.id" [answerId]="question.bestAnswer?.id" (sendCommentCount)="sendCommentCount($event)"></ap-comment>
                     </div>
                 </div>
