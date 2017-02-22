@@ -28,7 +28,10 @@ namespace Questions.Command.CommandHandler
             {
                 category.Image = command.Image;
                 category.Name = command.Name;
+                category.Icon = command.Icon;
                 category.Description = command.Description;
+                category.ModifiedOn=DateTime.Now;
+                category.ModifiedBy = command.UserId;
                 DbContext.SaveChanges();
             }
             else

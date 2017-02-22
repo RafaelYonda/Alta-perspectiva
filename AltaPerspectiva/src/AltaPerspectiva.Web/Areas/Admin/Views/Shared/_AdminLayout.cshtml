@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Altaperspectiva.OpenId</title>
+    <title>@ViewData["Title"]</title>
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/fontawesome/css/font-awesome.css" />
@@ -48,15 +48,18 @@
         </script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
+
+    <link href="~/lib/alertify/src/alertify.min.css" rel="stylesheet" />
+    <link href="~/lib/alertify/src/default.min.css" rel="stylesheet" />
+    <script src="~/lib/alertify/src/alertify.min.js"></script>
     <link href="~/css/fonts/alta-fonts.css" rel="stylesheet" />
     <style>
         /*html * {
-            font-family: myriadpro-regular !important;
-        }
-*/
+                    font-family: myriadpro-regular !important;
+                }
+        */
         .container {
-           font-family: myriadpro-regular!important;
-           
+            font-family: myriadpro-regular !important;
         }
 
         .navbar-nav > li > a {
@@ -73,7 +76,7 @@
 
         .fixHeader {
             margin-left: 25px !important;
-             font-size: 16px;
+            font-size: 16px;
         }
 
         .body-minHeight {
@@ -172,7 +175,7 @@
 
         .headerText {
             color: aliceblue;
-          //  font-size: 14px;
+            // font-size: 14px;
             margin-top: 2px;
             cursor: pointer;
         }
@@ -192,7 +195,7 @@
 
         .nav-home {
             border-right: 1px solid white;
-            font-family: myriadpro-regular!important;
+            font-family: myriadpro-regular !important;
             color: #fff !important;
             margin-top: 2px;
         }
@@ -270,7 +273,9 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav nav-pills nav-stacked" data-autohide="false" id="menu">
                 <li>
-                    <a href="#"><span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-flag fa-stack-1x "></i></span>Category</a>
+                    <a href="#" >
+                        <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-flag fa-stack-1x "></i></span>Category
+                    </a>
                     <ul class="nav-pills nav-stacked" style="list-style-type: none;">
                         <li>
                             <a href="@Url.Action("AddCategory", "Category", new {Area = "Admin"})">
@@ -282,7 +287,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Reports</a>
+                    <a href="#" style="display: block"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Reports</a>
                     <ul class="nav-pills nav-stacked" style="list-style-type: none;">
                         <li><a href="@Url.Action("Question", "QuestionReport", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Question Report</a></li>
                         <li><a href="@Url.Action("Answer", "QuestionReport", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Answer Report</a></li>
@@ -338,7 +343,7 @@
               }
               );
         }
-        $(document).ready(function () { initMenu(); });
+        //$(document).ready(function () { initMenu(); });
 
         $('li.active').removeClass('active');
         //$('a[href="' + location.pathname + '"]').closest('li').addClass('active');

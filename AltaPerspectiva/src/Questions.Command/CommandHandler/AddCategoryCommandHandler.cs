@@ -26,7 +26,7 @@ namespace Questions.Command.CommandHandler
             category.GenerateNewIdentity();
             category.Name = command.Name;
             category.Icon = command.Icon;
-            category.Active = command.Active;
+            category.IsActive = command.Active;
             category.Description = command.Description;
             category.Sequence = command.Sequence;
             category.Image = command.Image;

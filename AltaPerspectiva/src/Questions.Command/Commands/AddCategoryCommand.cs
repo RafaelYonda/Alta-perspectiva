@@ -8,7 +8,7 @@ namespace Questions.Command.Commands
 {
     public class AddCategoryCommand:ICommand
     {
-        public AddCategoryCommand(Guid userId,string name,string icon,string active,string description,int sequence,string image)
+        public AddCategoryCommand(Guid userId,string name,string icon, bool active,string description,int sequence,string image)
         {
             UserId = userId;
             Name = name;
@@ -22,7 +22,7 @@ namespace Questions.Command.Commands
         public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Icon { get; set; }
-        public string Active { get; set; }
+        public bool Active { get; set; }
         public string Description { get; set; }
         public int Sequence { get; set; }
         public string Image { get; set; }

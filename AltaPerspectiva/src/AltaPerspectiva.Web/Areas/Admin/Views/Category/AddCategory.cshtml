@@ -1,6 +1,8 @@
-﻿<style>
+﻿@model AltaPerspectiva.Web.Areas.Admin.Models.CategoryViewModel
+<style>
     .left-border {
         margin-top: 77px;
+        height: 522px;
     }
 
     .customrow {
@@ -10,44 +12,132 @@
     .table {
         margin-left: 244px;
     }
+    .form-horizontal {
+        height: 522px;
+    }
+    .create-button {
+        margin-left: 8.666667%;
+    }
 </style>
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "icon-dice",
+        Value = "icon-dice",
+        Selected = true
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "icon-chart",
+        Value = "icon-chart"
 
+    });
+    //listItems.Add(new SelectListItem
+    //{
+    //    Text = "AWS",
+    //    Value = "AWS"
+    //});
+}
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 <div class="row customrow">
     <div class="col-md-4">.</div>
     <div class="col-md-4">
         <img class="left-border" src="~/images/border.png" />
 
         <section>
-@using (Html.BeginForm("AddCategory", "Category", FormMethod.Post, new { area = "Admin", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
+            
+            @using (Html.BeginForm("AddCategory", "Category", FormMethod.Post, new { area = "Admin", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
             {
-                <h2>Add Category</h2>
+                <h4>Add Category</h4>
+                <br/>
+                <br/>
+                <hr />
+
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.Id)
                 <div class="form-group">
-                <div class="col-sm-offset-1 col-md-10">
-                <input type="text" id="name" name="name" placeholder="Name" class="form-control" minlength="2" required />
-                </div>
-                </div>
-                <div class="form-group">
-                <div class="col-sm-offset-1 col-md-10">
-                <input type="text" id="description" name="description" placeholder="Description" class="form-control" minlength="2" required />
-                </div>
-                </div>
-                <div class="form-group">
-                <div class="col-sm-offset-1 col-md-10">
-                <input type="file" id="file" placeholder="file" class="form-control-file" minlength="2" accept=".jpg" name="file" />
-                </div>
-                </div>
-                <br />
-                <div class="form-group">
-                <div class="col-sm-offset-1 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default">
-                </div>
+                    @Html.LabelFor(model => model.Name, new { @class = "col-sm-offset-1 col-md-2" })
+                    <div class="col-sm-offset-1 col-md-10">
+                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new {placeholder = "Input name", @class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
                 </div>
 
-}
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, new {@class = "col-sm-offset-1 col-md-2" })
+                    <div class="col-sm-offset-1 col-md-10">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { placeholder = "Input description", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Icon, new {@class = "col-sm-offset-1 col-md-2" })
+                    <div class="col-sm-offset-1 col-md-10">
+                        @Html.DropDownList("Icon", listItems, new {  placeholder = "Input icons", @class = "form-control"  })
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-offset-1 col-md-2">
+                        Image
+                    </label>
+
+                    <div class="col-sm-offset-1 col-md-10">
+                        @Html.TextBox("Image", Model.ImagePath, new {type = "file", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Image)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10 create-button">
+                        <input type="submit" value="Create" class="btn btn-default"/>
+                    </div>
+                </div>
+
+
+
+                    @*<div class="form-group">
+                            <hr/>
+
+                            <div class="col-sm-offset-1 col-md-10">
+                                <input type="text" id="name" name="name" placeholder="Name" class="form-control" minlength="2" required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-md-10">
+                                <input type="text" id="description" name="description" placeholder="Description" class="form-control" minlength="2" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-md-10">
+                                <input type="file" id="file" placeholder="file" class="form-control-file" minlength="2" accept=".jpg" name="file" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default">
+                            </div>
+                        </div>*@
+
+
+            }
         </section>
-@* =============== *@
 
+        @* =============== *@
+        @{
+            <br/>
 
+            if (ViewBag.Message != null)
+            {
+                <h1 class="alert alert-danger">Success</h1>
+            }
+        }
+
+       
 
     </div>
 

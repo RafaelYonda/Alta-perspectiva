@@ -9,7 +9,15 @@
     .customtable {
         margin-left: 244px;
     }
+
+    .table-responsive {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 349px;
+    }
 </style>
+
+
 
 <div class="row customrow">
     <div class="col-md-4">
@@ -20,93 +28,50 @@
 
             <table class="table customtable" id="myTable">
                 <thead>
-                <tr>
-                    <th style="width:1%">
-                        CategoryName
-                    </th>
-                    <th style="width:10%">
+                    <tr>
+                        <th style="width:1%">
+                            CategoryName
+                        </th>
+                        <th style="width:10%">
 
-                    </th>
-                    <th style="width:10%">
+                        </th>
+                        <th style="width:10%">
 
-                    </th>
-                </tr>
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.HiddenFor(modelItem => item.Id)
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            <button id="brnDelete" type="button" class="btn btn-danger" onclick="editCategory(this,'@item.Id','@item.Name')">
-                                Edit
-                            </button>
-                        </td>
-                        <td>
-                            @*<button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(modelItem => item.Id)
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" href="/Admin/addcategory/@item.Id">Edit</a>
+                            </td>
+                            <td>
+                                @*<button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
                                         <span class="glyphicon glyphicon-trash"></span> Delete
                                     </button>*@
-                            <button id="brnDelete" type="button" class="btn btn-danger" onclick="addKeywords(this,'@item.Id','@item.Name')">
-                                KeyWord
-                            </button>
+                                <button id="brnDelete" type="button" class="btn btn-danger" onclick="addKeywords(this,'@item.Id','@item.Name')">
+                                    KeyWord
+                                </button>
 
-                        </td>
-                        <td>
-                            <button id="btnTopic" type="button" class="btn btn-danger" onclick="editTopics(this,'@item.Id','@item.Name')">
-                                Topic
-                            </button>
+                            </td>
+                            <td>
+                                <button id="btnTopic" type="button" class="btn btn-danger" onclick="editTopics(this,'@item.Id','@item.Name')">
+                                    Topic
+                                </button>
 
-                        </td>
-                    </tr>
-                }
+                            </td>
+                        </tr>
+                    }
                 </tbody>
 
             </table>
 
-        </div>
-    </div>
-</div>
-<!-- EditCategory Modal -->
-<div class="modal fade" id="approveProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Update <label id="editCategory"></label> Category </h4>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="Id" />
-                <div class="form-group">
-                    <label class="control-label">Name</label>
-                    <input id="pName" type="text" class="form-control" placeholder="Name">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Description</label>
-                    <input id="pDescription" type="text" class="form-control" placeholder="No Description !!">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">CategoryImage</label>
-                    <br />
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <img id="image" src="" style="width:75px;height:75px;" class="img-rounded">
-                        </div>
-                        <div>
-                            <input type="file" name="CategoryImage" id="CategoryImage" />
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="btnConfirm" type="button" class="btn btn-success" onclick="confirmCategory()">Confirm</button>
-
-
-            </div>
         </div>
     </div>
 </div>
@@ -190,7 +155,7 @@
                     <div class="col-lg-12">
                         <div class="col-md-9">
                             <div class="table-responsive">
-                                <table id="tblTopics" class="table table-bordered">
+                                <table id="tblTopics" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>
@@ -216,93 +181,12 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <script>
-    function editCategory(element, Id, categotyName) {
-        var url = '@Url.Action("CategoryFilePath", "Categories", new { Area = "Questions" })';
-        var obj = {};
-        obj.Id = Id;
-        console.log(obj);
-        console.log(url);
-        $.ajax({
-            url: url,
-            type: 'GET',
-            data: obj,
-            async: false,
-            success: function (respText) {
-                console.log(respText);
-                $('#Id').val(obj.Id);
-                $("#image").attr("src", respText.image);
-                $('#pName').val(respText.name);
-                $('#pDescription').val(respText.description);
-                $("#CategoryImage").val("");
-                $('#editCategory').text(categotyName);
-                $('#approveProjectModal').modal({
-                    show: true,
-                    backdrop: 'static'
-                });
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
 
-            }
-        });
-
-    }
-    function confirmCategory() {
-        var Id = $('#Id').val();
-        var data = new FormData();
-        var fileUpload = $("#CategoryImage").get(0);
-        var files = fileUpload.files;
-        var data = new FormData();
-        for (var i = 0; i < files.length ; i++) {
-            data.append(files[i].name, files[i]);
-        }
-
-        data.append('Id', Id);
-        data.append('Name', $('#pName').val());
-        data.append('Description', $('#pDescription').val());
-        //var obj = {};
-        //obj.Id = Id;
-        //obj.Name = $('#pName').val();
-        //obj.Nescription = $('#pDescription').val();
-        var url = '@Url.Action("CategoryUpdate", "Categories", new { Area = "Questions" })';
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: data,
-            contentType: false,
-            processData: false,
-            success: function (respText) {
-                console.log(respText);
-                alert('Saved Successfully');
-                $('#approveProjectModal').modal('hide');
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-                alert('error ..Check log for details');
-                console.log(textStatus, errorThrown);
-                var msg = '';
-                if (jqXhr.status === 0) {
-                    msg = 'Not connect.\n Verify Network.';
-                } else if (jqXhr.status == 404) {
-                    msg = 'Requested page not found. [404]';
-                } else if (jqXhr.status == 500) {
-                    msg = 'Internal Server Error [500].';
-                } else if (errorThrown === 'parsererror') {
-                    msg = 'Requested JSON parse failed.';
-                } else if (errorThrown === 'timeout') {
-                    msg = 'Time out error.';
-                } else if (errorThrown === 'abort') {
-                    msg = 'Ajax request aborted.';
-                } else {
-                    msg = 'Uncaught Error.\n' + jqXhr.responseText;
-                }
-                console.log(msg);
-            }
-        });
-    }
     function saveTopic(categoryId) {
         console.log(categoryId);
         var newKeyword = $('#newTopic').val();
         if (newKeyword.length <= 1 || newKeyword === undefined) {
-            alert('Keyword is not correct');
+            alert('Topic is not correct');
             return;
 
         } else {
@@ -323,7 +207,7 @@
                     tr = tr + '<td>' + newKeyword + '</td>';
 
                     tr = tr + '</tr>';
-                    $('#tblTopics > tbody:last').append(tr);
+                    $('#tblTopics > tbody:first').prepend(tr);
                     $('#newTopic').val('');
 
                 },
@@ -352,7 +236,7 @@
                     tr = tr + '<td>' + respText[i] + '</td>';
 
                     tr = tr + '</tr>';
-                    $('#tblTopics > tbody:last').append(tr);
+                    $('#tblTopics > tbody:first').prepend(tr);
 
                     //console.log(tr);
                 }
@@ -368,10 +252,11 @@
             }
         });
     }
+    
     function saveKeyword(categoryId) {
         console.log(categoryId);
         var newKeyword = $('#newKeyword').val();
-        if (newKeyword.length <= 1 || newKeyword === undefined) {
+        if (newKeyword.length <= 1 || newKeyword === undefined ) {
             alert('Keyword is not correct');
             return;
 
@@ -393,7 +278,7 @@
                     tr = tr + '<td>' + newKeyword + '</td>';
 
                     tr = tr + '</tr>';
-                    $('#tblKeyword > tbody:last').append(tr);
+                    $('#tblKeyword > tbody:first').prepend(tr);
                     $('#newKeyword').val('');
 
                 },

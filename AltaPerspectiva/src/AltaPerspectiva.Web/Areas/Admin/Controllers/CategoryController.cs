@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Questions.Query;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using AltaPerspectiva.Web.Areas.Admin.Models;
 using Questions.Command.Commands;
 using Questions.Command;
 
@@ -47,75 +48,50 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             return Ok(topicName);
         }
 
-        //[HttpGet("Admin/getcategory")]
-        //public IActionResult GetCategory()
-        //{
-        //    List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
-
-        //    return View(categoriesList);
-        //}
-
         [HttpGet("Admin/addcategory")]
         public IActionResult AddCategory()
         {
-            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
-
-            return View(categoriesList);
+            ViewData["Title"] = "Add category";
+            CategoryViewModel categoryViewModel = new CategoryViewModel();
+            return View(categoryViewModel);
         }
-        [HttpPost("Admin/addcategory")]
-        public IActionResult AddCategory(String name, String description, IFormFile file)
+        [HttpGet("Admin/addcategory/{id}")]
+        public IActionResult AddCategory(Guid id)
         {
-            if (file != null)
+            ViewData["Title"] = "Add category";
+            CategoryViewModel categoryViewModel = new CategoryViewModel();
+            Category model = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(id);
+
+            String imageNameWithPath =String.Empty;
+
+            if (model.Image != null)
             {
-                var categoryImagepath = configuration["CategoryUpload"];
-                //IHostingEnvironment environment = new HostingEnvironment();
-                String image = file.FileName;
-                var webRoot = environment.WebRootPath;
-                var uploads = Path.Combine(webRoot, categoryImagepath);
-                using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
+                imageNameWithPath= Path.Combine(Path.Combine(environment.WebRootPath, configuration["CategoryUpload"]), model.Image);
+            }
+            
+            categoryViewModel = new CategoryViewModel
+            {
+                Id = model.Id,
+                Description = model.Description,
+                Name = model.Name,
+                ImagePath = imageNameWithPath,
+                Icon = model.Icon
+            };
 
-                Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            return View("AddCategory", categoryViewModel);
+        }
 
-                if (User.Identity.IsAuthenticated)
-                {
-                    var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                    loggedinUser = new Guid(loggedinUser.ToString());
-                }
-                int maxSequnce = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().OrderByDescending(x => x.Sequence).Select(x => x.Sequence).FirstOrDefault();
-                //int maxSequnce=
-                AddCategoryCommand cmd = new AddCategoryCommand(loggedinUser, name, "icon-dice", null, description, maxSequnce + 1, image);
-                commandsFactory.ExecuteQuery(cmd);
-                Guid createdId = cmd.Id;
+        [HttpPost("Admin/addcategory/{id}")]
+        public IActionResult AddCategory(Guid id, CategoryViewModel categoryViewModel)
+        {
+            //Update 
+            if (!ModelState.IsValid)
+            { // re-render the view when validation failed.
+                return View("AddCategory", categoryViewModel);
             }
 
-            return RedirectToAction("AddCategory");
-        }
-       
+            ModelState.Clear();
 
-        [HttpGet("Admin/addkeyword")]
-        public IActionResult AddKeyword()
-        {
-            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
-            return View(categoriesList);
-        }
-
-        [HttpGet("Admin/QuestionReport")]
-        public IActionResult QuestionReport()
-        {
-            return View();
-        }
-        [HttpGet("Admin/DeleteCategory")]
-        public IActionResult DeleteCategory()
-        {
-            IEnumerable<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
-            return View("DeleteCategory", categoriesList);
-        }
-        [HttpPost("Admin/DeleteCategory")]
-        public IActionResult DeleteCategory(Guid categoryId)
-        {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
@@ -123,7 +99,91 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(loggedinUser.ToString());
             }
-            DeleteCategoryCommand command=new DeleteCategoryCommand(loggedinUser,categoryId);
+            String image = categoryViewModel.Image.FileName;
+
+            var uploadPath = Path.Combine(Path.Combine(environment.WebRootPath, configuration["CategoryUpload"]), image);
+            using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+            {
+                categoryViewModel.Image.CopyTo(fileStream);
+            }
+            UpdateCategoryCommand command=new UpdateCategoryCommand(loggedinUser,id,categoryViewModel.Name,categoryViewModel.Description, image, categoryViewModel.Icon);
+            ModelState.Clear();
+            ViewData["Title"] = "Add category";
+            ViewBag.Message = categoryViewModel.Name + " updated Successfully";
+            return View("AddCategory", new CategoryViewModel());
+
+        }
+
+
+        [HttpPost("Admin/addcategory")]
+        public IActionResult AddCategory(CategoryViewModel categoryViewModel)
+        {
+            ViewData["Title"] = "Add category";
+            //Update 
+            if (!ModelState.IsValid)
+            { // re-render the view when validation failed.
+                return View("AddCategory", categoryViewModel);
+            }
+            ModelState.Clear();
+
+            String image = categoryViewModel.Image.FileName;
+
+            var uploadPath = Path.Combine(Path.Combine(environment.WebRootPath, configuration["CategoryUpload"]), image);
+            using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+            {
+                categoryViewModel.Image.CopyTo(fileStream);
+            }
+
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+            int maxSequnce = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().OrderByDescending(x => x.Sequence).Select(x => x.Sequence).FirstOrDefault();
+            //int maxSequnce=
+            AddCategoryCommand cmd = new AddCategoryCommand(loggedinUser, categoryViewModel.Name, categoryViewModel.Icon, true, categoryViewModel.Description, maxSequnce + 1, image);
+            commandsFactory.ExecuteQuery(cmd);
+
+            ViewBag.Message = categoryViewModel.Name + " Added Success";
+            return View(new CategoryViewModel());
+        }
+
+
+        [HttpGet("Admin/addkeyword")]
+        public IActionResult AddKeyword()
+        {
+            ViewData["Title"] = "Add keyword";
+            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+            return View(categoriesList);
+        }
+
+        [HttpGet("Admin/QuestionReport")]
+        public IActionResult QuestionReport()
+        {
+            ViewData["Title"] = "QuestionReport";
+            return View();
+        }
+        [HttpGet("Admin/DeleteCategory")]
+        public IActionResult DeleteCategory()
+        {
+            ViewData["Title"] = "Delete Category";
+            IEnumerable<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
+            return View("DeleteCategory", categoriesList);
+        }
+        [HttpPost("Admin/DeleteCategory")]
+        public IActionResult DeleteCategory(Guid categoryId)
+        {
+            ViewData["Title"] = "Delete Category";
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+            DeleteCategoryCommand command = new DeleteCategoryCommand(loggedinUser, categoryId);
             commandsFactory.ExecuteQuery(command);
             return Ok();
         }
