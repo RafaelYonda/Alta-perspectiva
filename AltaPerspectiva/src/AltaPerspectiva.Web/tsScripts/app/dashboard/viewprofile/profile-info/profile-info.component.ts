@@ -5,13 +5,14 @@ import { ConfigService } from '../../../services/config.service';
 import { CredentialViewModel } from '../../../services/models/models.profile';
 import {User} from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 //Modal
 import { AddCredentialComponent } from '../edit-profile/add-credential.component';
 
 @Component({
     selector: 'profile-info',
     templateUrl: 'js/app/dashboard/viewprofile/profile-info/profile-info.component.html',
-    providers: [ImageUploadService, ConfigService],
+    providers: [ImageUploadService, ConfigService, AuthenticationService],
 })
 export class ProfileInfoComponent {
     //@Input() userObj: User;
@@ -22,27 +23,26 @@ export class ProfileInfoComponent {
     hasCredential: boolean;
     hasDescription: boolean;
     credentialParent: CredentialViewModel;
+    isOwner = true;
 
     @Output() onUpdated = new EventEmitter<boolean>();
 
     private _CredentialData = new BehaviorSubject<CredentialViewModel>(null);
 
     @Input() credential: CredentialViewModel;
-    //set credential(value) {
-    //    this._CredentialData.next(value);
-    //};
-
-    //get credential() {
-    //    return this._CredentialData.getValue();
-    //}
 
 
-    constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
-    }   
-
+    constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService) {
+    }
     ngOnInit() {
+        
         this._configService.getConfig().subscribe(res => {
-
+            this._authService.getLoggedinObj().subscribe(res => {
+                console.log(res);
+                this.isOwner = this.credential.userId == res.userId;
+            });
+            console.log(this.credential);
+            console.log(this.isOwner);
             //Get config for image
             this.profilePath = res.profileImage;            
 
@@ -53,8 +53,6 @@ export class ProfileInfoComponent {
         //        this.credentialParent = this.getCredetialOnParentLoaded(this.credential);
                 
         //    });
-        
-       
     }
     ngOnChanges(changes: SimpleChanges) {
         // only run when property "data" changed
@@ -121,9 +119,7 @@ export class ProfileInfoComponent {
     }
     @ViewChild('credentialDialogAnchor', { read: ViewContainerRef }) credentialDialogAnchor: ViewContainerRef;
     openCredentialDialogBox() {
-       
         this.credentialDialogAnchor.clear();
-
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddCredentialComponent);
         let dialogComponentRef = this.credentialDialogAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.credential = this.credential;        

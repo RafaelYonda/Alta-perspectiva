@@ -115,7 +115,7 @@
     <div class="col-md-3">
         <div class="profile-image-center">
             <img class="profile-image" src="{{imageLink}}" />
-            <input type="file" name="documents" class="custom-file-input" (change)="onChangeImage($event)" [(ngModel)]="doc" #documents="ngModel">
+            <input *ngIf="isOwner"  type="file" name="documents" class="custom-file-input" (change)="onChangeImage($event)" [(ngModel)]="doc" #documents="ngModel">
         </div>
     </div>
     <div class="col-md-9">
@@ -124,7 +124,7 @@
             <div class="user-name">
                 <div [hidden]="!isUserHidden">
                     <h1> {{credential.firstName}} {{credential.lastName}} </h1>
-                    <a (click)="isUserHidden = false" class="edit"><span><i class="fa fa-edit"></i>Edit Name</span> </a>
+                    <a (click)="isUserHidden = false" *ngIf="isOwner" class="edit"><span><i class="fa fa-edit"></i>Edit Name</span> </a>
                 </div>
                 <div [hidden]="isUserHidden">
                     <input placeholder="First Name" [(ngModel)]="credential.firstName" type="text" />
@@ -139,17 +139,17 @@
             </div>-->
             <div [hidden]="hasCredential" class="credential">
                 <a>{{credential.title}}</a>
-                <a (click)="openCredentialDialogBox()" class="edit"><span>Edit Credential</span> </a>
+                <a (click)="openCredentialDialogBox()" *ngIf="isOwner" class="edit"><span>Edit Credential</span> </a>
             </div>
             <!-- ================Description============= -->
             <div [hidden]="!hasDescription">
                 <div [hidden]="!showDescription">
-                    <a (click)="showDescription = false">Write Description about yourself</a>
+                    <a (click)="showDescription = false" *ngIf="isOwner">Write Description about yourself</a>
                 </div>
             </div>
             <div [hidden]="(!hasDescription && !showDescription)">
                 <div [innerHTML]="credential.description"></div>
-                <a class="edit"><span (click)="showDescription = false">Write Description about yourself</span> </a>
+                <a class="edit" *ngIf="isOwner"><span (click)="showDescription = false">Write Description about yourself</span> </a>
             </div>
             <div class="description-panel" [hidden]="showDescription">
                 <quill-editor [(ngModel)]="credential.description" [ngModelOptions]="{standalone: true}"
@@ -160,7 +160,7 @@
                     <button class="btn btn-primary" (click)="updateDecription()">Update</button>
                 </div>
             </div>
-            <ul>
+            <ul *ngIf="isOwner">
                 <li><a>Twitter</a></li>
                 <li><a>Facebook</a></li>
                 <li><a>Linkedin</a></li>
