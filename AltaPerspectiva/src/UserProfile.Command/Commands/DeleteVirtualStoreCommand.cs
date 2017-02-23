@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace UserProfile.Command.Commands
 {
-    public class DeletePracticeAreaCommand: ICommand
+    public class DeleteVirtualStoreCommand: ICommand
     {
-        public DeletePracticeAreaCommand(Guid userId, String practiceAreaName)
+        public DeleteVirtualStoreCommand(Guid userId, Guid virtualStoreId)
         {
             UserId = userId;
-            PracticeAreaName = practiceAreaName;
+            VirtualStoreId = virtualStoreId;
         }
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
+        public Guid VirtualStoreId { get; set; }
 
-        public String PracticeAreaName { get; set; }
     }
 }

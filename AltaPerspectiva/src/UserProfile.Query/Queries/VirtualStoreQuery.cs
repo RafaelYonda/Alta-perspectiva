@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core.Infrastructure;
+using UserProfile.Domain;
 using UserProfile.Query.Interfaces;
 
 namespace UserProfile.Query.Queries
@@ -14,9 +15,16 @@ namespace UserProfile.Query.Queries
 		{
         }
 
-        public string sayHello()
+        public VirtualStore GetVirtualStore(Guid id)
         {
-            return "Hello World";
+            return DbContext.VirtualStores.FirstOrDefault(x => x.Id == id);
         }
+
+        public List<VirtualStore> GetVirtualStores()
+        {
+            return DbContext.VirtualStores.ToList();
+        }
+
+       
     }
 }

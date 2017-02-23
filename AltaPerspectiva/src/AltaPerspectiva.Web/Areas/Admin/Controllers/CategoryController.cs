@@ -113,7 +113,8 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             {
                 categoryViewModel.Image.CopyTo(fileStream);
             }
-            UpdateCategoryCommand command=new UpdateCategoryCommand(loggedinUser,id,categoryViewModel.Name,categoryViewModel.Description, image, categoryViewModel.Icon);
+            
+            UpdateCategoryCommand command=new UpdateCategoryCommand(loggedinUser, categoryViewModel.Id, categoryViewModel.Name,categoryViewModel.Description, image, categoryViewModel.Icon);
             commandsFactory.ExecuteQuery(command);
             ModelState.Clear();
             ViewData["Title"] = "Add category";
