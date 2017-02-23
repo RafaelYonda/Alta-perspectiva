@@ -14,7 +14,7 @@ CREATE TABLE [UserProfile].[VirtualStores](
 	[CreatedOn] [datetime2](7) NULL,
 	[DTS] [datetime2](7) NOT NULL,
 	[Description] [nvarchar](max) NULL,
-	[FileImage] [nvarchar](max) NULL,
+	[ScreenShotImage] [nvarchar](max) NULL,
 	[FileName] [nvarchar](max) NULL,
 	[IsActive] [bit] NULL,
 	[IsDeleted] [bit] NULL,
