@@ -13,6 +13,7 @@ using System.IO;
 using AltaPerspectiva.Web.Areas.Admin.Models;
 using Questions.Command.Commands;
 using Questions.Command;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -53,6 +54,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         {
             ViewData["Title"] = "Add category";
             CategoryViewModel categoryViewModel = new CategoryViewModel();
+            ViewBag.Message = null;
             return View(categoryViewModel);
         }
         [HttpGet("Admin/addcategory/{id}")]
@@ -89,9 +91,6 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             { // re-render the view when validation failed.
                 return View("AddCategory", categoryViewModel);
             }
-
-            ModelState.Clear();
-
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
@@ -113,7 +112,15 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             return View("AddCategory", new CategoryViewModel());
 
         }
+        //[HttpGet("Admin/category/IsCategoryNameExist")]
 
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult IsCategoryNameExist(string Name)
+        {
+            bool isExist = queryFactory.ResolveQuery<ICategoriesQuery>().IsCategoryExists(Name);
+            return Ok(!isExist);
+        }
 
         [HttpPost("Admin/addcategory")]
         public IActionResult AddCategory(CategoryViewModel categoryViewModel)
@@ -124,7 +131,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             { // re-render the view when validation failed.
                 return View("AddCategory", categoryViewModel);
             }
-            ModelState.Clear();
+            
 
             String image = categoryViewModel.Image.FileName;
 
@@ -145,8 +152,8 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             //int maxSequnce=
             AddCategoryCommand cmd = new AddCategoryCommand(loggedinUser, categoryViewModel.Name, categoryViewModel.Icon, true, categoryViewModel.Description, maxSequnce + 1, image);
             commandsFactory.ExecuteQuery(cmd);
-
-            ViewBag.Message = categoryViewModel.Name + " Added Success";
+            ModelState.Clear();
+            ViewBag.Message = categoryViewModel.Name + " Added Successfully";
             return View(new CategoryViewModel());
         }
 

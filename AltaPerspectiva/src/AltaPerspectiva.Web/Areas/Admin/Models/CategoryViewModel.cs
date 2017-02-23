@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AltaPerspectiva.Web.Areas.Admin.Models
 {
@@ -12,8 +13,9 @@ namespace AltaPerspectiva.Web.Areas.Admin.Models
     {
         public Guid Id { get; set; }
         [Required]
-        [RegularExpression(@"[a-zA-Z-\s0-9]{1,40}$",ErrorMessage = "Invalid category name")]
+       // [RegularExpression(@"[a-zA-Z-\s0-9]{1,40}$",ErrorMessage = "Invalid category name")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Category Name cannot be longer than 100 characters and less than 2 characters")]
+       // [Remote("IsCategoryNameExist", "Category","Admin", HttpMethod = "POST", ErrorMessage = "Category name already exist ")]
         public string Name { get; set; }
         [Required]
         public string Icon { get; set; }

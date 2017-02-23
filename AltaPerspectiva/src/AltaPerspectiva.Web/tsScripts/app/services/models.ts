@@ -1,15 +1,18 @@
-﻿export class QuestionMenu {
+﻿import { UserInfoDetails } from './models/models.profile';
+
+export class QuestionMenu {
     id: number;
     questiontext: string;
     questionDetails: string;
 }
 
 export class User {
-    userid: string;
+    userId: string;
     name: string;
     occupassion: string;
     imageUrl: string;
     credentialId: string;
+    userInfoDetails: UserInfoDetails;
 }
 export class LogInObj {
     user: User;

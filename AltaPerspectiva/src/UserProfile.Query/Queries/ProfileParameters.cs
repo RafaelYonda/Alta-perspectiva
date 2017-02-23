@@ -92,11 +92,19 @@ namespace UserProfile.Query.Queries
                 {
                     userInfoDetails.UserId = userId;
                     userInfoDetails.ImageUrl = Convert.ToString(reader["ImageUrl"]);
+                    if (userInfoDetails.ImageUrl == "")
+                    {
+                        userInfoDetails.ImageUrl = "avatar.png";
+                    }
                     userInfoDetails.Education= Convert.ToString(reader["Education"]);
                     userInfoDetails.Employment= Convert.ToString(reader["Employment"]);
                     userInfoDetails.Place= Convert.ToString(reader["Place"]);
                     userInfoDetails.OtherExperience= Convert.ToString(reader["OtherExperience"]);
                     userInfoDetails.FullName= Convert.ToString(reader["FullName"]);
+                    if (String.IsNullOrEmpty(userInfoDetails.FullName))
+                    {
+                        userInfoDetails.FullName = "Guest";
+                    }
                     userInfoDetails.Title= Convert.ToString(reader["Title"]);
                     userInfoDetails.AnswerCount = Convert.ToInt32(reader["AnswerCount"]);
                     userInfoDetails.QuestionCount = Convert.ToInt32(reader["QuestionCount"]);

@@ -9,5 +9,7 @@ namespace Questions.Query
     {
         IEnumerable<Category> Execute();
         Category GetCategoryById(Guid categoryId);
+
+        bool IsCategoryExists(string categoryName);
     }
 }

@@ -23,7 +23,7 @@ export class BlogpostCommentComponent {
 
     constructor(private commentService: BlogService) {
         var user: User = new User();
-        user.userid = '-1';
+        user.userId = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {

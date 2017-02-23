@@ -18,6 +18,10 @@
     .create-button {
         margin-left: 8.666667%;
     }
+    textarea {
+        width: 275px;
+    height: 89px;
+    }
 </style>
 @{
     List<SelectListItem> listItems = new List<SelectListItem>();
@@ -69,7 +73,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Description, new {@class = "col-sm-offset-1 col-md-2" })
                     <div class="col-sm-offset-1 col-md-10">
-                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { placeholder = "Input description", @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { placeholder = "Input description", @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Description)
                     </div>
                 </div>
@@ -133,7 +137,8 @@
 
             if (ViewBag.Message != null)
             {
-                <h1 class="alert alert-danger">Success</h1>
+                <h1 class="alert alert-danger">@ViewBag.Message</h1>
+                ViewData.Clear();
             }
         }
 

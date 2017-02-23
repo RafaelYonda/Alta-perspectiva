@@ -142,7 +142,7 @@
                     <div class="col-lg-12">
 
                         <div class="col-md-3">
-                            <input type="button" id="btnSaveTopic" value="SaveTopic" class="btn btn-default" onclick="saveTopic($('#topicCategoryId').val())">
+                            <input type="button" id="btnSaveTopic" value="SaveTopic" class="btn btn-default" onclick="AddTopic($('#topicCategoryId').val())">
                         </div>
                         <div class="col-md-6">
                             <input type="text" id="newTopic" name="newTopic" placeholder="Add Topics" class="form-control" />
@@ -186,7 +186,7 @@
         console.log(categoryId);
         var newKeyword = $('#newTopic').val();
         if (newKeyword.length <= 1 || newKeyword === undefined) {
-            alert('Topic is not correct');
+            alert('Please Enter a Valid Topic');
             return;
 
         } else {

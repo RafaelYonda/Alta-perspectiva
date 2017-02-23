@@ -50,7 +50,7 @@ export class QuestionDetailComponent {
         //this.question = questionService.getFakeQuestion();
         this.date = new DateName();
         var user: User = new User();
-        user.userid = '-1';
+        user.userId = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {

@@ -16,7 +16,9 @@
                 </div>
                 <div *ngIf="(question.answerCount>0)">
                     <div (click)="openDialogBox(question)">
-                        <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
+                        <div *ngIf="question.bestAnswer">
+                            <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
+                        </div>
                         <div *ngIf="question.bestAnswer?.text">
                             <p [innerHTML]="question.bestAnswer?.text.substring(0, 300)"></p><span><a (click)="openDialogBox(question)">Read more..</a></span>
                         </div>

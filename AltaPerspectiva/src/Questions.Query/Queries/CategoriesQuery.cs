@@ -15,6 +15,14 @@ namespace Questions.Query
 			: base(context)
 		{
 		}
+        
+        
+        public bool IsCategoryExists(string categoryName)
+        {
+            var exists= DbContext.Categories.Where(x => x.Name == categoryName&&x.IsDeleted==null).Select(x=>x.Name).Any();
+            
+            return exists;
+        }
 
         public IEnumerable<Category> Execute()
         {
