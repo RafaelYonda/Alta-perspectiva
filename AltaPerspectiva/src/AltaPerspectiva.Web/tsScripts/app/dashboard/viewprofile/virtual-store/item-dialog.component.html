@@ -1,13 +1,64 @@
-﻿<div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
-    <div class="modal-content credential-dialog">
+﻿<style>
+    .item-dialog {
+        width: 60%;
+        margin: 10px auto;
+    }
+
+    .item-img-lg {
+        height: 250px;
+        width: 250px;
+        border-radius: 10%;
+        float: left;
+    }
+
+    .item-detail-container {
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .item-comment-container {
+        padding: 10px;
+    }
+
+    .item-info {
+        padding: 25px;
+        float: left;
+        width: 60%;
+    }
+
+    .btn-item {
+        background-color: #f6912b;
+        color: white;
+        min-width: 80px;
+        padding: 5px;
+        margin-right: 12px;
+    }
+
+    .item-info p {
+        min-height: 130px;
+    }
+    .item-comment{
+        background-color:#d3cfc9;
+    }
+</style>
+<div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
+    <div class="modal-content item-dialog">
         <div class="exit-button" (click)="onClickedExit()">x</div>
         <div class="modal-container" style="border:1px solid;">
-            <div class="modal-header">
-                <h3>Edit Credentials</h3>
-                <p>Credentials also appear on answers you write.</p>
+            <div class="item-detail-container">
+                <img src="../images/avatar.png" class="item-img-lg" />
+                <div class="item-info">
+                    <h1>0.0$</h1>
+                    <h2>Service 1</h2>
+                    <p>kalflka kjfkajsd asdj apiojfa ;fkja;kdjf kadfj;akd jfa;kdfj kadjfa;kd fjak;df ja;kdfja;s jdf;aj da;sd</p>
+                    <button class="btn btn-item">Buy</button>
+                    <button class="btn btn-item">Download</button>
+                </div>
             </div>
-            <div class="profile-modal-body">
-                <h1>Virtual Modal</h1>
+            <hr />
+            <div class="item-comment-container">
+                <h3>Comment</h3>
+                <input class="form-control item-comment" />
             </div>
         </div>
     </div>
