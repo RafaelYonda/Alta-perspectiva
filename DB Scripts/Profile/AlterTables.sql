@@ -1,6 +1,51 @@
 USE [AltaPerspectiva]
 GO
+/*Virtual Stores*/
+SET ANSI_NULLS ON
+GO
+DROP TABLE [UserProfile].[VirtualStores];
 
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [UserProfile].[VirtualStores](
+	[Id] [uniqueidentifier] NOT NULL,
+	[CreatedBy] [uniqueidentifier] NULL,
+	[CreatedOn] [datetime2](7) NULL,
+	[DTS] [datetime2](7) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+	[FileImage] [nvarchar](max) NULL,
+	[FileName] [nvarchar](max) NULL,
+	[IsActive] [bit] NULL,
+	[IsDeleted] [bit] NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+	[ModifiedOn] [datetime2](7) NULL,
+	[Prize] [float] NOT NULL,
+	[Title] [nvarchar](max) NULL,
+ CONSTRAINT [PK_VirtualStores] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GO
 ALTER TABLE Questions.Questions 
 ADD IsDirectQuestion bit NOT NULL CONSTRAINT DF_Questions_IsDirectQuestion DEFAULT (0)
 GO

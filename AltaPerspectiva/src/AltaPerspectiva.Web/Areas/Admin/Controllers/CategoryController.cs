@@ -53,6 +53,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         public IActionResult AddCategory()
         {
             ViewData["Title"] = "Add category";
+            ViewData["Category"] = "Add category";
             CategoryViewModel categoryViewModel = new CategoryViewModel();
             ViewBag.Message = null;
             return View(categoryViewModel);
@@ -60,8 +61,10 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         [HttpGet("Admin/addcategory/{id}")]
         public IActionResult AddCategory(Guid id)
         {
-            ViewData["Title"] = "Add category";
+           
             CategoryViewModel categoryViewModel = new CategoryViewModel();
+            ModelState.Remove("categoryViewModel.Name");
+            
             Category model = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(id);
 
             String imageNameWithPath =String.Empty;
@@ -79,7 +82,8 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 ImagePath = imageNameWithPath,
                 Icon = model.Icon
             };
-
+            ViewData["Title"] = "Add category of "+categoryViewModel.Name;
+            ViewData["Category"] = "Add category of "+categoryViewModel.Name;
             return View("AddCategory", categoryViewModel);
         }
 
@@ -90,6 +94,10 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             { // re-render the view when validation failed.
                 return View("AddCategory", categoryViewModel);
+            }
+            if (String.IsNullOrEmpty(categoryViewModel.Name))
+            {
+                ModelState.AddModelError("categoryViewModel.Name", "CategoryName is required");
             }
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -106,10 +114,11 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 categoryViewModel.Image.CopyTo(fileStream);
             }
             UpdateCategoryCommand command=new UpdateCategoryCommand(loggedinUser,id,categoryViewModel.Name,categoryViewModel.Description, image, categoryViewModel.Icon);
+            commandsFactory.ExecuteQuery(command);
             ModelState.Clear();
             ViewData["Title"] = "Add category";
             ViewBag.Message = categoryViewModel.Name + " updated Successfully";
-            return View("AddCategory", new CategoryViewModel());
+            return RedirectToAction("AddKeyword");
 
         }
         //[HttpGet("Admin/category/IsCategoryNameExist")]

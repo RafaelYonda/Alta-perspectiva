@@ -18,6 +18,7 @@ namespace UserProfile.Command.UserProfileDBContext
         public DbSet<Education> Educations { get; set; }
         public DbSet<Place> Places { get; set; }
         public DbSet<OtherExperience> OtherExperiences { get; set; }
+        public DbSet<VirtualStore> VirtualStores { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configure model mappings

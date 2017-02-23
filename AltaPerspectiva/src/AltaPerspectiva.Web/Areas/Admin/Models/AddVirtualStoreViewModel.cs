@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using AltaPerspectiva.Core.Infrastructure;
 
-namespace UserProfile.Domain
+namespace AltaPerspectiva.Web.Areas.Admin.Models
 {
-    public class VirtualStore:Entity
+    public class AddVirtualStoreViewModel
     {
         public double Prize { get; set; }
         public string Title { get; set; }

@@ -247,6 +247,13 @@ namespace AltaPerspectiva
 
             #endregion
 
+            #region VitualStore
+
+            services.AddTransient<IVirtualStoreQuery, VirtualStoreQuery>();
+            services.AddTransient<ICommandHandler<AddVirtualStoreCommand>, AddVirtualStoreCommandHandler>();
+
+            #endregion
+
         }
 
 
