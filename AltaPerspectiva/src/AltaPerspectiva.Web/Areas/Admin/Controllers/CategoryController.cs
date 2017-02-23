@@ -63,12 +63,8 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         {
            
             CategoryViewModel categoryViewModel = new CategoryViewModel();
-            ModelState.Remove("categoryViewModel.Name");
-            
             Category model = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(id);
-
             String imageNameWithPath =String.Empty;
-
             if (model.Image != null)
             {
                 imageNameWithPath= Path.Combine(Path.Combine(environment.WebRootPath, configuration["CategoryUpload"]), model.Image);
@@ -92,13 +88,11 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         {
             //Update 
             if (!ModelState.IsValid)
-            { // re-render the view when validation failed.
+            { 
+                // re-render the view when validation failed.
                 return View("AddCategory", categoryViewModel);
             }
-            if (String.IsNullOrEmpty(categoryViewModel.Name))
-            {
-                ModelState.AddModelError("categoryViewModel.Name", "CategoryName is required");
-            }
+           
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)

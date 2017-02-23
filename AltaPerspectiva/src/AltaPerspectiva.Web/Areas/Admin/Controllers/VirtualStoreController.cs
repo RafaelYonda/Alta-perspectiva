@@ -42,7 +42,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
         #region API
 
-        [HttpGet("admin/virtualstore/getallitems")]
+        [HttpGet("admin/virtualstore/getitems")]
         public IActionResult GetAllItems()
         {
             List<VirtualStore> virtualStores = queryFactory.ResolveQuery<IVirtualStoreQuery>().GetVirtualStores();
@@ -69,17 +69,6 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         [HttpGet("Admin/VirtualStore/Index")]
         public IActionResult Index()
         {
-            //// String hello = queryFactory.ResolveQuery<IVirtualStoreQuery>().sayHello();
-            //  Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            //  if (User.Identity.IsAuthenticated)
-            //  {
-            //      var uid = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-            //      loggedinUser = new Guid(uid?.ElementAt(0).ToString());
-
-            //  }
-            //  AddVirtualStoreCommand command=new AddVirtualStoreCommand(loggedinUser,0,"","","","");
-            //  commandsFactory.ExecuteQuery(command);
-
             List<VirtualStore> virtualStores = queryFactory.ResolveQuery<IVirtualStoreQuery>().GetVirtualStores();
             AddVirtualStoreViewModel addVirtualStoreViewModel = new AddVirtualStoreViewModel();
             addVirtualStoreViewModel.VirtualStores = virtualStores;
@@ -89,12 +78,10 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Index(AddVirtualStoreViewModel addVirtualStoreViewModel)
         {
-            // String hello = queryFactory.ResolveQuery<IVirtualStoreQuery>().sayHello();
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
             {
-                var uid =
-                    User.Claims.Where(
+                var uid =User.Claims.Where(
                             x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
                         .Select(x => x.Value);
                 loggedinUser = new Guid(uid?.ElementAt(0).ToString());
@@ -111,7 +98,6 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(Guid Id)
         {
-            // String hello = queryFactory.ResolveQuery<IVirtualStoreQuery>().sayHello();
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
             {
@@ -122,16 +108,12 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 loggedinUser = new Guid(uid?.ElementAt(0).ToString());
 
             }
-            //AddVirtualStoreCommand command = new AddVirtualStoreCommand(loggedinUser, addVirtualStoreViewModel.Prize, addVirtualStoreViewModel.Title, addVirtualStoreViewModel.Description, addVirtualStoreViewModel.FileName, addVirtualStoreViewModel.ScreenShotImage);
-            //commandsFactory.ExecuteQuery(command);
-
             return View();
         }
 
         [HttpGet]
         public IActionResult Delete(Guid id)
         {
-            // String hello = queryFactory.ResolveQuery<IVirtualStoreQuery>().sayHello();
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
             {
