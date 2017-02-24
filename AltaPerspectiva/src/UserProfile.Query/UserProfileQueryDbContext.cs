@@ -51,7 +51,15 @@ namespace UserProfile.Query
                 return Set<OtherExperience>().AsNoTracking();
             }
         }
-       
+        public IQueryable<VirtualStore> VirtualStores
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<VirtualStore>().AsNoTracking();
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("UserProfile");
@@ -61,6 +69,7 @@ namespace UserProfile.Query
             modelBuilder.Entity<Education>().ToTable("Educations");
             modelBuilder.Entity<Place>().ToTable("Places");
             modelBuilder.Entity<OtherExperience>().ToTable("OtherExperiences");
+            modelBuilder.Entity<VirtualStore>().ToTable("VirtualStores");
             
         }
     }

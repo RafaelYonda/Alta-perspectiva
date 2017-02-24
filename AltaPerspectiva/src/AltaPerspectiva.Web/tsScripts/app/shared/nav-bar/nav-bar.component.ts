@@ -32,7 +32,7 @@ export class NavBarComponent {
                 this._logObj.user.name = res.name;
                 this._logObj.user.imageUrl = '../../../../profile/' + res.imageUrl;
                 this._logObj.isLoggedIn = true;
-                this._logObj.user.userid = res.userId;
+                this._logObj.user.userId = res.userId;
 
                 localStorage.setItem('currentUserName', this._logObj.user.name);
                 localStorage.setItem('currentUserImage', this._logObj.user.imageUrl);

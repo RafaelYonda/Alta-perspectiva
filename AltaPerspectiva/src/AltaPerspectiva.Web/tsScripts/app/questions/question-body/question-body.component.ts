@@ -58,7 +58,7 @@ export class QuestionBodyComponent {
         /// load spinner for when  component initialize
         this.loader.isLoading = true;
         var user: User = new User();
-        user.userid = '-1';
+        user.userId = '-1';
         this._logObj = { isLoggedIn: false, user: user };
 
     }

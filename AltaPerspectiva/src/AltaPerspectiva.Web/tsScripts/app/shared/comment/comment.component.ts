@@ -21,7 +21,7 @@ export class CommentComponent {
     @Output() sendCommentCount = new EventEmitter<any>();
     constructor(private commentService: CommentService) {
         var user: User = new User();
-        user.userid = '-1';
+        user.userId = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {

@@ -26,17 +26,18 @@ namespace Questions.Command.CommandHandler
             category.GenerateNewIdentity();
             category.Name = command.Name;
             category.Icon = command.Icon;
-            category.Active = command.Active;
+            category.IsActive = command.Active;
             category.Description = command.Description;
             category.Sequence = command.Sequence;
             category.Image = command.Image;
+            category.ModifiedOn = DateTime.Now;
+            category.CreatedOn = DateTime.Now;
 
-         
             DbContext.Categories.Add(category);
-           
-           DbContext.SaveChanges();
-          
-            
+
+            DbContext.SaveChanges();
+
+
             command.Id = category.Id;
         }
     }

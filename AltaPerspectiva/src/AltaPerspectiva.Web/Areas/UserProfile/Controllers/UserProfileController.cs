@@ -581,7 +581,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 loggedinUser = new Guid(uId?.ElementAt(0).ToString());
 
             }
-            if (userId != loggedinUser)
+            if (userId != loggedinUser )
             {
                 UpdateProfileViewCountCommand command = new UpdateProfileViewCountCommand(userId);
                 commandsFactory.ExecuteQuery(command);

@@ -1,4 +1,5 @@
-﻿import { NgModule } from '@angular/core';
+﻿
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { ModuleWithProviders }  from '@angular/core';
@@ -17,9 +18,9 @@ import { DirectQuestionComponent } from './viewprofile/direct-question/direct-qu
 import { AddCredentialComponent } from './viewprofile/edit-profile/add-credential.component';
 import { AddEducationComponent } from './viewprofile/edit-profile/add-education.component';
 import { AddEmploymentComponent } from './viewprofile/edit-profile/add-employment.component';
-
 import { AddOtherExperienceComponent } from './viewprofile/edit-profile/add-otherexperience.component';
 import { AddPlaceComponent } from './viewprofile/edit-profile/add-place.component';
+import { ItemDialogComponent } from './viewprofile/virtual-store/item-dialog.component';
 
 import { UserAnswerComponent } from './viewprofile/user-answer/user-answer.component';
 import { UserQuestionComponent } from './viewprofile/user-question/user-question.component';
@@ -28,7 +29,9 @@ import { FollowerComponent } from './viewprofile/follower/follower.component';
 import { BookmarkComponent } from './viewprofile/bookmark/bookmark.component';
 import { PostedQuestionComponent } from './viewprofile/posted-question/posted-question.component';
 import { BlogCreateComponent } from './viewprofile/blog-create/blog-create.component';
-import { BlogPostComponent } from './viewprofile/blog-post/blog-post.component'; 
+import { BlogPostComponent } from './viewprofile/blog-post/blog-post.component';
+import { VirtualStoreComponent } from './viewprofile/virtual-store/virtual-store.component';
+
 import { PostStatusComponent } from './viewprofile/blog-post/post-status.component'; 
 import { BlogpostCommentComponent } from './viewprofile/blog-post/post-comment.component'; 
 import { BlogpostDetailComponent } from './viewprofile/blog-post/blogpost-detail.component';
@@ -57,6 +60,7 @@ const DashBoardroutes: Routes = [
                     { path: 'bookmark', component: BookmarkComponent },
                     { path: 'blog-create', component: BlogCreateComponent },
                     { path: 'direct-question', component: DirectQuestionComponent }, 
+                    { path: 'virtual-store', component: VirtualStoreComponent }, 
                     //{ path: 'blog-post', component: PostedQuestionComponent }
                 ]
             }
@@ -72,12 +76,12 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
     declarations: [
         DashBoardComponent, NavDashboard,
         ViewProfileComponent,
-        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, PostStatusComponent, BlogpostCommentComponent, BlogpostDetailComponent, PostedQuestionComponent,
+        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, VirtualStoreComponent, PostStatusComponent, BlogpostCommentComponent, BlogpostDetailComponent, PostedQuestionComponent,
         //Edit Profile
-        AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent
+        AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, ItemDialogComponent
     ],
     exports: [DashBoardComponent],
-    entryComponents: [AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, BlogpostDetailComponent]
+    entryComponents: [AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, BlogpostDetailComponent, ItemDialogComponent]
 })
 export class DashBoardModule { }
 

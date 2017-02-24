@@ -1,15 +1,33 @@
 ﻿
 <style>
     .edit {
-        color: #f6912b;
+        /*color: #f6912b;*/
+        font-size: 13px;
     }
 
         .edit:hover {
             text-decoration: underline;
+            visibility: visible;
+            color: #f6912b;
         }
-        .fa-li {
-            position: static;
-        }
+
+    .fa-li {
+        position: static;
+    }
+
+    .top-spacing {
+        margin-top: 20px;
+    }
+    .credential-panel
+    {
+        list-style:none;
+    }
+    .credential-panel li{
+        margin-bottom:10px;
+    }
+    .row-overflow{
+        overflow:visible;
+    }
 </style>
 
 
@@ -23,15 +41,16 @@
     <div #placeDialogAnchor></div>
 </div>
 <div class="row">
-    
+
     <div class="alert alert-danger center-width" *ngIf="!credential.id">
         Please add first name and last name to start.
 
     </div>
     <div class="col-md-9">
-        <div class="row" *ngIf="credential"><profile-info [credential]="credential" (onUpdated)="onUpdatedProfile($event)"></profile-info>
+        <div class="row" *ngIf="credential">
+            <profile-info [credential]="credential" (onUpdated)="onUpdatedProfile($event)"></profile-info>
         </div>
-        <div class="row">
+        <div class="row row-overflow">
             <div class="col-md-3">
                 <ul id="profile-route" class="profile-leftmenu">
                     <li><a class="route link-with-number" tabindex="0" id="question-route" [routerLink]="['/dashboard/viewprofile',credential.userId,'user-question']" routerLinkActive="active-link">Questions<span>{{profileParam?.questions}}</span> </a></li>
@@ -41,8 +60,8 @@
                     <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'bookmark']" routerLinkActive="active-link">Bookmarks <span>{{profileParam?.bookmarks}}</span></a></li>
                     <!--<li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'post']" routerLinkActive="active-link">Posts<span>0</span></a></li>-->
                     <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'blog-create']" routerLinkActive="active-link">Blogs<span>{{profileParam?.blogs}}</span></a></li>
-                    
-                    <!--<li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'direct-question']" routerLinkActive="active-link">Direct Question<span>{{profileParam?.directQuestions}}</span></a></li>-->
+                    <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'direct-question']" routerLinkActive="active-link">Direct Question</a></li>
+                    <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'virtual-store']" routerLinkActive="active-link">Virtual Store</a></li>
                 </ul>
             </div>
             <div class="col-md-9 border-top-grey">
@@ -50,14 +69,19 @@
                     <!--tricks to hide question top border-->
                     <router-outlet></router-outlet>
                 </div>
+                <!-- For Hover pop up get some space to show -->
+                <div style="height:200px;position:relative;"></div> 
             </div>
         </div>
     </div>
-    <div class="col-md-3" >
+    <div class="col-md-3 top-spacing">
         <div>
-            <h3>Credentials</h3>
+            <h3>
+                Credentials
+                <a  class="edit"><span><i class="fa fa-edit"></i></span> </a>
+            </h3>
 
-            <ul style="list-style-type: none;">
+            <ul class="credential-panel">
                 <li>
                     <div *ngIf="employmentExists" innerHTML='<i class="fa fa-suitcase"></i>{{employmentHtml}}'>
 
@@ -68,7 +92,7 @@
                 </li>
                 <li>
                     <div *ngIf="educationExists" innerHTML='<i class="fa fa-university"></i> {{educationHtml}}'>
-                       
+
                     </div>
                     <a *ngIf="!educationExists" (click)="openEducationDialogAnchor()" class="edit">
                         Add Education
@@ -76,7 +100,7 @@
                 </li>
                 <li>
                     <div *ngIf="placeExists" innerHtml='<i class="fa fa-home"></i> {{placeHtml}}'>
-                        
+
                     </div>
                     <a *ngIf="!placeExists" (click)="openPlaceDialogAnchor()" class="edit">
                         Add Place
@@ -84,7 +108,7 @@
                 </li>
                 <li>
                     <div *ngIf="otherExperienceExists" innerHTML='<i class="fa fa-cog"></i> {{othersHtml}}'>
-                        
+
                     </div>
                     <a *ngIf="!otherExperienceExists" (click)="openOtherexperienceDialogAnchor()" class="edit">
                         Add Others

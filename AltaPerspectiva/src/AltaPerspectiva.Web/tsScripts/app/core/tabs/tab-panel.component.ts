@@ -30,7 +30,7 @@ export class TabPanelComponent {
     constructor( private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
         this.route = _route;
         var user: User = new User();
-        user.userid = '-1';
+        user.userId = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
 
