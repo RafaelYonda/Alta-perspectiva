@@ -18,7 +18,7 @@ export class ProfileInfoComponent {
     isUserHidden = true;
     showDescription = true;
     imageLink: string;
-    profilePath: string;
+    profilePath: string = '../../../../profile/';
     hasCredential: boolean;
     hasDescription: boolean;
     credentialParent: CredentialViewModel;
@@ -46,14 +46,7 @@ export class ProfileInfoComponent {
             //Get config for image
             this.profilePath = res.profileImage;            
 
-        });
-        
-        //this._CredentialData.   //.takeWhile(() => !this.credentialParent) // unsubscribe once groupPosts has value
-        //    subscribe(x => {
-        //        this.credentialParent = this.getCredetialOnParentLoaded(this.credential);
-                
-        //    });
-        
+        });        
        
     }
     ngOnChanges(changes: SimpleChanges) {

@@ -21,8 +21,28 @@ export class QuestionPanelComponent {
     showQuestionEditForm: boolean
     editTitle: string
     editBody: string
+    clippedAnswer: string;
     sendCommentCountToApStatus = new EventEmitter<any>()
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private dataService: QuestionAnswerService) { }
+
+    ngOnInit() {
+        if (!this.question.bestAnswer)
+            return;
+            if (!this.question.bestAnswer.text)
+                return;
+
+        
+        var imgPos = this.question.bestAnswer.text.indexOf("img");
+
+        if (imgPos < 200)
+        {
+            var length = this.question.bestAnswer.text.indexOf(">", imgPos)
+            length = length + 200;
+            this.clippedAnswer = this.question.bestAnswer.text.substring(0, length);
+        }
+        else
+            this.clippedAnswer = this.question.bestAnswer.text.substring(0, 200);
+    }
 
     onQuestionDetailClicked(showEditForm: boolean) {
         this.showQuestionEditForm = showEditForm;
