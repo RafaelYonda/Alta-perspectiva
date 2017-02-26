@@ -5,16 +5,18 @@ import { ConfigService } from '../../../services/config.service';
 import { CredentialViewModel } from '../../../services/models/models.profile';
 import {User} from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 //Modal
 import { AddCredentialComponent } from '../edit-profile/add-credential.component';
 
 @Component({
     selector: 'profile-info',
     templateUrl: 'js/app/dashboard/viewprofile/profile-info/profile-info.component.html',
-    providers: [ImageUploadService, ConfigService],
+    providers: [ImageUploadService, ConfigService,AuthenticationService],
 })
 export class ProfileInfoComponent {
     //@Input() userObj: User;
+    isOwner = false;
     isUserHidden = true;
     showDescription = true;
     imageLink: string;
@@ -22,6 +24,7 @@ export class ProfileInfoComponent {
     hasCredential: boolean;
     hasDescription: boolean;
     credentialParent: CredentialViewModel;
+    
 
     @Output() onUpdated = new EventEmitter<boolean>();
 
@@ -37,7 +40,7 @@ export class ProfileInfoComponent {
     //}
 
 
-    constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
+    constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService) {
     }   
 
     ngOnInit() {
@@ -62,23 +65,34 @@ export class ProfileInfoComponent {
         
         this.credential = data;
 
-        this.hasCredential = this.credential.title ? this.credential.title.trim() != "" ? false : true : false;
-        this.hasDescription = this.credential.description ? this.credential.description.trim() != "" ? false : true : false;
-
+        if (!this.credential.firstName || !this.credential.lastName)
+            this.isUserHidden = false;
+      
         if (this.credential.imageUrl && (this.credential.imageUrl != ''))
             this.imageLink = this.profilePath.concat(this.credential.imageUrl);
         else this.imageLink = '../images/userAdd.png';
 
+        this.getLoggedInUser(this.credential.userId);
+
         return data;
+    }
+
+    getLoggedInUser(userId: string) {
+        var currentUser = localStorage.getItem('auth_token');
+        this._authService.getLoggedinObj().subscribe(res => {
+            if (res && currentUser != "null") {
+
+                if (userId == res.userId)
+                    this.isOwner = true;
+            }
+        });
     }
 
     loadData() {
         this.profileService.GetUsercredentialByUserId(this.credential.userId).subscribe(usr => {
             this.credential = usr;
             this._configService.getConfig().subscribe(res => {      //Get config for image
-                this.imageLink = res.profileImage;
-                this.hasCredential = this.credential.title ? this.credential.title.trim() != "" ? false : true : false;
-                this.hasDescription = this.credential.description ? this.credential.description.trim() != "" ? false : true : false;
+                this.imageLink = res.profileImage;                
 
                 if (this.credential.imageUrl && (this.credential.imageUrl != ''))
                     this.imageLink += this.credential.imageUrl;

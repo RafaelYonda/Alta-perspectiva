@@ -1,4 +1,5 @@
 ﻿import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, ViewEncapsulation} from '@angular/core';
+
 import {LogInObj, User} from '../../services/models';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ProfileService } from '../../services/profile.service';
@@ -14,14 +15,14 @@ import { CredentialViewModel } from '../../services/models/models.profile';
     styleUrls: ['js/app/core/nav/apNav.css'],
 })
 export class ApNav {
-    @Input() className: string;
-    _router: Router;
+    @Input() className: string;    
     isbackGround = false;
     _logObj: LogInObj;
     _authService: AuthenticationService;
     credential: CredentialViewModel = new CredentialViewModel();
+    
 
-    constructor(private authService: AuthenticationService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver) {
+    constructor(private authService: AuthenticationService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router) {
         this._authService = authService;
         var user: User = new User();
         //user.userid = '-1';
@@ -41,6 +42,10 @@ export class ApNav {
                 localStorage.setItem('currentUserImage', this._logObj.user.imageUrl);
             }
         });
+    }
+
+    gotoProfile() {
+        this._router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
     }
     
 }

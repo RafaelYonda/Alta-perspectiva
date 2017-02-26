@@ -149,6 +149,8 @@ export class ViewProfileComponent {
             }
         }
 
+        var editHtml = "<a (click)='openEmploymentDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>"
+
         this.educationHtml = primary.concat(" & ").concat(secondary).concat(degree);
     }
     generatePlaceHtml() {

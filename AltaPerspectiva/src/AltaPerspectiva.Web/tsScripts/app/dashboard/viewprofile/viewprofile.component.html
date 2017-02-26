@@ -77,21 +77,21 @@
     <div class="col-md-3 top-spacing">
         <div>
             <h3>
-                Credentials
-                <a  class="edit"><span><i class="fa fa-edit"></i></span> </a>
+                Credentials               
             </h3>
 
             <ul class="credential-panel">
                 <li>
-                    <div *ngIf="employmentExists" innerHTML='<i class="fa fa-suitcase"></i>{{employmentHtml}}'>
+                    <div *ngIf="employmentExists">
+                        <i class="fa fa-suitcase"></i>{{employmentHtml}}'
                     </div>
                     <a *ngIf="!employmentExists" (click)="openEmploymentDialogAnchor()" class="edit">
                         Add Employment
                     </a>
                 </li>
                 <li>
-                    <div *ngIf="educationExists" innerHTML='<i class="fa fa-university"></i> {{educationHtml}}'>
-
+                    <div *ngIf="educationExists">
+                        <i class="fa fa-university"></i> {{educationHtml}}  <a (click)='openEmploymentDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!educationExists" (click)="openEducationDialogAnchor()" class="edit">
                         Add Education
