@@ -84,7 +84,6 @@
             <ul class="credential-panel">
                 <li>
                     <div *ngIf="employmentExists" innerHTML='<i class="fa fa-suitcase"></i>{{employmentHtml}}'>
-
                     </div>
                     <a *ngIf="!employmentExists" (click)="openEmploymentDialogAnchor()" class="edit">
                         Add Employment
@@ -114,10 +113,7 @@
                         Add Others
                     </a>
                 </li>
-
             </ul>
-
-
         </div>
         <profile-category [categoryWiseAnswers]="categoryWiseAnswers"></profile-category>
         <profile-stat [profileParam]="profileParam"></profile-stat>

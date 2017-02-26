@@ -114,10 +114,10 @@ export class ViewProfileComponent {
 
         this.employmentExists = true;                
 
-        this.employmentHtml = " "+this.credential.employments[0].position.concat(" at ")
-            .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/> ")
-            .concat(this.credential.employments[0].startDate ? this.credential.employments[0].startDate.toString():"")
-            .concat(this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
+        this.employmentHtml = " " + this.credential.employments[0].position.concat(" at ")
+                              .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/> ")
+                              .concat(this.credential.employments[0].startDate ? this.credential.employments[0].startDate.toString():"")
+                              .concat(this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
     }
 
     generateEducationHtml()
