@@ -12,5 +12,6 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
     {      
       public string CategoryImage { get; set; }
       public string ProfileImage { get; set; }
+        public string VirtualStore { get; set; }
     }
 }

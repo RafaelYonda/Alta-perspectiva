@@ -45,6 +45,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             var config = new Config();
             config.ProfileImage = configuration["ProfileImage"];
             config.CategoryImage = configuration["CategoryImage"];
+            config.VirtualStore = configuration["VirtualStore"];
             return Ok(config);
         }
         #endregion
