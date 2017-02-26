@@ -19,32 +19,13 @@
 </style>
 <div #itemDialog></div>
 <div class="row">
-    <div class="col-md-4">
-        <a class="item-list" (click)="openItemDialogAnchor()">
+    <div class="col-md-4" *ngFor="let virtualStore of virtualStores">
+        <a class="item-list" (click)="openItemDialogAnchor(virtualStore)">
             <img src="../images/avatar.png" class="item-img" />
         </a>
         <div class="img-tag">
-            <h3>0.0$</h3>
-            <div>Service 1</div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <a class="item-list" (click)="openItemDialogAnchor()">
-            <img src="../images/avatar.png" class="item-img" />
-        </a>
-        <div class="img-tag">
-            <h3>0.0$</h3>
-            <div>Service 1</div>
-        </div>
-
-    </div>
-    <div class="col-md-4">
-        <a class="item-list" (click)="openItemDialogAnchor()">
-            <img src="../images/avatar.png" class="item-img" />
-        </a>
-        <div class="img-tag">
-            <h3>0.0$</h3>
-            <div>Service 1</div>
+            <h3>{{virtualStore.price}}$</h3>
+            <div>{{virtualStore.title}}</div>
         </div>
     </div>
 </div>

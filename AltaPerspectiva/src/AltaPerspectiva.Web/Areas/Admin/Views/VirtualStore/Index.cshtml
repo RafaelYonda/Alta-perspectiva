@@ -1,68 +1,115 @@
-﻿@model AltaPerspectiva.Web.Areas.Admin.Models.AddVirtualStoreViewModel 
+﻿@model AltaPerspectiva.Web.Areas.Admin.Models.AddVirtualStoreViewModel
 
+<style>
+    .upload-panel {
+        width: 60%;
+        margin: 69px auto;
+        background-color: #f1efef;
+    }
+
+    .bottm-margin {
+        margin-bottom: 5px;
+    }
+
+    .btn-container {
+        text-align: right;
+    }
+
+    .upload-box {
+        cursor: pointer;
+        position: relative;
+        border: 2px dashed #bfbaba;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        border-radius: 10px;
+    }
+
+        .upload-box h1 {
+            font-size: 210px;
+            line-height: 110px;
+            margin-top: 50px;
+            margin-bottom: 38px;
+            color: #d0cdcd;
+        }
+
+        .upload-box p {
+            font-size: 40px;
+            line-height: 30px;
+            margin-bottom: 10px;
+            color: #d0cdcd;
+        }
+
+    .hidden-file-input {
+        cursor:pointer;
+        opacity: 0.0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+</style>
 <h2>VitualStore</h2>
 
-@using (Html.BeginForm("Index", "VirtualStore", FormMethod.Post, new { enctype = "multipart/form-data",Area="Admin" }))
+@using (Html.BeginForm("Index", "VirtualStore", FormMethod.Post, new { enctype = "multipart/form-data", Area = "Admin" }))
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>AddVirtualStoreViewModel</h4>
-        <hr />
+    <div class="panel panel-body upload-panel">
         @Html.ValidationSummary(true)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Prize, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Prize)
-                @Html.ValidationMessageFor(model => model.Prize)
-            </div>
-        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="upload-box">
+                    @Html.TextBoxFor(model => model.ScreenShotImage, new { type = "file", @class = "hidden-file-input" })
+                    @Html.ValidationMessageFor(model => model.ScreenShotImage)
+                    <h1>+</h1>
+                    <p>IMAGEN</p>
+                </div>
+                @*@if (Model.ScreenShotImage != null)
+                {
+                    <div class="upload-box">
+                        @Html.TextBoxFor(model => model.ScreenShotImage, new { type = "file", @class = "hidden-file-input" })
+                        @Html.ValidationMessageFor(model => model.ScreenShotImage)
+                        <h1>+</h1>
+                        <p>IMAGEN</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="upload-box">
+                        @Html.TextBoxFor(model => model.ScreenShotImage, new { type = "file", @class = "hidden-file-input" })
+                       <img src=""/>
+                    </div>
+                }*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title)
+            </div>
+            <div class="col-md-7">
+                @Html.TextBoxFor(model => model.Price, new { @placeholder = "Prize", @class = "form-control input-lg bottm-margin" })
+                @Html.ValidationMessageFor(model => model.Price)
+                @*<input placeholder="Prize" class="form-control input-lg bottm-margin" />*@
+                @Html.TextBoxFor(model => model.Title, new { @placeholder = "Title", @class = "form-control input-lg bottm-margin" })
                 @Html.ValidationMessageFor(model => model.Title)
+                @Html.TextAreaFor(model => model.Description, new { @placeholder = "Description", @class = "form-control bottm-margin input-lg", @rows = "3" })
+                @Html.TextBoxFor(model => model.ProductFile, new { type = "file", @class = "form-control input-lg bottm-margin" })
+                @Html.ValidationMessageFor(model => model.ProductFile)
+                @*<input placeholder="Title" class="form-control input-lg bottm-margin" />*@
+                @*<textarea placeholder="Description" class="form-control bottm-margin input-lg" rows="5"></textarea>*@
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description)
-                @Html.ValidationMessageFor(model => model.Description)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FileName, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FileName)
-                @Html.ValidationMessageFor(model => model.FileName)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ScreenShotImage, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ScreenShotImage)
-                @Html.ValidationMessageFor(model => model.ScreenShotImage)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        <div class="btn-group-lg btn-container">
+            <input type="submit" value="Add" class="btn btn-primary btn-lg">
+            <button class="btn btn-primary btn-lg">Upload</button>
         </div>
     </div>
 }
-<br/>
+<br />
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Prize)
+            @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -71,7 +118,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FileName)
+            @Html.DisplayNameFor(model => model.ProductFileName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ScreenShotImage)
@@ -83,7 +130,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Prize)
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -92,15 +139,15 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FileName)
+                @Html.DisplayFor(modelItem => item.ProductFileName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ScreenShotImage)
+                @Html.DisplayFor(modelItem => item.ScreenShotFileName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit","VirtualStore", new { id=item.Id ,Area="Admin"},null) |
-               
-                @Html.ActionLink("Delete", "Delete","VirtualStore", new {  id=item.Id, Area = "Admin" })
+                @Html.ActionLink("Edit", "Edit", "VirtualStore", new { id = item.Id, Area = "Admin" }, null) |
+
+                @Html.ActionLink("Delete", "Delete", "VirtualStore", new { id = item.Id, Area = "Admin" })
             </td>
         </tr>
     }

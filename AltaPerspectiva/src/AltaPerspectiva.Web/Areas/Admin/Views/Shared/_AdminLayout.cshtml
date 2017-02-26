@@ -81,6 +81,7 @@
 
         .body-minHeight {
             min-height: 79vh;
+            margin-top:70px;
         }
 
         .borrder-circle {
@@ -268,40 +269,55 @@
             </div>
         </div>
     </div>
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav nav-pills nav-stacked" data-autohide="false" id="menu">
-                <li>
-                    <a href="#" >
-                        <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-flag fa-stack-1x "></i></span>Category
-                    </a>
-                    <ul class="nav-pills nav-stacked" style="list-style-type: none;">
-                        <li>
-                            <a href="@Url.Action("AddCategory", "Category", new {Area = "Admin"})">
-                                <span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>AddCategory
-                            </a>
-                        </li>
-                        <li><a href="@Url.Action("AddKeyword", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditCategory</a></li>
-                        <li><a href="@Url.Action("DeleteCategory", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>DeleteCategory</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" style="display: block"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Reports</a>
-                    <ul class="nav-pills nav-stacked" style="list-style-type: none;">
-                        <li><a href="@Url.Action("Question", "QuestionReport", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Question Report</a></li>
-                        <li><a href="@Url.Action("Answer", "QuestionReport", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Answer Report</a></li>
-
-                    </ul>
-                </li>
-
-            </ul>
-        </div><!-- /#sidebar-wrapper -->
-    </div>
     <!-- /#wrapper -->
-    <div class="container body-content">
-        @RenderBody()
+    <div class="row">
+        <div class="col-md-3">
+            <div id="wrapper">
+                <!-- Sidebar -->
+                <div id="sidebar-wrapper">
+                    <ul class="sidebar-nav nav-pills nav-stacked" data-autohide="false" id="menu">
+                        <li>
+                            <a href="@Url.Action("Index", "VirtualStore")">
+                                <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-flag fa-stack-1x "></i></span>Virtual Store
+                            </a>
+
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-flag fa-stack-1x "></i></span>Category
+                            </a>
+                            <ul class="nav-pills nav-stacked" style="list-style-type: none;">
+                                <li>
+                                    <a href="@Url.Action("AddCategory", "Category", new {Area = "Admin"})">
+                                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>AddCategory
+                                    </a>
+                                </li>
+                                <li><a href="@Url.Action("AddKeyword", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditCategory</a></li>
+                                <li><a href="@Url.Action("DeleteCategory", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>DeleteCategory</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" style="display: block"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Reports</a>
+                            <ul class="nav-pills nav-stacked" style="list-style-type: none;">
+                                <li><a href="@Url.Action("Question", "QuestionReport", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Question Report</a></li>
+                                <li><a href="@Url.Action("Answer", "QuestionReport", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Answer Report</a></li>
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div><!-- /#sidebar-wrapper -->
+            </div>
+
+        </div>
+        <div class="col-md-8">
+            @RenderBody()
+        </div>
     </div>
+    
+    @*<div class="container body-content">
+        @RenderBody()
+    </div>*@
 
     <div class="footer">
         <div class="footer-container">

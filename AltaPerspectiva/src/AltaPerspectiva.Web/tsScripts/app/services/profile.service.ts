@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
-import {User, Profile, Contact, Biography, Experience, Skills, PracticeArea, Insight, Keyword, } from './models';
-import { UserInfoDetails }     from './models/models.profile';
+import { User, Profile, Contact, Biography, Experience, Skills, PracticeArea, Insight, Keyword } from './models';
+import { UserInfoDetails, VirtualStore }     from './models/models.profile';
 import { Blog, BlogComment, BlogLike, BlogPost } from './models/models.blogpost';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 //Models
 import { CredentialViewModel, ProfileParameter, Employment, Education, Place, OtherExperience, CategoryWiseAnswer }     from './models/models.profile';
-
 
 @Injectable()
 export class ProfileService {
@@ -26,7 +25,6 @@ export class ProfileService {
     //#region  ======= Get user profiles by type==========
     GetSingleProfile(url: string): Observable<any> {
         //url = 'userprofile/api/getuserprofile';
-
         return this._http.get(url)
             .map(this.extractData)
             .catch(this.handleError);
@@ -99,6 +97,10 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getVirtualStoreItems(): Observable<VirtualStore[]> {
+        return this._http.get('admin/virtualstore/getitems/')
+            .map(this.extractData)
+            .catch(this.handleError);}
     //===========viewcount
     addProfileViewCount(userId: string): Observable<any> {
         return this._http.post('userprofile/api/profileviewcount/'+userId,userId)

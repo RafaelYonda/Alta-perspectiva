@@ -1,13 +1,13 @@
 ﻿<style>
     .item-dialog {
-        width: 60%;
+        width: 52%;
         margin: 10px auto;
     }
 
     .item-img-lg {
-        height: 250px;
-        width: 250px;
-        border-radius: 10%;
+        height: 200px;
+        width: 215px;
+        border-radius: 5%;
         float: left;
     }
 
@@ -17,7 +17,7 @@
     }
 
     .item-comment-container {
-        padding: 10px;
+        padding: 20px 20px 30px 20px;
     }
 
     .item-info {
@@ -25,7 +25,9 @@
         float: left;
         width: 60%;
     }
-
+    .item-info h1{
+        font-size:30px;
+    }
     .btn-item {
         background-color: #f6912b;
         color: white;
@@ -35,10 +37,10 @@
     }
 
     .item-info p {
-        min-height: 130px;
+        min-height: 92px;
     }
     .item-comment{
-        background-color:#d3cfc9;
+        background-color:#e8e6e2;
     }
 </style>
 <div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
@@ -48,9 +50,9 @@
             <div class="item-detail-container">
                 <img src="../images/avatar.png" class="item-img-lg" />
                 <div class="item-info">
-                    <h1>0.0$</h1>
-                    <h2>Service 1</h2>
-                    <p>kalflka kjfkajsd asdj apiojfa ;fkja;kdjf kadfj;akd jfa;kdfj kadjfa;kd fjak;df ja;kdfja;s jdf;aj da;sd</p>
+                    <h1>{{virtualStore.price}}$</h1>
+                    <h2>{{virtualStore.title}}</h2>
+                    <p>{{virtualStore.description}}</p>
                     <button class="btn btn-item">Buy</button>
                     <button class="btn btn-item">Download</button>
                 </div>

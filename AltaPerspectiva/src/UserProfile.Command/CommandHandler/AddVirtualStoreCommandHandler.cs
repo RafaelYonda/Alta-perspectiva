@@ -29,9 +29,9 @@ namespace UserProfile.Command.CommandHandler
                 Description = command.Description,
                 Title = command.Title,
                 CreatedBy = command.UserId,
-                FileName = command.FileName,
-                ScreenShotImage = command.ScreenShotImage,
-                Prize = command.Prize,
+                ProductFileName = command.ProductFileName,
+                ScreenShotFileName = command.ScreenShotFileName,
+                Price = command.Price,
                 IsDeleted = false,
                 IsActive = true,
                 DTS = DateTime.Now

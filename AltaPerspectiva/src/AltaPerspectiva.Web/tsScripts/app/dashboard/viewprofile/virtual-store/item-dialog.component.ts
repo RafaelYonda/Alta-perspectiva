@@ -1,11 +1,13 @@
 ﻿import { Component, EventEmitter } from '@angular/core';
 import { ProfileService } from '../../../services/profile.service';
 import { User } from '../../../services/models';
+import { VirtualStore } from '../../../services/models/models.profile';
 import { ActivatedRoute } from '@angular/router';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/virtual-store/item-dialog.component.html'
 })
 export class ItemDialogComponent {
+    virtualStore: VirtualStore
     private sub: any;
     user: User[];
     close = new EventEmitter();
@@ -26,7 +28,7 @@ export class ItemDialogComponent {
             this.close.emit('event');
     }
     ngOnDestroy() {
-        this.sub.unsubscribe();
+       
     }
 
 }

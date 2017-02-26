@@ -11,20 +11,19 @@ namespace UserProfile.Command.Commands
         public AddVirtualStoreCommand(Guid userId, double prize,string title,string description,string fileName,string screenShotImage)
         {
             UserId = userId;
-            Prize = prize;
+            Price = prize;
             Title = title;
             Description = description;
-            FileName = fileName;
-            ScreenShotImage = screenShotImage;
-
+            ProductFileName = fileName;
+            ScreenShotFileName = screenShotImage;
         }
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public double Prize { get; set; }
+        public double Price { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public string FileName { get; set; }
-        public string ScreenShotImage { get; set; }
+        public string ProductFileName { get; set; }
+        public string ScreenShotFileName { get; set; }
     }
 }

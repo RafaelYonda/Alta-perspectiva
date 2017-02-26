@@ -90,3 +90,11 @@ export class CategoryWiseAnswer {
     answerCount: number;
     imageUrl: string;
 }
+export class VirtualStore {
+    id: string;
+    price: number;
+    title: string;
+    description: string;
+    fileName: string;
+    screenShotImage: string;
+}

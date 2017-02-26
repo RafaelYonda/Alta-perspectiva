@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core;
 using AltaPerspectiva.Web.Areas.Admin.Models;
@@ -87,9 +88,26 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 loggedinUser = new Guid(uid?.ElementAt(0).ToString());
 
             }
-            AddVirtualStoreCommand command = new AddVirtualStoreCommand(loggedinUser, addVirtualStoreViewModel.Prize,
-                addVirtualStoreViewModel.Title, addVirtualStoreViewModel.Description, addVirtualStoreViewModel.FileName,
-                addVirtualStoreViewModel.ScreenShotImage);
+            //=========Set ScreeenShot file Name and Path========
+            String screenShotFileName = addVirtualStoreViewModel.ScreenShotImage.FileName;
+            addVirtualStoreViewModel.ScreenShotFileName = screenShotFileName;
+            var screenShotuploadPath = Path.Combine(Path.Combine(environment.WebRootPath, configuration["VirtualStoreUpload"]), screenShotFileName);
+            using (var fileStream = new FileStream(screenShotuploadPath, FileMode.Create))
+            {
+                addVirtualStoreViewModel.ScreenShotImage.CopyTo(fileStream);
+            }
+            //==========Set Product file Name and Path===============
+            String productFileName = addVirtualStoreViewModel.ProductFile.FileName;
+            addVirtualStoreViewModel.ProductFileName = productFileName;
+            var productUploadPath = Path.Combine(Path.Combine(environment.WebRootPath, configuration["VirtualStoreUpload"]), productFileName);
+            using (var fileStream = new FileStream(productUploadPath, FileMode.Create))
+            {
+                addVirtualStoreViewModel.ProductFile.CopyTo(fileStream);
+            }
+
+            AddVirtualStoreCommand command = new AddVirtualStoreCommand(loggedinUser, addVirtualStoreViewModel.Price,
+                addVirtualStoreViewModel.Title, addVirtualStoreViewModel.Description, addVirtualStoreViewModel.ProductFileName,
+                addVirtualStoreViewModel.ScreenShotFileName);
             commandsFactory.ExecuteQuery(command);
 
             return RedirectToAction("Index");
@@ -130,9 +148,9 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 Id = virtualStore.Id,
                 Description = virtualStore.Description,
                 Title = virtualStore.Title,
-                FileName = virtualStore.FileName,
-                ScreenShotImage = virtualStore.ScreenShotImage,
-                Prize = virtualStore.Prize,
+                ProductFileName = virtualStore.ProductFileName,
+                ScreenShotFileName = virtualStore.ScreenShotFileName,
+                Price = virtualStore.Price,
                 VirtualStores = null
             };
             return View(addVirtualStoreViewModel);

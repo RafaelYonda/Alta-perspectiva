@@ -19,61 +19,57 @@
 
 
 
-<div class="row customrow">
-    <div class="col-md-4">
-        .
-    </div>
-    <div class="col-md-4">
-        <div class="panel-body">
+<div class="row ">
+    <div class="panel-body">
+        <table class="table customtable" id="myTable">
+            <thead>
+                <tr>
+                    <th style="width:1%">
+                        CategoryName
+                    </th>
+                    <th style="width:10%">
 
-            <table class="table customtable" id="myTable">
-                <thead>
+                    </th>
+                    <th style="width:10%">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th style="width:1%">
-                            CategoryName
-                        </th>
-                        <th style="width:10%">
+                        <td>
+                            @Html.HiddenFor(modelItem => item.Id)
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="/Admin/addcategory/@item.Id">Edit</a>
+                        </td>
+                        <td>
+                            @*<button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
+                                    <span class="glyphicon glyphicon-trash"></span> Delete
+                                </button>*@
+                            <button id="brnDelete" type="button" class="btn btn-danger" onclick="addKeywords(this,'@item.Id','@item.Name')">
+                                KeyWord
+                            </button>
 
-                        </th>
-                        <th style="width:10%">
+                        </td>
+                        <td>
+                            <button id="btnTopic" type="button" class="btn btn-danger" onclick="editTopics(this,'@item.Id','@item.Name')">
+                                Topic
+                            </button>
 
-                        </th>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.HiddenFor(modelItem => item.Id)
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                <a class="btn btn-danger" href="/Admin/addcategory/@item.Id">Edit</a>
-                            </td>
-                            <td>
-                                @*<button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
-                                        <span class="glyphicon glyphicon-trash"></span> Delete
-                                    </button>*@
-                                <button id="brnDelete" type="button" class="btn btn-danger" onclick="addKeywords(this,'@item.Id','@item.Name')">
-                                    KeyWord
-                                </button>
+                }
+            </tbody>
 
-                            </td>
-                            <td>
-                                <button id="btnTopic" type="button" class="btn btn-danger" onclick="editTopics(this,'@item.Id','@item.Name')">
-                                    Topic
-                                </button>
+        </table>
 
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-
-            </table>
-
-        </div>
     </div>
+
+
 </div>
 
 <!-- Keyword Modal -->
@@ -252,11 +248,11 @@
             }
         });
     }
-    
+
     function saveKeyword(categoryId) {
         console.log(categoryId);
         var newKeyword = $('#newKeyword').val();
-        if (newKeyword.length <= 1 || newKeyword === undefined ) {
+        if (newKeyword.length <= 1 || newKeyword === undefined) {
             alert('Keyword is not correct');
             return;
 

@@ -118,5 +118,9 @@ GO
 GO
 ALTER TABLE Blog.Blogs ADD Description nvarchar(MAX) null
 GO
-
-
+EXEC sp_RENAME '[UserProfile].[VirtualStores].[Prize]', 'Price', 'COLUMN'
+GO
+EXEC sp_RENAME '[UserProfile].[VirtualStores].[FileName]', 'ProductFileName', 'COLUMN'
+GO
+EXEC sp_RENAME '[UserProfile].[VirtualStores].[ScreenShotImage]', 'ScreenShotFileName', 'COLUMN'
+GO

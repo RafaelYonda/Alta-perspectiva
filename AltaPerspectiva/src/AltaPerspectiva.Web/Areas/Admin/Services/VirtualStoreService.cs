@@ -20,9 +20,9 @@ namespace AltaPerspectiva.Web.Areas.Admin.Services
                     Id = virtualStore.Id,
                     Description = virtualStore.Description,
                     Title = virtualStore.Title,
-                    FileName = virtualStore.FileName,
-                    Prize = virtualStore.Prize,
-                    ScreenShotImage = virtualStore.ScreenShotImage,
+                    ProductFileName = virtualStore.ProductFileName,
+                    Price = virtualStore.Price,
+                    ScreenShotFileName = virtualStore.ScreenShotFileName,
 
                 };
                 addVirtualStoreViewModels.Add(addVirtualStoreViewModel);

@@ -9,11 +9,11 @@ namespace UserProfile.Domain
 {
     public class VirtualStore:Entity
     {
-        public double Prize { get; set; }
+        public double Price { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public string FileName { get; set; }
-        public string ScreenShotImage { get; set; }
+        public string ProductFileName { get; set; }
+        public string ScreenShotFileName { get; set; }
     }
 }
