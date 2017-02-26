@@ -55,6 +55,7 @@ export class Comment {
 export class Config {
     categoryImage: string;
     profileImage: string;
+    virtualStore: string;
 }
 
 export class Like {

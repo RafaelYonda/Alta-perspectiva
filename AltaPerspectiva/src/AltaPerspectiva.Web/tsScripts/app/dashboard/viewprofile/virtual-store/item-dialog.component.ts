@@ -11,11 +11,11 @@ export class ItemDialogComponent {
     private sub: any;
     user: User[];
     close = new EventEmitter();
+    screenShotPath: string;
     constructor(private _route: ActivatedRoute,private profileServ: ProfileService) {
     }
     ngOnInit() {
         window.scrollTo(0, 0);
-       
     }
     onClickedExit() {
         this.close.emit('event');

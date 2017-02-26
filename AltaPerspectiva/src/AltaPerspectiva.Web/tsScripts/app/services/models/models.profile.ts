@@ -95,6 +95,6 @@ export class VirtualStore {
     price: number;
     title: string;
     description: string;
-    fileName: string;
-    screenShotImage: string;
+    productFileName: string;
+    screenShotFileName: string;
 }
