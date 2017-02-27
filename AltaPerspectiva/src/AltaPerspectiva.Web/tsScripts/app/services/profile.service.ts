@@ -35,7 +35,7 @@ export class ProfileService {
             .catch(this.handleError);
     }
 
-    SaveUserName(firstName: string, lastName:string,userId:string) {
+    SaveUserName(firstName: string, lastName: string, userId: string) {
         let model = new FormData();
         model.append("firstName", firstName);
         model.append("lastName", lastName);

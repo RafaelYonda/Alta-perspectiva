@@ -97,13 +97,13 @@ export class ProfileInfoComponent {
                 if (this.credential.imageUrl && (this.credential.imageUrl != ''))
                     this.imageLink += this.credential.imageUrl;
                 else this.imageLink = '../images/userAdd.png';
-
             });
         });
         
     }
     onChangeImage(event) {
-        let file = event.srcElement.files;
+        var target = event.target || event.srcElement;   
+        let file = target["files"];// event.srcElement.files;
         //Upload the image 
         this._imgService
             .upload(file, this.credential.userId)
@@ -113,6 +113,8 @@ export class ProfileInfoComponent {
     }
     UpdateUserName() {
         this.isUserHidden = true;
+        if (this.credential && ((this.credential.firstName.trim() == "") && (this.credential.lastName.trim() == "")))
+            return;
         this.profileService.SaveUserName(this.credential.firstName, this.credential.lastName, this.credential.userId).subscribe(res => {
             this.onUpdated.emit(true);
             this.loadData();

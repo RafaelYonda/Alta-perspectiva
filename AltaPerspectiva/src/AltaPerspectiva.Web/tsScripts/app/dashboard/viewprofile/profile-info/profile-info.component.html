@@ -1,21 +1,10 @@
 ﻿<style>
-    .edit {
-        margin-left: 5px;
-    }
-
-        /*.edit span {
-            visibility: hidden;
-        }*/
-
         .edit:hover span {
             visibility: visible;
             color: #f6912b;
         }
 
-    .user-name {
-        margin-top: 10px;
-        margin-bottom: 5px;
-    }
+   
 
     .profile-info input {
         font-family: "myriadpro-regular";
@@ -25,11 +14,20 @@
         border: 1px solid #bdbdbd;
         border-radius: 3px;
     }
+    .credential-text{
+        font-size:18px;
+    }
 
     .profile-info h1 {
         display: inline;
     }
-
+     .user-name {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+     .user-name a,.user-name button{
+         margin-left:5px;
+     }
     .user-name a {
         display: inline-block;
     }
@@ -115,7 +113,7 @@
     <div class="col-md-3">
         <div class="profile-image-center">
             <img class="profile-image" src="{{imageLink}}" />
-            <input *ngIf="isOwner"  type="file" name="documents" class="custom-file-input" (change)="onChangeImage($event)" [(ngModel)]="doc" #documents="ngModel">
+            <input   type="file" name="documents" class="custom-file-input" (change)="onChangeImage($event)" [(ngModel)]="doc" #documents="ngModel" *ngIf="isOwner">
         </div>
     </div>
     <div class="col-md-9">
@@ -124,7 +122,8 @@
             <div class="user-name">
                 <div [hidden]="!isUserHidden">
                     <h1> {{credential.firstName}} {{credential.lastName}} </h1>
-                    <a *ngIf="isOwner" (click)="isUserHidden = false" class="edit"><span><i class="fa fa-edit"></i>Edit Name</span> </a>
+                    {{isOwner}}
+                    <a *ngIf="isOwner" (click)="isUserHidden = false" ><span><i class="fa fa-edit"></i>Edit Name</span> </a>
                 </div>
                 <div [hidden]="isUserHidden" *ngIf="isOwner">
                     <input placeholder="First Name" [(ngModel)]="credential.firstName" type="text" />
@@ -135,20 +134,20 @@
             </div>
            
             <div> 
-                <a>{{credential.title}}</a>
-                <a *ngIf="isOwner" (click)="openCredentialDialogBox()"  class="edit"><span>Edit Credential</span> </a>
+                <a class="credential-text">{{credential.title}}</a>
+                <a *ngIf="isOwner" (click)="openCredentialDialogBox()" ><span>Update Credential</span> </a>
             </div>
                       
             <div [hidden]="(!showDescription)">
                 <div [innerHTML]="credential.description"></div>
-                <a *ngIf="isOwner" class="edit" ><span (click)="showDescription = false">Write Description about yourself</span> </a>
+                <a *ngIf="isOwner" ><span (click)="showDescription = false">Write a description about yourself</span> </a>
             </div>
             <div class="description-panel" [hidden]="showDescription" *ngIf="isOwner">
                 <quill-editor [(ngModel)]="credential.description" [ngModelOptions]="{standalone: true}"
                               [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link', 'image']]}"
                               required name="answerField" #answerField="ngModel"></quill-editor>
                 <div class="btn-container">
-                    <a (click)="showDescription = true">cancel</a>
+                    <a (click)="showDescription = true">Cancel</a>
                     <button class="btn btn-primary" (click)="updateDecription()">Update</button>
                 </div>
             </div>
