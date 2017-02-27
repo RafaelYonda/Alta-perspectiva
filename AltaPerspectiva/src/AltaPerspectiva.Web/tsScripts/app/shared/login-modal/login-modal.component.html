@@ -1,0 +1,27 @@
+﻿<style>
+    .disabledFollowingImg {
+        opacity: .1;
+    }
+
+    .enableFollowingImg {
+        opacity: 1;
+    }
+    .login-dialog{
+        text-align:center;
+        padding:30px;
+    }
+    .btn-lg{
+        padding:12px;
+        color:black;
+    }
+</style>
+
+<div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
+    <div class="dialog">
+        <div class="login-dialog">
+            <h1>You are not Logged in</h1>
+            <a href="/signin" class="btn btn-primary btn-lg">Log in</a>
+            <a (click)="onClickedExit()" class="btn-lg btn btn-default ">Not now</a>
+        </div>
+    </div>
+</div>

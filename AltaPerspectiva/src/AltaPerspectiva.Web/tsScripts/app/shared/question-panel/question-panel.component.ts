@@ -2,7 +2,7 @@
 import { Question, QuestionReport } from '../../services/models';
 import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component';
 import { DialogComponent } from '../dialog-modal/dialog.component';
-
+import { loginModalComponent } from '../login-modal/login-modal.component';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 
 //QuestionReport
@@ -67,9 +67,24 @@ export class QuestionPanelComponent {
         this.sendCommentCountToApStatus.emit(null);
     }
 
+    @ViewChild('logginAnchor', { read: ViewContainerRef }) logginAnchor: ViewContainerRef;
+    ShowNotLoggedIn() {
+        this.logginAnchor.clear();
 
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(loginModalComponent);
+        let dialogComponentRef = this.logginAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }
     @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
     answerDialogBox(question: Question) {
+        var user = localStorage.getItem('currentUserName');
+        if (!user)
+        {
+            this.ShowNotLoggedIn();
+            return;
+        }
         // Close any already open dialogs
         this.answerAnchor.clear();
 

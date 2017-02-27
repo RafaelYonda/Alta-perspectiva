@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { RelatedQuestionMenu } from '../question-left-menu/related-question-left-menu.component';
 import { AnswerDialogComponent } from '../../shared/answer-dialog/answer-dialog.component';
+import { loginModalComponent } from '../../shared/login-modal/login-modal.component';
 //QuestionReport
 import { QuestionReportComponent } from '../../shared/question-report/question-report.component';
 @Component({
@@ -73,7 +74,11 @@ export class QuestionDetailComponent {
             });
     }
     QuestionFollowing(answer: AnswerViewModel) {
-
+        var user = localStorage.getItem('currentUserName');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }
 
         let questionFollowing = new QuestionFollowing();
         questionFollowing.questionId = answer.questionId;
@@ -99,7 +104,11 @@ export class QuestionDetailComponent {
         this.isAnonymous = event;
     }
     submitAnswer(_id: string) {
-
+        var user = localStorage.getItem('currentUserName');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }
         this.answerVM = new AnswerViewModel();
         this.answerVM.questionId = _id;
         this.answerVM.text = this.answerText;
@@ -120,6 +129,11 @@ export class QuestionDetailComponent {
     @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
 
     answerDialogBox(question: Question) {
+        var user = localStorage.getItem('currentUserName');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }
         // Close any already open dialogs
         this.answerAnchor.clear();
 
@@ -135,7 +149,11 @@ export class QuestionDetailComponent {
         });
     }
     submitAnswerAsDraft(_id: string) {
-
+        var user = localStorage.getItem('currentUserName');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }
         this.answerVM = new AnswerViewModel();
         this.answerVM.questionId = _id;
         this.answerVM.text = this.answerText;
@@ -156,6 +174,11 @@ export class QuestionDetailComponent {
 
     submitComment(questionId: string)
     {
+        var user = localStorage.getItem('currentUserName');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }
         this.comment = new Comment();
         this.comment.questionId = questionId;
         this.comment.commentText = this.commentText;
@@ -169,6 +192,11 @@ export class QuestionDetailComponent {
     }
 
     submitCommentForAnswer(answerId: string) {
+        var user = localStorage.getItem('currentUserName');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }
         this.comment = new Comment();        
         this.comment.answerId = answerId;
         this.comment.commentText = this.commentAnswerText;
@@ -183,6 +211,11 @@ export class QuestionDetailComponent {
 
     submitLike(questionId: string)
     {
+        var user = localStorage.getItem('currentUserName');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }
         this.like = new Like();
         this.like.questionId = questionId;       
 
@@ -191,7 +224,12 @@ export class QuestionDetailComponent {
         });
     }
 
-    submitLikeForAnswer(answerId: string,questionId: string) {
+    submitLikeForAnswer(answerId: string, questionId: string) {
+        var user = localStorage.getItem('currentUserName');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }
         this.like = new Like();
         this.like.questionId = questionId;  
         this.like.answerId = answerId;
@@ -267,5 +305,14 @@ export class QuestionDetailComponent {
             this.question = res;
         })
     }
+    @ViewChild('logginAnchor', { read: ViewContainerRef }) logginAnchor: ViewContainerRef;
+    ShowNotLoggedIn() {
+        this.logginAnchor.clear();
 
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(loginModalComponent);
+        let dialogComponentRef = this.logginAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }
 }
