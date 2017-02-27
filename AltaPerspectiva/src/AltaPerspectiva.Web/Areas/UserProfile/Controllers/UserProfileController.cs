@@ -69,12 +69,6 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             String connectionString =
                 configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
-            UserInfoDetails userInfoDetails =
-                queryFactory.ResolveQuery<IProfileParameters>().GetUserInfoDetails(loggedinUser, connectionString);
-
-            
-            //ProfileParameter profileParameter =
-            //    queryFactory.ResolveQuery<IProfileParameters>().GetProfileParameter(loggedinUser, connectionString);
 
             return Ok(model);
         }

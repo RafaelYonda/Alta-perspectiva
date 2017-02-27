@@ -30,7 +30,7 @@ export class NavBarComponent {
         this._authService.getLoggedinObj().subscribe(res => {
             if (res && currentUser != "null") {
                 this._logObj.user.name = res.name;
-                this._logObj.user.imageUrl = '../../../../profile/' + res.imageUrl;
+                this._logObj.user.imageUrl = res.imageUrl;
                 this._logObj.isLoggedIn = true;
                 this._logObj.user.userId = res.userId;
 
