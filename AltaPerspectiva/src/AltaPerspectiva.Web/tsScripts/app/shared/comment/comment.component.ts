@@ -1,6 +1,7 @@
-﻿import { Component, Input, EventEmitter, Output } from '@angular/core';
+﻿import { Component, Input, EventEmitter, Output, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { CommentService } from '../../services/comment.service';
 import {LogInObj, Comment, User } from '../../services/models';
+import { loginModalComponent } from '../login-modal/login-modal.component';
 
 @Component({
     selector: 'ap-comment',
@@ -19,7 +20,7 @@ export class CommentComponent {
     @Input() isQuestion: any;
 
     @Output() sendCommentCount = new EventEmitter<any>();
-    constructor(private commentService: CommentService) {
+    constructor(private commentService: CommentService, private componentFactoryResolver: ComponentFactoryResolver) {
         var user: User = new User();
         user.userId = '-1';
         this._logObj = { isLoggedIn: false, user: user };
@@ -55,6 +56,11 @@ export class CommentComponent {
         this.comments.push(this.comment);
     }
     submitComment(questionId: string, answerId: string) {
+        var user = localStorage.getItem('currentUserName');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }
         this.comment = new Comment();
         
         this.comment.commentText = this.commentText;
@@ -76,5 +82,15 @@ export class CommentComponent {
             });
         }
         this.sendCommentCount.emit(null);
+    }
+    @ViewChild('logginAnchor', { read: ViewContainerRef }) logginAnchor: ViewContainerRef;
+    ShowNotLoggedIn() {
+        this.logginAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(loginModalComponent);
+        let dialogComponentRef = this.logginAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
     }
 }
