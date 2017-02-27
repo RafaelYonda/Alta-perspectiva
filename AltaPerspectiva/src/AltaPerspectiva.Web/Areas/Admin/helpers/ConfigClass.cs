@@ -12,7 +12,6 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
             get
             {
                 return "profile"; 
-                
             } 
         }
         public static String Category
@@ -22,7 +21,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
 
         public static String VirtualStoreProduct
         {
-            get { return "virtualstoreprodcut"; }
+            get { return "virtualstoreproduct"; }
         }
 
         public static String VirtualStoreDocument
@@ -30,7 +29,6 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
             get
             {
                 return "virtualstoredocument";
-                
             }
         }
     }

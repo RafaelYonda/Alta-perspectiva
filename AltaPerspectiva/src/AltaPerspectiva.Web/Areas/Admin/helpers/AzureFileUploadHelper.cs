@@ -45,7 +45,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
 
         public string GetProfileImage(String imageName)
         {
-            String url = _storageLink + ConfigClass.Profile;
+            String url = _storageLink + ConfigClass.Profile+"/"+imageName;
             return url;
         }
     }

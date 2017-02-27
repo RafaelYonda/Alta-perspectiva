@@ -8,112 +8,122 @@ using UserProfile.Domain.ReadModel;
 using System.Data.SqlClient;
 using System.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace UserProfile.Query.Queries
 {
-    public class ProfileParameters: EFQueryBase<UserProfileQueryDbContext>, IProfileParameters
+    public class DataReaderToListHelper
+    {
+        public static T DataReaderToObject<T>(string connectionString, string query) where T : class, new()
+        {
+            SqlDataReader reader;
+            var connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(query, connection);
+            reader = command.ExecuteReader();
+
+            //   T list = new T();
+            T obj = new T();
+            var columns = new List<string>();
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                columns.Add(reader.GetName(i));
+            }
+            while (reader.Read())
+            {
+                foreach (var prop in obj.GetType().GetProperties())
+                {
+                    try
+                    {
+                        PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
+                        propertyInfo.SetValue(obj, Convert.ChangeType(reader[prop.Name], propertyInfo.PropertyType), null);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                }
+
+
+            }
+            return obj;
+        }
+        public static List<T> DataReaderToList<T>(string connectionString, string query) where T : class, new()
+        {
+            SqlDataReader reader;
+            var connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(query, connection);
+            reader = command.ExecuteReader();
+
+            List<T> list = new List<T>();
+            var columns = new List<string>();
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                columns.Add(reader.GetName(i));
+            }
+            while (reader.Read())
+            {
+                foreach (var row in columns.AsEnumerable())
+                {
+                    T obj = new T();
+                    foreach (var prop in obj.GetType().GetProperties())
+                    {
+                        try
+                        {
+                            PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
+                            propertyInfo.SetValue(obj, Convert.ChangeType(reader[prop.Name], propertyInfo.PropertyType), null);
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+
+                    list.Add(obj);
+                }
+            }
+            return list;
+        }
+    }
+    public class ProfileParameters : EFQueryBase<UserProfileQueryDbContext>, IProfileParameters
     {
         public ProfileParameters(UserProfileQueryDbContext context)
-			: base(context)
-		{
+            : base(context)
+        {
         }
 
         public List<CategoryWiseAnswer> CategoryWiseAnswerCount(Guid userId, string connectionString)
         {
-            List<CategoryWiseAnswer> categoryWiseAnswers=new List<CategoryWiseAnswer>();
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "SpCategoryWiseAnswer";
-                command.Parameters.AddWithValue("@userId", userId);
-                var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    CategoryWiseAnswer categoryWiseAnswer=new CategoryWiseAnswer();
-                    categoryWiseAnswer.AnswerCount = Convert.ToInt32(reader["AnswerCount"]);
-                    categoryWiseAnswer.CategoryName = Convert.ToString(reader["CategoryName"]);
-                    categoryWiseAnswer.ImageUrl = Convert.ToString(reader["ImageUrl"]);
-                    categoryWiseAnswers.Add(categoryWiseAnswer);
-                }
-            }
+            List<CategoryWiseAnswer> categoryWiseAnswers = new List<CategoryWiseAnswer>();
+            String query = String.Format("SpCategoryWiseAnswer '{0}'", userId);
+            categoryWiseAnswers = DataReaderToListHelper.DataReaderToList<CategoryWiseAnswer>(connectionString,query);
             return categoryWiseAnswers;
         }
 
-        public ProfileParameter GetProfileParameter(Guid userId,string connectionString)
+        public ProfileParameter GetProfileParameter(Guid userId, string connectionString)
         {
-            ProfileParameter profileParameter=new ProfileParameter();
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                //String query = String.Format(@"select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=@UserId");
-                var command = connection.CreateCommand();
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "SpProfileParameterCount";
-                command.Parameters.AddWithValue("@userId", userId);
-                var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
+            ProfileParameter profileParameter = new ProfileParameter();
 
-                    profileParameter.Followings = Convert.ToInt32(reader["Followings"]);
-                    profileParameter.Followers = Convert.ToInt32(reader["Followers"]);
-                    profileParameter.Bookmarks = Convert.ToInt32(reader["Bookmarks"]);
-                    profileParameter.Answers = Convert.ToInt32(reader["Answers"]);
-                    profileParameter.Questions = Convert.ToInt32(reader["Questions"]);
-                    
-                    profileParameter.Blogs = Convert.ToInt32(reader["Blogs"]);
+            profileParameter =
+                DataReaderToListHelper.DataReaderToObject<ProfileParameter>(connectionString,
+                    "SpProfileParameterCount '" + userId+"'");
 
-
-                    profileParameter.AnswerLikeCount = Convert.ToInt32(reader["AnswerLikeCount"]);
-                    profileParameter.ProfileViewCount = Convert.ToInt32(reader["ProfileViewCount"]);
-                    profileParameter.AnswerMadeThisMonth = Convert.ToInt32(reader["AnswerMadeThisMonth"]);
-                    profileParameter.QuestionMadeThisMonth = Convert.ToInt32(reader["QuestionMadeThisMonth"]);
-                    profileParameter.DirectQuestions = Convert.ToInt32(reader["DirectQuestions"]);
-
-                }
-            }
             return profileParameter;
         }
 
         public UserInfoDetails GetUserInfoDetails(Guid userId, string connectionString)
         {
-            UserInfoDetails userInfoDetails=new UserInfoDetails();
-            using (var connection = new SqlConnection(connectionString))
+            UserInfoDetails userInfoDetails = new UserInfoDetails();
+            String query = String.Format("SpUserInfoDetails '{0}'", userId);
+            userInfoDetails = DataReaderToListHelper.DataReaderToObject<UserInfoDetails>(connectionString, query);
+            if (String.IsNullOrEmpty(userInfoDetails.FullName))
             {
-                connection.Open();
-                //String query = String.Format(@"select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=@UserId");
-                var command = connection.CreateCommand();
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "SpUserInfoDetails";
-                command.Parameters.AddWithValue("@userId", userId);
-                var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    userInfoDetails.UserId = userId;
-                    userInfoDetails.ImageUrl = Convert.ToString(reader["ImageUrl"]);
-                    if (userInfoDetails.ImageUrl == "")
-                    {
-                        userInfoDetails.ImageUrl = "avatar.png";
-                    }
-                    userInfoDetails.Education= Convert.ToString(reader["Education"]);
-                    userInfoDetails.Employment= Convert.ToString(reader["Employment"]);
-                    userInfoDetails.Place= Convert.ToString(reader["Place"]);
-                    userInfoDetails.OtherExperience= Convert.ToString(reader["OtherExperience"]);
-                    userInfoDetails.FullName= Convert.ToString(reader["FullName"]);
-                    if (String.IsNullOrEmpty(userInfoDetails.FullName))
-                    {
-                        userInfoDetails.FullName = "Guest";
-                    }
-                    userInfoDetails.Title= Convert.ToString(reader["Title"]);
-                    userInfoDetails.AnswerCount = Convert.ToInt32(reader["AnswerCount"]);
-                    userInfoDetails.QuestionCount = Convert.ToInt32(reader["QuestionCount"]);
-                    userInfoDetails.QuestionViewCount = Convert.ToInt32(reader["QuestionViewCount"]);
-                }
+                userInfoDetails.FullName = "Guest";
             }
             return userInfoDetails;
         }
 
-       
+
     }
 }

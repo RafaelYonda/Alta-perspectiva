@@ -91,13 +91,13 @@ export class ProfileInfoComponent {
     loadData() {
         this.profileService.GetUsercredentialByUserId(this.credential.userId).subscribe(usr => {
             this.credential = usr;
-            this._configService.getConfig().subscribe(res => {      //Get config for image
-                this.imageLink = res.profileImage;                
+            //this._configService.getConfig().subscribe(res => {      //Get config for image
+            //    this.imageLink = res.profileImage;                
 
                 if (this.credential.imageUrl && (this.credential.imageUrl != ''))
                     this.imageLink += this.credential.imageUrl;
                 else this.imageLink = '../images/userAdd.png';
-            });
+            //});
         });
         
     }

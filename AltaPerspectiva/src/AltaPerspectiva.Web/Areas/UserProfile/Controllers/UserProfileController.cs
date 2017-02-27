@@ -114,6 +114,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         public IActionResult GetUsercredentialByUserId(Guid userId)
         {
             var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialForProfile(userId);
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            credential.ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
             return Ok(credential);
         }
        
@@ -129,6 +131,9 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             }
             Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(userId);
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            credential.ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
+
             return Ok(credential);
         }
         [HttpPost("userprofile/api/credential/savefirstnamelastname")]
@@ -163,6 +168,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 commandsFactory.ExecuteQuery(cmd);
                 Guid createdId = cmd.Id;
                 Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(userId);
+
+                credential.ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
                 return Ok(credential);
             }
             return Ok();
