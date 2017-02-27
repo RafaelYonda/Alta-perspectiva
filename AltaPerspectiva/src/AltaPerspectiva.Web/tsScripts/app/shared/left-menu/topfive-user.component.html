@@ -12,7 +12,7 @@
     <ul class="user-list" *ngIf="topFiveUsers.length>0">
         <li *ngFor="let topFiveUser of topFiveUsers">
            
-                <img class="user-image img-circle" src="../../../../profile/{{topFiveUser?.imageUrl}}" (mouseover)='userover(topFiveUser?.id)' [popover]="userInfoDetailsPopoveruser" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"/>
+                <img class="user-image img-circle" src="{{topFiveUser?.imageUrl}}" (mouseover)='userover(topFiveUser?.id)' [popover]="userInfoDetailsPopoveruser" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"/>
                 <div class="top-user-info">
                     <a [routerLink]="['/dashboard/viewprofile/',topFiveUser.userid,'user-question']"> {{topFiveUser?.name}}</a>
 

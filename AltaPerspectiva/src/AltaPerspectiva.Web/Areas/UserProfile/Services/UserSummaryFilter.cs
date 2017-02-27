@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
 using UserProfile.Domain.ReadModel;
 
 namespace AltaPerspectiva.Web.Areas.UserProfile.Services
@@ -11,6 +12,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
         //For Name of Unknown uSer
         public List<UserSummary> GetUserSummaryForNameFilter(List<UserSummary>   summary)
         {
+            AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
             foreach (var user in summary)
             {
                 if (user.Name == "")
@@ -19,7 +21,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
                 }
                 if (user.ImageUrl == "")
                 {
-                    user.ImageUrl = "avatar.png";
+                    user.ImageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
+                }
+                else
+                {
+                    user.ImageUrl = azureFileUploadHelper.GetProfileImage(user.ImageUrl);
                 }
             }
             return summary;

@@ -208,7 +208,7 @@ export class QuestionBodyComponent {
             if (this.categorySelected && this.categorySelected.image)
                 this.categorySelected.image = this.config.categoryImage.concat(this.categorySelected.image);
 
-            this.categoryService.getTotalCount(this.categorySelected.id).subscribe(x => {
+            this.categoryService.getTotalCount(this.categorySelected?.id).subscribe(x => {
                 this.totalCount = x;
             });
         });
