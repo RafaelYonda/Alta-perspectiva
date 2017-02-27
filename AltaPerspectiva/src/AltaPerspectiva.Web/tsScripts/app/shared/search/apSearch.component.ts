@@ -46,11 +46,11 @@ export class ApSearchComponent {
         });
     }
 
-    handleClick(event) {
+    handleClick(event: Event) {
+        var target = event.target || event.srcElement;      //Firefox does not have srcElement
         //removel the modal on clicking out side the panel
-        var idAttr = event.srcElement.attributes.id;
-        var value = idAttr ? idAttr.nodeValue : undefined;
-        if (value && (value == 'search-box') || (value == 'adv-search'))
+        var idAttr = target['id'];
+        if (idAttr && (idAttr == 'search-box') || (idAttr == 'adv-search'))
             this.removeModal();
     }
     //=============Submit Question===========
