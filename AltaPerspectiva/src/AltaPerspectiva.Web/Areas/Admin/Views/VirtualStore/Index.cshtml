@@ -41,7 +41,7 @@
         }
 
     .hidden-file-input {
-        cursor:pointer;
+        cursor: pointer;
         opacity: 0.0;
         position: absolute;
         top: 0;
@@ -53,7 +53,18 @@
     }
 </style>
 <h2>VitualStore</h2>
+<script>
 
+    function alertFilename() {
+        var file = $('#ScreenShotImage')[0].files[0]
+        if (file) {
+            var fileName = "<h1><p>" + file.name+"</p></h1>"
+           // console.log(file.name);
+            $('#IMAGEN').html(fileName);
+        }
+    }
+
+</script>
 @using (Html.BeginForm("Index", "VirtualStore", FormMethod.Post, new { enctype = "multipart/form-data", Area = "Admin" }))
 {
     @Html.AntiForgeryToken()
@@ -63,31 +74,34 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="upload-box">
-                    @Html.TextBoxFor(model => model.ScreenShotImage, new { type = "file", @class = "hidden-file-input" })
+                    @Html.TextBoxFor(model => model.ScreenShotImage, new { type = "file", @class = "hidden-file-input", onchange = "alertFilename()" })
                     @Html.ValidationMessageFor(model => model.ScreenShotImage)
-                    <h1>+</h1>
-                    <p>IMAGEN</p>
-                </div>
-                @*@if (Model.ScreenShotImage != null)
-                {
-                    <div class="upload-box">
-                        @Html.TextBoxFor(model => model.ScreenShotImage, new { type = "file", @class = "hidden-file-input" })
-                        @Html.ValidationMessageFor(model => model.ScreenShotImage)
+                    <div id="IMAGEN">
                         <h1>+</h1>
                         <p>IMAGEN</p>
                     </div>
-                }
-                else
-                {
-                    <div class="upload-box">
-                        @Html.TextBoxFor(model => model.ScreenShotImage, new { type = "file", @class = "hidden-file-input" })
-                       <img src=""/>
-                    </div>
-                }*@
+                    
+                </div>
+                @*@if (Model.ScreenShotImage != null)
+                    {
+                        <div class="upload-box">
+                            @Html.TextBoxFor(model => model.ScreenShotImage, new { type = "file", @class = "hidden-file-input" })
+                            @Html.ValidationMessageFor(model => model.ScreenShotImage)
+                            <h1>+</h1>
+                            <p>IMAGEN</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="upload-box">
+                            @Html.TextBoxFor(model => model.ScreenShotImage, new { type = "file", @class = "hidden-file-input" })
+                           <img src=""/>
+                        </div>
+                    }*@
 
             </div>
             <div class="col-md-7">
-                @Html.TextBoxFor(model => model.Price, new { @placeholder = "Prize", @class = "form-control input-lg bottm-margin" })
+                @Html.TextBoxFor(model => model.Price, new { @placeholder = "Prize", @class = "form-control input-lg bottm-margin", @type = "number" })
                 @Html.ValidationMessageFor(model => model.Price)
                 @*<input placeholder="Prize" class="form-control input-lg bottm-margin" />*@
                 @Html.TextBoxFor(model => model.Title, new { @placeholder = "Title", @class = "form-control input-lg bottm-margin" })
@@ -128,28 +142,28 @@
 
     @foreach (var item in Model.VirtualStores)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductFileName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ScreenShotFileName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", "VirtualStore", new { id = item.Id, Area = "Admin" }, null) |
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductFileName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreenShotFileName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", "VirtualStore", new { id = item.Id, Area = "Admin" }, null) |
 
-                @Html.ActionLink("Delete", "Delete", "VirtualStore", new { id = item.Id, Area = "Admin" })
-            </td>
-        </tr>
+            @Html.ActionLink("Delete", "Delete", "VirtualStore", new { id = item.Id, Area = "Admin" })
+        </td>
+    </tr>
     }
 
 </table>
