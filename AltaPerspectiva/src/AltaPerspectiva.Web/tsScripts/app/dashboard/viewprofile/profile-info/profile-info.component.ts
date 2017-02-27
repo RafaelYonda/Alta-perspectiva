@@ -20,7 +20,7 @@ export class ProfileInfoComponent {
     isUserHidden = true;
     showDescription = true;
     imageLink: string;
-    profilePath: string = '../../../../profile/';
+   // profilePath: string = '../../../../profile/';
     hasCredential: boolean;
     hasDescription: boolean;
     credentialParent: CredentialViewModel;
@@ -44,12 +44,12 @@ export class ProfileInfoComponent {
     }   
 
     ngOnInit() {
-        this._configService.getConfig().subscribe(res => {
+        //this._configService.getConfig().subscribe(res => {
 
-            //Get config for image
-            this.profilePath = res.profileImage;            
+        //    //Get config for image
+        //    this.profilePath = res.profileImage;            
 
-        });        
+        //});        
        
     }
     ngOnChanges(changes: SimpleChanges) {
@@ -69,7 +69,7 @@ export class ProfileInfoComponent {
             this.isUserHidden = false;
       
         if (this.credential.imageUrl && (this.credential.imageUrl != ''))
-            this.imageLink = this.profilePath.concat(this.credential.imageUrl);
+            this.imageLink = this.credential.imageUrl;
         else this.imageLink = '../images/userAdd.png';
 
         this.getLoggedInUser(this.credential.userId);

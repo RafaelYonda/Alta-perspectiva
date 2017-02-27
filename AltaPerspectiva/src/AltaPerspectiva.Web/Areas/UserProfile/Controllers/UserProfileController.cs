@@ -17,6 +17,7 @@ using UserProfile.Command.CommandHandler;
 using UserProfile.Query;
 using UserProfile.Query.Interfaces;
 using System.IO;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
 using Questions.Domain;
 using Questions.Query;
 using UserProfile.Domain;
@@ -152,15 +153,12 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(command.Id);
         }
         [HttpPost("userprofile/api/credential/saveuserimage")]
-        public IActionResult SaveUserImage(IFormFile file, Guid userId)
+        public  async Task<IActionResult> SaveUserImage(IFormFile file, Guid userId)
         {
             if (file != null)
             {
-                var uploads = Path.Combine(environment.WebRootPath, configuration["ProfileUpload"]);
-                using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
+                AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
+                await azureFileUploadHelper.SaveProfileImage(file);
                 UpdateUserImageCommand cmd = new UpdateUserImageCommand(userId, file.FileName);
                 commandsFactory.ExecuteQuery(cmd);
                 Guid createdId = cmd.Id;

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
 using UserProfile.Query;
 using UserProfile.Query.Queries;
 
@@ -15,10 +16,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
     {
         //public List<UserViewModel> GetUserViewModels(IQueryFactory queryFactory, List<Question> questions,List<Guid> userIds )
         //{
-            
+
         //}
-        
-        public String GetUserFullName(IQueryFactory queryFactory,Guid loggedinUser)
+
+        public String GetUserFullName(IQueryFactory queryFactory, Guid loggedinUser)
         {
             String fullName = String.Empty;
             var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
@@ -37,15 +38,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             string fullName = string.Empty;
             string imageUrl = string.Empty;
             string occupation = string.Empty;
-            Guid credentialId=Guid.Empty;
+            Guid credentialId = Guid.Empty;
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
             var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
             if (credential != null)
             {
                 fullName = credential.FirstName + " " + credential.LastName;
-                imageUrl = credential.ImageUrl?? "avatar.png";
-                if (credential.ImageUrl == "")
+
+                if (credential.ImageUrl == "" || credential.ImageUrl == null)
                 {
-                    imageUrl = "avatar.png";
+                    imageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
+                }
+                else
+                {
+
+                    imageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
                 }
 
                 occupation = credential.Employments.Select(x => x.Position).Take(1).FirstOrDefault();
@@ -54,20 +61,19 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             else
             {
                 fullName = "Guest";
-                imageUrl = "avatar.png";
+                imageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
                 occupation = " ";
             }
-           
-    UserViewModel userViewModel = new UserViewModel
+            UserViewModel userViewModel = new UserViewModel
             {
                 ImageUrl = imageUrl,
                 Name = fullName,
                 Occupation = occupation,
                 UserId = loggedinUser,
                 CredentialId = credentialId
-    };           
+            };
 
             return userViewModel;
-        }      
+        }
     }
 }
