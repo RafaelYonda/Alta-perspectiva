@@ -48,7 +48,7 @@ export class StatusComponent {
         }
         this.questionService.postQuestionBlog(questionId).subscribe(res => {
             console.log(questionId + 'saved as bookmark');
-        });;
+        });
     }
     sendCommentCountToApStatus(param: any) {
         console.log('sendCommentCountToApStatus');

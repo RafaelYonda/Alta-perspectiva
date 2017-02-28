@@ -1,7 +1,7 @@
-﻿import { Component, Input, ElementRef, ViewChild, Output, EventEmitter  } from '@angular/core';
+﻿import { Component, Input, ElementRef,  Output, EventEmitter, ViewContainerRef, ComponentFactoryResolver, ViewChild  } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ApSearchDropDownComponent } from './search-dropdown.component';
-
+import { loginModalComponent } from '../login-modal/login-modal.component';
 import { CommunicationService } from '../../services/communication.service';
 import { CategoryService } from '../../services/category.service';
 import { QuestionAnswerService } from '../../services/question-answer.service';
@@ -26,7 +26,7 @@ export class ApSearchComponent {
     //levels:Level[];
     questionSaveViewModel: QuestionSaveViewModel;
 
-    constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private commServ: CommunicationService , private myElement: ElementRef) {
+    constructor(private componentFactoryResolver: ComponentFactoryResolver,private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private commServ: CommunicationService , private myElement: ElementRef) {
         this.elementRef = myElement;
     }
     ngOnInit() {
@@ -56,14 +56,29 @@ export class ApSearchComponent {
     question: Question;
 
     submitQuestion() {
-        this.removeModal();
+        var user = localStorage.getItem('currentUserName');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return false;
+        }
+        this.removeModal();        
         this.searchDropDown.submitEmitter.subscribe(() => {
             //this.onQuestionSubmit.emit(true);
             this.commServ.questionSubmit(this.title);
         });
         this.searchDropDown.submitQuestion();
     }
+    @ViewChild('logginAnchor', { read: ViewContainerRef }) logginAnchor: ViewContainerRef;
+    ShowNotLoggedIn() {
+        this.logginAnchor.clear();
 
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(loginModalComponent);
+        let dialogComponentRef = this.logginAnchor.createComponent(dialogComponentFactory);
+        this.removeModal();
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }
     //=============Category Show=============
     categories: Category[];
     categoryMatched: string = "";

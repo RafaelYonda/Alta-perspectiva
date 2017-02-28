@@ -1,4 +1,5 @@
-﻿<div [ngClass]="placeBottom" id="search-box" (click)="handleClick($event)">
+﻿<div #logginAnchor></div>
+<div [ngClass]="placeBottom" id="search-box" (click)="handleClick($event)">
     <div class="center-width" id="adv-search">
         <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="z-header" role="form" id="search-panel">
             <div class="icon-container">
