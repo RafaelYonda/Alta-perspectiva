@@ -57,7 +57,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/getuser")]
         public IActionResult GetUser()
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser = Guid.Empty;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
             {
                 var userId =
@@ -65,13 +65,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                             x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var model = new UserService().GetUserViewModel(queryFactory, loggedinUser);
+                return Ok(model);
+
             }
-            var model = new UserService().GetUserViewModel(queryFactory, loggedinUser);
-
-            String connectionString =
-                configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
-
-            return Ok(model);
+            return Ok();
         }
         [HttpGet("userprofile/api/userinfodetails/{userId}")]
         public IActionResult UserInfoDetails(Guid userId)
