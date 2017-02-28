@@ -132,10 +132,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(id);
 
-            var questionViewModel = new QuestionService().GetQuestionViewModels(new List<Question>
-            {
-                question
-            }, queryFactory,configuration)[0];
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question,queryFactory);
             return Ok(questionViewModel);
         }
 
