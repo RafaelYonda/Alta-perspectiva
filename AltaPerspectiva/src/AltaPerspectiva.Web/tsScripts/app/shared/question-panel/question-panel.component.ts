@@ -79,8 +79,8 @@ export class QuestionPanelComponent {
     }
     @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
     answerDialogBox(question: Question) {
-        var user = localStorage.getItem('currentUserName');
-        if (!user)
+        var token = localStorage.getItem('auth_token');
+        if (!token)
         {
             this.ShowNotLoggedIn();
             return;

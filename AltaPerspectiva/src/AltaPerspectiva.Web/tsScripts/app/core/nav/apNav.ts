@@ -31,16 +31,13 @@ export class ApNav {
     ngOnInit() {
         
         var currentUser = localStorage.getItem('auth_token');  
+        if (currentUser == null)
+            return;
         this._authService.getLoggedinObj().subscribe(res => {
-            if (res && currentUser != "null") {
-                this._logObj.user.name = res.name;
-                this._logObj.user.imageUrl =res.imageUrl;
-                this._logObj.isLoggedIn = true;
-                this._logObj.user.userId = res.userId;
-
-                localStorage.setItem('currentUserName', this._logObj.user.name);
-                localStorage.setItem('currentUserImage', this._logObj.user.imageUrl);
-            }
+            this._logObj.user.name = res.name;
+            this._logObj.user.imageUrl = res.imageUrl;
+            this._logObj.isLoggedIn = true;
+            this._logObj.user.userId = res.userId;
         });
     }
 

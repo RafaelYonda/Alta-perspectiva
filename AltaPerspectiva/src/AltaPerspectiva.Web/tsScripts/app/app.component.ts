@@ -9,19 +9,22 @@ import { AuthenticationService } from './services/authentication.service';
 })
 export class AppComponent {   
 
-    constructor(elm: ElementRef) {
+    constructor(elm: ElementRef, private _authService: AuthenticationService) {
 
         var username = elm.nativeElement.getAttribute('username');
         var token = elm.nativeElement.getAttribute('token');       
        
-        if (username != "") {
+        if (username && username != "") {
             localStorage.setItem('currentUser', username);
-            //localStorage.getItem('auth_token');
             localStorage.setItem('auth_token', token);
+            this._authService.getLoggedinObj().subscribe(res => {
+                localStorage.setItem('currentUserObject', res);
+            });
         }
         else {
             localStorage.removeItem('currentUser');
             localStorage.removeItem('auth_token');
+            localStorage.removeItem('currentUserObject');
         }
     }
     ngOnInit() {

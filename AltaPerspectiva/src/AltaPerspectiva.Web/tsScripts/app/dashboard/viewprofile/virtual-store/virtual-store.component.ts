@@ -19,11 +19,11 @@ export class VirtualStoreComponent {
     ngOnInit() {
         window.scrollTo(0, 0);
         this.profileServ.getVirtualStoreItems().subscribe(res => {
-            this._configService.getConfig().subscribe(config => {
-                //Get config for image
-                this.screenShotPath = config.virtualStore;
+            //this._configService.getConfig().subscribe(config => {
+            //    //Get config for image
+            //    this.screenShotPath = config.virtualStore;
 
-            });
+            //});
             this.virtualStores = res;
             console.log(res);
         });
@@ -33,9 +33,6 @@ export class VirtualStoreComponent {
         //        console.log(this.user);
         //    });
         //});
-    }
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 
     @ViewChild('itemDialog', { read: ViewContainerRef }) itemDialogAnchor: ViewContainerRef;

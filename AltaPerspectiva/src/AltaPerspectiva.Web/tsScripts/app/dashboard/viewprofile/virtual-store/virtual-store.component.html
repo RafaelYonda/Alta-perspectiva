@@ -21,7 +21,7 @@
 <div class="row">
     <div class="col-md-4" *ngFor="let virtualStore of virtualStores">
         <a class="item-list" (click)="openItemDialogAnchor(virtualStore)">
-            <img src="{{screenShotPath}}/{{virtualStore.screenShotFileName}}" class="item-img" />
+            <img src="{{virtualStore.screenShotFileName}}" class="item-img" />
         </a>
         <div class="img-tag">
             <h3>{{virtualStore.price}}$</h3>
