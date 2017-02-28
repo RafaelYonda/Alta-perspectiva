@@ -22,6 +22,13 @@ export class BlogService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getBlogById(blogId: string): Observable<Blog> {
+        return this._http.get('/blog/api/getblogbyid/' + blogId)
+            .map(this.extractData)
+            .catch(this.handleError)
+            .publishReplay(1)
+            .refCount();
+    }
     getPostLikeByPostId(): Observable<BlogLike> {
         return this._http.get('/questions/api/categories/')
             .map(this.extractData)

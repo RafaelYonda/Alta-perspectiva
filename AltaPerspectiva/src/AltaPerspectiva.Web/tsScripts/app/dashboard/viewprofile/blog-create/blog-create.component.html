@@ -22,8 +22,9 @@
         background-color: rgba(241, 230, 169, 0.50);
     }
 </style>
+<div #logginAnchor></div>
 <form (ngSubmit)="saveBlog()" #blogForm="ngForm">
-    <div class="form-horizontal">
+    <div class="form-horizontal" *ngIf="isOwner">
         <div class="form-group">
             <label class="control-label col-sm-3"> Nombre del blog*</label>
             <div class="col-sm-3">

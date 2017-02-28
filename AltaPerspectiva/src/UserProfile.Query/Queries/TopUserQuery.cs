@@ -15,8 +15,6 @@ namespace UserProfile.Query.Queries
         public TopUserQuery(UserProfileQueryDbContext dbContext) : base(dbContext)
         {
         }
-
-
         public async Task<List<UserSummary>> GetTopFiveUserSummary()
         {
             List<UserSummary> userSummery = new List<UserSummary>();

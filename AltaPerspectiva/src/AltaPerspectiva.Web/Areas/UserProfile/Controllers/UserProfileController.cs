@@ -53,7 +53,6 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
 
         #endregion
-
         [HttpGet("userprofile/api/getuser")]
         public IActionResult GetUser()
         {

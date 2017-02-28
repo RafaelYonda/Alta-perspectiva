@@ -56,7 +56,7 @@ export class QuestionDetailComponent {
     }
     ngOnInit() {
         window.scrollTo(0, 0);
-        var currentUserName = localStorage.getItem('currentUserName'); 
+        var currentUserName = localStorage.getItem('auth_token'); 
         var currentUserImage = localStorage.getItem('currentUserImage');
         console.log(currentUserName);
         if (currentUserName != null)
@@ -74,7 +74,7 @@ export class QuestionDetailComponent {
             });
     }
     QuestionFollowing(answer: AnswerViewModel) {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
@@ -104,7 +104,7 @@ export class QuestionDetailComponent {
         this.isAnonymous = event;
     }
     submitAnswer(_id: string) {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
@@ -129,7 +129,7 @@ export class QuestionDetailComponent {
     @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
 
     answerDialogBox(question: Question) {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
@@ -149,7 +149,7 @@ export class QuestionDetailComponent {
         });
     }
     submitAnswerAsDraft(_id: string) {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
@@ -174,7 +174,7 @@ export class QuestionDetailComponent {
 
     submitComment(questionId: string)
     {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
@@ -192,7 +192,7 @@ export class QuestionDetailComponent {
     }
 
     submitCommentForAnswer(answerId: string) {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
@@ -211,7 +211,7 @@ export class QuestionDetailComponent {
 
     submitLike(questionId: string)
     {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
@@ -225,7 +225,7 @@ export class QuestionDetailComponent {
     }
 
     submitLikeForAnswer(answerId: string, questionId: string) {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;

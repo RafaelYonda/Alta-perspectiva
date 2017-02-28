@@ -42,8 +42,9 @@
         margin-top: 5px;
     }
 </style>
+<nav-bar></nav-bar>
 <div #blogPostDetail></div>
-<div class="blog-edit-panel">
+<div *ngIf="isOwner" class="blog-edit-panel">
     <h1 *ngIf="!isEditTitle">{{blog?.title}}</h1>
     <div class="btn-blog-edit">
         <div *ngIf="!isEditTitle">
@@ -85,11 +86,12 @@
             </div>
         </div>
     </form>
-
+    <div style="margin-bottom:50px"></div>
 </div>
 <br />
 <br />
 <div *ngIf="blogposts">
+    <div style="margin-top:-50px"></div>
     <div class="blog-list" *ngFor="let post of blogposts" >
         <hr />
         <br />

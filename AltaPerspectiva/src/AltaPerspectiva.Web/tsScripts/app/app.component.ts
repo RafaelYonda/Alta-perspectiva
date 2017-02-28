@@ -19,12 +19,14 @@ export class AppComponent {
             localStorage.setItem('auth_token', token);
             this._authService.getLoggedinObj().subscribe(res => {
                 localStorage.setItem('currentUserObject', res);
+                localStorage.setItem('currentUserImage', res.imageUrl ? res.imageUrl : null);
             });
         }
         else {
             localStorage.removeItem('currentUser');
             localStorage.removeItem('auth_token');
             localStorage.removeItem('currentUserObject');
+            localStorage.removeItem('currentUserImage');
         }
     }
     ngOnInit() {

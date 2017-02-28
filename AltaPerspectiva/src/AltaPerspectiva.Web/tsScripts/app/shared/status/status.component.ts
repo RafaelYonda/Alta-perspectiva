@@ -41,7 +41,7 @@ export class StatusComponent {
     copyClipboard() {
     }
     postClikced(questionId: string) {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
@@ -54,7 +54,7 @@ export class StatusComponent {
         console.log('sendCommentCountToApStatus');
     }
     bookmarkClicked(questionId: string) {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
@@ -66,7 +66,7 @@ export class StatusComponent {
 
     questionDetailClicked()
     {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
@@ -75,7 +75,7 @@ export class StatusComponent {
     }
 
     submitLike(answerId: string, questionId: string) {   
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
@@ -122,7 +122,7 @@ export class StatusComponent {
         }
     }
     questionReportClicked(questionId: string, answerId: string) {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;

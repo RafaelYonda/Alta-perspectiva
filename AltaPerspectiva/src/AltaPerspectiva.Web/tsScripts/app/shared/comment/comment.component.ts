@@ -42,7 +42,7 @@ export class CommentComponent {
             });
         }
             
-        var currentUserName = localStorage.getItem('currentUserName');
+        var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
         if (currentUserName != null) {
             this._logObj.user.name = currentUserName;
@@ -56,7 +56,7 @@ export class CommentComponent {
         this.comments.push(this.comment);
     }
     submitComment(questionId: string, answerId: string) {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;

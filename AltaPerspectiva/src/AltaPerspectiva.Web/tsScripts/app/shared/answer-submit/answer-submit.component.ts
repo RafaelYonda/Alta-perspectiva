@@ -23,7 +23,7 @@ export class AnswerSubmitComponent {
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
-        var currentUserName = localStorage.getItem('currentUserName');
+        var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
         if (currentUserName != null) {
             this._logObj.user.name = currentUserName;

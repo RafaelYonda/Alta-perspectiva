@@ -33,7 +33,7 @@ export class BlogpostCommentComponent {
         //    this.comments = res;
         //});
             
-        var currentUserName = localStorage.getItem('currentUserName');
+        var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
         if (currentUserName != null) {
             this._logObj.user.name = currentUserName;

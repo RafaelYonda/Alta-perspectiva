@@ -56,7 +56,7 @@ export class ApSearchComponent {
     question: Question;
 
     submitQuestion() {
-        var user = localStorage.getItem('currentUserName');
+        var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return false;

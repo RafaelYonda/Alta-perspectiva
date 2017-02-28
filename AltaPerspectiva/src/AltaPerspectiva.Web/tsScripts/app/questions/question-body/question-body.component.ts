@@ -74,7 +74,7 @@ export class QuestionBodyComponent {
     }
     ngOnInit() {
         window.scrollTo(0,0);
-        var currentUserName = localStorage.getItem('currentUserName');
+        var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
         this.commServ.informQuestionSubmit().subscribe(res => {
             this.onQuestionSubmitted(res);
