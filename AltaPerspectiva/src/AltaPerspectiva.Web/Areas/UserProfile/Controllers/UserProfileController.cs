@@ -555,7 +555,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
         public async Task<List<UserSummary>> GetTopFiveUserByCategoryId(Guid categoryId)
         {
             List<UserSummary> summeries=new List<UserSummary>();
-            if (categoryId==Guid.Empty)
+            if (categoryId!=Guid.Empty)
             {
                 summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetUserSummnaryByCategoryId(categoryId);
                 
@@ -565,7 +565,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetTopFiveUserSummary();
                
             }
-            summeries=new UserSummaryFilter().GetUserSummaryForNameFilter(summeries);
+            summeries=new UserSummaryFilter().GetUserSummaryFilter(summeries);
             return summeries;
 
         }

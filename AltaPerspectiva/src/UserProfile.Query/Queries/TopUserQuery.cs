@@ -34,6 +34,7 @@ namespace UserProfile.Query.Queries
                     UserSummary summary = new UserSummary();
                     summary.Name = Convert.ToString(reader["FullName"]);
                     summary.Id = Convert.ToString(reader["Id"]);
+                    summary.UserId = new Guid( Convert.ToString(reader["UserId"]));
                     summary.ImageUrl = Convert.ToString(reader["ImageUrl"]);
                     summary.TotalLike = Convert.ToInt16(reader["TotalLike"]);
                     summary.TotalComment = Convert.ToInt16(reader["TotalComment"]);
@@ -60,6 +61,7 @@ namespace UserProfile.Query.Queries
                 {
                     summary.Name = Convert.ToString(reader["FullName"]);
                     summary.Id = Convert.ToString(reader["Id"]);
+                    summary.UserId = new Guid(Convert.ToString(reader["UserId"]));
                     summary.ImageUrl = Convert.ToString(reader["ImageUrl"]);
                     summary.TotalLike = Convert.ToInt16(reader["TotalLike"]);
                     summary.TotalComment = Convert.ToInt16(reader["TotalComment"]);
@@ -89,6 +91,7 @@ namespace UserProfile.Query.Queries
                     UserSummary summary = new UserSummary();
                     summary.Name = Convert.ToString(reader["FullName"]);
                     summary.Id = Convert.ToString(reader["Id"]);
+                    summary.UserId = new Guid(Convert.ToString(reader["UserId"]));
                     summary.ImageUrl = Convert.ToString(reader["ImageUrl"]);
                     summary.Occupation = Convert.ToString(reader["Occupation"]);
                     summary.TotalLike = Convert.ToInt32(reader["TotalLike"]);

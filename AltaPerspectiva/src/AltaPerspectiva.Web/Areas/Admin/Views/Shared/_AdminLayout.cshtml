@@ -256,7 +256,7 @@
                             success: function (respText) {
                                 console.log(respText);
                                 $('#headerUserName').text(respText.name);
-                                $('#my_image').attr('src',respText.imageUrl);
+                                $('#my_image').attr('src', respText.imageUrl);
                             },
                             error: function (jqXhr, textStatus, errorThrown) {
 
@@ -281,10 +281,26 @@
                 <div id="sidebar-wrapper">
                     <ul class="sidebar-nav nav-pills nav-stacked" data-autohide="false" id="menu">
                         <li>
-                            <a href="@Url.Action("Index", "VirtualStore", new {Area = "Admin"})">
+                            <a href="#">
                                 <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>Virtual Store
                             </a>
-
+                            <ul class="nav-pills nav-stacked" style="list-style-type: none;">
+                                <li>
+                                    <a href="@Url.Action("Index", "VirtualStore", new {Area = "Admin"})">
+                                        <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>AddVirtualStore
+                                    </a>
+                                </li>
+                                @*<li>
+                                    <a href="#">
+                                        <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>EditVirtualStore
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Delete", "VirtualStore", new {Area = "Admin"})">
+                                        <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>DeleteVirtualStore
+                                    </a>
+                                </li>*@
+                            </ul>
                         </li>
                         <li>
                             <a href="#">
@@ -297,13 +313,23 @@
                                     </a>
                                 </li>
                                 <li><a href="@Url.Action("AddKeyword", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditCategory</a></li>
-                                <li><a href="@Url.Action("DeleteCategory", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>DeleteCategory</a></li>
+                                <li>
+                                    <a href="@Url.Action("DeleteCategory", "Category", new {Area = "Admin"})">
+                                        <span class="fa-stack fa-lg pull-left">
+                                            <i class="fa fa-flag fa-stack-1x "></i>
+                                        </span>DeleteCategory
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li>
                             <a href="#" style="display: block"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Reports</a>
                             <ul class="nav-pills nav-stacked" style="list-style-type: none;">
-                                <li><a href="@Url.Action("Question", "QuestionReport", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Question Report</a></li>
+                                <li>
+                                    <a href="@Url.Action("Question", "QuestionReport", new {Area = "Admin"})">
+                                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Question Report
+                                    </a>
+                                </li>
                                 <li><a href="@Url.Action("Answer", "QuestionReport", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Answer Report</a></li>
 
                             </ul>

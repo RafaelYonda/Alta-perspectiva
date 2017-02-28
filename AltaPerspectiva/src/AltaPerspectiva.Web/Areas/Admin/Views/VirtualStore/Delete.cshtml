@@ -1,25 +1,31 @@
-﻿<h1>Delete page</h1>
+﻿
 @model AltaPerspectiva.Web.Areas.Admin.Models.AddVirtualStoreViewModel
 
 @{
     ViewBag.Title = "VitualStoreView";
 }
 
-
+<style>
+    .btn {
+        margin-left: 167px;
+    }
+</style>
+<br/>
+<br/>
 @using (Html.BeginForm("Delete", "VirtualStore", FormMethod.Post, new { Area = "Admin"}))
 {
-    <h2>VitualStoreView</h2>
+
 
     <div>
-        <h4>AddVirtualStoreViewModel</h4>
+        <h4>Delete vitual store</h4>
         <hr/>
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Prize)
+                @Html.DisplayNameFor(model => model.Price)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Prize)
+                @Html.DisplayFor(model => model.Price)
             </dd>
 
             <dt>
@@ -39,11 +45,11 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.FileName)
+                @Html.DisplayNameFor(model => model.ProductFileName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.FileName)
+                @Html.DisplayFor(model => model.ProductFileName)
             </dd>
 
             <dt>

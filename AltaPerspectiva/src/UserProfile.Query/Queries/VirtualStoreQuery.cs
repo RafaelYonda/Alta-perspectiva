@@ -22,7 +22,7 @@ namespace UserProfile.Query.Queries
 
         public List<VirtualStore> GetVirtualStores()
         {
-            return DbContext.VirtualStores.ToList();
+            return DbContext.VirtualStores.OrderByDescending(x=>x.CreatedOn).ToList();
         }
 
        

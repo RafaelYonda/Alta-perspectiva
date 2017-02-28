@@ -110,7 +110,7 @@ from Questions.Questions a
 where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()))
 
 
-select  @userId UserId,
+select CONVERT(UNIQUEIDENTIFIER, @userId) UserId,
 @ImageUrl ImageUrl,
 @FullName FullName,
 @Title Title,

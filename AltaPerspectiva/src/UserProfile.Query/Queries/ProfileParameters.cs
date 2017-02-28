@@ -17,56 +17,22 @@ namespace UserProfile.Query.Queries
         public static T DataReaderToObject<T>(string connectionString, string query) where T : class, new()
         {
             SqlDataReader reader;
-            var connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlCommand command = new SqlCommand(query, connection);
-            reader = command.ExecuteReader();
-
-            //   T list = new T();
             T obj = new T();
-            var columns = new List<string>();
-            for (int i = 0; i < reader.FieldCount; i++)
+            using (var connection = new SqlConnection(connectionString))
             {
-                columns.Add(reader.GetName(i));
-            }
-            while (reader.Read())
-            {
-                foreach (var prop in obj.GetType().GetProperties())
+                connection.Open();
+                SqlCommand command = new SqlCommand(query, connection);
+                reader = command.ExecuteReader();
+
+                //   T list = new T();
+               
+                var columns = new List<string>();
+                for (int i = 0; i < reader.FieldCount; i++)
                 {
-                    try
-                    {
-                        PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
-                        propertyInfo.SetValue(obj, Convert.ChangeType(reader[prop.Name], propertyInfo.PropertyType), null);
-                    }
-                    catch
-                    {
-                        continue;
-                    }
+                    columns.Add(reader.GetName(i));
                 }
-
-
-            }
-            return obj;
-        }
-        public static List<T> DataReaderToList<T>(string connectionString, string query) where T : class, new()
-        {
-            SqlDataReader reader;
-            var connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlCommand command = new SqlCommand(query, connection);
-            reader = command.ExecuteReader();
-
-            List<T> list = new List<T>();
-            var columns = new List<string>();
-            for (int i = 0; i < reader.FieldCount; i++)
-            {
-                columns.Add(reader.GetName(i));
-            }
-            while (reader.Read())
-            {
-                foreach (var row in columns.AsEnumerable())
+                while (reader.Read())
                 {
-                    T obj = new T();
                     foreach (var prop in obj.GetType().GetProperties())
                     {
                         try
@@ -80,7 +46,46 @@ namespace UserProfile.Query.Queries
                         }
                     }
 
-                    list.Add(obj);
+
+                }
+            }
+            return obj;
+        }
+        public static List<T> DataReaderToList<T>(string connectionString, string query) where T : class, new()
+        {
+            List<T> list = new List<T>();
+            SqlDataReader reader;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(query, connection);
+                reader = command.ExecuteReader();
+                var columns = new List<string>();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    columns.Add(reader.GetName(i));
+                }
+                while (reader.Read())
+                {
+                    foreach (var row in columns.AsEnumerable())
+                    {
+                        T obj = new T();
+                        foreach (var prop in obj.GetType().GetProperties())
+                        {
+                            try
+                            {
+                                PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
+                                propertyInfo.SetValue(obj,
+                                    Convert.ChangeType(reader[prop.Name], propertyInfo.PropertyType), null);
+                            }
+                            catch
+                            {
+                                continue;
+                            }
+                        }
+
+                        list.Add(obj);
+                    }
                 }
             }
             return list;
@@ -97,7 +102,7 @@ namespace UserProfile.Query.Queries
         {
             List<CategoryWiseAnswer> categoryWiseAnswers = new List<CategoryWiseAnswer>();
             String query = String.Format("SpCategoryWiseAnswer '{0}'", userId);
-            categoryWiseAnswers = DataReaderToListHelper.DataReaderToList<CategoryWiseAnswer>(connectionString,query);
+            categoryWiseAnswers = DataReaderToListHelper.DataReaderToList<CategoryWiseAnswer>(connectionString, query);
             return categoryWiseAnswers;
         }
 
@@ -107,7 +112,7 @@ namespace UserProfile.Query.Queries
 
             profileParameter =
                 DataReaderToListHelper.DataReaderToObject<ProfileParameter>(connectionString,
-                    "SpProfileParameterCount '" + userId+"'");
+                    "SpProfileParameterCount '" + userId + "'");
 
             return profileParameter;
         }

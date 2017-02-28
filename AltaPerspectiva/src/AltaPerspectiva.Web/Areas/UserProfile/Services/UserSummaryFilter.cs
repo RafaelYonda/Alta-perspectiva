@@ -11,11 +11,12 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
     public class UserSummaryFilter
     {
         //For Name of Unknown uSer
-        public List<UserSummary> GetUserSummaryForNameFilter(List<UserSummary>   summary)
+        public List<UserSummary> GetUserSummaryFilter(List<UserSummary>   summary)
         {
             AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
             foreach (var user in summary)
             {
+                //user.UserId = new Guid(user.Id);
                 if (user.Name == "")
                 {
                     user.Name = "Guest";
