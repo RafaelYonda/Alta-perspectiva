@@ -28,7 +28,8 @@ export class BlogpostDetailComponent {
         });
     }
     updateTitle() {
-
+        if (this.blog.title.trim() == "")
+            return;
         this.profileService.UpdateBlog(this.blog).subscribe(res => {
             this.isEditTitle = false;
         });

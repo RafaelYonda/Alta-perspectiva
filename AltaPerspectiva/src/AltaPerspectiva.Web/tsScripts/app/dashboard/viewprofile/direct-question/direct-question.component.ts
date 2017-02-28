@@ -1,7 +1,8 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import { QuestionService } from '../../../services/question.service';
+import { loginModalComponent } from '../../../shared/login-modal/login-modal.component';
 import { Category, Question, QuestionSaveViewModel } from '../../../services/models';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/direct-question/direct-question.component.html',
@@ -14,7 +15,7 @@ export class DirectQuestionComponent {
     categories: Category[];
     selectedCategory: Category;
     question: QuestionSaveViewModel = new QuestionSaveViewModel();
-    constructor(private categoryService: CategoryService, private _route: ActivatedRoute, private questionsService: QuestionService) {
+    constructor(private categoryService: CategoryService, private _route: ActivatedRoute, private questionsService: QuestionService, private componentFactoryResolver: ComponentFactoryResolver) {
     }
     ngOnInit() {
         window.scrollTo(0, 0);
@@ -35,6 +36,11 @@ export class DirectQuestionComponent {
         this.question.categoryIds.push(cat.id);
     }
     submitQuestion() {
+        var token = localStorage.getItem('auth_token');
+        if (!token) {
+            this.ShowNotLoggedIn();
+            return;
+        }
         console.log(this.questionAskedToUser);
         this.question.questionAskedToUser = this.questionAskedToUser;
         
@@ -44,6 +50,16 @@ export class DirectQuestionComponent {
             console.log(res);
 
 
+        });
+    }
+    @ViewChild('logginAnchor', { read: ViewContainerRef }) logginAnchor: ViewContainerRef;
+    ShowNotLoggedIn() {
+        this.logginAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(loginModalComponent);
+        let dialogComponentRef = this.logginAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
         });
     }
 }

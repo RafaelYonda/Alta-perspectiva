@@ -122,7 +122,6 @@
             <div class="user-name">
                 <div [hidden]="!isUserHidden">
                     <h1> {{credential.firstName}} {{credential.lastName}} </h1>
-                    {{isOwner}}
                     <a *ngIf="isOwner" (click)="isUserHidden = false" ><span><i class="fa fa-edit"></i>Edit Name</span> </a>
                 </div>
                 <div [hidden]="isUserHidden" *ngIf="isOwner">

@@ -44,13 +44,16 @@ export class BlogPostComponent {
         });
     }
     updateTitle() {
-
+        if (this.blog.title.trim()== "")
+            return;
         this.profileService.UpdateBlog(this.blog).subscribe(res => {
             this.isEditTitle = false;
         });
     }
     
     saveBlogPost() {
+        if ((this.blogPost.description.trim() == "") || (this.blogPost.title.trim() == ""))
+            return;
         this.blogPost.blogId = this.blogId;        
         this.profileService.SaveBlogPost(this.blogPost).subscribe(res => {
             console.log(res);

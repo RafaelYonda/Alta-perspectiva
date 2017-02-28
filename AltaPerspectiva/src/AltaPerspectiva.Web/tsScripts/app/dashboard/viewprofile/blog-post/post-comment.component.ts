@@ -13,7 +13,7 @@ export class BlogpostCommentComponent {
 
     commentText: string;
     comment: BlogComment = new BlogComment();
-    comments: BlogComment[];    
+    comments: BlogComment[];
 
     _logObj: LogInObj;
 
