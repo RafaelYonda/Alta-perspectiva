@@ -140,7 +140,7 @@ if (@userId is null)
 	BEGIN
 	;with CTE
 	as(
-	SELECT  [Id]
+	SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId
 	,[UserName],
 	(select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) FullName,
 	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,
@@ -172,7 +172,7 @@ BEGIN
 ;with TopFiveUserCTE
 as
 (
-SELECT  [Id]
+SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId
 	,[UserName],
 	(select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) FullName,
 	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,
@@ -217,7 +217,7 @@ END
 
 ELSE
 	BEGIN
-	SELECT  [Id]
+	SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId
 	,[UserName],
 	(select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) FullName,
 	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,

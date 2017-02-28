@@ -238,8 +238,8 @@
                                     <img id="my_image" class="user-image" src="../../../../profile/LOGO CUADRADO.png" src="../../../../profile/LOGO CUADRADO.png"><span id="headerUserName"></span>
                                 </div>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/dashboard"><span class="fa fa-user"></span> Profile</a></li>
-                                    <li><a href="@Url.Action("AddCategory", "Category", new {Area = "Admin"})"> <span class="fa fa-sign-out"></span> Manage Categories </a></li>
+                                    <li><a id="userUrl" href=""><span class="fa fa-user"></span> Profile</a></li>
+                                    @*<li><a href="@Url.Action("AddCategory", "Category", new {Area = "Admin"})"> <span class="fa fa-sign-out"></span> Manage Categories </a></li>*@
                                     <li><a href="/signout"><span class="fa fa-sign-out"></span> Sign Out</a></li>
 
                                 </ul>
@@ -254,14 +254,31 @@
                             data: null,
                             async: false,
                             success: function (respText) {
-                                console.log(respText);
+                               // console.log(respText);
                                 $('#headerUserName').text(respText.name);
                                 $('#my_image').attr('src', respText.imageUrl);
+                                $('#userUrl').attr('href', '/dashboard/viewprofile/' + respText.userId+ '/user-question');
+
                             },
                             error: function (jqXhr, textStatus, errorThrown) {
 
                             }
                         });
+                        @*url = '@Url.Action("GetUserId", "UserProfile", new { Area = "UserProfile" })';
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: null,
+                            async: false,
+                            success: function (respText) {
+                                console.log(respText);
+                                $('#userUrl').href = "/dashboard/viewprofile/1/user-question"
+                               
+                            },
+                            error: function (jqXhr, textStatus, errorThrown) {
+
+                            }
+                        });*@
 
                     </script>
 
