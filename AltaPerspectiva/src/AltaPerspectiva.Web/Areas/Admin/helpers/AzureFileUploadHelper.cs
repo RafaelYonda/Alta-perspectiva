@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.IO;
+using AltaPerspectiva.Web.Areas.Admin.Helpers;
 
 namespace AltaPerspectiva.Web.Areas.Admin.helpers
 {
@@ -20,20 +21,27 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
             CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
             //create a container    
             CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(containerName);
+            //For virtualstoredocument not public access
+            
+
             //create a container if it is not already exists    
-            if (await cloudBlobContainer.CreateIfNotExistsAsync())
+            if (await cloudBlobContainer.CreateIfNotExistsAsync() )
             {
-                await cloudBlobContainer.SetPermissionsAsync(new BlobContainerPermissions
+                if (containerName != "virtualstoreproduct")
                 {
-                    PublicAccess = BlobContainerPublicAccessType.Blob
-                });
+                    await cloudBlobContainer.SetPermissionsAsync(new BlobContainerPermissions
+                    {
+                        PublicAccess = BlobContainerPublicAccessType.Blob
+                    });
+                }
+                
             }
             string _imageName = file.FileName;
 
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(_imageName);
             cloudBlockBlob.Properties.ContentType = file.ContentType;
             Stream stream = file.OpenReadStream();
-            await cloudBlockBlob.UploadFromStreamAsync(stream);
+            Task.WaitAll(cloudBlockBlob.UploadFromStreamAsync(stream));
 
             return cloudBlockBlob.Uri.ToString(); ;
         }
@@ -48,5 +56,34 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
             String url = _storageLink + ConfigClass.Profile+"/"+imageName;
             return url;
         }
+        /*Other upload*/
+        public string GetCategoryImage(String imageName)
+        {
+            String url = _storageLink + ConfigClass.Category + "/" + imageName;
+            return url;
+        }
+        public async Task<string> SaveVirtualStoreDocument(IFormFile file)
+        {
+            String url = await GetAzureFileFullLink(ConfigClass.VirtualStoreDocument, file);
+            return url;
+        }
+
+        public string GetVirtualStoreDocument(String imageName)
+        {
+            String url = _storageLink + ConfigClass.VirtualStoreDocument + "/" + imageName;
+            return url;
+        }
+        public async Task<string> SaveVirtualStoreProduct(IFormFile file)
+        {
+            String url = await GetAzureFileFullLink(ConfigClass.VirtualStoreProduct, file);
+            return url;
+        }
+
+        public string GetVirtualStoreProduct(String imageName)
+        {
+            String url = _storageLink + ConfigClass.VirtualStoreProduct + "/" + imageName;
+            return url;
+        }
+
     }
 }

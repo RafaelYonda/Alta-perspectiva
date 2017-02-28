@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AltaPerspectiva.Web.Areas.Admin.helpers
+namespace AltaPerspectiva.Web.Areas.Admin.Helpers
 {
     public class ConfigClass
     {

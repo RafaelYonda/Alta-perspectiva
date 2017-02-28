@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core;
+using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using AltaPerspectiva.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ using UserProfile.Command.Commands;
 using UserProfile.Domain;
 using UserProfile.Query.Interfaces;
 using AltaPerspectiva.Web.Areas.Admin.Services;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -77,8 +79,17 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(AddVirtualStoreViewModel addVirtualStoreViewModel)
+        public async Task<IActionResult> Index(AddVirtualStoreViewModel addVirtualStoreViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                if (addVirtualStoreViewModel.VirtualStores == null)
+                {
+                    addVirtualStoreViewModel.VirtualStores=new List<VirtualStore>();
+                }
+                // re-render the view when validation failed.
+                return View("~/Areas/Admin/Views/VirtualStore/Index.cshtml",addVirtualStoreViewModel);
+            }
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
             {
@@ -91,19 +102,14 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             //=========Set ScreeenShot file Name and Path========
             String screenShotFileName = addVirtualStoreViewModel.ScreenShotImage.FileName;
             addVirtualStoreViewModel.ScreenShotFileName = screenShotFileName;
-            var screenShotuploadPath = Path.Combine(Path.Combine(environment.WebRootPath, configuration["VirtualStoreUpload"]), screenShotFileName);
-            using (var fileStream = new FileStream(screenShotuploadPath, FileMode.Create))
-            {
-                addVirtualStoreViewModel.ScreenShotImage.CopyTo(fileStream);
-            }
+
+            AzureFileUploadHelper azureFileUploadHelperForDoc=new AzureFileUploadHelper();
+            await azureFileUploadHelperForDoc.SaveVirtualStoreDocument(addVirtualStoreViewModel.ScreenShotImage);
             //==========Set Product file Name and Path===============
             String productFileName = addVirtualStoreViewModel.ProductFile.FileName;
             addVirtualStoreViewModel.ProductFileName = productFileName;
-            var productUploadPath = Path.Combine(Path.Combine(environment.WebRootPath, configuration["VirtualStoreUpload"]), productFileName);
-            using (var fileStream = new FileStream(productUploadPath, FileMode.Create))
-            {
-                addVirtualStoreViewModel.ProductFile.CopyTo(fileStream);
-            }
+            AzureFileUploadHelper azureFileUploadHelperForProduct = new AzureFileUploadHelper();
+            await azureFileUploadHelperForProduct.SaveVirtualStoreProduct(addVirtualStoreViewModel.ProductFile);
 
             AddVirtualStoreCommand command = new AddVirtualStoreCommand(loggedinUser, addVirtualStoreViewModel.Price,
                 addVirtualStoreViewModel.Title, addVirtualStoreViewModel.Description, addVirtualStoreViewModel.ProductFileName,

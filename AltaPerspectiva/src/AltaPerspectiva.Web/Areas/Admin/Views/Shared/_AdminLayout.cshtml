@@ -81,7 +81,7 @@
 
         .body-minHeight {
             min-height: 79vh;
-            margin-top:70px;
+            margin-top: 70px;
         }
 
         .borrder-circle {
@@ -200,6 +200,10 @@
             color: #fff !important;
             margin-top: 2px;
         }
+
+        .user-image {
+            margin-top: -8px;
+        }
         /*For H*/
     </style>
 </head>
@@ -252,7 +256,7 @@
                             success: function (respText) {
                                 console.log(respText);
                                 $('#headerUserName').text(respText.name);
-                                $('#my_image').attr('src', '../profile/' + respText.imageUrl);
+                                $('#my_image').attr('src',respText.imageUrl);
                             },
                             error: function (jqXhr, textStatus, errorThrown) {
 
@@ -277,8 +281,8 @@
                 <div id="sidebar-wrapper">
                     <ul class="sidebar-nav nav-pills nav-stacked" data-autohide="false" id="menu">
                         <li>
-                            <a href="@Url.Action("Index", "VirtualStore")">
-                                <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-flag fa-stack-1x "></i></span>Virtual Store
+                            <a href="@Url.Action("Index", "VirtualStore", new {Area = "Admin"})">
+                                <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>Virtual Store
                             </a>
 
                         </li>
@@ -314,10 +318,10 @@
             @RenderBody()
         </div>
     </div>
-    
+
     @*<div class="container body-content">
-        @RenderBody()
-    </div>*@
+            @RenderBody()
+        </div>*@
 
     <div class="footer">
         <div class="footer-container">

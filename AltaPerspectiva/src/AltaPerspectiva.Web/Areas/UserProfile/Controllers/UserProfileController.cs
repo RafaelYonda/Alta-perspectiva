@@ -17,7 +17,7 @@ using UserProfile.Command.CommandHandler;
 using UserProfile.Query;
 using UserProfile.Query.Interfaces;
 using System.IO;
-using AltaPerspectiva.Web.Areas.Admin.helpers;
+using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using Questions.Domain;
 using Questions.Query;
 using UserProfile.Domain;
@@ -26,6 +26,7 @@ using AltaPerspectiva.Web.Areas.Questions.Models;
 using AltaPerspectiva.Web.Areas.Questions.Services;
 using UserProfile.Command.Commands.Delete;
 using UserProfile.Command.Commands.Update;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -108,8 +109,12 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         public IActionResult GetUsercredentialByUserId(Guid userId)
         {
             var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialForProfile(userId);
-            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-            credential.ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
+            if (credential != null)
+            {
+                AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                credential.ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
+            }
+           
             return Ok(credential);
         }
        

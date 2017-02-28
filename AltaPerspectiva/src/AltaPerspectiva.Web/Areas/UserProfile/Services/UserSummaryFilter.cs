@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AltaPerspectiva.Web.Areas.Admin.helpers;
+using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using UserProfile.Domain.ReadModel;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
 
 namespace AltaPerspectiva.Web.Areas.UserProfile.Services
 {
