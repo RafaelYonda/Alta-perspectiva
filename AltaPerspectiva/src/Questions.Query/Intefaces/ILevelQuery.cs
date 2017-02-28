@@ -11,5 +11,6 @@ namespace Questions.Query
         Task<List<Level>> GetAllLevel();
 
         Level GetLevelByLevelId(Guid levelId);
+        List<Level> GetAllLevels();
     }
 }

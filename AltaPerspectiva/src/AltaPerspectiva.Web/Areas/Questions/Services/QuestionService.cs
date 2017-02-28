@@ -44,7 +44,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             userList = userList.Distinct().ToList();
             List<UserViewModel> userViewModels = new List<UserViewModel>();
 
-            List<Credential> credentials= queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList);
+            List<Credential> credentials = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList);
 
             foreach (Guid userId in userList)
             {
@@ -67,7 +67,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
                     userViewModels.Add(new UserViewModel
                     {
-                        Name = queryFactory.ResolveQuery<ICredentialQuery>().GetUserNameAspNetUsers(userId,connectionString),
+                        Name = queryFactory.ResolveQuery<ICredentialQuery>().GetUserNameAspNetUsers(userId, connectionString),
                         ImageUrl = azureFileUploadHelper.GetProfileImage(null),
                         Occupation = "",
                         CredentialId = Guid.Empty,
@@ -78,6 +78,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             }
             #endregion
 
+            List<Topic> topics = queryFactory.ResolveQuery<ITopicQuery>().GetAllTopics();
+            List<Level> levels = queryFactory.ResolveQuery<ILevelQuery>().GetAllLevels();
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
             foreach (var q in questionList)
             {
@@ -136,7 +138,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     var topicId = questionTopic.TopicId;
                     if (topicId != null)
                     {
-                        Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId.Value);
+                        // Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId.Value);
+                        Topic topic = topics.FirstOrDefault(x => x.Id == topicId.Value);
                         if (topic != null)
                         {
                             qv.QuestionTopicNames.Add(topic.TopicName);
@@ -149,7 +152,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     var levelId = questionLevel.LevelId;
                     if (levelId != null)
                     {
-                        Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId.Value);
+                        //Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId.Value);
+                        Level level = levels.FirstOrDefault(x => x.Id == levelId.Value);
                         if (level != null)
                         {
                             qv.QuestionLevelNames.Add(level.LevelName);
@@ -157,18 +161,18 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     }
 
                 }
-                qv.IsDirectQuestion = q.IsDirectQuestion;
-                if (qv.IsDirectQuestion)
-                {
-                    qv.QuestionAskedToUser =
-                        queryFactory.ResolveQuery<IDirectQuestionQuery>().GetDirectQuestionUser(q.Id);
-                }
+                //qv.IsDirectQuestion = q.IsDirectQuestion;
+                //if (qv.IsDirectQuestion)
+                //{
+                //    qv.QuestionAskedToUser =
+                //        queryFactory.ResolveQuery<IDirectQuestionQuery>().GetDirectQuestionUser(q.Id);
+                //}
                 questions.Add(qv);
             }
 
             return questions.ToList();
         }
-       
+
         public List<QuestionCommentViewModel> GetComments(IEnumerable<Comment> commentList, IQueryFactory queryFactory)
         {
             List<QuestionCommentViewModel> commentVMs = new List<QuestionCommentViewModel>();

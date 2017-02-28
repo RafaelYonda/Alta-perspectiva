@@ -81,6 +81,11 @@ order by SUM(q.ViewCount) DESC
 
             return await DbContext.Topics.Where(x => x.CategoryId == categoryId &&x.Id!=topicId).ToListAsync();
         }
+
+        public List<Topic> GetAllTopics()
+        {
+            return DbContext.Topics.ToList();
+        }
     }
     
     

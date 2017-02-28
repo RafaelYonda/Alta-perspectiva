@@ -20,6 +20,8 @@ namespace Questions.Query.Queries
 
         Task<IEnumerable<Topic>> GetRelatedTopicsByTopicId(Guid topicId);
 
+        List<Topic> GetAllTopics();
+
 
     }
 }

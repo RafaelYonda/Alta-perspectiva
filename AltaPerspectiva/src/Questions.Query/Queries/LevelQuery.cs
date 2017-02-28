@@ -21,6 +21,11 @@ namespace Questions.Query
             return await DbContext.Levels.OrderBy(x=>x.LevelRank).ToListAsync();
         }
 
+        public List<Level> GetAllLevels()
+        {
+            return DbContext.Levels.OrderBy(x => x.LevelRank).ToList();
+        }
+
         public Level GetLevelByLevelId(Guid levelId)
         {
             return DbContext.Levels.FirstOrDefault(x => x.Id == levelId);
