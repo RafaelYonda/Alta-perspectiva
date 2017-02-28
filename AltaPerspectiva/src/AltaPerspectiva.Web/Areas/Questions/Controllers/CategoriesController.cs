@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Questions.Command.Commands;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
 using Microsoft.AspNetCore.Hosting;
 using Questions.Query.Queries;
 
@@ -46,7 +47,13 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("questions/api/categories")]
         public IActionResult Get()
         {
-            var categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
+            var categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+
+            AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
+            foreach (var category in categoriesList)
+            {
+                category.Image = azureFileUploadHelper.GetCategoryImage(category.Image);
+            }
             return Ok(categoriesList);
         }
         //questions/api/categories/keywords/{categoryId}

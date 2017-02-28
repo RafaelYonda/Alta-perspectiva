@@ -42,27 +42,18 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             Guid credentialId = Guid.Empty;
             AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
             var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
+
             if (credential != null)
             {
+                imageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
                 fullName = credential.FirstName + " " + credential.LastName;
-
-                if (credential.ImageUrl == "" || credential.ImageUrl == null)
-                {
-                    imageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
-                }
-                else
-                {
-
-                    imageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
-                }
-
                 occupation = credential.Employments.Select(x => x.Position).Take(1).FirstOrDefault();
                 credentialId = credential.Id;
             }
             else
             {
+                imageUrl = azureFileUploadHelper.GetProfileImage(null);
                 fullName = "Guest";
-                imageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
                 occupation = " ";
             }
             UserViewModel userViewModel = new UserViewModel

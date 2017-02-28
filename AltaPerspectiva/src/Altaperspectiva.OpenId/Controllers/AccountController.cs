@@ -110,7 +110,7 @@ namespace Altaperspectiva.OpenId.Controllers {
                     return View("Lockout");
                 }
                 else {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError("Email", "Invalid login attempt.");
                     return View(model);
                 }
             }

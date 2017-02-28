@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
 using Microsoft.Extensions.Configuration;
 using Questions.Query;
@@ -22,6 +23,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
         public List<QuestionViewModel> GetQuestionViewModels(IEnumerable<Question> questionList, IQueryFactory queryFactory, IConfigurationRoot configuration)
         {
             #region UserPrefetchOptimization
+
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
             List<Guid> userList = new List<Guid>();
             foreach (var question in questionList)
             {
@@ -53,7 +56,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                         CredentialId = credential.Id,
                         UserId = credential.UserId,
                         Name = credential.FirstName + "" + credential.LastName,
-                        ImageUrl = credential.ImageUrl,
+                        ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl),
                         Occupation = credential.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
                     });
                 }
@@ -65,7 +68,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     userViewModels.Add(new UserViewModel
                     {
                         Name = queryFactory.ResolveQuery<ICredentialQuery>().GetUserNameAspNetUsers(userId,connectionString),
-                        ImageUrl = "avatar.png",
+                        ImageUrl = azureFileUploadHelper.GetProfileImage(null),
                         Occupation = "",
                         CredentialId = Guid.Empty,
                         UserId = userId
@@ -73,14 +76,6 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
                 }
             }
-            //List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList).Select(x => new UserViewModel
-            //{
-            //    CredentialId = x.Id,
-            //    UserId = x.UserId,
-            //    Name = x.FirstName + "" + x.LastName,
-            //    ImageUrl = x.ImageUrl,
-            //    Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
-            //}).ToList();
             #endregion
 
             List<QuestionViewModel> questions = new List<QuestionViewModel>();

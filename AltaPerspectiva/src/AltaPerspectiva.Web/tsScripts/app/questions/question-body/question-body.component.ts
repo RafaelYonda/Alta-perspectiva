@@ -31,7 +31,7 @@ export class QuestionBodyComponent {
     error: any;
     answer: string;
     categories: Category[];
-    categorySelected: Category;
+    categorySelected: Category=new Category();
     topFiveTopics: Topic[];
 
     scrollPage: number = 0;
@@ -206,7 +206,7 @@ export class QuestionBodyComponent {
                 this.categorySelected = this.categories.find(x => x.id == this.categoryId);
 
             if (this.categorySelected && this.categorySelected.image)
-                this.categorySelected.image = this.config.categoryImage.concat(this.categorySelected.image);
+                this.categorySelected.image = this.categorySelected.image;
 
             this.categoryService.getTotalCount(this.categorySelected.id).subscribe(x => {
                 this.totalCount = x;

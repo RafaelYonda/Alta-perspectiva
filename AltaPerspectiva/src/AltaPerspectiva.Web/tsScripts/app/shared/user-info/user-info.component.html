@@ -11,7 +11,7 @@
 <div class="row row-fix inline-display">
     <div *ngIf="!isAnonymous">
         <div *ngIf="userObj">
-            <img class="user-image " src="../../../../profile/{{userObj?.imageUrl}}"
+            <img class="user-image " src="{{userObj?.imageUrl}}"
                  (mouseover)='over(userObj?.userId)' [popover]="userInfoDetailsPopover" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" />
             <div class="user-info">
                 <div class="user-detail">
@@ -37,7 +37,7 @@
 <popover-content #userInfoDetailsPopover>
     <ul style="list-style-type: none;">
         <li>
-            <img class="user-image " src="../../../../profile/{{userInfoDetails?.imageUrl}}" />
+            <img class="user-image " src="{{userInfoDetails?.imageUrl}}" />
             
             <div class="user-info">
                 <div class="user-detail">
@@ -58,16 +58,16 @@
             </li>
             <li *ngIf="userInfoDetails?.questionCount!=0"><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
 
-            <li *ngIf="userInfoDetails?.education!=''">
+            <li *ngIf="userInfoDetails?.education">
                 <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
             </li>
-            <li *ngIf="userInfoDetails?.employment!=''">
+            <li *ngIf="userInfoDetails?.employment">
                 <i class="fa-li fa fa-info-circle"></i>employment: {{userInfoDetails?.employment}}
             </li>
-            <li *ngIf="userInfoDetails?.place!=''">
+            <li *ngIf="userInfoDetails?.place">
                 <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
             </li>
-            <li *ngIf="userInfoDetails?.otherExperience!=''">
+            <li *ngIf="userInfoDetails?.otherExperience">
                 <i class="fa-li fa fa-cog"></i>otherExperience: {{userInfoDetails?.otherExperience}}
             </li>
 

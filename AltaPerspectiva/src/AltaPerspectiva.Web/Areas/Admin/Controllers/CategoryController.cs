@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Questions.Query;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
 using AltaPerspectiva.Web.Areas.Admin.Models;
 using Questions.Command.Commands;
 using Questions.Command;
@@ -64,10 +65,11 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
            
             CategoryViewModel categoryViewModel = new CategoryViewModel();
             Category model = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(id);
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
             String imageNameWithPath =String.Empty;
             if (model.Image != null)
             {
-                imageNameWithPath= Path.Combine(Path.Combine(environment.WebRootPath, configuration["CategoryUpload"]), model.Image);
+                imageNameWithPath = azureFileUploadHelper.GetCategoryImage(categoryViewModel.Image.Name);
             }
             
             categoryViewModel = new CategoryViewModel
@@ -84,7 +86,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         }
 
         [HttpPost("Admin/addcategory/{id}")]
-        public IActionResult AddCategory(Guid id, CategoryViewModel categoryViewModel)
+        public async Task<IActionResult> AddCategory(Guid id, CategoryViewModel categoryViewModel)
         {
             //Update 
             if (!ModelState.IsValid)
@@ -102,11 +104,13 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             }
             String image = categoryViewModel.Image.FileName;
 
-            var uploadPath = Path.Combine(Path.Combine(environment.WebRootPath, configuration["CategoryUpload"]), image);
-            using (var fileStream = new FileStream(uploadPath, FileMode.Create))
-            {
-                categoryViewModel.Image.CopyTo(fileStream);
-            }
+            //var uploadPath = Path.Combine(Path.Combine(environment.WebRootPath, configuration["CategoryUpload"]), image);
+            //using (var fileStream = new FileStream(uploadPath, FileMode.Create))
+            //{
+            //    categoryViewModel.Image.CopyTo(fileStream);
+            //}
+            AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
+            await azureFileUploadHelper.SaveCategoryImage(categoryViewModel.Image);
             
             UpdateCategoryCommand command=new UpdateCategoryCommand(loggedinUser, categoryViewModel.Id, categoryViewModel.Name,categoryViewModel.Description, image, categoryViewModel.Icon);
             commandsFactory.ExecuteQuery(command);
@@ -127,7 +131,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         }
 
         [HttpPost("Admin/addcategory")]
-        public IActionResult AddCategory(CategoryViewModel categoryViewModel)
+        public async Task<IActionResult> AddCategory(CategoryViewModel categoryViewModel)
         {
             ViewData["Title"] = "Add category";
             //Update 
@@ -139,11 +143,8 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
             String image = categoryViewModel.Image.FileName;
 
-            var uploadPath = Path.Combine(Path.Combine(environment.WebRootPath, configuration["CategoryUpload"]), image);
-            using (var fileStream = new FileStream(uploadPath, FileMode.Create))
-            {
-                categoryViewModel.Image.CopyTo(fileStream);
-            }
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            await azureFileUploadHelper.SaveCategoryImage(categoryViewModel.Image);
 
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -166,7 +167,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         public IActionResult AddKeyword()
         {
             ViewData["Title"] = "Add keyword";
-            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Where(x=>x.Name!= "Ver todas").ToList();
             return View(categoriesList);
         }
 
@@ -180,7 +181,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         public IActionResult DeleteCategory()
         {
             ViewData["Title"] = "Delete Category";
-            IEnumerable<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
+            IEnumerable<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Where(x => x.Name != "Ver todas").ToList();
             return View("DeleteCategory", categoriesList);
         }
         [HttpPost("Admin/DeleteCategory")]

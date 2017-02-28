@@ -86,7 +86,7 @@
             <div class="modal-body">
                 <div *ngFor="let user of likedUsers">
                     <div>
-                        <img class="user-image comment-img img-circle img" src="../../../../profile/{{user?.imageUrl}}" />
+                        <img class="user-image comment-img img-circle img" src="{{user?.imageUrl}}" />
                         {{user?.name}}
                     </div>
                     <br />

@@ -110,7 +110,7 @@ from Questions.Questions a
 where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()))
 
 
-select  
+select  @userId UserId,
 @ImageUrl ImageUrl,
 @FullName FullName,
 @Title Title,
@@ -124,10 +124,7 @@ ISNULL(@QuestionViewCount,0) QuestionViewCount,
 
 ISNULL(@QuestionViewCount,0) QuestionViewCount
 END
-
-
 GO
-
 DROP PROC [dbo].[SpTopUserCalculation];
 GO
 
@@ -247,11 +244,7 @@ order by CreatedOn desc
 	END
 
 END
-
-GO
-
-USE [AltaPerspectiva]
-GO
+Go
 DROP proc [dbo].[SpProfileParameterCount];
 
 GO

@@ -80,6 +80,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
               configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
             UserInfoDetails userInfoDetails =
                 queryFactory.ResolveQuery<IProfileParameters>().GetUserInfoDetails(userId, connectionString);
+            AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
+
+            userInfoDetails.ImageUrl = azureFileUploadHelper.GetProfileImage(userInfoDetails.ImageUrl);
+            
 
             return Ok(userInfoDetails);
         }

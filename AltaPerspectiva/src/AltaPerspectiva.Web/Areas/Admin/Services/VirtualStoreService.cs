@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
 using AltaPerspectiva.Web.Areas.Admin.Models;
 using UserProfile.Command.Commands;
 using UserProfile.Domain;
@@ -12,6 +13,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Services
     {
         public List<AddVirtualStoreViewModel> GetAddVirtualStoreViewModel(List<VirtualStore> virtualStores )
         {
+            AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
             List<AddVirtualStoreViewModel> addVirtualStoreViewModels=new List<AddVirtualStoreViewModel>();
             foreach (var virtualStore in virtualStores)
             {
@@ -22,7 +24,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Services
                     Title = virtualStore.Title,
                     ProductFileName = virtualStore.ProductFileName,
                     Price = virtualStore.Price,
-                    ScreenShotFileName = virtualStore.ScreenShotFileName,
+                    ScreenShotFileName = azureFileUploadHelper.GetVirtualStoreDocument(virtualStore.ScreenShotFileName),
 
                 };
                 addVirtualStoreViewModels.Add(addVirtualStoreViewModel);

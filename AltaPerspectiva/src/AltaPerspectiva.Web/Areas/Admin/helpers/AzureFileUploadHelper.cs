@@ -53,10 +53,21 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
 
         public string GetProfileImage(String imageName)
         {
+            if (string.IsNullOrEmpty(imageName))
+            {
+                imageName = "avatar.png";
+            }
+
             String url = _storageLink + ConfigClass.Profile+"/"+imageName;
             return url;
         }
         /*Other upload*/
+        public async Task<string> SaveCategoryImage(IFormFile file)
+        {
+            String url = await GetAzureFileFullLink(ConfigClass.Category, file);
+            return url;
+        }
+
         public string GetCategoryImage(String imageName)
         {
             String url = _storageLink + ConfigClass.Category + "/" + imageName;

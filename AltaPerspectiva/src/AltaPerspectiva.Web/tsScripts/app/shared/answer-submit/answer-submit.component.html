@@ -33,7 +33,7 @@
         <h1>{{question.title}}</h1>
         <div class="row">
             <div class="img-container" *ngIf="!isAnonymous">
-                <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
+                <img class="user-image" src="{{_logObj.user.imageUrl}}" />
             </div>
             <div class="img-container" *ngIf="isAnonymous">
                 <img class="user-image " src="../../../../profile/Anonymous.png" />
