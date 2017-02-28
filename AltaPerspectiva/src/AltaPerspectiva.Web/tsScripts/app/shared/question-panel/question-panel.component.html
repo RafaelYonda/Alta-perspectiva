@@ -18,7 +18,7 @@
                 <div *ngIf="(question.answerCount>0)">
                     <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
                     <div *ngIf="question.bestAnswer?.text" (click)="openDialogBox(question)">
-                        <p [innerHTML]="question.bestAnswer?.clippedAnswer"></p><span><a (click)="openDialogBox(question)">Read more..</a></span>
+                        <p [innerHTML]="clippedAnswer"></p><span><a (click)="openDialogBox(question)">Read more..</a></span>
                     </div>
                     <div *ngIf="question.bestAnswer">
                         <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"></ap-status>
