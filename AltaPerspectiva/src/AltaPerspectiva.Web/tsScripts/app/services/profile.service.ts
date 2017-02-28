@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { User, Profile, Contact, Biography, Experience, Skills, PracticeArea, Insight, Keyword } from './models';
+import { User, Profile, Contact, Biography, Experience, Skills, PracticeArea, Insight, Keyword,Question,AnswerViewModel } from './models';
 import { UserInfoDetails, VirtualStore }     from './models/models.profile';
 import { Blog, BlogComment, BlogLike, BlogPost } from './models/models.blogpost';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
@@ -169,6 +169,17 @@ export class ProfileService {
     
     DeleteBlogPost(blogPostId: string): Observable<any> {
         return this._http.post('blog/api/deleteblogpost/' + blogPostId, blogPostId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    GetDraftedQuestions(): Observable<Question[]> {
+        return this._http.get('/questions/api/getdraftedquestions')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    SaveDraftedQuestions(answerViewModel: AnswerViewModel): Observable<any> {
+        return this._http.get('/questions/api/savedraftedquestions', answerViewModel)
             .map(this.extractData)
             .catch(this.handleError);
     }
