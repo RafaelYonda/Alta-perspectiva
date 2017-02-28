@@ -951,6 +951,33 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok();
         }
 
+        [HttpGet("/questions/api/getdraftedquestions")]
+        public IActionResult GetDraftedQuestions()
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
+            }
+            var questions = queryFactory.ResolveQuery<IQuestionsQuery>().DraftedQuestionAnswers(loggedinUser);
+            return Ok(questions);
+        }
+        [HttpPost("/questions/api/savedraftedquestions")]
+        public IActionResult SaveDraftedQuestions([FromBody]AddAnswerViewModel answer)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
+            }
+            DraftedAnswerCommand command=new DraftedAnswerCommand(answer.Id,answer.Text);
+            commandsFactory.ExecuteQuery(command);
+            return Ok();
+        }
     }
 }
 

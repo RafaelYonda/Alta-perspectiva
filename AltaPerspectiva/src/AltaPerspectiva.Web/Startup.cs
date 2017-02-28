@@ -229,6 +229,9 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<InvalidQuestionReportCommand>, InvalidQuestionReportCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteQuestionReportCommand>, DeleteQuestionReportCommandHandler>();
 
+            //Drafted answer
+            services.AddTransient<ICommandHandler<DraftedAnswerCommand>, DraftedAnswerCommandHandler>();
+
             #region Blog
 
             //Blog

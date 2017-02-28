@@ -325,6 +325,15 @@ namespace Questions.Query
                                                  .ToListAsync();
         }
 
-       
+        public IEnumerable<Question> DraftedQuestionAnswers(Guid userId)
+        {
+            return DbContext.Questions
+                               .Include(a => a.Answers)
+                               .Where(x=>x.Answers.Any(y=>y.IsDrafted!=null &&y.UserId==userId))
+                                 .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                       .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                           .Take(20)
+                                               .ToList();
+        }
     }
 }

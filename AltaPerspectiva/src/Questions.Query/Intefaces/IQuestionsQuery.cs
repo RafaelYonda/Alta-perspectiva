@@ -54,5 +54,8 @@ namespace Questions.Query
         //Filtered General Category only
         //    else //(categoryId == emptyGuid && topicId == emptyGuid && levelId == emptyGuid)
         Task<IEnumerable<Question>> FilteredGeneralCategoryonly();
+
+        //Drafted Questions
+        IEnumerable<Question> DraftedQuestionAnswers(Guid userId);
     }
 }
