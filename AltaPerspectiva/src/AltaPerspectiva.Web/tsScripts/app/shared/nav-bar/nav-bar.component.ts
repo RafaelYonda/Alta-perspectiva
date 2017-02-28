@@ -14,12 +14,11 @@ import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input
 })
 export class NavBarComponent {
     @Input() className: string;
-    _router: Router;
     isbackGround = false;
     _logObj: LogInObj;
     _authService: AuthenticationService;
 
-    constructor(private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver) {
+    constructor(private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router) {
         this._authService = authService;
         var user: User = new User();
         //user.userid = '-1';
@@ -39,8 +38,7 @@ export class NavBarComponent {
             }
         });
     }
-    goToDashBoard() {
-        this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
+    gotoProfile() {
+        this._router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
     }
-   
 }

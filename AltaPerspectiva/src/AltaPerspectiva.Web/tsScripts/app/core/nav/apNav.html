@@ -16,7 +16,7 @@
             <li><a routerLink="/question/home/1">Questions</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
-            <li><a [routerLink]="['/dashboard/viewprofile','80a2b9fe-609f-435b-86f8-97b567189b22']" for="contain" data-toggle="dropdown" class="padding-middle"> PP </a></li>
+            <!--<li><a [routerLink]="['/dashboard/viewprofile','80a2b9fe-609f-435b-86f8-97b567189b22']" for="contain" data-toggle="dropdown" class="padding-middle"> PP </a></li>-->
             <li><a href="/signin">Log in</a></li>
             <li><a href="/signin">Register</a></li>
         </ul>
@@ -30,7 +30,6 @@
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="lef-column padding-middle"><span class="fa fa-user"></span> <a (click)="gotoProfile()" for="contain" data-toggle="dropdown" class="padding-middle"> Profile</a></div>
-
                     </div>
 
                     <div class="form-group">
