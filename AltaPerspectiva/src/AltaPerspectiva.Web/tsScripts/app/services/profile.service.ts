@@ -173,6 +173,7 @@ export class ProfileService {
             .catch(this.handleError);
     }
 
+    //========drafted Answer=============
     GetDraftedQuestions(): Observable<Question[]> {
         return this._http.get('/questions/api/getdraftedquestions')
             .map(this.extractData)

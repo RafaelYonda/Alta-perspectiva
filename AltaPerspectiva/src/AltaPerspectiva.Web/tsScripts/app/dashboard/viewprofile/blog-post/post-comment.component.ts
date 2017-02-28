@@ -1,7 +1,8 @@
-﻿import { Component, Input, EventEmitter, Output } from '@angular/core';
+﻿import { Component, Input, EventEmitter, Output, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { BlogService } from '../../../services/blog.service';
 import {LogInObj, User } from '../../../services/models';
 import { BlogPost, BlogLike, BlogComment } from '../../../services/models/models.blogpost';
+import { loginModalComponent } from '../../../shared/login-modal/login-modal.component';
 
 @Component({
     selector: 'blogpost-comment',
@@ -21,7 +22,7 @@ export class BlogpostCommentComponent {
 
     @Output() sendCommentCount = new EventEmitter<any>();
 
-    constructor(private commentService: BlogService) {
+    constructor(private commentService: BlogService, private componentFactoryResolver: ComponentFactoryResolver) {
         var user: User = new User();
         user.userId = '-1';
         this._logObj = { isLoggedIn: false, user: user };
@@ -41,13 +42,12 @@ export class BlogpostCommentComponent {
         }
     }
 
-    //pushComment(result) {
-    //    this.commentText = "";
-    //    this.comment = result;
-    //    this.comments.push(this.comment);
-    //}
-
     submitComment(blogPostId: string) {
+        var token = localStorage.getItem('auth_token');
+        if (!token) {
+            this.ShowNotLoggedIn();
+            return;
+        }
 
         if (this.comment.commentText.trim() == "")
             return;
@@ -60,5 +60,15 @@ export class BlogpostCommentComponent {
         });
 
         this.sendCommentCount.emit(null);
+    }
+    @ViewChild('logginAnchor', { read: ViewContainerRef }) logginAnchor: ViewContainerRef;
+    ShowNotLoggedIn() {
+        this.logginAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(loginModalComponent);
+        let dialogComponentRef = this.logginAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
     }
 }

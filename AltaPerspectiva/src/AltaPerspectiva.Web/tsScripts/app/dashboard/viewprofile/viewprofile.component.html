@@ -57,6 +57,7 @@
                     <li><a class="route link-with-number" [routerLink]="['/dashboard/viewprofile',credential.userId,'follower']" routerLinkActive="active-link">Followers <span>{{profileParam?.followers}}</span></a></li>
                     <li><a class="route link-with-number" [routerLink]="['/dashboard/viewprofile',credential.userId,'following']" routerLinkActive="active-link">Followings <span>{{profileParam?.followings}}</span></a></li>
                     <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'bookmark']" routerLinkActive="active-link">Bookmarks <span>{{profileParam?.bookmarks}}</span></a></li>
+                    <li *ngIf="isOwner"><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'draft-answer']" routerLinkActive="active-link">Draft Answers </a></li>
                     <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'blog-create']" routerLinkActive="active-link">Blogs<span>{{profileParam?.blogs}}</span></a></li>
                     <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'direct-question']" routerLinkActive="active-link">Direct Question</a></li>
                     <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'virtual-store']" routerLinkActive="active-link">Virtual Store</a></li>

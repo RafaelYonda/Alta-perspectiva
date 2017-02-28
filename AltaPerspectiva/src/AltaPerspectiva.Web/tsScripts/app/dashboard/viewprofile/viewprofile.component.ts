@@ -7,8 +7,6 @@ import { ProfileService } from '../../services/profile.service';
 import { ConfigService } from '../../services/config.service';
 import { CredentialViewModel, Employment, Education, Place, OtherExperience, ProfileParameter} from '../../services/models/models.profile';
 
-
-
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { CategoryWiseAnswer } from '../../services/models/models.profile';
 //Modals
@@ -17,9 +15,10 @@ import { AddEmploymentComponent } from './edit-profile/add-employment.component'
 
 import { AddOtherExperienceComponent } from './edit-profile/add-otherexperience.component';
 import { AddPlaceComponent } from './edit-profile/add-place.component';
+import { AuthenticationService } from '../../services/authentication.service';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/viewprofile.component.html',
-    providers: [ProfileService, ConfigService]
+    providers: [ProfileService, ConfigService, AuthenticationService]
 })
 export class ViewProfileComponent {
     profileParam: ProfileParameter;
@@ -43,9 +42,9 @@ export class ViewProfileComponent {
     educationHtml: string;
     placeHtml: string;
     othersHtml: string;
+    isOwner = false;
 
-
-    constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService, private _router: Router, private componentFactoryResolver: ComponentFactoryResolver ) {
+    constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService, private _router: Router, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService) {
         this.route = _route;
     }
     
@@ -56,7 +55,17 @@ export class ViewProfileComponent {
         document.getElementById('question-route').focus();
         //document.getElementById('question-link').focus();
         this._route.params.subscribe(params => {
-            
+            //===========Checkis owner  ==========
+            var currentUser = localStorage.getItem('auth_token');
+            this._authService.getLoggedinObj().subscribe(res => {
+                if (res && currentUser != "null") {
+
+                    if (params['userId'] == res.userId)
+                        this.isOwner = true;
+                }
+            });
+            //=====
+
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
                 this.changeCredentialStatus();                

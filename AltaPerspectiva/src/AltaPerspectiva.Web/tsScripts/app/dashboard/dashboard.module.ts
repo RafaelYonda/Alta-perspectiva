@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="viewprofile/draft-answer/draft-answer.component.ts" />
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
@@ -31,6 +32,7 @@ import { PostedQuestionComponent } from './viewprofile/posted-question/posted-qu
 import { BlogCreateComponent } from './viewprofile/blog-create/blog-create.component';
 import { BlogPostComponent } from './viewprofile/blog-post/blog-post.component';
 import { VirtualStoreComponent } from './viewprofile/virtual-store/virtual-store.component';
+import { DraftAnswerComponent } from './viewprofile/draft-answer/draft-answer.component';
 
 import { PostStatusComponent } from './viewprofile/blog-post/post-status.component'; 
 import { BlogpostCommentComponent } from './viewprofile/blog-post/post-comment.component'; 
@@ -61,6 +63,7 @@ const DashBoardroutes: Routes = [
                     { path: 'blog-create', component: BlogCreateComponent },
                     { path: 'direct-question', component: DirectQuestionComponent }, 
                     { path: 'virtual-store', component: VirtualStoreComponent }, 
+                    { path: 'draft-answer', component: DraftAnswerComponent }, 
                     //{ path: 'blog-post', component: PostedQuestionComponent }
                 ]
             }
@@ -76,7 +79,7 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
     declarations: [
         DashBoardComponent, NavDashboard,
         ViewProfileComponent,
-        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, VirtualStoreComponent, PostStatusComponent, BlogpostCommentComponent, BlogpostDetailComponent, PostedQuestionComponent,
+        ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, VirtualStoreComponent, PostStatusComponent, BlogpostCommentComponent, BlogpostDetailComponent, PostedQuestionComponent, DraftAnswerComponent,
         //Edit Profile
         AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, ItemDialogComponent
     ],

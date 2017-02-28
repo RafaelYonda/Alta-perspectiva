@@ -21,19 +21,19 @@ export class BlogpostDetailComponent {
     }
     isEditDescription: boolean;
     isEditTitle: boolean;
-    updateDescription() {
+    //updateDescription() {
 
-        this.profileService.UpdateBlog(this.blog).subscribe(res => {
-            this.isEditDescription = false;
-        });
-    }
-    updateTitle() {
-        if (this.blog.title.trim() == "")
-            return;
-        this.profileService.UpdateBlog(this.blog).subscribe(res => {
-            this.isEditTitle = false;
-        });
-    }
+    //    this.profileService.UpdateBlog(this.blog).subscribe(res => {
+    //        this.isEditDescription = false;
+    //    });
+    //}
+    //updateTitle() {
+    //    if (this.blog.title.trim() == "")
+    //        return;
+    //    this.profileService.UpdateBlog(this.blog).subscribe(res => {
+    //        this.isEditTitle = false;
+    //    });
+    //}
     
     //saveBlogPost() {
     //    this.post.blogId = this.blogId;
