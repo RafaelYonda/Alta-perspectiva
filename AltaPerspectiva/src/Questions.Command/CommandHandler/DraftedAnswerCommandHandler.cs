@@ -14,9 +14,10 @@ namespace Questions.Command.CommandHandler
         ICommandHandler<DraftedAnswerCommand>
     {
         public DraftedAnswerCommandHandler(QuestionsDbContext dbContext)
-			: base(dbContext)
-		{
+            : base(dbContext)
+        {
         }
+
         public override void Execute(DraftedAnswerCommand command)
         {
             Answer answer = DbContext.Answers.Where(x => x.Id == command.AnswerId).FirstOrDefault();
@@ -28,6 +29,7 @@ namespace Questions.Command.CommandHandler
             }
 
         }
+    }
 
-   
+
 }
