@@ -24,6 +24,7 @@ namespace Questions.Command.CommandHandler
             if (answer != null)
             {
                 answer.IsDrafted = null;
+                answer.Text = command.Text;
                 DbContext.Update(answer);
                 DbContext.SaveChanges();
             }

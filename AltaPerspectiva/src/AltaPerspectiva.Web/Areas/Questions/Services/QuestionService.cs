@@ -89,7 +89,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 qv.Body = q.Body;
                 qv.CreatedOn = q.CreatedOn;
                 qv.UserViewModel = userViewModels.Where(uv => uv.UserId == q.UserId).FirstOrDefault();
-                qv.Answers = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted != true).OrderByDescending(y => y.Likes.Count).Take(1).Select(x =>
+                qv.Answers = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted != true).OrderByDescending(y => y.Likes.Count).Select(x =>
                                         new AnswerViewModel
                                         {
                                             Id = x.Id,
