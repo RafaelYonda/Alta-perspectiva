@@ -47,14 +47,31 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("questions/api/categories")]
         public IActionResult Get()
         {
-            var categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
+            if (cache.GetString("categories") != null)
+            {
+                var keys = JsonConvert.DeserializeObject<CategoryViewModel[]>(cache.GetString("categories"));
+                return Ok(keys);
+            }
+            var categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Select(x=>new CategoryViewModel
+            {
+                Id = x.Id,
+                Description = x.Description,
+                Name = x.Name,
+                Image = x.Image,
+                Icon = x.Icon,
+                Active = x.Active,
+                Sequence = x.Sequence
+            }).ToList();
 
-            AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
-            foreach (var category in categoriesList)
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            foreach (var category in categories)
             {
                 category.Image = azureFileUploadHelper.GetCategoryImage(category.Image);
             }
-            return Ok(categoriesList);
+
+            cache.SetString("categories", JsonConvert.SerializeObject(categories));
+
+            return Ok(categories);
         }
         //questions/api/categories/keywords/{categoryId}
         [HttpGet("questions/api/categories/totalcount/{categoryId}")]
@@ -68,7 +85,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(categoriesSummary);
         }
         //questions/api/categories/addfollowers
-        [HttpPost("questions/api/categories/addfollowers/{categoryId}")]        
+        [HttpPost("questions/api/categories/addfollowers/{categoryId}")]
         public IActionResult AddFollowers(Guid categoryId)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
@@ -109,24 +126,17 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("questions/api/categories/keywords")]
         public IActionResult GetAllkeywords()
         {
-            // neeed to work on here to modify cacheing for categories and keywords
-            //if (cache.GetString("Keywords") != null)
-            //{
+            if (cache.GetString("keywords") != null)
+            {
+                var keys = JsonConvert.DeserializeObject<Keyword[]>(cache.GetString("keywords"));
+                return Ok(keys);
+            }
+            var keywords = queryFactory.ResolveQuery<ICategoriesKeywordsAllQuery>().Execute();
 
-            //    var keys = JsonConvert.DeserializeObject<Keyword[]>(cache.GetString("Keywords"));
-            //    var keywords = keys.ToList();
-            //    return Ok(keywords);
-            //}
-            //else
-            //{
-                var keywords = queryFactory.ResolveQuery<ICategoriesKeywordsAllQuery>().Execute();                
-               
-                //cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
-                return Ok(keywords);
-            //}
-
+            cache.SetString("keywords", JsonConvert.SerializeObject(keywords));
+            return Ok(keywords);
         }
-        
+
         // PUT questions/api/categories/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
@@ -153,7 +163,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         //    return View(categoriesList);
         //}
         //Ajax file pathFor Modal
-       
+
 
         //[HttpPost]
         //public IActionResult CategoryUpdate()
@@ -178,7 +188,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         //        {
         //            file.CopyTo(fileStream);
         //        }
-                
+
         //    }
         //    else
         //    {
@@ -197,7 +207,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         //    return Json(new { success = "ok" });
         //}
 
-        
+
 
         //Implemented But excluded
         //[HttpPost]
@@ -251,7 +261,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost]
         public IActionResult GetKeyWords(Guid Id)
         {
-            List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x=>x.Text).ToList();
+            List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
 
             return Ok(keywords);
         }
@@ -269,12 +279,12 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet]
         public IEnumerable<String> GetTopics(Guid Id)
         {
-            var topics = queryFactory.ResolveQuery<ITopicQuery>().GetTopics(Id).Select(x=>x.TopicName).ToList();
+            var topics = queryFactory.ResolveQuery<ITopicQuery>().GetTopics(Id).Select(x => x.TopicName).ToList();
             return topics;
         }
 
         [HttpPost]
-        public IActionResult SaveTopic(Guid categoryId,String topicName)
+        public IActionResult SaveTopic(Guid categoryId, String topicName)
         {
             AddTopicCommand cmd = new AddTopicCommand(topicName, categoryId);
             commandsFactory.ExecuteQuery(cmd);
