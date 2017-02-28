@@ -19,6 +19,159 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
     public class QuestionService
     {
+        public List<QuestionViewModel> GetQuestionViewModelsForDraftAnswer(IEnumerable<Question> questionList, IQueryFactory queryFactory, IConfigurationRoot configuration)
+        {
+            #region UserPrefetchOptimization
+
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            List<Guid> userList = new List<Guid>();
+            foreach (var question in questionList)
+            {
+                userList.Add(question.UserId);
+                List<Guid> anserUserList = question.Answers.Select(x => x.UserId).Distinct().ToList();
+                if (anserUserList.Any())
+                {
+                    userList.AddRange(anserUserList);
+                }
+                List<Guid> answerLikeUser = question.Answers.SelectMany(x => x.Likes.Select(l => l.UserId)).Distinct().ToList();
+                if (answerLikeUser.Any())
+                {
+                    userList.AddRange(answerLikeUser);
+                }
+
+            }
+            userList = userList.Distinct().ToList();
+            List<UserViewModel> userViewModels = new List<UserViewModel>();
+
+            List<Credential> credentials = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList);
+
+            foreach (Guid userId in userList)
+            {
+                Credential credential = credentials.FirstOrDefault(x => x.UserId == userId);
+                if (credential != null)
+                {
+                    userViewModels.Add(new UserViewModel
+                    {
+                        CredentialId = credential.Id,
+                        UserId = credential.UserId,
+                        Name = credential.FirstName + "" + credential.LastName,
+                        ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl),
+                        Occupation = credential.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
+                    });
+                }
+                else
+                {
+                    //No credential .Fetech from aspNetUser
+                    String connectionString =
+                configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
+                    userViewModels.Add(new UserViewModel
+                    {
+                        Name = queryFactory.ResolveQuery<ICredentialQuery>().GetUserNameAspNetUsers(userId, connectionString),
+                        ImageUrl = azureFileUploadHelper.GetProfileImage(null),
+                        Occupation = "",
+                        CredentialId = Guid.Empty,
+                        UserId = userId
+                    });
+
+                }
+            }
+            #endregion
+
+            List<Topic> topics = queryFactory.ResolveQuery<ITopicQuery>().GetAllTopics();
+            List<Level> levels = queryFactory.ResolveQuery<ILevelQuery>().GetAllLevels();
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+            foreach (var q in questionList)
+            {
+                var qv = new QuestionViewModel();
+                qv.Id = q.Id;
+                qv.Title = "¿" + q.Title + "?";
+                qv.Body = q.Body;
+                qv.CreatedOn = q.CreatedOn;
+                qv.UserViewModel = userViewModels.Where(uv => uv.UserId == q.UserId).FirstOrDefault();
+                qv.Answers = q.Answers.Where(drafted => drafted.IsDrafted == true && drafted.IsDeleted != true).OrderByDescending(y => y.Likes.Count).Select(x =>
+                                        new AnswerViewModel
+                                        {
+                                            Id = x.Id,
+                                            Text = x.Text,
+                                            AnswerDate = x.CreatedOn,
+                                            UserId = x.UserId,
+                                            QuestionId = x.QuestionId.Value,
+                                            CreatedOn = x.CreatedOn,
+                                            UserViewModel = userViewModels.Where(uv => uv.UserId == x.UserId).FirstOrDefault(),
+                                            Comments = x.Comments?.Select(y => new AnswerCommentViewModel
+                                            {
+                                                Id = y.Id,
+                                                AnswerId = y.AnswerId,
+                                                CommentText = y.CommentText,
+                                                UserId = y.UserID,
+                                                UserViewModel = userViewModels.Where(uv => uv.UserId == y.UserID).FirstOrDefault()
+                                            }).ToList(),
+                                            Likes = x.Likes?.Select(z => new AnswerLikeViewModel
+                                            {
+                                                UserViewModel = userViewModels.Where(uv => uv.UserId == z.UserId).FirstOrDefault(),
+                                                AnswerId = z.AnswerId,
+                                                Id = z.Id,
+                                                UserId = z.UserId
+                                            }).ToList(),
+                                            IsAnonymous = x.IsAnonymous,
+                                            IsDrafted = x.IsDrafted
+
+                                        }).ToList();
+
+                qv.Likes = q.Likes.Select(l => new QuestionLikeViewModel { Id = l.Id, QuestionId = l.QuestionId.Value, UserId = l.UserId }).ToList();
+
+                qv.Comments = q.Comments.Select(c => new QuestionCommentViewModel { Id = c.Id, CommentText = c.CommentText, QuestionId = c.QuestionID, UserId = c.UserID }).ToList();
+
+                qv.Categories = q.Categories.Select(ct => new CategoryViewModel { Name = ct.Category.Name, Id = ct.CategoryId }).ToList();
+
+                qv.ViewCount = q.ViewCount;
+
+                qv.QuestionTopics = q.QuestionTopics;
+                qv.QuestionLevels = q.QuestionLevels;
+
+                qv.AnswerCount = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted != true).ToList().Count;
+                qv.IsAnonymous = q.IsAnonymous;
+
+
+                foreach (var questionTopic in qv.QuestionTopics)
+                {
+                    var topicId = questionTopic.TopicId;
+                    if (topicId != null)
+                    {
+                        // Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId.Value);
+                        Topic topic = topics.FirstOrDefault(x => x.Id == topicId.Value);
+                        if (topic != null)
+                        {
+                            qv.QuestionTopicNames.Add(topic.TopicName);
+                        }
+                    }
+
+                }
+                foreach (var questionLevel in qv.QuestionLevels)
+                {
+                    var levelId = questionLevel.LevelId;
+                    if (levelId != null)
+                    {
+                        //Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId.Value);
+                        Level level = levels.FirstOrDefault(x => x.Id == levelId.Value);
+                        if (level != null)
+                        {
+                            qv.QuestionLevelNames.Add(level.LevelName);
+                        }
+                    }
+
+                }
+                //qv.IsDirectQuestion = q.IsDirectQuestion;
+                //if (qv.IsDirectQuestion)
+                //{
+                //    qv.QuestionAskedToUser =
+                //        queryFactory.ResolveQuery<IDirectQuestionQuery>().GetDirectQuestionUser(q.Id);
+                //}
+                questions.Add(qv);
+            }
+
+            return questions.ToList();
+        }
 
         public List<QuestionViewModel> GetQuestionViewModels(IEnumerable<Question> questionList, IQueryFactory queryFactory, IConfigurationRoot configuration)
         {

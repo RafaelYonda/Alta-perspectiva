@@ -328,12 +328,18 @@ namespace Questions.Query
         public IEnumerable<Question> DraftedQuestionAnswers(Guid userId)
         {
             return DbContext.Questions
-                               .Include(a => a.Answers)
+                                  .Include(a => a.Answers).ThenInclude(a => a.Likes)
+                                  .Include(a => a.Answers).ThenInclude(a => a.Comments)
+                                  .Include(q => q.Categories)
+                                      .ThenInclude(c => c.Category)
+                                  .Include(q => q.Comments)
+                                  .Include(q => q.Likes)
+                                  .Include(q => q.QuestionLevels)
+                                  .Include(q => q.QuestionTopics)
                                .Where(x=>x.Answers.Any(y=>y.IsDrafted!=null &&y.UserId==userId))
                                  .OrderByDescending(c => c.CreatedOn.Value.Date)
                                        .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
-                                           .Take(20)
-                                               .ToList();
+                                          .ToList();
         }
     }
 }

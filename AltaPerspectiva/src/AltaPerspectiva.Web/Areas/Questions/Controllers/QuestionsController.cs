@@ -954,6 +954,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/getdraftedquestions")]
         public IActionResult GetDraftedQuestions()
         {
+
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
@@ -962,7 +963,9 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
             }
             var questions = queryFactory.ResolveQuery<IQuestionsQuery>().DraftedQuestionAnswers(loggedinUser);
-            return Ok(questions);
+
+            var questionViewModels=new QuestionService().GetQuestionViewModelsForDraftAnswer(questions,queryFactory,configuration);
+            return Ok(questionViewModels);
         }
         [HttpPost("/questions/api/savedraftedquestions")]
         public IActionResult SaveDraftedQuestions([FromBody]AddAnswerViewModel answer)
