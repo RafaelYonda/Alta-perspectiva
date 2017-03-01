@@ -15,12 +15,14 @@ using UserProfile.Domain;
 using UserProfile.Query.Interfaces;
 using AltaPerspectiva.Web.Areas.Admin.Services;
 using AltaPerspectiva.Web.Areas.Admin.helpers;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class VirtualStoreController : Controller
     {
         #region Ctor

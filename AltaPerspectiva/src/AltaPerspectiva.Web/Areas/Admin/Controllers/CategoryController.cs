@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         ICommandsFactory commandsFactory;
@@ -35,6 +36,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             queryFactory = _queryFactory;
             environment = _environment;
         }
+       
         [HttpGet("sitemanagement/")]
         public IActionResult Index()
         {
