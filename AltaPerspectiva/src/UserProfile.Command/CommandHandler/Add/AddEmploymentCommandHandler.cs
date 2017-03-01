@@ -14,26 +14,43 @@ namespace UserProfile.Command.CommandHandler
     public class AddEmploymentCommandHandler : EFCommandHandlerBase<AddEmploymentCommand, UserProfileDbContext>, ICommandHandler<AddEmploymentCommand>
     {
         public AddEmploymentCommandHandler(UserProfileDbContext dbContext)
-			: base(dbContext)
-		{
+            : base(dbContext)
+        {
         }
         public override void Execute(AddEmploymentCommand command)
         {
             Debug.WriteLine("AddEmploymentCommandHandler executed");
 
-            Employment employment = new Employment
+            Employment emp =
+                DbContext.Employments.Where(x => x.CredentialId == command.CredentialId).FirstOrDefault();
+            if (emp == null)
             {
-                CredentialId = command.CredentialId,
-                CreatedOn = DateTime.Now,
-                StartDate = command.StartDate,
-                EndDate = command.EndDate,
-                CompanyName = command.CompanyName,
-                IsCurrentlyWorking = command.IsCurrentlyWorking,
-                Position = command.Position
-                // CreatedBy = command.UserId
-            };
-            employment.GenerateNewIdentity();
-            DbContext.Employments.Add(employment);
+                Employment employment = new Employment
+                {
+                    CredentialId = command.CredentialId,
+                    CreatedOn = DateTime.Now,
+                    StartDate = command.StartDate,
+                    EndDate = command.EndDate,
+                    CompanyName = command.CompanyName,
+                    IsCurrentlyWorking = command.IsCurrentlyWorking,
+                    Position = command.Position
+                    // CreatedBy = command.UserId
+                };
+                employment.GenerateNewIdentity();
+                DbContext.Employments.Add(employment);
+            }
+            else
+            {
+                emp.ModifiedOn = DateTime.Now;
+                emp.StartDate = command.StartDate;
+                emp.EndDate = command.EndDate;
+                emp.CompanyName = command.CompanyName;
+                emp.IsCurrentlyWorking = command.IsCurrentlyWorking;
+                emp.Position = command.Position;
+                DbContext.Employments.Update(emp);
+            }
+
+
             DbContext.SaveChanges();
             //Experience experience=new Experience();
             //experience.UserId = command.UserId;
@@ -50,7 +67,7 @@ namespace UserProfile.Command.CommandHandler
 
         }
 
-        
+
     }
-    
+
 }

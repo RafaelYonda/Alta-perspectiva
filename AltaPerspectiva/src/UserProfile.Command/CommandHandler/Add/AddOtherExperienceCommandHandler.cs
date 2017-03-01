@@ -21,16 +21,29 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("AddOtherExperienceCommandHandler executed");
 
-            OtherExperience experience = new OtherExperience
+            OtherExperience otherExperience =
+                DbContext.OtherExperiences.FirstOrDefault(x => x.CredentialId == command.CredentialId);
+            if (otherExperience == null)
             {
-                CredentialId = command.CredentialId,
-                CreatedOn = DateTime.Now,
-                Description = command.Description,
-                CategoryId = command.CategoryId,
+                OtherExperience experience = new OtherExperience
+                {
+                    CredentialId = command.CredentialId,
+                    CreatedOn = DateTime.Now,
+                    Description = command.Description,
+                    CategoryId = command.CategoryId,
 
-            };
-            experience.GenerateNewIdentity();
-            DbContext.OtherExperiences.Add(experience);
+                };
+                experience.GenerateNewIdentity();
+                DbContext.OtherExperiences.Add(experience);
+            }
+            else
+            {
+                otherExperience.Description = command.Description;
+                otherExperience.CategoryId = command.CategoryId;
+                DbContext.OtherExperiences.Update(otherExperience);
+            }
+
+           
             DbContext.SaveChanges();
 
             //PracticeArea area=new PracticeArea();

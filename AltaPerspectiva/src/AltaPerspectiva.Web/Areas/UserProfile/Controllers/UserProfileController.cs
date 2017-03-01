@@ -182,13 +182,6 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/education/geteducation/{credentialId}")]
         public IActionResult GetEducation(Guid credentialId)
         {
-            //Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-            //    loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            //}
             var education = queryFactory.ResolveQuery<IEducationQuery>().GetEducation(credentialId);
 
             return Ok(education);
@@ -216,20 +209,12 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok();
         }
-        [HttpPost("userprofile/api/education/updateeducation")]
-        public IActionResult UpdateEducation([FromBody]EducationViewModel model)
-        {
-
-            //UpdateEducationCommand command = new UpdateEducationCommand(model.CredentialId, model.SchoolName, model.SchoolDegreeName, model.SchoolCompletionDate, model.CollegeName, model.CollegeDegree, model.CollegeCompletionDate, model.Certification, model.CertificationType);
-            //commandsFactory.ExecuteQuery(command);
-
-            return Ok();
-        }
+       
         [HttpPost("userprofile/api/education/deleteeducation")]
         public IActionResult DeleteEducation([FromBody]EducationViewModel model)
         {
-            //DeleteEducationCommand command=new DeleteEducationCommand(model.CredentialId,model.Id);
-            //commandsFactory.ExecuteQuery(command);
+            DeleteEducationCommand command=new DeleteEducationCommand(model.CredentialId,model.Id);
+            commandsFactory.ExecuteQuery(command);
 
             return Ok();
         }
@@ -239,13 +224,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/employment/getemployment/{credentialId}")]
         public IActionResult GetEmployment(Guid credentialId)
         {
-            //Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-            //    loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            //}
+            
             var education = queryFactory.ResolveQuery<IEmploymentQuery>().GetEmployment(credentialId);
 
             return Ok(education);
@@ -260,32 +239,9 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpPost("userprofile/api/employment/addemployment")]
         public IActionResult AddEmployment([FromBody]EmploymentViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
-
-
+            
             AddEmploymentCommand command = new AddEmploymentCommand(model.CredentialId, model.Position, model.CompanyName, model.StartDate, model.EndDate, model.IsCurrentlyWorking);
             commandsFactory.ExecuteQuery(command);
-
-            return Ok();
-        }
-        [HttpPost("userprofile/api/education/updateemployment")]
-        public IActionResult UpdateEmployment([FromBody]EducationViewModel model)
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
-            //UpdateEmploymentCommand command = new UpdateEmploymentCommand(loggedinUser, "position", "companies", model., DateTime.Now, true);
-            //  commandsFactory.ExecuteQuery(command);
 
             return Ok();
         }
@@ -310,69 +266,31 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/place/getplace/{credentialId}")]
         public IActionResult GetPlace(Guid credentialId)
         {
-            //Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-            //    loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            var palce = queryFactory.ResolveQuery<IPlaceQuery>().GetPlace(credentialId);
 
-            //}
-            var education = queryFactory.ResolveQuery<IPlaceQuery>().GetPlace(credentialId);
-
-            return Ok(education);
+            return Ok(palce);
         }
 
         [HttpGet("userprofile/api/place/getplacebyuserid/{userId}")]
         public IActionResult GetPlaceByUserId(Guid userId)
         {
+            var palce = queryFactory.ResolveQuery<IPlaceQuery>().GetPlaceByUserId(userId);
 
-            var education = queryFactory.ResolveQuery<IPlaceQuery>().GetPlaceByUserId(userId);
-
-            return Ok(education);
+            return Ok(palce);
         }
 
         [HttpPost("userprofile/api/place/addplace")]
         public IActionResult AddPlace([FromBody]PlaceViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
-
             AddPlaceCommand command = new AddPlaceCommand(model.CredentialId, model.LocationName, model.StartYear, model.EndYear, model.IsCurrentyLiving);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
         }
-        [HttpPost("userprofile/api/place/updateplace")]
-        public IActionResult UpdatePlace([FromBody]PlaceViewModel model)
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
-
-            UpdatePlaceCommand command = new UpdatePlaceCommand(loggedinUser, model.LocationName, model.StartYear, model.EndYear, model.IsCurrentyLiving);
-            commandsFactory.ExecuteQuery(command);
-
-            return Ok();
-        }
+        
         [HttpPost("userprofile/api/place/deleteplace")]
         public IActionResult DeletePlace([FromBody]PlaceViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
             DeletePlaceCommand command = new DeletePlaceCommand(model.CredentialId, model.id);
             commandsFactory.ExecuteQuery(command);
 
@@ -384,13 +302,6 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/otherexperience/getotherexperience/{credentialId}")]
         public IActionResult GetOtherExperience(Guid credentialId)
         {
-            //Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-            //    loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            //}
             var education = queryFactory.ResolveQuery<IOtherExperienceQuery>().GetOtherExperience(credentialId);
 
             return Ok(education);
@@ -398,7 +309,6 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/otherexperience/getotherexperiencebyuserid/{userId}")]
         public IActionResult GetOtherExperienceByUserId(Guid userId)
         {
-
             var education = queryFactory.ResolveQuery<IOtherExperienceQuery>().GetOtherExperienceByUserId(userId);
 
             return Ok(education);
@@ -406,33 +316,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpPost("userprofile/api/OtherExperience/addOtherExperience")]
         public IActionResult AddOtherExperience([FromBody]OtherExperienceViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
+            
             AddOtherExperienceCommand command = new AddOtherExperienceCommand(model.CredentialId, model.CategoryId, model.Description);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
         }
-        [HttpPost("userprofile/api/OtherExperience/updateOtherExperience")]
-        public IActionResult UpdateOtherExperience([FromBody]OtherExperienceViewModel model)
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            }
-            UpdateOtherExperienceCommand command = new UpdateOtherExperienceCommand(loggedinUser, model.CategoryId, model.Description);
-            commandsFactory.ExecuteQuery(command);
-
-            return Ok();
-        }
+        
         [HttpPost("userprofile/api/OtherExperience/deleteOtherExperience")]
         public IActionResult DeleteOtherExperience([FromBody]OtherExperienceViewModel model)
         {

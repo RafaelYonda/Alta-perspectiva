@@ -21,17 +21,31 @@ namespace UserProfile.Command.CommandHandler
         {
             Debug.WriteLine("AddPlaceCommandHandler executed");
 
-            Place place = new Place
+            Place p = DbContext.Places.FirstOrDefault(x => x.CredentialId == command.CredentialId);
+            if (p == null)
             {
-                CredentialId = command.CredentialId,
-                CreatedOn = DateTime.Now,
-                StartYear = command.StartYear,
-                EndYear = command.EndYear,
-                LocationName = command.LocationName,
-                IsCurrentyLiving = command.IsCurrentyLiving
-            };
-            place.GenerateNewIdentity();
-            DbContext.Places.Add(place);
+                Place place = new Place
+                {
+                    CredentialId = command.CredentialId,
+                    CreatedOn = DateTime.Now,
+                    StartYear = command.StartYear,
+                    EndYear = command.EndYear,
+                    LocationName = command.LocationName,
+                    IsCurrentyLiving = command.IsCurrentyLiving
+                };
+                place.GenerateNewIdentity();
+                DbContext.Places.Add(place);
+            }
+            else
+            {
+                p.StartYear = command.StartYear;
+                p.EndYear = command.EndYear;
+                p.LocationName = command.LocationName;
+                p.IsCurrentyLiving = command.IsCurrentyLiving;
+                DbContext.Places.Update(p);
+            }
+
+          
             DbContext.SaveChanges();
 
 

@@ -21,21 +21,33 @@ namespace UserProfile.CommandHandler
         {
             Debug.WriteLine("AddEducationCommandHandler executed");
 
-
-            Education education = new Education
+            Education edu = DbContext.Educations.FirstOrDefault(x => x.CredentialId == command.CredentialId);
+            if (edu == null)
             {
-                SchoolName = command.SchoolName,
-                DegreeType = command.DegreeType,
-                CredentialId = command.CredentialId,
-                GraduationYear = command.GraduationYear,
-                SecondaryConcentration = command.SecondaryConcentration,
-                Concentration = command.Concentration,
-                CreatedOn = DateTime.Now
-               
-            };
-            education.GenerateNewIdentity();
-            DbContext.Educations.Add(education);
+                Education education = new Education
+                {
+                    SchoolName = command.SchoolName,
+                    DegreeType = command.DegreeType,
+                    CredentialId = command.CredentialId,
+                    GraduationYear = command.GraduationYear,
+                    SecondaryConcentration = command.SecondaryConcentration,
+                    Concentration = command.Concentration,
+                    CreatedOn = DateTime.Now
 
+                };
+                education.GenerateNewIdentity();
+                DbContext.Educations.Add(education);
+            }
+            else
+            {
+                edu.SchoolName = command.SchoolName;
+                edu.DegreeType = command.DegreeType;
+                edu.CredentialId = command.CredentialId;
+                edu.GraduationYear = command.GraduationYear;
+                edu.SecondaryConcentration = command.SecondaryConcentration;
+                edu.Concentration = command.Concentration;
+                DbContext.Educations.Update(edu);
+            }
 
             DbContext.SaveChanges();
 
