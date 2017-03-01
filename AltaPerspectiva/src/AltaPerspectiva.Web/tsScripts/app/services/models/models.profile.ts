@@ -1,4 +1,6 @@
-﻿export class CredentialViewModel {
+﻿import { User } from '../models';
+
+export class CredentialViewModel {
     id: string
     userId: string
     firstName: string
@@ -103,5 +105,6 @@ export class VirtualStore {
 export class ProductComment {
     commentText:string;
     userId:string;
-    virtualStoreId:string;
+    virtualStoreId: string;
+    userViewModel: User;
 }

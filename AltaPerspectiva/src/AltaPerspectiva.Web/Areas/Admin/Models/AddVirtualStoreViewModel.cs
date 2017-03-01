@@ -29,11 +29,11 @@ namespace AltaPerspectiva.Web.Areas.Admin.Models
         //For Virtual store image
         public bool IsPreviousScreenShotImage { get; set; }
         public bool IsPreviousProductFile { get; set; }
-        public IEnumerable<ProductComment> ProductComments { get; set; }
+        public IEnumerable<ProductCommentViewModel> ProductComments { get; set; }
 
         public AddVirtualStoreViewModel()
         {
-            ProductComments=new List<ProductComment>();
+            ProductComments=new List<ProductCommentViewModel>();
         }
     }
     public class ValidateRequiredAttribute : RequiredAttribute
