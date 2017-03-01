@@ -255,7 +255,7 @@ namespace AltaPerspectiva
             services.AddTransient<IVirtualStoreQuery, VirtualStoreQuery>();
             services.AddTransient<ICommandHandler<AddVirtualStoreCommand>, AddVirtualStoreCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteVirtualStoreCommand>, DeleteVirtualStoreCommandHandler>();
-
+            services.AddTransient<ICommandHandler<AddProductCommentCommand>, AddProductCommentCommandHandler>();
             #endregion
 
         }

@@ -2,7 +2,7 @@
     <div class="collapse comment-panel" id="postComment{{blogPost.id}}">
         <form #commentForm="ngForm" class="form-horizontal " role="form">
             <div class="comment-input">
-                <img class="user-image" src="../../../../profile/{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
+                <img class="user-image" src="{{_logObj.user.imageUrl?_logObj.user.imageUrl:'avatar.png'}}" />
                 <input class="form-control" id="comment" [(ngModel)]="comment.commentText" [ngModelOptions]="{standalone: true}" />
                 <button type="button" class="btn btn-primary" (click)="submitComment(blogPost.id)">Comment</button>
             </div>

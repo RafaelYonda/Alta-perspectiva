@@ -95,7 +95,7 @@ export class ProfileInfoComponent {
             //    this.imageLink = res.profileImage;                
 
                 if (this.credential.imageUrl && (this.credential.imageUrl != ''))
-                    this.imageLink += this.credential.imageUrl;
+                    this.imageLink = this.credential.imageUrl;
                 else this.imageLink = '../images/userAdd.png';
             //});
         });
