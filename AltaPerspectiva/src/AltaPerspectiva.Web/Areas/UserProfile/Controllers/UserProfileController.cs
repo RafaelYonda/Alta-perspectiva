@@ -360,22 +360,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
             return Ok(questionViewModels);
         }
-        [HttpGet("userprofile/api/directquestion")]
-        public IActionResult DirectQuestion()
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-
-            //   throw new Exception("Not yet implemented");
-            return Ok();
-        }
+        
         [HttpGet("userprofile/api/followerbyuserid/{userId}")]
         public IActionResult Follower(Guid userId)
         {
