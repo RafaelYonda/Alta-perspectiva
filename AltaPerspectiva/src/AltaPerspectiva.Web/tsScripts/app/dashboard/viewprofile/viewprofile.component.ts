@@ -59,7 +59,8 @@ export class ViewProfileComponent {
             var currentUser = localStorage.getItem('auth_token');
             this._authService.getLoggedinObj().subscribe(res => {
                 if (res && currentUser != "null") {
-
+                    console.log(params['userId']);
+                    console.log(res);
                     if (params['userId'] == res.userId)
                         this.isOwner = true;
                 }
