@@ -25,7 +25,7 @@ namespace UserProfile.Query.Queries
                 reader = command.ExecuteReader();
 
                 //   T list = new T();
-               
+
                 var columns = new List<string>();
                 for (int i = 0; i < reader.FieldCount; i++)
                 {
@@ -54,11 +54,12 @@ namespace UserProfile.Query.Queries
         public static List<T> DataReaderToList<T>(string connectionString, string query) where T : class, new()
         {
             List<T> list = new List<T>();
-            SqlDataReader reader;
+
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader;
                 reader = command.ExecuteReader();
                 var columns = new List<string>();
                 for (int i = 0; i < reader.FieldCount; i++)
@@ -67,25 +68,23 @@ namespace UserProfile.Query.Queries
                 }
                 while (reader.Read())
                 {
-                    foreach (var row in columns.AsEnumerable())
+                    T obj = new T();
+                    foreach (var prop in obj.GetType().GetProperties())
                     {
-                        T obj = new T();
-                        foreach (var prop in obj.GetType().GetProperties())
+                        try
                         {
-                            try
-                            {
-                                PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
-                                propertyInfo.SetValue(obj,
-                                    Convert.ChangeType(reader[prop.Name], propertyInfo.PropertyType), null);
-                            }
-                            catch
-                            {
-                                continue;
-                            }
+                            PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
+                            propertyInfo.SetValue(obj,
+                                Convert.ChangeType(reader[prop.Name], propertyInfo.PropertyType), null);
                         }
-
-                        list.Add(obj);
+                        catch
+                        {
+                            continue;
+                        }
                     }
+
+                    list.Add(obj);
+
                 }
             }
             return list;
@@ -109,10 +108,9 @@ namespace UserProfile.Query.Queries
         public ProfileParameter GetProfileParameter(Guid userId, string connectionString)
         {
             ProfileParameter profileParameter = new ProfileParameter();
-
+            string query = String.Format("SpProfileParameterCount '" + userId + "'");
             profileParameter =
-                DataReaderToListHelper.DataReaderToObject<ProfileParameter>(connectionString,
-                    "SpProfileParameterCount '" + userId + "'");
+                DataReaderToListHelper.DataReaderToObject<ProfileParameter>(connectionString, query);
 
             return profileParameter;
         }
