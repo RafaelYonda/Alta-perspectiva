@@ -745,10 +745,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                             .ThenBy(m => m.AnswerDate.Minute)
                             .ThenBy(s => s.AnswerDate.Second).ToList();
 
-            var questionViewModel = new QuestionService().GetQuestionViewModels(new List<Question>
-            {
-                question
-            }, queryFactory,configuration)[0];
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory);
             return Ok(questionViewModel);
         }
         [HttpGet("/questions/api/questions/{questionId}/getbestanswer")]
@@ -759,10 +756,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             question.Answers = question.Answers.OrderByDescending(l => l.Likes.Count).ToList();
 
             
-            var questionViewModel = new QuestionService().GetQuestionViewModels(new List<Question>
-            {
-                question
-            }, queryFactory,configuration)[0];
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory);
 
             return Ok(questionViewModel);
         }
@@ -903,7 +897,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             var questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteDirectQuestion(questionAskedToUser);
 
-            List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questionList,
+            List<QuestionViewModel> questionViewModels = new QuestionService().GetDirectQuestionViewModels(questionList,
                 queryFactory,configuration);
             // var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
             return Ok(questionViewModels);
