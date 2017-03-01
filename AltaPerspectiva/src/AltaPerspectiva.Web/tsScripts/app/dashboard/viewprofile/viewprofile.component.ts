@@ -128,7 +128,6 @@ export class ViewProfileComponent {
                               .concat(this.credential.employments[0].startDate ? this.credential.employments[0].startDate.toString():"")
                               .concat(this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
     }
-
     generateEducationHtml()
     {
         /// set education flag to make it visible
@@ -193,6 +192,8 @@ export class ViewProfileComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEducationComponent);
         let dialogComponentRef = this.educationDialogAnchor.createComponent(dialogComponentFactory);
+        if (this.educationExists)
+            this.education = this.credential.educations[0];
         dialogComponentRef.instance.education = this.education;
 
         dialogComponentRef.instance.education.credentialId = this.credential.id;
@@ -209,6 +210,8 @@ export class ViewProfileComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddEmploymentComponent);
         let dialogComponentRef = this.employmentDialogAnchor.createComponent(dialogComponentFactory);
+        if (this.employmentExists)
+            this.employment = this.credential.employments[0];
         dialogComponentRef.instance.employment = this.employment;
         dialogComponentRef.instance.employment.credentialId = this.credential.id;
         dialogComponentRef.instance.close.subscribe(() => {
@@ -224,6 +227,8 @@ export class ViewProfileComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddOtherExperienceComponent);
         let dialogComponentRef = this.otherexperienceDialogAnchor.createComponent(dialogComponentFactory);
+        if (this.otherExperienceExists)
+            this.otherExperience = this.credential.otherExperiences[0];
         dialogComponentRef.instance.otherExperience = this.otherExperience;
         dialogComponentRef.instance.otherExperience.credentialId = this.credential.id;
         dialogComponentRef.instance.close.subscribe(() => {
@@ -239,6 +244,8 @@ export class ViewProfileComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddPlaceComponent);
         let dialogComponentRef = this.placeDialogAnchor.createComponent(dialogComponentFactory);
+        if (this.placeExists)
+            this.place = this.credential.places[0];
         dialogComponentRef.instance.place = this.place;
         dialogComponentRef.instance.place.credentialId = this.credential.id;
         dialogComponentRef.instance.close.subscribe(() => {
