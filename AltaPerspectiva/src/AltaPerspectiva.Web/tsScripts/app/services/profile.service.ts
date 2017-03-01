@@ -104,7 +104,7 @@ export class ProfileService {
             .catch(this.handleError);
     }
 
-    SaveProductComment(productComment: ProductComment): Observable<any> {
+    SaveVirtualStoreProductComment(productComment: ProductComment): Observable<any> {
         return this._http.post('admin/virtualstore/saveproductcomment', productComment)
             .map(this.extractData)
             .catch(this.handleError);
