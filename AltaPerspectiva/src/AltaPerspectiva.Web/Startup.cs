@@ -254,6 +254,7 @@ namespace AltaPerspectiva
 
             services.AddTransient<IVirtualStoreQuery, VirtualStoreQuery>();
             services.AddTransient<ICommandHandler<AddVirtualStoreCommand>, AddVirtualStoreCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateVirtualStoreCommand>, UpdateVirtualStoreCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteVirtualStoreCommand>, DeleteVirtualStoreCommandHandler>();
             services.AddTransient<ICommandHandler<AddProductCommentCommand>, AddProductCommentCommandHandler>();
             #endregion
@@ -288,18 +289,18 @@ namespace AltaPerspectiva
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
 
-                //ClientId = "localhost", // for localhost
+                ClientId = "localhost", // for localhost
 
 
-                ClientId = "azure",       // for azure deploy 
+              //  ClientId = "azure",       // for azure deploy 
 
                 ClientSecret = "aLtaseCreT!@#",
 
 
 
-                //PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
 
-                PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
+               // PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
 
 
                 RequireHttpsMetadata = false,
