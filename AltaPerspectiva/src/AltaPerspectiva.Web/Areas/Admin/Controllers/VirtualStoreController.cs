@@ -75,7 +75,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 loggedinUser = new Guid(uId?.ElementAt(0).ToString());
 
             }
-            AddProductCommentCommand command=new  AddProductCommentCommand(model.UserId,model.CommentText,model.VirtualStoreId);
+            AddProductCommentCommand command=new  AddProductCommentCommand(loggedinUser, model.CommentText,model.VirtualStoreId);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
