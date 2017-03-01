@@ -21,6 +21,14 @@ namespace UserProfile.Command.UserProfileDBContext
                 e.HasMany<Employment>(q => q.Employments).WithOne(k => k.Credential).HasForeignKey(k => k.CredentialId);
             });
 
+            model.Entity<VirtualStore>(e =>
+            {
+                e.ToTable("VirtualStores");
+                e.HasKey(a => a.Id);
+                e.HasMany<ProductComment>(q => q.ProductComments).WithOne(k => k.VirtualStore).HasForeignKey(k => k.VirtualStoreId);
+               
+            });
+
         }
     }
 }

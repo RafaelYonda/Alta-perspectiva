@@ -65,7 +65,21 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 })[0];
             return Ok(model);
         }
+        [HttpPost("admin/virtualstore/saveproductcomment")]
+        public IActionResult SaveProductComment(AddProductCommentViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(uId?.ElementAt(0).ToString());
 
+            }
+            AddProductCommentCommand command=new  AddProductCommentCommand(model.UserId,model.CommentText,model.VirtualStoreId);
+            commandsFactory.ExecuteQuery(command);
+
+            return Ok();
+        }
 
         #endregion
 

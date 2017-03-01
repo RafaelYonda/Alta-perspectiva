@@ -15,6 +15,8 @@ namespace UserProfile.Query.Queries
 		{
         }
 
+        
+
         public VirtualStore GetVirtualStore(Guid id)
         {
             return DbContext.VirtualStores.FirstOrDefault(x => x.Id == id);

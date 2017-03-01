@@ -12,5 +12,7 @@ namespace UserProfile.Query.Interfaces
         //String sayHello();
         Domain.VirtualStore GetVirtualStore(Guid id);
         List<VirtualStore> GetVirtualStores();
+
+     
     }
 }

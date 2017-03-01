@@ -15,5 +15,6 @@ namespace UserProfile.Domain
 
         public string ProductFileName { get; set; }
         public string ScreenShotFileName { get; set; }
+        public virtual  ICollection<ProductComment> ProductComments { get; set; }
     }
 }

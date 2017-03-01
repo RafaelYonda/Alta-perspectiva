@@ -97,4 +97,11 @@ export class VirtualStore {
     description: string;
     productFileName: string;
     screenShotFileName: string;
+    productComments: ProductComment[];
+    
+}
+export class ProductComment {
+    commentText:string;
+    userId:string;
+    virtualStoreId:string;
 }

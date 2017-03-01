@@ -256,6 +256,7 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddVirtualStoreCommand>, AddVirtualStoreCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateVirtualStoreCommand>, UpdateVirtualStoreCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteVirtualStoreCommand>, DeleteVirtualStoreCommandHandler>();
+            services.AddTransient<ICommandHandler<AddProductCommentCommand>, AddProductCommentCommandHandler>();
 
             #endregion
 
@@ -344,7 +345,10 @@ namespace AltaPerspectiva
             //{
             //    context.Database.EnsureCreated();
             //}
-
+            //using (var context = new UserProfileDbContext(app.ApplicationServices.GetRequiredService<DbContextOptions<UserProfileDbContext>>()))
+            //{
+            //    context.Database.EnsureCreated();
+            //}
             //using (var context = new QuestionsDbContext(
             //app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
             //{
