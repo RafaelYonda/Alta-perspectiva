@@ -13,7 +13,7 @@ namespace UserProfile.Command.Commands
             CredentialId = credentialId;
             Position = position;
             CompanyName = companyName;
-            StartDate = StartDate;
+            StartDate = startDate;
             EndDate = endDate;
             IsCurrentlyWorking = isCurrentlyWorking;
         }

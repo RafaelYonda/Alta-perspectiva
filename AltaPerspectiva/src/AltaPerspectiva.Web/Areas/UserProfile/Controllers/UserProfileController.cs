@@ -77,10 +77,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
               configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
             UserInfoDetails userInfoDetails =
                 queryFactory.ResolveQuery<IProfileParameters>().GetUserInfoDetails(userId, connectionString);
-            AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
 
             userInfoDetails.ImageUrl = azureFileUploadHelper.GetProfileImage(userInfoDetails.ImageUrl);
-            
+
 
             return Ok(userInfoDetails);
         }
@@ -90,7 +90,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             String connectionString =
               configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
             ProfileParameter profileParameter =
-                queryFactory.ResolveQuery<IProfileParameters>().GetProfileParameter(userId,connectionString);
+                queryFactory.ResolveQuery<IProfileParameters>().GetProfileParameter(userId, connectionString);
 
             return Ok(profileParameter);
         }
@@ -99,8 +99,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         {
             String connectionString =
               configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
-            List<CategoryWiseAnswer> categoryWiseAnswers=
-                queryFactory.ResolveQuery<IProfileParameters>().CategoryWiseAnswerCount(userId, connectionString).OrderByDescending(x=>x.AnswerCount).ThenByDescending(x=>x.CategoryName).ToList();
+            List<CategoryWiseAnswer> categoryWiseAnswers =
+                queryFactory.ResolveQuery<IProfileParameters>().CategoryWiseAnswerCount(userId, connectionString).OrderByDescending(x => x.AnswerCount).ThenByDescending(x => x.CategoryName).ToList();
 
             return Ok(categoryWiseAnswers);
         }
@@ -115,11 +115,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
                 credential.ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
             }
-           
+
             return Ok(credential);
         }
-       
-       
+
+
         [HttpGet("userprofile/api/credential/getcredentialbyuserid/{userId}")]
         public IActionResult GetCredentialByUserid(Guid userId)
         {
@@ -137,9 +137,9 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(credential);
         }
         [HttpPost("userprofile/api/credential/savefirstnamelastname")]
-        public IActionResult SaveFirstNameLastName(String firstName,String lastName,Guid userId)
+        public IActionResult SaveFirstNameLastName(String firstName, String lastName, Guid userId)
         {
-            AddCredentialCommand command=new AddCredentialCommand(userId,firstName,lastName,"","","");
+            AddCredentialCommand command = new AddCredentialCommand(userId, firstName, lastName, "", "", "");
             commandsFactory.ExecuteQuery(command);
             return Ok(command.Id);//CredentialId
         }
@@ -153,16 +153,16 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            UpdateCredentialCommand command=new UpdateCredentialCommand(model.UserId,model.FirstName,model.LastName,model.Title,model.Description,null);
+            UpdateCredentialCommand command = new UpdateCredentialCommand(model.UserId, model.FirstName, model.LastName, model.Title, model.Description, null);
             commandsFactory.ExecuteQuery(command);
             return Ok(command.Id);
         }
         [HttpPost("userprofile/api/credential/saveuserimage")]
-        public  async Task<IActionResult> SaveUserImage(IFormFile file, Guid userId)
+        public async Task<IActionResult> SaveUserImage(IFormFile file, Guid userId)
         {
             if (file != null)
             {
-                AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
+                AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
                 await azureFileUploadHelper.SaveProfileImage(file);
                 UpdateUserImageCommand cmd = new UpdateUserImageCommand(userId, file.FileName);
                 commandsFactory.ExecuteQuery(cmd);
@@ -210,16 +210,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-        
-         
-          //DateTime? graduationYear = null;
-          //  if (!String.IsNullOrEmpty(model.GraduationYear))
-          //  {
-          //      graduationYear = new DateTime(int.Parse(model.GraduationYear),1,1);
-          //  }
-           
 
-AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.SchoolName,model.Concentration,model.SecondaryConcentration,model.DegreeType,model.GraduationYear);
+            AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.SchoolName, model.Concentration, model.SecondaryConcentration, model.DegreeType, model.GraduationYear);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
@@ -227,7 +219,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
         [HttpPost("userprofile/api/education/updateeducation")]
         public IActionResult UpdateEducation([FromBody]EducationViewModel model)
         {
-          
+
             //UpdateEducationCommand command = new UpdateEducationCommand(model.CredentialId, model.SchoolName, model.SchoolDegreeName, model.SchoolCompletionDate, model.CollegeName, model.CollegeDegree, model.CollegeCompletionDate, model.Certification, model.CertificationType);
             //commandsFactory.ExecuteQuery(command);
 
@@ -275,7 +267,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-           
+
 
             AddEmploymentCommand command = new AddEmploymentCommand(model.CredentialId, model.Position, model.CompanyName, model.StartDate, model.EndDate, model.IsCurrentlyWorking);
             commandsFactory.ExecuteQuery(command);
@@ -293,7 +285,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
 
             }
             //UpdateEmploymentCommand command = new UpdateEmploymentCommand(loggedinUser, "position", "companies", model., DateTime.Now, true);
-          //  commandsFactory.ExecuteQuery(command);
+            //  commandsFactory.ExecuteQuery(command);
 
             return Ok();
         }
@@ -333,7 +325,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
         [HttpGet("userprofile/api/place/getplacebyuserid/{userId}")]
         public IActionResult GetPlaceByUserId(Guid userId)
         {
-            
+
             var education = queryFactory.ResolveQuery<IPlaceQuery>().GetPlaceByUserId(userId);
 
             return Ok(education);
@@ -349,7 +341,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            
+
             AddPlaceCommand command = new AddPlaceCommand(model.CredentialId, model.LocationName, model.StartYear, model.EndYear, model.IsCurrentyLiving);
             commandsFactory.ExecuteQuery(command);
 
@@ -365,7 +357,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            
+
             UpdatePlaceCommand command = new UpdatePlaceCommand(loggedinUser, model.LocationName, model.StartYear, model.EndYear, model.IsCurrentyLiving);
             commandsFactory.ExecuteQuery(command);
 
@@ -381,7 +373,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            DeletePlaceCommand command = new DeletePlaceCommand(model.CredentialId,model.id);
+            DeletePlaceCommand command = new DeletePlaceCommand(model.CredentialId, model.id);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
@@ -406,7 +398,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
         [HttpGet("userprofile/api/otherexperience/getotherexperiencebyuserid/{userId}")]
         public IActionResult GetOtherExperienceByUserId(Guid userId)
         {
-           
+
             var education = queryFactory.ResolveQuery<IOtherExperienceQuery>().GetOtherExperienceByUserId(userId);
 
             return Ok(education);
@@ -451,7 +443,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            DeleteOtherExperienceCommand command=new DeleteOtherExperienceCommand(model.CredentialId,model.Id);
+            DeleteOtherExperienceCommand command = new DeleteOtherExperienceCommand(model.CredentialId, model.Id);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
@@ -465,7 +457,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
             IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(userId);
 
             List<QuestionViewModel> questionViewModels =
-                new QuestionService().GetQuestionViewModels(questionList, queryFactory,configuration);
+                new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
             return Ok(questionViewModels);
         }
         [HttpGet("userprofile/api/answerbyuserid/{userId}")]
@@ -475,7 +467,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(userId);
 
             List<QuestionViewModel> questionViewModels =
-                new QuestionService().GetQuestionViewModels(questionList, queryFactory,configuration);
+                new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
             return Ok(questionViewModels);
         }
         [HttpGet("userprofile/api/directquestion")]
@@ -490,25 +482,25 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-             
-         //   throw new Exception("Not yet implemented");
+
+            //   throw new Exception("Not yet implemented");
             return Ok();
         }
         [HttpGet("userprofile/api/followerbyuserid/{userId}")]
         public IActionResult Follower(Guid userId)
         {
-            
+
 
             List<Guid> followingUsers =
-                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowers(userId).Select(x=>x.UserId).Distinct().ToList();
+                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowers(userId).Select(x => x.UserId).Distinct().ToList();
 
-            List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x=>new UserViewModel
+            List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x => new UserViewModel
             {
                 CredentialId = x.Id,
                 UserId = x.UserId,
                 ImageUrl = x.ImageUrl,
-                Name = x.FirstName+" "+x.LastName,
-                Occupation = x.Employments.Select(y=>y.Position).Take(1).FirstOrDefault()
+                Name = x.FirstName + " " + x.LastName,
+                Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
             }).ToList();
 
             return Ok(userViewModels);
@@ -517,7 +509,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
         public IActionResult Following(Guid userId)
         {
             List<Guid> followingUsers =
-                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowings(userId).Select(x=>x.UserId).Distinct().ToList();
+                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowings(userId).Select(x => x.UserId).Distinct().ToList();
 
             List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x => new UserViewModel
             {
@@ -532,7 +524,7 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
         }
         #endregion
 
-        
+
         //For Login username in admin
         public UserViewModel GetUserName()
         {
@@ -551,18 +543,18 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
         [HttpGet("userprofile/api/{categoryId}/gettopFiveUserbycategoryid")]
         public async Task<List<UserSummary>> GetTopFiveUserByCategoryId(Guid categoryId)
         {
-            List<UserSummary> summeries=new List<UserSummary>();
-            if (categoryId!=Guid.Empty)
+            List<UserSummary> summeries = new List<UserSummary>();
+            if (categoryId != Guid.Empty)
             {
                 summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetUserSummnaryByCategoryId(categoryId);
-                
+
             }
             else
             {
                 summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetTopFiveUserSummary();
-               
+
             }
-            summeries=new UserSummaryFilter().GetUserSummaryFilter(summeries);
+            summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries);
             return summeries;
 
         }
@@ -586,17 +578,17 @@ AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.
                 loggedinUser = new Guid(uId?.ElementAt(0).ToString());
 
             }
-            if (userId != loggedinUser )
+            if (userId != loggedinUser)
             {
                 UpdateProfileViewCountCommand command = new UpdateProfileViewCountCommand(userId);
                 commandsFactory.ExecuteQuery(command);
             }
-          
+
             return Ok();
         }
         #endregion
 
-        
+
 
 
 
