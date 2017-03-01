@@ -45,14 +45,12 @@
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-<h2>@ViewData["Category"]</h2>
+
 <div class="row customrow">
-    <div class="col-md-4">.</div>
-    <div class="col-md-4">
-        
-        <img class="left-border" src="~/images/border.png"/>
+    <div class="col-md-2">.</div>
+    <div class="col-md-8">
 
-
+        <h2>@ViewData["Category"]</h2>
             @using (Html.BeginForm("AddCategory", "Category", FormMethod.Post, new {area = "Admin", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form"}))
             {
                 <hr/>
