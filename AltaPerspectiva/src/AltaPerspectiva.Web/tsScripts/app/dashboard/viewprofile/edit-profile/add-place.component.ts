@@ -29,5 +29,12 @@ export class AddPlaceComponent {
             console.log(res);
         });
     }
+    DeletePlace() {
+        this.profileService.DeletePlace(this.place).subscribe(res => {
+            this.place = new Place();
+            this.close.emit('event');
+            console.log(res);
+        });
+    }
     
 }

@@ -23,13 +23,18 @@ export class AddEmploymentComponent {
             this.close.emit('event');
     }
     onEmploymentSubmit() {
-
-       
          this.profileService.AddEmployment(this.employment).subscribe(res => {
             this.close.emit('event');
             console.log(res);
             // this.employment = null;
          });
+    }
+    DeleteEmployment() {
+        this.profileService.DeleteEmployment(this.employment).subscribe(res => {
+            this.employment = new Employment();
+            this.close.emit('event');
+            console.log(res);
+        });
     }
     //DeleteCredentialTitle() {
     //    this.credential.title = "";

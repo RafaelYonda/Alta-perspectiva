@@ -34,12 +34,16 @@ export class AddOtherExperienceComponent {
         if (value == 'dialogModal')
             this.close.emit('event');
     }
-
-   
-
     saveOtherExperience() {
         console.log(this.otherExperience);
         this.profileService.AddOtherExperience(this.otherExperience).subscribe(res => {
+            this.close.emit('event');
+            console.log(res);
+        });
+    }
+    DeleteOtherExperience() {
+        this.profileService.DeleteOtherExperience(this.otherExperience).subscribe(res => {
+            this.otherExperience = new OtherExperience();
             this.close.emit('event');
             console.log(res);
         });

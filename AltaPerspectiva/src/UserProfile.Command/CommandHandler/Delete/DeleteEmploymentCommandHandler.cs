@@ -21,7 +21,7 @@ namespace UserProfile.Command.CommandHandler.Delete
         {
             Employment employment =
                 DbContext.Employments.FirstOrDefault(
-                    x => x.CredentialId == command.CredentialId && x.Id == command.CredentialId);
+                    x => x.CredentialId == command.CredentialId && x.Id == command.EmployementId);
 
             if (employment != null)
             {

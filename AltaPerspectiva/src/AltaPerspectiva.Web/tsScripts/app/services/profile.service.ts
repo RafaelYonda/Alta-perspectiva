@@ -192,7 +192,27 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
+    DeleteEducation(education: Education): Observable<any> {
+        return this._http.post('userprofile/api/education/deleteeducation', education)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    DeleteEmployment(employment: Employment): Observable<any> {
+        return this._http.post('userprofile/api/education/deleteemployment', employment)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    DeleteOtherExperience(other:OtherExperience): Observable<any> {
+        return this._http.post('userprofile/api/OtherExperience/deleteOtherExperience', other)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    DeletePlace(place: Place): Observable<any> {
+        return this._http.post('userprofile/api/place/deleteplace', place)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    
     private extractData(res: Response) {
         let body;
 

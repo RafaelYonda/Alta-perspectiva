@@ -31,5 +31,10 @@ export class AddEducationComponent {
             console.log(res);
         });
     }
-    
+    DeleteEducation() {
+        this.profileService.DeleteEducation(this.education).subscribe(res => {
+            this.education = new Education();
+            this.close.emit('event');
+        })
+    }
 }
