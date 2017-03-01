@@ -11,16 +11,28 @@
     .bottom-margin {
         margin-bottom: 10px;
     }
-    .caret{
-        margin-top:8px;
+
+    .caret {
+        margin-top: 8px;
+    }
+    .direct-naswer{
+        margin-left:15%;
+    }
+    .question-list{
+
+    }
+    .question-list hr{
+        margin-top:10px;
+        margin-bottom:10px;
     }
 </style>
 <div #logginAnchor></div>
+<div #answerAnchor></div>
 <form>
     <div class="form-group from-md">
         <input type="text" class="form-control bottom-margin" placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off"
                [(ngModel)]="question.title" required name="titleName" #titleName="ngModel" />
-        <div class="dropdown">
+        <!--<div class="dropdown">
             <button class="btn btn-block dropdown-toggle btn-primary btn-select bottom-margin" type="button" data-toggle="dropdown">
                 {{selectedCategory?selectedCategory.name:'Select a category'}}
                 <span class="caret pull-right"></span>
@@ -28,7 +40,7 @@
             <ul class="dropdown-menu">
                 <li *ngFor="let category of categories"><a (click)="selectCategory(category)">{{category.name}}</a></li>
             </ul>
-        </div>
+        </div>-->
 
         <textarea class="form-control bottom-margin" rows="5" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="question.body" [ngModelOptions]="{standalone: true}"></textarea>
         <button type="submit" class="btn btn-primary pull-right" [disabled]="!titleName.valid" (click)="submitQuestion()">
@@ -38,6 +50,26 @@
     <div class="clearfix"></div>
 </form>
 
-<div class="tab" *ngFor="let question of questions">
-    <question-panel [question]="question"></question-panel>
+<div class="tab question-list" *ngFor="let question of questions">
+    <!--<question-header [question]="question"></question-header>-->
+    <h1 class="question-title">
+        {{question.title}}
+    </h1>
+    <div class="article-details">
+        <user-info [userObj]="question.userViewModel" [viewDate]="question?.createdOn" [isAnonymous]="question?.isAnonymous"></user-info>
+        <p class="answer-text" [innerHTML]="question.body"></p>
+    </div>
+    <hr />
+    <button class="answer-button" (click)="answerDialogBox(question)">Answer</button>
+    <!-- =========Answers============== -->
+    <div *ngFor="let answer of question.answers">
+        <div class="article-details direct-naswer" *ngIf="answer">
+            <div id="{{answer?.id}}">
+                <user-info [userObj]="answer?.userViewModel" [viewDate]="answer?.createdOn"></user-info>
+                <p class="answer-text" [innerHTML]="answer.text"></p>
+            </div>
+        </div>
+        <hr />
+    </div>
+    <div style="margin-bottom:30px"></div>
 </div>
