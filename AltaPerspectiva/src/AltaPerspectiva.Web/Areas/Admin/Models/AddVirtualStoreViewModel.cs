@@ -25,6 +25,16 @@ namespace AltaPerspectiva.Web.Areas.Admin.Models
         public IFormFile ProductFile { get; set; }
         public string ProductFileName { get; set; }
         public List<VirtualStore> VirtualStores { get; set; }
+
+        //For Virtual store image
+        public bool IsPreviousScreenShotImage { get; set; }
+        public bool IsPreviousProductFile { get; set; }
+        public IEnumerable<ProductCommentViewModel> ProductComments { get; set; }
+
+        public AddVirtualStoreViewModel()
+        {
+            ProductComments=new List<ProductCommentViewModel>();
+        }
     }
     public class ValidateRequiredAttribute : RequiredAttribute
     {

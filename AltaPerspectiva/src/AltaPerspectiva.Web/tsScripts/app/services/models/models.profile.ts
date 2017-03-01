@@ -1,4 +1,6 @@
-﻿export class CredentialViewModel {
+﻿import { User } from '../models';
+
+export class CredentialViewModel {
     id: string
     userId: string
     firstName: string
@@ -97,4 +99,12 @@ export class VirtualStore {
     description: string;
     productFileName: string;
     screenShotFileName: string;
+    productComments: ProductComment[];
+    
+}
+export class ProductComment {
+    commentText:string;
+    userId:string;
+    virtualStoreId: string;
+    userViewModel: User;
 }

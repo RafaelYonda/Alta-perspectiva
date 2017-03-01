@@ -273,7 +273,7 @@ where a.UserId=@userId
 DECLARE @AnswerMadeThisMonth int;
 set @AnswerMadeThisMonth=(select COUNT(*) 
 from Questions.Answers a
-where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()))
+where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()) and a.IsDrafted=null) 
 
 DECLARE @QuestionMadeThisMonth int;
 set @QuestionMadeThisMonth=(select COUNT(*) 
@@ -288,7 +288,7 @@ select @Followers=count(*) from Questions.QuestionUserFollowings qf where qf.Fol
 DECLARE @Bookmarks int;
 select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
 DECLARE @Answers int;
-select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId
+select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null
 DECLARE @Questions int ;
 select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and q.IsDirectQuestion=0
 DECLARE @DirectQuestions int;

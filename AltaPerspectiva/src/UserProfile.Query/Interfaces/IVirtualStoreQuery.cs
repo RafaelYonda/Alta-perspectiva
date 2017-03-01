@@ -9,8 +9,9 @@ namespace UserProfile.Query.Interfaces
 {
     public interface IVirtualStoreQuery: IQuery
     {
-        //String sayHello();
         Domain.VirtualStore GetVirtualStore(Guid id);
         List<VirtualStore> GetVirtualStores();
+
+     
     }
 }

@@ -52,7 +52,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         {
             List<VirtualStore> virtualStores = queryFactory.ResolveQuery<IVirtualStoreQuery>().GetVirtualStores();
             List<AddVirtualStoreViewModel> addVirtualStoreViewModels =
-                new VirtualStoreService().GetAddVirtualStoreViewModel(virtualStores);
+                new VirtualStoreService().GetAddVirtualStoreViewModel(queryFactory,virtualStores);
             return Ok(addVirtualStoreViewModels);
         }
         [HttpGet("admin/virtualstore/getitembyid/{id}")]
@@ -61,13 +61,27 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             VirtualStore virtualStore = queryFactory.ResolveQuery<IVirtualStoreQuery>().GetVirtualStore(id);
 
             AddVirtualStoreViewModel model =
-                new VirtualStoreService().GetAddVirtualStoreViewModel(new List<VirtualStore>
+                new VirtualStoreService().GetAddVirtualStoreViewModel(queryFactory,new List <VirtualStore>
                 {
                     virtualStore
                 })[0];
             return Ok(model);
         }
+        [HttpPost("admin/virtualstore/saveproductcomment")]
+        public IActionResult SaveProductComment([FromBody]AddProductCommentViewModel model)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            if (User.Identity.IsAuthenticated)
+            {
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(uId?.ElementAt(0).ToString());
 
+            }
+            AddProductCommentCommand command=new  AddProductCommentCommand(loggedinUser, model.CommentText,model.VirtualStoreId);
+            commandsFactory.ExecuteQuery(command);
+
+            return Ok();
+        }
 
         #endregion
 
@@ -134,7 +148,56 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 loggedinUser = new Guid(uid?.ElementAt(0).ToString());
 
             }
-            return View();
+            VirtualStore virtualStore = queryFactory.ResolveQuery<IVirtualStoreQuery>().GetVirtualStore(Id);
+           
+
+            AddVirtualStoreViewModel model = new AddVirtualStoreViewModel
+            {
+                Id = virtualStore.Id,
+                Description = virtualStore.Description,
+                Title = virtualStore.Title,
+                ScreenShotFileName = virtualStore.ScreenShotFileName,
+                Price = virtualStore.Price,
+                ProductFileName = virtualStore.ProductFileName
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(AddVirtualStoreViewModel addVirtualStoreViewModel)
+        {
+            if (addVirtualStoreViewModel.IsPreviousProductFile)
+            {
+                ModelState.Remove("ProductFile");
+            }
+           
+            if (addVirtualStoreViewModel.IsPreviousScreenShotImage)
+            {
+                ModelState.Remove("ScreenShotImage");
+            }
+            
+            if (!ModelState.IsValid )
+            {
+                return View("Edit", addVirtualStoreViewModel);
+            }
+
+            if(!addVirtualStoreViewModel.IsPreviousProductFile)
+            {
+                AzureFileUploadHelper azureFileUploadHelperForDoc = new AzureFileUploadHelper();
+                await azureFileUploadHelperForDoc.SaveVirtualStoreDocument(addVirtualStoreViewModel.ProductFile);
+                addVirtualStoreViewModel.ProductFileName = addVirtualStoreViewModel.ProductFile.FileName;
+            }
+            if(!addVirtualStoreViewModel.IsPreviousScreenShotImage)
+            {
+                AzureFileUploadHelper azureFileUploadHelperForDoc = new AzureFileUploadHelper();
+                await azureFileUploadHelperForDoc.SaveVirtualStoreDocument(addVirtualStoreViewModel.ScreenShotImage);
+                addVirtualStoreViewModel.ScreenShotFileName = addVirtualStoreViewModel.ScreenShotImage.FileName;
+            }
+            UpdateVirtualStoreCommand command=new UpdateVirtualStoreCommand(addVirtualStoreViewModel.Id,addVirtualStoreViewModel.Price,addVirtualStoreViewModel.Title,addVirtualStoreViewModel.Description,addVirtualStoreViewModel.ProductFileName,addVirtualStoreViewModel.ScreenShotFileName);
+
+            commandsFactory.ExecuteQuery(command);
+
+            return View(addVirtualStoreViewModel);
         }
 
         [HttpGet]

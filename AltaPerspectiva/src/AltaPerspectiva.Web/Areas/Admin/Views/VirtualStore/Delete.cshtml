@@ -1,23 +1,25 @@
 ﻿
+@using AltaPerspectiva.Web.Areas.Admin.helpers
 @model AltaPerspectiva.Web.Areas.Admin.Models.AddVirtualStoreViewModel
 
 @{
     ViewBag.Title = "VitualStoreView";
 }
 
-<style>
+@*<style>
     .btn {
         margin-left: 167px;
     }
-</style>
+</style>*@
 <br/>
 <br/>
+<h2>Delete vitual store</h2>
 @using (Html.BeginForm("Delete", "VirtualStore", FormMethod.Post, new { Area = "Admin"}))
 {
-
+    @Html.HiddenFor(x=>x.Id)
 
     <div>
-        <h4>Delete vitual store</h4>
+        
         <hr/>
         <dl class="dl-horizontal">
             <dt>
@@ -57,10 +59,11 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.ScreenShotImage)
+                <img src="@Url.Content(new AzureFileUploadHelper().GetVirtualStoreDocument( Model.ScreenShotFileName))" alt="Image" class="img-rounded" width="233" height="147" />
             </dd>
 
         </dl>
-        <button id="btnDelete" class="btn btn-success" o>Delete</button>
+        <button id="btnDelete" class="btn btn-success">Delete</button>
     </div>
+    @Model
 }

@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { User, Profile, Contact, Biography, Experience, Skills, PracticeArea, Insight, Keyword,Question,AnswerViewModel } from './models';
-import { UserInfoDetails, VirtualStore }     from './models/models.profile';
+import { UserInfoDetails, VirtualStore, ProductComment }     from './models/models.profile';
 import { Blog, BlogComment, BlogLike, BlogPost } from './models/models.blogpost';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
@@ -97,10 +97,18 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    //Virtual store
     getVirtualStoreItems(): Observable<VirtualStore[]> {
         return this._http.get('admin/virtualstore/getitems/')
             .map(this.extractData)
-            .catch(this.handleError);}
+            .catch(this.handleError);
+    }
+
+    SaveVirtualStoreProductComment(productComment: ProductComment): Observable<any> {
+        return this._http.post('admin/virtualstore/saveproductcomment', productComment)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     //===========viewcount
     addProfileViewCount(userId: string): Observable<any> {
         return this._http.post('userprofile/api/profileviewcount/'+userId,userId)
@@ -184,6 +192,7 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
     private extractData(res: Response) {
         let body;
 

@@ -29,6 +29,37 @@ CREATE TABLE [UserProfile].[VirtualStores](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
+GO
+
+CREATE TABLE [UserProfile].[ProductComments](
+	[Id] [uniqueidentifier] NOT NULL,
+	[CommentText] [nvarchar](max) NULL,
+	[CreatedBy] [uniqueidentifier] NULL,
+	[CreatedOn] [datetime2](7) NULL,
+	[DTS] [datetime2](7) NOT NULL,
+	[IsActive] [bit] NULL,
+	[IsDeleted] [bit] NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+	[ModifiedOn] [datetime2](7) NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[VirtualStoreId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_ProductComments] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [UserProfile].[ProductComments]  WITH CHECK ADD  CONSTRAINT [FK_ProductComments_VirtualStores_VirtualStoreId] FOREIGN KEY([VirtualStoreId])
+REFERENCES [UserProfile].[VirtualStores] ([Id])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [UserProfile].[ProductComments] CHECK CONSTRAINT [FK_ProductComments_VirtualStores_VirtualStoreId]
+GO
+
+
 
 
 

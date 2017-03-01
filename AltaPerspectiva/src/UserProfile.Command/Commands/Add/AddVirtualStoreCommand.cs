@@ -8,13 +8,13 @@ namespace UserProfile.Command.Commands
 {
     public class AddVirtualStoreCommand: ICommand
     {
-        public AddVirtualStoreCommand(Guid userId, double prize,string title,string description,string fileName,string screenShotImage)
+        public AddVirtualStoreCommand(Guid userId, double prize,string title,string description,string productFileName, string screenShotImage)
         {
             UserId = userId;
             Price = prize;
             Title = title;
             Description = description;
-            ProductFileName = fileName;
+            ProductFileName = productFileName;
             ScreenShotFileName = screenShotImage;
         }
         public Guid Id { get; set; }
