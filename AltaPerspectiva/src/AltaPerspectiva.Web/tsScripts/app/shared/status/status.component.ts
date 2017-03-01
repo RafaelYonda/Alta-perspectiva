@@ -5,6 +5,7 @@ import {  Question, Answer, Like} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { QuestionService } from '../../services/question.service';
 import { loginModalComponent } from '../login-modal/login-modal.component';
+import { CommunicationService } from '../../services/communication.service';
 @Component({
     selector: 'ap-status',
     templateUrl: 'js/app/shared/status/status.component.html',
@@ -23,7 +24,7 @@ export class StatusComponent {
     CommentCount: number;
     like: Like;
     likedUsers: any;
-    constructor(private componentFactoryResolver: ComponentFactoryResolver,private statusService: StatusService, private dataService: QuestionAnswerService, private questionService: QuestionService) {
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService) {
     }
 
     ngOnInit() {
@@ -37,6 +38,11 @@ export class StatusComponent {
             this.commentId = this.answerObj.id;
             this.CommentCount = this.answerObj.comments? this.answerObj.comments.length:0;
         }
+
+        this.communicationService.getCommentsCount().subscribe((count: number) => {
+            this.CommentCount = count;
+        });
+
     }
     copyClipboard() {
     }

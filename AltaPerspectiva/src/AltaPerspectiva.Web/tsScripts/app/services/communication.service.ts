@@ -1,7 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { FilterParameter,Comment } from './models';
+import { FilterParameter, Comment } from './models';
+
 
 @Injectable()
 export class CommunicationService {
@@ -64,7 +65,15 @@ export class CommunicationService {
         return this.questionSubmitted.asObservable();
     }
 
+    //=============================================
+    private commentCountAdd: Subject<number> = new Subject<number>();
+    setCommentsCount(count: number): void {
+        this.commentCountAdd.next(count);
+    }
 
+    getCommentsCount(): Observable<number> {
+        return this.commentCountAdd.asObservable();
+    }
 
 
    

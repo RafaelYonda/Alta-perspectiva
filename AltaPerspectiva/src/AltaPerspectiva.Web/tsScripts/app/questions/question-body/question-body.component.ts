@@ -38,8 +38,7 @@ export class QuestionBodyComponent {
     config: Config;
     totalCount: TotalCount;
 
-    twitterButton;
-    tags = 'Hello, World';
+
     description = "This is a test";
     like: Like;
     //categoryId
