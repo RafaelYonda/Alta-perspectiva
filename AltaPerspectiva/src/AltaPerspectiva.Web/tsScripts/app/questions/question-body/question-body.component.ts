@@ -37,7 +37,7 @@ export class QuestionBodyComponent {
     scrollPage: number = 0;
     config: Config;
     totalCount: TotalCount;
-
+     
     twitterButton;
     tags = 'Hello, World';
     description = "This is a test";

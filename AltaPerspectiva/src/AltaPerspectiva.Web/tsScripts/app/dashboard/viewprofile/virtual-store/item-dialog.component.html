@@ -42,10 +42,24 @@
     .item-comment{
         background-color:#e8e6e2;
     }
+    .comment-input-panel{
+        width:100%;
+    }
+    .comment-input-panel .btn-item{
+        float:right;
+    }
+    .comment-input-panel .form-control{
+        display:inline-block;
+        width:85%;
+    }
+    .item-dialog .card-block{
+        margin:10px;
+    }
 </style>
 <div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
     <div class="modal-content item-dialog">
         <div class="exit-button" (click)="onClickedExit()">x</div>
+        <div #logginAnchor></div>
         <div class="modal-container" style="border:1px solid;">
             <div class="item-detail-container">
                 <img src="{{virtualStore.screenShotFileName}}" class="item-img-lg" />
@@ -60,7 +74,20 @@
             <hr />
             <div class="item-comment-container">
                 <h3>Comment</h3>
-                <input class="form-control item-comment" />
+                <div class="comment-input-panel">
+                    <input class="form-control item-comment" [(ngModel)]="comment.commentText" />
+                    <button type="button" class="btn btn-item" (click)="postComment()">Comment</button>
+                </div>
+            </div>
+            <div class="card card-block">
+                <div *ngFor="let productComment of virtualStore.productComments" class="clearfix">
+                    <div >
+                        <img class="user-image comment-img" src="{{productComment.userViewModel.imageUrl}}" />
+                        <div class="header-info">{{productComment.userViewModel.name}}</div>
+                        <p class="answer-text">{{productComment.commentText}}</p>
+                    </div>
+                    <hr />
+                </div>
             </div>
         </div>
     </div>

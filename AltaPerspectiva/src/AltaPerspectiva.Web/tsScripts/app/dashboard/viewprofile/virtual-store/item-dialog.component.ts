@@ -1,10 +1,13 @@
-﻿import { Component, EventEmitter } from '@angular/core';
+﻿import { Component, EventEmitter, ViewContainerRef, ComponentFactoryResolver, ViewChild  } from '@angular/core';
 import { ProfileService } from '../../../services/profile.service';
 import { User } from '../../../services/models';
-import { VirtualStore } from '../../../services/models/models.profile';
+import { VirtualStore, ProductComment } from '../../../services/models/models.profile';
 import { ActivatedRoute } from '@angular/router';
+import { loginModalComponent } from '../../../shared/login-modal/login-modal.component';
+import { AuthenticationService } from '../../../services/authentication.service';
 @Component({
-    templateUrl: 'js/app/dashboard/viewprofile/virtual-store/item-dialog.component.html'
+    templateUrl: 'js/app/dashboard/viewprofile/virtual-store/item-dialog.component.html',
+    providers: [AuthenticationService]
 })
 export class ItemDialogComponent {
     virtualStore: VirtualStore
@@ -12,10 +15,16 @@ export class ItemDialogComponent {
     user: User[];
     close = new EventEmitter();
     screenShotPath: string;
-    constructor(private _route: ActivatedRoute,private profileServ: ProfileService) {
+    comment: ProductComment = new ProductComment();
+    constructor(private _route: ActivatedRoute, private profileServ: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService) {
     }
     ngOnInit() {
         window.scrollTo(0, 0);
+        this.comment.virtualStoreId = this.virtualStore.id;
+        var user = localStorage.getItem('currentUserObject');
+        this._authService.getLoggedinObj().subscribe(res => {
+            this.comment.userViewModel = res;
+        });
     }
     onClickedExit() {
         this.close.emit('event');
@@ -29,6 +38,32 @@ export class ItemDialogComponent {
     }
     ngOnDestroy() {
        
+    }
+    postComment() {
+        var token = localStorage.getItem('auth_token');
+        if (!token) {
+            this.ShowNotLoggedIn();
+            return;
+        }
+        if (this.comment.commentText == "")
+            return;
+        this.profileServ.SaveVirtualStoreProductComment(this.comment).subscribe(res => {
+            
+            this.virtualStore.productComments.push(this.comment);
+            this.comment.commentText = "";
+        });
+    }
+    @ViewChild('logginAnchor', { read: ViewContainerRef }) logginAnchor: ViewContainerRef;
+    ShowNotLoggedIn() {
+        
+        this.logginAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(loginModalComponent);
+        let dialogComponentRef = this.logginAnchor.createComponent(dialogComponentFactory);
+        //this.onClickedExit();
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
     }
 
 }
