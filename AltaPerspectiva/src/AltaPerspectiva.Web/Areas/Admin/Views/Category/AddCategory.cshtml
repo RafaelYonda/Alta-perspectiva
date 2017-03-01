@@ -9,14 +9,6 @@
         min-height: 100vh;
     }
 
-    .table {
-        margin-left: 244px;
-    }
-
-    .form-horizontal {
-        height: 522px;
-    }
-
     .create-button {
         margin-left: 8.666667%;
     }
@@ -53,42 +45,40 @@
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<h2>@ViewData["Category"]</h2>
 <div class="row customrow">
     <div class="col-md-4">.</div>
     <div class="col-md-4">
-        <img class="left-border" src="~/images/border.png" />
+        
+        <img class="left-border" src="~/images/border.png"/>
 
-        <section>
 
-            @using (Html.BeginForm("AddCategory", "Category", FormMethod.Post, new { area = "Admin", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
+            @using (Html.BeginForm("AddCategory", "Category", FormMethod.Post, new {area = "Admin", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form"}))
             {
-                <h4>@ViewData["Category"]</h4>
-                <br />
-                <br />
-                <hr />
+                <hr/>
 
                 @Html.ValidationSummary(true)
                 @Html.HiddenFor(model => model.Id)
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Name, new { @class = "col-sm-offset-1 col-md-2" })
+                    @Html.LabelFor(model => model.Name, new {@class = "col-sm-offset-1 col-md-2"})
                     <div class="col-sm-offset-1 col-md-10">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Input name", @class = "form-control" } })
+                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new {placeholder = "Input name", @class = "form-control"}})
                         @Html.ValidationMessageFor(model => model.Name)
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Description, new { @class = "col-sm-offset-1 col-md-2" })
+                    @Html.LabelFor(model => model.Description, new {@class = "col-sm-offset-1 col-md-2"})
                     <div class="col-sm-offset-1 col-md-10">
-                        @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { placeholder = "Input description", @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.Description, new {htmlAttributes = new {placeholder = "Input description", @class = "form-control"}})
                         @Html.ValidationMessageFor(model => model.Description)
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Icon, new { @class = "col-sm-offset-1 col-md-2" })
+                    @Html.LabelFor(model => model.Icon, new {@class = "col-sm-offset-1 col-md-2"})
                     <div class="col-sm-offset-1 col-md-10">
-                        @Html.DropDownList("Icon", listItems, new { placeholder = "Input icons", @class = "form-control" })
+                        @Html.DropDownList("Icon", listItems, new {placeholder = "Input icons", @class = "form-control"})
                         @Html.ValidationMessageFor(model => model.Description)
                     </div>
                 </div>
@@ -98,21 +88,20 @@
                     </label>
 
                     <div class="col-sm-offset-1 col-md-10">
-                        @Html.TextBox("Image", Model.ImagePath, new { type = "file", @class = "form-control" })
+                        @Html.TextBox("Image", Model.ImagePath, new {type = "file", @class = "form-control"})
                         @Html.ValidationMessageFor(model => model.Image)
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10 create-button">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                        <input type="submit" value="Create" class="btn btn-default"/>
                     </div>
                 </div>
             }
-        </section>
 
         @* =============== *@
         @{
-            <br />
+            <br/>
 
             if (ViewBag.Message != null)
             {

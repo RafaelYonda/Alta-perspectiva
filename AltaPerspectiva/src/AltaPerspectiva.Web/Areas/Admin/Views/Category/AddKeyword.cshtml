@@ -16,53 +16,54 @@
         height: 349px;
     }
 </style>
+<h2>Edit Category</h2>
 
-
-
-<div class="row ">
+<div class="row">
+    
     <div class="panel-body">
+       
         <table class="table customtable" id="myTable">
             <thead>
-                <tr>
-                    <th style="width:1%">
-                        CategoryName
-                    </th>
-                    <th style="width:10%">
+            <tr>
+                <th style="width: 1%">
+                    CategoryName
+                </th>
+                <th style="width: 10%">
 
-                    </th>
-                    <th style="width:10%">
+                </th>
+                <th style="width: 10%">
 
-                    </th>
-                </tr>
+                </th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.HiddenFor(modelItem => item.Id)
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            <a class="btn btn-danger" href="/Admin/addcategory/@item.Id">Edit</a>
-                        </td>
-                        <td>
-                            @*<button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.Id)
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="/Admin/addcategory/@item.Id">Edit</a>
+                    </td>
+                    <td>
+                        @*<button id="brnDelete" type="button" class="btn btn-danger btnDelete" onclick="deleteCategory(this,'@item.Id')">
                                     <span class="glyphicon glyphicon-trash"></span> Delete
                                 </button>*@
-                            <button id="brnDelete" type="button" class="btn btn-danger" onclick="addKeywords(this,'@item.Id','@item.Name')">
-                                KeyWord
-                            </button>
+                        <button id="brnDelete" type="button" class="btn btn-danger" onclick="addKeywords(this, '@item.Id', '@item.Name')">
+                            KeyWord
+                        </button>
 
-                        </td>
-                        <td>
-                            <button id="btnTopic" type="button" class="btn btn-danger" onclick="editTopics(this,'@item.Id','@item.Name')">
-                                Topic
-                            </button>
+                    </td>
+                    <td>
+                        <button id="btnTopic" type="button" class="btn btn-danger" onclick="editTopics(this, '@item.Id', '@item.Name')">
+                            Topic
+                        </button>
 
-                        </td>
-                    </tr>
-                }
+                    </td>
+                </tr>
+            }
             </tbody>
 
         </table>

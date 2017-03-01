@@ -1,24 +1,25 @@
-﻿using AltaPerspectiva.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AltaPerspectiva.Core;
 
 namespace UserProfile.Command.Commands
 {
-    public class AddVirtualStoreCommand: ICommand
+    public class UpdateVirtualStoreCommand : ICommand
     {
-        public AddVirtualStoreCommand(Guid userId, double prize,string title,string description,string productFileName, string screenShotImage)
+        public UpdateVirtualStoreCommand(Guid virtualStoreId, double prize, string title, string description, string fileName, string screenShotImage)
         {
-            UserId = userId;
+            VirtualStoreId = virtualStoreId;
             Price = prize;
             Title = title;
             Description = description;
-            ProductFileName = productFileName;
+            ProductFileName = fileName;
             ScreenShotFileName = screenShotImage;
         }
         public Guid Id { get; set; }
-        public Guid UserId { get; set; }
+        public Guid VirtualStoreId { get; set; }
+      //  public Guid UserId { get; set; }
         public double Price { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
