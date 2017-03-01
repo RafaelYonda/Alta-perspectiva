@@ -3,7 +3,7 @@ GO
 /*Virtual Stores*/
 SET ANSI_NULLS ON
 GO
-DROP TABLE [UserProfile].[VirtualStores];
+--DROP TABLE [UserProfile].[VirtualStores];
 
 SET QUOTED_IDENTIFIER ON
 GO
