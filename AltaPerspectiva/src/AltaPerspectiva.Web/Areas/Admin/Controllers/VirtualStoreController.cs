@@ -66,7 +66,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             return Ok(model);
         }
         [HttpPost("admin/virtualstore/saveproductcomment")]
-        public IActionResult SaveProductComment(AddProductCommentViewModel model)
+        public IActionResult SaveProductComment([FromBody]AddProductCommentViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)

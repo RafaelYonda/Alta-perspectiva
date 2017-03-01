@@ -25,7 +25,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Services
                     ProductFileName = virtualStore.ProductFileName,
                     Price = virtualStore.Price,
                     ScreenShotFileName = azureFileUploadHelper.GetVirtualStoreDocument(virtualStore.ScreenShotFileName),
-
+                    ProductComments=virtualStore.ProductComments
                 };
                 addVirtualStoreViewModels.Add(addVirtualStoreViewModel);
             }
