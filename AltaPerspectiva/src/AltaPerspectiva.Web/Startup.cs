@@ -254,9 +254,7 @@ namespace AltaPerspectiva
 
             services.AddTransient<IVirtualStoreQuery, VirtualStoreQuery>();
             services.AddTransient<ICommandHandler<AddVirtualStoreCommand>, AddVirtualStoreCommandHandler>();
-            services.AddTransient<ICommandHandler<UpdateVirtualStoreCommand>, UpdateVirtualStoreCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteVirtualStoreCommand>, DeleteVirtualStoreCommandHandler>();
-            services.AddTransient<ICommandHandler<AddProductCommentCommand>, AddProductCommentCommandHandler>();
 
             #endregion
 
@@ -316,9 +314,9 @@ namespace AltaPerspectiva
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
 
-                //Authority = "http://localhost:54540",
+                Authority = "http://localhost:54540",
 
-                 Authority = "http://altaauth.azurewebsites.net",
+                //Authority = "http://altaauth.azurewebsites.net",
 
                 Scope = { "email", "roles", "offline_access" }
             });
@@ -340,27 +338,7 @@ namespace AltaPerspectiva
                 routes.MapRoute("AngularDeepLinkingRoute", "{*url}",
                     new { controller = "Home", action = "Index" });
             });
-
-            //using (var context = new BlogDbContext(app.ApplicationServices.GetRequiredService<DbContextOptions<BlogDbContext>>()))
-            //{
-            //    context.Database.EnsureCreated();
-            //}
-            //using (var context = new UserProfileDbContext(app.ApplicationServices.GetRequiredService<DbContextOptions<UserProfileDbContext>>()))
-            //{
-            //    context.Database.EnsureCreated();
-            //}
-            //using (var context = new QuestionsDbContext(
-            //app.ApplicationServices.GetRequiredService<DbContextOptions<QuestionsDbContext>>()))
-            //{
-            //    context.Database.EnsureCreated();
-            //    //  var keywords = context.Keywords.ToList();
-
-            //    // cache.SetString("Keywords", JsonConvert.SerializeObject(keywords));
-            //    //,new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10))
-            //    //     .SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
-
-
-            //}
+            
         }
     }
 }

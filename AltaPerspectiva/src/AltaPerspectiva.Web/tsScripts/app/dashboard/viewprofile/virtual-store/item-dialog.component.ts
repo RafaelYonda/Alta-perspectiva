@@ -21,7 +21,6 @@ export class ItemDialogComponent {
     ngOnInit() {
         window.scrollTo(0, 0);
         this.comment.virtualStoreId = this.virtualStore.id;
-        var user = localStorage.getItem('currentUserObject');
         this._authService.getLoggedinObj().subscribe(res => {
             this.comment.userViewModel = res;
         });
@@ -50,7 +49,8 @@ export class ItemDialogComponent {
         this.profileServ.SaveVirtualStoreProductComment(this.comment).subscribe(res => {
             
             this.virtualStore.productComments.push(this.comment);
-            this.comment.commentText = "";
+            this.comment = new ProductComment();
+            this.ngOnInit();
         });
     }
     @ViewChild('logginAnchor', { read: ViewContainerRef }) logginAnchor: ViewContainerRef;

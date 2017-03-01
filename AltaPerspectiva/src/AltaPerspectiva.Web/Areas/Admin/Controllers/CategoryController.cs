@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class CategoryController : Controller
     {
         ICommandsFactory commandsFactory;
@@ -35,7 +36,8 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             queryFactory = _queryFactory;
             environment = _environment;
         }
-        [HttpGet("sitemanagement/")]
+       
+        [HttpGet("sitemanagement/")]        
         public IActionResult Index()
         {
             return RedirectToAction("AddCategory");
