@@ -5,11 +5,11 @@
     ViewBag.Title = "VitualStoreView";
 }
 
-<style>
+@*<style>
     .btn {
         margin-left: 167px;
     }
-</style>
+</style>*@
 <br/>
 <br/>
 @using (Html.BeginForm("Delete", "VirtualStore", FormMethod.Post, new { Area = "Admin"}))
@@ -61,6 +61,6 @@
             </dd>
 
         </dl>
-        <button id="btnDelete" class="btn btn-success" o>Delete</button>
+        <button id="btnDelete" class="btn btn-success">Delete</button>
     </div>
 }

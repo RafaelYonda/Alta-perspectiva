@@ -104,8 +104,9 @@
             background-color: darkgray;
             color: white;
             right: 0;
-            bottom: 0;
+           
             left: 0;
+            position: absolute;
         }
 
         .footer-left {
@@ -254,10 +255,10 @@
                             data: null,
                             async: false,
                             success: function (respText) {
-                               // console.log(respText);
+                                // console.log(respText);
                                 $('#headerUserName').text(respText.name);
                                 $('#my_image').attr('src', respText.imageUrl);
-                                $('#userUrl').attr('href', '/dashboard/viewprofile/' + respText.userId+ '/user-question');
+                                $('#userUrl').attr('href', '/dashboard/viewprofile/' + respText.userId + '/user-question');
 
                             },
                             error: function (jqXhr, textStatus, errorThrown) {
@@ -273,7 +274,7 @@
                             success: function (respText) {
                                 console.log(respText);
                                 $('#userUrl').href = "/dashboard/viewprofile/1/user-question"
-                               
+
                             },
                             error: function (jqXhr, textStatus, errorThrown) {
 
@@ -308,15 +309,15 @@
                                     </a>
                                 </li>
                                 @*<li>
-                                    <a href="#">
-                                        <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>EditVirtualStore
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Delete", "VirtualStore", new {Area = "Admin"})">
-                                        <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>DeleteVirtualStore
-                                    </a>
-                                </li>*@
+                                        <a href="#">
+                                            <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>EditVirtualStore
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Delete", "VirtualStore", new {Area = "Admin"})">
+                                            <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>DeleteVirtualStore
+                                        </a>
+                                    </li>*@
                             </ul>
                         </li>
                         <li>
@@ -361,11 +362,6 @@
             @RenderBody()
         </div>
     </div>
-
-    @*<div class="container body-content">
-            @RenderBody()
-        </div>*@
-
     <div class="footer">
         <div class="footer-container">
             <div class="footer-right">
