@@ -68,7 +68,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Description, new {@class = "col-sm-offset-1 col-md-2"})
                     <div class="col-sm-offset-1 col-md-10">
-                        @Html.TextAreaFor(model => model.Description, new {htmlAttributes = new {placeholder = "Input description", @class = "form-control"}})
+                        @Html.TextAreaFor(model => model.Description, new {placeholder = "Input description", @class = "form-control"})
                         @Html.ValidationMessageFor(model => model.Description)
                     </div>
                 </div>
