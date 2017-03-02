@@ -69,7 +69,7 @@
         </div>
 
     </div>
-    <div><img class="profile-image" src="../../../../profile/{{blog?.user?.imageUrl}}" /></div>
+    <div><img class="profile-image" src="{{blog?.user?.imageUrl}}" /></div>
     <h1>{{blog?.user?.name}}</h1>
     <div class="txt-small-grey">Write post</div>
     <form (ngSubmit)="saveBlogPost()" #blogPostForm="ngForm">

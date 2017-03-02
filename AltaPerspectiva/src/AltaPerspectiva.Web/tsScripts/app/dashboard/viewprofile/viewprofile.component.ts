@@ -103,20 +103,27 @@ export class ViewProfileComponent {
     changeCredentialStatus()
     {
         
-        if (this.credential.educations && this.credential.educations.length > 0)
-        {
+        if (this.credential.educations && this.credential.educations.length > 0) {
             this.generateEducationHtml();
+        } else {
+            this.educationExists = false;         
         }
         if (this.credential.employments && this.credential.employments.length > 0)
         {
             this.generateEmploymentHtml();
+        } else {
+            this.employmentExists = false;
         }
         if (this.credential.places && this.credential.places.length > 0) {
             this.generatePlaceHtml();
+        } else {
+            this.placeExists = false;
         }
            
         if (this.credential.otherExperiences && this.credential.otherExperiences.length > 0) {
               this.generateOtherHtml();
+        } else {
+            this.otherExperienceExists = false;
         }
     }
 
@@ -134,11 +141,11 @@ export class ViewProfileComponent {
         /// set education flag to make it visible
         this.educationExists = true;
 
-        var primary = " ";
+        var primary = this.credential.educations[0].schoolName;
 
         if (this.credential.educations[0].concentration) {
             if (this.credential.educations[0].concentration.length > 1) {
-               primary = primary.concat(this.credential.educations[0].concentration);
+               primary = " ".concat(primary.concat(this.credential.educations[0].concentration));
             }
         }
 
@@ -146,7 +153,7 @@ export class ViewProfileComponent {
 
         if (this.credential.educations[0].secondaryConcentration) {
             if (this.credential.educations[0].secondaryConcentration.length > 1) {
-                secondary = this.credential.educations[0].secondaryConcentration;
+                secondary = "<br />".concat(this.credential.educations[0].secondaryConcentration);
             }
         }
 
@@ -158,9 +165,18 @@ export class ViewProfileComponent {
             }
         }
 
-        var editHtml = "<a (click)='openEmploymentDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>"
+        var graduationYear = "";
+        if (this.credential.educations[0].graduationYear) {
+            graduationYear = "<br />".concat(this.credential.educations[0].graduationYear.toString());
+        }
 
-        this.educationHtml = primary.concat(" & ").concat(secondary).concat(degree);
+        var editHtml = "<a (click)='openEmploymentDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>"
+        if (secondary == "" && degree == "" && graduationYear=="") {
+            this.educationHtml = primary;
+        } else {
+            this.educationHtml = primary.concat(" & ").concat(secondary).concat(degree).concat(graduationYear);
+        }
+        
     }
     generatePlaceHtml() {
         this.placeExists = true;
