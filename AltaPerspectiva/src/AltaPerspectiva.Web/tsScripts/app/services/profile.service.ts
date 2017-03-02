@@ -212,7 +212,11 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    
+    PostDraftAnswer(answerViewModel: AnswerViewModel): Observable<any> {
+        return this._http.post('/questions/api/savedraftedquestions', answerViewModel)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     private extractData(res: Response) {
         let body;
 

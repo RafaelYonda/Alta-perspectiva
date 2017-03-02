@@ -2,7 +2,7 @@
 import { QuestionService } from '../../../services/question.service';
 import { ProfileService } from '../../../services/profile.service';
 import { ActivatedRoute } from '@angular/router';
-import {Question} from '../../../services/models';
+import {Question, LogInObj, AnswerViewModel} from '../../../services/models';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/draft-answer/draft-answer.component.html',
     providers: [ProfileService]
@@ -11,7 +11,9 @@ export class DraftAnswerComponent {
     private sub: any;
     questions: Question[];
     readMoreLink: string;
-
+    _logObj: LogInObj;
+    answerVM: AnswerViewModel;
+    answerText: string;
     constructor(private _route: ActivatedRoute, private profileService: ProfileService) { }
     ngOnInit() {
         window.scrollTo(0, 0);
@@ -20,6 +22,24 @@ export class DraftAnswerComponent {
                 this.questions = res;
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             });
+        });
+
+        //var userObj = localStorage.getItem('currentUserObject');
+        //var currentUserName = localStorage.getItem('currentUser');
+        //var currentUserImage = localStorage.getItem('currentUserImage');
+        //if (currentUserName != null) {
+        //    this._logObj.user.name = currentUserName;
+        //    this._logObj.user.imageUrl = currentUserImage;
+        //}
+    }
+    publishAnswer(_id: string) {
+        this.answerVM = new AnswerViewModel();
+        this.answerVM.questionId = _id;
+        this.answerVM.text = this.answerText;
+        this.answerVM.isDrafted = true;
+
+        this.profileService.PostDraftAnswer(this.answerVM).subscribe(res => {
+            this.ngOnInit();
         });
     }
 }
