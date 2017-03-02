@@ -28,6 +28,7 @@
     .row-overflow{
         overflow:visible;
     }
+
 </style>
 
 
@@ -82,7 +83,7 @@
             <ul class="credential-panel">
                 <li>
                     <div *ngIf="employmentExists && isOwner">
-                        <i class="fa fa-suitcase"></i> <span innerHTML="{{employmentHtml}}"></span> 
+                        <i class="fa fa-suitcase"></i> <span title="Employment" innerHTML="{{employmentHtml}}"></span> 
                         <a *ngIf="isOwner" (click)='openEmploymentDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!employmentExists && isOwner" (click)="openEmploymentDialogAnchor()" class="edit">
@@ -91,7 +92,7 @@
                 </li>
                 <li>
                     <div *ngIf="educationExists">
-                        <i class="fa fa-university"></i> <span innerHTML="{{educationHtml}}"></span>
+                        <i class="fa fa-university"></i> <span title="Education" innerHTML="{{educationHtml}}"></span>
                         <a *ngIf="isOwner" (click)='openEducationDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!educationExists && isOwner" (click)="openEducationDialogAnchor()" class="edit">
@@ -100,7 +101,7 @@
                 </li>
                 <li>
                     <div *ngIf="placeExists">
-                        <i class="fa fa-home"></i> <span innerHTML="{{placeHtml}}"></span>
+                        <i class="fa fa-home"></i> <span title="Place" innerHTML="{{placeHtml}}"></span>
                         <a *ngIf="isOwner" (click)='openPlaceDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!placeExists && isOwner" (click)="openPlaceDialogAnchor()" class="edit">
@@ -109,7 +110,7 @@
                 </li>
                 <li>
                     <div *ngIf="otherExperienceExists">
-                        <i class="fa fa-cog"></i> <span innerHTML="{{othersHtml}}"></span>
+                        <i class="fa fa-cog"></i> <span title="Others" innerHTML="{{othersHtml}}"></span>
                         <a *ngIf="isOwner" (click)='openOtherexperienceDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!otherExperienceExists && isOwner" (click)="openOtherexperienceDialogAnchor()" class="edit">

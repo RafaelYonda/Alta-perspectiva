@@ -26,7 +26,6 @@ export class AddEmploymentComponent {
          this.profileService.AddEmployment(this.employment).subscribe(res => {
             this.close.emit('event');
             console.log(res);
-            // this.employment = null;
          });
     }
     DeleteEmployment() {
@@ -36,11 +35,4 @@ export class AddEmploymentComponent {
             console.log(res);
         });
     }
-    //DeleteCredentialTitle() {
-    //    this.credential.title = "";
-    //    this.profileService.saveCredentialTitle(this.credential).subscribe(res => {
-    //        this.close.emit('event');
-    //        console.log(res);
-    //    });
-    //}
 }

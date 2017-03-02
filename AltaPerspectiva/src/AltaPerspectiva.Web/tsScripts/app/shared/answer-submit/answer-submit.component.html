@@ -27,6 +27,9 @@
     #img2 {
         left: 26px;
     }
+    .save-as-draft {
+            background-color: #b9caba;
+    }
 </style>
 <form #answerVM="ngForm" class="form-horizontal " role="form">
     <div class="modal-header">
@@ -54,7 +57,7 @@
     <div class="modal-footer">
         <div style="float:left;color:#737373;line-height: 34px;">
             <button *ngIf="!isDraft" type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Submit</button>
-            <button *ngIf="!isDraft" type="button" (click)="submitAnswerAsDraft(question.id)" data-dismiss="modal" class="btn btn-primary">Save As Draft</button>
+            <button *ngIf="!isDraft" type="button" (click)="submitAnswerAsDraft(question.id)" data-dismiss="modal" class="btn save-as-draft">Save As Draft</button>
             <button *ngIf="isDraft" type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Publish Answer</button>
         </div>
         <div class="social-share">
