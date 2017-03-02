@@ -27,9 +27,9 @@
 		public override void Execute(AddQuestionFollowingCommand command)
 		{
 			Debug.WriteLine("AddQuestionFollowingCommandHandler executed");
-
+            
 		    QuestionUserFollowing alreadyFollowing =
-		        DbContext.QuestionFollowings.Where(x => x.UserId == command.UserId &&x.FollowedUserId==command.FollowedUserId).FirstOrDefault();
+		        DbContext.QuestionFollowings.Where(x => x.UserId == command.UserId &&x.FollowedUserId==command.FollowedUserId && x.IsDeleted==null).FirstOrDefault();
             //First time add
 		    if (alreadyFollowing == null)
 		    {
@@ -49,7 +49,7 @@
 		    {
 		        if (alreadyFollowing.IsDeleted == true)
 		        {
-                    alreadyFollowing.IsDeleted = false;
+                    alreadyFollowing.IsDeleted = null;
                 }
 		        else
 		        {

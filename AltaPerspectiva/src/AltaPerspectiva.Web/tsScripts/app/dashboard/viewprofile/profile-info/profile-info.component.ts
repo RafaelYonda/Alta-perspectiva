@@ -31,25 +31,11 @@ export class ProfileInfoComponent {
     private _CredentialData = new BehaviorSubject<CredentialViewModel>(null);
 
     @Input() credential: CredentialViewModel;
-    //set credential(value) {
-    //    this._CredentialData.next(value);
-    //};
-
-    //get credential() {
-    //    return this._CredentialData.getValue();
-    //}
 
 
     constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService) {
-    }   
-
-    ngOnInit() {
-        //this._configService.getConfig().subscribe(res => {
-
-        //    //Get config for image
-        //    this.profilePath = res.profileImage;            
-
-        //});        
+    }
+    ngOnInit() {    
        
     }
     ngOnChanges(changes: SimpleChanges) {
@@ -129,10 +115,8 @@ export class ProfileInfoComponent {
         //console.log(description);
     }
     @ViewChild('credentialDialogAnchor', { read: ViewContainerRef }) credentialDialogAnchor: ViewContainerRef;
-    openCredentialDialogBox() {
-       
+    openCredentialDialogBox() {       
         this.credentialDialogAnchor.clear();
-
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AddCredentialComponent);
         let dialogComponentRef = this.credentialDialogAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.credential = this.credential;        
@@ -141,5 +125,50 @@ export class ProfileInfoComponent {
             dialogComponentRef.destroy();
         });
     }
-   
+
+
+//   ValidateFileUpload() {
+
+//    var fuData = document.getElementById('fileChooser');
+//    var FileUploadPath = fuData.value;
+
+
+//    if (FileUploadPath == '') {
+//        alert("Please upload an image");
+
+//    } else {
+//        var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+
+
+//        if (Extension == "gif" || Extension == "png" || Extension == "bmp"
+//            || Extension == "jpeg" || Extension == "jpg") {
+
+
+//            if (fuData.files && fuData.files[0]) {
+
+//                var size = fuData.files[0].size;
+
+//                if (size > MAX_SIZE) {
+//                    alert("Maximum file size exceeds");
+//                    return;
+//                } else {
+//                    var reader = new FileReader();
+
+//                    reader.onload = function (e) {
+//                        $('#blah').attr('src', e.target.result);
+//                    }
+
+//                    reader.readAsDataURL(fuData.files[0]);
+//                }
+//            }
+
+//        }
+
+
+//        else {
+//            alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
+//        }
+//    }
+//}
 }
