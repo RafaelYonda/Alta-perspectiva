@@ -14,13 +14,12 @@
             <!--<div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>-->
         </div>
         <div class="modal-body">
-            <quill-editor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}"
+            <quill-editor [(ngModel)]="question.bestAnswer.text" [ngModelOptions]="{standalone: true}"
                           [modules]="{  toolbar: [['bold', 'italic', 'underline'], ['link', 'image']] }"
                           required name="answerField" #answerField="ngModel"></quill-editor>
         </div>
         <div style="text-align:left;">
-            <button type="button" (click)="publishAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Publish Answer</button>
-           
+            <button type="button" (click)="publishAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Publish Answer</button>           
         </div>
     </form>
 </div>

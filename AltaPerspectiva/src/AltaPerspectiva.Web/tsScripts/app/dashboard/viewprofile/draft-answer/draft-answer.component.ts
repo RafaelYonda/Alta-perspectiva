@@ -13,7 +13,7 @@ export class DraftAnswerComponent {
     questions: Question[];
     readMoreLink: string;
     _logObj: LogInObj;
-    answerVMs: AnswerViewModel[];
+    answerVM: AnswerViewModel;
     answerText: string;
     constructor(private _route: ActivatedRoute, private profileService: ProfileService, private _router: Router) { }
     ngOnInit() {
@@ -25,20 +25,11 @@ export class DraftAnswerComponent {
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             });
         });
-
-        //var userObj = localStorage.getItem('currentUserObject');
-        //var currentUserName = localStorage.getItem('currentUser');
-        //var currentUserImage = localStorage.getItem('currentUserImage');
-        //if (currentUserName != null) {
-        //    this._logObj.user.name = currentUserName;
-        //    this._logObj.user.imageUrl = currentUserImage;
-        //}
+    
     }
     publishAnswer(_id: string) {
         this.answerVM = new AnswerViewModel();
-        this.answerVM.questionId = _id;
-        this.answerVM.text = this.answerText;
-        this.answerVM.isDrafted = true;
+        this.answerVM = this.questions.find(x => x.id == _id).bestAnswer;   
 
         this.profileService.PostDraftAnswer(this.answerVM).subscribe(res => {
            // this.ngOnInit();
