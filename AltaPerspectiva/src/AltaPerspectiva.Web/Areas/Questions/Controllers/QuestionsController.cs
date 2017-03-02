@@ -633,9 +633,11 @@ namespace AltaPerspectiva.Web.Area.Questions
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            AddQuestionFollowingCommand command = new AddQuestionFollowingCommand(loggedinUser, model.FollowedUserId, model.QuestionId, model.AnswerId);
-            commandsFactory.ExecuteQuery(command);
-
+            if (loggedinUser != model.FollowedUserId)
+            {
+                AddQuestionFollowingCommand command = new AddQuestionFollowingCommand(loggedinUser, model.FollowedUserId, model.QuestionId, model.AnswerId);
+                commandsFactory.ExecuteQuery(command);
+            }
             return Ok();
 
         }

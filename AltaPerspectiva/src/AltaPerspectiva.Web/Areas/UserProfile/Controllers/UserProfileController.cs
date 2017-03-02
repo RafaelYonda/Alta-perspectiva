@@ -373,12 +373,12 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             List<Guid> followingUsers =
                 queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowers(userId).Select(x => x.UserId).Distinct().ToList();
-
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
             List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x => new UserViewModel
             {
                 CredentialId = x.Id,
                 UserId = x.UserId,
-                ImageUrl = x.ImageUrl,
+                ImageUrl = azureFileUploadHelper.GetProfileImage(x.ImageUrl),
                 Name = x.FirstName + " " + x.LastName,
                 Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
             }).ToList();
@@ -389,13 +389,15 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         public IActionResult Following(Guid userId)
         {
             List<Guid> followingUsers =
-                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowings(userId).Select(x => x.UserId).Distinct().ToList();
+                queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowings(userId).Select(x => x.FollowedUserId).Distinct().ToList();
+
+            AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
 
             List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x => new UserViewModel
             {
                 CredentialId = x.Id,
                 UserId = x.UserId,
-                ImageUrl = x.ImageUrl,
+                ImageUrl = azureFileUploadHelper.GetProfileImage(x.ImageUrl),
                 Name = x.FirstName + " " + x.LastName,
                 Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
             }).ToList();
