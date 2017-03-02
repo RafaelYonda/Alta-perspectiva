@@ -101,6 +101,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
               configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
             List<CategoryWiseAnswer> categoryWiseAnswers =
                 queryFactory.ResolveQuery<IProfileParameters>().CategoryWiseAnswerCount(userId, connectionString).OrderByDescending(x => x.AnswerCount).ThenByDescending(x => x.CategoryName).ToList();
+            AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
+            foreach (var categoryWiseAnswer in categoryWiseAnswers)
+            {
+                categoryWiseAnswer.ImageUrl = azureFileUploadHelper.GetCategoryImage(categoryWiseAnswer.ImageUrl);
+            }
 
             return Ok(categoryWiseAnswers);
         }

@@ -25,8 +25,10 @@
     <h3>Sabe sobre</h3>
     <ul class="profile-rightmenu" *ngFor="let categoryWiseAnswer of categoryWiseAnswers">
         <li>
-            <img class="profile-cat-img" src="../categories/{{categoryWiseAnswer?.imageUrl}}" /> 
-            <h3>{{categoryWiseAnswer?.categoryName}}</h3>
+            <img class="profile-cat-img" src="{{categoryWiseAnswer?.imageUrl}}" /> 
+            <h3>
+                <a [routerLink]="['/question/home',categoryWiseAnswer?.categoryId]"> {{categoryWiseAnswer?.categoryName}}</a>
+            </h3>
             <div>{{categoryWiseAnswer?.answerCount}} answer</div>
         </li>
         <!--<li>{{categoryWiseAnswer?.categoryName}}</li>-->
