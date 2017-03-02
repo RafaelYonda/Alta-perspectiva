@@ -958,8 +958,8 @@ namespace AltaPerspectiva.Web.Area.Questions
             var questionViewModels=new QuestionService().GetQuestionViewModelsForDraftAnswer(questions,queryFactory,configuration);
             return Ok(questionViewModels);
         }
-        [HttpPost("/questions/api/savedraftedquestions")]
-        public IActionResult SaveDraftedQuestions([FromBody]AddAnswerViewModel answer)
+        [HttpPost("/questions/api/savedraftedanswers")]
+        public IActionResult SaveDraftedAnswers([FromBody]AddAnswerViewModel answer)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 

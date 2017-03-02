@@ -130,6 +130,12 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
 
+    SaveDraftedAnswers(answer: AnswerViewModel): Observable<AnswerViewModel> {
+        return this._http.post('/questions/api/savedraftedanswers', answer)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     addQuestionComment(comment: Comment): Observable<Comment> {
         return this._http.post('/questions/api/question/' + comment.questionId + '/comment', comment)
             .map(this.extractData)

@@ -3,6 +3,7 @@ import { QuestionService } from '../../../services/question.service';
 import { ProfileService } from '../../../services/profile.service';
 import { ActivatedRoute } from '@angular/router';
 import {Question, LogInObj, AnswerViewModel} from '../../../services/models';
+import { Router } from '@angular/router';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/draft-answer/draft-answer.component.html',
     providers: [ProfileService]
@@ -12,11 +13,12 @@ export class DraftAnswerComponent {
     questions: Question[];
     readMoreLink: string;
     _logObj: LogInObj;
-    answerVM: AnswerViewModel;
+    answerVMs: AnswerViewModel[];
     answerText: string;
-    constructor(private _route: ActivatedRoute, private profileService: ProfileService) { }
+    constructor(private _route: ActivatedRoute, private profileService: ProfileService, private _router: Router) { }
     ngOnInit() {
         window.scrollTo(0, 0);
+        
         this.sub = this._route.parent.params.subscribe(params => {
             this.profileService.GetDraftedQuestions().subscribe(res => {
                 this.questions = res;
@@ -39,7 +41,8 @@ export class DraftAnswerComponent {
         this.answerVM.isDrafted = true;
 
         this.profileService.PostDraftAnswer(this.answerVM).subscribe(res => {
-            this.ngOnInit();
+           // this.ngOnInit();
+            this._router.navigateByUrl('question/detail/' + this.answerVM.questionId, { skipLocationChange: true });
         });
     }
 }

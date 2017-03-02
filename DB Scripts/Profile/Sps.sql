@@ -10,7 +10,7 @@ create proc [dbo].SpCategoryWiseAnswer
 AS
 BEGIN
 
-select COUNT(*) AnswerCount,(select Name from Questions.Categories c where c.Id=qc.CategoryId) CategoryName,(select Image from Questions.Categories cc where cc.Id=qc.CategoryId) ImageUrl
+select COUNT(*) AnswerCount,(select Name from Questions.Categories c where c.Id=qc.CategoryId) CategoryName,(select Image from Questions.Categories cc where cc.Id=qc.CategoryId) ImageUrl,qc.CategoryId
 from Questions.Answers a 
 inner join Questions.Questions q
 on a.QuestionId=q.Id
