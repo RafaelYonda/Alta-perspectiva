@@ -44,7 +44,7 @@ export class TabsComponent {
     leftclick() {
         //return tabs are at its left most position
         console.log(this.tabLength);
-        if (this.tabLength <= 0)
+        if (this.tabLength <= -2)
             return;
         this.transform = this.transform - 170;
         this.translate = 'translateX(' + this.transform + 'px)';
