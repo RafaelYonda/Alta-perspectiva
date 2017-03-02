@@ -11,7 +11,7 @@
             <div *ngFor="let comment of blogPost.comments" class="clearfix">
                 <hr />
                 <div *ngIf="comment">
-                    <img class="user-image comment-img" src="../../../../profile/{{comment?.user?.imageUrl}}" />
+                    <img class="user-image comment-img" src="{{comment?.user?.imageUrl}}" />
                     <div class="header-info">{{comment?.user?.name}}</div>
                     <p class="answer-text">{{comment.commentText}}</p>
                 </div>
