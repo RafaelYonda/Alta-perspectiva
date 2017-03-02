@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class VirtualStoreController : Controller
     {
         #region Ctor
