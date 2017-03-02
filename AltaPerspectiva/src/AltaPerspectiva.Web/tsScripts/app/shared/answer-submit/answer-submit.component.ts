@@ -79,7 +79,6 @@ export class AnswerSubmitComponent {
                 this._router.navigateByUrl('question/detail/' + this.question.id, { skipLocationChange: true });
             else
                 this.close.emit();
-
         });
     }
 }
