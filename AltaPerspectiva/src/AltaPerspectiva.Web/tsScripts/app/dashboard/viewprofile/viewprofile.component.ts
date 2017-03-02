@@ -132,7 +132,7 @@ export class ViewProfileComponent {
         this.employmentExists = true;                
 
         this.employmentHtml = " " + this.credential.employments[0].position.concat(" at ")
-                              .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/> ")
+            .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/>").concat("&nbsp;&nbsp;&nbsp;&nbsp;")
                               .concat(this.credential.employments[0].startDate ? this.credential.employments[0].startDate.toString():"")
                               .concat(this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
     }
@@ -153,7 +153,7 @@ export class ViewProfileComponent {
 
         if (this.credential.educations[0].secondaryConcentration) {
             if (this.credential.educations[0].secondaryConcentration.length > 1) {
-                secondary = "<br />".concat(this.credential.educations[0].secondaryConcentration);
+                secondary = "<br />".concat("&nbsp;&nbsp;&nbsp;&nbsp;").concat(this.credential.educations[0].secondaryConcentration);
             }
         }
 
@@ -161,13 +161,13 @@ export class ViewProfileComponent {
 
         if (this.credential.educations[0].degreeType) {
             if (this.credential.educations[0].degreeType.length > 1) {
-                degree = "<br />".concat( this.credential.educations[0].degreeType);
+                degree = "<br />".concat("&nbsp;&nbsp;&nbsp;&nbsp;").concat(this.credential.educations[0].degreeType);
             }
         }
 
         var graduationYear = "";
         if (this.credential.educations[0].graduationYear) {
-            graduationYear = "<br />".concat(this.credential.educations[0].graduationYear.toString());
+            graduationYear = "<br />".concat("&nbsp;&nbsp;&nbsp;&nbsp;").concat(this.credential.educations[0].graduationYear.toString());
         }
 
         var editHtml = "<a (click)='openEmploymentDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>"
