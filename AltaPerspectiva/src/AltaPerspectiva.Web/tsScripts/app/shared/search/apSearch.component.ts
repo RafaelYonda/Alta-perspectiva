@@ -117,6 +117,7 @@ export class ApSearchComponent {
     selectQuestionDetails(item) {
         this.filteredQuestionList = [];
         this.categoryMatched = "";
+        this.removeModal();
         this.router.navigate(['/question/detail/' + item.id]);
     }
     //=======Question mark movment====
