@@ -1,5 +1,14 @@
-﻿<!--<ap-search placeBottom="top-fixed" [onQuestionSubmit]="onQuestionSubmitted($event)"></ap-search>-->
-<!--<ap-search placeBottom="top-fixed" (onQuestionSubmit)="onQuestionSubmitted($event)"></ap-search>-->
+﻿<style>
+    .category-header{
+
+    }
+    .category-header h2{
+        display:inline-block;
+    }
+    .category-header h4{
+        text-align:center;
+    }
+</style>
 <div class="row row-fix">
     <div #dialogAnchor></div>
     <div #answerAnchor></div>
@@ -18,11 +27,19 @@
     <div class="modal-overlay z-modal" *ngIf="loader.isLoading">
         <div class="loader"></div>
     </div>
-    <div class="row">
-        <img align="left" class="img-rounded img-category" src="{{categorySelected?.image}}" />
-        <h2 class="category-title">
-            {{categorySelected?.name}}
-        </h2>
+    <div class="row row-fix category-header">
+        <div class="pull-left">
+            <img align="left" class="img-rounded img-category" src="{{categorySelected?.image}}" />
+            <h2 class="category-title">
+                {{categorySelected?.name}}
+            </h2>
+        </div>
+        <div class="pull-right">
+            <h4>
+                {{totalCount?.totalFollowers}}
+            </h4>
+            <h4>Followers</h4>
+        </div>
     </div>
 
     <div class="row row-fix">
@@ -33,14 +50,8 @@
     </div>
     <br />
     <div class="row row-fix">
-        <table class="table table-bordered table-nonfluid col-md-4" width="200">
-            <tr>
-                <td class="total">{{totalCount?.totalQuestions}} Questions </td>
-                <td class="total">{{totalCount?.totalFollowers}} Followers</td>
-            </tr>
-        </table>
-        <div class="tags-container col-md-8">
-
+       
+        <div class="tags-container">
             <div class="tags" *ngFor="let topic of topFiveTopics">
                 <a [routerLink]="['/question/home',topic?.categoryId,topic?.id,0]"> {{topic.topicName}}</a>
             </div>
@@ -49,10 +60,10 @@
     <div class="filter-panel">
         <div class="read-question-button">
             <a (click)="getQuestionsAnswered(categorySelected.id)">
-                <span class="glyphicon glyphicon-question-sign"></span> Question
+                {{totalCount?.totalAnsweredQuestion}}  Read
             </a>
             <a (click)="getQuestionNotAnswered(categorySelected.id)" class="pull-right">
-                <span class="glyphicon glyphicon-pencil"></span> Answers
+                {{totalCount?.totalUnAnsweredQuestion}}  Answer
             </a>
         </div>
         <div class="read-question-button">
@@ -66,9 +77,7 @@
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()">
     </div>
-
     <div *ngFor="let question of questions">
         <question-panel [question]="question"></question-panel>
     </div>
 </div>
-

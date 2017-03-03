@@ -10,8 +10,11 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
 {
     public class CategoriesSummary
     {
-       public Guid Id { get; set; }
-       public int TotalQuestions { get; set; }
-       public int TotalFollowers { get; set; }      
+        public Guid Id { get; set; }
+        public int TotalQuestions { get; set; }
+        public int TotalFollowers { get; set; }
+
+        public int TotalAnsweredQuestion { get; set; }
+        public int TotalUnAnsweredQuestion { get; set; }
     }
 }

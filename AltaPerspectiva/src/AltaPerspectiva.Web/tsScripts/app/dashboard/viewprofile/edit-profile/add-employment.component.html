@@ -1,6 +1,6 @@
 ﻿<style>
     .credential-dialog {
-        margin: 15% auto;
+        margin: 10% auto;
         max-width: 45%;
     }
 
@@ -37,6 +37,9 @@
     .modal-header h3 {
         font-weight: bold;
     }
+     .col-sm-8 {
+        padding-left: 0;
+    }
 </style>
 
 <div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
@@ -44,7 +47,7 @@
         <div class="exit-button" (click)="onClickedExit()">x</div>
         <div class="modal-container" style="border:1px solid;">
             <div class="modal-header">
-                <h3>Add Employment</h3>
+                <h3>Employment Information</h3>
                 <!--<p>Credentials also appear on answers you write.</p>-->
             </div>
             <div class="profile-modal-body">
@@ -84,7 +87,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4">Currently Working</label>
                         <div class="col-sm-8">
-                            <input type="checkbox" class="form-control  checkbox" [(ngModel)]="employment.isCurrentlyWorking"  [ngModelOptions]="{standalone: true}" />
+                            <input type="checkbox" class="form-control  checkbox noshadow" [(ngModel)]="employment.isCurrentlyWorking"  [ngModelOptions]="{standalone: true}" />
                         </div>
 
                     </div>

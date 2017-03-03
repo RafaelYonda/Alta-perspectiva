@@ -77,6 +77,10 @@ export class QuestionPanelComponent {
             dialogComponentRef.destroy();
         });
     }
+    answerDialogBoxIfNoAnswer(question: Question) {
+        if (!question.bestAnswer && question.answerCount < 1)
+            this.answerDialogBox(question);
+    }
     @ViewChild('answerAnchor', { read: ViewContainerRef }) answerAnchor: ViewContainerRef;
     answerDialogBox(question: Question) {
         var token = localStorage.getItem('auth_token');

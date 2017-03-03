@@ -76,6 +76,7 @@ export class QuestionBodyComponent {
         var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
         this.commServ.informQuestionSubmit().subscribe(res => {
+            this.showLoader();
             this.onQuestionSubmitted(res);
         });;
         if (currentUserName != null) {
@@ -147,28 +148,34 @@ export class QuestionBodyComponent {
                 this.questionService.getTopFiveTopicsByCategoryId(this.categoryId).subscribe(res => {
                     this.topFiveTopics = res;
                 });
+                this.loadCategories();
                 this.commServ.setCategory(this.categoryId);
                 this.questions = res;
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
                 this.hideLoader();
+                //this.topicId = null;
+                //this.categoryId = null;
+                //this.levelId = null;
             });
         });
 
     }
     GetLatestQuestionByDate(categoryId: string) {
+        this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
             res => {
 
                 this.questions = res;
-
+                
                 //  this.loadCategories();
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+                this.hideLoader();
             }
         );
     }
     getbestquestionbytotallike(categoryId: string) {
-
+        this.showLoader();
         var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
             res => {
 
@@ -176,17 +183,19 @@ export class QuestionBodyComponent {
 
                 //   this.loadCategories();
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+                this.hideLoader();
 
             }
         );
     }
     getmorequestionbyviewcount(categoryId: string) {
+        this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(
             res => {
                 console.log(res);
                 this.questions = res;
-
+                this.hideLoader();
                 //  this.loadCategories();
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             }
@@ -220,16 +229,20 @@ export class QuestionBodyComponent {
     }
 
     getQuestionNotAnswered(categoryId: string) {
+        this.showLoader();
         this.questioAnswernService.getQuestionsNotAnswered(categoryId).subscribe(res => {
             this.questions = res;
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+            this.hideLoader();
         });
     }
 
     getQuestionsAnswered(categoryId: string) {
+        this.showLoader();
         this.questioAnswernService.getQuestyionsAnswered(categoryId).subscribe(res => {
             this.questions = res;
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+            this.hideLoader();
         });
     }
 
@@ -255,6 +268,4 @@ export class QuestionBodyComponent {
             this.questions.find(x => x.id == questionId).likes.push(this.like);
         });
     }
-
-
 }

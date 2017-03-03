@@ -16,6 +16,7 @@
     }
     .credential-text{
         font-size:18px;
+         margin-right: -3px;
     }
 
     .profile-info h1 {
@@ -105,6 +106,7 @@
     .btn-container a {
         display: inline-block;
     }
+  
 </style>
 <div>
     <div #credentialDialogAnchor></div>
@@ -134,7 +136,7 @@
            
             <div> 
                 <a class="credential-text">{{credential.title}}</a>
-                <a *ngIf="isOwner" (click)="openCredentialDialogBox()" ><span>Update Credential</span> </a>
+                <a *ngIf="isOwner" (click)="openCredentialDialogBox()"><span>Update Credential</span> </a>
             </div>
                       
             <div [hidden]="(!showDescription)">

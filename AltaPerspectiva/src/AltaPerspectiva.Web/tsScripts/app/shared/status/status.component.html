@@ -1,8 +1,9 @@
 ﻿<div #logginAnchor></div>
+<div #likeAnchor></div>
 <div class="status-panel">
     <img *ngIf="questionObj?.answers[0]?.likes?.length<1" (click)="submitLike(answerObj?.id,questionObj.id)" src='../images/fade-logo.png' onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
     <img *ngIf="questionObj?.answers[0]?.likes?.length>0" src='../images/like-logo.png' />
-    <a href="#" data-toggle="modal" attr.data-target="#likeModal{{commentId}}" class="number-box status-line" (click)="showLikeUserDetails()"> {{isQuestion?(questionObj.likes.length):(answerObj?.likes?.length)}}</a>
+    <a (click)="ShowLikeCount()"> {{isQuestion?(questionObj.likes.length):(answerObj?.likes?.length)}}</a>
     <a (click)="submitLike(answerObj?.id,questionObj.id)"><div class="status-line">{{questionObj.likes.length>1?'Likes':'Like'}}</div></a>
     <div class="status-line like-border "></div>
     <div class="status-line number-box status-line">{{questionObj?.viewCount?questionObj?.viewCount:0}}</div>
@@ -30,7 +31,7 @@
         </a>
         <div class="other-function" id="img3">
             <a [popover]="externalPop">
-                <img class="external-img"  src="../images/icon-external-link.png" />
+                <img class="external-img" src="../images/icon-external-link.png" />
             </a>
             <popover-content #externalPop
                              placement="top"
@@ -38,7 +39,7 @@
                 <ul style="list-style-type: none;">
                     <li style="list-style-type: none;width: 100px;">
                         <i class="fa fa-linkedin-square"></i>
-                        <a  href="http://www.linkedin.com/shareArticle?mini=true&url={{questionObj.shareUrl}}" 
+                        <a href="http://www.linkedin.com/shareArticle?mini=true&url={{questionObj.shareUrl}}"
                            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">Linkedin</a>
                     </li>
                     <li style="list-style-type: none;">
@@ -75,26 +76,4 @@
     </div>
 </div>
 
-<!--====Modal====-->
-<div class="modal fade" id="likeModal{{commentId}}" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            </div><div class="container">
-            </div>
-            <div class="modal-body">
-                <div *ngFor="let user of likedUsers">
-                    <div>
-                        <img class="user-image comment-img img-circle img" src="{{user?.imageUrl}}" />
-                        {{user?.name}}
-                    </div>
-                    <br />
-                </div>
-                <div class="modal-footer">
-                    <div style="display: none">.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+

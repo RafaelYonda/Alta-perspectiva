@@ -1,7 +1,10 @@
-﻿import { Component, EventEmitter } from '@angular/core';
+﻿
+import { Component,Input, EventEmitter, Output, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { Question, QuestionFollowing} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { Router } from '@angular/router';
+import { loginModalComponent } from '../login-modal/login-modal.component';
+
 @Component({
     selector: 'dlg',
     templateUrl: 'js/app/shared/dialog-modal/dialog.component.html',
@@ -22,7 +25,7 @@ export class DialogComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    constructor(private dataService: QuestionAnswerService, router: Router) {
+    constructor(private dataService: QuestionAnswerService, router: Router, private componentFactoryResolver: ComponentFactoryResolver) {
         this._router = router;
     }
     ngOnInit() {
@@ -37,7 +40,11 @@ export class DialogComponent {
             this.close.emit('event');
     }
     QuestionFollowing(question: Question) {
-        
+        var user = localStorage.getItem('auth_token');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }
         
         let questionFollowing = new QuestionFollowing();
         questionFollowing.questionId = question.id;
@@ -77,5 +84,16 @@ export class DialogComponent {
             this._router.navigateByUrl('question/home/1', { skipLocationChange: true })
         });
     }
+    @ViewChild('logginAnchor', { read: ViewContainerRef }) logginAnchor: ViewContainerRef;
+    ShowNotLoggedIn() {
+        this.logginAnchor.clear();
 
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(loginModalComponent);
+        let dialogComponentRef = this.logginAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }
+
+  
 }

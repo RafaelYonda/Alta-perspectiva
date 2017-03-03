@@ -1,11 +1,12 @@
 ﻿import { Component, Input, ElementRef, EventEmitter, Output, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { StatusService } from '../../services/status.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {  Question, Answer, Like} from '../../services/models';
+import {  Question, Answer, Like,User} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { QuestionService } from '../../services/question.service';
 import { loginModalComponent } from '../login-modal/login-modal.component';
 import { CommunicationService } from '../../services/communication.service';
+import { LikeComponent } from '../like-modal/like.component';
 @Component({
     selector: 'ap-status',
     templateUrl: 'js/app/shared/status/status.component.html',
@@ -23,7 +24,7 @@ export class StatusComponent {
     commentId: string;
     CommentCount: number;
     like: Like;
-    likedUsers: any;
+    likedUsers: User[];
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService) {
     }
 
@@ -116,16 +117,7 @@ export class StatusComponent {
     }
 
     showLikeUserDetails(answerId: string, questionId: string) {
-        if (this.isQuestion) {
-            this.statusService.showLikeUserDetailsByQuestion(this.questionObj.id).subscribe(res => {
-                this.likedUsers = res;
-            });
-        }
-        else {
-            this.statusService.showLikeUserDetailsByAnswer(this.answerObj.id).subscribe(res => {
-                this.likedUsers = res;
-            });
-        }
+        
     }
     questionReportClicked(questionId: string, answerId: string) {
         var user = localStorage.getItem('auth_token');
@@ -146,5 +138,34 @@ export class StatusComponent {
         dialogComponentRef.instance.close.subscribe(() => {
             dialogComponentRef.destroy();
         });
+    }
+    @ViewChild('likeAnchor', { read: ViewContainerRef }) likeAnchor: ViewContainerRef;
+    ShowLikeCount() {
+        this.logginAnchor.clear();
+        if (this.isQuestion) {
+            this.statusService.showLikeUserDetailsByQuestion(this.questionObj.id).subscribe(res => {
+                this.likedUsers = res;
+
+                let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(LikeComponent);
+                let dialogComponentRef = this.likeAnchor.createComponent(dialogComponentFactory);
+                dialogComponentRef.instance.likedUsers = this.likedUsers;
+                dialogComponentRef.instance.close.subscribe(() => {
+                    dialogComponentRef.destroy();
+                });
+            });
+        }
+        else {
+            this.statusService.showLikeUserDetailsByAnswer(this.answerObj.id).subscribe(res => {
+                this.likedUsers = res;
+
+                let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(LikeComponent);
+                let dialogComponentRef = this.likeAnchor.createComponent(dialogComponentFactory);
+                dialogComponentRef.instance.likedUsers = this.likedUsers;
+                dialogComponentRef.instance.close.subscribe(() => {
+                    dialogComponentRef.destroy();
+                });
+            });
+        }
+        
     }
 }
