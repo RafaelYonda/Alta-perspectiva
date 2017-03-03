@@ -60,10 +60,10 @@
     <div class="filter-panel">
         <div class="read-question-button">
             <a (click)="getQuestionsAnswered(categorySelected.id)">
-                <span class="glyphicon glyphicon-question-sign"></span>{{totalCount?.totalAnsweredQuestion}}  Question
+                {{totalCount?.totalAnsweredQuestion}}  Read
             </a>
             <a (click)="getQuestionNotAnswered(categorySelected.id)" class="pull-right">
-                <span class="glyphicon glyphicon-pencil"></span>{{totalCount?.totalUnAnsweredQuestion}}  Answers
+                {{totalCount?.totalUnAnsweredQuestion}}  Answer
             </a>
         </div>
         <div class="read-question-button">

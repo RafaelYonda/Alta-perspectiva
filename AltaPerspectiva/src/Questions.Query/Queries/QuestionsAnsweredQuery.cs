@@ -20,7 +20,7 @@ namespace Questions.Query
         {
             var answeredQuestions = DbContext
                                             .Answers
-                                            .Where(q => q.QuestionId != null && q.IsDeleted != true )
+                                            .Where(q => q.QuestionId != null && q.IsDeleted != true && q.IsDrafted !=true )
                                             .Select(x => x.QuestionId.Value).ToList();
             return await DbContext.
                                 Questions
