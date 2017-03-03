@@ -29,10 +29,6 @@ export class BlogpostCommentComponent {
     }
     ngOnInit() {
         this.comments = this.blogPost.comments;
-        //this.commentService.getPostCommentsByPostId(this.blogPost.id).subscribe(res => {
-        //    console.log(res);
-        //    this.comments = res;
-        //});
             
         var currentUserName = localStorage.getItem('auth_token');
         this._logObj = localStorage.getItem('currentUserObject') as any;

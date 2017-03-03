@@ -14,6 +14,7 @@ import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName
     providers: [QuestionResolver, QuestionAnswerService, AuthenticationService]
 })
 export class TabPanelComponent {
+    isLoading = false;
     id: string;
     private sub: any;
     questions: Question[];
@@ -46,6 +47,7 @@ export class TabPanelComponent {
         });
 
         this.sub = this.route.params.subscribe(params => {
+            this.showLoader();
 
             this.id = params['id']; // (+) converts string 'id' to a number 
 
@@ -63,6 +65,7 @@ export class TabPanelComponent {
                     }
                 }
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+                this.hideLoader();
             });
         });
     }
@@ -73,5 +76,13 @@ export class TabPanelComponent {
 
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+    showLoader() {
+        // console.log('showloader started');
+        this.isLoading = true;
+    }
+
+    hideLoader() {
+        this.isLoading = false;
     }
 }

@@ -9,6 +9,9 @@
     <div class="right-panel">
         <topfive-user></topfive-user>
     </div>
+    <div class="modal-overlay z-modal" *ngIf="isLoading">
+        <div class="loader"></div>
+    </div>
     <div class="center-width">
         <div class="tab" *ngFor="let question of questions">
             <question-panel [question]="question"></question-panel>
