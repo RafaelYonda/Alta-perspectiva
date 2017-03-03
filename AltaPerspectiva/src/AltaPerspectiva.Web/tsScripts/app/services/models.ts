@@ -21,6 +21,8 @@ export class LogInObj {
 export class TotalCount {
     totalUsers: number;
     totalQuestions: number;
+    totalAnsweredQuestion:number;
+    totalUnAnsweredQuestion:number;
 }
 
 export class Category {

@@ -52,7 +52,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 var keys = JsonConvert.DeserializeObject<CategoryViewModel[]>(cache.GetString("categories"));
                 return Ok(keys);
             }
-            var categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Select(x=>new CategoryViewModel
+            var categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Select(x => new CategoryViewModel
             {
                 Id = x.Id,
                 Description = x.Description,
@@ -75,12 +75,25 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
         //questions/api/categories/keywords/{categoryId}
         [HttpGet("questions/api/categories/totalcount/{categoryId}")]
-        public IActionResult GetTotalUserQuestions(Guid categoryId)
+        public async Task<IActionResult> GetTotalUserQuestions(Guid categoryId)
         {
             var categoriesSummary = new CategoriesSummary();
             categoriesSummary.Id = categoryId;
-            categoriesSummary.TotalQuestions = queryFactory.ResolveQuery<ICategoriesTotalQuestionsQuery>().Execute(categoryId);
+            //categoriesSummary.TotalQuestions = queryFactory.ResolveQuery<ICategoriesTotalQuestionsQuery>().Execute(categoryId);
             categoriesSummary.TotalFollowers = queryFactory.ResolveQuery<ICategoriesTotalUsersQuery>().Execute(categoryId);
+
+            IEnumerable<Question> questionList = null;
+            questionList = await queryFactory.ResolveQuery<IQuestionsNotAnsweredQuery>().Execute(categoryId);
+            //[HttpGet("/questions/api/questions/notanswered/{id}")]
+            categoriesSummary.TotalUnAnsweredQuestion =
+                questionList.Count();
+
+
+            // [HttpGet("/questions/api/questions/answered/{id}")]
+            questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(categoryId);
+            categoriesSummary.TotalAnsweredQuestion = questionList.Count();
+            categoriesSummary.TotalQuestions = categoriesSummary.TotalAnsweredQuestion +
+                                               categoriesSummary.TotalUnAnsweredQuestion;
 
             return Ok(categoriesSummary);
         }
