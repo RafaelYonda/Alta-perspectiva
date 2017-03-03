@@ -8,6 +8,14 @@
     .category-header h4{
         text-align:center;
     }
+    .read-question-button{
+        margin-left:15px;
+        margin-bottom:10px;
+    }
+    .read-question-button> a{
+        margin-right:10px;
+        font-size:17px;
+    }
 </style>
 <div class="row row-fix">
     <div #dialogAnchor></div>
@@ -62,14 +70,14 @@
             <a (click)="getQuestionsAnswered(categorySelected.id)">
                 {{totalCount?.totalAnsweredQuestion}}  Read
             </a>
-            <a (click)="getQuestionNotAnswered(categorySelected.id)" class="pull-right">
+            <a (click)="getQuestionNotAnswered(categorySelected.id)">
                 {{totalCount?.totalUnAnsweredQuestion}}  Answer
             </a>
         </div>
         <div class="read-question-button">
-            <div class="col-md-4"><a (click)="GetLatestQuestionByDate(categorySelected.id)" class="pull-left">The latest question</a> </div>
-            <div class="col-md-4 text-center"><a (click)="getbestquestionbytotallike(categorySelected.id)"> The best Question</a></div>
-            <div class="col-md-4 "><a class="pull-right" (click)="getmorequestionbyviewcount(categorySelected.id)">The more views</a></div>
+            <a (click)="GetLatestQuestionByDate(categorySelected.id)">The latest question</a>
+            <a (click)="getbestquestionbytotallike(categorySelected.id)"> The best Question</a>
+            <a (click)="getmorequestionbyviewcount(categorySelected.id)">The more views</a>
         </div>
     </div>
     <div infinite-scroll
