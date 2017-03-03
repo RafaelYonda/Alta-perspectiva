@@ -1,11 +1,16 @@
-﻿<div>
+﻿<style>
+    .article-details h3,article-details a{
+        display:inline-block;
+    }
+</style>
+<div>
     <div #dialogAnchor></div>
     <div #answerAnchor></div>
     <div #questionReport></div>
     <div #logginAnchor></div>
 </div>
 <div class="panel-article">
-    <div class="questions-container">
+    <div class="questions-container" (click)="answerDialogBoxIfNoAnswer(question)">
         <div class="details-container" *ngIf="!showQuestionEditForm">
             <question-header [question]="question"></question-header>
             <h3 class="question-title">
