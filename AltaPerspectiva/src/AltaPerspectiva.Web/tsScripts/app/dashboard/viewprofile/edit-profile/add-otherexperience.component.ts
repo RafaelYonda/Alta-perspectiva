@@ -18,7 +18,7 @@ export class AddOtherExperienceComponent {
     
     ngOnInit() {
         this.categoryService.getAllCategories().subscribe(res => {
-            this.categories = res;
+            this.categories = res.sort();
         });
     }
 
