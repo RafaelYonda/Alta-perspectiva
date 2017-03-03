@@ -76,6 +76,7 @@ export class QuestionBodyComponent {
         var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
         this.commServ.informQuestionSubmit().subscribe(res => {
+            this.showLoader();
             this.onQuestionSubmitted(res);
         });;
         if (currentUserName != null) {
