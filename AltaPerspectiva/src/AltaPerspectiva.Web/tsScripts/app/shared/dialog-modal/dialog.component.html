@@ -7,9 +7,11 @@
         opacity: 1;
     }
 </style>
-<div #logginAnchor></div>
 <div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
+    
+    
     <div *ngIf="!showQuestionEditForm">
+        <div #logginAnchor></div>
         <div class="dialog">
             <div class="exit-button" (click)="onClickedExit()">x</div>
             <header>
@@ -26,14 +28,14 @@
                         <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
                         <div class="pull-right">
                             <a (click)="QuestionFollowing(question)">
-                                <img [ngClass]="{ 'disabledFollowingImg': !isFollowing, 'enableFollowingImg': isFollowing  }" src="../../images/FollowingImage.jpg" />
+                                <img [ngClass]="{ 'disabledFollowingImg': !isFollowing, 'enableFollowingImg': isFollowing  }" src="../../images/FollowingImage.jpg"/>
                             </a>
                         </div>
                         <div>
                             <p class="answer-text" [innerHTML]="question.bestAnswer?.text"></p>
                             <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question?.bestAnswer" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"> </ap-status>
                             <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="question?.bestAnswer?.id"></ap-comment>
-                            <br />
+                            <br/>
                             <button *ngIf="question.answerCount>1" class="btn btn-info" [routerLink]="['/question/detail',question.id]">View Other {{question?.answerCount-1}} answers</button>
                         </div>
                     </div>
@@ -46,10 +48,10 @@
             <form (ngSubmit)="updateQuestion()" #questionVM="ngForm">
                 <question-header [question]="question"></question-header>
                 <h1 class="question-title">
-                    <input style="width:538px;" [(ngModel)]="editTitle" name="editField" #editField="ngModel" required />
+                    <input style="width: 538px;" [(ngModel)]="editTitle" name="editField" #editField="ngModel" required/>
                 </h1>
-                <br />
-                <hr />
+                <br/>
+                <hr/>
                 <textarea name="editBody" class="question-control" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="editBody" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
                 <div>
                     <button type="submit" class="btn btn-success fixed-height" [disabled]="!questionVM.form.valid">Update</button>
