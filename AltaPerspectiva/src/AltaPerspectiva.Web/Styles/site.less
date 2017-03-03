@@ -213,3 +213,33 @@
     height: 18px;
     width: 18px!important;
 }
+.mytooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.mytooltip .mytooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: green;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 105%;
+}
+
+.mytooltip:hover .mytooltiptext {
+    visibility: visible;
+}
+/*
+    <div class="mytooltip">Hover over me
+  <span class="mytooltiptext">Tooltip text</span>
+</div>
+*/
