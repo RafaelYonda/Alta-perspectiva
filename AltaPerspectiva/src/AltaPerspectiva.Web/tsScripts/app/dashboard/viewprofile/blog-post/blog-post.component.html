@@ -21,17 +21,31 @@
     }
 
     .btn-blog-edit {
-        border-bottom: 1px solid #ece4e4;
-        width: 50%;
+        /*border-bottom: 1px solid #ece4e4;*/
+        width: 100%;
         margin: 0 auto;
         text-align: right;
         padding-right: 3px;
         color: #908c8c;
+        margin-bottom: 30px;
     }
+    .blog-edit-panel h4{
+        color: #908c8c;
+    }
+        .btn-blog-edit input {
+            border-bottom: 1px solid #ece4e4;
+            width: 86%;
+            border-top: 1px;
+            border-left: 1px;
+            border-right: 1px;
+            padding: 2px;
+            
+            text-align: center;
+        }
 
     .transparent-input {
         border: 1px;
-        width:100%;
+        width: 100%;
     }
 
     .txt-small-grey {
@@ -45,7 +59,7 @@
 <nav-bar></nav-bar>
 <div #blogPostDetail></div>
 <div *ngIf="isOwner" class="blog-edit-panel">
-    <h1 *ngIf="!isEditTitle">{{blog?.title}}</h1>
+    <h4 *ngIf="!isEditTitle">{{blog?.title}}</h4>
     <div class="btn-blog-edit">
         <div *ngIf="!isEditTitle">
             <a (click)="isEditTitle=true">edit</a>
@@ -54,11 +68,8 @@
             <input placeholder="update title" [(ngModel)]="blog.title" type="text" />
             <button class="btn btn-primary" (click)="updateTitle()">Update</button>
         </div>
-
     </div>
-
     <h4 *ngIf="!isEditDescription">{{blog?.description}}</h4>
-
     <div class="btn-blog-edit">
         <div *ngIf="!isEditDescription">
             <a (click)="isEditDescription=true">edit</a>
@@ -69,8 +80,8 @@
         </div>
 
     </div>
-    <div><img class="profile-image" src="{{blog?.user?.imageUrl}}" /></div>
-    <h1>{{blog?.user?.name}}</h1>
+    <div><img class="profile-image" src="{{_logObj?.imageUrl}}" /></div>
+    <h1>{{_logObj?.name}}</h1>
     <div class="txt-small-grey">Write post</div>
     <form (ngSubmit)="saveBlogPost()" #blogPostForm="ngForm">
         <div class="blog-post">
@@ -92,7 +103,7 @@
 <br />
 <div *ngIf="blogposts">
     <div style="margin-top:-50px"></div>
-    <div class="blog-list" *ngFor="let post of blogposts" >
+    <div class="blog-list" *ngFor="let post of blogposts">
         <hr />
         <br />
         <div class="blog-header" (click)="openPostDetailDialog(post)">
@@ -100,7 +111,7 @@
             <h4>{{post?.createdOn| date: 'dd MMM,yyyy'}}</h4>
         </div>
         <div>
-            <div class="article-details" >
+            <div class="article-details">
                 <div *ngIf="post?.description" (click)="openPostDetailDialog(post)">
                     <p [innerHTML]="post?.description.substring(0, 200)"></p><span><a>Read more..</a></span>
                 </div>
