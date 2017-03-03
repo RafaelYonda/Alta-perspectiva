@@ -49,10 +49,10 @@
     <div class="filter-panel">
         <div class="read-question-button">
             <a (click)="getQuestionsAnswered(categorySelected.id)">
-                <span class="glyphicon glyphicon-question-sign"></span> Question
+                <span class="glyphicon glyphicon-question-sign"></span>{{totalCount?.totalAnsweredQuestion}}  Question
             </a>
             <a (click)="getQuestionNotAnswered(categorySelected.id)" class="pull-right">
-                <span class="glyphicon glyphicon-pencil"></span> Answers
+                <span class="glyphicon glyphicon-pencil"></span>{{totalCount?.totalUnAnsweredQuestion}}  Answers
             </a>
         </div>
         <div class="read-question-button">
@@ -66,9 +66,7 @@
          [infiniteScrollThrottle]="throttle"
          (scrolled)="onScrollDown()">
     </div>
-
     <div *ngFor="let question of questions">
         <question-panel [question]="question"></question-panel>
     </div>
 </div>
-
