@@ -69,7 +69,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             Category model = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(id);
             AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
             String imageNameWithPath =String.Empty;
-            if (model.Image != null)
+            if (categoryViewModel.Image != null)
             {
                 imageNameWithPath = azureFileUploadHelper.GetCategoryImage(categoryViewModel.Image.Name);
             }

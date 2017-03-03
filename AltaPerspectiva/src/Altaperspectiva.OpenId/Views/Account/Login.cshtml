@@ -77,6 +77,9 @@
     .forget-password {
             margin-left: 4px;
     }
+    .sign-up {
+        text-align: center;
+    }
 </style>
 <div class="row">
     <div class="col-md-2">
@@ -88,6 +91,7 @@
         <section>
 
             <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+                <div class="sign-up">Don't have an account?  <a href="/Account/Register">Sign up here</a></div>
                 <h2 class="login-header">
 
                     Log in
@@ -101,7 +105,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-md-10">
-                        <input asp-for="Password" placeholder="PASSWORD" class="form-control" />
+                        <input asp-for="Password" placeholder="PASSWORD" class="form-control"/>
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
