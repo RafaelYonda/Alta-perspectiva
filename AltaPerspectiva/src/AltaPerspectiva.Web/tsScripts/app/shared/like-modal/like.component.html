@@ -1,9 +1,14 @@
 ﻿<style>
     .credential-dialog {
         margin: 10% auto;
-        max-width: 45%;
+        max-width: 25%;
     }
-
+    .like-user-image {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    margin-bottom: 5px;
+}
     .profile-modal-body {
         position: relative;
         padding: 15px;
@@ -48,59 +53,22 @@
         <div class="exit-button" (click)="onClickedExit()">x</div>
         <div class="modal-container" style="border:1px solid;">
             <div class="modal-header">
-                <h3>Employment Information</h3>
-              
+                <h3>Users</h3>
+
             </div>
-            <!--<div class="profile-modal-body">
-                <form class="form-horizontal" (ngSubmit)="onEmploymentSubmit()" #employmentForm="ngForm">
-                    <div class="form-group">
-                        <label class="control-label col-sm-4" for="email">Position* :</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="position" placeholder="Enter Position" [(ngModel)]="employment.position" required name="position"
-                                   #position="ngModel">
-                            <div [hidden]="position.valid || position.pristine"
-                                 class="alert alert-danger">
-                                Position is required
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-4" for="pwd">Company Name:</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="CompanyName" placeholder="Enter CompanyName" [(ngModel)]="employment.companyName" [ngModelOptions]="{standalone: true}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-4" for="pwd">Start Year:</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control" [(ngModel)]="employment.startDate" [ngModelOptions]="{standalone: true}" placeholder="eg.2000" min="1900" max="3000" />
+            <div class="modal-body">
+                <div *ngFor="let user of likedUsers">
+                    
+                        <img class="like-user-image img-circle img" src="{{user?.imageUrl}}" />
+                        {{user?.name}}
+                    
+                    <br />
+                </div>
+            </div>
+            <div class="modal-footer">
+                .
+            </div>
 
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-4" for="pwd">End Year:</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control" [(ngModel)]="employment.endDate" [ngModelOptions]="{standalone: true}" placeholder="eg.2017" min="1900" max="3000" />
-
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">Currently Working</label>
-                        <div class="col-sm-8">
-                            <input type="checkbox" class="form-control  checkbox noshadow" [(ngModel)]="employment.isCurrentlyWorking" [ngModelOptions]="{standalone: true}" />
-                        </div>
-
-                    </div>
-
-
-                    <div class="profile-modal-button-container">
-                        <a (click)="DeleteEmployment()">Delete</a>
-                        <a (click)="onClickedExit()">Cancel</a>
-                        <button type="submit" class="btn btn-success" [disabled]="!employmentForm.form.valid">Save</button>
-                    </div>
-                </form>
-            </div>-->
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 ﻿import { Component,Input, EventEmitter, Output, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
-import { Question, QuestionFollowing} from '../../services/models';
+import { Question, QuestionFollowing, User} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { Router } from '@angular/router';
 //import { loginModalComponent } from '../login-modal/login-modal.component';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LikeComponent {
     close = new EventEmitter();
-
+    likedUsers: User[];
     onClickedExit() {
         this.close.emit('event');
     }
@@ -22,12 +22,10 @@ export class LikeComponent {
         if (value == 'dialogModal')
             this.close.emit('event');
     }
-    _router: Router;
-    //onClickedExit() {
-    //    this.close.emit('event');
-    //}
-    constructor(private dataService: QuestionAnswerService, router: Router, private componentFactoryResolver: ComponentFactoryResolver) {
-        this._router = router;
+  
+    
+    constructor(private dataService: QuestionAnswerService,private componentFactoryResolver: ComponentFactoryResolver) {
+       // this._router = router;
     }
     ngOnInit() {
         //console.log('My question' + this.question);
