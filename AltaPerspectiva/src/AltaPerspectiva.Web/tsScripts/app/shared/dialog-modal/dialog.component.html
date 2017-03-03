@@ -7,7 +7,7 @@
         opacity: 1;
     }
 </style>
-
+<div #logginAnchor></div>
 <div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
     <div *ngIf="!showQuestionEditForm">
         <div class="dialog">
@@ -34,7 +34,7 @@
                             <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question?.bestAnswer" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"> </ap-status>
                             <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="question?.bestAnswer?.id"></ap-comment>
                             <br />
-                            <button *ngIf="question.answerCount>1" class="btn btn-default" [routerLink]="['/question/detail',question.id]">View Other {{question?.answerCount-1}} answers</button>
+                            <button *ngIf="question.answerCount>1" class="btn btn-info" [routerLink]="['/question/detail',question.id]">View Other {{question?.answerCount-1}} answers</button>
                         </div>
                     </div>
                 </div>

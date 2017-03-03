@@ -6,6 +6,7 @@ import { QuestionAnswerService } from '../../services/question-answer.service';
 import { QuestionService } from '../../services/question.service';
 import { loginModalComponent } from '../login-modal/login-modal.component';
 import { CommunicationService } from '../../services/communication.service';
+import { LikeComponent } from '../like-modal/like.component';
 @Component({
     selector: 'ap-status',
     templateUrl: 'js/app/shared/status/status.component.html',
@@ -143,6 +144,16 @@ export class StatusComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(loginModalComponent);
         let dialogComponentRef = this.logginAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }
+    @ViewChild('likeAnchor', { read: ViewContainerRef }) likeAnchor: ViewContainerRef;
+    ShowLikeCount() {
+        this.logginAnchor.clear();
+
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(LikeComponent);
+        let dialogComponentRef = this.likeAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.close.subscribe(() => {
             dialogComponentRef.destroy();
         });
