@@ -23,9 +23,9 @@ export class BlogpostCommentComponent {
     @Output() sendCommentCount = new EventEmitter<any>();
 
     constructor(private commentService: BlogService, private componentFactoryResolver: ComponentFactoryResolver) {
-        var user: User = new User();
-        user.userId = '-1';
-        this._logObj = { isLoggedIn: false, user: user };
+        //var user: User = new User();
+        //user.userId = '-1';
+        //this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
         this.comments = this.blogPost.comments;
@@ -35,11 +35,13 @@ export class BlogpostCommentComponent {
         //});
             
         var currentUserName = localStorage.getItem('auth_token');
-        var currentUserImage = localStorage.getItem('currentUserImage');
-        if (currentUserName != null) {
-            this._logObj.user.name = currentUserName;
-            this._logObj.user.imageUrl = currentUserImage;
-        }
+        this._logObj = localStorage.getItem('currentUserObject') as any;
+        if (!this._logObj)
+            this._logObj = new LogInObj();
+        //if (currentUserName != null) {
+        //    this._logObj.user.name = currentUserName;
+        //    this._logObj.user.imageUrl = currentUserImage;
+        //}
     }
 
     submitComment(blogPostId: string) {
