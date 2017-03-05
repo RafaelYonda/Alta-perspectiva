@@ -31,5 +31,12 @@ namespace AltaPerspectiva.Web.Areas.Admin.Helpers
                 return "virtualstoredocument";
             }
         }
+        public static String QuestionAnswer
+        {
+            get
+            {
+                return "questionanswer";
+            }
+        }
     }
 }

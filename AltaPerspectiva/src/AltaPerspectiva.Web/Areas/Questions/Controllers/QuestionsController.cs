@@ -20,9 +20,91 @@ using Questions.Commands;
 using UserProfile.Command.Commands;
 using UserProfile.Domain;
 using UserProfile.Query.Queries;
+using System.Text.RegularExpressions;
+using System.IO;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 
 namespace AltaPerspectiva.Web.Area.Questions
 {
+    public class Base64Image
+    {
+        public static Base64Image Parse(string base64Content)
+        {
+            if (string.IsNullOrEmpty(base64Content))
+            {
+                throw new ArgumentNullException(nameof(base64Content));
+            }
+
+            int indexOfSemiColon = base64Content.IndexOf(";", StringComparison.OrdinalIgnoreCase);
+
+            string dataLabel = base64Content.Substring(0, indexOfSemiColon);
+
+            string contentType = dataLabel.Split(':').Last();
+
+            var startIndex = base64Content.IndexOf("base64,", StringComparison.OrdinalIgnoreCase) + 7;
+            //For last tow caracter
+            base64Content = base64Content.Remove(base64Content.Length - 2);
+
+            var fileContents = base64Content.Substring(startIndex);
+
+            var bytes = Convert.FromBase64String(fileContents);
+
+            String extension=String.Empty;
+            if (contentType == "image/x-icon")
+            {
+                extension = ".ico";
+            }
+            else if(contentType== "image/jpg")
+            {
+                extension = ".jpg";
+            }
+            else if(contentType== "image/jpeg")
+            {
+                extension = ".jpeg";
+            }
+            else if(contentType== "image/png")
+            {
+                extension = ".png";
+            }
+
+            var baseStream = new MemoryStream(bytes);
+            return new Base64Image
+            {
+                ContentType = contentType,
+                FileContents = bytes,
+                Extension = extension,
+                baseStream = baseStream
+            };
+
+        }
+
+        public string ContentType { get; set; }
+        public string Extension { get; set; }
+        public Stream baseStream;
+        public byte[] FileContents { get; set; }
+
+        public override string ToString()
+        {
+            return $"data:{ContentType};base64,{Convert.ToBase64String(FileContents)}";
+        }
+        public static List<string> GetImagesInHTMLString(string htmlString)
+        {
+            List<string> images = new List<string>();
+            string pattern = @"<(img)\b[^>]*>";
+
+            Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+            MatchCollection matches = rgx.Matches(htmlString);
+
+            for (int i = 0, l = matches.Count; i < l; i++)
+            {
+                images.Add(matches[i].Value);
+            }
+
+            return images;
+        }
+    }
     [Area("Questions")]
     public class QuestionsController : Controller
     {
@@ -192,10 +274,10 @@ namespace AltaPerspectiva.Web.Area.Questions
             var commentsVM = new QuestionService().GetComments(comments, queryFactory);
             return Ok(commentsVM);
         }
-
+        
         // POST /questions/api/question/{id}/answer
         [HttpPost("/questions/api/question/{id}/answer")]
-        public IActionResult PostAnswer([FromBody]AddAnswerViewModel answer)
+        public async Task<IActionResult> PostAnswer([FromBody]AddAnswerViewModel answer)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -205,7 +287,50 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
 
-            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous);
+            var imgTags= Base64Image.GetImagesInHTMLString(answer.Text);
+
+            foreach (var imgTag in imgTags)
+            {
+                try
+                {
+                   // String base64String = imgTag;
+
+                    Base64Image base64Image = Base64Image.Parse(imgTag);
+                    var byteArray = base64Image.FileContents;
+
+                    Answer ans = new Answer();
+                    ans.GenerateNewIdentity();
+                    Guid id = ans.Id;
+                    String imageName = id.ToString() + base64Image.Extension;
+
+                    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                    string fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
+                        imageName, base64Image.ContentType);
+
+                    
+                    answer.Text=answer.Text.Replace(imgTag, fileLink);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+           // Regex rg = new Regex(@"(?<=src="").*?(?="")", RegexOptions.IgnoreCase);
+           //Match match = rg.Match(answer.Text);
+           //if (match.Success)
+           //{
+           //    foreach (Group matchGroup in match.Groups)
+           //    {
+           //       
+
+
+                //        //IFormFile image = new FormFile(baseStream, 0, byteArray.Length, "testFileUploadForQuilEditor.ico", "testFileUploadForQuilEditor.ico");
+
+
+                //    }
+                //}
+
+                AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 

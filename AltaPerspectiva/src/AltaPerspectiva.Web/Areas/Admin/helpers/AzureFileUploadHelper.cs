@@ -45,6 +45,39 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
 
             return cloudBlockBlob.Uri.ToString(); ;
         }
+        private async Task<string> GetAzureFileFullLink(String containerName, Stream stream,string imageName, string contentType)
+        {
+            CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(_storageConnection);
+            //create a block blob    
+            CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+            //create a container    
+            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(containerName);
+            //For virtualstoredocument not public access
+
+
+            //create a container if it is not already exists    
+            if (await cloudBlobContainer.CreateIfNotExistsAsync())
+            {
+                if (containerName != "virtualstoreproduct")
+                {
+                    await cloudBlobContainer.SetPermissionsAsync(new BlobContainerPermissions
+                    {
+                        PublicAccess = BlobContainerPublicAccessType.Blob
+                    });
+                }
+
+            }
+            //string _imageName = file.FileName;
+
+            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(imageName);
+            cloudBlockBlob.Properties.ContentType = contentType;
+            //Stream stream = file.OpenReadStream();
+            Task.WaitAll(cloudBlockBlob.UploadFromStreamAsync(stream));
+
+            String fileLinkWithImageFormatting = String.Format(@"<img border='0' alt='W3Schools' src='{0}' width='100' height='100'>",
+                        cloudBlockBlob.Uri.ToString());
+            return fileLinkWithImageFormatting;
+        }
         public async Task<string> SaveProfileImage(IFormFile file)
         {
             String url = await GetAzureFileFullLink(ConfigClass.Profile, file);
@@ -95,6 +128,10 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
             String url = _storageLink + ConfigClass.VirtualStoreProduct + "/" + imageName;
             return url;
         }
-
+        public async Task<string> SaveQuestionAnswerInAzure(Stream stream, string imageName, string contentType)
+        {
+            String url = await GetAzureFileFullLink(ConfigClass.QuestionAnswer, stream,imageName, contentType);
+            return url;
+        }
     }
 }
