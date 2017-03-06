@@ -315,11 +315,12 @@ namespace AltaPerspectiva
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
 
-                Authority = "http://localhost:54540",
+               // Authority = "http://localhost:54540",
 
-                //Authority = "http://altaauth.azurewebsites.net",
+                Authority = "http://altaauth.azurewebsites.net",
 
                 Scope = { "email", "roles", "offline_access" }
+
             });
 
             app.UseMvc(routes =>
