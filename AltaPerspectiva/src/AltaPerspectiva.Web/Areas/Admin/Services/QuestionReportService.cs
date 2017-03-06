@@ -6,12 +6,13 @@ using AltaPerspectiva.Web.Areas.Admin.Models;
 using Questions.Domain;
 using AltaPerspectiva.Core;
 using AltaPerspectiva.Web.Areas.UserProfile.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace AltaPerspectiva.Web.Areas.Admin.Services
 {
     public class QuestionReportService
     {
-        public List<ReportViewModel> GetQuestionReportViewModels(IQueryFactory queryFactory,List<QuestionReport> questionReports)
+        public List<ReportViewModel> GetQuestionReportViewModels(IQueryFactory queryFactory,List<QuestionReport> questionReports,IConfigurationRoot configuration)
         {
             List<ReportViewModel> questionReportViewModels=new List<ReportViewModel>();
 
@@ -31,7 +32,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Services
                     QuestionTitle = questionReport?.Question.Title,
                     QuestionBody = questionReport?.Question.Body
                 };
-                model.UserFullName = new UserService().GetUserFullName(queryFactory,model.UserId);
+                model.UserFullName = new UserService().GetUserFullName(queryFactory,model.UserId,configuration);
 
                 questionReportViewModels.Add(model);
             }

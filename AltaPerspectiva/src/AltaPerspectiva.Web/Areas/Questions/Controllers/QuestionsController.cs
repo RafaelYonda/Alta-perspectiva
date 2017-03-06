@@ -138,7 +138,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(id);
 
-            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory);
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory,configuration);
             return Ok(questionViewModel);
         }
 
@@ -186,7 +186,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         public async Task<IActionResult> GetQuestionComments(Guid id)
         {
             var comments = await queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);
-            var commentsVM = new QuestionService().GetComments(comments, queryFactory);
+            var commentsVM = new QuestionService().GetComments(comments, queryFactory, configuration);
             return Ok(commentsVM);
         }
 
@@ -195,7 +195,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         public async Task<IActionResult> GetAnswerComments(Guid id)
         {
             var comments = await queryFactory.ResolveQuery<IAnswerCommentsQuery>().Execute(id);
-            var commentsVM = new QuestionService().GetComments(comments, queryFactory);
+            var commentsVM = new QuestionService().GetComments(comments, queryFactory, configuration);
             return Ok(commentsVM);
         }
 
@@ -261,7 +261,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 
-            var userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser);
+            var userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser,configuration);
             comment.UserViewModel = userViewModel;
             return comment;
 
@@ -283,7 +283,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 
-            var userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser);
+            var userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);
             comment.UserViewModel = userViewModel;
             return comment;
         }
@@ -372,7 +372,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             foreach (var like in likes)
             {
                 Guid userId = like.UserId;
-                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
+                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
                 userViewModels.Add(userViewModel);
             }
             return Ok(userViewModels);
@@ -387,7 +387,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             foreach (var like in likes)
             {
                 Guid userId = like.UserId;
-                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
+                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
                 userViewModels.Add(userViewModel);
             }
             return Ok(userViewModels);
@@ -420,7 +420,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             {
                 Guid userId = like.UserId;
 
-                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
+                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
                 userViewModels.Add(userViewModel);
 
             }
@@ -781,7 +781,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                             .ThenBy(m => m.AnswerDate.Minute)
                             .ThenBy(s => s.AnswerDate.Second).ToList();
 
-            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory);
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory,configuration);
             return Ok(questionViewModel);
         }
         [HttpGet("/questions/api/questions/{questionId}/getbestanswer")]
@@ -792,7 +792,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             question.Answers = question.Answers.OrderByDescending(l => l.Likes.Count).ToList();
 
 
-            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory);
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory,configuration);
 
             return Ok(questionViewModel);
         }

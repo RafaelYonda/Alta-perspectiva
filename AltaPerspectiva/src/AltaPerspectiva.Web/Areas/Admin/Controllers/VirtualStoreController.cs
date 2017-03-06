@@ -52,7 +52,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         {
             List<VirtualStore> virtualStores = queryFactory.ResolveQuery<IVirtualStoreQuery>().GetVirtualStores();
             List<AddVirtualStoreViewModel> addVirtualStoreViewModels =
-                new VirtualStoreService().GetAddVirtualStoreViewModel(queryFactory,virtualStores);
+                new VirtualStoreService().GetAddVirtualStoreViewModel(queryFactory,virtualStores,configuration);
             return Ok(addVirtualStoreViewModels);
         }
         [HttpGet("admin/virtualstore/getitembyid/{id}")]
@@ -64,7 +64,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 new VirtualStoreService().GetAddVirtualStoreViewModel(queryFactory,new List <VirtualStore>
                 {
                     virtualStore
-                })[0];
+                },configuration)[0];
             return Ok(model);
         }
         [HttpPost("admin/virtualstore/saveproductcomment")]

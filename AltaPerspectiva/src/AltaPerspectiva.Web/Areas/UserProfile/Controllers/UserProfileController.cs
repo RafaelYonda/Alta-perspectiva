@@ -64,7 +64,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                             x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-                var model = new UserService().GetUserViewModel(queryFactory, loggedinUser);
+                var model = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);
                 return Ok(model);
 
             }
@@ -418,7 +418,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
 
             //refractoring:My add from User Repository 
-            var model = new UserService().GetUserViewModel(queryFactory, loggedinUser);
+            var model = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);
             return model;
         }
         #region topFiveUser ,topFiveUserByCategoryId and UserSummary
@@ -436,7 +436,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 summeries = await queryFactory.ResolveQuery<ITopUserQuery>().GetTopFiveUserSummary();
 
             }
-            summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries);
+            summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries,queryFactory,configuration);
             return summeries;
 
         }

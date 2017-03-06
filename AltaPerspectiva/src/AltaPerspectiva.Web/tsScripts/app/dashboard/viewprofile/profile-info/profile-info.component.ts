@@ -8,7 +8,11 @@ import { ProfileService } from '../../../services/profile.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 //Modal
 import { AddCredentialComponent } from '../edit-profile/add-credential.component';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
+//You can also override message,dismiss, toastLife, enableHTML, titleClass, messageClass options for individual toast:
+
+   // this.toastr.sucess('This toast will dismiss in 10 seconds.', null, { toastLife: 10000 });
 @Component({
     selector: 'profile-info',
     templateUrl: 'js/app/dashboard/viewprofile/profile-info/profile-info.component.html',
@@ -33,7 +37,8 @@ export class ProfileInfoComponent {
     @Input() credential: CredentialViewModel;
 
 
-    constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService) {
+    constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vcr);
     }
     ngOnInit() {    
        
@@ -90,12 +95,22 @@ export class ProfileInfoComponent {
     onChangeImage(event) {
         var target = event.target || event.srcElement;   
         let file = target["files"];// event.srcElement.files;
+        //this.toastr.custom('<span style="color: red">Message in red.</span>', null, { enableHTML: true });
+        console.log(file);
+        this.toastr.success('You are awesome!', 'Success!', { titleClass: 'toast-top-center'});
+        this.toastr.error('This is not good!', 'Oops!');
+        //this.toastr.success('You are awesome!', 'Success!', { dismiss: 'controlled' })
+        //    .then((toast: Toast) => {
+        //        setTimeout(() => {
+        //            this.toastr.dismissToast(toast);
+        //        }, 10000);
+        //    });
         //Upload the image 
-        this._imgService
-            .upload(file, this.credential.userId)
-            .subscribe(res => {
-                this.loadData()
-            });
+        //this._imgService
+        //    .upload(file, this.credential.userId)
+        //    .subscribe(res => {
+        //        this.loadData()
+        //    });
     }
     UpdateUserName() {
         this.isUserHidden = true;

@@ -4,7 +4,7 @@ import { CommunicationService } from '../../services/communication.service';
 import {User} from '../../services/models';
 import {UserInfoDetails} from '../../services/models/models.profile';
 import { CredentialViewModel } from '../../services/models/models.profile';
-
+import { Router } from '@angular/router';
 @Component({
     selector: 'topfive-user',
     templateUrl: 'js/app/shared/left-menu/topfive-user.component.html',
@@ -16,7 +16,7 @@ export class TopFiveUserComponent {
     topFiveUsers:User[];
     //userService: ProfileService;
     userInfoDetails: UserInfoDetails;
-    constructor(private profileService: ProfileService, private commServ: CommunicationService) {
+    constructor(private profileService: ProfileService, private commServ: CommunicationService, private _router: Router) {
         this.topFiveUsers = [];
         //this.userService = profileService;                      
     }
@@ -46,5 +46,8 @@ export class TopFiveUserComponent {
             this.userInfoDetails = res;
 
         });
+    }
+    gotoProfile(userId:string) {
+        this._router.navigateByUrl('/dashboard/viewprofile/' +userId + '/user-question');
     }
 }

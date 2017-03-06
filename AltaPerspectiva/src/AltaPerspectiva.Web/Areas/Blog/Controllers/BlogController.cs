@@ -39,7 +39,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
         public IActionResult GetBlogs(Guid userId)
         {
             List<global::Blog.Domain.Blog> blogs = queryFactory.ResolveQuery<IBlogQuery>().GetBlogs(userId);
-            List<BlogViewModel> blogViewModels = new BlogServices().GetBlogViewModels(queryFactory, blogs);
+            List<BlogViewModel> blogViewModels = new BlogServices().GetBlogViewModels(queryFactory, blogs, configuration);
 
             return Ok(blogViewModels);
         }
@@ -49,7 +49,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
         {
             global::Blog.Domain.Blog blog = queryFactory.ResolveQuery<IBlogQuery>().GetBlogById(blogId);
 
-            BlogViewModel blogViewModel = new BlogServices().GetBlogViewModel(queryFactory, blog);
+            BlogViewModel blogViewModel = new BlogServices().GetBlogViewModel(queryFactory, blog, configuration);
             return Ok(blogViewModel);
         }
 
@@ -103,7 +103,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             List<BlogPost> blogPosts = await queryFactory.ResolveQuery<IBlogPostQuery>
                 ().GetBlogPostsByBlogId(blogId);
 
-            List<BlogPostViewModel> blogPostViewModels = new BlogServices().GetBlogPostViewModels(queryFactory, blogPosts);
+            List<BlogPostViewModel> blogPostViewModels = new BlogServices().GetBlogPostViewModels(queryFactory, blogPosts, configuration);
 
             return Ok(blogPostViewModels);
         }
@@ -172,7 +172,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             AddBlogCommentCommand command = new AddBlogCommentCommand(comment.CommentText,comment.BlogPostId, loggedinUser);
             commandsFactory.ExecuteQuery(command);
 
-            comment.User = new UserService().GetUserViewModel(queryFactory, comment.UserId);
+            comment.User = new UserService().GetUserViewModel(queryFactory, comment.UserId,configuration);
             comment.Id = command.Id;
             return Ok(comment);
         }
@@ -223,7 +223,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             foreach (var like in likes)
             {
                 Guid userId = like.UserId;
-                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
+                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
                 userViewModels.Add(userViewModel);
             }
             return Ok(userViewModels);
@@ -234,7 +234,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
         public async Task<IActionResult> GetBlogComments(Guid blogPostId)
         {
             var comments = await queryFactory.ResolveQuery<IBlogPostCommentQuery>().GetBlogPostCommentsById(blogPostId);
-            var commentsVM = new BlogServices().GetBlogPostCommentViewModels(comments,queryFactory);
+            var commentsVM = new BlogServices().GetBlogPostCommentViewModels(comments,queryFactory, configuration);
             return Ok(commentsVM);
         }
 
