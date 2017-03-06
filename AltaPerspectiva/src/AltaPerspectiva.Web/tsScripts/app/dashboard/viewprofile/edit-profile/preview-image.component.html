@@ -55,7 +55,7 @@
                 </div>
                 <div>
 
-                    <img-cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
+                    <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
                     <span class="result" *ngIf="data1.image">
                         <img [src]="data1.image"
                              [width]="200"
