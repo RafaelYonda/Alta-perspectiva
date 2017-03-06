@@ -575,21 +575,31 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
         public String RemoveQuestionMark(String title)
         {
+           String  testTitle = title.Trim().TrimStart().TrimEnd();
             if (!String.IsNullOrEmpty(title))
             {
-                var hasQuestionMark = title.ToCharArray()[title.Length - 1] == '?';
-                if (hasQuestionMark)
+                
+                var hasQuestionMark = testTitle.ToCharArray()[testTitle.Length - 1] == '?';
+                while (hasQuestionMark)
                 {
-                    title = title.TrimEnd('?');
+                    testTitle = testTitle.TrimEnd('?');
+                    testTitle = testTitle.Trim().TrimStart().TrimEnd();
+                    hasQuestionMark = testTitle.ToCharArray()[testTitle.Length - 1] == '?';
                 }
-                hasQuestionMark = title.ToCharArray()[0] == '?';
+                hasQuestionMark = testTitle.ToCharArray()[0] == '?';
                 if (hasQuestionMark)
                 {
-                    title = title.TrimStart('?');
+                    testTitle = testTitle.TrimStart('?');
+                }
+
+                hasQuestionMark = testTitle.ToCharArray()[0] == '¿';
+                if (hasQuestionMark)
+                {
+                    testTitle = testTitle.TrimStart('¿');
                 }
 
             }
-            return title;
+            return testTitle;
         }
     }
 }
