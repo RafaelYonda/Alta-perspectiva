@@ -1,4 +1,22 @@
-﻿<div class="navbar navbar-inverse navbar-fixed-top z-header backgroundset" [ngClass]="className">
+﻿
+<style>
+    .background-img {
+    background-image: url(../images/Backcground_1.png);
+    width:100%;
+    position:fixed;
+    max-height: 63px;
+    overflow: hidden;
+    top:0;
+}
+
+</style>
+<div class="background-img z-header">
+    <img src="../images/Backcground_1.png" />
+</div>
+<div class="navbar navbar-inverse navbar-fixed-top z-header" [ngClass]="className">
+    <div class="background-img">
+        <!--<img src="../images/Backcground_1.png" />-->
+    </div>
     <ap-search placeBottom="top-fixed"></ap-search>
     <div class="navbar-header">
         <div asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand logo">

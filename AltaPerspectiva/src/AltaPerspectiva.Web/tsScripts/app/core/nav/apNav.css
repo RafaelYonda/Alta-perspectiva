@@ -5,10 +5,7 @@
     position:relative;
 }
 
-.backgroundset {
-    min-height: 66px !important;
-    background-image: url(../images/background.png);
-}
+
 
 .notification-font {
     font-size: 20px;
