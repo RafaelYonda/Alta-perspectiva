@@ -40,28 +40,29 @@ namespace Altaperspectiva.OpenId {
         // Note: to support interactive flows like the code flow,
         // you must provide your own authorization endpoint action:
 
-        [Authorize, HttpGet("~/connect/authorize")]
-        public async Task<IActionResult> Authorize(OpenIdConnectRequest request) {
-            // Retrieve the application details from the database.
-            var application = await _applicationManager.FindByClientIdAsync(request.ClientId, HttpContext.RequestAborted);
-            if (application == null) {
-                return View("Error", new ErrorViewModel {
-                    Error = OpenIdConnectConstants.Errors.InvalidClient,
-                    ErrorDescription = "Details concerning the calling client application cannot be found in the database"
-                });
-            }
+        //[Authorize, HttpGet("~/connect/authorize")]
+        //public async Task<IActionResult> Authorize(OpenIdConnectRequest request) {
+        //    // Retrieve the application details from the database.
+        //    var application = await _applicationManager.FindByClientIdAsync(request.ClientId, HttpContext.RequestAborted);
+        //    if (application == null) {
+        //        return View("Error", new ErrorViewModel {
+        //            Error = OpenIdConnectConstants.Errors.InvalidClient,
+        //            ErrorDescription = "Details concerning the calling client application cannot be found in the database"
+        //        });
+        //    }
 
-            // Flow the request_id to allow OpenIddict to restore
-            // the original authorization request from the cache.
-            return View(new AuthorizeViewModel {
-                ApplicationName = application.DisplayName,
-                RequestId = request.RequestId,
-                Scope = request.Scope
-            });
-        }
+        //    // Flow the request_id to allow OpenIddict to restore
+        //    // the original authorization request from the cache.
+        //    return View(new AuthorizeViewModel {
+        //        ApplicationName = application.DisplayName,
+        //        RequestId = request.RequestId,
+        //        Scope = request.Scope
+        //    });
+        //}
 
-        [Authorize, FormValueRequired("submit.Accept")]
-        [HttpPost("~/connect/authorize"), ValidateAntiForgeryToken]
+        [Authorize]//, FormValueRequired("submit.Accept")]
+        [HttpGet("~/connect/authorize")]
+       // [HttpPost("~/connect/authorize"), ValidateAntiForgeryToken]
         public async Task<IActionResult> Accept(OpenIdConnectRequest request) {
             // Retrieve the profile of the logged in user.
             var user = await _userManager.GetUserAsync(User);
@@ -90,16 +91,17 @@ namespace Altaperspectiva.OpenId {
         // Note: the logout action is only useful when implementing interactive
         // flows like the authorization code flow or the implicit flow.
 
-        [HttpGet("~/connect/logout")]
-        public IActionResult Logout(OpenIdConnectRequest request) {
-            // Flow the request_id to allow OpenIddict to restore
-            // the original logout request from the distributed cache.
-            return View(new LogoutViewModel {
-                RequestId = request.RequestId
-            });
-        }
+        //[HttpGet("~/connect/logout")]
+        //public IActionResult Logout(OpenIdConnectRequest request) {
+        //    // Flow the request_id to allow OpenIddict to restore
+        //    // the original logout request from the distributed cache.
+        //    return View(new LogoutViewModel {
+        //        RequestId = request.RequestId
+        //    });
+        //}
 
-        [HttpPost("~/connect/logout"), ValidateAntiForgeryToken]
+        //[HttpPost("~/connect/logout"), ValidateAntiForgeryToken]
+        [HttpGet("~/connect/logout")]
         public async Task<IActionResult> Logout() {
             // Ask ASP.NET Core Identity to delete the local and external cookies created
             // when the user agent is redirected from the external identity provider
