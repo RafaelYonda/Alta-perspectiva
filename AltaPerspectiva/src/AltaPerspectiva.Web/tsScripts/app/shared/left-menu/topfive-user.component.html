@@ -14,7 +14,9 @@
            
             <img class="user-image img-circle" src="{{topFiveUser?.imageUrl}}" (mouseover)='userover(topFiveUser?.id)' [popover]="userInfoDetailsPopoveruser" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true"/>
             <div class="top-user-info">
-                <a [routerLink]="['/dashboard/viewprofile/',topFiveUser.userid,'user-question']"> {{topFiveUser?.name}}</a>
+                <!--<a [routerLink]="['/dashboard/viewprofile/',topFiveUser.userid,'user-question']"> {{topFiveUser?.name}}</a>-->
+                <a (click)="gotoProfile(topFiveUser?.userId)" for="contain" data-toggle="dropdown" class="padding-middle"> {{topFiveUser?.name}}</a>
+
 
                 <!--{{topFiveUser?.name}}-->
                 <span *ngIf="topFiveUser.occupation">,{{topFiveUser.occupation}}</span>

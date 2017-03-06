@@ -39,7 +39,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
             List<QuestionReport> questionReports = queryFactory.ResolveQuery<IQuestionReportQuery>().GetQuestionReports();
 
-            List<ReportViewModel> reportViewModels=new QuestionReportService().GetQuestionReportViewModels(queryFactory, questionReports);
+            List<ReportViewModel> reportViewModels=new QuestionReportService().GetQuestionReportViewModels(queryFactory, questionReports,configuration);
             return View(reportViewModels);
         }
         [HttpPost("QuestionReport/Delete")]
@@ -77,7 +77,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
             List<QuestionReport> questionReports = queryFactory.ResolveQuery<IQuestionReportQuery>().GetAnswerReports();
 
-            List<ReportViewModel> reportViewModels = new QuestionReportService().GetQuestionReportViewModels(queryFactory, questionReports);
+            List<ReportViewModel> reportViewModels = new QuestionReportService().GetQuestionReportViewModels(queryFactory, questionReports,configuration);
             return View(reportViewModels);
         }
         

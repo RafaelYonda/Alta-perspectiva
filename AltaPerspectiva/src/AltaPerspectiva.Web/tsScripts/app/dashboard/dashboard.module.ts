@@ -45,6 +45,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { QuillModule } from 'ngx-quill';
 import {PopoverModule} from "ngx-popover";
 
+
 const DashBoardroutes: Routes = [
     {
         path: 'dashboard', component: DashBoardComponent,

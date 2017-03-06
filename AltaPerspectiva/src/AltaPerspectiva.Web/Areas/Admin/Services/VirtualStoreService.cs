@@ -7,6 +7,7 @@ using AltaPerspectiva.Web.Areas.Admin.helpers;
 using AltaPerspectiva.Web.Areas.Admin.Models;
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
 using AltaPerspectiva.Web.Areas.UserProfile.Services;
+using Microsoft.Extensions.Configuration;
 using UserProfile.Command.Commands;
 using UserProfile.Domain;
 
@@ -14,7 +15,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Services
 {
     public class VirtualStoreService
     {
-        public List<AddVirtualStoreViewModel> GetAddVirtualStoreViewModel(IQueryFactory queryFactory,List<VirtualStore> virtualStores )
+        public List<AddVirtualStoreViewModel> GetAddVirtualStoreViewModel(IQueryFactory queryFactory,List<VirtualStore> virtualStores,IConfigurationRoot configuration)
         {
             AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
             List<AddVirtualStoreViewModel> addVirtualStoreViewModels=new List<AddVirtualStoreViewModel>();
@@ -33,7 +34,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Services
                         UserId = x.UserId,
                         CommentText = x.CommentText,
                         VirtualStoreId = x.VirtualStoreId,
-                        UserViewModel = new UserService().GetUserViewModel(queryFactory,x.UserId)
+                        UserViewModel = new UserService().GetUserViewModel(queryFactory,x.UserId, configuration)
                     })
                 };
                 addVirtualStoreViewModels.Add(addVirtualStoreViewModel);

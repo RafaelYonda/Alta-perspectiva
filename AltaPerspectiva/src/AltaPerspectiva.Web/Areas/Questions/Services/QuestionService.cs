@@ -19,7 +19,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
     public class QuestionService
     {
-        public QuestionViewModel GetQuestionViewModel(Question question, IQueryFactory queryFactory)
+        public QuestionViewModel GetQuestionViewModel(Question question, IQueryFactory queryFactory,IConfigurationRoot configuration)
         {
             var q = question;
             var qv = new QuestionViewModel();
@@ -27,21 +27,21 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             qv.Title = "¿" + q.Title + "?";
             qv.Body = q.Body;
             qv.CreatedOn = q.CreatedOn;
-            qv.UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId);
+            qv.UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId, configuration);
             qv.Answers = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted != true).Select(x => //Drafted is nullable .so only true are drafted
                                     new AnswerViewModel
                                     {
                                         Id = x.Id,
                                         Text = x.Text,
-                                        Comments = x.Comments?.Select(y => new AnswerCommentViewModel { Id = y.Id, AnswerId = y.AnswerId, CommentText = y.CommentText, UserId = y.UserID, UserViewModel = new UserService().GetUserViewModel(queryFactory, y.UserID) }).ToList(),
+                                        Comments = x.Comments?.Select(y => new AnswerCommentViewModel { Id = y.Id, AnswerId = y.AnswerId, CommentText = y.CommentText, UserId = y.UserID, UserViewModel = new UserService().GetUserViewModel(queryFactory, y.UserID,configuration) }).ToList(),
                                         AnswerDate = x.AnswerDate,
                                         UserId = x.UserId,
                                         QuestionId = x.QuestionId.Value,
                                         CreatedOn = x.CreatedOn,
-                                        UserViewModel = new UserService().GetUserViewModel(queryFactory, x.UserId),
+                                        UserViewModel = new UserService().GetUserViewModel(queryFactory, x.UserId,configuration),
                                         Likes = x.Likes?.Select(z => new AnswerLikeViewModel
                                         {
-                                            UserViewModel = new UserService().GetUserViewModel(queryFactory, z.UserId),
+                                            UserViewModel = new UserService().GetUserViewModel(queryFactory, z.UserId,configuration),
                                             AnswerId = z.AnswerId,
                                             Id = z.Id,
                                             UserId = z.UserId
@@ -50,9 +50,9 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                         IsAnonymous = x.IsAnonymous
                                     }).ToList();
 
-            qv.Likes = q.Likes.Select(l => new QuestionLikeViewModel { Id = l.Id, QuestionId = l.QuestionId.Value, UserId = l.UserId, UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId) }).ToList();
+            qv.Likes = q.Likes.Select(l => new QuestionLikeViewModel { Id = l.Id, QuestionId = l.QuestionId.Value, UserId = l.UserId, UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId, configuration) }).ToList();
 
-            qv.Comments = q.Comments.Select(c => new QuestionCommentViewModel { Id = c.Id, CommentText = c.CommentText, QuestionId = c.QuestionID, UserId = c.UserID, UserViewModel = new UserService().GetUserViewModel(queryFactory, c.UserID) }).ToList();
+            qv.Comments = q.Comments.Select(c => new QuestionCommentViewModel { Id = c.Id, CommentText = c.CommentText, QuestionId = c.QuestionID, UserId = c.UserID, UserViewModel = new UserService().GetUserViewModel(queryFactory, c.UserID, configuration) }).ToList();
 
             qv.Categories = q.Categories.Select(ct => new CategoryViewModel { Name = ct.Category.Name, Id = ct.CategoryId }).ToList();
 
@@ -424,14 +424,28 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 Credential credential = credentials.FirstOrDefault(x => x.UserId == userId);
                 if (credential != null)
                 {
-                    userViewModels.Add(new UserViewModel
+                    var u = new UserViewModel
                     {
                         CredentialId = credential.Id,
                         UserId = credential.UserId,
-                        Name = credential.FirstName + "" + credential.LastName,
+                        // Name = credential.FirstName + "" + credential.LastName,
                         ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl),
                         Occupation = credential.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
-                    });
+                    };
+                    if (credential.FirstName == null && credential.LastName == null)
+                    {
+                        String connectionString =
+                configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
+
+                        String Name = queryFactory.ResolveQuery<ICredentialQuery>()
+                            .GetUserNameAspNetUsers(userId, connectionString);
+                        u.Name = Name;
+                    }
+                    else
+                    {
+                        u.Name = credential.FirstName + " " + credential.LastName;
+                    }
+                    userViewModels.Add(u);
                 }
                 else
                 {
@@ -540,7 +554,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             return questions.ToList();
         }
 
-        public List<QuestionCommentViewModel> GetComments(IEnumerable<Comment> commentList, IQueryFactory queryFactory)
+        public List<QuestionCommentViewModel> GetComments(IEnumerable<Comment> commentList, IQueryFactory queryFactory,IConfigurationRoot configuration)
         {
             List<QuestionCommentViewModel> commentVMs = new List<QuestionCommentViewModel>();
             foreach (var cvm in commentList)
@@ -550,13 +564,13 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 tmp.CommentText = cvm.CommentText;
                 tmp.QuestionId = cvm.QuestionID;
                 tmp.UserId = cvm.UserID;
-                tmp.UserViewModel = new UserService().GetUserViewModel(queryFactory, cvm.UserID);
+                tmp.UserViewModel = new UserService().GetUserViewModel(queryFactory, cvm.UserID, configuration);
                 commentVMs.Add(tmp);
             }
             return commentVMs.ToList();
         }
 
-        public List<AnswerCommentViewModel> GetAnswersComments(IEnumerable<Comment> commentList, IQueryFactory queryFactory)
+        public List<AnswerCommentViewModel> GetAnswersComments(IEnumerable<Comment> commentList, IQueryFactory queryFactory,IConfigurationRoot configuration)
         {
             List<AnswerCommentViewModel> commentVMs = new List<AnswerCommentViewModel>();
             foreach (var cvm in commentList)
@@ -566,7 +580,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 tmp.CommentText = cvm.CommentText;
                 tmp.AnswerId = cvm.AnswerId;
                 tmp.UserId = cvm.UserID;
-                tmp.UserViewModel = new UserService().GetUserViewModel(queryFactory, cvm.UserID);
+                tmp.UserViewModel = new UserService().GetUserViewModel(queryFactory, cvm.UserID, configuration);
                 commentVMs.Add(tmp);
             }
             return commentVMs.ToList();
