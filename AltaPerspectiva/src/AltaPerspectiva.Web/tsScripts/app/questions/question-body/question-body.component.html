@@ -16,6 +16,13 @@
         margin-right:10px;
         font-size:17px;
     }
+    .center-width{
+        position:relative;
+    }
+    .center-width .modal-overlay{
+        position:absolute;
+        overflow:hidden;
+    }
 </style>
 <div class="row row-fix">
     <div #dialogAnchor></div>
@@ -88,4 +95,6 @@
     <div *ngFor="let question of questions">
         <question-panel [question]="question"></question-panel>
     </div>
+    <!-- For Hover pop up get some space to show -->
+    <div style="height:200px;position:relative;"></div> 
 </div>

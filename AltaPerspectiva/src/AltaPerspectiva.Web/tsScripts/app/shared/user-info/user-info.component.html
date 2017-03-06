@@ -2,8 +2,16 @@
     .topAlign {
         margin-top: 47px;
         font-family: "myriadpro-regular";
-        font-size: 16px;
-        line-height: 27.5px;
+        font-size: 12px;
+        line-height: 16.5px;
+        max-width: 150px;
+        color: #888585;
+    }
+    .popover-panel ul{
+        list-style:none;
+        color: #888585;
+        font-size: 12px;
+        line-height: 16.5px;
     }
 </style>
 
@@ -35,52 +43,47 @@
     </div>
 </div>
 <popover-content #userInfoDetailsPopover>
-    <ul style="list-style-type: none;">
-        <li>
-            <img class="user-image " src="{{userInfoDetails?.imageUrl}}" />
-            
-            <div class="user-info">
-                <div class="user-detail">
-                    {{userInfoDetails?.fullName}}
-                    <br/>
-                    <span style="font-size: 12px;"> {{userInfoDetails?.title}}</span>
+    <div class="popover-panel">
+        <ul>
+            <li>
+                <img class="user-image " src="{{userInfoDetails?.imageUrl}}" />
+                <div class="user-info">
+                    <div class="user-detail">
+                        {{userInfoDetails?.fullName}}
+                        <br />
+                        <span style="font-size: 12px;"> {{userInfoDetails?.title}}</span>
+                    </div>
                 </div>
-                <!--<div class="user-detail light-gray">{{viewDate | date: 'dd MMM, yyyy'}}</div>-->
-            </div>
-        </li>
-
-    </ul>
-    <br />
-    <div class="topAlign">
-        <ul class="fa-ul">
-            <li *ngIf="userInfoDetails?.answerCount!=0">
-                <i class="fa-li fa fa-check-square"></i>Answers: {{userInfoDetails?.answerCount}}
             </li>
-            <li *ngIf="userInfoDetails?.questionCount!=0"><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
-
-            <li *ngIf="userInfoDetails?.education">
-                <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
-            </li>
-            <li *ngIf="userInfoDetails?.employment">
-                <i class="fa-li fa fa-info-circle"></i>employment: {{userInfoDetails?.employment}}
-            </li>
-            <li *ngIf="userInfoDetails?.place">
-                <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
-            </li>
-            <li *ngIf="userInfoDetails?.otherExperience">
-                <i class="fa-li fa fa-cog"></i>otherExperience: {{userInfoDetails?.otherExperience}}
-            </li>
-
-            <li *ngIf="userInfoDetails?.questionViewCount!=0">
-                <i class="fa-li fa fa-eye">
-
-                </i>Question Views: {{userInfoDetails?.questionViewCount}}
-
-            </li>
-
 
         </ul>
+        <br />
+        <div class="topAlign">
+            <ul class="fa-ul">
+                <li *ngIf="userInfoDetails?.answerCount!=0">
+                    <i class="fa-li fa fa-check-square"></i>Answers: {{userInfoDetails?.answerCount}}
+                </li>
+                <li *ngIf="userInfoDetails?.questionCount!=0"><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
+
+                <li *ngIf="userInfoDetails?.education">
+                    <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
+                </li>
+                <li *ngIf="userInfoDetails?.employment">
+                    <i class="fa-li fa fa-info-circle"></i>Employment: {{userInfoDetails?.employment}}
+                </li>
+                <li *ngIf="userInfoDetails?.place">
+                    <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
+                </li>
+                <li *ngIf="userInfoDetails?.otherExperience">
+                    <i class="fa-li fa fa-cog"></i>Others: {{userInfoDetails?.otherExperience}}
+                </li>
+
+                <li *ngIf="userInfoDetails?.questionViewCount!=0">
+                    <i class="fa-li fa fa-eye">
+
+                    </i>Views: {{userInfoDetails?.questionViewCount}}
+                </li>
+            </ul>
+        </div>
     </div>
-
-
 </popover-content>
