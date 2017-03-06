@@ -28,7 +28,8 @@
             'ng2-ckeditor': 'npm:ng2-ckeditor',
             'angular2-infinite-scroll': 'npm:angular2-infinite-scroll',
             'ngx-quill': 'npm:ngx-quill/bundles/ngx-quill.umd.js',
-            'quill': 'npm:quill/dist/quill.js'           
+            'quill': 'npm:quill/dist/quill.js',
+            'ng2-img-cropper':'npm:ng2-img-cropper'
         }, 
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -62,7 +63,12 @@
             },
             'quill': {
                 format: 'cjs'
-            }
+            },
+            'ng2-img-cropper':
+                {
+                    main: 'index.js',
+                    defaultExtension: 'js'
+                }
 
         }
     });

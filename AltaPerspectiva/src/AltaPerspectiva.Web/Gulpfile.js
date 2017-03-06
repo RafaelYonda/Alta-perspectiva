@@ -27,6 +27,7 @@ gulp.task('clean', function () {
 //            "clipboard/**",
 //            'angular2-infinite-scroll/**',
 //            'ng2-toastr/**',
+//            'ng2-img-cropper/**',
 //            'jquery/dist/jquery.*js',
 //            'bootstrap/dist/js/bootstrap.*js'
 //    ], {

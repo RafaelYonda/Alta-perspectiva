@@ -8,6 +8,7 @@ import { ProfileService } from '../../../services/profile.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 //Modal
 import { AddCredentialComponent } from '../edit-profile/add-credential.component';
+import { PreviewImageComponent } from '../edit-profile/preview-image.component';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 
 //You can also override message,dismiss, toastLife, enableHTML, titleClass, messageClass options for individual toast:
@@ -28,7 +29,7 @@ export class ProfileInfoComponent {
     hasCredential: boolean;
     hasDescription: boolean;
     credentialParent: CredentialViewModel;
-
+    isImageUpdated:boolean;
 
     @Output() onUpdated = new EventEmitter<boolean>();
 
@@ -36,12 +37,12 @@ export class ProfileInfoComponent {
 
     @Input() credential: CredentialViewModel;
 
-
+    croppedFile:any;
     constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
     }
     ngOnInit() {
-
+        this.isImageUpdated = false;
     }
     ngOnChanges(changes: SimpleChanges) {
         // only run when property "data" changed
@@ -85,8 +86,13 @@ export class ProfileInfoComponent {
             //this._configService.getConfig().subscribe(res => {      //Get config for image
             //    this.imageLink = res.profileImage;                
 
-            if (this.credential.imageUrl && (this.credential.imageUrl != ''))
+            if (this.credential.imageUrl && (this.credential.imageUrl != '')) {
                 this.imageLink = this.credential.imageUrl;
+                if (this.isImageUpdated == true) {
+                    this.openpreviewImageDialogBox(this.imageLink);
+
+                }
+            }
             else this.imageLink = '../images/userAdd.png';
             //});
         });
@@ -97,6 +103,7 @@ export class ProfileInfoComponent {
         var target = event.target || event.srcElement;
         let file = target["files"];// event.srcElement.files;
         //this.toastr.custom('<span style="color: red">Message in red.</span>', null, { enableHTML: true });
+        this.croppedFile = file;
         console.log(file);
 
         if (file.length == 1) {
@@ -110,13 +117,16 @@ export class ProfileInfoComponent {
                 this.toastr.error('Please select jpg/png image', 'Oops!');
                 return;
             } else {
-                //Upload the image 
+                ////Upload the image 
                 this._imgService
                     .upload(file, this.credential.userId)
                     .subscribe(res => {
                         this.toastr.success('Image Uploaded successfully!', 'success');
-                        this.loadData()
+                        this.isImageUpdated = true;
+                        this.loadData();
+                       
                     });
+                
             }
         }
         //this.toastr.success('You are awesome!', null, options);
@@ -152,6 +162,19 @@ export class ProfileInfoComponent {
         let dialogComponentRef = this.credentialDialogAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.credential = this.credential;
         dialogComponentRef.instance.close.subscribe(() => {
+            this.loadData();
+            dialogComponentRef.destroy();
+        });
+    }
+    @ViewChild('previewImageDialogAnchor', { read: ViewContainerRef }) previewImageDialogAnchor: ViewContainerRef;
+    openpreviewImageDialogBox(img:string) {
+        this.previewImageDialogAnchor.clear();
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(PreviewImageComponent);
+        let dialogComponentRef = this.credentialDialogAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.imageLink = img;
+        dialogComponentRef.instance.croppedFile = this.croppedFile;
+        dialogComponentRef.instance.close.subscribe(() => {
+            this.isImageUpdated = false;
             this.loadData();
             dialogComponentRef.destroy();
         });
