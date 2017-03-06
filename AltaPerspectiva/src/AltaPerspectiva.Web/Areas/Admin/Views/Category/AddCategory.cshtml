@@ -17,6 +17,11 @@
         width: 237px;
         height: 89px;
     }
+
+    .form-group .dropdown {
+        width: 78%;
+        margin-left: 10%;
+    }
 </style>
 @{
     List<SelectListItem> listItems = new List<SelectListItem>();
@@ -34,7 +39,7 @@
 
     int foundSelectedIndex = listItems.FindIndex(x => x.Value == Model.Icon);
 
-    if (foundSelectedIndex == -1 || foundSelectedIndex>listItems.Count-1)
+    if (foundSelectedIndex == -1 || foundSelectedIndex > listItems.Count - 1)
     {
         foundSelectedIndex = 0;
     }
@@ -51,34 +56,43 @@
     <div class="col-md-8">
 
         <h2>@ViewData["Category"]</h2>
-            @using (Html.BeginForm("AddCategory", "Category", FormMethod.Post, new {area = "Admin", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form"}))
-            {
-                <hr/>
+        @using (Html.BeginForm("AddCategory", "Category", FormMethod.Post, new { area = "Admin", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
+        {
+            <hr />
 
                 @Html.ValidationSummary(true)
                 @Html.HiddenFor(model => model.Id)
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Name, new {@class = "col-sm-offset-1 col-md-2"})
+                    @Html.LabelFor(model => model.Name, new { @class = "col-sm-offset-1 col-md-2" })
                     <div class="col-sm-offset-1 col-md-10">
-                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new {placeholder = "Input name", @class = "form-control"}})
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Input name", @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Name)
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Description, new {@class = "col-sm-offset-1 col-md-2"})
+                    @Html.LabelFor(model => model.Description, new { @class = "col-sm-offset-1 col-md-2" })
                     <div class="col-sm-offset-1 col-md-10">
-                        @Html.TextAreaFor(model => model.Description, new {placeholder = "Input description", @class = "form-control"})
+                        @Html.TextAreaFor(model => model.Description, new { placeholder = "Input description", @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Description)
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Icon, new {@class = "col-sm-offset-1 col-md-2"})
-                    <div class="col-sm-offset-1 col-md-10">
-                        @Html.DropDownList("Icon", listItems, new {placeholder = "Input icons", @class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.Description)
+                    <div class="dropdown">
+                        <button class="btn btn-block dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                            <span class="pull-left" id="icon-select">Select Icon</span>
+                            <span  id="icon-view" style="margin-left: 20px; float: left; margin-top: 3px;"></span>
+                            <span class="caret pull-right" style="margin-top:8px;"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                            @foreach (var item in ViewBag.CategoryIconList)
+                            {
+                                <li role="presentation"><a role="menuitem" href="#" onclick="selectIcon('@item.Icon')">@item.Icon <span class="@item.Icon pull-right"></span></a></li>
+                            }
+                        </ul>
                     </div>
+                    @Html.HiddenFor(model => model.Icon)
                 </div>
                 <div class="form-group">
                     <label class="col-sm-offset-1 col-md-2">
@@ -86,20 +100,20 @@
                     </label>
 
                     <div class="col-sm-offset-1 col-md-10">
-                        @Html.TextBox("Image", Model.ImagePath, new {type = "file", @class = "form-control"})
+                        @Html.TextBox("Image", Model.ImagePath, new { type = "file", @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Image)
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10 create-button">
-                        <input type="submit" value="Create" class="btn btn-default"/>
+                        <input type="submit" value="Create" class="btn btn-default" />
                     </div>
                 </div>
-            }
+        }
 
         @* =============== *@
         @{
-            <br/>
+            <br />
 
             if (ViewBag.Message != null)
             {
@@ -115,3 +129,13 @@
 
 
 </div>
+
+<script>
+    var selectIcon = function (icon) {
+        console.log(icon);
+        $("#Icon").val(icon);
+        $("#icon-select").text(icon);
+        $("#icon-view").attr('class', icon);
+        console.log($("#Icon").val());
+    }
+</script>

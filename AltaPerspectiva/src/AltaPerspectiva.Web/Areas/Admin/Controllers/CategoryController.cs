@@ -58,6 +58,14 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             ViewData["Title"] = "Add category";
             ViewData["Category"] = "Add category";
             CategoryViewModel categoryViewModel = new CategoryViewModel();
+            ViewBag.CategoryIconList = new List<CategoryIconViewModel> {
+                new CategoryIconViewModel { Icon="icon-dice"},
+                new CategoryIconViewModel { Icon="icon-chart"},
+                new CategoryIconViewModel { Icon="icon-users"},
+                new CategoryIconViewModel { Icon="icon-people"},
+                new CategoryIconViewModel { Icon="icon-process"},
+                new CategoryIconViewModel { Icon="icon-star"}
+            };
             ViewBag.Message = null;
             return View(categoryViewModel);
         }
