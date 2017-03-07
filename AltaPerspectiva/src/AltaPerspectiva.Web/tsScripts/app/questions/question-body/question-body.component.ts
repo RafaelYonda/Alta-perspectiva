@@ -149,7 +149,7 @@ export class QuestionBodyComponent {
                     for (let item of res) {
                         this.shortTopics.push(item);
                         count++;
-                        if (count > 10)
+                        if (count > 5)
                             break;
                     }
                     this.topFiveTopics = this.shortTopics;
