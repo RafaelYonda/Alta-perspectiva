@@ -34,14 +34,14 @@ export class QuestionPanelComponent {
         
         var imgPos = this.question.bestAnswer.text.indexOf("img");
 
-        if (imgPos < 400)
+        if (imgPos >-1 && imgPos < 350)
         {
             var length = this.question.bestAnswer.text.indexOf(">", imgPos)
-            length = length + 400;
+            length = length + 350;
             this.clippedAnswer = this.question.bestAnswer.text.substring(0, length);
         }
         else
-            this.clippedAnswer = this.question.bestAnswer.text.substring(0, 400);
+            this.clippedAnswer = this.question.bestAnswer.text.substring(0, 350);
     }
 
     onQuestionDetailClicked(showEditForm: boolean) {
