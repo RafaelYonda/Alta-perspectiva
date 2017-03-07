@@ -11,6 +11,7 @@
     .read-question-button{
         margin-left:15px;
         margin-bottom:10px;
+        display: inline-block;
     }
     .read-question-button> a{
         margin-right:10px;
@@ -82,9 +83,18 @@
             </a>
         </div>
         <div class="read-question-button">
-            <a (click)="GetLatestQuestionByDate(categorySelected.id)">The latest question</a>
-            <a (click)="getbestquestionbytotallike(categorySelected.id)"> The best Question</a>
-            <a (click)="getmorequestionbyviewcount(categorySelected.id)">The more views</a>
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                    <span class="pull-left" id="icon-select">{{FilterParam}}</span>
+                    <span id="icon-view" style="margin-left: 20px; float: left; margin-top: 3px;"></span>
+                    <span class="caret pull-right" style="margin-top:8px;"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <li role="presentation"><a (click)="GetLatestQuestionByDate(categorySelected.id)">The latest question</a></li>
+                    <li role="presentation"><a (click)="getbestquestionbytotallike(categorySelected.id)"> The best Question</a></li>
+                    <li role="presentation"><a (click)="getmorequestionbyviewcount(categorySelected.id)">The more views</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     <div infinite-scroll

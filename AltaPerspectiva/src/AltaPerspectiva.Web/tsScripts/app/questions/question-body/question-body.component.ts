@@ -18,6 +18,7 @@ export interface ILoader {
     providers: [QuestionAnswerService, CategoryService, ConfigService, QuestionService]
 })
 export class QuestionBodyComponent {
+    FilterParam = "Select a filter";
 
     loader: ILoader = { isLoading: false };
     _router: any;
@@ -161,6 +162,7 @@ export class QuestionBodyComponent {
 
     }
     GetLatestQuestionByDate(categoryId: string) {
+        this.FilterParam = "The latest question";
         this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
@@ -175,6 +177,7 @@ export class QuestionBodyComponent {
         );
     }
     getbestquestionbytotallike(categoryId: string) {
+        this.FilterParam = "The best Question";
         this.showLoader();
         var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
             res => {
@@ -189,6 +192,7 @@ export class QuestionBodyComponent {
         );
     }
     getmorequestionbyviewcount(categoryId: string) {
+        this.FilterParam = "The more views";
         this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(
