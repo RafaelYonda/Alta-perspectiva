@@ -1,10 +1,8 @@
 ﻿<style>
-        .edit:hover span {
-            visibility: visible;
-            color: #f6912b;
-        }
-
-   
+    .edit:hover span {
+        visibility: visible;
+        color: #f6912b;
+    }
 
     .profile-info input {
         font-family: "myriadpro-regular";
@@ -14,24 +12,28 @@
         border: 1px solid #bdbdbd;
         border-radius: 3px;
     }
-    .credential-text{
-        font-size:18px;
-         margin-right: -3px;
+
+    .credential-text {
+        font-size: 18px;
+        margin-right: -3px;
     }
 
     .profile-info h1 {
         display: inline;
     }
-     .user-name {
+
+    .user-name {
         margin-top: 10px;
         margin-bottom: 5px;
     }
-     .user-name a,.user-name button{
-         margin-left:5px;
-     }
-    .user-name a {
-        display: inline-block;
-    }
+
+        .user-name a, .user-name button {
+            margin-left: 5px;
+        }
+
+        .user-name a {
+            display: inline-block;
+        }
 
     .panel-heading {
         position: relative;
@@ -41,9 +43,9 @@
         margin-bottom: 5px;
     }
 
-    .credential a {
-        display: inline-block;
-    }
+        .credential a {
+            display: inline-block;
+        }
 
     .heading {
         display: inline;
@@ -60,38 +62,38 @@
         margin: 5px auto;
     }
 
-    .custom-file-input:focus {
-        outline: none;
-    }
+        .custom-file-input:focus {
+            outline: none;
+        }
 
-    .custom-file-input::-webkit-file-upload-button {
-        visibility: hidden;
-    }
+        .custom-file-input::-webkit-file-upload-button {
+            visibility: hidden;
+        }
 
-    .custom-file-input::before {
-        text-align: center;
-        width: 100%;
-        content: 'Upload Image';
-        display: inline-block;
-        border-radius: 3px;
-        background-color: #ededed;
-        padding: 5px 8px;
-        outline: none;
-        white-space: nowrap;
-        -webkit-user-select: none;
-        cursor: pointer;
-        font-family: typogroteskrounded;
-        font-weight: 700;
-        font-size: 10pt;
-    }
+        .custom-file-input::before {
+            text-align: center;
+            width: 100%;
+            content: 'Upload Image';
+            display: inline-block;
+            border-radius: 3px;
+            background-color: #ededed;
+            padding: 5px 8px;
+            outline: none;
+            white-space: nowrap;
+            -webkit-user-select: none;
+            cursor: pointer;
+            font-family: typogroteskrounded;
+            font-weight: 700;
+            font-size: 10pt;
+        }
 
-    .custom-file-input:hover::before {
-        border-color: black;
-    }
+        .custom-file-input:hover::before {
+            border-color: black;
+        }
 
-    .custom-file-input:active::before {
-        background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
-    }
+        .custom-file-input:active::before {
+            background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+        }
 
     .description-panel {
         min-height: 50px;
@@ -103,10 +105,9 @@
         margin-top: 10px;
     }
 
-    .btn-container a {
-        display: inline-block;
-    }
-  
+        .btn-container a {
+            display: inline-block;
+        }
 </style>
 <div>
     <div #credentialDialogAnchor></div>
@@ -116,7 +117,7 @@
     <div class="col-md-3">
         <div class="profile-image-center">
             <img class="profile-image" src="{{imageLink}}" />
-            <input   type="file" name="documents" class="custom-file-input" (change)="onChangeImage($event)" [(ngModel)]="doc" #documents="ngModel" *ngIf="isOwner">
+            <input type="file" name="documents" class="custom-file-input" (change)="onChangeImage($event)" [(ngModel)]="doc" #documents="ngModel" *ngIf="isOwner">
         </div>
     </div>
     <div class="col-md-9">
@@ -125,7 +126,7 @@
             <div class="user-name">
                 <div [hidden]="!isUserHidden">
                     <h1> {{credential.firstName}} {{credential.lastName}} </h1>
-                    <a *ngIf="isOwner" (click)="isUserHidden = false" ><span><i class="fa fa-edit"></i>Edit Name</span> </a>
+                    <a *ngIf="isOwner" (click)="isUserHidden = false"><span><i class="fa fa-edit"></i>Edit Name</span> </a>
                 </div>
                 <div [hidden]="isUserHidden" *ngIf="isOwner">
                     <input placeholder="First Name" [(ngModel)]="credential.firstName" type="text" />
@@ -134,15 +135,15 @@
                     <button class="btn btn-primary" (click)="UpdateUserName()">Update</button>
                 </div>
             </div>
-           
-            <div> 
+
+            <div>
                 <a class="credential-text">{{credential.title}}</a>
                 <a *ngIf="isOwner" (click)="openCredentialDialogBox()"><span>Update Credential</span> </a>
             </div>
-                      
+
             <div [hidden]="(!showDescription)">
                 <div [innerHTML]="credential.description"></div>
-                <a *ngIf="isOwner" ><span (click)="showDescription = false">Write a description about yourself</span> </a>
+                <a *ngIf="isOwner"><span (click)="showDescription = false">Write a description about yourself</span> </a>
             </div>
             <div class="description-panel" [hidden]="showDescription" *ngIf="isOwner">
                 <quill-editor [(ngModel)]="credential.description" [ngModelOptions]="{standalone: true}"
