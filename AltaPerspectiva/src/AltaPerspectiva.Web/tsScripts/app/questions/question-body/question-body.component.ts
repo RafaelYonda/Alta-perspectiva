@@ -14,12 +14,14 @@ export interface ILoader {
 @Component({
     selector: "question-body",
     templateUrl: 'js/app/questions/question-body/question-body.component.html',
-    //styleUrls: ['js/app/questions/question-body/question-body.css'],
     providers: [QuestionAnswerService, CategoryService, ConfigService, QuestionService]
 })
 export class QuestionBodyComponent {
     FilterParam = "Select a filter";
-
+    showMoreTopic = false;
+    topFiveTopics: Topic[];
+    shortTopics: Topic[]=[];
+    fullTopics: Topic[];
     loader: ILoader = { isLoading: false };
     _router: any;
     route: any;
@@ -33,7 +35,6 @@ export class QuestionBodyComponent {
     answer: string;
     categories: Category[];
     categorySelected: Category=new Category();
-    topFiveTopics: Topic[];
 
     scrollPage: number = 0;
     config: Config;
@@ -129,10 +130,6 @@ export class QuestionBodyComponent {
             // param id = 0, default route, it is ver tidas
             if (this.categoryId == '1') {
                 subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
-
-                // questions loaded by latest, without categoryId
-               // subs = this.questioAnswernService.getQuestions();
-
             }
 
             else {
@@ -147,7 +144,15 @@ export class QuestionBodyComponent {
 
             subs.subscribe(res => {
                 this.questionService.getTopFiveTopicsByCategoryId(this.categoryId).subscribe(res => {
-                    this.topFiveTopics = res;
+                    this.fullTopics = res;
+                    var count = 0;
+                    for (let item of res) {
+                        this.shortTopics.push(item);
+                        count++;
+                        if (count > 10)
+                            break;
+                    }
+                    this.topFiveTopics = this.shortTopics;
                 });
                 this.loadCategories();
                 this.commServ.setCategory(this.categoryId);
@@ -159,7 +164,6 @@ export class QuestionBodyComponent {
                 //this.levelId = null;
             });
         });
-
     }
     GetLatestQuestionByDate(categoryId: string) {
         this.FilterParam = "The latest question";
@@ -249,7 +253,14 @@ export class QuestionBodyComponent {
             this.hideLoader();
         });
     }
-
+    showMoreTopics() {
+        this.showMoreTopic = true;
+        this.topFiveTopics = this.fullTopics;
+    }
+    hideMoreTopics() {
+        this.showMoreTopic = false;
+        this.topFiveTopics = this.shortTopics;
+    }
     showLoader() {
        // console.log('showloader started');
         this.loader.isLoading = true;
