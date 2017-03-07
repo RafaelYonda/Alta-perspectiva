@@ -51,6 +51,8 @@ export class AnswerSubmitComponent {
         });
     }
     submitAnswer(_id: string) {
+        if (this.isDetail)
+            this.close.emit();
         this.answerVM = new AnswerViewModel();
         this.answerVM.questionId = _id;
         this.answerVM.text = this.answerText;
