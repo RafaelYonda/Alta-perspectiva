@@ -119,7 +119,7 @@ export class ProfileInfoComponent {
             } else {
                 ////Upload the image 
                 this._imgService
-                    .upload(file, this.credential.userId)
+                    .upload(file[0], this.credential.userId)
                     .subscribe(res => {
                         this.toastr.success('Image Uploaded successfully!', 'success');
                         this.isImageUpdated = true;
@@ -173,6 +173,7 @@ export class ProfileInfoComponent {
         let dialogComponentRef = this.credentialDialogAnchor.createComponent(dialogComponentFactory);
         dialogComponentRef.instance.imageLink = img;
         dialogComponentRef.instance.croppedFile = this.croppedFile;
+        dialogComponentRef.instance.userId = this.credential.userId;
         dialogComponentRef.instance.close.subscribe(() => {
             this.isImageUpdated = false;
             this.loadData();

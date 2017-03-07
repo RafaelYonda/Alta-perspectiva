@@ -179,7 +179,35 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
             return Ok();
         }
+        [HttpPost("userprofile/api/credential/saveusercroppedimage")]
+        public async Task<IActionResult> SaveUserCroppedImage(string file, Guid userId,String imageName )
+        {
+            if (file != null)
+            {
+                Base64Image base64Image = Base64Image.Parse(file);
+                var byteArray = base64Image.FileContents;
 
+               
+                //String imageName = id.ToString() + base64Image.Extension;
+
+                AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                string fileLink = await azureFileUploadHelper.SaveProfileCroppedImageInAzure(base64Image.baseStream,
+                    imageName, base64Image.ContentType);
+
+
+               // answer.Text = answer.Text.Replace(imgTag, fileLink);
+                //AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                //await azureFileUploadHelper.SaveProfileImage(file);
+                UpdateUserImageCommand cmd = new UpdateUserImageCommand(userId, imageName);
+                commandsFactory.ExecuteQuery(cmd);
+                Guid createdId = cmd.Id;
+                Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(userId);
+
+                credential.ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
+                return Ok(credential);
+            }
+            return Ok();
+        }
 
         #endregion
 

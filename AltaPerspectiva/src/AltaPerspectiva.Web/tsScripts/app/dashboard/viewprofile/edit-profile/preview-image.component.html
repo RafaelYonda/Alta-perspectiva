@@ -37,6 +37,9 @@
     .modal-header h3 {
         font-weight: bold;
     }
+    .modal-overlay {
+            top: -209px;
+    }
 </style>
 
 <div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
@@ -48,13 +51,7 @@
                 <!--<p>Credentials also appear on answers you write.</p>-->
             </div>
             <div class="profile-modal-body">
-                <div class="profile-image-center">
-                    <img class="profile-image" src="{{imageLink}}" />
-                    
-                   
-                </div>
                 <div>
-
                     <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
                     <span class="result" *ngIf="data1.image">
                         <img [src]="data1.image"
@@ -62,7 +59,16 @@
                              [height]="200">
                         {{data1.image.length}}
                     </span>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <input (click)="onUpdate()" type="text" class="btn btn-info" value="Update" />
+                        </div>
+                        <div class="col-lg-2">
 
+                            <input type="text" (click)="onClickedExit()" class="btn btn-danger" value="Cancel" />
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

@@ -133,5 +133,10 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
             String url = await GetAzureFileFullLink(ConfigClass.QuestionAnswer, stream,imageName, contentType);
             return url;
         }
+        public async Task<string> SaveProfileCroppedImageInAzure(Stream stream, string imageName, string contentType)
+        {
+            String url = await GetAzureFileFullLink(ConfigClass.Profile, stream, imageName, contentType);
+            return url;
+        }
     }
 }

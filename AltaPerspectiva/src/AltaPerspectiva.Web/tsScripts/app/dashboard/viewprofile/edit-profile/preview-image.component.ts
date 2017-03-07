@@ -1,8 +1,9 @@
-﻿import { Component, EventEmitter,ViewChild } from '@angular/core';
+﻿import { Component, EventEmitter, ViewChild, ViewContainerRef} from '@angular/core';
 //import { Place } from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
-
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ImageUploadService } from '../../../services/image-upload.service';
 
 @Component({
     selector: 'preview-image',
@@ -20,9 +21,10 @@ export class PreviewImageComponent {
     cropperSettings1: CropperSettings;
     croppedWidth: number;
     croppedHeight: number;
+    userId:string;
 
     @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
-    constructor(private profileService: ProfileService) {
+    constructor(private profileService: ProfileService, private _imgService: ImageUploadService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.name = 'Angular2'
         this.cropperSettings1 = new CropperSettings();
         this.cropperSettings1.width = 200;
@@ -46,28 +48,15 @@ export class PreviewImageComponent {
         this.data1 = {};
     }
     ngOnInit(){
-        //var myReader: FileReader = new FileReader();
-        ////var that = this;
-        ////myReader.onloadend = function (loadEvent: any) {
-        ////    image.src = loadEvent.target.result;
-        ////    that.cropper.setImage(image);
-
-        ////};
-
-        //myReader.readAsDataURL(file);
         var image: any = new Image();
         var file: File = this.croppedFile[0];
         var myReader: FileReader = new FileReader();
-       // var that = this;
+        var that = this;
+        myReader.onloadend = function (loadEvent: any) {
+            image.src = loadEvent.target.result;
+            that.cropper.setImage(image);
 
-        //myReader.onloadend = function (loadEvent: any) {
-        //    image.src = loadEvent.target.result;
-        //    that.cropper.setImage(image);
-
-        //};
-        image.src = this.imageLink;
-        this.cropper.setImage(image);
-
+        };
         myReader.readAsDataURL(file);
     }
     close = new EventEmitter();
@@ -86,20 +75,15 @@ export class PreviewImageComponent {
         this.croppedHeight = bounds.bottom - bounds.top;
         this.croppedWidth = bounds.right - bounds.left;
     }
-
-    fileChangeListener($event) {
-        var image: any = new Image();
-        var file: File = $event.target.files[0];
-        var myReader: FileReader = new FileReader();
-        var that = this;
-        myReader.onloadend = function (loadEvent: any) {
-            image.src = loadEvent.target.result;
-            that.cropper.setImage(image);
-
-        };
-
-        myReader.readAsDataURL(file);
+    onUpdate() {
+        var img = '<img src="' + this.data1.image + '">';
+        var imageName = this.croppedFile[0].name;
+        this._imgService
+            .uploadCroppedImage(img, this.userId, imageName)
+            .subscribe(res => {
+                this.toastr.success('Image Chnaged successfully!', 'success');
+                this.close.emit('event');
+            });
     }
   
-
 }
