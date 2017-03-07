@@ -9,7 +9,11 @@ import { AuthenticationService } from '../../../services/authentication.service'
 //Modal
 import { AddCredentialComponent } from '../edit-profile/add-credential.component';
 import { PreviewImageComponent } from '../edit-profile/preview-image.component';
+import { TwitterComponent } from '../edit-profile/twitter.component';
+import { FacebookComponent } from '../edit-profile/facebook.component';
+import { LinkedinComponent } from '../edit-profile/linkedin.component';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { Router } from '@angular/router';
 
 //You can also override message,dismiss, toastLife, enableHTML, titleClass, messageClass options for individual toast:
 
@@ -38,7 +42,7 @@ export class ProfileInfoComponent {
     @Input() credential: CredentialViewModel;
 
     croppedFile:any;
-    constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+    constructor(private _imgService: ImageUploadService, private _configService: ConfigService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService, public toastr: ToastsManager, vcr: ViewContainerRef, private _router: Router) {
         this.toastr.setRootViewContainerRef(vcr);
     }
     ngOnInit() {
@@ -180,50 +184,69 @@ export class ProfileInfoComponent {
             dialogComponentRef.destroy();
         });
     }
+    @ViewChild('twitterDialogAnchor', { read: ViewContainerRef }) twitterDialogAnchor: ViewContainerRef;
+    opentwitterDialogBox(img: string) {
+        this.twitterDialogAnchor.clear();
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(TwitterComponent);
+        let dialogComponentRef = this.credentialDialogAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.useId = this.credential.userId;
+        dialogComponentRef.instance.title = this.credential.twitterLink;
+        dialogComponentRef.instance.close.subscribe(() => {
+            this.isImageUpdated = false;
+            this.loadData();
+            dialogComponentRef.destroy();
+        });
+    }
+    twitter() {
+        if (!this.credential.twitterLink) {
+            this.toastr.error('No link for twitter!', 'error');
+        } else {
+            window.open(this.credential.twitterLink);
+        }
+        
+    }
+    @ViewChild('facebookDialogAnchor', { read: ViewContainerRef }) facebookDialogAnchor: ViewContainerRef;
+    openfacebookDialogBox(img: string) {
+        this.facebookDialogAnchor.clear();
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(FacebookComponent);
+        let dialogComponentRef = this.credentialDialogAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.useId = this.credential.userId;
+        dialogComponentRef.instance.title = this.credential.facebookLink;
+        dialogComponentRef.instance.close.subscribe(() => {
+            this.isImageUpdated = false;
+            this.loadData();
+            dialogComponentRef.destroy();
+        });
+    }
+    facebook() {
+        if (!this.credential.facebookLink) {
+            this.toastr.error('No link for facebook!', 'error');
+        } else {
+            window.open(this.credential.facebookLink);
+        }
 
+    }
+    @ViewChild('linkedinDialogAnchor', { read: ViewContainerRef }) linkedinDialogAnchor: ViewContainerRef;
+    openlinkedinDialogBox(img: string) {
+        this.linkedinDialogAnchor.clear();
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(LinkedinComponent);
+        let dialogComponentRef = this.credentialDialogAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.useId = this.credential.userId;
+        dialogComponentRef.instance.title = this.credential.linkedinLink;
+        dialogComponentRef.instance.close.subscribe(() => {
+            this.isImageUpdated = false;
+            this.loadData();
+            dialogComponentRef.destroy();
+        });
+    }
+    linkedin() {
+        if (!this.credential.linkedinLink) {
+            this.toastr.error('No link for linkedin!', 'error');
+        } else {
+            window.open(this.credential.linkedinLink);
+        }
 
-    //   ValidateFileUpload() {
-
-    //    var fuData = document.getElementById('fileChooser');
-    //    var FileUploadPath = fuData.value;
-
-
-    //    if (FileUploadPath == '') {
-    //        alert("Please upload an image");
-
-    //    } else {
-    //        var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-
-
-
-    //        if (Extension == "gif" || Extension == "png" || Extension == "bmp"
-    //            || Extension == "jpeg" || Extension == "jpg") {
-
-
-    //            if (fuData.files && fuData.files[0]) {
-
-    //                var size = fuData.files[0].size;
-
-    //                if (size > MAX_SIZE) {
-    //                    alert("Maximum file size exceeds");
-    //                    return;
-    //                } else {
-    //                    var reader = new FileReader();
-
-    //                    reader.onload = function (e) {
-    //                        $('#blah').attr('src', e.target.result);
-    //                    }
-
-    //                    reader.readAsDataURL(fuData.files[0]);
-    //                }
-    //            }
-
-    //        }
-
-
-    //        else {
-    //            alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
-    //        }
-    //    }
-    //}
+    }
+    
+   
 }

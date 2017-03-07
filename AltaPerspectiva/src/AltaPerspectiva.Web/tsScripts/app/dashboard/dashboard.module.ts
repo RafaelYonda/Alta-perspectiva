@@ -20,6 +20,7 @@ import { AddCredentialComponent } from './viewprofile/edit-profile/add-credentia
 import { AddEducationComponent } from './viewprofile/edit-profile/add-education.component';
 import { AddEmploymentComponent } from './viewprofile/edit-profile/add-employment.component';
 
+
 import { AddOtherExperienceComponent } from './viewprofile/edit-profile/add-otherexperience.component';
 import { AddPlaceComponent } from './viewprofile/edit-profile/add-place.component';
 import { ItemDialogComponent } from './viewprofile/virtual-store/item-dialog.component';
@@ -48,6 +49,11 @@ import {PopoverModule} from "ngx-popover";
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
 import { PreviewImageComponent } from './viewprofile/edit-profile/preview-image.component';
+//Twitter
+import { TwitterComponent } from './viewprofile/edit-profile/twitter.component';
+import { FacebookComponent } from './viewprofile/edit-profile/facebook.component';
+import { LinkedinComponent } from './viewprofile/edit-profile/linkedin.component';
+
 const DashBoardroutes: Routes = [
     {
         path: 'dashboard', component: DashBoardComponent,
@@ -84,10 +90,10 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
         ViewProfileComponent,
         ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, VirtualStoreComponent, PostStatusComponent, BlogpostCommentComponent, BlogpostDetailComponent, PostedQuestionComponent, DraftAnswerComponent,
         //Edit Profile
-        AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, ItemDialogComponent, PreviewImageComponent, ImageCropperComponent
+        AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, ItemDialogComponent, PreviewImageComponent, ImageCropperComponent, TwitterComponent, FacebookComponent, LinkedinComponent
     ],
     exports: [DashBoardComponent],
-    entryComponents: [AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, BlogpostDetailComponent, ItemDialogComponent, PreviewImageComponent]
+    entryComponents: [AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, BlogpostDetailComponent, ItemDialogComponent, PreviewImageComponent, TwitterComponent, FacebookComponent, LinkedinComponent]
 })
 export class DashBoardModule { }
 

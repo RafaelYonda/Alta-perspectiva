@@ -1,0 +1,64 @@
+﻿<style>
+    .credential-dialog {
+        margin: 15% auto;
+        max-width: 45%;
+    }
+
+    .profile-modal-body {
+        position: relative;
+        padding: 15px;
+        background-color: #f6f6f6;
+        margin: 0px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+        .profile-modal-body input {
+            width: 100%;
+            border: 1px solid #bdbdbd;
+            border-radius: 3px;
+            padding: 2px 5px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .profile-modal-body a:hover {
+            text-decoration: underline;
+        }
+
+    .profile-modal-button-container {
+        text-align: right;
+    }
+
+        .profile-modal-button-container a {
+            margin-right: 10px;
+        }
+
+    .modal-header h3 {
+        font-weight: bold;
+    }
+</style>
+
+<div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
+    <div class="modal-content credential-dialog">
+        <div class="exit-button" (click)="onClickedExit()">x</div>
+        <div class="modal-container" style="border:1px solid;">
+            <div class="modal-header">
+                <h3>Save Linkdin Account</h3>
+
+            </div>
+            <div class="profile-modal-body">
+                <i class="fa fa-user"></i><span>Edit</span>
+                <div>
+                    <input type="text" [(ngModel)]="title" />
+                </div>
+                <div class="profile-modal-button-container">
+                    <a (click)="DeleteTitle()">Delete</a>
+                    <a (click)="onClickedExit()">Cancel</a>
+                    <button class="btn btn-sm btn-primary" (click)="saveTitle()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

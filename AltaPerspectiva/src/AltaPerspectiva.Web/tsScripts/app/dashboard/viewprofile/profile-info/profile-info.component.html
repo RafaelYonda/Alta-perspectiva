@@ -108,10 +108,30 @@
         .btn-container a {
             display: inline-block;
         }
+
+    a:hover, a:focus {
+        outline: none;
+        text-decoration: none;
+        color: #F6912B;
+    }
+
+    .edit {
+        font-size: 13px;
+        font-size: 13px;
+        margin-left: 4px;
+    }
+
+    .update-credential {
+        margin-left: 10px;
+    }
 </style>
 <div>
     <div #credentialDialogAnchor></div>
     <div #previewImageDialogAnchor></div>
+    <div #twitterDialogAnchor></div>
+    <div #facebookDialogAnchor></div>
+    <div #linkedinDialogAnchor></div>
+    
 </div>
 <div class="profile-info-container">
     <div class="col-md-3">
@@ -138,7 +158,7 @@
 
             <div>
                 <a class="credential-text">{{credential.title}}</a>
-                <a *ngIf="isOwner" (click)="openCredentialDialogBox()"><span>Update Credential</span> </a>
+                <a *ngIf="isOwner" (click)="openCredentialDialogBox()" class="update-credential"><span>Update Credential</span> </a>
             </div>
 
             <div [hidden]="(!showDescription)">
@@ -155,9 +175,19 @@
                 </div>
             </div>
             <ul *ngIf="isOwner">
-                <li><a>Twitter</a></li>
-                <li><a>Facebook</a></li>
-                <li><a>Linkedin</a></li>
+                <li>
+                    <a (click)="twitter()"> Twitter</a>
+                    <a class="edit" (click)="opentwitterDialogBox()"><i class="fa fa-edit"></i></a>
+                </li>
+                <li>
+                    <a (click)="facebook()"> Facebook</a>
+                    <a class="edit" (click)="openfacebookDialogBox()"><i class="fa fa-edit"></i></a>
+                </li>
+                <li>
+                    <a (click)="linkedin()"> Linkedin</a>
+                    <a class="edit" (click)="openlinkedinDialogBox()"><i class="fa fa-edit"></i></a>
+                </li>
+              
             </ul>
         </div>
 
