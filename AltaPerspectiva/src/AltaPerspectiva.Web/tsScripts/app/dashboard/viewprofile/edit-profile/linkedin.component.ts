@@ -40,7 +40,7 @@ export class LinkedinComponent {
         console.log(this.title);
         var credential = new CredentialViewModel();
         credential.userId = this.useId;
-        credential.linkedinLink = 'twitter';
+        credential.linkedinLink = 'linkedin';
         this.profileService.DeleteSocialLink(credential).subscribe(res => {
             this.toastr.warning('Deleted successfully!', 'success');
             this.close.emit('event');

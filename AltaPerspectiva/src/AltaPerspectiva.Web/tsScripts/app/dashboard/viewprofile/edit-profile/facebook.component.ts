@@ -40,7 +40,7 @@ export class FacebookComponent {
         console.log(this.title);
         var credential = new CredentialViewModel();
         credential.userId = this.useId;
-        credential.facebookLink = 'twitter';
+        credential.facebookLink = 'facebook';
         this.profileService.DeleteSocialLink(credential).subscribe(res => {
             this.toastr.warning('Deleted successfully!', 'success');
             this.close.emit('event');
