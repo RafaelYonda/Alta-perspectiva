@@ -36,14 +36,12 @@ export class TabsComponent {
         //this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
     }
     //anonymous checkbox
-    onChange(event) {
-        console.log('anonymous checkbox');
+    onChange(event) {      
         this.isAnonymous = event;
     }
 
     leftclick() {
-        //return tabs are at its left most position
-        console.log(this.tabLength);
+        //return tabs are at its left most position       
         if (this.tabLength <= -2)
             return;
         this.transform = this.transform - 170;
@@ -51,8 +49,7 @@ export class TabsComponent {
         this.tabLength--;
     }
 
-    rightclick() {
-        console.log(this.tabLength);
+    rightclick() {        
         //return tabs are at its right most position
         if (this.tabLength >= (this.categories.length - 6))
             return;

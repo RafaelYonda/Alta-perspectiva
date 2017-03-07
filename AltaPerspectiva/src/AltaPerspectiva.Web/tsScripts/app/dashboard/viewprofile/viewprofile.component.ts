@@ -59,8 +59,7 @@ export class ViewProfileComponent {
             var currentUser = localStorage.getItem('auth_token');
             this._authService.getLoggedinObj().subscribe(res => {
                 if (res && currentUser != "null") {
-                    console.log(params['userId']);
-                    console.log(res);
+                    
                     if (params['userId'] == res.userId)
                         this.isOwner = true;
                 }
@@ -79,7 +78,7 @@ export class ViewProfileComponent {
             //========Category=======
             this.profileService.getCategoryWiseAnswer(params['userId']).subscribe(categoryWiseAnswer => {
                 this.categoryWiseAnswers = categoryWiseAnswer;
-                console.log(categoryWiseAnswer);
+              
             });
             //================ProfileViewCount
             this.profileService.addProfileViewCount(params['userId']).subscribe(res => {
