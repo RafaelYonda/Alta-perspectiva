@@ -4,7 +4,6 @@
     }
 
     .checkbox-container {
-        margin-top: 10px;
         margin-left: 10px;
         float: left;
     }
@@ -41,13 +40,13 @@
             <div class="img-container" *ngIf="isAnonymous">
                 <img class="user-image " src="../../../../profile/Anonymous.png" />
             </div>
-
+            <div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
             <div *ngIf="!isDraft" class="checkbox-container">
                 <input type="checkbox" #answerAnonymous [checked]=false (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar Anonimo</label>
                 <a *ngIf="!isFullScreen" [routerLink]="['/question/questionfullscreen',question.id]">Go full screen</a>
             </div>
         </div>
-        <div class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
+       
     </div>
     <div class="modal-body">
         <quill-editor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}"
