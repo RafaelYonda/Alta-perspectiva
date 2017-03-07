@@ -217,6 +217,16 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    SaveSocialLink(credentialViewModel: CredentialViewModel): Observable<any> {
+        return this._http.post('/userprofile/api/savesociallink', credentialViewModel)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    DeleteSocialLink(credentialViewModel: CredentialViewModel): Observable<any> {
+        return this._http.post('/userprofile/api/deletesociallink', credentialViewModel)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     private extractData(res: Response) {
         let body;
 

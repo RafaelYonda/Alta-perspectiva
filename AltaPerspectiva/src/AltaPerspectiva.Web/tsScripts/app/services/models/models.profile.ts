@@ -9,6 +9,9 @@ export class CredentialViewModel {
     description: string
     imageUrl: string
     profileViewCount: string;
+    twitterLink:string;
+    facebookLink:string;
+    linkedinLink:string;
     educations: Education[];
     employments: Employment[];
     places: Place[];

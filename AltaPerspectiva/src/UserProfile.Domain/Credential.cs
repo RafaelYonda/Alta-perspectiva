@@ -20,6 +20,11 @@ namespace UserProfile.Domain
         public string ImageUrl { get; set; }
         public int? ProfileViewCount { get; set; }
 
+
+        public string TwitterLink { get; set; }
+        public string FacebookLink { get; set; }
+        public string LinkedinLink { get; set; }
+
         public virtual ICollection<Education> Educations { get; set; }
         public virtual ICollection<Employment> Employments { get; set; }
         public virtual ICollection<Place> Places { get; set; }

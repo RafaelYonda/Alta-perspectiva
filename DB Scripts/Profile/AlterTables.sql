@@ -58,7 +58,18 @@ GO
 
 ALTER TABLE [UserProfile].[ProductComments] CHECK CONSTRAINT [FK_ProductComments_VirtualStores_VirtualStoreId]
 GO
-
+GO
+ALTER TABLE UserProfile.Credentials ADD
+	TwitterLink nvarchar(MAX) NULL
+GO
+GO
+ALTER TABLE UserProfile.Credentials ADD
+	FacebookLink nvarchar(MAX) NULL
+GO
+GO
+ALTER TABLE UserProfile.Credentials ADD
+	LinkedinLink nvarchar(MAX) NULL
+GO
 
 
 
