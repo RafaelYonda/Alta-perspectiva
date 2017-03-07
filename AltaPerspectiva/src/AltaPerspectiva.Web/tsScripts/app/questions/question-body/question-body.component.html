@@ -1,27 +1,54 @@
 ﻿<style>
-    .category-header{
+    .category-header {
+    }
 
+        .category-header h2 {
+            display: inline-block;
+        }
+
+        .category-header h4 {
+            text-align: center;
+        }
+
+    .read-question-button {
+        margin-left: 15px;
+        margin-bottom: 10px;
+        display: inline-block;
     }
-    .category-header h2{
-        display:inline-block;
+
+        .read-question-button > a {
+            margin-right: 10px;
+            font-size: 17px;
+        }
+
+    .center-width {
+        position: relative;
     }
-    .category-header h4{
-        text-align:center;
+
+    .read-question-button .btn {
+        width: 200px;
     }
-    .read-question-button{
-        margin-left:15px;
-        margin-bottom:10px;
+
+    read-question-button ..dropdown-menu {
+        left: 5px;
+        min-width: 200px;
     }
-    .read-question-button> a{
-        margin-right:10px;
-        font-size:17px;
+
+    .center-width .modal-overlay {
+        min-height: 600px;
+        position: absolute;
+        overflow: hidden;
     }
-    .center-width{
-        position:relative;
+
+    .tags-container {
+        margin-left: 0;
+        margin-right: 0;
     }
-    .center-width .modal-overlay{
-        position:absolute;
-        overflow:hidden;
+
+    .more-btn {
+        float: left;
+        padding: 5px;
+        font-weight: 700;
     }
 </style>
 <div class="row row-fix">
@@ -38,7 +65,7 @@
 <div class="right-panel">
     <category-left-menu [caegoryId]="categoryId"></category-left-menu>
 </div>
-<div class="center-width center-body z-ground" >
+<div class="center-width center-body z-ground">
     <div class="modal-overlay z-modal" *ngIf="loader.isLoading">
         <div class="loader"></div>
     </div>
@@ -64,15 +91,14 @@
         </p>
     </div>
     <br />
-    <div class="row row-fix">
-       
-        <div class="tags-container">
-            <div class="tags" *ngFor="let topic of topFiveTopics">
-                <a [routerLink]="['/question/home',topic?.categoryId,topic?.id,0]"> {{topic.topicName}}</a>
-            </div>
+    <div class="row tags-container">
+        <div class="tags" *ngFor="let topic of topFiveTopics">
+            <a [routerLink]="['/question/home',topic?.categoryId,topic?.id,0]"> {{topic.topicName}}</a>
         </div>
+        <div class="more-btn"><a (click)="showMoreTopics(question)" *ngIf="!showMoreTopic">Show more..</a></div>
+        <div class="more-btn"><a (click)="hideMoreTopics(question)" *ngIf="showMoreTopic">Hide more..</a></div>
     </div>
-    <div class="filter-panel">
+    <div class="filter-panel" *ngIf="!showMoreTopic">
         <div class="read-question-button">
             <a (click)="getQuestionsAnswered(categorySelected.id)">
                 {{totalCount?.totalAnsweredQuestion}}  Read
@@ -82,9 +108,18 @@
             </a>
         </div>
         <div class="read-question-button">
-            <a (click)="GetLatestQuestionByDate(categorySelected.id)">The latest question</a>
-            <a (click)="getbestquestionbytotallike(categorySelected.id)"> The best Question</a>
-            <a (click)="getmorequestionbyviewcount(categorySelected.id)">The more views</a>
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                    <span class="pull-left" id="icon-select">{{FilterParam}}</span>
+                    <span id="icon-view" style="margin-left: 20px; float: left; margin-top: 3px;"></span>
+                    <span class="caret pull-right" style="margin-top:8px;"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <li role="presentation"><a (click)="GetLatestQuestionByDate(categorySelected.id)">The latest question</a></li>
+                    <li role="presentation"><a (click)="getbestquestionbytotallike(categorySelected.id)"> The best Question</a></li>
+                    <li role="presentation"><a (click)="getmorequestionbyviewcount(categorySelected.id)">The more views</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     <div infinite-scroll
@@ -96,5 +131,5 @@
         <question-panel [question]="question"></question-panel>
     </div>
     <!-- For Hover pop up get some space to show -->
-    <div style="height:200px;position:relative;"></div> 
+    <div style="height:200px;position:relative;"></div>
 </div>
