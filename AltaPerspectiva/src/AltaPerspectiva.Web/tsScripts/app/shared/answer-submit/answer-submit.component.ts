@@ -3,6 +3,8 @@ import { QuestionAnswerService } from '../../services/question-answer.service';
 import { ProfileService } from '../../services/profile.service';
 import {LogInObj, Question, AnswerViewModel, User } from '../../services/models';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
+
 
 @Component({
     selector: 'answer-submit',
@@ -19,19 +21,21 @@ export class AnswerSubmitComponent {
     isAnonymous: boolean;//anonymous added to 
     answerVM: AnswerViewModel;
     answerText: string;
-    constructor(private dataService: QuestionAnswerService, private _router: Router, private profileService: ProfileService) {
+    constructor(private dataService: QuestionAnswerService, private _router: Router, private profileService: ProfileService, private _authService: AuthenticationService) {
         var user: User = new User();
         user.userId = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
-        var userObj = localStorage.getItem('currentUserObject');
-        var currentUserName = localStorage.getItem('currentUser');
-        var currentUserImage = localStorage.getItem('currentUserImage');
-        if (currentUserName != null) {
-            this._logObj.user.name = currentUserName;
-            this._logObj.user.imageUrl = currentUserImage;
-        }
+        //var userObj = localStorage.getItem('currentUserObject');
+        //var currentUserName = localStorage.getItem('currentUser');
+        //var currentUserImage = localStorage.getItem('currentUserImage');
+        
+        this._authService.getLoggedinObj().subscribe(res => {
+            this._logObj.user.name = res.name;
+            this._logObj.user.imageUrl = res.imageUrl;
+            this._logObj.user.occupassion = res.occupation;
+        });
         if (this.isDraft)
             this.showDraftedQuestion();
     }
@@ -67,6 +71,11 @@ export class AnswerSubmitComponent {
         });
     }
     submitAnswerAsDraft(_id: string) {
+        if (this.answerText|| this.answerText.length==0) 
+            return;
+        
+
+
         this.answerVM = new AnswerViewModel();
         this.answerVM.questionId = _id;
         this.answerVM.text = this.answerText;
