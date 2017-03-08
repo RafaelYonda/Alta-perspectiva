@@ -56,15 +56,13 @@
                     <span class="result" *ngIf="data1.image">
                         <img [src]="data1.image"
                              [width]="200"
-                             [height]="200">
-                        <!--{{data1.image.length}}-->
+                             [height]="200">                       
                     </span>
                     <div class="row">
                         <div class="col-lg-2">
                             <input (click)="onUpdate()" type="text" class="btn btn-info" value="Update" />
                         </div>
                         <div class="col-lg-2">
-
                             <input type="text" (click)="onClickedExit()" class="btn btn-danger" value="Cancel" />
                         </div>
 

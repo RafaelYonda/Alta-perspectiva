@@ -102,41 +102,10 @@ export class ProfileInfoComponent {
         });
 
     }
-    onUploadClick() {
-
-        //var target = event.target || event.srcElement;
-        //let file = target["files"];// event.srcElement.files;
-        ////this.toastr.custom('<span style="color: red">Message in red.</span>', null, { enableHTML: true });
-        //this.croppedFile = file;
-        //console.log(file);
-
-        //if (file.length == 1) {
-        //    var size = file[0].size;
-        //    if (size >= 1 * 1024 * 1024) {
-        //        this.toastr.error('Please select image size is less than 1 MB.', 'Oops!');
-        //        return;
-        //    }
-        //    var type = file[0].type;
-        //    if (!(type == "image/jpeg" || type == "image/png")) {
-        //        this.toastr.error('Please select jpg/png image', 'Oops!');
-        //        return;
-        //    } else {
-                //////Upload the image 
-                //this._imgService
-                //    .upload(file[0], this.credential.userId)
-                //    .subscribe(res => {
-                //        this.toastr.success('Image Uploaded successfully!', 'success');
-                //        this.isImageUpdated = true;
-                //        this.loadData();
-                       
-                //    });
+    onUploadClick() {     
                 this.openpreviewImageDialogBox();
-
-          //  }
-       // }
-        
-
     }
+
     UpdateUserName() {
         this.isUserHidden = true;
         if (this.credential && ((this.credential.firstName.trim() == "") && (this.credential.lastName.trim() == "")))

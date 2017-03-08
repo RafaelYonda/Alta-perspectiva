@@ -47,16 +47,7 @@ export class PreviewImageComponent {
         this.data1 = {};
     }
     ngOnInit() {
-        //var image: any = new Image();
-        //var file: File = this.croppedFile[0];
-        //var myReader: FileReader = new FileReader();
-        //var that = this;
-        //myReader.onloadend = function (loadEvent: any) {
-        //    image.src = loadEvent.target.result;
-        //    that.cropper.setImage(image);
-
-        //};
-        //myReader.readAsDataURL(file);
+     
     }
     close = new EventEmitter();
 
@@ -75,7 +66,7 @@ export class PreviewImageComponent {
         this.croppedWidth = bounds.right - bounds.left;
     }
     onUpdate() {
-        console.log(this.data1.image.length);
+        
         if (this.data1.image) {
             var fileArray = this.data1.image.split(';');
             var type = fileArray[0];
