@@ -14,5 +14,9 @@ namespace UserProfile.Query.Interfaces
         UserInfoDetails GetUserInfoDetails(Guid userId,String connectionString);
 
         List<CategoryWiseAnswer> CategoryWiseAnswerCount(Guid userId, string connectionString);
+        List<UserSummary> GetTopFiveUserSummary( string connectionString);
+        UserSummary GetUserSummary(Guid userId, string connectionString);
+
+        List<UserSummary> GetUserSummnaryByCategoryId(Guid categoryId,string connectionString);
     }
 }
