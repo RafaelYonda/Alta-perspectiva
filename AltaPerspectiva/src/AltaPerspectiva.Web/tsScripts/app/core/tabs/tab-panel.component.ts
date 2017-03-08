@@ -2,6 +2,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { AuthenticationService } from '../../services/authentication.service';
+import { CommunicationService } from '../../services/communication.service';
 import { LogInObj, User } from '../../services/models';
 
 //Comment added
@@ -28,7 +29,7 @@ export class TabPanelComponent {
     error: any;
     //Like
     
-    constructor( private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService) {
+    constructor(private _route: ActivatedRoute, private router: Router, private questionAnswerService: QuestionAnswerService, private questionService: QuestionResolver, private authService: AuthenticationService, private commServ: CommunicationService) {
         this.route = _route;
         var user: User = new User();
         user.userId = '-1';
@@ -85,13 +86,11 @@ export class TabPanelComponent {
     hideLoader() {
         this.isLoading = false;
     }
-    isShowing = true;
-    togglemenu() {
-        this.isShowing = !this.isShowing;
+    hideMenu() {
         var leftMenu = document.getElementById('toggleMenu');
-        if (this.isShowing)
-            leftMenu.classList.add("expand");
-        else
-            leftMenu.classList.remove("expand");
+        leftMenu.classList.remove("expand");
+    }
+    gotoProfile() {
+        this.router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
     }
 }
