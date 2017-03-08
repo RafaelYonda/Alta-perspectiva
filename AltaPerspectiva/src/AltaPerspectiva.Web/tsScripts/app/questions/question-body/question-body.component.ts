@@ -19,13 +19,15 @@ export interface ILoader {
 export class QuestionBodyComponent {
     FilterParam = "Select a filter";
     showMoreTopic = false;
-    topFiveTopics: Topic[];
-    shortTopics: Topic[]=[];
-    fullTopics: Topic[];
+    topFiveTopics: Topic[] = new Array<Topic>();
+
+    topics: Topic[];
+    // shortTopics: Topic[]=[];
+    //  fullTopics: Topic[];
     loader: ILoader = { isLoading: false };
     _router: any;
     route: any;
-  //  id: string;
+    //  id: string;
     private sub: any;
     questions: Question[];
     _logObj: LogInObj;
@@ -34,7 +36,7 @@ export class QuestionBodyComponent {
     error: any;
     answer: string;
     categories: Category[];
-    categorySelected: Category=new Category();
+    categorySelected: Category = new Category();
 
     scrollPage: number = 0;
     config: Config;
@@ -65,7 +67,7 @@ export class QuestionBodyComponent {
     }
     onQuestionSubmitted(event) {
         console.log("Submit on question");
-        var subs=this.questioAnswernService.getQuestions();
+        var subs = this.questioAnswernService.getQuestions();
         subs.subscribe(res => {
             this.commServ.setCategory(this.categoryId);
             this.questions = res;
@@ -74,7 +76,7 @@ export class QuestionBodyComponent {
         });
     }
     ngOnInit() {
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
         this.commServ.informQuestionSubmit().subscribe(res => {
@@ -94,7 +96,7 @@ export class QuestionBodyComponent {
         //get questions by route param using category id.
         this.route.params.subscribe(params => {
 
-           // this.id = params['id']; //For the First time it will be 1
+            // this.id = params['id']; //For the First time it will be 1
             this.topicId = params['topicId'];
             this.categoryId = params['categoryId'];
             this.levelId = params['levelId'];
@@ -120,12 +122,12 @@ export class QuestionBodyComponent {
             } else {
                 this.filterParameter.levelId = '0';
             }
-                
+
 
             this.showLoader();
             var subs: any;
 
-          //  this.id = params['id'];
+            //  this.id = params['id'];
 
             // param id = 0, default route, it is ver tidas
             if (this.categoryId == '1') {
@@ -133,7 +135,7 @@ export class QuestionBodyComponent {
             }
 
             else {
-              //  this.filterParameter = this.commServ.getFilterParameter();
+                //  this.filterParameter = this.commServ.getFilterParameter();
                 // questions loaded by category id
                 // subs = this.questioAnswernService.getQuestionsByCategory(this.id);
                 subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
@@ -144,15 +146,17 @@ export class QuestionBodyComponent {
 
             subs.subscribe(res => {
                 this.questionService.getTopFiveTopicsByCategoryId(this.categoryId).subscribe(res => {
-                    this.fullTopics = res;
+                    this.topics = res;
+                    //  this.topFiveTopics = this.topics;
+                    this.topFiveTopics = new Array<Topic>();
                     var count = 0;
-                    for (let item of res) {
-                        this.shortTopics.push(item);
+                    for (let item of this.topics) {
+                        this.topFiveTopics.push(item);
                         count++;
-                        if (count > 5)
+                        if (count > 4)
                             break;
                     }
-                    this.topFiveTopics = this.shortTopics;
+                    this.showMoreTopic = true;
                 });
                 this.loadCategories();
                 this.commServ.setCategory(this.categoryId);
@@ -173,7 +177,7 @@ export class QuestionBodyComponent {
             res => {
 
                 this.questions = res;
-                
+
                 //  this.loadCategories();
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
                 this.hideLoader();
@@ -253,16 +257,42 @@ export class QuestionBodyComponent {
             this.hideLoader();
         });
     }
-    showMoreTopics() {
-        this.showMoreTopic = true;
-        this.topFiveTopics = this.fullTopics;
+    //showMoreTopics() {
+    //    this.showMoreTopic = true;
+    //    this.topFiveTopics = this.topics;
+    //}
+    //hideMoreTopics() {
+    //    this.showMoreTopic = false;
+    //    this.topFiveTopics = new Array<Topic>();
+    //    var count = 0;
+    //    for (let item of this.topics) {
+    //        this.topFiveTopics.push(item);
+    //        count++;
+    //        if (count > 4)
+    //            break;
+    //    }
+
+    //}
+    toggleShowMoreTopic() {
+        if (this.showMoreTopic == true) {
+            this.showMoreTopic = false;
+            this.topFiveTopics = this.topics;
+        } else {
+            this.showMoreTopic = true;
+            
+            this.topFiveTopics = new Array<Topic>();
+            var count = 0;
+            for (let item of this.topics) {
+                this.topFiveTopics.push(item);
+                count++;
+                if (count > 4)
+                    break;
+            }
+        }
     }
-    hideMoreTopics() {
-        this.showMoreTopic = false;
-        this.topFiveTopics = this.shortTopics;
-    }
+
     showLoader() {
-       // console.log('showloader started');
+        // console.log('showloader started');
         this.loader.isLoading = true;
     }
 
@@ -271,9 +301,9 @@ export class QuestionBodyComponent {
     }
 
     onScrollDown() {
-       // console.log('scrolled!!');
+        // console.log('scrolled!!');
         this.scrollPage = this.scrollPage + 1;
-       // console.log(this.scrollPage);
+        // console.log(this.scrollPage);
     }
     submitLike(questionId: string) {
         this.like = new Like();
