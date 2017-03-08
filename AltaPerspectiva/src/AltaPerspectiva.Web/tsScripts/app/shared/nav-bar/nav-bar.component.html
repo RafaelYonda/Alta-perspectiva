@@ -32,7 +32,7 @@
             <li><a href="/signin">Log in</a></li>
             <li><a href="/signin">Register</a></li>
         </ul>
-        <div class="navbar-right" *ngIf="_logObj.isLoggedIn">
+        <div class="nav navbar-right" *ngIf="_logObj.isLoggedIn">
             <a href="#" class="dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false">
                 <img class="user-image img-circle" src="{{_logObj.user.imageUrl}}" />
                 <span class="nav-user-info">{{_logObj.user.name}}</span>

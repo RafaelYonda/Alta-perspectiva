@@ -41,7 +41,7 @@
                 <img class="user-image " src="../../../../profile/Anonymous.png" />
             </div>
             <div *ngIf="!isAnonymous" class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
-            <div *ngIf="isAnonymous" class="header-info">anonymous</div>
+            <div *ngIf="isAnonymous" class="header-info">Anonymous</div>
             <div *ngIf="!isDraft" class="checkbox-container">
                 <input type="checkbox" #answerAnonymous [checked]=false (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar Anonimo</label>
                 <a *ngIf="!isFullScreen" [routerLink]="['/question/questionfullscreen',question.id]">Go full screen</a>

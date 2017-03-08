@@ -34,6 +34,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
                 //No credential .Fetech from aspNetUser
                 String connectionString =
             configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
+               // String connectionString = Startup.ConnectionString;
 
                 String Name = queryFactory.ResolveQuery<ICredentialQuery>()
                     .GetUserNameAspNetUsers(loggedinUser, connectionString);
