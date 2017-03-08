@@ -74,15 +74,4 @@ export class CommunicationService {
     getCommentsCount(): Observable<number> {
         return this.commentCountAdd.asObservable();
     }
-
-
-   
-
-
-    //setFilterParameter(filterParameter: FilterParameter) {
-    //    this.filterParameter = filterParameter;
-    //}
-    
-
-  
 }
