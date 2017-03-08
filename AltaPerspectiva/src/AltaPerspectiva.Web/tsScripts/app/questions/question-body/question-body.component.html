@@ -83,13 +83,20 @@
     </div>
     <br />
     <div class="row tags-container">
-        <div class="tags" *ngFor="let topic of topFiveTopics">
-            <a [routerLink]="['/question/home',topic?.categoryId,topic?.id,0]"> {{topic.topicName}}</a>
+        <div *ngIf="topFiveTopics.length!=0">
+            <div class="tags" *ngFor="let topic of topFiveTopics">
+                <a [routerLink]="['/question/home',topic?.categoryId,topic?.id,0]"> {{topic.topicName}}</a>
+            </div>
+
+            <div class="more-btn">
+                <a (click)="toggleShowMoreTopic()" *ngIf="showMoreTopic && topics.length>5">Show more..</a>
+            </div>
+            <div class="more-btn">
+                <a (click)="toggleShowMoreTopic()" *ngIf="!showMoreTopic">Hide more..</a>
+            </div>
         </div>
-        <div class="more-btn"><a (click)="showMoreTopics(question)" *ngIf="!showMoreTopic">Show more..</a></div>
-        <div class="more-btn"><a (click)="hideMoreTopics(question)" *ngIf="showMoreTopic">Hide more..</a></div>
     </div>
-    <div class="filter-panel" *ngIf="!showMoreTopic">
+    <div class="filter-panel">
         <div class="read-question-button">
             <a (click)="getQuestionsAnswered(categorySelected.id)">
                 {{totalCount?.totalAnsweredQuestion}}  Read

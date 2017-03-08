@@ -296,10 +296,6 @@ namespace AltaPerspectiva.Web.Area.Questions
             return topics;
         }
 
-        
-
-
-
         [HttpGet("questions/getlevel")]
         public IActionResult GetLevel()
         {
