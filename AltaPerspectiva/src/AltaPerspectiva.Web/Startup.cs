@@ -293,10 +293,10 @@ namespace AltaPerspectiva
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
 
-                //ClientId = "localhost", // for localhost
+                ClientId = "localhost", // for localhost
 
 
-                ClientId = "azure",       // for azure deploy 
+                //ClientId = "azure",       // for azure deploy 
 
                 ClientSecret = "aLtaseCreT!@#",
 
