@@ -11,6 +11,7 @@ using Questions.Query;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using AltaPerspectiva.Web.Areas.Admin.helpers;
+using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using AltaPerspectiva.Web.Areas.Admin.Models;
 using Questions.Command.Commands;
 using Questions.Command;
@@ -35,6 +36,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             commandsFactory = _commandsFactory;
             queryFactory = _queryFactory;
             environment = _environment;
+            
         }
        
         [HttpGet("sitemanagement/")]        
@@ -58,14 +60,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             ViewData["Title"] = "Add category";
             ViewData["Category"] = "Add category";
             CategoryViewModel categoryViewModel = new CategoryViewModel();
-            ViewBag.CategoryIconList = new List<CategoryIconViewModel> {
-                new CategoryIconViewModel { Icon="icon-dice"},
-                new CategoryIconViewModel { Icon="icon-chart"},
-                new CategoryIconViewModel { Icon="icon-users"},
-                new CategoryIconViewModel { Icon="icon-people"},
-                new CategoryIconViewModel { Icon="icon-process"},
-                new CategoryIconViewModel { Icon="icon-star"}
-            };
+            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels();
             ViewBag.Message = null;
             return View(categoryViewModel);
         }
@@ -92,6 +87,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             };
             ViewData["Title"] = "Add category of "+categoryViewModel.Name;
             ViewData["Category"] = "Add category of "+categoryViewModel.Name;
+            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels();
             return View("AddCategory", categoryViewModel);
         }
 
@@ -143,6 +139,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         [HttpPost("Admin/addcategory")]
         public async Task<IActionResult> AddCategory(CategoryViewModel categoryViewModel)
         {
+            
             ViewData["Title"] = "Add category";
             //Update 
             if (!ModelState.IsValid)
@@ -169,6 +166,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             commandsFactory.ExecuteQuery(cmd);
             ModelState.Clear();
             ViewBag.Message = categoryViewModel.Name + " Added Successfully";
+            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels();
             return View(new CategoryViewModel());
         }
 
