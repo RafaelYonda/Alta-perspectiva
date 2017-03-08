@@ -94,6 +94,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         [HttpPost("Admin/addcategory/{id}")]
         public async Task<IActionResult> AddCategory(Guid id, CategoryViewModel categoryViewModel)
         {
+            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels();
             //Update 
             if (!ModelState.IsValid)
             { 
@@ -109,12 +110,6 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 loggedinUser = new Guid(loggedinUser.ToString());
             }
             String image = categoryViewModel.Image.FileName;
-
-            //var uploadPath = Path.Combine(Path.Combine(environment.WebRootPath, configuration["CategoryUpload"]), image);
-            //using (var fileStream = new FileStream(uploadPath, FileMode.Create))
-            //{
-            //    categoryViewModel.Image.CopyTo(fileStream);
-            //}
             AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
             await azureFileUploadHelper.SaveCategoryImage(categoryViewModel.Image);
             
@@ -178,6 +173,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Where(x=>x.Name!= "Ver todas").ToList();
             return View(categoriesList);
         }
+       
 
         [HttpGet("Admin/QuestionReport")]
         public IActionResult QuestionReport()

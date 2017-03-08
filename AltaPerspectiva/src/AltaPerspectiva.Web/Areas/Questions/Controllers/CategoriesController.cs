@@ -296,15 +296,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             return topics;
         }
 
-        [HttpPost]
-        public IActionResult SaveTopic(Guid categoryId, String topicName)
-        {
-            AddTopicCommand cmd = new AddTopicCommand(topicName, categoryId);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid id = cmd.Id;
-
-            return Ok(topicName);
-        }
+        
 
 
 
