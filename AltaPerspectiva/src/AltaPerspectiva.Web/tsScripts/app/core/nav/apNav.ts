@@ -44,5 +44,14 @@ export class ApNav {
     gotoProfile() {
         this._router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
     }
+    isShowing = false;
+    togglemenu() {
+        this.isShowing = !this.isShowing;
+        var leftMenu = document.getElementById('toggleMenu');
+        if (this.isShowing)
+            leftMenu.classList.add("expand");
+        else
+            leftMenu.classList.remove("expand");
+    }
     
 }

@@ -7,16 +7,45 @@
         position:absolute;
         overflow:hidden;
     }
+    .menu-container {
+    margin: 5px auto;
+    width: 65%;
+    font-size: 12px;
+    font-family: myriadpro-regular;
+}
+    .menu-container > ul > li > a {
+    color: #6b6868;
+}
+
+    .menu-container > ul > li > a:hover {
+        color: #f7a756;
+    }
+    .left-panel-list {
+    color: #215ea7;
+    font-size: 14px;
+    list-style:none;
+}
+.left-panel-list li{
+    margin-bottom:5px;
+}
 </style>
 <div class="row">
-    <div class="left-panel">
+    <div id="toggleMenu" class="left-panel">
+        <div class="menu-container visible-xs">
+            <button (click)="togglemenu()"> x </button>
+            <ul class="left-panel-list">
+                <li class=""><a routerLink="/">Alta Perspectiva</a></li>
+                <li><a routerLink="/question/home/1">Questions</a></li>
+                <li><a (click)="gotoProfile()"> Profile</a></li>
+            </ul>
+        </div>
         <div id="leftPanel">
             <topfive-question-left-menu> </topfive-question-left-menu>
             <topfive-topic></topfive-topic>
             <category-left-menu [caegoryId]="id"></category-left-menu>
         </div>
     </div>
-    <div class="right-panel">
+    <div class="right-panel hidden-xs">
         <topfive-user></topfive-user>
     </div>
     

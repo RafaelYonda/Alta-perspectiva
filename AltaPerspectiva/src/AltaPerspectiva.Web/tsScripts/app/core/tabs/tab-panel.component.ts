@@ -85,4 +85,13 @@ export class TabPanelComponent {
     hideLoader() {
         this.isLoading = false;
     }
+    isShowing = true;
+    togglemenu() {
+        this.isShowing = !this.isShowing;
+        var leftMenu = document.getElementById('toggleMenu');
+        if (this.isShowing)
+            leftMenu.classList.add("expand");
+        else
+            leftMenu.classList.remove("expand");
+    }
 }
