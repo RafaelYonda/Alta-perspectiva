@@ -155,7 +155,7 @@ if (@userId is null)
 	) TotalCommulativePoint,
 	(
 	select top 1 e.Position from UserProfile.Employments e 
-where CredentialId=(select top 1 CredentialId from UserProfile.Credentials c where c.UserId=u.Id)
+where CredentialId=(select top 1 Id from UserProfile.Credentials c where c.UserId=u.Id)
 order by CreatedOn desc
 	) Occupation,
 	ISNULL((select top 1 ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
@@ -203,7 +203,7 @@ SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId,
 	,
 	(
 	select top 1 e.Position from UserProfile.Employments e 
-where CredentialId=(select top 1 CredentialId from UserProfile.Credentials c where c.UserId=u.Id)
+where CredentialId=(select top 1 Id from UserProfile.Credentials c where c.UserId=u.Id)
 order by CreatedOn desc
 	) Occupation,
 	ISNULL((select ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
@@ -231,7 +231,7 @@ ELSE
 	
 	(
 	select top 1 e.Position from UserProfile.Employments e 
-where CredentialId=(select top 1 CredentialId from UserProfile.Credentials c where c.UserId=@userId)
+where CredentialId=(select top 1 Id from UserProfile.Credentials c where c.UserId=@userId)
 order by CreatedOn desc
 	) Occupation,
 	ISNULL((select ProfileViewCount from UserProfile.Credentials where UserId=@userId),0) ProfileViewCount
