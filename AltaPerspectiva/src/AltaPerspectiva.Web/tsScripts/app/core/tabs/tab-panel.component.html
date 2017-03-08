@@ -1,25 +1,69 @@
 ﻿<style>
-    .center-width{
-        position:relative;
+    .center-width {
+        position: relative;
     }
-    .center-width .modal-overlay{
-        min-height: 600px;
-        position:absolute;
-        overflow:hidden;
+
+        .center-width .modal-overlay {
+            min-height: 600px;
+            position: absolute;
+            overflow: hidden;
+        }
+
+    .menu-container {
+        margin: 5px auto;
+        width: 65%;
+        font-size: 12px;
+        font-family: myriadpro-regular;
+    }
+
+        .menu-container > ul > li > a {
+            color: #6b6868;
+        }
+
+            .menu-container > ul > li > a:hover {
+                color: #f7a756;
+            }
+
+    .left-panel-list {
+        color: #215ea7;
+        font-size: 14px;
+        list-style: none;
+    }
+
+        .left-panel-list li {
+            margin-bottom: 5px;
+        }
+
+    .cloe-button {
+        display: block;
+        text-align: right;
+        margin-right: -20px;
+        font-size: 20px;
     }
 </style>
 <div class="row">
-    <div class="left-panel">
+    <div id="toggleMenu" class="left-panel">
+
+        <div class="menu-container visible-xs">
+            <div class="cloe-button">
+                <a (click)="hideMenu()"> <i class="fa fa-arrow-left"></i> </a>
+            </div>
+            <ul class="left-panel-list">
+                <li class=""><a routerLink="/">Alta Perspectiva</a></li>
+                <li><a routerLink="/question/home/1">Questions</a></li>
+                <li><a (click)="gotoProfile()"> Profile</a></li>
+            </ul>
+        </div>
         <div id="leftPanel">
             <topfive-question-left-menu> </topfive-question-left-menu>
             <topfive-topic></topfive-topic>
             <category-left-menu [caegoryId]="id"></category-left-menu>
         </div>
     </div>
-    <div class="right-panel">
+    <div class="right-panel hidden-xs">
         <topfive-user></topfive-user>
     </div>
-    
+
     <div class="center-width">
         <div class="modal-overlay z-modal" *ngIf="isLoading">
             <div class="loader"></div>
@@ -28,7 +72,7 @@
             <question-panel [question]="question"></question-panel>
         </div>
         <!-- For Hover pop up get some space to show -->
-        <div style="height:200px;position:relative;"></div> 
+        <div style="height:200px;position:relative;"></div>
     </div>
 </div>
 

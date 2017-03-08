@@ -140,9 +140,8 @@ if (@userId is null)
 	BEGIN
 	;with CTE
 	as(
-	SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId
-	,[UserName],
-	(select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) FullName,
+	SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId,
+	ISNULL((select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc),[UserName]) Name,
 	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,
 	(select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id) TotalLike,
 	(select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) TotalComment,
@@ -172,9 +171,8 @@ BEGIN
 ;with TopFiveUserCTE
 as
 (
-SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId
-	,[UserName],
-	(select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) FullName,
+SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId,
+	ISNULL((select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc),[UserName]) Name,
 	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,
 	(select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id) TotalLike,
 	(select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) TotalComment,
@@ -217,9 +215,8 @@ END
 
 ELSE
 	BEGIN
-	SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId
-	,[UserName],
-	(select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) FullName,
+	SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId,
+	ISNULL((select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc),[UserName]) Name,
 	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,
 	(select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id) TotalLike,
 	(select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) TotalComment,

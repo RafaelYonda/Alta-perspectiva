@@ -8,6 +8,7 @@
 .left-panel-list {
     color: #215ea7;
     font-size: 14px;
+    list-style:none;
 }
 .left-panel-list li{
     margin-bottom:5px;

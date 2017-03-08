@@ -1,20 +1,20 @@
 ﻿<div #logginAnchor></div>
 <div #likeAnchor></div>
 <div class="status-panel">
-    <img *ngIf="questionObj?.answers[0]?.likes?.length<1" (click)="submitLike(answerObj?.id,questionObj.id)" src='../images/fade-logo.png' onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
-    <img *ngIf="questionObj?.answers[0]?.likes?.length>0" src='../images/like-logo.png' />
+    <img *ngIf="questionObj?.answers[0]?.likes?.length<1" class="hidden-xs" (click)="submitLike(answerObj?.id,questionObj.id)" src='../images/fade-logo.png' onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
+    <img *ngIf="questionObj?.answers[0]?.likes?.length>0" class="hidden-xs" src='../images/like-logo.png' />
     <a (click)="ShowLikeCount()" class="number-box status-line"> {{isQuestion?(questionObj.likes.length):(answerObj?.likes?.length)}}</a>
     <a (click)="submitLike(answerObj?.id,questionObj.id)"><div class="status-line">{{questionObj.likes.length>1?'Likes':'Like'}}</div></a>
     <div class="status-line like-border "></div>
-    <div class="status-line number-box status-line">{{questionObj?.viewCount?questionObj?.viewCount:0}}</div>
-    <div class="status-line">Leidos</div>
+    <div class="status-line number-box status-line hidden-xs">{{questionObj?.viewCount?questionObj?.viewCount:0}}</div>
+    <div class="status-line hidden-xs">Leidos</div>
     {{likedUsers?.length}} 
     <div class="number-box status-line">
         {{CommentCount}}
     </div>
     <a class="status-line" data-toggle="collapse" aria-expanded="false" attr.data-target="#questionComment{{commentId}}">Comentarios</a>
-    <div class="status-line number-box status-line">{{questionObj?.answerCount}}</div>
-    <div class="status-line">Respuestas</div>
+    <div class="status-line number-box status-line hidden-xs">{{questionObj?.answerCount}}</div>
+    <div class="status-line hidden-xs">Respuestas</div>
 
     <!--==========Right Side=====-->
     <div class="social-icon">
@@ -71,7 +71,6 @@
                 </ul>
             </popover-content>
         </div>
-
 
     </div>
 </div>

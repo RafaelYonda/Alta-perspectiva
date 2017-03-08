@@ -1,13 +1,14 @@
 ﻿@import (reference) "../../bower_components/bootstrap/less/variables.less";
 
-.nav{
-    position:relative;
+.nav {
+    position: relative;
 }
+
 .navbar {
     position: fixed;
     height: 64px;
     min-height: 40px;
-    background-color: rgba(134, 134, 134, 0.64);
+    background-color: rgba(234, 233, 233, 0.64);
     border: none;
 }
 
@@ -18,7 +19,7 @@
 
 .navbar-default .navbar-nav {
     > li > form > a {
-        color: white;
+        color: black;
     }
 }
 
@@ -69,6 +70,7 @@
         border: none;
         margin: 0 15px;
 
+
         .button-label {
             display: inline-block;
         }
@@ -79,8 +81,15 @@
     }
 }
 
+.navbar-toggle {
+    margin-top: -29px;
+    background: none;
+    border: 0;
+    margin-right: 17px;
+}
+
 .navbar-brand {
-    color: white !important;
+    color:black;
     height: 40px;
     padding: 0px 0px;
     margin-left: 5px;
@@ -102,7 +111,7 @@
 
     > li {
         > a {
-            color: white !important;
+            color: black!important;
             padding-top: 10px;
             padding-bottom: 10px;
 
@@ -160,7 +169,9 @@
         background-size: 30px 23px;
     }
 }
-
+.navbar-inverse .navbar-toggle:focus{
+    background:none;
+}
 .navbar-collapse {
     margin-top: 5px;
 }
@@ -174,7 +185,19 @@
     background-color: white;
     border-bottom: 1px solid #777;
 }
-.navbar-right{
-    float:right;
-    margin-right:15px;
+
+.navbar-right {
+    float: right;
+    margin-right: 15px;
+}
+
+@media only screen and (max-width:767px) {
+
+    .navbar-brand {
+        margin-top: 4px;
+
+        .logo {
+            width: 45px;
+        }
+    }
 }

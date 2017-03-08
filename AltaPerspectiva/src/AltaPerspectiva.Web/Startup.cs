@@ -183,7 +183,7 @@ namespace AltaPerspectiva
 
             //readmodels
             services.AddTransient<IProfileParameters, ProfileParameters>();
-            services.AddTransient<ITopUserQuery, TopUserQuery>();
+         
             //Social Link
             services.AddTransient<ICommandHandler<UpdateSocialLinkCommand>, UpdateSocialLinkCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteSocialLinkCommand>, DeleteSocialLinkCommandHandler>();

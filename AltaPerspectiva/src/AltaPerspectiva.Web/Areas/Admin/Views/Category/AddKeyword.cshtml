@@ -139,7 +139,7 @@
                     <div class="col-lg-12">
 
                         <div class="col-md-3">
-                            <input type="button" id="btnSaveTopic" value="SaveTopic" class="btn btn-default" onclick="AddTopic($('#topicCategoryId').val())">
+                            <input type="button" id="btnSaveTopic" value="SaveTopic" class="btn btn-default" onclick="saveTopic($('#topicCategoryId').val())">
                         </div>
                         <div class="col-md-6">
                             <input type="text" id="newTopic" name="newTopic" placeholder="Add Topics" class="form-control" />
@@ -191,7 +191,7 @@
             obj.categoryId = categoryId;
             obj.topicName = newKeyword;
             console.log(obj);
-            var url = '@Url.Action("SaveTopic", "Categories", new { Area = "Questions" })';
+            var url = '@Url.Action("SaveTopic", "Category", new { Area = "Admin" })';
             $.ajax({
                 url: url,
                 type: 'POST',

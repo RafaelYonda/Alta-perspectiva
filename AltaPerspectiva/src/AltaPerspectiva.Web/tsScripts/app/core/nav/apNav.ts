@@ -6,6 +6,7 @@ import { ProfileService } from '../../services/profile.service';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { CredentialViewModel } from '../../services/models/models.profile';
+import { CommunicationService } from '../../services/communication.service';
 
 @Component({
     selector: 'ap-nav',
@@ -22,7 +23,7 @@ export class ApNav {
     credential: CredentialViewModel = new CredentialViewModel();
     
 
-    constructor(private authService: AuthenticationService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router) {
+    constructor(private authService: AuthenticationService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router, private commServ: CommunicationService) {
         this._authService = authService;
         var user: User = new User();
         //user.userid = '-1';
@@ -39,10 +40,19 @@ export class ApNav {
             this._logObj.isLoggedIn = true;
             this._logObj.user.userId = res.userId;
         });
+
+        this.commServ.getToggleClicked().subscribe((res: string) => {
+            console.log("Toggle CLicked");
+            this.togglemenu();
+        });
     }
 
     gotoProfile() {
         this._router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
+    }
+    togglemenu() {
+        var leftMenu = document.getElementById('toggleMenu');
+        leftMenu.classList.add("expand");
     }
     
 }

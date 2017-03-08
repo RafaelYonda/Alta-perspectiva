@@ -81,3 +81,22 @@ h5 {
 .question-title {
     flex-grow: 1;
 }
+@media only screen and (max-width:767px) {
+    .left-panel {
+        position: fixed;
+        overflow:auto;
+        background: #cac4bd;
+        z-index: 9050;
+        left: -800px;
+        width: 80%;
+        top: 0;
+        bottom: 0;
+        margin-left: -5px;
+        padding-top: 16px;
+        transition:1.5s
+    }
+}
+.expand{
+    left:-15px;
+    transition:1s;
+}

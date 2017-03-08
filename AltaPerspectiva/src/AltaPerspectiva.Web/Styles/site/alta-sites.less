@@ -1,18 +1,15 @@
 ﻿.fixed-category {
     position: fixed;
     width: 23% !important;
-    left:-15px;
+    left: -15px;
 }
 
-.center-width{
-    width: 56%;
-    margin-left: auto;
-    margin-right: auto;
-}
-.center-body{
-    padding-left:15px;
+
+.center-body {
+    padding-left: 15px;
     min-height: 150vh;
 }
+
 .alta-btn {
     padding: 4px 12px;
     font-family: typogroteskrounded;
@@ -26,7 +23,20 @@
     padding: 15px;
     margin-bottom: 10px;
 }
-.row-fix{
+
+.row-fix {
     padding-right: 15px;
     padding-left: 15px;
+}
+
+.center-width {
+    width: 56%;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*Media query*/
+@media only screen and (max-width:767px) {
+    .center-width {
+        width: 85%;
+    }
 }

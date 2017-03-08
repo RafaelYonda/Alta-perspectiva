@@ -174,13 +174,19 @@ export class ApSearchComponent {
     }
     removeModal() {
         this.filteredQuestionList = [];
-        this.categoryMatched = "";
-        document.getElementById("search-box").className = this.placeBottom ;
-        //document.getElementById("search-box").className = this.searchClass;
-        var form = document.getElementById("search-panel");
-        form.style.marginTop = '0';
+        this.categoryMatched = "";        
         this.resetquestionMark();
         this.isOnModal = false;
         this.title = '';
+
+        //CSS change==============
+        document.getElementById("search-box").className = this.placeBottom;
+        var form = document.getElementById("search-panel");
+        form.style.marginTop = '0';
+
+        if (window.innerWidth < 767)
+            return false;
+        
+
     }
 }

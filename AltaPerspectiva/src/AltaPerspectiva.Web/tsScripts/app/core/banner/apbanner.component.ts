@@ -24,6 +24,9 @@ export class ApBannerComponent {
 
     @HostListener('window:scroll', ['$event'])
     track(event) {
+        var width = window.innerWidth;
+        if (width < 767)
+            return false;
         var searchPanel = document.getElementById('search-box');
         var tabPanel = document.getElementById('tabs');
         //var categoryPanel = document.getElementById('leftPanel');

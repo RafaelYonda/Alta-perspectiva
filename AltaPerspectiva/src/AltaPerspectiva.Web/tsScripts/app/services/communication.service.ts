@@ -6,6 +6,11 @@ import { FilterParameter, Comment } from './models';
 
 @Injectable()
 export class CommunicationService {
+    static instance: CommunicationService;
+
+    constructor() {
+        return CommunicationService.instance = CommunicationService.instance || this;
+    }
     //=========Comment Change communication========
     private comment: Comment;
     private commentAdded: Subject<Comment> = new Subject<Comment>();
@@ -70,19 +75,15 @@ export class CommunicationService {
     setCommentsCount(count: number): void {
         this.commentCountAdd.next(count);
     }
-
     getCommentsCount(): Observable<number> {
         return this.commentCountAdd.asObservable();
     }
-
-
-   
-
-
-    //setFilterParameter(filterParameter: FilterParameter) {
-    //    this.filterParameter = filterParameter;
-    //}
-    
-
-  
+    //==============Toggle Menu Clicked=============
+    private toggleClicked: Subject<string> = new Subject<string>();
+    setToggleClicked(): void {
+        this.toggleClicked.next("False");
+    }
+    getToggleClicked(): Observable<string> {
+        return this.toggleClicked.asObservable();
+    }
 }
