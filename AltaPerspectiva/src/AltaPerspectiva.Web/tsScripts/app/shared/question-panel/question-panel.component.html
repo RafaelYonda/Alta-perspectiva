@@ -24,7 +24,7 @@
                     <button class="answer-button" (click)="answerDialogBox(question)">Answer</button>
                 </div>
                 <div *ngIf="(question.answerCount>0)">
-                    <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
+                    <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate" [isAnonymous]="question.bestAnswer?.isAnonymous"></user-info>
                     <div *ngIf="question.bestAnswer?.text" (click)="openDialogBox(question)">
                         <p [innerHTML]="clippedAnswer"></p><span><a (click)="openDialogBox(question)">Read more..</a></span>
                     </div>

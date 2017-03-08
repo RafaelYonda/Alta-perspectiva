@@ -1,9 +1,10 @@
-﻿import { Component, Input, EventEmitter } from '@angular/core';
+﻿import { Component, Input, EventEmitter, ViewContainerRef } from '@angular/core';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { ProfileService } from '../../services/profile.service';
 import {LogInObj, Question, AnswerViewModel, User } from '../../services/models';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
+//import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 
 
 @Component({
@@ -13,15 +14,25 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class AnswerSubmitComponent {
     _logObj: LogInObj;
-    @Input() question: Question;
-    @Input() isFullScreen: boolean;
-    @Input() isDetail: boolean;
-    @Input() isDraft = false;
+    @Input()
+    question: Question;
+    @Input()
+    isFullScreen: boolean;
+    @Input()
+    isDetail: boolean;
+    @Input()
+    isDraft = false;
     close = new EventEmitter();
-    isAnonymous: boolean;//anonymous added to 
+    isAnonymous: boolean; //anonymous added to 
     answerVM: AnswerViewModel;
     answerText: string;
-    constructor(private dataService: QuestionAnswerService, private _router: Router, private profileService: ProfileService, private _authService: AuthenticationService) {
+
+    constructor(private dataService: QuestionAnswerService,
+        private _router: Router,
+        private profileService: ProfileService,
+        private _authService: AuthenticationService)//, public toastr: ToastsManager, vcr: ViewContainerRef)
+
+    {
         var user: User = new User();
         user.userId = '-1';
         this._logObj = { isLoggedIn: false, user: user };
@@ -55,6 +66,10 @@ export class AnswerSubmitComponent {
         });
     }
     submitAnswer(_id: string) {
+        if (this.answerText == null) {
+           // this.toastr.warning('Please some answer!!', 'Oops');
+            return;
+        }
         if (this.isDetail)
             this.close.emit();
         this.answerVM = new AnswerViewModel();
@@ -71,9 +86,12 @@ export class AnswerSubmitComponent {
         });
     }
     submitAnswerAsDraft(_id: string) {
-        if (this.answerText|| this.answerText.length==0) 
+        if (this.answerText == null) {
+          // this.toastr.warning('Please some answer!!', 'Oops');
             return;
-        
+
+        }
+            
 
 
         this.answerVM = new AnswerViewModel();
