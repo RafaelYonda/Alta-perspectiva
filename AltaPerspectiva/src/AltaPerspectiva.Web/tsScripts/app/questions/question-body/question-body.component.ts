@@ -313,4 +313,11 @@ export class QuestionBodyComponent {
             this.questions.find(x => x.id == questionId).likes.push(this.like);
         });
     }
+    hideMenu() {
+        var leftMenu = document.getElementById('toggleMenu');
+        leftMenu.classList.remove("expand");
+    }
+    gotoProfile() {
+        this._router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
+    }
 }

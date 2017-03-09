@@ -134,8 +134,7 @@ a {
     display: inline-block;
     width: 15px;
 }
-
-.bottom-float {
+ .bottom-float {
     position: absolute;
     bottom: -3%;
     left: 0;
@@ -311,7 +310,7 @@ label {
         width: 28px;
     }
 
-    .bottom-float {
+    .search-xs {
         padding: 0;
         position: fixed;
         width: calc(100% - 117px);

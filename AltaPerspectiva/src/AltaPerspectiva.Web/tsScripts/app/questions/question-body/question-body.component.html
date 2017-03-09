@@ -53,7 +53,17 @@
         <topfive-user></topfive-user>
     </div>
 </div>
-<div class="right-panel">
+<div id="toggleMenu" class="right-panel category-panel-xs">
+    <div class="menu-container visible-xs">
+        <div class="cloe-button">
+            <a (click)="hideMenu()"> <i class="fa fa-arrow-left"></i> </a>
+        </div>
+        <ul class="left-panel-list">
+            <li class=""><a routerLink="/">Alta Perspectiva</a></li>
+            <li><a routerLink="/question/home/1">Questions</a></li>
+            <li><a (click)="gotoProfile()"> Profile</a></li>
+        </ul>
+    </div>
     <category-left-menu [caegoryId]="categoryId"></category-left-menu>
 </div>
 <div class="center-width center-body z-ground center-fix">
@@ -83,7 +93,7 @@
     </div>
     <br />
     <div class="row tags-container">
-        <div *ngIf="topFiveTopics.length!=0">
+        <div *ngIf="topFiveTopics?.length!=0">
             <div class="tags" *ngFor="let topic of topFiveTopics">
                 <a [routerLink]="['/question/home',topic?.categoryId,topic?.id,0]"> {{topic.topicName}}</a>
             </div>
