@@ -127,13 +127,13 @@ namespace UserProfile.Query.Queries
             return userInfoDetails;
         }
 
-        public List<UserSummary> GetTopFiveUserSummary( string connectionString)
+        public async Task<List<UserSummary>> GetTopFiveUserSummary( string connectionString)
         {
             List<UserSummary> userSummery = new List<UserSummary>();
             string query = String.Format("SpTopUserCalculation");
-            userSummery = DataReaderToListHelper.DataReaderToList<UserSummary>(connectionString, query);
+            return  await Task.Run(() => userSummery = DataReaderToListHelper.DataReaderToList<UserSummary>(connectionString, query));
            
-            return userSummery;
+            
         }
 
         public UserSummary GetUserSummary(Guid userId, string connectionString)
@@ -145,11 +145,11 @@ namespace UserProfile.Query.Queries
             return summary;
         }
 
-        public List<UserSummary> GetUserSummnaryByCategoryId(Guid categoryId, string connectionString)
+        public async Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId, string connectionString)
         {
             List<UserSummary> userSummery = new List<UserSummary>();
             string query = String.Format("SpTopUserCalculation null,'{0}'", categoryId);
-            userSummery = DataReaderToListHelper.DataReaderToList<UserSummary>(connectionString, query);
+            userSummery = await Task.Run(() => DataReaderToListHelper.DataReaderToList<UserSummary>(connectionString, query));
            
             return userSummery;
         }

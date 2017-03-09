@@ -451,18 +451,18 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         }
         #region topFiveUser ,topFiveUserByCategoryId and UserSummary
         [HttpGet("userprofile/api/{categoryId}/gettopFiveUserbycategoryid")]
-        public List<UserSummary> GetTopFiveUserByCategoryId(Guid categoryId)
+        public async Task<List<UserSummary>> GetTopFiveUserByCategoryId(Guid categoryId)
         {
             List<UserSummary> summeries = new List<UserSummary>();
             String connectionString = Startup.ConnectionString;
             if (categoryId != Guid.Empty)
             {
-                summeries = queryFactory.ResolveQuery<IProfileParameters>().GetUserSummnaryByCategoryId(categoryId, connectionString);
+                summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetUserSummnaryByCategoryId(categoryId, connectionString);
 
             }
             else
             {
-                summeries = queryFactory.ResolveQuery<IProfileParameters>().GetTopFiveUserSummary(connectionString);
+                summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetTopFiveUserSummary(connectionString);
 
             }
             summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries,queryFactory,configuration);
