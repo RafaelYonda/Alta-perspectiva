@@ -38,4 +38,8 @@ export class NavBarComponent {
     gotoProfile() {
         this._router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
     }
+    togglemenu() {
+        var leftMenu = document.getElementById('toggleMenu');
+        leftMenu.classList.add("expand");
+    }
 }

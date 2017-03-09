@@ -3,41 +3,14 @@
         position: relative;
     }
 
-    .menu-container {
-        margin: 5px auto;
-        width: 65%;
-        font-size: 12px;
-        font-family: myriadpro-regular;
-    }
+    
 
-        .menu-container > ul > li > a {
-            color: #6b6868;
-        }
 
-            .menu-container > ul > li > a:hover {
-                color: #f7a756;
-            }
 
-    .left-panel-list {
-        color: #215ea7;
-        font-size: 14px;
-        list-style: none;
-    }
 
-        .left-panel-list li {
-            margin-bottom: 5px;
-        }
-
-    .cloe-button {
-        display: block;
-        text-align: right;
-        margin-right: -20px;
-        font-size: 20px;
-    }
 </style>
 <div class="row">
-    <div id="toggleMenu" class="left-panel">
-
+    <div id="toggleMenu" class="left-panel category-panel-xs">
         <div class="menu-container visible-xs">
             <div class="cloe-button">
                 <a (click)="hideMenu()"> <i class="fa fa-arrow-left"></i> </a>
