@@ -18,5 +18,7 @@ namespace UserProfile.Query.Interfaces
         UserSummary GetUserSummary(Guid userId, string connectionString);
 
         Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId,string connectionString);
+
+        UserEmailParameter GetUserEmailParameter(String connectionString, Guid userId);
     }
 }

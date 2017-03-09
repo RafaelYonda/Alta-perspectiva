@@ -28,6 +28,8 @@ using AltaPerspectiva.Web.Areas.Admin.helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using AltaPerspectiva.Web.Areas.Admin.Helpers;
+using UserProfile.Domain.ReadModel;
+using UserProfile.Query.Interfaces;
 
 namespace AltaPerspectiva.Web.Area.Questions
 {
@@ -212,14 +214,29 @@ namespace AltaPerspectiva.Web.Area.Questions
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            String query = String.Format("select Email from [Identity].[AspNetUsers] where Id='{0}'", loggedinUser);
-            String email = DataReaderToListHelper.DataReaderToSingleColumn(Startup.ConnectionString, query, "Email");
+            
+           
+            Question question = queryFactory.ResolveQuery<IQuestionsQuery>().QuestionForEmail(answer.QuestionId);
+           
+
+
+            UserEmailParameter answerUserEmailParamter =
+               queryFactory.ResolveQuery<IProfileParameters>()
+                   .GetUserEmailParameter(Startup.ConnectionString, loggedinUser);
+
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            answerUserEmailParamter.ImageUrl = azureFileUploadHelper.GetProfileImage(answerUserEmailParamter.ImageUrl);
+
+            #region imageProcessing
+
+
+
 
             var imgTags = Base64Image.GetImagesInHTMLString(answer.Text);
 
             foreach (var imgTag in imgTags)
             {
-                string fileLink=String.Empty;
+                string fileLink = String.Empty;
                 try
                 {
                     // String base64String = imgTag;
@@ -232,10 +249,10 @@ namespace AltaPerspectiva.Web.Area.Questions
                     Guid id = ans.Id;
                     String imageName = id.ToString() + base64Image.Extension;
 
-                    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                  //  AzureFileUploadHelper azurelFieUploadHelper = new AzureFileUploadHelper();
                     fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
                         imageName, base64Image.ContentType);
-                   
+
                 }
                 catch (Exception e)
                 {
@@ -246,6 +263,18 @@ namespace AltaPerspectiva.Web.Area.Questions
                     answer.Text = answer.Text.Replace(imgTag, fileLink);
                 }
             }
+            #endregion
+
+            UserEmailParameter questionUserEmailParamter =
+               queryFactory.ResolveQuery<IProfileParameters>()
+                   .GetUserEmailParameter(Startup.ConnectionString, question.UserId);
+
+          
+
+            EmailHandler emailHandler =new EmailHandler(Startup.SendGridApiKey,answer.QuestionId, questionUserEmailParamter.UserName, question.Title,answerUserEmailParamter.UserName,answer.Text, answerUserEmailParamter.ImageUrl,questionUserEmailParamter.Email);
+
+            
+
             AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;

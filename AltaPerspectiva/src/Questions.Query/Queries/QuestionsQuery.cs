@@ -341,5 +341,10 @@ namespace Questions.Query
                                        .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
                                           .ToList();
         }
+
+        public Question QuestionForEmail(Guid questionId)
+        {
+            return DbContext.Questions.FirstOrDefault(x => x.Id == questionId);
+        }
     }
 }

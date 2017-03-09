@@ -54,6 +54,7 @@ namespace AltaPerspectiva
     public class Startup
     {
         public static string ConnectionString { get; private set; }
+        public static string SendGridApiKey { get; private set; }
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -65,6 +66,7 @@ namespace AltaPerspectiva
 
             Configuration = builder.Build();
             ConnectionString = Configuration.GetValue<string>("Data:DefaultConnection:ConnectionString");
+            SendGridApiKey= Configuration.GetValue<string>("Data:SendGridApiKey");
         }
 
         public IConfigurationRoot Configuration { get; }

@@ -57,5 +57,8 @@ namespace Questions.Query
 
         //Drafted Questions
         IEnumerable<Question> DraftedQuestionAnswers(Guid userId);
+
+        //GEtQuestion For Email
+        Question QuestionForEmail(Guid questionId);
     }
 }
