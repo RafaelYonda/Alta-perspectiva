@@ -31,10 +31,17 @@
     .row-overflow {
         overflow: visible;
     }
+/*Emplyment display*/
     #employment-edit{
         display:none;
     }
     #employment:hover #employment-edit{
+        display:inline-block;
+    }
+    .show-edit{
+        display:none;
+    }
+    .show:hover .show-edit{
         display:inline-block;
     }
     
@@ -90,45 +97,45 @@
             </h3>
             <ul class="credential-panel">
                 <li>
-                    <div id="employment" *ngIf="employmentExists && isOwner">
+                    <div class="show" *ngIf="employmentExists && isOwner">
                         <div class="mytooltip"><i class="fa fa-suitcase"></i><span class="mytooltiptext">Employment</span></div>
 
 
                         <span title="Employment" innerHTML="{{employmentHtml}}"></span>
-                        <a *ngIf="isOwner" (click)='openEmploymentDialogAnchor()' id="employment-edit" class='edit'><i class='fa fa-edit'></i></a>
+                        <a *ngIf="isOwner" (click)='openEmploymentDialogAnchor()'  class='edit show-edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!employmentExists && isOwner" (click)="openEmploymentDialogAnchor()" class="edit">
                         Add Employment
                     </a>
                 </li>
                 <li>
-                    <div *ngIf="educationExists">
+                    <div class="show" *ngIf="educationExists">
                         <div class="mytooltip"><i class="fa fa-university"></i><span class="mytooltiptext">Education</span></div>
 
                         <span title="Education" innerHTML="{{educationHtml}}"></span>
-                        <a *ngIf="isOwner" (click)='openEducationDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>
+                        <a *ngIf="isOwner" (click)='openEducationDialogAnchor()' class='edit show-edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!educationExists && isOwner" (click)="openEducationDialogAnchor()" class="edit">
                         Add Education
                     </a>
                 </li>
                 <li>
-                    <div *ngIf="placeExists">
+                    <div *ngIf="placeExists" class="show">
                         <div class="mytooltip"><i class="fa fa-home"></i><span class="mytooltiptext">Place</span></div>
 
                         <span title="Place" innerHTML="{{placeHtml}}"></span>
-                        <a *ngIf="isOwner" (click)='openPlaceDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>
+                        <a *ngIf="isOwner" (click)='openPlaceDialogAnchor()' class='edit show-edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!placeExists && isOwner" (click)="openPlaceDialogAnchor()" class="edit">
                         Add Place
                     </a>
                 </li>
                 <li>
-                    <div *ngIf="otherExperienceExists">
+                    <div *ngIf="otherExperienceExists" class="show"> 
                         <div class="mytooltip"><i class="fa fa-cog"></i><span class="mytooltiptext">Other</span></div>
 
                         <span title="Others" innerHTML="{{othersHtml}}"></span>
-                        <a *ngIf="isOwner" (click)='openOtherexperienceDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>
+                        <a *ngIf="isOwner" (click)='openOtherexperienceDialogAnchor()' class='edit show-edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!otherExperienceExists && isOwner" (click)="openOtherexperienceDialogAnchor()" class="edit">
                         Add Others
