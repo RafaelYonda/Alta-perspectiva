@@ -15,7 +15,8 @@
 
     .credential-text {
         font-size: 18px;
-        margin-right: -3px;
+        display: inline-block;
+        margin-right: 5px;
     }
 
     .profile-info h1 {
@@ -29,10 +30,6 @@
 
         .user-name a, .user-name button {
             margin-left: 5px;
-        }
-
-        .user-name a {
-            display: inline-block;
         }
 
     .panel-heading {
@@ -127,6 +124,30 @@
     .profile-image-center .btn {
         color: black;
     }
+
+    .display-hide {
+        display: none;
+    }
+    /*User name display*/
+    #userName:hover #userName-btn {
+        display: inline-block;
+    }
+    /*Credential display*/
+    #credential-edit {
+        display: none;
+    }
+
+    #credential:hover #credential-edit {
+        display: inline-block;
+    }
+    /*Description display*/
+    #description-edit {
+        display: none;
+    }
+
+    #description:hover #description-edit {
+        display: inline-block;
+    }
 </style>
 <div>
     <div #credentialDialogAnchor></div>
@@ -134,22 +155,22 @@
     <div #twitterDialogAnchor></div>
     <div #facebookDialogAnchor></div>
     <div #linkedinDialogAnchor></div>
-    
+
 </div>
 <div class="profile-info-container">
     <div class="col-md-3">
         <div class="profile-image-center">
             <img class="profile-image" src="{{imageLink}}" />
-            <button type="button" name="documents" class="btn btn-default" (click)="onUploadClick()"  *ngIf="isOwner">Upload Image</button>
+            <button type="button" name="documents" class="btn btn-default" (click)="onUploadClick()" *ngIf="isOwner">Upload Image</button>
         </div>
     </div>
     <div class="col-md-9">
         <div class="profile-info">
             <!-- ===================User Name================== -->
             <div class="user-name">
-                <div [hidden]="!isUserHidden">
+                <div id="userName" [hidden]="!isUserHidden">
                     <h1> {{credential.firstName}} {{credential.lastName}} </h1>
-                    <a *ngIf="isOwner" (click)="isUserHidden = false"><span><i class="fa fa-edit"></i>Edit Name</span> </a>
+                    <a *ngIf="isOwner" id="userName-btn" class="display-hide" (click)="isUserHidden = false"><span><i class="fa fa-edit"></i>Edit Name</span> </a>
                 </div>
                 <div [hidden]="isUserHidden" *ngIf="isOwner">
                     <input placeholder="First Name" [(ngModel)]="credential.firstName" type="text" />
@@ -159,14 +180,16 @@
                 </div>
             </div>
 
-            <div>
-                <a class="credential-text">{{credential.title}}</a>
-                <a *ngIf="isOwner" (click)="openCredentialDialogBox()"><span>Update Credential</span> </a>
+            <div id="credential">
+                <a *ngIf="!credential.title && (credential?.title?.trim()!='')" (click)="openCredentialDialogBox()"> Add profile credential</a>
+                <div class="credential-text">{{credential.title}}</div>
+                <a id="credential-edit" *ngIf="isOwner" (click)="openCredentialDialogBox()"><span><i class="fa fa-edit"></i>Edit credential</span> </a>
             </div>
 
-            <div [hidden]="(!showDescription)">
+            <div id="description" [hidden]="(!showDescription)">
+                <a *ngIf="!credential.description && (credential?.description?.trim()!='')" (click)="showDescription = false"> Write a description about yourself</a>
                 <div [innerHTML]="credential.description"></div>
-                <a *ngIf="isOwner"><span (click)="showDescription = false">Write a description about yourself</span> </a>
+                <a id="description-edit" *ngIf="isOwner"><span (click)="showDescription = false"><i class="fa fa-edit"></i>edit description</span> </a>
             </div>
             <div class="description-panel" [hidden]="showDescription" *ngIf="isOwner">
                 <quill-editor [(ngModel)]="credential.description" [ngModelOptions]="{standalone: true}"
@@ -190,7 +213,6 @@
                     <a (click)="linkedin()"> Linkedin</a>
                     <a class="edit" (click)="openlinkedinDialogBox()"><i class="fa fa-edit"></i></a>
                 </li>
-              
             </ul>
         </div>
 
