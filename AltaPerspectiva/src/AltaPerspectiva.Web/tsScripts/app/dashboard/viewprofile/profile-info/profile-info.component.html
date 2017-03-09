@@ -121,9 +121,9 @@
         margin-left: 4px;
     }
 
-    .update-credential {
+    /*.update-credential {
         margin-left: 10px;
-    }
+    }*/
     .profile-image-center .btn {
         color: black;
     }
@@ -161,7 +161,7 @@
 
             <div>
                 <a class="credential-text">{{credential.title}}</a>
-                <a *ngIf="isOwner" (click)="openCredentialDialogBox()" class="update-credential"><span>Update Credential</span> </a>
+                <a *ngIf="isOwner" (click)="openCredentialDialogBox()"><span>Update Credential</span> </a>
             </div>
 
             <div [hidden]="(!showDescription)">
