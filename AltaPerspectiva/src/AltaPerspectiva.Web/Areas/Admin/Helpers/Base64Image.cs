@@ -11,25 +11,9 @@ namespace AltaPerspectiva.Web.Areas.Admin.Helpers
     {
         public static Base64Image Parse(string base64Content)
         {
-            if (string.IsNullOrEmpty(base64Content))
-            {
-                throw new ArgumentNullException(nameof(base64Content));
-            }
-
             int indexOfSemiColon = base64Content.IndexOf(";", StringComparison.OrdinalIgnoreCase);
-
             string dataLabel = base64Content.Substring(0, indexOfSemiColon);
-
             string contentType = dataLabel.Split(':').Last();
-
-            var startIndex = base64Content.IndexOf("base64,", StringComparison.OrdinalIgnoreCase) + 7;
-            //For last tow caracter
-            base64Content = base64Content.Remove(base64Content.Length - 2);
-
-            var fileContents = base64Content.Substring(startIndex);
-
-            var bytes = Convert.FromBase64String(fileContents);
-
             String extension = String.Empty;
             if (contentType == "image/x-icon")
             {
@@ -47,6 +31,26 @@ namespace AltaPerspectiva.Web.Areas.Admin.Helpers
             {
                 extension = ".png";
             }
+            if (string.IsNullOrEmpty(base64Content)||string.IsNullOrEmpty(extension))
+            {
+                throw new ArgumentNullException(nameof(base64Content));
+            }
+
+           
+
+            
+
+           
+
+            var startIndex = base64Content.IndexOf("base64,", StringComparison.OrdinalIgnoreCase) + 7;
+            //For last tow caracter
+            base64Content = base64Content.Remove(base64Content.Length - 2);
+
+            var fileContents = base64Content.Substring(startIndex);
+
+            var bytes = Convert.FromBase64String(fileContents);
+
+           
 
             var baseStream = new MemoryStream(bytes);
             return new Base64Image

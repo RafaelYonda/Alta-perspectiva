@@ -215,6 +215,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             foreach (var imgTag in imgTags)
             {
+                string fileLink=String.Empty;
                 try
                 {
                     // String base64String = imgTag;
@@ -228,15 +229,17 @@ namespace AltaPerspectiva.Web.Area.Questions
                     String imageName = id.ToString() + base64Image.Extension;
 
                     AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-                    string fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
+                    fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
                         imageName, base64Image.ContentType);
-
-
-                    answer.Text = answer.Text.Replace(imgTag, fileLink);
+                   
                 }
                 catch (Exception e)
                 {
 
+                }
+                finally
+                {
+                    answer.Text = answer.Text.Replace(imgTag, fileLink);
                 }
             }
             AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous);
@@ -1008,6 +1011,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             foreach (var imgTag in imgTags)
             {
+                string fileLink = String.Empty;
                 try
                 {
                     // String base64String = imgTag;
@@ -1021,15 +1025,17 @@ namespace AltaPerspectiva.Web.Area.Questions
                     String imageName = id.ToString() + base64Image.Extension;
 
                     AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-                    string fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
+                    fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
                         imageName, base64Image.ContentType);
 
-
-                    answer.Text = answer.Text.Replace(imgTag, fileLink);
                 }
                 catch (Exception e)
                 {
 
+                }
+                finally
+                {
+                    answer.Text = answer.Text.Replace(imgTag, fileLink);
                 }
             }
 

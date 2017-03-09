@@ -182,6 +182,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpPost("userprofile/api/credential/saveusercroppedimage")]
         public async Task<IActionResult> SaveUserCroppedImage(string file, Guid userId,String imageName )
         {
+
             if (file != null)
             {
                 Base64Image base64Image = Base64Image.Parse(file);
