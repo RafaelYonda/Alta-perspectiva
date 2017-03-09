@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ using UserProfile.Domain;
 using UserProfile.Query.Queries;
 using System.Text.RegularExpressions;
 using System.IO;
+using AltaPerspectiva.Core.Helpers;
 using AltaPerspectiva.Web.Areas.Admin.helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
@@ -210,6 +212,8 @@ namespace AltaPerspectiva.Web.Area.Questions
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
+            String query = String.Format("select Email from [Identity].[AspNetUsers] where Id='{0}'", loggedinUser);
+            String email = DataReaderToListHelper.DataReaderToSingleColumn(Startup.ConnectionString, query, "Email");
 
             var imgTags = Base64Image.GetImagesInHTMLString(answer.Text);
 
