@@ -99,4 +99,8 @@ export class BlogPostComponent {
             //this.refreshData();
         });
     }
+    hideMenu() {
+        var leftMenu = document.getElementById('toggleMenu');
+        leftMenu.classList.remove("expand");
+    }
 }

@@ -55,9 +55,26 @@
     .margin-top-5 {
         margin-top: 5px;
     }
+    @media only screen and (max-width:767px){
+        .blog-list{
+            width:95%;
+        }
+    }
 </style>
 <nav-bar></nav-bar>
 <div #blogPostDetail></div>
+<div id="toggleMenu" class="category-panel-xs">
+    <div class="menu-container visible-xs">
+        <div class="cloe-button">
+            <a (click)="hideMenu()"> <i class="fa fa-arrow-left"></i> </a>
+        </div>
+        <ul class="left-panel-list">
+            <li class=""><a routerLink="/">Alta Perspectiva</a></li>
+            <li><a routerLink="/question/home/1">Questions</a></li>
+        </ul>
+    </div>
+
+</div>
 <div *ngIf="isOwner" class="blog-edit-panel">
     <h4 *ngIf="!isEditTitle">{{blog?.title}}</h4>
     <div class="btn-blog-edit">
