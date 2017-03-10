@@ -12,7 +12,17 @@
 <div #questionReport></div>
 <div #logginAnchor></div>
 
-<div class="left-panel">
+<div id="toggleMenu" class="left-panel category-panel-xs">
+    <div class="menu-container visible-xs">
+        <div class="cloe-button">
+            <a (click)="hideMenu()"> <i class="fa fa-arrow-left"></i> </a>
+        </div>
+        <ul class="left-panel-list">
+            <li class=""><a routerLink="/">Alta Perspectiva</a></li>
+            <li><a routerLink="/question/home/1">Questions</a></li>
+            <li><a (click)="gotoProfile()"> Profile</a></li>
+        </ul>
+    </div>
     <related-question-left-menu></related-question-left-menu>
     <related-topic [topicId]="question?.questionTopics[0]?.topicId"></related-topic>
     <category-left-menu [caegoryId]="question?.categories[0]?.id"></category-left-menu>
@@ -62,7 +72,7 @@
         </div>
 
     </div>
-    <div style="height:200px;position:relative;"></div>
+    <div class="hidden-xs" style="height:200px;position:relative;"></div>
 </div>
 <div *ngIf="showQuestionEditForm">
     <div class="center-width center-body z-ground">

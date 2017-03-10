@@ -46,6 +46,10 @@ export class ProfileInfoComponent {
         this.toastr.setRootViewContainerRef(vcr);
     }
     ngOnInit() {
+        if (this.credential.title )
+            this.credential.title = this.credential.title.trim() == '' ? null : this.credential.title.trim();
+        if (this.credential.description)
+            this.credential.description = this.credential.description.trim() == '' ? null : this.credential.description.trim();
         this.isImageUpdated = false;
     }
     ngOnChanges(changes: SimpleChanges) {

@@ -179,15 +179,19 @@
                     <button class="btn btn-primary" (click)="UpdateUserName()">Update</button>
                 </div>
             </div>
-
-            <div id="credential">
-                <a *ngIf="!credential.title && (credential?.title?.trim()!='')" (click)="openCredentialDialogBox()"> Add profile credential</a>
+            <!-- Credential -->
+            <div *ngIf="!credential.title && isOwner">
+                <a (click)="openCredentialDialogBox()"> Add profile credential</a>
+            </div>
+            
+            <div id="credential" *ngIf="credential.title">
                 <div class="credential-text">{{credential.title}}</div>
                 <a id="credential-edit" *ngIf="isOwner" (click)="openCredentialDialogBox()"><span><i class="fa fa-edit"></i>Edit credential</span> </a>
             </div>
-
+            <!-- description -->
+            <a *ngIf="!credential.description && isOwner" (click)="showDescription = false"> Write a description about yourself</a>
             <div id="description" [hidden]="(!showDescription)">
-                <a *ngIf="!credential.description && (credential?.description?.trim()!='')" (click)="showDescription = false"> Write a description about yourself</a>
+                
                 <div [innerHTML]="credential.description"></div>
                 <a id="description-edit" *ngIf="isOwner"><span (click)="showDescription = false"><i class="fa fa-edit"></i>edit description</span> </a>
             </div>
