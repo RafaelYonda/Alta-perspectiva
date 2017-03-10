@@ -15,7 +15,7 @@ namespace UserProfile.Query.Interfaces
 
         List<CategoryWiseAnswer> CategoryWiseAnswerCount(Guid userId, string connectionString);
         Task<List<UserSummary>> GetTopFiveUserSummary( string connectionString);
-        UserSummary GetUserSummary(Guid userId, string connectionString);
+        Task<UserSummary> GetUserSummary(Guid userId, string connectionString);
 
         Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId,string connectionString);
 

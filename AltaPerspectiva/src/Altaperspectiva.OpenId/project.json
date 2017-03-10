@@ -24,6 +24,7 @@
       "type": "platform"
     },
     "AltaPerspectiva.Identity": "1.0.0-*",
+    "AltaPerspectiva.Core": "1.0.0-*",
     "AspNet.Security.OAuth.Introspection": "1.0.0-alpha2-final",
     "AspNet.Security.OAuth.Validation": "1.0.0-alpha2-final",
     "Microsoft.AspNetCore.Authentication.Google": "1.0.0",

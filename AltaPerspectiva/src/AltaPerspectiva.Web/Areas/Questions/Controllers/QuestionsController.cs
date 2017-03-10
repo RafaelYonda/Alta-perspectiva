@@ -29,6 +29,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using UserProfile.Domain.ReadModel;
+using UserProfile.Query;
 using UserProfile.Query.Interfaces;
 
 namespace AltaPerspectiva.Web.Area.Questions
@@ -214,19 +215,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            
            
-            Question question = queryFactory.ResolveQuery<IQuestionsQuery>().QuestionForEmail(answer.QuestionId);
-           
-
-
-            UserEmailParameter answerUserEmailParamter =
-               queryFactory.ResolveQuery<IProfileParameters>()
-                   .GetUserEmailParameter(Startup.ConnectionString, loggedinUser);
-
-            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-            answerUserEmailParamter.ImageUrl = azureFileUploadHelper.GetProfileImage(answerUserEmailParamter.ImageUrl);
-
             #region imageProcessing
 
 
@@ -249,7 +238,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                     Guid id = ans.Id;
                     String imageName = id.ToString() + base64Image.Extension;
 
-                  //  AzureFileUploadHelper azurelFieUploadHelper = new AzureFileUploadHelper();
+                    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
                     fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
                         imageName, base64Image.ContentType);
 
@@ -265,15 +254,11 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
             #endregion
 
-            UserEmailParameter questionUserEmailParamter =
-               queryFactory.ResolveQuery<IProfileParameters>()
-                   .GetUserEmailParameter(Startup.ConnectionString, question.UserId);
-
+            if (answer.IsDrafted == null || answer.IsDrafted==false)
+            {
+                await new SendEmailService().SendAnswerEmailAsync(queryFactory, loggedinUser, answer.QuestionId, answer.Text, "New Answer");
+            }
           
-
-            EmailHandler emailHandler =new EmailHandler(Startup.SendGridApiKey,answer.QuestionId, questionUserEmailParamter.UserName, question.Title,answerUserEmailParamter.UserName,answer.Text, answerUserEmailParamter.ImageUrl,questionUserEmailParamter.Email);
-
-            
 
             AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
@@ -977,7 +962,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         [HttpPost("/questions/api/savedirectquestion")]
-        public IActionResult SaveDirectQuestion([FromBody]AddQuestionViewModel question)
+        public async Task<IActionResult> SaveDirectQuestion([FromBody]AddQuestionViewModel question)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
@@ -1006,9 +991,16 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
             question.Title = new QuestionService().RemoveQuestionMark(question.Title);
 
+           
+
             DirectQuestionCommand cmd = new DirectQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous, true, question.QuestionAskedToUser.Value);
             commandsFactory.ExecuteQuery(cmd);
+            
             Guid questionId = cmd.Id;
+            if (question.QuestionAskedToUser.Value != loggedinUser)
+            {
+                await new SendEmailService().SendDirectQuestionEmailAsync(queryFactory,"Draft Question",question.Title,question.Body, loggedinUser, question.QuestionAskedToUser.Value);
+            }
 
 
             return Ok();

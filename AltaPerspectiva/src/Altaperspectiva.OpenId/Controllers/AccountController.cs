@@ -10,11 +10,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AltaPerspectiva.Identity;
 using Altaperspectiva.OpenId.Services;
 using Altaperspectiva.OpenId.ViewModels.Account;
+using AltaPerspectiva.Core.Helpers;
 using Newtonsoft.Json.Linq;
 using OpenIddict;
 using AspNet.Security.OpenIdConnect.Primitives;
 using OpenIddict.Core;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace Altaperspectiva.OpenId.Controllers {
     [Authorize]
@@ -25,18 +27,19 @@ namespace Altaperspectiva.OpenId.Controllers {
         private readonly ISmsSender _smsSender;
         private readonly ApplicationUserDbContext _applicationDbContext;
         private static bool _databaseChecked;
-
+        private readonly IConfigurationRoot configuration;
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ApplicationUserDbContext applicationDbContext) {
+            ApplicationUserDbContext applicationDbContext, IConfigurationRoot _configuration) {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _applicationDbContext = applicationDbContext;
+            configuration = _configuration;
         }
 
         //
@@ -141,12 +144,17 @@ namespace Altaperspectiva.OpenId.Controllers {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded) {
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Context.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+
+                    //Email
+                    string apiKey = configuration["Data:SendGridApiKey"];
+                    EmailHandler emailHandler=new EmailHandler(apiKey);
+
+
+                    await emailHandler.ExecuteEmailForWelCome(model.Email);
+
+
+
+                   
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToLocal(HttpContext.Session.GetString("ReturnUrl"));
                 }

@@ -5,6 +5,8 @@ import { QuestionService } from '../../../services/question.service';
 import { loginModalComponent } from '../../../shared/login-modal/login-modal.component';
 import { AnswerDialogComponent } from '../../../shared/answer-dialog/answer-dialog.component';
 import { Category, Question, QuestionSaveViewModel } from '../../../services/models';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/direct-question/direct-question.component.html',
     providers: [CategoryService, QuestionService]
@@ -16,7 +18,9 @@ export class DirectQuestionComponent {
     categories: Category[];
     selectedCategory: Category;
     question: QuestionSaveViewModel = new QuestionSaveViewModel();
-    constructor(private categoryService: CategoryService, private _route: ActivatedRoute, private questionsService: QuestionService, private componentFactoryResolver: ComponentFactoryResolver) {
+    title: string;
+    body:string;
+    constructor(private categoryService: CategoryService, private _route: ActivatedRoute, private questionsService: QuestionService, private componentFactoryResolver: ComponentFactoryResolver, public toastr: ToastsManager, vcr: ViewContainerRef) {
     }
     ngOnInit() {
         window.scrollTo(0, 0);
@@ -39,10 +43,15 @@ export class DirectQuestionComponent {
             return;
         }
         this.question.categoryIds.push(this.categories[0].id);
-        console.log(this.questionAskedToUser);
+       // console.log(this.questionAskedToUser);
+        this.question.title = this.title;
+        this.question.body = this.body;
         this.question.questionAskedToUser = this.questionAskedToUser;
         
         this.questionsService.saveDirectQuestion(this.question).subscribe(res => {
+            this.toastr.success('Answer saved successfully!', 'success');
+            this.title = '';
+            this.body = '';
             //this.question = res;
             this.ngOnInit();
             console.log(res);

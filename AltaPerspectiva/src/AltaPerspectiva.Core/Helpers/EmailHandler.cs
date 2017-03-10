@@ -1,7 +1,9 @@
-﻿using SendGrid;
+﻿using Microsoft.AspNetCore.Http;
+using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -14,85 +16,119 @@ namespace AltaPerspectiva.Core.Helpers
         public string Email { get; set; }
         public string Title { get; set; }
         public string QuestionUserName { get; set; }
-        public string QuestionUserEmail { get; set; }
 
         public Guid QuestionId { get; set; }
         public string QuestionTitle { get; set; }
         public string QuestionText { get; set; }
         public String AnswerUserName { get; set; }
+        public String AnswerUserOccupation { get; set; }
         public string AnswerText { get; set; }
         public DateTime CreatedOn { get; set; }
         public string ImageUrl { get; set; }
         private string SendGridApiKey { get; set; }
 
-        private string MailFromMailAddress = "no-reply@altap.azurewebsites.net";
+        private string FromMailAddress = "no-reply@altap.azurewebsites.net";
+        public string ToMailAddress { get; set; }
 
         private string MailTitle = "Team Alta Perspectiva";
 
-        public EmailHandler(String sendGridApiKey, Guid questionId, String questionUserName, string questionTitle, string answerUserName, string answerText, string userIamgeUrl,string questionUserEmail)
+        public EmailHandler(String sendGridApiKey)
         {
             this.SendGridApiKey = sendGridApiKey;
-            this.QuestionId = questionId;
-
-            this.QuestionUserName = questionUserName;
-            this.QuestionTitle = questionTitle;
-            this.AnswerUserName = answerUserName;
-            this.AnswerText = answerText;
-            this.ImageUrl = userIamgeUrl;
-            this.QuestionUserEmail = questionUserEmail;
-
-            Execute().Wait();
         }
 
-        private string BuildAnswerReply()
+        public async Task ExecuteEmailForAnswer()
         {
-            String link = @"http://altap.azurewebsites.net/question/detail/" + QuestionId.ToString();
-            String stringFormat =
-                String.Format(@"
-<div style='width:100%'>
 
-    <div style = 'width:66%;margin:5px auto;'>
-        <p>
-<h2>
-    <img  style = 'width:30px;height:40px;vertical-align:middle;' src = 'https://altablob.blob.core.windows.net/category/LOGO%20CUADRADO.png' /> Alta Prespectiva</h2>
-</p>
-        Dear {0},
-                               <br/>
-                               <h3> You have a new answer</h3>.
-   
-                                  <br/>
-                               {1}
-                               <br/>
-                               <p> <img src = '{5}'  style ='width:30px ;height: 40px;vertical-align:middle;'>{2}  </p>
-         
-                                         <br/>
-                               {4}
-                               <br/>
-                              <a href ='{3}'>Click this link</a>  
-      </div>
-  
-
-                      </div> ",
-                    QuestionUserName, QuestionTitle, AnswerUserName, link, AnswerText, ImageUrl);
-            return stringFormat;
-
-        }
-        async Task Execute()
-        {
+            String AnswerLink= @"http://altap.azurewebsites.net/question/detail/" + QuestionId.ToString();
             /*  var apiKey = "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"*/
-            ;
+            String path = "Views/EmailFormat/AnswerEmailFormat.html";
+            string html = File.ReadAllText(path);
+            //string.Format("{0:f}", date)   // Friday, March 10, 2017 2:31 PM
+            String answerHtml = html
+                .Replace("#Title", Title)
+                .Replace("#QuestionTitle", QuestionTitle)
+                .Replace("#ImageUrl", ImageUrl)
+                .Replace("#AnswerUserName", AnswerUserName)
+                .Replace("#AnswerUserOccupation", AnswerUserOccupation)
+                .Replace("#date","Written at "+ string.Format("{0:f}", DateTime.Now))
+                .Replace("#AnswerText", AnswerText)
+                .Replace("#AnswerLink", AnswerLink);
+                
+
+
             var client = new SendGridClient(SendGridApiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress(MailFromMailAddress, MailTitle),
-                Subject = "You have a new answer",
+                From = new EmailAddress(FromMailAddress, MailTitle),
+                Subject = MailTitle,
                 // PlainTextContent = "Do i really need Plaintext content",
-                HtmlContent = BuildAnswerReply()
+                HtmlContent = answerHtml
             };
-            msg.AddTo(new EmailAddress(QuestionUserEmail, QuestionUserName));
+            msg.AddTo(new EmailAddress(ToMailAddress, QuestionUserName));
             var response = await client.SendEmailAsync(msg);
         }
 
+        public async Task ExecuteEmailForDirectQuestion(Guid questionAskedToUser)
+        {
+
+            String AnswerLink = @"http://altap.azurewebsites.net/dashboard/viewprofile/" + questionAskedToUser.ToString() + "/direct-question";
+            /*  var apiKey = "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"*/
+            String path = "Views/EmailFormat/AnswerEmailFormat.html";
+            string html = File.ReadAllText(path);
+            //string.Format("{0:f}", date)   // Friday, March 10, 2017 2:31 PM
+            String answerHtml = html
+                .Replace("#Title", Title)
+                .Replace("#QuestionTitle", QuestionTitle)
+                .Replace("#ImageUrl", ImageUrl)
+                .Replace("#AnswerUserName", AnswerUserName)
+                .Replace("#AnswerUserOccupation", AnswerUserOccupation)
+                .Replace("#date", "Written at " + string.Format("{0:f}", DateTime.Now))
+                .Replace("#AnswerText", AnswerText)
+                .Replace("#AnswerLink", AnswerLink);
+
+
+
+            var client = new SendGridClient(SendGridApiKey);
+            var msg = new SendGridMessage()
+            {
+                From = new EmailAddress(FromMailAddress, MailTitle),
+                Subject = MailTitle,
+                // PlainTextContent = "Do i really need Plaintext content",
+                HtmlContent = answerHtml
+            };
+            msg.AddTo(new EmailAddress(ToMailAddress, QuestionUserName));
+            var response = await client.SendEmailAsync(msg);
+        }
+        public async Task ExecuteEmailForWelCome(String email)
+        {
+            var text = @"<div style='width: 100 %'>
+
+    <div style = 'width: 66%;margin: 5px auto;' >
+        
+        
+		<br/>
+               Bienvenido a Alta perspectiva 
+    <img  style = 'width:30px;height: 40px;vertical-align: middle;' src = 'https://altablob.blob.core.windows.net/category/LOGO%20CUADRADO.png' /> 
+
+			   <br/>
+¡Esta es la comunidad del aprendizaje colaborativo en negocios!<br/>
+Haz tu pregunta de negocios, conecta y comparte tu conocimiento con otras personas.<br/>                
+      </div>
+  
+
+                      </div> ";
+            var client = new SendGridClient(SendGridApiKey);
+            var msg = new SendGridMessage()
+            {
+                From = new EmailAddress(FromMailAddress, MailTitle),
+                Subject = MailTitle,
+                // PlainTextContent = "Do i really need Plaintext content",
+                HtmlContent = text
+            };
+            msg.AddTo(new EmailAddress(email, QuestionUserName));
+            var response = await client.SendEmailAsync(msg);
+        }
 
     }
 }

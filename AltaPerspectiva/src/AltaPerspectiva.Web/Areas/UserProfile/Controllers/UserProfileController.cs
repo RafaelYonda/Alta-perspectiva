@@ -471,10 +471,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
         }
         [HttpGet("userprofile/api/getusersummary/{userId}")]
-        public UserSummary GetUserSummary(Guid userId)
+        public async Task<UserSummary> GetUserSummary(Guid userId)
         {
             String connectionString = Startup.ConnectionString;
-            var summeries =queryFactory.ResolveQuery<IProfileParameters>().GetUserSummary(userId, connectionString);
+            var summeries =await queryFactory.ResolveQuery<IProfileParameters>().GetUserSummary(userId, connectionString);
             return summeries;
         }
         #endregion

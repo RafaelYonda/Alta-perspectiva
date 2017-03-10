@@ -59,11 +59,11 @@ namespace UserProfile.Query.Queries
             
         }
 
-        public UserSummary GetUserSummary(Guid userId, string connectionString)
+        public async Task<UserSummary> GetUserSummary(Guid userId, string connectionString)
         {
             UserSummary summary = new UserSummary();
             string query = String.Format("SpTopUserCalculation '" + userId + "'");
-            summary =DataReaderToListHelper.DataReaderToObject<UserSummary>(connectionString, query);
+            summary = await Task.Run(() => DataReaderToListHelper.DataReaderToObject<UserSummary>(connectionString, query));
            
             return summary;
         }
@@ -80,10 +80,10 @@ namespace UserProfile.Query.Queries
         public UserEmailParameter GetUserEmailParameter(String connectionString,Guid userId)
         {
             String query = String.Format(@"select Id,Email,
-(select top 1 ImageUrl from UserProfile.Credentials where UserId = Id) ImageUrl,
-ISNULL((select top 1 FirstName + '' + LastName from UserProfile.Credentials where UserId = Id), UserName) UserName
-       from[Identity].[AspNetUsers]
-        where Id = '{0}'", userId);
+(select top 1 ImageUrl from UserProfile.Credentials where UserId = a.Id) ImageUrl,
+ISNULL((select top 1 FirstName + '' + LastName from UserProfile.Credentials where UserId = a.Id), UserName) UserName
+       from[Identity].[AspNetUsers] a
+        where a.Id = '{0}'", userId);
 
             UserEmailParameter userEmailParameter = DataReaderToListHelper.DataReaderToObject<UserEmailParameter>(connectionString,query);
             return userEmailParameter;
