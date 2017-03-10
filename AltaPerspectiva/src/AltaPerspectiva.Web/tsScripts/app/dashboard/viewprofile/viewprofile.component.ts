@@ -270,5 +270,16 @@ export class ViewProfileComponent {
             this.refreshData();
         });
     }
+    
+    scrolToCredentials() {
+        var leftMenu = document.getElementById('toggleMenu');
+        leftMenu.classList.remove("expand");
+        document.getElementById('other-credentials').scrollIntoView();
+    }
+    hideMenu() {
+        var leftMenu = document.getElementById('toggleMenu');
+        leftMenu.classList.remove("expand");
+        document.getElementById('profile-info').scrollIntoView();
+    }
    
 }
