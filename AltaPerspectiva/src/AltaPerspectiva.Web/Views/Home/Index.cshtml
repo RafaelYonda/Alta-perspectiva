@@ -1,4 +1,9 @@
-﻿@model dynamic
+﻿<style>
+    .borrder-circle a, .borrder-circle a:hover{
+        color:white;
+    }
+</style>
+@model dynamic
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -27,13 +32,21 @@ else
     <div class="footer-container">
         <div class="footer-left">
             <div class="borrder-circle">
-                <i class="fa fa-facebook fa-2x"></i>
+                <a href="https://www.facebook.com/AltaPerspectivaInfo">
+                    <i class="fa fa-facebook fa-2x">
+                    </i>
+                </a>
+                
             </div>
             <div class="borrder-circle">
-                <i class="fa fa-twitter fa-2x"></i>
+                <i class="fa fa-twitter fa-2x">
+                    <a href="https://twitter.com/AltaPerspectiva"></a>
+                </i>
             </div>
             <div class="borrder-circle">
-                <i class="fa fa-instagram fa-2x"></i>
+                <i class="fa fa-instagram fa-2x">
+                    <a href="https://www.instagram.com/altaperspectiva/"></a>
+                </i>
             </div>
         </div>
         <div class="footer-right">

@@ -21,6 +21,9 @@ export class StatusComponent {
     @Output() onQuestionDetailClicked = new EventEmitter<boolean>();
     @Output() onQuestionReportClicked = new EventEmitter<any>();
 
+    answerTagsRemoved: string;
+    fbImageTag: string;
+
     commentId: string;
     CommentCount: number;
     like: Like;
@@ -29,6 +32,16 @@ export class StatusComponent {
     }
 
     ngOnInit() {
+
+        if (this.questionObj.bestAnswer && this.questionObj.bestAnswer.text) {
+
+
+            var temp = this.questionObj.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "");
+            this.answerTagsRemoved = temp.replace("&nbsp;", " ");
+
+                       
+          
+        }
         if (this.isQuestion)
         {
             this.commentId = this.questionObj.id;

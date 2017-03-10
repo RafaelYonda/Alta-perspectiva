@@ -298,7 +298,13 @@ export class QuestionDetailComponent {
             this.question = res;
         })
     }
-
+    hideMenu() {
+        var leftMenu = document.getElementById('toggleMenu');
+        leftMenu.classList.remove("expand");
+    }
+    gotoProfile() {
+        this.router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
+    }
     GetBestAnswer(questionId: string) {
         console.log('GetBestAnswer ' + questionId);
         this.dataService.GetBestAnswer(questionId).subscribe(res => {

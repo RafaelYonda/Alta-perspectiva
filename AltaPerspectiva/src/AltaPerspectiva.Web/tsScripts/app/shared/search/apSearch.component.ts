@@ -16,7 +16,7 @@ import { Category, Question, Keyword, AskQuestionViewModel,Topic,Level,QuestionS
 export class ApSearchComponent {
     @ViewChild(ApSearchDropDownComponent) searchDropDown: ApSearchDropDownComponent
     public elementRef;
-    title: string;
+    title: string='';
     //body: string;
     result: string;
     keywords: Keyword[];

@@ -31,3 +31,10 @@
             right:15px;
             font-size: 30px;
         }
+
+@media only screen and (max-width:767px){
+    .dialog {
+        max-width:95%;
+        padding:5px;
+    }
+}

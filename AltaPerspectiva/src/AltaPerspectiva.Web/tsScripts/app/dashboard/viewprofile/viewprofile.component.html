@@ -57,7 +57,7 @@
     <div #otherexperienceDialogAnchor></div>
     <div #placeDialogAnchor></div>
 </div>
-<div class="row">
+<div class="row profile-xs">
 
     <div class="alert alert-danger center-width" *ngIf="!credential.id">
         Please add first name and last name to start.
@@ -67,26 +67,36 @@
             <profile-info [credential]="credential" (onUpdated)="onUpdatedProfile($event)"></profile-info>
         </div>
         <div class="row row-overflow">
-            <div class="col-md-3">
+            <div id="toggleMenu" class="col-md-3 category-panel-xs">
+                <div class="menu-container visible-xs">
+                    <div class="cloe-button">
+                        <a (click)="hideMenu()"> <i class="fa fa-arrow-left"></i> </a>
+                    </div>
+                    <ul class="left-panel-list">
+                        <li class=""><a routerLink="/">Alta Perspectiva</a></li>
+                        <li><a routerLink="/question/home/1">Questions</a></li>
+                        <li><a (click)="scrolToCredentials()"> Profile Statistics</a></li>
+                    </ul>
+                </div>
                 <ul id="profile-route" class="profile-leftmenu">
-                    <li><a class="route link-with-number" tabindex="0" id="question-route" [routerLink]="['/dashboard/viewprofile',credential.userId,'user-question']" routerLinkActive="active-link">Questions<span>{{profileParam?.questions}}</span> </a></li>
-                    <li><a class="route link-with-number" [routerLink]="['/dashboard/viewprofile',credential.userId,'user-answer']" routerLinkActive="active-link">Answers<span>{{profileParam?.answers}}</span> </a></li>
-                    <li><a class="route link-with-number" [routerLink]="['/dashboard/viewprofile',credential.userId,'follower']" routerLinkActive="active-link">Followers <span>{{profileParam?.followers}}</span></a></li>
-                    <li><a class="route link-with-number" [routerLink]="['/dashboard/viewprofile',credential.userId,'following']" routerLinkActive="active-link">Followings <span>{{profileParam?.followings}}</span></a></li>
-                    <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'bookmark']" routerLinkActive="active-link">Bookmarks <span>{{profileParam?.bookmarks}}</span></a></li>
+                    <li><a (click)="hideMenu()" class="route link-with-number" tabindex="0" id="question-route" [routerLink]="['/dashboard/viewprofile',credential.userId,'user-question']" routerLinkActive="active-link">Questions<span>{{profileParam?.questions}}</span> </a></li>
+                    <li><a (click)="hideMenu()" class="route link-with-number" [routerLink]="['/dashboard/viewprofile',credential.userId,'user-answer']" routerLinkActive="active-link">Answers<span>{{profileParam?.answers}}</span> </a></li>
+                    <li><a (click)="hideMenu()" class="route link-with-number" [routerLink]="['/dashboard/viewprofile',credential.userId,'follower']" routerLinkActive="active-link">Followers <span>{{profileParam?.followers}}</span></a></li>
+                    <li><a (click)="hideMenu()" class="route link-with-number" [routerLink]="['/dashboard/viewprofile',credential.userId,'following']" routerLinkActive="active-link">Followings <span>{{profileParam?.followings}}</span></a></li>
+                    <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'bookmark']" routerLinkActive="active-link">Bookmarks <span>{{profileParam?.bookmarks}}</span></a></li>
                     <li *ngIf="isOwner"><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'draft-answer']" routerLinkActive="active-link">Draft Answers </a></li>
-                    <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'blog-create']" routerLinkActive="active-link">Blogs<span>{{profileParam?.blogs}}</span></a></li>
-                    <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'direct-question']" routerLinkActive="active-link">Direct Question</a></li>
-                    <li><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'virtual-store']" routerLinkActive="active-link">Virtual Store</a></li>
+                    <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'blog-create']" routerLinkActive="active-link">Blogs<span>{{profileParam?.blogs}}</span></a></li>
+                    <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'direct-question']" routerLinkActive="active-link">Direct Question</a></li>
+                    <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'virtual-store']" routerLinkActive="active-link">Virtual Store</a></li>
                 </ul>
             </div>
             <div class="col-md-9 border-top-grey">
-                <div style="margin-top: -1px;">
+                <div id="profile-info" style="margin-top: -1px;">
                     <!--tricks to hide question top border-->
                     <router-outlet></router-outlet>
                 </div>
                 <!-- For Hover pop up get some space to show -->
-                <div style="height:200px;position:relative;"></div>
+                <div class="hidden-xs" style="height:200px;position:relative;"></div>
             </div>
         </div>
     </div>
@@ -143,6 +153,7 @@
                 </li>
             </ul>
         </div>
+        <div id="other-credentials"></div>
         <profile-category [categoryWiseAnswers]="categoryWiseAnswers"></profile-category>
         <profile-stat [profileParam]="profileParam"></profile-stat>
     </div>
