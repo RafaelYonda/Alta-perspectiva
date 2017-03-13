@@ -15,8 +15,10 @@
         public Guid? QuestionId { get; set; }
         public bool? IsAnonymous { get; set; }
         public bool? IsDrafted { get; set; }
+        
         public virtual Question Question { get; set; }        
         public virtual ICollection<Comment> Comments { get; set; }        
         public virtual ICollection<Like> Likes { get; set; }
+        public string FirstImageUrl { get; set; }
     }
 }

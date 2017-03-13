@@ -4,7 +4,10 @@ GO
 SET ANSI_NULLS ON
 GO
 --DROP TABLE [UserProfile].[VirtualStores];
-
+GO
+ALTER TABLE Questions.Answers ADD
+	FirstImageUrl nvarchar(MAX) NULL
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 

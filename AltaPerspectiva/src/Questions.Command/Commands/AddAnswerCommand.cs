@@ -8,7 +8,7 @@
 
     public class AddAnswerCommand : ICommand
     {
-        public AddAnswerCommand(string _text, DateTime _date,Guid _questionId,Guid _userId,bool? isDrafted,bool? isAnonymous)
+        public AddAnswerCommand(string _text, DateTime _date,Guid _questionId,Guid _userId,bool? isDrafted,bool? isAnonymous,string firimageUrl)
         {            
             Text = _text;            
             AnswerDate = _date;
@@ -17,8 +17,10 @@
             UserId = _userId;
             IsDrafted = isDrafted;
             IsAnonymous = isAnonymous;
+            FirimageUrl = firimageUrl;
         }    
         public string Text { get; set; }       
+        public string FirimageUrl { get; set; }       
         public DateTime AnswerDate { get; set; }
         public Guid Id { get;  set; }
         public Guid QuestionId { get; set; }

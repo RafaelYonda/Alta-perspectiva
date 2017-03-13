@@ -5,6 +5,7 @@ using Questions.Domain;
 using Questions.Query;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UserProfile.Domain;
@@ -16,7 +17,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
     public class SendEmailService
     {
-        public async Task SendAnswerEmailAsync( IQueryFactory queryFactory,Guid loggedinUser,Guid questionId,string answerText,string title)
+        public async Task SendAnswerEmailAsync( IQueryFactory queryFactory,String webRootPath, Guid loggedinUser,Guid questionId,string answerText,string title)
         {
             Employment employment = queryFactory.ResolveQuery<IEmploymentQuery>().GetEmploymentByUserId(loggedinUser);
             String answerUserOccupation = String.Empty;
@@ -52,11 +53,21 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             emailHandler.ImageUrl = answerUserEmailParamter.ImageUrl;
             emailHandler.ToMailAddress = questionUserEmailParamter.Email;
             emailHandler.AnswerUserOccupation = answerUserOccupation;
-
-            await emailHandler.ExecuteEmailForAnswer();
+            String path = webRootPath+"/Views/EmailFormat/AnswerEmailFormat.html";
+            string html = File.ReadAllText(path);
+            try
+            {
+                await emailHandler.ExecuteEmailForAnswer(html);
+            }
+            catch (Exception e)
+            {
+                //Console.WriteLine(e);
+                //throw;
+            }
+          
         }
 
-        public async Task SendDirectQuestionEmailAsync(IQueryFactory queryFactory, string title, string questionTitle,string ansTextAsQuestionTextGivenByLoggedinUser, Guid loggedinUser, Guid questionAskedToUser)
+        public async Task SendDirectQuestionEmailAsync(IQueryFactory queryFactory, String webRootPath, string title, string questionTitle,string ansTextAsQuestionTextGivenByLoggedinUser, Guid loggedinUser, Guid questionAskedToUser)
         {
             Employment employment = queryFactory.ResolveQuery<IEmploymentQuery>().GetEmploymentByUserId(loggedinUser);
             String answerUserOccupation = String.Empty;
@@ -97,10 +108,21 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             emailHandler.ToMailAddress = 
               queryFactory.ResolveQuery<IProfileParameters>()
                   .GetUserEmailParameter(Startup.ConnectionString, questionAskedToUser).Email;
+            String path = webRootPath + "/Views/EmailFormat/AnswerEmailFormat.html";
+            string html = File.ReadAllText(path);
+            try
+            {
+                //await emailHandler.ExecuteEmailForAnswer(html);
+                await emailHandler.ExecuteEmailForDirectQuestion(html,questionAskedToUser);
+            }
+            catch (Exception e)
+            {
+                //Console.WriteLine(e);
+                //throw;
+            }
 
 
-
-            await emailHandler.ExecuteEmailForDirectQuestion(questionAskedToUser);
+            
         }
     }
 }

@@ -47,7 +47,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                             UserId = z.UserId
                                         }
                                         ).ToList(),
-                                        IsAnonymous = x.IsAnonymous
+                                        IsAnonymous = x.IsAnonymous,
+                                        FirstImageUrl = x.FirstImageUrl
                                     }).ToList();
 
             qv.Likes = q.Likes.Select(l => new QuestionLikeViewModel { Id = l.Id, QuestionId = l.QuestionId.Value, UserId = l.UserId, UserViewModel = new UserService().GetUserViewModel(queryFactory, q.UserId, configuration) }).ToList();
@@ -90,7 +91,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     }
                 }
             }
-
+           
             return qv;
         }
         public List<QuestionViewModel> GetQuestionViewModelsForDraftAnswer(IEnumerable<Question> questionList, IQueryFactory queryFactory, IConfigurationRoot configuration)
@@ -188,7 +189,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                                 UserId = z.UserId
                                             }).ToList(),
                                             IsAnonymous = x.IsAnonymous,
-                                            IsDrafted = x.IsDrafted
+                                            IsDrafted = x.IsDrafted,
+                                            FirstImageUrl = x.FirstImageUrl
 
                                         }).ToList();
 
@@ -341,7 +343,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                                 Id = z.Id,
                                                 UserId = z.UserId
                                             }).ToList(),
-                                            IsAnonymous = x.IsAnonymous
+                                            IsAnonymous = x.IsAnonymous,
+                                            FirstImageUrl = x.FirstImageUrl
 
                                         }).ToList();
 
@@ -501,7 +504,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                                 Id = z.Id,
                                                 UserId = z.UserId
                                             }).ToList(),
-                                            IsAnonymous = x.IsAnonymous
+                                            IsAnonymous = x.IsAnonymous,
+                                            FirstImageUrl = x.FirstImageUrl
 
                                         }).ToList();
 

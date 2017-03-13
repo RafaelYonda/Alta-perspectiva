@@ -37,13 +37,12 @@ namespace AltaPerspectiva.Core.Helpers
             this.SendGridApiKey = sendGridApiKey;
         }
 
-        public async Task ExecuteEmailForAnswer()
+        public async Task ExecuteEmailForAnswer(string html)
         {
 
             String AnswerLink= @"http://altap.azurewebsites.net/question/detail/" + QuestionId.ToString();
             /*  var apiKey = "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"*/
-            String path = "Views/EmailFormat/AnswerEmailFormat.html";
-            string html = File.ReadAllText(path);
+           
             //string.Format("{0:f}", date)   // Friday, March 10, 2017 2:31 PM
             String answerHtml = html
                 .Replace("#Title", Title)
@@ -69,13 +68,13 @@ namespace AltaPerspectiva.Core.Helpers
             var response = await client.SendEmailAsync(msg);
         }
 
-        public async Task ExecuteEmailForDirectQuestion(Guid questionAskedToUser)
+        public async Task ExecuteEmailForDirectQuestion(String html,Guid questionAskedToUser)
         {
 
             String AnswerLink = @"http://altap.azurewebsites.net/dashboard/viewprofile/" + questionAskedToUser.ToString() + "/direct-question";
             /*  var apiKey = "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"*/
-            String path = "Views/EmailFormat/AnswerEmailFormat.html";
-            string html = File.ReadAllText(path);
+            //String path = "Views/EmailFormat/AnswerEmailFormat.html";
+            //string html = File.ReadAllText(path);
             //string.Format("{0:f}", date)   // Friday, March 10, 2017 2:31 PM
             String answerHtml = html
                 .Replace("#Title", Title)
