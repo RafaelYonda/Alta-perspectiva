@@ -5,12 +5,14 @@
         </li>
         <li class="question-info" *ngIf="!question?.questionTopics||question?.questionTopics?.length!=0">
             <!--<a [routerLink]="['/question/home/topic',{topicId:question?.questionTopics[0]?.topicId,categoryId:question?.categories[0]?.id}]">{{question?.questionTopicNames[0]}}</a>-->
-            
-            <a [routerLink]="['/question/home',question?.categories[0]?.id,question?.questionTopics[0]?.topicId,question?.questionLevels[0]?.levelId]"> {{question?.questionTopicNames[0]}}</a>
+            <a (click)="topicRoute(question?.categories[0]?.id,question?.questionTopics[0]?.topicId)"> {{question?.questionTopicNames[0]}}</a>
+          
         </li>
         <li class="question-info" *ngIf="!question?.questionLevels||question?.questionLevels?.length!=0">
-            <!--<a [routerLink]="['/question/home',question?.questionLevels[0]?.levelId]"> {{question?.questionLevelNames[0]}}</a>-->
-            <a [routerLink]="['/question/home',question?.categories[0]?.id,question?.questionTopics[0]?.topicId,question?.questionLevels[0]?.levelId]"> {{question?.questionLevelNames[0]}}</a>
+            <!--<a [routerLink]="['/question/home',question?.categories[0]?.id,question?.questionTopics[0]?.topicId,question?.questionLevels[0]?.levelId]"> {{question?.questionLevelNames[0]}}</a>-->
+            <a (click)="levelRoute(question?.categories[0]?.id,question?.questionTopics[0]?.topicId,question?.questionLevels[0]?.levelId)" > {{question?.questionLevelNames[0]}}</a>
+           
+           
         </li>
         <li class="question-info">{{question?.createdOn | date: 'MMM, yyyy'}}</li>
     </ul>

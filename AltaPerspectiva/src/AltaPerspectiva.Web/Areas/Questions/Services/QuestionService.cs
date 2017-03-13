@@ -214,7 +214,6 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     var topicId = questionTopic.TopicId;
                     if (topicId != null)
                     {
-                        // Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId.Value);
                         Topic topic = topics.FirstOrDefault(x => x.Id == topicId.Value);
                         if (topic != null)
                         {
@@ -228,7 +227,6 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     var levelId = questionLevel.LevelId;
                     if (levelId != null)
                     {
-                        //Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId.Value);
                         Level level = levels.FirstOrDefault(x => x.Id == levelId.Value);
                         if (level != null)
                         {
@@ -237,12 +235,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     }
 
                 }
-                //qv.IsDirectQuestion = q.IsDirectQuestion;
-                //if (qv.IsDirectQuestion)
-                //{
-                //    qv.QuestionAskedToUser =
-                //        queryFactory.ResolveQuery<IDirectQuestionQuery>().GetDirectQuestionUser(q.Id);
-                //}
+               
                 questions.Add(qv);
             }
 
