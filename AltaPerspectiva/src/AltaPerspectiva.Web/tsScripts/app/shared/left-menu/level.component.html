@@ -3,7 +3,7 @@
     <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
     <ul class="left-panel-list" *ngIf="levels.length>0">
         <li *ngFor="let level of levels">
-            <a [routerLink]="['/question/home',categoryId,topicId,level?.id]"> {{level?.levelName}}</a>
+            <a [routerLink]="['/question/home',categoryId,0,level?.id]"> {{level?.levelName}}</a>
            
         </li>
     </ul>

@@ -548,15 +548,40 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/getlevelname/{levelId}")]
         public IActionResult GetLevelName(Guid levelId)
         {
-            var level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId);
-            return Ok(level?.LevelName);
+            
+            if (levelId != Guid.Empty)
+            {
+                var level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId);
+                return Ok(
+                new {
+                  result=level?.LevelName
+                }
+                );
+            }
+            return Ok(new
+            {
+                result =String.Empty
+            });
         }
 
         [HttpGet("/questions/api/gettopicname/{topicId}")]
         public IActionResult GetTopicName(Guid topicId)
         {
-            var topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId);
-            return Ok(topic?.TopicName);
+            if (topicId != Guid.Empty)
+            {
+                var topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId);
+                return Ok(
+                new
+                {
+                    result = topic?.TopicName
+                }
+                );
+            }
+
+            return Ok(new
+            {
+                result = String.Empty
+            });
         }
 
 

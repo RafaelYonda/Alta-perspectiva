@@ -76,6 +76,12 @@
             <h2 class="category-title">
                 {{categorySelected?.name}}
             </h2>
+            <h2 class="category-title" *ngIf="topicName">
+                . {{topicName}}
+            </h2>
+            <h2 class="category-title" *ngIf="levelName">
+                . {{levelName}}
+            </h2>
         </div>
         <div class="pull-right">
             <h4>

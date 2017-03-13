@@ -46,9 +46,12 @@ export class QuestionBodyComponent {
     description = "This is a test";
     like: Like;
     //categoryId
-    topicId: string;
     categoryId: string;
+    topicId: string;
+    topicName:string;
+    
     levelId: string;
+    levelName:string;
 
     filterParameter: FilterParameter;
     constructor(private questioAnswernService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private questionService: QuestionService) {
@@ -110,6 +113,11 @@ export class QuestionBodyComponent {
             if (this.topicId) {
                 this.commServ.setTopicId(this.topicId);
                 this.filterParameter.topicId = this.topicId;
+                this.questioAnswernService.GetTopicName(this.topicId).subscribe(res => {
+                    if (res.result != '') {
+                        this.topicName = res.result
+                    };
+                })
             }
             else {
                 this.filterParameter.topicId = '0';
@@ -119,6 +127,11 @@ export class QuestionBodyComponent {
             if (this.levelId) {
                 this.commServ.setLevelId(this.levelId);
                 this.filterParameter.levelId = this.levelId;
+                this.questioAnswernService.GetLevelName(this.levelId).subscribe(res => {
+                    if (res.result != '') {
+                        this.levelName = res.result
+                    };
+                })
             } else {
                 this.filterParameter.levelId = '0';
             }

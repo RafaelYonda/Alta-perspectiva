@@ -244,12 +244,12 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
 
-    GetLevelName(levelId: string): Observable<string> {
+    GetLevelName(levelId: string): Observable<any> {
         return this._http.get('/questions/api/getlevelname/'+levelId, null)
             .map(this.extractData)
             .catch(this.handleError);
     }
-    GetTopicName(topicId: string): Observable<string> {
+    GetTopicName(topicId: string): Observable<any> {
         return this._http.get('/questions/api/GetTopicName/' + topicId, null)
             .map(this.extractData)
             .catch(this.handleError);
