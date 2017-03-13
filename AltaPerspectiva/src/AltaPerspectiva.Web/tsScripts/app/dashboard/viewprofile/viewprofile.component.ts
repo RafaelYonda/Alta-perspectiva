@@ -133,7 +133,7 @@ export class ViewProfileComponent {
         this.employmentHtml = " " + this.credential.employments[0].position.concat(" at ")
             .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/>").concat("&nbsp;&nbsp;&nbsp;&nbsp;")
                               .concat(this.credential.employments[0].startDate ? this.credential.employments[0].startDate.toString():"")
-                              .concat(this.credential.employments[0].isCurrentlyWorking ? "present" : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
+                              .concat(this.credential.employments[0].isCurrentlyWorking ? " present " : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
     }
     generateEducationHtml()
     {
@@ -185,7 +185,7 @@ export class ViewProfileComponent {
             placeHtml = "lives at " + place.locationName ;
         } else {
             if (place.locationName) {
-                placeHtml = "from " + place.locationName;
+                placeHtml = " from " + place.locationName;
             }
             
         }
