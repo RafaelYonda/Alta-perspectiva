@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
 namespace Altaperspectiva.OpenId.Controllers {
-    [Authorize]
+  
     public class AccountController : Controller {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
