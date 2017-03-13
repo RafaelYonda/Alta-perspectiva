@@ -144,6 +144,7 @@ export class AnswerViewModel {
     isDrafted: boolean;
     userId: string;
     isFollowing: boolean;
+    firstImageUrl:string;
     constructor() {
 
         this.likes = new Array();

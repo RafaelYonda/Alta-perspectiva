@@ -223,7 +223,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
 
-
+            string firstImageUrl = null;
             var imgTags = Base64Image.GetImagesInHTMLString(answer.Text);
 
             foreach (var imgTag in imgTags)
@@ -244,7 +244,10 @@ namespace AltaPerspectiva.Web.Area.Questions
                     AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
                     fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
                         imageName, base64Image.ContentType);
-
+                    if (firstImageUrl == null)
+                    {
+                        firstImageUrl =  Regex.Match(fileLink, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase).Groups[1].Value;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -264,7 +267,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
           
 
-            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous);
+            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous,firstImageUrl);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 
@@ -580,10 +583,16 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
 
             AddBookmarkCommand cmd = new AddBookmarkCommand(loggedinUser, questionId);
-
+            
             commandsFactory.ExecuteQuery(cmd);
 
-            return Created($"/questions/api/{cmd.Id}/addbookmark", questionId);
+            if (cmd.Id == Guid.Empty)
+            {
+                //Already added book mark
+                return Ok(new {result = false});
+            }
+            return Ok(new {result = true});
+            //  return Created($"/questions/api/{cmd.Id}/addbookmark", questionId);
         }
 
 

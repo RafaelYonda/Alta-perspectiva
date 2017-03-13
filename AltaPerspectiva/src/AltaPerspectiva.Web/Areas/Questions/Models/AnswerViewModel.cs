@@ -22,5 +22,6 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         public bool? IsAnonymous { get; set; }
         public bool? IsDrafted { get; set; }
         public DateTime? CreatedOn { get; set; }
+        public string FirstImageUrl { get; set; }
     }
 }
