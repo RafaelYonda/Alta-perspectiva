@@ -29,7 +29,7 @@
 			Debug.WriteLine("AddBookmarkCommandHandler executed");
 
 		    var alreadyBookmarked =
-		        DbContext.Bookmarks.Where(x => x.UserId == command.UserId && x.QuestionId == x.QuestionId).FirstOrDefault();
+		        DbContext.Bookmarks.Where(x => x.UserId == command.UserId && x.QuestionId == command.QuestionId).FirstOrDefault();
 
 		    if (alreadyBookmarked == null)
 		    {

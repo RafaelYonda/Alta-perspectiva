@@ -81,8 +81,13 @@ export class StatusComponent {
             this.ShowNotLoggedIn();
             return;
         }
-           this.dataService.addBookMark(questionId).subscribe(res => {
-                 console.log(questionId + 'saved as bookmark');
+        this.dataService.addBookMark(questionId).subscribe(res => {
+            console.log(res);
+             if (res.result == true) {
+                 this.toastr.success('Bookmark Added successfully', 'success');
+             } else {
+                 this.toastr.warning('This Question is alrady in your bookmark !!!', 'warning');
+             }
           });
     }
 
