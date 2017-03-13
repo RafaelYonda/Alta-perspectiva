@@ -7,6 +7,7 @@ import { QuestionService } from '../../services/question.service';
 import { loginModalComponent } from '../login-modal/login-modal.component';
 import { CommunicationService } from '../../services/communication.service';
 import { LikeComponent } from '../like-modal/like.component';
+import { AuthenticationService } from '../../services/authentication.service';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 @Component({
     selector: 'ap-status',
@@ -29,20 +30,19 @@ export class StatusComponent {
     CommentCount: number;
     like: Like;
     likedUsers: User[];
-    constructor(private componentFactoryResolver: ComponentFactoryResolver, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService, public toastr: ToastsManager, vRef: ViewContainerRef) {
+    loggedinUser: User;
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService, public toastr: ToastsManager) {
         
     }
 
     ngOnInit() {
+        this._authService.getLoggedinObj().subscribe(res => {
+            this.loggedinUser = res;
+        });
 
         if (this.questionObj.bestAnswer && this.questionObj.bestAnswer.text) {
-
-
             var temp = this.questionObj.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "");
             this.answerTagsRemoved = temp.replace("&nbsp;", " ");
-
-                       
-          
         }
         if (this.isQuestion)
         {
@@ -88,12 +88,16 @@ export class StatusComponent {
 
     questionDetailClicked()
     {
+        if (this.loggedinUser.userId != this.questionObj.userViewModel.userId)
+            this.toastr.error("This is not your question to edit.");
+        else
+            this.onQuestionDetailClicked.emit(true);
         var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
-        } 
-        this.onQuestionDetailClicked.emit(true);
+        }
+        
     }
 
     submitLike(answerId: string, questionId: string) {   
