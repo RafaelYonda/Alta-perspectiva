@@ -11,20 +11,32 @@ using NWebsec.AspNetCore.Middleware;
 using OpenIddict;
 using OpenIddict.Core;
 using OpenIddict.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Altaperspectiva.OpenId {
     public class Startup {
-        public void ConfigureServices(IServiceCollection services) {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables()
-                .Build();
+
+        public Startup(IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();                       
+        }
+
+        public IConfigurationRoot Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services) {           
 
             services.AddMvc();
+            services.AddSingleton<IConfigurationRoot>(provider => Configuration);
             services.AddSession();
             services.AddDbContext<ApplicationUserDbContext>(options => {
                 // Configure the context to use Microsoft SQL Server.
-                options.UseSqlServer(configuration["Data:DefaultConnection:ConnectionString"]);
+                options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]);
 
                 // Register the entity sets needed by OpenIddict.
                 // Note: use the generic overload if you need
