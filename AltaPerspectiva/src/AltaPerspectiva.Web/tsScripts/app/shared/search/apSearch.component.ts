@@ -145,6 +145,13 @@ export class ApSearchComponent {
         form.style.left = this.questionLeftposition.toString() + 'px';
     }
     //=======/Question mark movment=====
+    trimSpace(event: KeyboardEvent) {
+        if (event.keyCode == 32)
+        {
+            this.title = this.title.trim();
+            this.title += " ";
+        }
+    }
     filterQuestions(event) {
         this.movequestionMark(event);
         var tempTitle = this.title;

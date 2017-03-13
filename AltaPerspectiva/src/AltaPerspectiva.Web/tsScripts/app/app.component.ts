@@ -1,6 +1,7 @@
-﻿import { Component, Input, ElementRef } from '@angular/core';
+﻿import { Component, Input, ElementRef, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 @Component({
     selector: 'app',
     templateUrl: 'js/app/app.component.html',
@@ -9,7 +10,8 @@ import { AuthenticationService } from './services/authentication.service';
 })
 export class AppComponent {   
 
-    constructor(elm: ElementRef, private _authService: AuthenticationService) {
+    constructor(elm: ElementRef, private _authService: AuthenticationService, public toastr: ToastsManager, vRef: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vRef);
 
         var username = elm.nativeElement.getAttribute('username');
         var token = elm.nativeElement.getAttribute('token');       
