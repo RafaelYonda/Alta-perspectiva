@@ -76,7 +76,7 @@ export class Question {
     commentCount: number;
     comments: Comment[];
     date: Date;
-    user: User;
+    userViewModel: User;
     answers: AnswerViewModel[];
     bestAnswer: AnswerViewModel;
     shareUrl: string;
@@ -88,7 +88,7 @@ export class Question {
     isAnonymous: boolean;//IsAnonymous added
     isDirectQuestion:boolean;//Directquestion added 
     constructor() {
-        this.user = new User();
+        this.userViewModel = new User();
         this.answers = new Array();
         this.comments = new Array();
         this.categoryIds = new Array();
