@@ -10,7 +10,7 @@ import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 export class TwitterComponent {
     title: string;
     useId:string;
-    constructor(private profileService: ProfileService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+    constructor(private profileService: ProfileService, public toastr: ToastsManager) {
     }
     close = new EventEmitter();
 

@@ -7,6 +7,7 @@ import { QuestionService } from '../../services/question.service';
 import { loginModalComponent } from '../login-modal/login-modal.component';
 import { CommunicationService } from '../../services/communication.service';
 import { LikeComponent } from '../like-modal/like.component';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 @Component({
     selector: 'ap-status',
     templateUrl: 'js/app/shared/status/status.component.html',
@@ -28,7 +29,8 @@ export class StatusComponent {
     CommentCount: number;
     like: Like;
     likedUsers: User[];
-    constructor(private componentFactoryResolver: ComponentFactoryResolver, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService) {
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService, public toastr: ToastsManager, vRef: ViewContainerRef) {
+        
     }
 
     ngOnInit() {
