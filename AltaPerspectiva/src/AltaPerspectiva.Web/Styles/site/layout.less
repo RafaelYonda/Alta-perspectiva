@@ -29,6 +29,7 @@ hr {
 .inline-display {
     display: inline-block;
 }
+
 p {
     font-size: 17px;
     font-family: Helvetica;
@@ -36,23 +37,30 @@ p {
     overflow: hidden;
     color: black;
 }
-.center-fix{
-    float:left;
+
+canvas {
+    margin: 15px;
 }
+
+.center-fix {
+    float: left;
+}
+
 .body-minHeight {
-            min-height: 100vh;
-        }
+    min-height: 100vh;
+}
 
 /*====For mobile side bar=======*/
-    .cloe-button {
-        display: block;
-        text-align: right;
-        margin-right: -20px;
-        font-size: 20px;
+.cloe-button {
+    display: block;
+    text-align: right;
+    margin-right: -20px;
+    font-size: 20px;
+}
+
+@media only screen and (max-width:767px) {
+    .row {
+        margin-left: 0;
+        margin-right: 0;
     }
-    @media only  screen and (max-width:767px){
-        .row{
-            margin-left:0;
-            margin-right:0;
-        }
-    }
+}

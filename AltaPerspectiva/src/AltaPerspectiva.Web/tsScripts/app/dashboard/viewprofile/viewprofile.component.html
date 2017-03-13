@@ -109,8 +109,6 @@
                 <li>
                     <div class="show" *ngIf="employmentExists && isOwner">
                         <div class="mytooltip"><i class="fa fa-suitcase"></i><span class="mytooltiptext">Employment</span></div>
-
-
                         <span title="Employment" innerHTML="{{employmentHtml}}"></span>
                         <a *ngIf="isOwner" (click)='openEmploymentDialogAnchor()'  class='edit show-edit'><i class='fa fa-edit'></i></a>
                     </div>
