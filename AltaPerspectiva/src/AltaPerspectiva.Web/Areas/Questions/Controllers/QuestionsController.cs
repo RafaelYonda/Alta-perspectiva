@@ -31,6 +31,7 @@ using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using UserProfile.Domain.ReadModel;
 using UserProfile.Query;
 using UserProfile.Query.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 
 namespace AltaPerspectiva.Web.Area.Questions
 {
@@ -41,12 +42,14 @@ namespace AltaPerspectiva.Web.Area.Questions
         ICommandsFactory commandsFactory;
         IQueryFactory queryFactory;
         private readonly IConfigurationRoot configuration;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public QuestionsController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IConfigurationRoot _configuration)
+        public QuestionsController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IConfigurationRoot _configuration, IHostingEnvironment _hostingEnvironment)
         {
             commandsFactory = _commandsFactory;
             queryFactory = _queryFactory;
             configuration = _configuration;
+            hostingEnvironment = _hostingEnvironment;
         }
 
 
@@ -256,7 +259,8 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             if (answer.IsDrafted == null || answer.IsDrafted==false)
             {
-                await new SendEmailService().SendAnswerEmailAsync(queryFactory, loggedinUser, answer.QuestionId, answer.Text, "New Answer");
+                string webRootPath = hostingEnvironment.WebRootPath;
+                await new SendEmailService().SendAnswerEmailAsync(queryFactory, webRootPath, loggedinUser, answer.QuestionId, answer.Text, "New Answer");
             }
           
 
@@ -670,7 +674,8 @@ namespace AltaPerspectiva.Web.Area.Questions
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-
+            QuestionService questionService=new QuestionService();
+            model.Title=  questionService.RemoveQuestionMark(model.Title);
 
             UpdateQuestionCommand cmd = new UpdateQuestionCommand(model.Id, model.Title, model.Body, model.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
@@ -999,7 +1004,8 @@ namespace AltaPerspectiva.Web.Area.Questions
             Guid questionId = cmd.Id;
             if (question.QuestionAskedToUser.Value != loggedinUser)
             {
-                await new SendEmailService().SendDirectQuestionEmailAsync(queryFactory,"Draft Question",question.Title,question.Body, loggedinUser, question.QuestionAskedToUser.Value);
+                string webRootPath = hostingEnvironment.WebRootPath;
+                await new SendEmailService().SendDirectQuestionEmailAsync(queryFactory, webRootPath, "Draft Question",question.Title,question.Body, loggedinUser, question.QuestionAskedToUser.Value);
             }
 
 
