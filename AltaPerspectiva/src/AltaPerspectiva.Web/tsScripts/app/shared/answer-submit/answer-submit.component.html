@@ -32,6 +32,7 @@
 </style>
 <form #answerVM="ngForm" class="form-horizontal " role="form">
     <div class="modal-header">
+        <question-header [question]="question"></question-header>
         <h1>{{question.title}}</h1>
         <div class="row">
             <div class="img-container" *ngIf="!isAnonymous">
