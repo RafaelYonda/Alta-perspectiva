@@ -33,13 +33,13 @@ export class QuestionHeaderComponent {
     levelRoute(categoryId: string, topicId: string,levelId: string){
       //  console.log(this.question);
 
-        //if (!topicId) {
+        if (!topicId) {
             topicId = '0';
-      //  }
+        }
       
         this._router.navigateByUrl('/question/home/' + categoryId + '/' + topicId+'/'+levelId);
     }
     ngOnInit() {
-        //console.log(this.question);
+       // console.log(this.question);
     }
 }
