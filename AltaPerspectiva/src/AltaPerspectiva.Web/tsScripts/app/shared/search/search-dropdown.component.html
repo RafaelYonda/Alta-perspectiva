@@ -1,19 +1,19 @@
 ﻿<!-- Question Text -->
 <div class="dropdown-block">
     <select class="question-control" id="Category" (change)="onCategoryChange(categoryObj.value)" name="category" #categoryObj>
-        <option [value]="-1" disabled="true" selected>Selecciona la categoría</option>
+        <option [value]="-1"  selected>Selecciona la categoría</option>
         <option *ngFor="let category of categories" [value]="category.id">
             {{category.name}}
         </option>
     </select>
     <select class="question-control" name="topics" id="topics" (change)="onTopicChange(topicObj.value)" #topicObj>
-        <option [value]="-1" disabled="true" selected>Selecciona la tematica</option>
+        <option [value]="-1"  selected>Selecciona la tematica</option>
         <option *ngFor="let topic of topics" [value]="topic?.id">
             {{topic?.topicName}}
         </option>
     </select>
     <select class="question-control" name="levels" id="levels"  (change)="onLevelChange(levelObj.value)" #levelObj>
-        <option [value]="-1" disabled="true" selected>Selecciona la complejidad</option>
+        <option [value]="-1"  selected>Selecciona la complejidad</option>
         <option *ngFor="let level of levels" [value]="level.id">
             {{level.levelName}}
         </option>
