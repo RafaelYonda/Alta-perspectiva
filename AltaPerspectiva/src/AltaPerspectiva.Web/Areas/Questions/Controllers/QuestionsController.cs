@@ -713,7 +713,8 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             UpdateQuestionCommand cmd = new UpdateQuestionCommand(model.Id, model.Title, model.Body, model.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
-            return Ok();
+            model.Title = "¿" + model.Title + " ?";
+            return Ok(model);
 
         }
 

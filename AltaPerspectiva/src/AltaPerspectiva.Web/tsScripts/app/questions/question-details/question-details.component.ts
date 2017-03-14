@@ -285,7 +285,7 @@ export class QuestionDetailComponent {
         qv.id = this.question.id;
 
         this.dataService.updateQuestion(qv).subscribe(res => {
-            this.question.title = this.editTitle;
+            this.question.title = res.title;
             this.question.body = this.editBody;
             this.showQuestionEditForm = false;
 

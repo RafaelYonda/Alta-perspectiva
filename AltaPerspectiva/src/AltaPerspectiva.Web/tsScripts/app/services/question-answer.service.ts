@@ -208,7 +208,7 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
      }
 
-     updateQuestion(model: Question): Observable<any> {
+     updateQuestion(model: Question): Observable<Question> {
          return this._http.post('/questions/api/' + model.id + '/updatequestion', model)
              .map(this.extractData)
              .catch(this.handleError);
