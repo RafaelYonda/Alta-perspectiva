@@ -18,6 +18,7 @@ export class BlogCreateComponent {
     constructor(private _route: ActivatedRoute, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private blogService: BlogService, private _authService: AuthenticationService,private router: Router) {
     }
     ngOnInit() {
+        window.scrollTo(0, 0);
         this._route.parent.params.subscribe(params => {
             //=============Check Owner Blog==========
             var currentUser = localStorage.getItem('auth_token');
