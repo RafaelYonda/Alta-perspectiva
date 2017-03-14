@@ -25,7 +25,7 @@
                 <div class="user-detail">
                     <a [routerLink]="['/dashboard/viewprofile/',userObj?.userId,'user-question']"> {{userObj?.name}}</a>
                     <br />
-                    <span style="font-size: 12px;"> {{userObj?.occupation}}</span>
+                    <div style="font-size: 12px;"> {{userObj?.occupation}}</div>
                 </div>
                 <div class="user-detail light-gray">{{viewDate | date: 'dd MMM, yyyy'}}</div>
             </div>
