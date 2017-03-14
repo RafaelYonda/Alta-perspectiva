@@ -1,12 +1,16 @@
 ﻿<style>
     .disabledFollowingImg {
+        height:25px;
         opacity: .1;
     }
 
     .enableFollowingImg {
+        height:25px;
         opacity: 1;
     }
-
+    .enableFollowingImg:hover{
+        height:30px;
+    }
     .filter-panel {
         margin-left: 2px;
         margin-right: 15px;
@@ -35,7 +39,7 @@
 
 <!-- =========Question========== -->
 <div *ngIf="!showQuestionEditForm">
-    <div class="center-width center-body z-ground">
+    <div class="center-width center-fix center-body z-ground">
         <question-header [question]="question"></question-header>
         <h1 class="question-title">
             {{question.title}}
@@ -65,7 +69,7 @@
                     <user-info [userObj]="answer?.userViewModel" [viewDate]="answer?.createdOn" [isAnonymous]="answer?.isAnonymous"></user-info>
                     <div class="pull-right">
                         <a (click)="QuestionFollowing(answer)">
-                            <img [ngClass]="{ 'enableFollowingImg': !answer?.isFollowing, 'disabledFollowingImg': answer?.isFollowing  }" src="../../images/FollowingImage.jpg" />
+                            <img [ngClass]="{ 'enableFollowingImg': !answer?.isFollowing, 'disabledFollowingImg': answer?.isFollowing  }" src="../../images/FollowingImage.svg" />
                         </a>
                     </div>
                     <p class="answer-text" [innerHTML]="answer.text"></p>
