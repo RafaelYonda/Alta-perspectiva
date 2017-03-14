@@ -84,9 +84,9 @@ export class StatusComponent {
         this.dataService.addBookMark(questionId).subscribe(res => {
             console.log(res);
              if (res.result == true) {
-                 this.toastr.success('Bookmark Added successfully', 'success');
+                 this.toastr.success('Bookmark has been added successfully.', 'Success');
              } else {
-                 this.toastr.warning('This Question is alrady in your bookmark !!!', 'warning');
+                 this.toastr.warning('You have already bookmarked this question.', 'Warning');
              }
           });
     }
