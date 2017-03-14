@@ -1,13 +1,15 @@
 ﻿<style>
     .disabledFollowingImg {
+        height:25px;
         opacity: .1;
     }
 
     .enableFollowingImg {
+        height:25px;
         opacity: 1;
     }
     .enableFollowingImg:hover{
-        height:55px;
+        height:30px;
     }
 </style>
 <div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
@@ -31,7 +33,7 @@
                         <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
                         <div class="pull-right">
                             <a (click)="QuestionFollowing(question)">
-                                <img [ngClass]="{ 'disabledFollowingImg': !isFollowing, 'enableFollowingImg': isFollowing  }" src="../../images/FollowingImage.jpg"/>
+                                <img [ngClass]="{ 'disabledFollowingImg': !isFollowing, 'enableFollowingImg': isFollowing  }" src="../../images/FollowingImage.svg"/>
                             </a>
                         </div>
                         <div>

@@ -48,7 +48,7 @@
                                     @Html.DisplayFor(modelItem => item.Name)
                                 </td>
                                 <td>
-                                    <button id="btnDelete" type="button" class="btn btn-danger" onclick="DeleteCategory(this,'@item.Id','@item.Name')">
+                                    <button id="btnDelete" type="button" class="btn btn-danger" onclick="DeleteCategory(this,'@item.Id')">
                                         DeleteCategory
                                     </button>
                                 </td>
@@ -64,7 +64,7 @@
     </div>
 </div>
 <script>
-    function DeleteCategory(element, categoryId, categoryName) {
+    function DeleteCategory(element, categoryId) {
 
         alertify.confirm("Do you really want to delete?", function () {
             //user clicked "ok"
@@ -79,7 +79,7 @@
                 async: false,
                 success: function (respText) {
                     console.log(respText);
-                    alertify.alert(categoryName + ' deleted successfully',
+                    alertify.alert(' deleted successfully',
                         function () {
                             location.reload(true);
                         });

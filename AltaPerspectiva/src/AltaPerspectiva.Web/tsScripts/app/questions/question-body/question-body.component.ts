@@ -116,7 +116,9 @@ export class QuestionBodyComponent {
                 this.questioAnswernService.GetTopicName(this.topicId).subscribe(res => {
                     if (res.result != '') {
                         this.topicName = res.result
-                    };
+                    } else {
+                        this.topicName = undefined;
+                    }
                 })
             }
             else {
@@ -130,7 +132,9 @@ export class QuestionBodyComponent {
                 this.questioAnswernService.GetLevelName(this.levelId).subscribe(res => {
                     if (res.result != '') {
                         this.levelName = res.result
-                    };
+                    }else {
+                        this.levelName = undefined;
+                    }
                 })
             } else {
                 this.filterParameter.levelId = '0';

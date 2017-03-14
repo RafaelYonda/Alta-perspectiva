@@ -68,7 +68,7 @@
     <div class="row">
 
             <div class="col-md-4" *ngFor="let blog of blogs">
-                <div class="blog-list-panel">
+                <div (click)="goToBlogPost(blog.id)" class="blog-list-panel">
                     <h2>{{blog?.title}}</h2>
                     <a class="btn btn-primary" [routerLink]="['/dashboard/blog-post',blog.id]">Create Post</a>
                 </div>

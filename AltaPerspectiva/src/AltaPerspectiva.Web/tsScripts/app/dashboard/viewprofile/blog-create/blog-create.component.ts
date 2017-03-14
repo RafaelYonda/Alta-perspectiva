@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { loginModalComponent } from '../../../shared/login-modal/login-modal.component';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { BlogService } from '../../../services/blog.service';
+import { Router } from '@angular/router';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/blog-create/blog-create.component.html',
     providers: [ProfileService, BlogService, AuthenticationService],
@@ -14,7 +15,7 @@ export class BlogCreateComponent {
     blog: Blog = new Blog();
     blogs: Blog[];
     userId: string;
-    constructor(private _route: ActivatedRoute, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private blogService: BlogService, private _authService: AuthenticationService) {
+    constructor(private _route: ActivatedRoute, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private blogService: BlogService, private _authService: AuthenticationService,private router: Router) {
     }
     ngOnInit() {
         this._route.parent.params.subscribe(params => {
@@ -34,6 +35,9 @@ export class BlogCreateComponent {
                 this.blogs = res;
             });
         });
+    }
+    goToBlogPost(blogId: string) {
+        this.router.navigateByUrl('/dashboard/blog-post/' + blogId, { skipLocationChange: true });
     }
     saveBlog() {
         var token = localStorage.getItem('auth_token');
