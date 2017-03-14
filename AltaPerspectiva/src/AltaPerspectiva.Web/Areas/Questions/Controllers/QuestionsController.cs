@@ -812,13 +812,13 @@ namespace AltaPerspectiva.Web.Area.Questions
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
                 /// if user is logged in, then fetch questions by user following a category
-                questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().GetBestQuestionbyTotalLike(loggedinUser, categoryId);
+                //questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().GetBestQuestionbyTotalLike(loggedinUser, categoryId);
             }
-            else
-            {
+            //else
+            //{
                 questionList = await queryFactory.ResolveQuery<IQuestionsQuery>()
                     .GetBestQuestionbyTotalLike(categoryId);
-            }
+           // }
 
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
 
