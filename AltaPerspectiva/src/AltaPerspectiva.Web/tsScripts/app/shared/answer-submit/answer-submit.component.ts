@@ -4,7 +4,7 @@ import { ProfileService } from '../../services/profile.service';
 import {LogInObj, Question, AnswerViewModel, User } from '../../services/models';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
-//import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class AnswerSubmitComponent {
     constructor(private dataService: QuestionAnswerService,
         private _router: Router,
         private profileService: ProfileService,
-        private _authService: AuthenticationService)//, public toastr: ToastsManager, vcr: ViewContainerRef)
+        private _authService: AuthenticationService, public toastr: ToastsManager, vcr: ViewContainerRef)
 
     {
         var user: User = new User();
@@ -67,7 +67,7 @@ export class AnswerSubmitComponent {
     }
     submitAnswer(_id: string) {
         if (this.answerText == null) {
-           // this.toastr.warning('Please some answer!!', 'Oops');
+             this.toastr.warning('Please write some answer!!', 'Oops');
             return;
         }
         if (this.isDetail)

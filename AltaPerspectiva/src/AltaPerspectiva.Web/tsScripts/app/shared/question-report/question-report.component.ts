@@ -1,6 +1,7 @@
-﻿import { Component, EventEmitter } from '@angular/core';
+﻿import { Component, EventEmitter, ViewContainerRef } from '@angular/core';
 import { QuestionReport} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 @Component({
     selector: 'question-report',
     templateUrl: 'js/app/shared/question-report/question-report.component.html',
@@ -10,7 +11,7 @@ import { QuestionAnswerService } from '../../services/question-answer.service';
 export class QuestionReportComponent {
 
 
-    constructor(private questionService: QuestionAnswerService) {
+    constructor(private questionService: QuestionAnswerService, public toastr: ToastsManager, vcr: ViewContainerRef) {
         
     }
     close = new EventEmitter();
@@ -39,7 +40,7 @@ export class QuestionReportComponent {
     save() {
         
         if (this.selectedQuestionReport==undefined) {
-            
+            this.toastr.warning('Please select a cause!!', 'Oops');
         } else {
             this.questionReport = new QuestionReport();
             this.questionReport.title = this.selectedQuestionReport;
@@ -48,6 +49,7 @@ export class QuestionReportComponent {
             this.questionReport.answerId = this.answerId;
             this.questionService.SaveReport(this.questionReport).subscribe(res => {
                 this.close.emit('event');
+                this.toastr.success('Ok ..got it.we will look at it', 'success');
             })
             
 
