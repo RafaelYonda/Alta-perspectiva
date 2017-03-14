@@ -33,7 +33,7 @@ namespace Questions.Command.CommandHandler
             }
             else
             {
-                throw new Exception("Category Not Found Which is be deleted");
+                throw new Exception("Category Not Found Which is to be deleted");
             }
            
 

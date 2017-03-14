@@ -217,7 +217,7 @@
     }
     function editTopics(element, Id, categotyName) {
         console.log(Id + '->' + categotyName);
-        var url = '@Url.Action("GetTopics", "Categories", new { Area = "Questions" })';
+        var url = '@Url.Action("GetTopics", "Category", new { Area = "Admin" })';
         var obj = {};
         obj.Id = Id;
         $("#tblTopics tbody").empty();
@@ -262,7 +262,7 @@
             obj.categoryId = categoryId;
             obj.newKeyword = newKeyword;
             console.log(obj);
-            var url = '@Url.Action("SaveKeyWords", "Categories", new { Area = "Questions" })';
+            var url = '@Url.Action("SaveKeyWords", "Category", new { Area = "Admin" })';
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -289,7 +289,7 @@
     }
     function addKeywords(element, Id, categotyName) {
 
-        var url = '@Url.Action("GetKeyWords", "Categories", new { Area = "Questions" })';
+        var url = '@Url.Action("GetKeyWords", "Category", new { Area = "Admin" })';
         var obj = {};
         obj.Id = Id;
         console.log(obj);

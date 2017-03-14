@@ -18,7 +18,7 @@ namespace Questions.Query.Queries
 
         public IEnumerable<Topic> GetTopics(Guid categoryId)
         {
-            return DbContext.Topics.Where(x => x.CategoryId == categoryId).ToList();
+            return DbContext.Topics.Where(x => x.CategoryId == categoryId &&x.IsDeleted==null).ToList();
         }
 
         public async Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId)
@@ -85,6 +85,11 @@ order by SUM(q.ViewCount) DESC
         public List<Topic> GetAllTopics()
         {
             return DbContext.Topics.ToList();
+        }
+
+        public bool IsTopicExists(string topicName)
+        {
+            return DbContext.Topics.Where(x=>x.IsDeleted==null).Any(x => x.TopicName == topicName);
         }
     }
     

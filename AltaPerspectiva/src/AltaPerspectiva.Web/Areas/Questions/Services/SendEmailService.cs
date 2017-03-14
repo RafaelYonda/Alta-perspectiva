@@ -47,7 +47,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             emailHandler.Title = title;
             emailHandler.QuestionId = questionId;
             emailHandler.QuestionUserName = questionUserEmailParamter.UserName;
-            emailHandler.QuestionTitle = question.Title;
+            emailHandler.QuestionTitle = "¿ " + question.Title +" ?";
             emailHandler.AnswerUserName = answerUserEmailParamter.UserName;
             emailHandler.AnswerText = answerText;
             emailHandler.ImageUrl = answerUserEmailParamter.ImageUrl;
@@ -96,9 +96,9 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             emailHandler.Title = title;
             //emailHandler.QuestionId = questionId;
             //emailHandler.QuestionUserName = questionUserEmailParamter.UserName;
-            emailHandler.QuestionTitle = questionTitle;
-            
-            
+            emailHandler.QuestionTitle = "¿ " + questionTitle + " ?";
+
+
             emailHandler.ImageUrl = userEmailParamter.ImageUrl;
             emailHandler.AnswerUserName = userEmailParamter.UserName;
             //emailHandler.QuestionUserEmail = questionUserEmailParamter.Email;

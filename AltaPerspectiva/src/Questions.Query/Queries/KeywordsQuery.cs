@@ -18,7 +18,12 @@ namespace Questions.Query
 
         public IEnumerable<Keyword> Execute(Guid categoryId)
         {
-            return DbContext.Keywords.Include(c=>c.Category).Where(c=>c.CategoryId == categoryId); 
+            return DbContext.Keywords.Include(c=>c.Category).Where(c=>c.CategoryId == categoryId ); 
+        }
+
+        public bool IsKeywordExists(string kewirdName)
+        {
+            return DbContext.Keywords.Where(x => x.Text == kewirdName).Any();
         }
     }
 }

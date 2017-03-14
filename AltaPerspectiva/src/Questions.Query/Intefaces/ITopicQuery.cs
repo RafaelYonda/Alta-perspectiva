@@ -22,6 +22,8 @@ namespace Questions.Query.Queries
 
         List<Topic> GetAllTopics();
 
+        Boolean IsTopicExists(string topicName);
+
 
     }
 }

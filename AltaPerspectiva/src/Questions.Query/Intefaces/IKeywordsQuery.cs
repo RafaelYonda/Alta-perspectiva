@@ -8,5 +8,6 @@ namespace Questions.Query
     public interface IKeywordsQuery : IQuery
     {
         IEnumerable<Keyword> Execute(Guid categoryId);
+        bool IsKeywordExists(string kewirdName);
     }
 }
