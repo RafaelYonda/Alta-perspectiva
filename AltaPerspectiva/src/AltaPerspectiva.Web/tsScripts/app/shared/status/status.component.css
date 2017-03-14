@@ -4,6 +4,9 @@
     font-family:myriadpro-regular;
     color:#a29996;
 }
+.social-image-linkedin{
+    border-radius:3px;
+}
 .like-logo {
     height: 30px;
     width: 30px;
@@ -81,13 +84,13 @@ h5 {
 }
 
 #img2 {
-    left: 26px;
+    left: 30px;
 }
 
 #img3 {
-    left: 50px;
+    left: 60px;
 }
 
 #img4 {
-    left: 75px;
+    left: 90px;
 }

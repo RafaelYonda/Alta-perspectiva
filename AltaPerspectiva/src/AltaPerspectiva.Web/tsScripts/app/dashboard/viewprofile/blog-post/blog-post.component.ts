@@ -21,6 +21,7 @@ export class BlogPostComponent {
     constructor(private _route: ActivatedRoute, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private blogService: BlogService, private _authService: AuthenticationService) {
     }
     ngOnInit() {
+        window.scrollTo(0, 0);
         //this.blogPost.description
         //this.blogPost.title = "Add Title Post";
         
