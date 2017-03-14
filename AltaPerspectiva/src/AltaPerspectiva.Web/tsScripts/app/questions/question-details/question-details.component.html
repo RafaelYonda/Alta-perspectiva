@@ -83,7 +83,7 @@
     </div>
 </div>
 <div *ngIf="showQuestionEditForm">
-    <div class="center-width center-body z-ground">
+    <div class="center-width center-body center-fix z-ground">
         <form (ngSubmit)="updateQuestion()" #questionVM="ngForm">
             <question-header [question]="question"></question-header>
             <h1 class="question-title">
