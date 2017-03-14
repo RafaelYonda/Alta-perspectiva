@@ -126,7 +126,7 @@ export class ApSearchComponent {
     movequestionMark(event) {
         var textWidth = document.getElementById('temp-text').clientWidth;
         console.log(textWidth);
-        var key = event.keyCode || event.charCode;
+        //var key = event.keyCode || event.charCode;
         textWidth = (textWidth + 20) < 30 ? (textWidth + 10) : (textWidth + 7);
         if (textWidth > 642)
             return;
@@ -174,6 +174,8 @@ export class ApSearchComponent {
     }
     isOnModal = false;
     showModal() {
+        this.title = ' ';
+        this.movequestionMark({});
         this.searchClass = document.getElementById("search-box").className;
         document.getElementById("search-box").className = "modal-overlay z-modal";
         var form = document.getElementById("search-box");
