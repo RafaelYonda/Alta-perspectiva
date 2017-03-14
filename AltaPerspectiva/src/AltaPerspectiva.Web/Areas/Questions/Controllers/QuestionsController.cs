@@ -836,10 +836,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             //    return NotFound("The content you are looking for is not avaliable/Removed");
             //}
             question.Answers =
-                question.Answers.OrderByDescending(d => d.AnswerDate.Date)
-                            .ThenBy(h => h.AnswerDate.Hour)
-                            .ThenBy(m => m.AnswerDate.Minute)
-                            .ThenBy(s => s.AnswerDate.Second).ToList();
+                question.Answers.OrderByDescending(d => d.CreatedOn).ToList();
 
             var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory,configuration);
             return Ok(questionViewModel);

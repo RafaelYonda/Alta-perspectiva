@@ -6,6 +6,11 @@
     .enableFollowingImg {
         opacity: 1;
     }
+    .filter-panel {
+        
+margin-left: 2px;
+    margin-right: 15px;
+    }
 </style>
 
 <div #answerAnchor></div>
@@ -45,7 +50,7 @@
         <button class="answer-button" (click)="answerDialogBox(question)">Answer</button>
         <div class="summery-panel">
             <h4>{{question.answers?.length}} Answers</h4>
-            <div class="filter-panel">
+            <div class="row filter-panel">
                 <div class="col-md-4"><a (click)="GetLatestAnswer(question.id)"><h4>The latest answers</h4></a></div>
                 <div class="col-md-4"><a (click)="GetBestAnswer(question.id)"><h4>The best answer</h4></a></div>
                 <!--<div class="col-md-4"><h4>The more view answers</h4></div>-->
