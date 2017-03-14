@@ -1,4 +1,5 @@
 ﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
+import {FormGroup} from '@angular/forms';
 import { Blog, BlogComment, BlogLike, BlogPost } from '../../../services/models/models.blogpost';
 import { ProfileService } from '../../../services/profile.service';
 import { ActivatedRoute } from '@angular/router';
@@ -40,7 +41,8 @@ export class BlogCreateComponent {
     goToBlogPost(blogId: string) {
         this.router.navigateByUrl('/dashboard/blog-post/' + blogId, { skipLocationChange: true });
     }
-    saveBlog() {
+    saveBlog(form: FormGroup) {
+        console.log(form);
         var token = localStorage.getItem('auth_token');
         if (!token) {
             this.ShowNotLoggedIn();
@@ -56,6 +58,7 @@ export class BlogCreateComponent {
             this.profileService.GetBlogs(this.userId).subscribe(blist => {
                 this.blogs = blist;
             });
+            form.reset();
             this.blog = new Blog();
         });
     }
