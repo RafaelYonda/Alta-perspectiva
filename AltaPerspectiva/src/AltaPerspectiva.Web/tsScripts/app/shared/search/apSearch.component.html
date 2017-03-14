@@ -7,7 +7,7 @@
                        [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keypress)="trimSpace($event)" (keydown)=filterQuestions($event) />
                 <div [hidden]="!showQuestion" class="question-begin">¿</div>
                 <div [hidden]="!showQuestion" class="question-end" id="question-end">?</div>
-                <div id="temp-text" style="position:absolute;top:-100px;">{{title}}</div>
+                <div id="temp-text" style="position:absolute;top:-100px; font-family:myriadpro-regular;font-size:15px;">{{title}}</div>
             </div>
             <div class="suggestions" id="suggestion" *ngIf="isOnModal">
                 <!-- Question Text -->
