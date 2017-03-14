@@ -1,9 +1,10 @@
 ﻿<style>
-    .article-details h3,article-details a{
-        display:inline-block;
+    .article-details h3, article-details a {
+        display: inline-block;
     }
-    .filter-panel .btn{
-        width:200px;
+
+    .filter-panel .btn {
+        width: 200px;
     }
 </style>
 <div>
@@ -13,7 +14,7 @@
     <div #logginAnchor></div>
 </div>
 <div class="panel-article">
-    <div class="questions-container" >
+    <div class="questions-container">
         <div class="details-container" *ngIf="!showQuestionEditForm">
             <question-header [question]="question"></question-header>
             <h3 class="question-title">
@@ -26,7 +27,8 @@
                 <div *ngIf="(question.answerCount>0)">
                     <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate" [isAnonymous]="question.bestAnswer?.isAnonymous"></user-info>
                     <div *ngIf="question.bestAnswer?.text" (click)="openDialogBox(question)">
-                        <p [innerHTML]="clippedAnswer"></p><span><a (click)="openDialogBox(question)">Read more..</a></span>
+                        <p [innerHTML]="clippedAnswer"></p>
+                        <!--<span><a (click)="openDialogBox(question)">Read more..</a></span>-->
                     </div>
                     <div *ngIf="question.bestAnswer">
                         <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"></ap-status>

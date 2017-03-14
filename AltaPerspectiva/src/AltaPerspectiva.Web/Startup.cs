@@ -237,6 +237,9 @@ namespace AltaPerspectiva
 
             //Drafted answer
             services.AddTransient<ICommandHandler<DraftedAnswerCommand>, DraftedAnswerCommandHandler>();
+            //topic and level
+            services.AddTransient<ICommandHandler<UpdateTopicCommand>, UpdateTopicCommandHandler>();
+            services.AddTransient<ICommandHandler<UpdateKeywordCommand>, UpdateKeywordCommandHandler>();
 
             #region Blog
 

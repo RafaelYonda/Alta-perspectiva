@@ -108,7 +108,7 @@ namespace AltaPerspectiva.Core.Helpers
         
 		<br/>
                Bienvenido a Alta perspectiva 
-    <img  style = 'width:30px;height: 40px;vertical-align: middle;' src = 'https://altablob.blob.core.windows.net/category/LOGO%20CUADRADO.png' /> 
+    <img  style = 'width:40px;height: 40px;vertical-align: middle;' src = 'https://altablob.blob.core.windows.net/category/LOGO%20CUADRADO.png' /> 
 
 			   <br/>
 ¡Esta es la comunidad del aprendizaje colaborativo en negocios!<br/>

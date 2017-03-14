@@ -156,145 +156,13 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
         }
 
-        //// DELETE questions/api/categories/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
-        /*FromPost For CategoriesFile*/
+        
 
-        #region Admin
-        //[HttpGet("questions/getcategory")]
-        //public IActionResult GetCategory()
-        //{
-        //   // AddLevelCommand cmd=new AddLevelCommand(1,"akash");
-
-        //   // commandsFactory.ExecuteQuery(cmd);
-
-        //    List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
-
-        //    return View(categoriesList);
-        //}
-        //Ajax file pathFor Modal
-
-
-        //[HttpPost]
-        //public IActionResult CategoryUpdate()
-        //{
-        //    Guid Id = new Guid(Request.Form["Id"]);
-        //    String Name = Request.Form["Name"];
-        //    String Description = Request.Form["Description"];
-
-
-        //    String image = String.Empty;
-        //    if (Request.Form.Files.Count > 0)
-        //    {
-        //        IFormFile file = Request.Form.Files[0];
-        //        var webRoot = environment.WebRootPath;
-
-        //        var categoryImagepath = configuration["CategoryUpload"];
-        //        var uploads = Path.Combine(webRoot, categoryImagepath);
-        //        image = file.FileName;
-
-
-        //        using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
-        //        {
-        //            file.CopyTo(fileStream);
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        Category category = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().FirstOrDefault(x=>x.Id==Id);
-        //        image = category.Image;
-        //    }
-        //    Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-        //        loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-        //    }
-        //    UpdateCategoryCommand cmd = new UpdateCategoryCommand(loggedinUser, Id, Name,Description, image);
-        //    commandsFactory.ExecuteQuery(cmd);
-
-        //    return Json(new { success = "ok" });
-        //}
-
-
-
-        //Implemented But excluded
-        //[HttpPost]
-        //public JsonResult Delete(Guid Id)
-        //{
-        //    Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-        //        loggedinUser = new Guid(loggedinUser.ToString());
-        //    }
-        //    DeleteCategoryCommand cmd = new DeleteCategoryCommand(loggedinUser,Id);
-        //    commandsFactory.ExecuteQuery(cmd);
-        //    commandsFactory.ExecuteQuery(cmd);
-        //    return Json(new { success = "ok" });
-        //}
-        //[HttpPost]
-        //public IActionResult CategoryFileUpload(String name, String description, IFormFile file)
-        //{
-        //    var categoryImagepath = configuration["CategoryUpload"];
-        //    //IHostingEnvironment environment = new HostingEnvironment();
-        //    String image = file.FileName;
-
-        //    var webRoot = environment.WebRootPath;
-
-
-        //    var uploads = Path.Combine(webRoot, categoryImagepath);
-        //    using (var fileStream = new FileStream(Path.Combine(uploads, image), FileMode.Create))
-        //    {
-        //        file.CopyTo(fileStream);
-        //    }
-
-        //    Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-        //        loggedinUser = new Guid(loggedinUser.ToString());
-        //    }
-        //    int maxSequnce = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().OrderByDescending(x => x.Sequence).Select(x => x.Sequence).FirstOrDefault();
-        //    //int maxSequnce=
-        //    AddCategoryCommand cmd = new AddCategoryCommand(loggedinUser, name, "icon-dice", true, description, maxSequnce + 1, image);
-        //    commandsFactory.ExecuteQuery(cmd);
-        //    Guid createdId = cmd.Id;
-
-        //    List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
-        //    return RedirectToAction("GetCategory");
-        //}
-
-        [HttpPost]
-        public IActionResult GetKeyWords(Guid Id)
-        {
-            List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
-
-            return Ok(keywords);
-        }
-        [HttpPost]
-        public IActionResult SaveKeyWords(Guid categoryId, String newKeyword)
-        {
-            //List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
-            AddKeywordCommand cmd = new AddKeywordCommand(categoryId, newKeyword);
-            commandsFactory.ExecuteQuery(cmd);
-            return Ok();
-        }
+       
 
 
         /*Keyword added sccessfully*/
-        [HttpGet]
-        public IEnumerable<String> GetTopics(Guid Id)
-        {
-            var topics = queryFactory.ResolveQuery<ITopicQuery>().GetTopics(Id).Select(x => x.TopicName).ToList();
-            return topics;
-        }
+      
 
         [HttpGet("questions/getlevel")]
         public IActionResult GetLevel()
@@ -307,7 +175,6 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return View();
         }
-        #endregion
     }
 
 }

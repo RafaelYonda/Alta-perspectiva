@@ -23,7 +23,7 @@
     }
 </style>
 <div #logginAnchor></div>
-<form (ngSubmit)="saveBlog()" #blogForm="ngForm">
+<form (ngSubmit)="saveBlog(blogForm)" #blogForm="ngForm">
     <div class="form-horizontal" *ngIf="isOwner">
         <div class="form-group">
             <label class="control-label col-sm-3"> Nombre del blog*</label>
