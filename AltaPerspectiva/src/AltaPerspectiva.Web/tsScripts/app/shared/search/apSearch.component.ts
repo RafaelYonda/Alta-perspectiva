@@ -87,7 +87,7 @@ export class ApSearchComponent {
     public visible = true;
 
     showMatchedCatogries(title: string) {
-        console.log("Category Matched");
+        
         var keywordsInQuestionTitle = title? title.split(' '):[]; //Get words from question to find keywords
         this.categoryMatched = "";
         keywordsInQuestionTitle.forEach(str => {
