@@ -1,7 +1,9 @@
 ﻿#search-panel {
     position: relative;
 }
-
+#temp-text{
+    font-family:myriadpro-regular;
+}
 
 
 .ask-button {
@@ -107,6 +109,7 @@ a {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     padding-left: 15px;
+    padding-right:15px;
 }
 
 .form-group {
