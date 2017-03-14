@@ -42,6 +42,11 @@ export class QuestionPanelComponent {
         }
         else
             this.clippedAnswer = this.question.bestAnswer.text.substring(0, 350);
+        //==========Insert link read more====
+        var lastParagraph = this.clippedAnswer.lastIndexOf('</p>');
+        var x = 
+            this.clippedAnswer = this.clippedAnswer.substr(0, lastParagraph) + '<span><a (click)="openDialogBox(question)">...(Read more)</a></span>' + '</p>';
+        console.log(this.clippedAnswer);
     }
 
     onQuestionDetailClicked(showEditForm: boolean) {

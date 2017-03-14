@@ -14,6 +14,7 @@ export class UserQuestionComponent {
 
     constructor(private questionService: QuestionService, private profileService: ProfileService, private _route: ActivatedRoute) { }
     ngOnInit() {
+        window.scrollTo(0, 0);
         this.sub = this._route.parent.params.subscribe(params => {
             //console.log(params);
             this.questionService.getQuestionsbyUserId(params['userId']).subscribe(res => {
