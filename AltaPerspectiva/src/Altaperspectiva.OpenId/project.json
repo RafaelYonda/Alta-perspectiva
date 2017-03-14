@@ -80,7 +80,7 @@
     "include": [
       "wwwroot",
       "Views",
-      "config.json",
+      "appsettings.json",
       "web.config"
     ]
   }
