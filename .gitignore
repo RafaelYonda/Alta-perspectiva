@@ -96,3 +96,4 @@ AltaPerspectiva/src/Blog.Domain/Blog.Domain.xproj.user
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/profile/gitignore_global.txt
 AltaPerspectiva/src/AltaPerspectiva.Web/appsettings.json
 AltaPerspectiva/src/Altaperspectiva.OpenId/config.json
+AltaPerspectiva/src/Altaperspectiva.OpenId/appsettings.json
