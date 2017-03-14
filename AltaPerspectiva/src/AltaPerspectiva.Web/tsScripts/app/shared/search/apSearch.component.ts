@@ -56,6 +56,8 @@ export class ApSearchComponent {
     question: Question;
 
     submitQuestion() {
+        if (this.title.trim() == "")
+            return false;
         var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
@@ -63,7 +65,6 @@ export class ApSearchComponent {
         }
         this.removeModal();        
         this.searchDropDown.submitEmitter.subscribe(() => {
-            //this.onQuestionSubmit.emit(true);
             this.commServ.questionSubmit(this.title);
         });
         this.searchDropDown.submitQuestion();
@@ -123,6 +124,7 @@ export class ApSearchComponent {
     //=======Question mark movment====
     showQuestion = false;
     questionLeftposition = 20;
+    
     movequestionMark(event) {
         var textWidth = document.getElementById('temp-text').clientWidth;
         console.log(textWidth);
@@ -174,7 +176,8 @@ export class ApSearchComponent {
     }
     isOnModal = false;
     showModal() {
-        this.title = ' ';
+        if (this.title=='')
+            this.title = ' ';
         this.movequestionMark({});
         this.searchClass = document.getElementById("search-box").className;
         document.getElementById("search-box").className = "modal-overlay z-modal";
