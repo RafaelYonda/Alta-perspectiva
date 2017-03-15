@@ -44,7 +44,7 @@ export class QuestionPanelComponent {
             imgTag = '<p><' + imgTag + '/></p>'
         }
         
-        this.clippedAnswer = this.question.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 278);       
+        this.clippedAnswer = this.question.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 258);       
 
         this.clippedAnswer = imgTag  + this.clippedAnswer + '<span><a (click)="openDialogBox(question)">...(Read more)</a></span>';
        

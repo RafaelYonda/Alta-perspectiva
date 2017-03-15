@@ -18,7 +18,7 @@
 
     <!--==========Right Side=====-->
     <div class="social-icon">
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{questionObj.shareUrl}}&title={{questionObj?.title}}&description={{answerTagsRemoved}}"
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{questionObj.shareUrl}}&title={{questionObj?.title}}&description={{answerTagsRemoved}}&picture={{questionObj?.bestAnswer?.firstImageUrl}}"
            class="SHARE FACEBOOK"
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
             <img class="social-image" id="img1" src="../images/facebooklogo.svg" />
@@ -29,7 +29,7 @@
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
             <img class="social-image" id="img2" src="../images/twitter.svg" />
         </a>
-        <a href="http://www.linkedin.com/shareArticle?mini=true&url={{questionObj.shareUrl}}&title={{questionObj?.title}}&summary={{answerTagsRemoved}}"
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url={{questionObj.shareUrl}}&title={{questionObj?.title}}&summary={{answerTagsRemoved}}&picture={{questionObj?.bestAnswer?.firstImageUrl}}"
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
             <img class="social-image social-image-linkedin" id="img3" src="../images/linkedin.svg" />
         </a>
