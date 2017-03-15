@@ -2,7 +2,7 @@
 import { CommentService } from '../../services/comment.service';
 import {LogInObj, Comment, User } from '../../services/models';
 import { loginModalComponent } from '../login-modal/login-modal.component';
-import { CommunicationService } from '../../services/communication.service';
+import { CommunicationService, CommnetCountEventArg } from '../../services/communication.service';
 
 @Component({
     selector: 'ap-comment',
@@ -19,6 +19,8 @@ export class CommentComponent {
     @Input() questionId: string = '';
     @Input() answerId: string = '';
     @Input() isQuestion: any;
+
+    eventArg: CommnetCountEventArg;
 
     @Output() sendCommentCount = new EventEmitter<any>();
     constructor(private commentService: CommentService, private componentFactoryResolver: ComponentFactoryResolver,
@@ -56,7 +58,15 @@ export class CommentComponent {
         this.commentText = "";
         this.comment = result;
         this.comments.push(this.comment);
-        this.communicationService.setCommentsCount(this.comments.length);
+
+        this.eventArg = new CommnetCountEventArg();
+        this.eventArg.Count = this.comments.length;
+        if (this.isQuestion)
+            this.eventArg.QuestionId = this.questionId;
+        else
+            this.eventArg.AnswerId = this.answerId;
+
+        this.communicationService.setCommentsCount(this.eventArg);
     }
     submitComment(questionId: string, answerId: string) {
         var user = localStorage.getItem('auth_token');

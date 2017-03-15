@@ -70,12 +70,16 @@ export class CommunicationService {
         return this.questionSubmitted.asObservable();
     }
 
-    //=============================================
-    private commentCountAdd: Subject<number> = new Subject<number>();
-    setCommentsCount(count: number): void {
-        this.commentCountAdd.next(count);
+    //==================Comment Count Brodcast===========================
+
+    
+    private commentCountAdd: Subject<CommnetCountEventArg> = new Subject<CommnetCountEventArg>();
+
+    setCommentsCount(EventArg: CommnetCountEventArg): void {
+        this.commentCountAdd.next(EventArg);
     }
-    getCommentsCount(): Observable<number> {
+
+    getCommentsCount(): Observable<CommnetCountEventArg> {
         return this.commentCountAdd.asObservable();
     }
     //==============Toggle Menu Clicked=============
@@ -86,4 +90,15 @@ export class CommunicationService {
     getToggleClicked(): Observable<string> {
         return this.toggleClicked.asObservable();
     }
+}
+
+
+//Communication Event Argument only to be used by Communication service
+//So no seperate file for class is needed.
+
+export class CommnetCountEventArg
+{
+    QuestionId: string;
+    AnswerId: string;
+    Count: number;
 }

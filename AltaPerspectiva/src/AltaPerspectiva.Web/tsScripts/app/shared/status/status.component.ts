@@ -5,7 +5,7 @@ import {  Question, Answer, Like,User} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { QuestionService } from '../../services/question.service';
 import { loginModalComponent } from '../login-modal/login-modal.component';
-import { CommunicationService } from '../../services/communication.service';
+import { CommunicationService, CommnetCountEventArg } from '../../services/communication.service';
 import { LikeComponent } from '../like-modal/like.component';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
@@ -55,8 +55,18 @@ export class StatusComponent {
             this.CommentCount = this.answerObj.comments? this.answerObj.comments.length:0;
         }
 
-        this.communicationService.getCommentsCount().subscribe((count: number) => {
-            this.CommentCount = count;
+        this.communicationService.getCommentsCount().subscribe((eventArg: CommnetCountEventArg) => {
+
+            if (this.isQuestion) {
+                if (this.questionObj.id == eventArg.QuestionId)
+                    this.CommentCount = eventArg.Count;
+            }
+            else
+            {
+                if (this.answerObj.id == eventArg.AnswerId)
+                    this.CommentCount = eventArg.Count;
+            }
+
         });
 
     }

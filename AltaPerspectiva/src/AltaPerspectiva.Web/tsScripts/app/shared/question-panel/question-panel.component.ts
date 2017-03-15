@@ -32,22 +32,22 @@ export class QuestionPanelComponent {
                 return;
 
         
-        var imgPos = this.question.bestAnswer.text.indexOf("img");
+            var imgPos = this.question.bestAnswer.text.indexOf("img");
+
+            var imgTag = "";
 
         if (imgPos >-1 && imgPos < 350)
         {
             var length = this.question.bestAnswer.text.indexOf(">", imgPos)
-            length = length + 350;
-            this.clippedAnswer = this.question.bestAnswer.text.substring(0, length);
+            length = length;
+            imgTag = this.question.bestAnswer.text.substring(imgPos, length);
+            imgTag = '<p><' + imgTag + '/></p>'
         }
-        else
-            this.clippedAnswer = this.question.bestAnswer.text.substring(0, 350);
-        this.clippedAnswer = this.clippedAnswer + '</p>';
-        //==========Insert link read more====
-        var lastParagraph = this.clippedAnswer.lastIndexOf('</p>');
-        var x = 
-            this.clippedAnswer = this.clippedAnswer.substr(0, lastParagraph) + '<span><a (click)="openDialogBox(question)">...(Read more)</a></span>' + '</p>';
-        console.log(this.clippedAnswer);
+        
+        this.clippedAnswer = this.question.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 278);       
+
+        this.clippedAnswer = imgTag  + this.clippedAnswer + '<span><a (click)="openDialogBox(question)">...(Read more)</a></span>';
+       
     }
 
     onQuestionDetailClicked(showEditForm: boolean) {
