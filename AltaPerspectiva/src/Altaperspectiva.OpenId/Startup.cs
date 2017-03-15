@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Altaperspectiva.OpenId {
     public class Startup {
-
+        public static string SendGridApiKey { get; private set; }
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -24,7 +24,8 @@ namespace Altaperspectiva.OpenId {
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-            Configuration = builder.Build();                       
+            Configuration = builder.Build();
+            SendGridApiKey = Configuration.GetValue<string>("Data:SendGridApiKey");
         }
 
         public IConfigurationRoot Configuration { get; }

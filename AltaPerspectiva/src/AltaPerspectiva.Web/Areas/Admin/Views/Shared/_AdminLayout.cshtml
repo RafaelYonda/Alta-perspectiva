@@ -106,7 +106,6 @@
             right: 0;
             bottom: 0;
             left: 0;
-          
         }
 
         .footer-left {
@@ -235,11 +234,13 @@
                         <li>
                             <div class="dropdown-menu-right" role="menu">
                                 <div aria-expanded="false" class="dropdown-toggle fixed-height headerText" data-toggle="dropdown" href="#">
-                                    <img id="my_image" class="user-image" src="../../../../profile/LOGO CUADRADO.png" src="../../../../profile/LOGO CUADRADO.png"><span id="headerUserName"></span>
+                                    <img id="my_image" class="user-image" src="../../../../profile/LOGO CUADRADO.png"><span id="headerUserName"></span>
                                 </div>
                                 <ul class="dropdown-menu">
                                     <li><a id="userUrl" href=""><span class="fa fa-user"></span> Profile</a></li>
-                                    @*<li><a href="@Url.Action("AddCategory", "Category", new {Area = "Admin"})"> <span class="fa fa-sign-out"></span> Manage Categories </a></li>*@
+                                    <li>
+                                        <a id="userUrl" href="http://altaauth.azurewebsites.net/Manage/ChangePassword"><span class="fa fa-key"></span> Change Password</a>
+                                    </li>
                                     <li><a href="/signout"><span class="fa fa-sign-out"></span> Sign Out</a></li>
 
                                 </ul>
@@ -307,16 +308,7 @@
                                         <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>AddVirtualStore
                                     </a>
                                 </li>
-                                @*<li>
-                                        <a href="#">
-                                            <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>EditVirtualStore
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("Delete", "VirtualStore", new {Area = "Admin"})">
-                                            <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>DeleteVirtualStore
-                                        </a>
-                                    </li>*@
+
                             </ul>
                         </li>
                         <li>
