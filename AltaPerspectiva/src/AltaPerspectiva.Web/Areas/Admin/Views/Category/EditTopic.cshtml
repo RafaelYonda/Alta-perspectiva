@@ -7,9 +7,11 @@
     .alignFixed {
         margin-left: 14px;
     }
+
     .marginFixed {
-            margin-left: 16px;
+        margin-left: 16px;
     }
+
     .panel-body {
         width: 678px;
     }
@@ -48,9 +50,9 @@
                             </div>*@
             <div class="form-group">
                 <div class="col-sm-offset-1 ">
-                    <input type="submit" value="Load" class="btn btn-default marginFixed" />
+                    <input type="submit" value="Show" class="btn btn-default marginFixed" />
                 </div>
-               
+
 
             </div>
         }
@@ -111,7 +113,8 @@
         console.log('Id->' + id + ' topicName=' + topicName)
 
         if (topicName.length <= 1 || topicName === undefined) {
-            alertify.alert('Please Enter a Valid Topic Name');
+            // alertify.alert('Please Enter a Valid Topic Name');
+            alert('Please Enter a Valid Topic Name');
             return;
 
         } else {
@@ -128,25 +131,29 @@
                 success: function (respText) {
                     console.log(respText);
                     if (respText.result == true) {
-                        alertify.alert('Updated successfully',
-                            function () {
-                                   location.reload(true);
-                            });
+                        //alertify.alert('Updated successfully',
+                        //    function () {
+                        //           location.reload(true);
+                        //    });
+                        alert('Topic Name Updated successfully');
+                        location.reload(true);
                     } else {
-                        alertify.error('Category already exists');
+                        //alertify.error('Topic already exists');
+                        alert('Topic already exists');
 
                     }
 
 
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
-                    alertify.error('Category Name is not valid');
+                    //alertify.error('Category Name is not valid');
+                    alert('Category Name is not valid');
                 }
             });
         }
     }
     function Delete(element, id) {
-        console.log('Id->' + id)
+        @*console.log('Id->' + id)
         alertify.confirm("Do you really want to delete?", function () {
             //user clicked "ok"
             var url = '@Url.Action("DeleteTopic", "Category", new { Area = "Admin" })';
@@ -162,13 +169,13 @@
                     console.log(respText);
                     if (respText.result == true) {
                         alertify.alert('Deleted successfully',
-                            function() {
+                            function () {
                                 location.reload(true);
                             });
                     } else {
                         alertify.error('Topic does not exists exists');
                     }
-                  
+
 
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
@@ -178,6 +185,40 @@
 
         }, function () {
             // user clicked "cancel"
-        });
+        });*@
+        var confrimDelete = confirm("Do you really want to delete?");
+        if (confrimDelete == true) {
+            //user clicked "ok"
+            var url = '@Url.Action("DeleteTopic", "Category", new { Area = "Admin" })';
+            var obj = {};
+            obj.id = id;
+            console.log(obj);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: obj,
+                async: false,
+                success: function (respText) {
+                    console.log(respText);
+                    if (respText.result == true) {
+                        //alertify.alert('Deleted successfully',
+                        //    function () {
+                        //        location.reload(true);
+                        //    });
+                        alert('Deleted successfully');
+                        location.reload(true);
+
+                    } else {
+                        //alertify.error('Topic does not exists exists');
+                        alert('Topic does not exists exists');
+                    }
+
+
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+
+                }
+            });
+        }
     }
 </script>
