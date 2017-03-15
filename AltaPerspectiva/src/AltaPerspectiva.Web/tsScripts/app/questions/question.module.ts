@@ -9,6 +9,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 //====question components============
 import { QuestionHomeComponent } from './question-home.component';
+import { AllUserComponent } from './all-user/all-user';
 import { QuestionDetailComponent } from './question-details/question-details.component';
 import { QuestionBodyComponent } from './question-body/question-body.component';
 import { QuestionMenuPanelComponent } from './question-left-menu/question-left-menu.component'; 
@@ -29,7 +30,10 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
                 {
                     path: 'home/:categoryId', component: QuestionBodyComponent
                         //resolve: { questionList: QuestionAnswerService}
-                },                
+                },  
+                {
+                    path: 'all-user', component: AllUserComponent
+                },              
                 {
                     path: 'home/:categoryId/:topicId/:levelId', component: QuestionBodyComponent
                         //resolve: { questionList: QuestionAnswerService}
@@ -47,7 +51,7 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
     )],
     declarations: [
         //Core Components
-        QuestionBodyComponent, QuestionHomeComponent, QuestionMenuPanelComponent, QuestionDetailComponent, QuestionFullscreenComponent
+        QuestionBodyComponent, QuestionHomeComponent, QuestionMenuPanelComponent, QuestionDetailComponent, QuestionFullscreenComponent, AllUserComponent
     ],
     exports: [QuestionMenuPanelComponent
     ]

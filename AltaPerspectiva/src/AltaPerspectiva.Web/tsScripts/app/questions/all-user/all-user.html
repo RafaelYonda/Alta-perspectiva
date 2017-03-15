@@ -1,0 +1,40 @@
+﻿<style>
+    .all-user-list {
+        width: 70%;
+        margin: 10px auto;
+        background-color: #f9f6f6;
+    }
+
+    .user-search {
+        width: 90%;
+        height: 35px;
+        margin: 0;
+        border: 1px solid #cccbcb;
+        border-bottom-left-radius: 6px;
+        border-top-left-radius: 6px;
+    }
+
+    .btn-usr-search {
+        width: 9%;
+        height: 35px;
+        margin: -5px;
+        background-color: #efa55c;
+        border: 1px;
+        border-bottom-right-radius: 6px;
+        border-top-right-radius: 6px;
+    }
+
+    .usr-search-group {
+        padding: 0 25%;
+    }
+</style>
+<div class="usr-search-group">
+    <input class="user-search" type="text" />
+    <button class="btn-usr-search">Search</button>
+</div>
+<div class="row row-fix all-user-list">
+    <div class="col-md-4 row-gap width-xs" *ngFor="let usr of user">
+        <user-info [userObj]="usr"></user-info>
+    </div>
+    <div class="hidden-xs" style="height:400px;position:relative; float:left;"></div>
+</div>

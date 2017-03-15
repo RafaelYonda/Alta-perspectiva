@@ -50,4 +50,7 @@ export class TopFiveUserComponent {
     gotoProfile(userId:string) {
         this._router.navigateByUrl('/dashboard/viewprofile/' +userId + '/user-question');
     }
+    goToAllUser() {
+        this._router.navigateByUrl('question/all-user');
+    }
 }
