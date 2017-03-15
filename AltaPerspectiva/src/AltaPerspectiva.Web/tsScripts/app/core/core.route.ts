@@ -1,5 +1,4 @@
-﻿/// <reference path="../services/resolve.services/auth.resolver.ts" />
-// Imports
+﻿// Imports
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
@@ -15,13 +14,8 @@ export const routes: Routes = [
         path: 'home', component: HomeComponent,
 
         children: [
-
             { path: '', redirectTo: 'tab/1' },
-
-            { path: 'tab/:id', component: TabPanelComponent},   
-           // { path: 'tab/:id', component: TopFiveQuestionLeftMenuComponent},   
-                    
-
+            { path: 'tab/:id', component: TabPanelComponent },   
         ]
     },
 ];

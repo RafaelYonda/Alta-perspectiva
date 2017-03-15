@@ -45,7 +45,8 @@
     "OpenIddict.EntityFrameworkCore": "1.0.0-beta2-0503",
     "OpenIddict.Mvc": "1.0.0-beta2-0503",
     "Microsoft.AspNetCore.Session": "1.0.0",
-    "Microsoft.AspNetCore.Hosting.Abstractions": "1.1.0"
+    "Microsoft.AspNetCore.Hosting.Abstractions": "1.1.0",
+    "Microsoft.Extensions.Configuration.Binder": "1.0.0"
   },
 
   "frameworks": {

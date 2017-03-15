@@ -65,5 +65,12 @@ namespace UserProfile.Query.Queries
             }
             return userName;
         }
+
+        public async Task<List<Guid>> GetAllUserIds(string userName)
+        {
+
+            return await DbContext.Credentials.Where(x => x.FirstName.ToLower().Contains(userName)||x.LastName.ToLower().Contains(userName)).Select(x => x.UserId).ToListAsync();
+            
+        }
     }
 }

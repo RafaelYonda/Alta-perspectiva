@@ -54,7 +54,6 @@ import {PopoverModule} from "ngx-popover";
         ApBannerComponent,
         TabsComponent,
         TabPanelComponent,        
-
         //other app component
         LearnHome,
         ProjectHome,

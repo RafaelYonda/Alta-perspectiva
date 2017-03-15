@@ -129,5 +129,19 @@ Haz tu pregunta de negocios, conecta y comparte tu conocimiento con otras person
             var response = await client.SendEmailAsync(msg);
         }
 
+        public async Task ExecuteEmailForForgetPassword(String email,string subject,string message)
+        { 
+            var client = new SendGridClient(SendGridApiKey);
+            var msg = new SendGridMessage()
+            {
+                From = new EmailAddress(FromMailAddress, subject),
+                Subject = MailTitle,
+                // PlainTextContent = "Do i really need Plaintext content",
+                HtmlContent = message
+            };
+            msg.AddTo(new EmailAddress(email, QuestionUserName));
+            var response = await client.SendEmailAsync(msg);
+        }
+
     }
 }
