@@ -535,7 +535,18 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         #endregion
 
 
-
+        [HttpGet("userprofile/api/getuser/{userName}")]
+        public async Task<List<UserViewModel>> GetUserViewModel(String userName)
+        {
+            List<Guid> userIds = await queryFactory.ResolveQuery<ICredentialQuery>().GetAllUserIds(userName);
+            List<UserViewModel> userViewModels=new List<UserViewModel>();
+            foreach (var userId in userIds)
+            {
+                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
+                userViewModels.Add(userViewModel);
+            }
+            return userViewModels;
+        }
 
 
 
