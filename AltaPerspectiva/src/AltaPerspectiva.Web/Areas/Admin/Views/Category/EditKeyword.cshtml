@@ -19,7 +19,7 @@
 <div class="row">
     <div class="col-md-8 alignFixed">
 
-        @using (Html.BeginForm("EditTopic", "Category", FormMethod.Post, new { area = "Admin", @class = "form-horizontal", @role = "form" }))
+        @using (Html.BeginForm("EditKeyword", "Category", FormMethod.Post, new { area = "Admin", @class = "form-horizontal", @role = "form" }))
         {
             <hr />
 
@@ -67,7 +67,7 @@
                     <thead>
                         <tr>
                             <th style="width:51%">
-                                TopicName
+                                KeywordName
                             </th>
                             <th style="width:10%">
                                 Update
@@ -79,11 +79,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Topics)
+                        @foreach (var item in Model.Keywords)
                         {
                             <tr>
                                 <td>
-                                    @Html.TextBoxFor(modelItem => item.TopicName, new { @class = "form-control" })
+                                    @Html.TextBoxFor(modelItem => item.Text, new { @class = "form-control" })
                                 </td>
                                 <td>
                                     <button id="btnDelete" type="button" class="btn btn-success" onclick="Update(this,'@item.Id',$(this).closest('tr').find('input').val())">
@@ -108,20 +108,20 @@
     </div>
 </div>
 <script>
-    function Update(element, id, topicName) {
+    function Update(element, id, Text) {
         // console.log(element);
-        console.log('Id->' + id + ' topicName=' + topicName)
+        console.log('Id->' + id + ' Text=' + Text)
 
-        if (topicName.length <= 1 || topicName === undefined) {
+        if (Text.length <= 1 || Text === undefined) {
             // alertify.alert('Please Enter a Valid Topic Name');
-            alert('Please Enter a Valid Topic Name');
+            alert('Please Enter a Valid Keyword Name');
             return;
 
         } else {
-            var url = '@Url.Action("UpdateTopic", "Category", new { Area = "Admin" })';
+            var url = '@Url.Action("UpdateKeyword", "Category", new { Area = "Admin" })';
             var obj = {};
             obj.id = id;
-            obj.topicName = topicName;
+            obj.Text = Text;
             console.log(obj);
             $.ajax({
                 url: url,
@@ -135,11 +135,11 @@
                         //    function () {
                         //           location.reload(true);
                         //    });
-                        alert('Topic Name Updated successfully');
+                        alert('Keyword Name Updated successfully');
                         location.reload(true);
                     } else {
                         //alertify.error('Topic already exists');
-                        alert('Topic already exists');
+                        alert('Keyword already exists');
 
                     }
 
@@ -147,7 +147,7 @@
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
                     //alertify.error('Category Name is not valid');
-                    alert('topic is not valid');
+                    alert('Keyword is not valid');
                 }
             });
         }
@@ -189,7 +189,7 @@
         var confrimDelete = confirm("Do you really want to delete?");
         if (confrimDelete == true) {
             //user clicked "ok"
-            var url = '@Url.Action("DeleteTopic", "Category", new { Area = "Admin" })';
+            var url = '@Url.Action("DeleteKeyword", "Category", new { Area = "Admin" })';
             var obj = {};
             obj.id = id;
             console.log(obj);
@@ -210,7 +210,7 @@
 
                     } else {
                         //alertify.error('Topic does not exists exists');
-                        alert('Topic does not exists exists');
+                        alert('Keyword does not exists');
                     }
 
 

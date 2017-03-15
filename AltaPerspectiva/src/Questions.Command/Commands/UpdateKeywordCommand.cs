@@ -8,14 +8,14 @@
 
     public class UpdateKeywordCommand : ICommand
     {
-        public UpdateKeywordCommand(Guid keywordId, string keywordName, bool? isDeleted)
+        public UpdateKeywordCommand(long keywordId, string keywordName, bool? isDeleted)
         {
             // QuestionId = _questionId;     
             KeywordId = keywordId;
             KeywordName = keywordName;
         }
         public Guid Id { get; set; }
-        public Guid KeywordId { get; set; }
+        public long KeywordId { get; set; }
         public String KeywordName { get; set; }
         public bool? IsDeleted { get; set; }
     }

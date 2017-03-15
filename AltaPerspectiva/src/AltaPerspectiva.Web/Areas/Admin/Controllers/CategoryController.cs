@@ -332,48 +332,50 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateKeyword(Guid id, String topicName)
+        public IActionResult UpdateKeyword(Guid id, String Text)
         {
-            String modifiedTopicName = topicName.TrimStart().TrimEnd().Trim();
-            var isTopicExists =
-                queryFactory.ResolveQuery<IKeywordsQuery>().IsKeywordExists(modifiedTopicName);
-            if (!isTopicExists)
-            {
-                UpdateTopicCommand command = new UpdateTopicCommand(id, modifiedTopicName, null);
-                commandsFactory.ExecuteQuery(command);
+            String modifiedKeywordName = Text.TrimStart().TrimEnd().Trim();
+            //var isTopicExists =
+            //    queryFactory.ResolveQuery<IKeywordsQuery>().IsKeywordExists(modifiedTopicName);
+            //if (!isTopicExists)
+            //{
+            //    UpdateTopicCommand command = new UpdateTopicCommand(id, modifiedTopicName, null);
+            //    commandsFactory.ExecuteQuery(command);
 
-                if (command.Id != Guid.Empty)
-                {
-                    return Ok(new
-                    {
-                        result = true
-                    });
-                }
-            }
-            return Ok(new
-            {
-                result = false
-            });
+            //    if (command.Id != Guid.Empty)
+            //    {
+            //        return Ok(new
+            //        {
+            //            result = true
+            //        });
+            //    }
+            //}
+            //return Ok(new
+            //{
+            //    result = false
+            //});
+            return Ok();
         }
         [HttpPost]
         public IActionResult DeleteKeyword(Guid id)
         {
 
-            UpdateKeywordCommand command = new UpdateKeywordCommand(id, null, true);
-            commandsFactory.ExecuteQuery(command);
+            //UpdateKeywordCommand command = new UpdateKeywordCommand(id, null, true);
+            //commandsFactory.ExecuteQuery(command);
 
-            if (command.Id != Guid.Empty)
-            {
-                return Ok(new
-                {
-                    result = true
-                });
-            }
+            //if (command.Id != Guid.Empty)
+            //{
+            //    return Ok(new
+            //    {
+            //        result = true
+            //    });
+            //}
 
-            return Ok(new
-            {
-                result = false
-            });
+            //return Ok(new
+            //{
+            //    result = false
+            //});
+            return Ok();
         }
         #endregion
     }
