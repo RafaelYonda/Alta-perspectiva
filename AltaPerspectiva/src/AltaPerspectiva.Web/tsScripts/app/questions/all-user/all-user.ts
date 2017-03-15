@@ -30,6 +30,8 @@ export class AllUserComponent {
         //    this.user = res;
         //});
         this.userName = '';
+        this.user = [];
+        window.scroll(0,0);
     }
     onKeyPress() {
         console.log(this.userName);

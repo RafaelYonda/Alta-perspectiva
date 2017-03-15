@@ -29,12 +29,15 @@
     }
 </style>
 <div class="usr-search-group">
-    <input class="user-search" [(ngModel)]="userName" type="text" />
+    <input class="user-search" [(ngModel)]="userName" type="text" placeholder="Enter User Name "/>
     <button class="btn-usr-search" (click)="onKeyPress()">Search</button>
 </div>
-<div class="row row-fix all-user-list">
+<div class="row row-fix all-user-list" >
     <div class="col-md-4 row-gap width-xs" *ngFor="let usr of user">
         <user-info [userObj]="usr"></user-info>
     </div>
+    <!--<div class="alert alert-danger" *ngIf="user.length==0 && userName!=''">
+        <strong>Sorry! </strong>    No user found.
+    </div>-->
     <div class="hidden-xs" style="height:400px;position:relative; float:left;"></div>
 </div>
