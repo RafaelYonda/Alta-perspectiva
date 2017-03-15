@@ -279,9 +279,9 @@ where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()))
 
 
 DECLARE @Followings int;
-select @Followings=count(*) from Questions.QuestionUserFollowings qf where qf.UserId=@userId
+select @Followings=count(*) from Questions.QuestionUserFollowings qf where qf.UserId=@userId and qf.IsDeleted is null;
 DECLARE @Followers int;
-select @Followers=count(*) from Questions.QuestionUserFollowings qf where qf.FollowedUserId=@userId
+select @Followers=count(*) from Questions.QuestionUserFollowings qf where qf.FollowedUserId=@userId and qf.IsDeleted is null
 DECLARE @Bookmarks int;
 select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
 DECLARE @Answers int;

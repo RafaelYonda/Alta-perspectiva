@@ -410,7 +410,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 ImageUrl = azureFileUploadHelper.GetProfileImage(x.ImageUrl),
                 Name = x.FirstName + " " + x.LastName,
                 Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
-            }).ToList();
+            }).OrderByDescending(x => x.Name).ToList();
 
             return Ok(userViewModels);
         }
@@ -429,7 +429,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 ImageUrl = azureFileUploadHelper.GetProfileImage(x.ImageUrl),
                 Name = x.FirstName + " " + x.LastName,
                 Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
-            }).ToList();
+            }).OrderByDescending(x=>x.Name).ToList();
 
             return Ok(userViewModels);
         }
