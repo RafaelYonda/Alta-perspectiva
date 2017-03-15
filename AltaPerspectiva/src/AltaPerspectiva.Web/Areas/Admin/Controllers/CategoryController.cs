@@ -300,7 +300,8 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         }
 
 
-        [HttpGet("Admin/EditKeyword")]
+        //[HttpGet("Admin/EditKeyword")]
+        [HttpGet]
         public IActionResult EditKeyword()
         {
             //var   = new TopicNKeywordViewModel
@@ -332,14 +333,14 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateKeyword(Guid id, String topicName)
+        public IActionResult UpdateKeyword(long id, String Text)
         {
-            String modifiedTopicName = topicName.TrimStart().TrimEnd().Trim();
+            String modifiedKeywordName = Text.TrimStart().TrimEnd().Trim();
             var isTopicExists =
-                queryFactory.ResolveQuery<IKeywordsQuery>().IsKeywordExists(modifiedTopicName);
+                queryFactory.ResolveQuery<IKeywordsQuery>().IsKeywordExists(modifiedKeywordName);
             if (!isTopicExists)
             {
-                UpdateTopicCommand command = new UpdateTopicCommand(id, modifiedTopicName, null);
+                UpdateKeywordCommand command = new UpdateKeywordCommand(id, modifiedKeywordName, null);
                 commandsFactory.ExecuteQuery(command);
 
                 if (command.Id != Guid.Empty)
@@ -354,12 +355,13 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             {
                 result = false
             });
+
         }
         [HttpPost]
-        public IActionResult DeleteKeyword(Guid id)
+        public IActionResult DeleteKeyword(long id)
         {
 
-            UpdateKeywordCommand command = new UpdateKeywordCommand(id, null, true);
+             UpdateKeywordCommand command = new UpdateKeywordCommand(id, null, true);
             commandsFactory.ExecuteQuery(command);
 
             if (command.Id != Guid.Empty)
@@ -374,6 +376,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             {
                 result = false
             });
+            //return Ok();
         }
         #endregion
     }

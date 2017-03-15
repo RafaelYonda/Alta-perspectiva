@@ -89,7 +89,7 @@ order by SUM(q.ViewCount) DESC
 
         public bool IsTopicExists(string topicName)
         {
-            return DbContext.Topics.Where(x=>x.IsDeleted==null).Any(x => x.TopicName == topicName);
+            return DbContext.Topics.Where(x=>x.IsDeleted==null).Any(x => x.TopicName.ToLower() == topicName);
         }
     }
     

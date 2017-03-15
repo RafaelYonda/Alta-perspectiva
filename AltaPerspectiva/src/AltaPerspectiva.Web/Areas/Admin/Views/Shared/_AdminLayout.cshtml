@@ -265,21 +265,7 @@
 
                             }
                         });
-                        @*url = '@Url.Action("GetUserId", "UserProfile", new { Area = "UserProfile" })';
-                        $.ajax({
-                            url: url,
-                            type: 'GET',
-                            data: null,
-                            async: false,
-                            success: function (respText) {
-                                console.log(respText);
-                                $('#userUrl').href = "/dashboard/viewprofile/1/user-question"
-
-                            },
-                            error: function (jqXhr, textStatus, errorThrown) {
-
-                            }
-                        });*@
+                       
 
                     </script>
 
@@ -322,7 +308,15 @@
                                     </a>
                                 </li>
                                 <li><a href="@Url.Action("AddKeyword", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditCategory</a></li>
-                                <li><a href="@Url.Action("EditTopic", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditTopic</a></li>
+                                <li>
+                                    <a href="@Url.Action("EditTopic", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditTopic</a>
+
+                                </li>
+                                <li>
+                                    <a href="/Admin/Category/EditKeyword"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditKeyword</a>
+                                    @*<a href="@Url.Action("EditKeyword", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditKeyword</a>*@
+
+                                </li>
                                 <li>
                                     <a href="@Url.Action("DeleteCategory", "Category", new {Area = "Admin"})">
                                         <span class="fa-stack fa-lg pull-left">
