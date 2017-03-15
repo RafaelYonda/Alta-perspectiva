@@ -69,6 +69,7 @@ const DashBoardroutes: Routes = [
                     { path: 'follower', component: FollowerComponent },
                     { path: 'following', component: FollowingComponent },
                     { path: 'bookmark', component: BookmarkComponent },
+                    { path: 'posted-question', component: PostedQuestionComponent },
                     { path: 'blog-create', component: BlogCreateComponent },
                     { path: 'direct-question', component: DirectQuestionComponent }, 
                     { path: 'virtual-store', component: VirtualStoreComponent }, 

@@ -3,7 +3,7 @@
     <div class="center-width" id="adv-search">
         <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="z-header" role="form" id="search-panel">
             <div class="icon-container">
-                <input type="text" class="search-input fixed-height " #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()"
+                <input type="text" class="search-input fixed-height " #searchText placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off" (click)="showModal()" (ngModelChange)="movequestionMark($event)"
                        [(ngModel)]="title" required name="titleName" #titleName="ngModel" (keypress)="trimSpace($event)" (keydown)=filterQuestions($event) />
                 <div [hidden]="!showQuestion" class="question-begin">¿</div>
                 <div [hidden]="!showQuestion" class="question-end" id="question-end">?</div>
@@ -32,7 +32,8 @@
             </div>
 
             <button type="submit" class="ask-button fixed-height" [disabled]="!titleName.valid">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span><span class="ask-text hidden-xs">Enviar</span>
+                <span class="glyphicon glyphicon-question-sign visible-xs" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-search hidden-xs" aria-hidden="true"></span><span class="ask-text hidden-xs">Enviar</span>
             </button>
         </form>
     </div>

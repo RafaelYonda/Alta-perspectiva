@@ -42,6 +42,7 @@ export class QuestionPanelComponent {
         }
         else
             this.clippedAnswer = this.question.bestAnswer.text.substring(0, 350);
+        this.clippedAnswer = this.clippedAnswer + '</p>';
         //==========Insert link read more====
         var lastParagraph = this.clippedAnswer.lastIndexOf('</p>');
         var x = 

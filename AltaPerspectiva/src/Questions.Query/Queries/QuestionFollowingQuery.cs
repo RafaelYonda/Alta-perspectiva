@@ -18,12 +18,12 @@ namespace Questions.Query.Queries
 
         public IEnumerable<QuestionUserFollowing> GetFollowers(Guid userId)
         {
-            return DbContext.QuestionUserFollowings.Where(x => x.FollowedUserId == userId).ToList();
+            return DbContext.QuestionUserFollowings.Where(x => x.FollowedUserId == userId && x.IsDeleted==null).ToList();
         }
 
         public IEnumerable<QuestionUserFollowing> GetFollowings(Guid userId)
         {
-            return DbContext.QuestionUserFollowings.Where(x => x.UserId == userId).ToList();
+            return DbContext.QuestionUserFollowings.Where(x => x.UserId == userId && x.IsDeleted == null).ToList();
         }
     }
 }
