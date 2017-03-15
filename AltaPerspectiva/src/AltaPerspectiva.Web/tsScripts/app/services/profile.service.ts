@@ -227,6 +227,14 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+    GetUsers(userName: string): Observable<User[]> {
+        return this._http.post('userprofile/api/getusers/'+userName, userName)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+
     private extractData(res: Response) {
         let body;
 

@@ -21,12 +21,24 @@ export class AllUserComponent {
     _authService: AuthenticationService;
     credential: CredentialViewModel = new CredentialViewModel();
     user: User[];
+    userName:string;
 
     constructor(private authService: AuthenticationService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router, private commServ: CommunicationService) {
     }
     ngOnInit() {
-        this.profileService.GetTopFiveUserByCategory('1').subscribe(res => {
-            this.user = res;
-        });
+        //this.profileService.GetTopFiveUserByCategory('1').subscribe(res => {
+        //    this.user = res;
+        //});
+        this.userName = '';
+    }
+    onKeyPress() {
+        console.log(this.userName);
+        if (this.userName) {
+            this.profileService.GetUsers(this.userName).subscribe(res => {
+                this.user = [];
+                this.user = res;
+            });
+        }
+        
     }
 }
