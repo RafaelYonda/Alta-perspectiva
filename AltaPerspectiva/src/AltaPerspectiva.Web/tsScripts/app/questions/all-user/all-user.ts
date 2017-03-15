@@ -15,6 +15,7 @@ import { CommunicationService } from '../../services/communication.service';
     styleUrls: ['js/app/questions/all-user/all-user.css'],
 })
 export class AllUserComponent {
+    loader = true;
     @Input() className: string;
     isbackGround = false;
     _logObj: LogInObj;
@@ -26,9 +27,10 @@ export class AllUserComponent {
     constructor(private authService: AuthenticationService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router, private commServ: CommunicationService) {
     }
     ngOnInit() {
-        //this.profileService.GetTopFiveUserByCategory('1').subscribe(res => {
-        //    this.user = res;
-        //});
+        this.profileService.GetTopFiveUserByCategory('1').subscribe(res => {
+            this.user = res;
+                this.loader = false;
+        });
         this.userName = '';
         this.user = [];
         window.scroll(0,0);
@@ -41,6 +43,5 @@ export class AllUserComponent {
                 this.user = res;
             });
         }
-        
     }
 }

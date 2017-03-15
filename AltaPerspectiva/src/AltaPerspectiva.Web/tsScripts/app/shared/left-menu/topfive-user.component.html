@@ -14,6 +14,11 @@
         font-size: 12px;
         line-height: 16.5px;
     }
+    top-user-info a:hover{
+        outline: none;
+    text-decoration: none;
+    color: #F6912B !important;
+    }
 </style>
 <div class="menu-container hidden-xs">
     <div class="list-title"><h4>Usuarios más destacados</h4></div>
@@ -28,7 +33,7 @@
             </div>
             <div class="clearfix"></div>
         </li>
-        <li><h3><a (click)="goToAllUser()">View all users</a></h3></li>
+        <li><div class="top-user-info"><a (click)="goToAllUser()">View all users</a></div></li>
     </ul>
 </div>
 <popover-content #userInfoDetailsPopoveruser>

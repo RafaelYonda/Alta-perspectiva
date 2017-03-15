@@ -127,10 +127,11 @@ export class ApSearchComponent {
     
     movequestionMark(event) {
         var textWidth = document.getElementById('temp-text').clientWidth;
+        var maxWidth = document.getElementById('title').clientWidth;
         console.log(textWidth);
         //var key = event.keyCode || event.charCode;
         textWidth = (textWidth + 20) < 30 ? (textWidth + 10) : (textWidth + 7);
-        if (textWidth > 642)
+        if (textWidth > maxWidth-22)
             return;
         console.log(textWidth);
         //==============

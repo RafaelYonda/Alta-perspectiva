@@ -85,10 +85,11 @@ export class QuestionBodyComponent {
         this.commServ.informQuestionSubmit().subscribe(res => {
             this.showLoader();
             this.onQuestionSubmitted(res);
-        });;
+        });
         if (currentUserName != null) {
             this._logObj.user.name = currentUserName;
             this._logObj.user.imageUrl = currentUserImage;
+            this._logObj.isLoggedIn = true;
         }
         this.configService.getConfig().subscribe(r => {
             this.config = r;

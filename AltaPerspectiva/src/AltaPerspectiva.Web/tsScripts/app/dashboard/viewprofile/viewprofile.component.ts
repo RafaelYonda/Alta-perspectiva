@@ -6,6 +6,7 @@ import { ProfileService } from '../../services/profile.service';
 
 import { ConfigService } from '../../services/config.service';
 import { CredentialViewModel, Employment, Education, Place, OtherExperience, ProfileParameter} from '../../services/models/models.profile';
+import {LogInObj} from '../../services/models';
 
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { CategoryWiseAnswer } from '../../services/models/models.profile';
@@ -25,7 +26,7 @@ export class ViewProfileComponent {
     categoryWiseAnswers: CategoryWiseAnswer[];
     route: any;
     imageLink: string;
-
+    _logObj: LogInObj;
     credential: CredentialViewModel = new CredentialViewModel();
     employment: Employment = new Employment();
     education: Education = new Education();
@@ -45,6 +46,7 @@ export class ViewProfileComponent {
     isOwner = false;
 
     constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService, private _router: Router, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService) {
+        this._logObj = new LogInObj();
         this.route = _route;
     }
     
@@ -59,7 +61,8 @@ export class ViewProfileComponent {
             var currentUser = localStorage.getItem('auth_token');
             this._authService.getLoggedinObj().subscribe(res => {
                 if (res && currentUser != "null") {
-                    
+                    this._logObj.isLoggedIn = true;
+                    this._logObj.isLoggedIn = true;
                     if (params['userId'] == res.userId)
                         this.isOwner = true;
                 }

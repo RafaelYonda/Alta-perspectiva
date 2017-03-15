@@ -40,7 +40,7 @@ export class TabPanelComponent {
     ngOnInit() {
         var currentUser = localStorage.getItem('auth_token');
         this.authService.getLoggedinObj().subscribe(res => {
-            if (res && currentUser != "null") {
+            if (res && currentUser != null) {
                 this._logObj.user.name = res.name;
                 this._logObj.user.imageUrl = '../../../../profile/' + res.imageUrl;
                 this._logObj.isLoggedIn = true;
