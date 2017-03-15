@@ -199,7 +199,5 @@ export class ApSearchComponent {
 
         if (window.innerWidth < 767)
             return false;
-        
-
     }
 }
