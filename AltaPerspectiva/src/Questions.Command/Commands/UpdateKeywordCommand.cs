@@ -13,6 +13,7 @@
             // QuestionId = _questionId;     
             KeywordId = keywordId;
             KeywordName = keywordName;
+            IsDeleted = isDeleted;
         }
         public Guid Id { get; set; }
         public long KeywordId { get; set; }

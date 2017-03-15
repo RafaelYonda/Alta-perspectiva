@@ -43,6 +43,7 @@
 		        }
                 command.Id = new Guid("5BAA6409-A12C-CD0E-8BD0-08D458E7FB44");
             }
+		    DbContext.SaveChanges();
 
 
 		}

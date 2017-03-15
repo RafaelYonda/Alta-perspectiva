@@ -23,7 +23,7 @@ namespace Questions.Query
 
         public bool IsKeywordExists(string kewirdName)
         {
-            return DbContext.Keywords.Where(x => x.Text == kewirdName).Any();
+            return DbContext.Keywords.Where(x => x.Text.ToLower() == kewirdName).Any();
         }
     }
 }
