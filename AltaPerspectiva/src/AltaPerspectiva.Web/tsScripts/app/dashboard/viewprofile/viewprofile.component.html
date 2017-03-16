@@ -64,7 +64,7 @@
     </div>
     <div class="col-md-9">
         <div class="row" *ngIf="credential">
-            <profile-info [credential]="credential" (onUpdated)="onUpdatedProfile($event)"></profile-info>
+            <profile-info [credential]="credential" [isOwner]="isOwner" (onUpdated)="onUpdatedProfile($event)"></profile-info>
         </div>
         <div class="row row-overflow">
             <div id="toggleMenu" class="col-md-3 category-panel-xs">
