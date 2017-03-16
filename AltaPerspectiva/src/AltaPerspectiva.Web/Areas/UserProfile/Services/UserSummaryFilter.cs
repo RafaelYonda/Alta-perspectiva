@@ -7,6 +7,7 @@ using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using UserProfile.Domain.ReadModel;
 using AltaPerspectiva.Web.Areas.Admin.helpers;
 using Microsoft.Extensions.Configuration;
+using UserProfile.Domain;
 using UserProfile.Query.Queries;
 
 namespace AltaPerspectiva.Web.Areas.UserProfile.Services
@@ -28,6 +29,15 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
                     String Name = queryFactory.ResolveQuery<ICredentialQuery>()
                         .GetUserNameAspNetUsers(user.UserId, connectionString);
                     user.Name = Name;
+                }
+
+                if (String.IsNullOrEmpty(user.Occupation) )
+                {
+                    Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(user.UserId);
+                    if (credential != null)
+                    {
+                        user.Occupation = credential.Title;
+                    }
                 }
                 if (user.ImageUrl == "")
                 {

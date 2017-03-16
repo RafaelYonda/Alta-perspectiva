@@ -47,7 +47,7 @@ export class BlogpostCommentComponent {
             return;
         }
 
-        if (this.comment.commentText.trim() == "")
+        if (!this.comment.commentText|| this.comment.commentText.trim() == "")
             return;
         this.comment.blogPostId = blogPostId;
         this.comment.userId = this.blogPost.userId;

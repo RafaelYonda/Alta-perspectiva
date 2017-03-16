@@ -69,6 +69,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
                 }
                 
                 occupation = credential.Employments.Select(x => x.Position).Take(1).FirstOrDefault();
+                if (occupation == null)
+                {
+                    occupation = credential.Title;
+                }
                 credentialId = credential.Id;
             }
             else
