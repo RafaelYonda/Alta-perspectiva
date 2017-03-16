@@ -188,7 +188,8 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         public IActionResult DeleteCategory()
         {
             ViewData["Title"] = "Delete Category";
-            IEnumerable<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Where(x => x.Name != "Ver todas").ToList();
+            //the 7639B416-8D1C-4119-B58E-143CB860E8A6 is General Vertodas
+            IEnumerable<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Where(x => x.Id != new Guid("7639B416-8D1C-4119-B58E-143CB860E8A6")).ToList();
             return View("DeleteCategory", categoriesList);
         }
         [HttpPost("Admin/DeleteCategory")]
@@ -213,9 +214,12 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult GetKeyWords(Guid Id)
         {
-            List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
+            //List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
 
-            return Ok(keywords);
+            List<Keyword> keywords =
+                queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).OrderByDescending(x => x.Id).ToList();
+            List<String> keywordString = keywords.Select(x => x.Text).ToList();
+            return Ok(keywordString);
         }
         [HttpPost]
         public IActionResult SaveKeyWords(Guid categoryId, String newKeyword)
@@ -261,6 +265,8 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             String modifiedTopicName = topicName.TrimStart().TrimEnd().Trim();
             var isTopicExists =
                 queryFactory.ResolveQuery<ITopicQuery>().IsTopicExists(modifiedTopicName);
+
+            Boolean successResult = false; 
             if (!isTopicExists)
             {
                 UpdateTopicCommand command = new UpdateTopicCommand(id, modifiedTopicName, null);
@@ -268,15 +274,14 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
                 if (command.Id != Guid.Empty)
                 {
-                    return Ok(new
-                    {
-                        result = true
-                    });
+
+                    successResult = true;
+
                 }
             }
             return Ok(new
             {
-                result = false
+                result = successResult
             });
         }
         [HttpPost]
