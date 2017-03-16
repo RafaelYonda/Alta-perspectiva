@@ -26,15 +26,14 @@
     }
 </style>
 <div class="statistic-panel">
-    <h3>Sabe sobre</h3>
+    <h3><!--category-->Etapas de mi negocio</h3>
     <ul class="profile-rightmenu" *ngFor="let categoryWiseAnswer of categoryWiseAnswers">
         <li>
             <img class="profile-cat-img" src="{{categoryWiseAnswer?.imageUrl}}" [routerLink]="['/question/home',categoryWiseAnswer?.categoryId]" />
             <h3>
                 <a [routerLink]="['/question/home',categoryWiseAnswer?.categoryId]"> {{categoryWiseAnswer?.categoryName}}</a>
             </h3>
-            <div>{{categoryWiseAnswer?.answerCount}} answer</div>
+            <div>{{categoryWiseAnswer?.answerCount}} <!--answer-->Respuestas</div>
         </li>
-        <!--<li>{{categoryWiseAnswer?.categoryName}}</li>-->
     </ul>
 </div>
