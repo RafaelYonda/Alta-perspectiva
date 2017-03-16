@@ -3,6 +3,20 @@ GO
 /*Virtual Stores*/
 SET ANSI_NULLS ON
 GO
+
+DROP TABLE [Questions].[CategoryIcon]
+Go
+
+
+CREATE TABLE [Questions].[CategoryIcon](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[IconName] [varchar](250) NOT NULL,
+	
+)
+
+
+
+
 --DROP TABLE [UserProfile].[VirtualStores];
 GO
 ALTER TABLE Questions.Answers ADD
@@ -169,3 +183,4 @@ EXEC sp_RENAME '[UserProfile].[VirtualStores].[FileName]', 'ProductFileName', 'C
 GO
 EXEC sp_RENAME '[UserProfile].[VirtualStores].[ScreenShotImage]', 'ScreenShotFileName', 'COLUMN'
 GO
+

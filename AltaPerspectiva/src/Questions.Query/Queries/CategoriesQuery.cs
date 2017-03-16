@@ -6,6 +6,8 @@ using AltaPerspectiva.Core.Infrastructure;
 using Questions.Query.DbContext;
 using System.Threading.Tasks;
 using System;
+using AltaPerspectiva.Core.Helpers;
+using Questions.Domain.ReadModel;
 
 namespace Questions.Query
 {
@@ -33,6 +35,12 @@ namespace Questions.Query
         public Category GetCategoryById(Guid categoryId)
         {
             return DbContext.Categories.Where(x => x.Id == categoryId).FirstOrDefault();
+        }
+
+        public List<CategoryIcon> GetCategoryIcons(string connectionString)
+        {
+            return DataReaderToListHelper.DataReaderToList<CategoryIcon>(connectionString,
+                "select * from [Questions].[CategoryIcon];");
         }
     }
 }

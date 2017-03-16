@@ -62,7 +62,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             ViewData["Title"] = "Add category";
             ViewData["Category"] = "Add category";
             CategoryViewModel categoryViewModel = new CategoryViewModel();
-            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels();
+            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
             ViewBag.Message = null;
             return View(categoryViewModel);
         }
@@ -89,14 +89,14 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             };
             ViewData["Title"] = "Add category of " + categoryViewModel.Name;
             ViewData["Category"] = "Add category of " + categoryViewModel.Name;
-            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels();
+            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
             return View("AddCategory", categoryViewModel);
         }
 
         [HttpPost("Admin/addcategory/{id}")]
         public async Task<IActionResult> AddCategory(Guid id, CategoryViewModel categoryViewModel)
         {
-            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels();
+            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
             //Update 
             if (!ModelState.IsValid)
             {
@@ -141,6 +141,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             //Update 
             if (!ModelState.IsValid)
             { // re-render the view when validation failed.
+                ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
                 return View("AddCategory", categoryViewModel);
             }
 
@@ -163,7 +164,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             commandsFactory.ExecuteQuery(cmd);
             ModelState.Clear();
             ViewBag.Message = categoryViewModel.Name + " Added Successfully";
-            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels();
+            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
             return View(new CategoryViewModel());
         }
 

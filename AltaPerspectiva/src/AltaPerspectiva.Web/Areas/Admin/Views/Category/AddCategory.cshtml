@@ -23,30 +23,6 @@
         margin-left: 10%;
     }
 </style>
-@{
-    List<SelectListItem> listItems = new List<SelectListItem>();
-    listItems.Add(new SelectListItem
-    {
-        Text = "icon-dice",
-        Value = "icon-dice"
-    });
-    listItems.Add(new SelectListItem
-    {
-        Text = "icon-chart",
-        Value = "icon-chart"
-
-    });
-
-    int foundSelectedIndex = listItems.FindIndex(x => x.Value == Model.Icon);
-
-    if (foundSelectedIndex == -1 || foundSelectedIndex > listItems.Count - 1)
-    {
-        foundSelectedIndex = 0;
-    }
-
-    listItems[foundSelectedIndex].Selected = true;
-
-}
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
