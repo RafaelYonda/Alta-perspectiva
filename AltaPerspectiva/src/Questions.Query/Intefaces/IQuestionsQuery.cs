@@ -60,5 +60,8 @@ namespace Questions.Query
 
         //GEtQuestion For Email
         Question QuestionForEmail(Guid questionId);
+
+        //GEt postedQuestion Aka Shared Question
+        Task<IEnumerable<Question>> GetSharedQuestion(Guid userId);
     }
 }

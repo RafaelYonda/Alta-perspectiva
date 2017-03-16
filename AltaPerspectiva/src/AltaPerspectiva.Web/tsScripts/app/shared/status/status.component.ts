@@ -79,7 +79,12 @@ export class StatusComponent {
             return;
         }
         this.questionService.postQuestionBlog(questionId).subscribe(res => {
-            console.log(questionId + 'saved as bookmark');
+            if (res.result == true) {
+                this.toastr.success('This question is posted on your profile', 'Success');
+            } else {
+                this.toastr.warning('This question is already posted on your profile', 'Warning!!!');
+            }
+           
         });
     }
     sendCommentCountToApStatus(param: any) {

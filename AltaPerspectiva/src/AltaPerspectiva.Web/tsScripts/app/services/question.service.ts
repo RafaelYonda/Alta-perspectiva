@@ -52,7 +52,7 @@ export class QuestionService {
             .refCount(); ;
     }
     postQuestionBlog(questionId: string) {
-        return this._http.post('/questions/api/savequestionasblog/' + questionId, null)
+        return this._http.post('/questions/api/savesharequestion/' + questionId, questionId)
             .map(this.extractData)
             .catch(this.handleError);
     } 

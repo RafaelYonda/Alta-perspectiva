@@ -1,4 +1,6 @@
-﻿namespace Questions.Command
+﻿using Microsoft.EntityFrameworkCore.Migrations.Internal;
+
+namespace Questions.Command
 {
     using AltaPerspectiva.Core;
     using AltaPerspectiva.Core.Infrastructure;
@@ -27,17 +29,25 @@
 		{
 			Debug.WriteLine("AddShareQuestionCommandHandler executed");
 
-		    ShareQuestion question = new ShareQuestion
+		    ShareQuestion shareQuestion =
+		        DbContext.ShareQuestions.FirstOrDefault(x => x.UserId == command.UserId && x.QuestionId == command.QuestionId);
+		    if (shareQuestion == null)
 		    {
-		        UserId = command.UserId,
-		        QuestionId = command.QuestionId,
-		        CreatedOn = DateTime.Now,
-		        CreatedBy = command.UserId
-		    };
-            question.GenerateNewIdentity();
-		    DbContext.ShareQuestions.Add(question);
-		    
-            DbContext.SaveChanges();
+                ShareQuestion question = new ShareQuestion
+                {
+                    UserId = command.UserId,
+                    QuestionId = command.QuestionId,
+                    CreatedOn = DateTime.Now,
+                    CreatedBy = command.UserId
+                };
+                question.GenerateNewIdentity();
+                DbContext.ShareQuestions.Add(question);
+
+                DbContext.SaveChanges();
+		        command.Id = question.Id;
+		    }
+
+		   
           
 
 		}

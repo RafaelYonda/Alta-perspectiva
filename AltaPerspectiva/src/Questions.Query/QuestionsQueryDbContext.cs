@@ -127,14 +127,7 @@
                 return Set<QuestionReport>().AsNoTracking();
             }
         }
-        public IQueryable<ShareQuestion> UserQuestionPost
-        {
-            get
-            {
-                // Don't track changes to query results
-                return Set<ShareQuestion>().AsNoTracking();
-            }
-        }
+     
         public IQueryable<QuestionUserFollowing> QuestionUserFollowings
         {
             get
@@ -149,6 +142,14 @@
             {
                 // Don't track changes to query results
                 return Set<DirectQuestion>().AsNoTracking();
+            }
+        }
+        public IQueryable<ShareQuestion> ShareQuestions
+        {
+            get
+            {
+                // Don't track changes to query results
+                return Set<ShareQuestion>().AsNoTracking();
             }
         }
 

@@ -610,57 +610,20 @@ namespace AltaPerspectiva.Web.Area.Questions
             AddBookmarkCommand cmd = new AddBookmarkCommand(loggedinUser, questionId);
             
             commandsFactory.ExecuteQuery(cmd);
-
+            Boolean sueccessResult = false;
             if (cmd.Id == Guid.Empty)
             {
                 //Already added book mark
-                return Ok(new {result = false});
+                sueccessResult = true;
             }
-            return Ok(new {result = true});
+            return Ok(new {result = sueccessResult });
             //  return Created($"/questions/api/{cmd.Id}/addbookmark", questionId);
         }
 
 
         #endregion
 
-        #region Sharequestion
-
-        [HttpGet("/questions/api/getsharequestion/{userId}")]
-        public async Task<IActionResult> GetShareQuestion(Guid userId)
-        {
-            var questionByBookmarked = await queryFactory.ResolveQuery<IQuestionsQuery>().GetBookmark(userId);
-            List<QuestionViewModel> questions = new List<QuestionViewModel>();
-
-            questions = new QuestionService().GetQuestionViewModels(questionByBookmarked, queryFactory, configuration);
-            return Ok(questions);
-        }
-        [HttpPost("/questions/api/savesharequestion/{questionId}")]
-        public IActionResult SaveShareQuestion(Guid questionId)
-        {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            AddShareQuestionCommand command = new AddShareQuestionCommand(loggedinUser, questionId);
-            commandsFactory.ExecuteQuery(command);
-
-
-            //List<UserViewModel> userViewModels = new List<UserViewModel>();
-            //foreach (var like in likes)
-            //{
-            //    Guid userId = like.UserId;
-
-            //    UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId);
-            //    userViewModels.Add(userViewModel);
-
-            //}
-            //return Ok(userViewModels);
-            return Ok();
-        }
-        #endregion
+        
 
         #region Question
         [HttpPost("/questions/api/savequestion")]
@@ -983,6 +946,45 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok();
         }
 
+        #region posted question
+
+        [HttpGet("/questions/api/getsharequestion/{userId}")]
+        public async Task<IActionResult> GetShareQuestion(Guid userId)
+        {
+            var questionByBookmarked = await queryFactory.ResolveQuery<IQuestionsQuery>().GetSharedQuestion(userId);
+            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+
+            questions = new QuestionService().GetQuestionViewModels(questionByBookmarked, queryFactory, configuration);
+            return Ok(questions);
+        }
+        [HttpPost("/questions/api/savesharequestion/{questionId}")]
+        public IActionResult SaveShareQuestion(Guid questionId)
+        {
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            AddShareQuestionCommand command = new AddShareQuestionCommand(loggedinUser, questionId);
+            commandsFactory.ExecuteQuery(command);
+            Boolean successResult = false;
+            if (command.Id != Guid.Empty)
+            {
+                successResult = true;
+            }
+
+            return Ok(new
+            {
+                result = successResult
+            });
+
+
+
+        }
+        #endregion
+
         #endregion
 
         [HttpGet("/questions/api/getdirectquestion/{questionAskedToUser}")]
@@ -1043,6 +1045,7 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return Ok();
         }
+
 
         [HttpGet("/questions/api/getdraftedquestions")]
         public IActionResult GetDraftedQuestions()
@@ -1106,6 +1109,10 @@ namespace AltaPerspectiva.Web.Area.Questions
             commandsFactory.ExecuteQuery(command);
             return Ok();
         }
+
+      
+
+
     }
 }
 
