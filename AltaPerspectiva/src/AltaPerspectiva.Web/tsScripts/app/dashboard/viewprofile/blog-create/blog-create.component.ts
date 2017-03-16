@@ -39,7 +39,10 @@ export class BlogCreateComponent {
         });
     }
     goToBlogPost(blogId: string) {
-        this.router.navigateByUrl('/dashboard/blog-post/' + blogId, { skipLocationChange: true });
+        window.open('/dashboard/blog-post/' + blogId, 'blank');
+        //console.log(this.router.url);
+        
+        //this.router.navigateByUrl('/dashboard/blog-post/' + blogId, { skipLocationChange: true });
     }
     saveBlog(form: FormGroup) {
         console.log(form);
