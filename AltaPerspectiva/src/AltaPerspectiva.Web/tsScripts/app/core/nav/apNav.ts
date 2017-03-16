@@ -25,16 +25,22 @@ export class ApNav {
 
     constructor(private authService: AuthenticationService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router, private commServ: CommunicationService) {
         this._authService = authService;
-        var user: User = new User();
-        //user.userid = '-1';
-        this._logObj = { isLoggedIn: false, user: user };
+        
     }
     ngOnInit() {
         
         var currentUser = localStorage.getItem('auth_token');  
         if (currentUser == null)
+        {
+            var user: User = new User();
+            this._logObj = { isLoggedIn: false, user: user };
+            //this._logObj = new LogInObj;
             return;
+        }
+            
         this._authService.getLoggedinObj().subscribe(res => {
+            this._logObj = new LogInObj();
+            this._logObj.user = new User();
             this._logObj.user.name = res.name;
             this._logObj.user.imageUrl = res.imageUrl;
             this._logObj.isLoggedIn = true;
