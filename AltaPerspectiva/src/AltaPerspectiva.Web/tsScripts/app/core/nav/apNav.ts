@@ -34,7 +34,6 @@ export class ApNav {
         {
             var user: User = new User();
             this._logObj = { isLoggedIn: false, user: user };
-            //this._logObj = new LogInObj;
             return;
         }
             
