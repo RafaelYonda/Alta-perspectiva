@@ -1,7 +1,8 @@
 ﻿<style>
     .credential-dialog {
-        margin: 15% auto;
+        margin: 20% auto;
         max-width: 45%;
+        padding: 25px;
     }
 
     .profile-modal-body {
@@ -11,7 +12,7 @@
         margin: 0px;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
-        text-align:center;
+        text-align: center;
     }
 
         .profile-modal-body input {
@@ -26,9 +27,11 @@
         .profile-modal-body a:hover {
             text-decoration: underline;
         }
-        canvas{
-            margin:15px;
-        }
+
+    canvas {
+        margin: 15px;
+    }
+
     .profile-modal-button-container {
         text-align: right;
     }
@@ -40,15 +43,16 @@
     .modal-header h3 {
         font-weight: bold;
     }
+
     .modal-overlay {
-            top: -209px;
+        top: -209px;
     }
 </style>
 
 <div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
     <div class="modal-content credential-dialog">
         <div class="exit-button" (click)="onClickedExit()">x</div>
-        <div class="modal-container" style="border:1px solid;">
+        <div class="modal-container" >
             <div class="modal-header">
                 <h3>Preview Images</h3>
                 <!--<p>Credentials also appear on answers you write.</p>-->
@@ -56,11 +60,11 @@
             <div class="profile-modal-body">
                 <div>
                     <img-cropper #cropper [image]="data1" [settings]="cropperSettings1" (onCrop)="cropped($event)"></img-cropper>
-                    <span class="result" *ngIf="data1.image">
-                        <img [src]="data1.image"
+                    <div class="result" *ngIf="data1.image">
+                        <img style="border:1px solid #dedbdb" [src]="data1.image"
                              [width]="200"
-                             [height]="200">                       
-                    </span>
+                             [height]="200">
+                    </div>
                     <div class="row">
                         <div class="col-lg-2">
                             <input (click)="onUpdate()" type="text" class="btn btn-info" value="Update" />
