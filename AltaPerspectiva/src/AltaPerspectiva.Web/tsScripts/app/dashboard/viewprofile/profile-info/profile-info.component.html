@@ -170,13 +170,13 @@
             <div class="user-name">
                 <div id="userName" [hidden]="!isUserHidden">
                     <h1> {{credential.firstName}} {{credential.lastName}} </h1>
-                    <a *ngIf="isOwner" id="userName-btn" class="display-hide" (click)="isUserHidden = false"><span><i class="fa fa-edit"></i>Edit Name</span> </a>
+                    <a *ngIf="isOwner" id="userName-btn" class="display-hide" (click)="isUserHidden = false"><span><i class="fa fa-edit"></i><!--Edit Name-->Editar nombre</span> </a>
                 </div>
                 <div [hidden]="isUserHidden" *ngIf="isOwner">
                     <input placeholder="First Name" [(ngModel)]="credential.firstName" type="text" />
                     <input placeholder="Last Name" [(ngModel)]="credential.lastName" type="text" />
-                    <a (click)="isUserHidden = true">Cancel</a>
-                    <button class="btn btn-primary" (click)="UpdateUserName()">Update</button>
+                    <a (click)="isUserHidden = true"><!--Cancel-->Cancelar</a>
+                    <button class="btn btn-primary" (click)="UpdateUserName()"><!--Update-->Actualizar</button>
                 </div>
             </div>
             <!-- Credential -->
@@ -186,22 +186,22 @@
             
             <div id="credential" *ngIf="credential.title">
                 <div class="credential-text">{{credential.title}}</div>
-                <a id="credential-edit" *ngIf="isOwner" (click)="openCredentialDialogBox()"><span><i class="fa fa-edit"></i>Edit credential</span> </a>
+                <a id="credential-edit" *ngIf="isOwner" (click)="openCredentialDialogBox()"><span><i class="fa fa-edit"></i><!--Edit credential-->Editar credencial</span> </a>
             </div>
             <!-- description -->
             <a *ngIf="!credential.description && isOwner" (click)="showDescription = false"> Write a description about yourself</a>
             <div id="description" [hidden]="(!showDescription)">
                 
                 <div [innerHTML]="credential.description"></div>
-                <a id="description-edit" *ngIf="isOwner"><span (click)="showDescription = false"><i class="fa fa-edit"></i>edit description</span> </a>
+                <a id="description-edit" *ngIf="isOwner"><span (click)="showDescription = false"><i class="fa fa-edit"></i><!--edit description-->Editar descripción</span> </a>
             </div>
             <div class="description-panel" [hidden]="showDescription" *ngIf="isOwner">
                 <quill-editor [(ngModel)]="credential.description" [ngModelOptions]="{standalone: true}"
                               [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link', 'image']]}"
                               required name="answerField" #answerField="ngModel"></quill-editor>
                 <div class="btn-container">
-                    <a (click)="showDescription = true">Cancel</a>
-                    <button class="btn btn-primary" (click)="updateDecription()">Update</button>
+                    <a (click)="showDescription = true"><!--Cancel-->Cancelar</a>
+                    <button class="btn btn-primary" (click)="updateDecription()"><!--Update-->Actualizar</button>
                 </div>
             </div>
             <ul *ngIf="isOwner">

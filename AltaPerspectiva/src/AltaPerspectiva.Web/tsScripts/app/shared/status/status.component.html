@@ -4,7 +4,7 @@
     <img *ngIf="questionObj?.answers[0]?.likes?.length<1" class="hidden-xs" (click)="submitLike(answerObj?.id,questionObj.id)" src='../images/fade-logo.png' onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
     <img *ngIf="questionObj?.answers[0]?.likes?.length>0" class="hidden-xs" src='../images/like-logo.png' />
     <a (click)="ShowLikeCount()" class="number-box status-line"> {{isQuestion?(questionObj.likes.length):(answerObj?.likes?.length)}}</a>
-    <a (click)="submitLike(answerObj?.id,questionObj.id)"><div class="status-line">{{questionObj.likes.length>1?'Likes':'Like'}}</div></a>
+    <a (click)="submitLike(answerObj?.id,questionObj.id)"><div class="status-line">{{questionObj.likes.length>1?'Me gustas':'Me gusta'}}</div></a>
     <div class="status-line like-border "></div>
     <div class="status-line number-box status-line hidden-xs">{{questionObj?.viewCount?questionObj?.viewCount:0}}</div>
     <div class="status-line hidden-xs">Leidos</div>
@@ -42,16 +42,16 @@
                 <span></span>
                 <ul style="list-style-type: none;">
                     <li style="list-style-type: none;width: 91px;">
-                        <a (click)="questionDetailClicked()">Edit Question</a>
+                        <a (click)="questionDetailClicked()">Editar</a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a (click)="bookmarkClicked(questionObj?.id)">Bookmark</a>
+                        <a (click)="bookmarkClicked(questionObj?.id)">Guardar<!--Bookmark--></a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a (click)="questionReportClicked(questionObj?.id,answerObj?.id)">Report</a>
+                        <a (click)="questionReportClicked(questionObj?.id,answerObj?.id)">Reportar<!--Report--></a>
                     </li>
                     <li style="list-style-type: none;">
-                        <a (click)="postClikced(questionObj?.id)">Post</a>
+                        <a (click)="postClikced(questionObj?.id)">Guardar<!--Post--></a>
                     </li>
                 </ul>
             </popover-content>

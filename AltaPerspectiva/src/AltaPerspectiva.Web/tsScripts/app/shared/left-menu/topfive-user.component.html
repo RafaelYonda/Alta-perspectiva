@@ -33,7 +33,7 @@
             </div>
             <div class="clearfix"></div>
         </li>
-        <li><div class="top-user-info"><a (click)="goToAllUser()">View all users</a></div></li>
+        <li><div class="top-user-info"><a (click)="goToAllUser()">Ver más<!--View all users--></a></div></li>
     </ul>
 </div>
 <popover-content #userInfoDetailsPopoveruser>
@@ -64,18 +64,18 @@
                     <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
                 </li>
                 <li *ngIf="userInfoDetails?.employment">
-                    <i class="fa-li fa fa-info-circle"></i>employment: {{userInfoDetails?.employment}}
+                    <i class="fa-li fa fa-info-circle"></i>Employment: {{userInfoDetails?.employment}}
                 </li>
                 <li *ngIf="userInfoDetails?.place">
                     <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
                 </li>
                 <li *ngIf="userInfoDetails?.otherExperience">
-                    <i class="fa-li fa fa-cog"></i>otherExperience: {{userInfoDetails?.otherExperience}}
+                    <i class="fa-li fa fa-cog"></i>Others: {{userInfoDetails?.otherExperience}}
                 </li>
 
                 <li *ngIf="userInfoDetails?.questionViewCount!=0">
                     <i class="fa-li fa fa-eye">
-                    </i>Question Views: {{userInfoDetails?.questionViewCount}}
+                    </i>Views: {{userInfoDetails?.questionViewCount}}
                 </li>
             </ul>
         </div>

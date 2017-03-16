@@ -1,7 +1,7 @@
 ﻿<div class="navbar navbar-inverse navbar-fixed-top z-header" [ngClass]="className">
     <div class="navbar-header">
         <div asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand logo">
-            <img class="navbar-brand logo" src="../images/LOGO CUADRADO.png" />
+            <a routerLink="/"><img class="navbar-brand logo" src="../images/LOGO CUADRADO.png" /></a>            
         </div>
     </div>
     <div class="navbar-collapse collapse">
@@ -10,9 +10,8 @@
             <li><a routerLink="/question/home/1">Questions</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
-            <!--<li><a [routerLink]="['/dashboard/viewprofile','80a2b9fe-609f-435b-86f8-97b567189b22']" for="contain" data-toggle="dropdown" class="padding-middle"> PP </a></li>-->
-            <li><a href="/signin">Log in</a></li>
-            <li><a href="/signin">Register</a></li>
+            <li><a href="/signin">Iniciar sesión <!--Log in--></a></li>
+            <li><a href="/signin">Regístrate <!--Register--></a></li>
         </ul>
         <div class="navbar-right" *ngIf="_logObj.isLoggedIn">
             <a href="#" class="dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false">
@@ -23,14 +22,13 @@
             <div class="dropdown-menu dropdown-menu-right" role="menu">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
-                        <div class="lef-column padding-middle"><span class="fa fa-user"></span> <a (click)="gotoProfile()" for="contain" data-toggle="dropdown" class="padding-middle"> Profile</a></div>
-                    </div>
-                  
-                    <div class="form-group">
-                        <div class="lef-column padding-middle"><span class="fa fa-key"></span> <a href="http://altaauth.azurewebsites.net/Manage/ChangePassword" for="contain" class="padding-middle"> Change Password </a></div>
+                        <div class="lef-column padding-middle"><span class="fa fa-user"></span> <a (click)="gotoProfile()" for="contain" data-toggle="dropdown" class="padding-middle">Perfil <!--Profile--></a></div>
                     </div>
                     <div class="form-group">
-                        <div class="lef-column padding-middle"><span class="fa fa-sign-out"></span> <a href="/signout" for="contain" class="padding-middle"> Sign Out </a></div>
+                        <div class="lef-column padding-middle"><span class="fa fa-key"></span> <a href="http://altaauth.azurewebsites.net/Manage/ChangePassword" for="contain" class="padding-middle"> Contraseña<!--Change Password--> </a></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="lef-column padding-middle"><span class="fa fa-sign-out"></span> <a href="/signout" for="contain" class="padding-middle">Cerrar sesión <!--Sign Out--> </a></div>
                     </div>
                 </form>
             </div>

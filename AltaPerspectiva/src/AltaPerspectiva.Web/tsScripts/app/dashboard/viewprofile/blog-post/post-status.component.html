@@ -3,7 +3,7 @@
         <img *ngIf="blogPost?.likes?.length<1" src='../images/fade-logo.png' onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
         <img *ngIf="blogPost?.likes?.length>0" src='../images/like-logo.png' />
         <a href="#"  data-toggle='modal'  attr.data-target="#likeModal{{blogPost.id}}" class="status-line number-box" (click)="showLikeUserDetails()">{{blogPost?.likes?.length}} </a>
-        <a (click)="submitLike(blogpost?.id)"><div class="status-line">{{blogPost?.likes?.length>1?'Likes':'Like'}}</div></a>
+        <a (click)="submitLike(blogpost?.id)"><div class="status-line">{{blogPost?.likes?.length>1?'Me gustas':'Me gusta'}}</div></a>
         <div class="status-line like-border"></div>
         <div class="status-line number-box">{{blogPost?.blogViewCount? blogPost?.blogViewCount:0}}</div>
         <div class="status-line">Leidos</div>

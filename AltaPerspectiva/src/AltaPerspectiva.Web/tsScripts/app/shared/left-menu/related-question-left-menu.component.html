@@ -1,5 +1,5 @@
 ﻿<div id="category" class="menu-container hidden-xs">
-    <div class="list-title"><h4>Related Questions</h4></div>
+    <div class="list-title"><h4>Preguntas relacionadas<!--Related Questions--></h4></div>
     <img class="horizontal-border" src="../../../../images/border-horizontal.png" />
     <ul class="left-panel-list">
         <li *ngFor="let question of questions"><a [routerLink]="['/question/detail',question.id]"> {{question.title}}</a></li>

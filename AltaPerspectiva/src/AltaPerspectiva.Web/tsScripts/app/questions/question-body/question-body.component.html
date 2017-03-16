@@ -89,12 +89,12 @@
             <h4>
                 {{totalCount?.totalFollowers}}
             </h4>
-            <h4>Followers</h4>
+            <h4>Seguidores<!--Followers--></h4>
         </div>
     </div>
 
     <div class="row row-fix">
-        <button type="button" (click)="addFollower(categorySelected.id)" class="alta-btn alta-btn-lg">Follow</button>
+        <button type="button" (click)="addFollower(categorySelected.id)" class="alta-btn alta-btn-lg">Seguir<!--Follow--></button>
         <p>
             {{categorySelected?.description}}
         </p>
@@ -107,20 +107,20 @@
             </div>
 
             <div class="more-btn">
-                <a (click)="toggleShowMoreTopic()" *ngIf="showMoreTopic && topics.length>5">Show more..</a>
+                <a (click)="toggleShowMoreTopic()" *ngIf="showMoreTopic && topics.length>5">Ver más..<!--Show more--></a>
             </div>
             <div class="more-btn">
-                <a (click)="toggleShowMoreTopic()" *ngIf="!showMoreTopic">Hide more..</a>
+                <a (click)="toggleShowMoreTopic()" *ngIf="!showMoreTopic"><!--Hide more-->Ocultar..</a>
             </div>
         </div>
     </div>
     <div class="filter-panel">
         <div class="read-question-button">
             <a (click)="getQuestionsAnswered(categorySelected.id)">
-                {{totalCount?.totalAnsweredQuestion}}  Read
+                {{totalCount?.totalAnsweredQuestion}} Leer preguntas <!--Read-->
             </a>
             <a (click)="getQuestionNotAnswered(categorySelected.id)">
-                {{totalCount?.totalUnAnsweredQuestion}}  Answer
+                {{totalCount?.totalUnAnsweredQuestion}} Responder <!--Answer-->
             </a>
         </div>
         <div class="read-question-button">
@@ -131,9 +131,9 @@
                     <span class="caret pull-right" style="margin-top:8px;"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                    <li role="presentation"><a (click)="GetLatestQuestionByDate(categorySelected.id)">The latest question</a></li>
-                    <li role="presentation"><a (click)="getbestquestionbytotallike(categorySelected.id)"> The best Question</a></li>
-                    <li role="presentation"><a (click)="getmorequestionbyviewcount(categorySelected.id)">The more views</a></li>
+                    <li role="presentation"><a (click)="GetLatestQuestionByDate(categorySelected.id)">Preguntas más recientes<!--The latest question--></a></li>
+                    <li role="presentation"><a (click)="getbestquestionbytotallike(categorySelected.id)">Preguntas con más “Me gusta” <!--The best Question--></a></li>
+                    <li role="presentation"><a (click)="getmorequestionbyviewcount(categorySelected.id)">Preguntas más vistas <!--The more views--></a></li>
                 </ul>
             </div>
         </div>
