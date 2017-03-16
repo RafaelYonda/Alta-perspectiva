@@ -24,8 +24,7 @@ import { Router } from '@angular/router';
     providers: [ImageUploadService, ConfigService, AuthenticationService],
 })
 export class ProfileInfoComponent {
-    //@Input() userObj: User;
-    isOwner = false;
+    //@Input() userObj: User;    
     isUserHidden = true;
     showDescription = true;
     imageLink: string;
@@ -34,6 +33,8 @@ export class ProfileInfoComponent {
     hasDescription: boolean;
     credentialParent: CredentialViewModel;
     isImageUpdated:boolean;
+
+    @Input() isOwner: boolean;
 
     @Output() onUpdated = new EventEmitter<boolean>();
 
@@ -72,7 +73,7 @@ export class ProfileInfoComponent {
             this.imageLink = this.credential.imageUrl;
         else this.imageLink = '../images/userAdd.png';
 
-        this.getLoggedInUser(this.credential.userId);
+        //this.getLoggedInUser(this.credential.userId);
 
         return data;
     }

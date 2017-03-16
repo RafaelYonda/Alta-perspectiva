@@ -65,6 +65,8 @@ export class ViewProfileComponent {
                     this._logObj.isLoggedIn = true;
                     if (params['userId'] == res.userId)
                         this.isOwner = true;
+                    else
+                        this.isOwner = false;
                 }
             });
             //=====

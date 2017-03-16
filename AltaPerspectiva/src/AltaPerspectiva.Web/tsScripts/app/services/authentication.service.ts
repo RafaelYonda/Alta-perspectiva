@@ -11,9 +11,7 @@ export class AuthenticationService{
     getLoggedinObj(): Observable<any> {
         return this._http.get('/userprofile/api/getuser/')
             .map(this.extractData)
-            .catch(this.handleError)
-            .publishReplay(1)
-            .refCount();
+            .catch(this.handleError);            
     }
     private extractData(res: Response) {
         let body;

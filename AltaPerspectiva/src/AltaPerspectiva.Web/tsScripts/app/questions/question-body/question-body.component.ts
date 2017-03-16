@@ -17,7 +17,7 @@ export interface ILoader {
     providers: [QuestionAnswerService, CategoryService, ConfigService, QuestionService]
 })
 export class QuestionBodyComponent {
-    FilterParam = "Select a filter";
+    FilterParam = "Filtra tus preguntas";// "Select a filter";
     showMoreTopic = false;
     topFiveTopics: Topic[] = new Array<Topic>();
 

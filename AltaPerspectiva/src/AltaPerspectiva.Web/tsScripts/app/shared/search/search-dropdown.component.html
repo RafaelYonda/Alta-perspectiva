@@ -1,7 +1,7 @@
 ﻿<!-- Question Text -->
 <div class="dropdown-block">
     <select class="question-control" id="Category" (change)="onCategoryChange(categoryObj.value)" name="category" #categoryObj>
-        <option [value]="-1"  selected>Selecciona la categoría</option>
+        <option [value]="-1"  selected>Selecciona la etapa de tu negocio <!--Category--></option>
         <option *ngFor="let category of categories" [value]="category.id">
             {{category.name}}
         </option>
@@ -13,12 +13,12 @@
         </option>
     </select>
     <select class="question-control" name="levels" id="levels"  (change)="onLevelChange(levelObj.value)" #levelObj>
-        <option [value]="-1"  selected>Selecciona la complejidad</option>
+        <option [value]="-1"  selected>Selecciona tu solicitud<!--level--></option>
         <option *ngFor="let level of levels" [value]="level.id">
             {{level.levelName}}
         </option>
     </select>
-    <textarea name="body" class="question-control" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="body" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
+    <textarea name="body" class="question-control" placeholder="Agrega detalle de tu pregunta - Opcional" [(ngModel)]="body" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
     <input type="checkbox" #cv [checked]=false (change)="onChange(cv.checked)" /> <label>Preguntar Anonimo</label>
 </div>
 

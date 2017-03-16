@@ -47,7 +47,7 @@
         <div class="exit-button" (click)="onClickedExit()">x</div>
         <div class="modal-container" style="border:1px solid;">
             <div class="modal-header">
-                <h3>Others Information</h3>
+                <h3><!--Others Information-->Otra información</h3>
                
             </div>
             <div class="profile-modal-body">
@@ -75,9 +75,9 @@
                         </div>
                     </div>
                     <div class="profile-modal-button-container">
-                        <a (click)="DeleteOtherExperience()">Delete</a>
-                        <a (click)="onClickedExit()">Cancel</a>
-                        <button type="submit" class="btn btn-success" [disabled]="!otherExperienceForm.form.valid">Save</button>
+                        <a (click)="DeleteOtherExperience()"><!--Delete-->Borrar</a>
+                        <a (click)="onClickedExit()"><!--Cancel-->Cancelar</a>
+                        <button type="submit" class="btn btn-success" [disabled]="!otherExperienceForm.form.valid"><!--Save-->Guardar</button>
                     </div>
                 </form>
             </div>
