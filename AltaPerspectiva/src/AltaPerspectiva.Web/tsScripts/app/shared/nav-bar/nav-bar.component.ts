@@ -26,9 +26,15 @@ export class NavBarComponent {
     }
     ngOnInit() {
         var currentUser = localStorage.getItem('auth_token');
-        if (currentUser == null)
+        if (currentUser == null) {
+            var user: User = new User();
+            this._logObj = { isLoggedIn: false, user: user };
             return;
+        }
+
         this._authService.getLoggedinObj().subscribe(res => {
+            this._logObj = new LogInObj();
+            this._logObj.user = new User();
             this._logObj.user.name = res.name;
             this._logObj.user.imageUrl = res.imageUrl;
             this._logObj.isLoggedIn = true;
