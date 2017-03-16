@@ -58,6 +58,39 @@ namespace UserProfile.Query.Queries
            
             
         }
+        public async Task<List<UserSummary>> GetTopHundredUserSummary(string connectionString)
+        {
+            List<UserSummary> userSummery = new List<UserSummary>();
+            string query = String.Format(@";with CTE
+	as(
+	SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId,
+	ISNULL((select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc),[UserName]) Name,
+	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,
+	(select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id) TotalLike,
+	(select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) TotalComment,
+	(select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) TotalQuestion,
+	(select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) TotalAnswer,
+	(
+	 (select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id)*1+
+	 (select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) *2+
+	 (select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) *3+
+	 (select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) *4
+	) TotalCommulativePoint,
+	(
+	select top 1 e.Position from UserProfile.Employments e 
+where CredentialId=(select top 1 Id from UserProfile.Credentials c where c.UserId=u.Id)
+order by CreatedOn desc
+	) Occupation,
+	ISNULL((select top 1 ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
+	
+	FROM [Identity].AspNetUsers u
+
+	)
+	select  * from CTE order by TotalCommulativePoint desc");
+            return await Task.Run(() => userSummery = DataReaderToListHelper.DataReaderToList<UserSummary>(connectionString, query));
+
+
+        }
 
         public async Task<UserSummary> GetUserSummary(Guid userId, string connectionString)
         {

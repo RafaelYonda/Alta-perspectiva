@@ -27,7 +27,7 @@ export class AllUserComponent {
     constructor(private authService: AuthenticationService, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router, private commServ: CommunicationService) {
     }
     ngOnInit() {
-        this.profileService.GetTopFiveUserByCategory('1').subscribe(res => {
+        this.profileService.GetTopHundredUser().subscribe(res => {
             this.user = res;
                 this.loader = false;
         });
@@ -36,11 +36,13 @@ export class AllUserComponent {
         window.scroll(0,0);
     }
     onKeyPress() {
+        this.loader = true;
         console.log(this.userName);
         if (this.userName) {
             this.profileService.GetUsers(this.userName).subscribe(res => {
                 this.user = [];
                 this.user = res;
+                this.loader = false;
             });
         }
     }

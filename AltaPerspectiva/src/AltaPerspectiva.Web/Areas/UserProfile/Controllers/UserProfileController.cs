@@ -101,7 +101,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
               configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
             List<CategoryWiseAnswer> categoryWiseAnswers =
                 queryFactory.ResolveQuery<IProfileParameters>().CategoryWiseAnswerCount(userId, connectionString).OrderByDescending(x => x.AnswerCount).ThenByDescending(x => x.CategoryName).ToList();
-            AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
             foreach (var categoryWiseAnswer in categoryWiseAnswers)
             {
                 categoryWiseAnswer.ImageUrl = azureFileUploadHelper.GetCategoryImage(categoryWiseAnswer.ImageUrl);
@@ -180,7 +180,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok();
         }
         [HttpPost("userprofile/api/credential/saveusercroppedimage")]
-        public async Task<IActionResult> SaveUserCroppedImage(string file, Guid userId,String imageName )
+        public async Task<IActionResult> SaveUserCroppedImage(string file, Guid userId, String imageName)
         {
 
             if (file != null)
@@ -188,7 +188,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 Base64Image base64Image = Base64Image.Parse(file);
                 var byteArray = base64Image.FileContents;
 
-               
+
                 //String imageName = id.ToString() + base64Image.Extension;
 
                 AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
@@ -196,7 +196,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                     imageName, base64Image.ContentType);
 
 
-               // answer.Text = answer.Text.Replace(imgTag, fileLink);
+                // answer.Text = answer.Text.Replace(imgTag, fileLink);
                 //AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
                 //await azureFileUploadHelper.SaveProfileImage(file);
                 UpdateUserImageCommand cmd = new UpdateUserImageCommand(userId, imageName);
@@ -243,11 +243,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok();
         }
-       
+
         [HttpPost("userprofile/api/education/deleteeducation")]
         public IActionResult DeleteEducation([FromBody]EducationViewModel model)
         {
-            DeleteEducationCommand command=new DeleteEducationCommand(model.CredentialId,model.Id);
+            DeleteEducationCommand command = new DeleteEducationCommand(model.CredentialId, model.Id);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
@@ -258,7 +258,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/employment/getemployment/{credentialId}")]
         public IActionResult GetEmployment(Guid credentialId)
         {
-            
+
             var education = queryFactory.ResolveQuery<IEmploymentQuery>().GetEmployment(credentialId);
 
             return Ok(education);
@@ -273,7 +273,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpPost("userprofile/api/employment/addemployment")]
         public IActionResult AddEmployment([FromBody]EmploymentViewModel model)
         {
-            
+
             AddEmploymentCommand command = new AddEmploymentCommand(model.CredentialId, model.Position, model.CompanyName, model.StartDate, model.EndDate, model.IsCurrentlyWorking);
             commandsFactory.ExecuteQuery(command);
 
@@ -321,7 +321,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok();
         }
-        
+
         [HttpPost("userprofile/api/place/deleteplace")]
         public IActionResult DeletePlace([FromBody]PlaceViewModel model)
         {
@@ -350,13 +350,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpPost("userprofile/api/OtherExperience/addOtherExperience")]
         public IActionResult AddOtherExperience([FromBody]OtherExperienceViewModel model)
         {
-            
+
             AddOtherExperienceCommand command = new AddOtherExperienceCommand(model.CredentialId, model.CategoryId, model.Description);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
         }
-        
+
         [HttpPost("userprofile/api/OtherExperience/deleteOtherExperience")]
         public IActionResult DeleteOtherExperience([FromBody]OtherExperienceViewModel model)
         {
@@ -394,7 +394,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
             return Ok(questionViewModels);
         }
-        
+
         [HttpGet("userprofile/api/followerbyuserid/{userId}")]
         public IActionResult Follower(Guid userId)
         {
@@ -420,7 +420,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             List<Guid> followingUsers =
                 queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowings(userId).Select(x => x.FollowedUserId).Distinct().ToList();
 
-            AzureFileUploadHelper azureFileUploadHelper=new AzureFileUploadHelper();
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
 
             List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x => new UserViewModel
             {
@@ -429,7 +429,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 ImageUrl = azureFileUploadHelper.GetProfileImage(x.ImageUrl),
                 Name = x.FirstName + " " + x.LastName,
                 Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
-            }).OrderBy(x=>x.Name).ToList();
+            }).OrderBy(x => x.Name).ToList();
 
             return Ok(userViewModels);
         }
@@ -464,9 +464,22 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             else
             {
                 summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetTopFiveUserSummary(connectionString);
-
+                summeries = summeries.Take(5).ToList();
             }
-            summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries,queryFactory,configuration);
+            summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries, queryFactory, configuration);
+            return summeries;
+
+        }
+        [HttpGet("userprofile/api/gettophundreduser")]
+        public async Task<List<UserSummary>> GetTopHundredUser()
+        {
+            List<UserSummary> summeries = new List<UserSummary>();
+            String connectionString = Startup.ConnectionString;
+
+            summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetTopHundredUserSummary(connectionString);
+            //summeries = summeries.Take(5).ToList();
+
+            summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries, queryFactory, configuration);
             return summeries;
 
         }
@@ -474,7 +487,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         public async Task<UserSummary> GetUserSummary(Guid userId)
         {
             String connectionString = Startup.ConnectionString;
-            var summeries =await queryFactory.ResolveQuery<IProfileParameters>().GetUserSummary(userId, connectionString);
+            var summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetUserSummary(userId, connectionString);
             return summeries;
         }
         #endregion
@@ -512,7 +525,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            UpdateSocialLinkCommand command=new UpdateSocialLinkCommand(loggedinUser,model.TwitterLink,model.FacebookLink,model.LinkedinLink);
+            UpdateSocialLinkCommand command = new UpdateSocialLinkCommand(loggedinUser, model.TwitterLink, model.FacebookLink, model.LinkedinLink);
             commandsFactory.ExecuteQuery(command);
             return Ok(command.Id);
         }
@@ -539,13 +552,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         public async Task<List<UserViewModel>> GetUsers(String userName)
         {
             List<Guid> userIds = await queryFactory.ResolveQuery<ICredentialQuery>().GetAllUserIds(userName);
-            List<UserViewModel> userViewModels=new List<UserViewModel>();
+            List<UserViewModel> userViewModels = new List<UserViewModel>();
             foreach (var userId in userIds)
             {
                 UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
                 userViewModels.Add(userViewModel);
             }
-            return userViewModels.OrderBy(x=>x.Name).ToList();
+            return userViewModels.OrderBy(x => x.Name).ToList();
         }
 
 

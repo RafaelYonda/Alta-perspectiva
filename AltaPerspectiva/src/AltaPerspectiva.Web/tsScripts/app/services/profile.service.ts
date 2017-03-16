@@ -69,6 +69,12 @@ export class ProfileService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    GetTopHundredUser(): Observable<User[]> {
+
+        return this._http.get('userprofile/api/gettophundreduser')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
     GetFollowersByUserId(userId:string): Observable<User[]> {
         return this._http.get('userprofile/api/followerbyuserid/' + userId)
