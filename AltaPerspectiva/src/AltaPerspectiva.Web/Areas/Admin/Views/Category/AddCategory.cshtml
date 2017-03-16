@@ -22,6 +22,13 @@
         width: 78%;
         margin-left: 10%;
     }
+
+    .open > .dropdown-menu {
+        overflow-y: scroll;
+        max-height: 300px;
+        width: 100%;
+        left: 5px;
+    }
 </style>
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
@@ -36,15 +43,15 @@
         {
             <hr />
 
-                @Html.ValidationSummary(true)
-                @Html.HiddenFor(model => model.Id)
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Name, new { @class = "col-sm-offset-1 col-md-2" })
-                    <div class="col-sm-offset-1 col-md-10">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Input name", @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Name)
-                    </div>
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "col-sm-offset-1 col-md-2" })
+                <div class="col-sm-offset-1 col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Input name", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name)
                 </div>
+            </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Description, new { @class = "col-sm-offset-1 col-md-2" })
@@ -58,7 +65,7 @@
                     <div class="dropdown">
                         <button class="btn btn-block dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
                             <span class="pull-left" id="icon-select">Select Icon</span>
-                            <span  id="icon-view" style="margin-left: 20px; float: left; margin-top: 3px;"></span>
+                            <span id="icon-view" style="margin-left: 20px; float: left; margin-top: 3px;"></span>
                             <span class="caret pull-right" style="margin-top:8px;"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
