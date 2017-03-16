@@ -77,8 +77,10 @@ export class CommentComponent {
         this.comment = new Comment();
         
         this.comment.commentText = this.commentText;
-        if (this.comment.commentText.trim() == "")
+        if (!this.comment.commentText || this.comment.commentText.trim() == "")
             return;
+
+      
 
         if (this.isQuestion) {
             this.comment.questionId = this.questionId;
