@@ -21,7 +21,8 @@ namespace Questions.Query
         
         public bool IsCategoryExists(string categoryName)
         {
-            var exists= DbContext.Categories.Where(x => x.Name == categoryName&&x.IsDeleted==null).Select(x=>x.Name).Any();
+            
+            var exists= DbContext.Categories.Where(x => x.Name.ToLower() == categoryName.ToLower()&&x.IsDeleted==null).Select(x=>x.Name).Any();
             
             return exists;
         }
