@@ -59,8 +59,6 @@ export class ProfileInfoComponent {
             this.getCredetialOnParentLoaded(this.credential);
         }
     }
-
-
     getCredetialOnParentLoaded(data: CredentialViewModel): CredentialViewModel {
         if (!data.userId) return;
 
@@ -172,7 +170,6 @@ export class ProfileInfoComponent {
         } else {
             window.open(this.credential.twitterLink);
         }
-        
     }
     @ViewChild('facebookDialogAnchor', { read: ViewContainerRef }) facebookDialogAnchor: ViewContainerRef;
     openfacebookDialogBox(img: string) {
@@ -193,7 +190,6 @@ export class ProfileInfoComponent {
         } else {
             window.open(this.credential.facebookLink);
         }
-
     }
     @ViewChild('linkedinDialogAnchor', { read: ViewContainerRef }) linkedinDialogAnchor: ViewContainerRef;
     openlinkedinDialogBox(img: string) {
@@ -214,8 +210,5 @@ export class ProfileInfoComponent {
         } else {
             window.open(this.credential.linkedinLink);
         }
-
     }
-    
-   
 }

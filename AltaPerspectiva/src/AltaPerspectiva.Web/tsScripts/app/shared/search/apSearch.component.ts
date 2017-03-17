@@ -128,19 +128,16 @@ export class ApSearchComponent {
     movequestionMark(event) {
         var textWidth = document.getElementById('temp-text').clientWidth;
         var maxWidth = document.getElementById('title').clientWidth;
-        console.log(textWidth);
         //var key = event.keyCode || event.charCode;
         textWidth = (textWidth + 20) < 30 ? (textWidth + 10) : (textWidth + 7);
         if (textWidth > maxWidth-22)
             return;
-        console.log(textWidth);
         //==============
         this.showQuestion = true;
         var form = document.getElementById("question-end");
         
             this.questionLeftposition = textWidth;
         form.style.left = this.questionLeftposition.toString() + 'px';
-        console.log(form.style.left);
     }
     resetquestionMark() {
         this.showQuestion = false;
@@ -153,8 +150,9 @@ export class ApSearchComponent {
         if (event.keyCode == 32)
         {
             this.title = this.title.trim();
-            this.title += " ";
+            //this.title += " ";
         }
+        console.log(this.title);
     }
     filterQuestions(event) {
         this.movequestionMark(event);
