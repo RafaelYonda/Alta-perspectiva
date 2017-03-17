@@ -55,8 +55,9 @@ export class PreviewImageComponent {
         this.close.emit('event');
     }
     handleClick(event) {
+        var target = event.target || event.srcElement;      //Firefox does not have srcElement
         //removel the modal on clicking out side the panel
-        var idAttr = event.srcElement.attributes.id;
+        var idAttr = target['id'];
         var value = idAttr ? idAttr.nodeValue : undefined;
         if (value == 'dialogModal')
             this.close.emit('event');
