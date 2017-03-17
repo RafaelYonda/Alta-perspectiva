@@ -20,13 +20,13 @@ namespace Questions.Command.CommandHandler
 
         public override void Execute(AddTopicCommand command)
         {
-            Debug.WriteLine("AddAnswerCommandHandler executed");
+            Debug.WriteLine("AddTopicCommandHandler executed");
 
             Topic topic=new Topic();
             topic.GenerateNewIdentity();
             topic.TopicName = command.TopicName;
             topic.CategoryId = command.CategoryId;
-
+            topic.CreatedOn=DateTime.Now;
             DbContext.Topics.Add(topic);
             DbContext.SaveChanges();
 

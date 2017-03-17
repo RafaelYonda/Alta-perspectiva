@@ -206,160 +206,160 @@
         /*For H*/
     </style>
 </head>
-<body class="body-minHeight">
-    <div class="navbar navbar-inverse navbar-fixed-top backgroundset" style="">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/LOGO CUADRADO.png" /></a>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top backgroundset" style="">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/LOGO CUADRADO.png" /></a>
 
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="nav-home">
-                        <a asp-controller="Home" asp-action="Index" class="navbar-brand fixHeader ">Alta Perspectiva</a>
-                    </li>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="nav-home">
+                    <a asp-controller="Home" asp-action="Index" class="navbar-brand fixHeader ">Alta Perspectiva</a>
+                </li>
 
-                    <li><a href="/question/home/1">Questions</a></li>
-                    @*<li class="align-of-header"><a asp-controller="Home" asp-action="Index">My Bookmark</a></li>*@
-                </ul>
-                <ul></ul>
-                @if (User.Identity.IsAuthenticated)
+                <li><a href="/question/home/1">Questions</a></li>
+                @*<li class="align-of-header"><a asp-controller="Home" asp-action="Index">My Bookmark</a></li>*@
+            </ul>
+            <ul></ul>
+            @if (User.Identity.IsAuthenticated)
             {
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <div class="dropdown-menu-right" role="menu">
-                                <div aria-expanded="false" class="dropdown-toggle fixed-height headerText" data-toggle="dropdown" href="#">
-                                    <img id="my_image" class="user-image" src="../../../../profile/LOGO CUADRADO.png"><span id="headerUserName"></span>
-                                </div>
-                                <ul class="dropdown-menu">
-                                    <li><a id="userUrl" href=""><span class="fa fa-user"></span> Profile</a></li>
-                                    <li>
-                                        <a id="userUrl" href="http://altaauth.azurewebsites.net/Manage/ChangePassword"><span class="fa fa-key"></span> Change Password</a>
-                                    </li>
-                                    <li><a href="/signout"><span class="fa fa-sign-out"></span> Sign Out</a></li>
-
-                                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="dropdown-menu-right" role="menu">
+                            <div aria-expanded="false" class="dropdown-toggle fixed-height headerText" data-toggle="dropdown" href="#">
+                                <img id="my_image" class="user-image" src="../../../../profile/LOGO CUADRADO.png"><span id="headerUserName"></span>
                             </div>
-                        </li>
-                    </ul>
-                    <script>
-                        var url = '@Url.Action("GetUserName", "UserProfile", new { Area = "UserProfile" })';
-                        $.ajax({
-                            url: url,
-                            type: 'GET',
-                            data: null,
-                            async: false,
-                            success: function (respText) {
-                                // console.log(respText);
-                                $('#headerUserName').text(respText.name);
-                                $('#my_image').attr('src', respText.imageUrl);
-                                $('#userUrl').attr('href', '/dashboard/viewprofile/' + respText.userId + '/user-question');
+                            <ul class="dropdown-menu">
+                                <li><a id="userUrl" href=""><span class="fa fa-user"></span> Profile</a></li>
+                                <li>
+                                    <a id="userUrl" href="http://altaauth.azurewebsites.net/Manage/ChangePassword"><span class="fa fa-key"></span> Change Password</a>
+                                </li>
+                                <li><a href="/signout"><span class="fa fa-sign-out"></span> Sign Out</a></li>
 
-                            },
-                            error: function (jqXhr, textStatus, errorThrown) {
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <script>
+                    var url = '@Url.Action("GetUserName", "UserProfile", new { Area = "UserProfile" })';
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        data: null,
+                        async: false,
+                        success: function (respText) {
+                            // console.log(respText);
+                            $('#headerUserName').text(respText.name);
+                            $('#my_image').attr('src', respText.imageUrl);
+                            $('#userUrl').attr('href', '/dashboard/viewprofile/' + respText.userId + '/user-question');
 
-                            }
-                        });
+                        },
+                        error: function (jqXhr, textStatus, errorThrown) {
+
+                        }
+                    });
                        
 
-                    </script>
+                </script>
 
-                }
-                else
-                {
-                    @Html.Partial("_LoginPartial")
-                }
-            </div>
+            }
+            else
+            {
+                @Html.Partial("_LoginPartial")
+            }
         </div>
     </div>
-    <!-- /#wrapper -->
-    <div class="row">
-        <div class="col-md-3">
-            <div id="wrapper">
-                <!-- Sidebar -->
-                <div id="sidebar-wrapper">
-                    <ul class="sidebar-nav nav-pills nav-stacked" data-autohide="false" id="menu">
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>Virtual Store
-                            </a>
-                            <ul class="nav-pills nav-stacked" style="list-style-type: none;">
-                                <li>
-                                    <a href="@Url.Action("Index", "VirtualStore", new {Area = "Admin"})">
-                                        <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>AddVirtualStore
-                                    </a>
-                                </li>
+</div>
+<!-- /#wrapper -->
+<div class="row body-minHeight">
+    <div class="col-md-3">
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav nav-pills nav-stacked" data-autohide="false" id="menu">
+                    <li>
+                        <a href="#">
+                            <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>Virtual Store
+                        </a>
+                        <ul class="nav-pills nav-stacked" style="list-style-type: none;">
+                            <li>
+                                <a href="@Url.Action("Index", "VirtualStore", new {Area = "Admin"})">
+                                    <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-anchor fa-stack-1x "></i></span>AddVirtualStore
+                                </a>
+                            </li>
 
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg pull-left fa-tags"><i class="fa fa-flag fa-stack-1x "></i></span>Category
-                            </a>
-                            <ul class="nav-pills nav-stacked" style="list-style-type: none;">
-                                <li>
-                                    <a href="@Url.Action("AddCategory", "Category", new {Area = "Admin"})">
-                                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>AddCategory
-                                    </a>
-                                </li>
-                                <li><a href="@Url.Action("AddKeyword", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditCategory</a></li>
-                                <li>
-                                    <a href="@Url.Action("EditTopic", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditTopic</a>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa-stack fa-lg pull-left fa-tags">
+                                <i class="fa fa-flag fa-stack-1x "></i>
+                            </span>Category
+                        </a>
+                        <ul class="nav-pills nav-stacked" style="list-style-type: none;">
+                                
+                            <li>
+                                <a href="@Url.Action("DeleteCategory", "Category", new {Area = "Admin"})">
+                                    <span class="fa-stack fa-lg pull-left">
+                                        <i class="fa fa-flag fa-stack-1x "></i>
+                                    </span>Categories
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("EditTopic", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>Topics</a>
 
-                                </li>
-                                <li>
-                                    <a href="/Admin/Category/EditKeyword"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditKeyword</a>
-                                    @*<a href="@Url.Action("EditKeyword", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditKeyword</a>*@
+                            </li>
+                            <li>
+                                <a href="@Url.Action("EditKeyword", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>Keywords</a>
+                                @*<a href="@Url.Action("EditKeyword", "Category", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>EditKeyword</a>*@
 
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("DeleteCategory", "Category", new {Area = "Admin"})">
-                                        <span class="fa-stack fa-lg pull-left">
-                                            <i class="fa fa-flag fa-stack-1x "></i>
-                                        </span>DeleteCategory
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" style="display: block"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Reports</a>
-                            <ul class="nav-pills nav-stacked" style="list-style-type: none;">
-                                <li>
-                                    <a href="@Url.Action("Question", "QuestionReport", new {Area = "Admin"})">
-                                        <span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Question Report
-                                    </a>
-                                </li>
-                                <li><a href="@Url.Action("Answer", "QuestionReport", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Answer Report</a></li>
+                            </li>
+                                
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" style="display: block"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Reports</a>
+                        <ul class="nav-pills nav-stacked" style="list-style-type: none;">
+                            <li>
+                                <a href="@Url.Action("Question", "QuestionReport", new {Area = "Admin"})">
+                                    <span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Question Report
+                                </a>
+                            </li>
+                            <li><a href="@Url.Action("Answer", "QuestionReport", new {Area = "Admin"})"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Answer Report</a></li>
 
-                            </ul>
-                        </li>
+                        </ul>
+                    </li>
 
-                    </ul>
-                </div><!-- /#sidebar-wrapper -->
-            </div>
-
+                </ul>
+            </div><!-- /#sidebar-wrapper -->
         </div>
-        <div class="col-md-8">
-            @RenderBody()
-        </div>
+
     </div>
-    <div class="footer">
-        <div class="footer-container">
-            <div class="footer-right">
-                <div>nostros</div>
-                <div>Terminos de usos</div>
-                <div>Contactenos</div>
-            </div>
-        </div>
+    <div class="col-md-8">
+        @RenderBody()
     </div>
+</div>
+<div class="footer">
+    <div class="footer-container">
+        @*<div class="footer-right">
+            <div>nostros</div>
+            <div>Terminos de usos</div>
+            <div>Contactenos</div>
+        </div>*@
+    </div>
+</div>
 
-    @RenderSection("scripts", required: false)
-    <script>
+
+</body>
+@RenderSection("scripts", required: false)
+<script>
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
@@ -400,6 +400,5 @@
         //    $(".nav").find(".active").removeClass("active");
         //    $(this).parent().addClass("active");
         //});
-    </script>
-</body>
+</script>
 </html>

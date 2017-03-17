@@ -26,13 +26,20 @@ namespace Questions.Command.CommandHandler
             Category category = DbContext.Categories.FirstOrDefault(x => x.Id == command.Id);
             if (category != null)
             {
-                category.Image = command.Image;
+                if (!string.IsNullOrEmpty(command.Image))
+                {
+                    category.Image = command.Image;
+                }
+                
                 category.Name = command.Name;
                 category.Icon = command.Icon;
                 category.Description = command.Description;
                 category.ModifiedOn=DateTime.Now;
                 category.ModifiedBy = command.UserId;
                 DbContext.SaveChanges();
+
+                command.Image = category.Image;
+                command.Id = category.Id;
             }
             else
             {

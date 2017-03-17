@@ -1,5 +1,9 @@
 ﻿@model AltaPerspectiva.Web.Areas.Admin.Models.CategoryViewModel
 <style>
+    .form-horizontal {
+        margin-top: 0px;
+    }
+
     .left-border {
         margin-top: 77px;
         height: 522px;
@@ -53,13 +57,13 @@
                 </div>
             </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Description, new { @class = "col-sm-offset-1 col-md-2" })
-                    <div class="col-sm-offset-1 col-md-10">
-                        @Html.TextAreaFor(model => model.Description, new { placeholder = "Input description", @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Description)
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, new { @class = "col-sm-offset-1 col-md-2" })
+                <div class="col-sm-offset-1 col-md-10">
+                    @Html.TextAreaFor(model => model.Description, new { placeholder = "Input description", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Description)
                 </div>
+            </div>
 
                 <div class="form-group">
                     <div class="dropdown">
@@ -76,22 +80,25 @@
                         </ul>
                     </div>
                     @Html.HiddenFor(model => model.Icon)
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-offset-1 col-md-2">
-                        Image
-                    </label>
-
                     <div class="col-sm-offset-1 col-md-10">
-                        @Html.TextBox("Image", Model.ImagePath, new { type = "file", @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Image)
+                        @Html.ValidationMessageFor(model => model.Icon)
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10 create-button">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                    <div class="form-group">
+                        <label class="col-sm-offset-1 col-md-2">
+                            Image
+                        </label>
+
+                        <div class="col-sm-offset-1 col-md-10">
+                            @Html.TextBox("Image", Model.ImagePath, new { type = "file", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Image)
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10 create-button">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
         }
 
         @* =============== *@
@@ -114,6 +121,8 @@
 </div>
 
 <script>
+    //For clearing the icon of a dropdown list for first load
+    $('#Icon').val('');
     var selectIcon = function (icon) {
         console.log(icon);
         $("#Icon").val(icon);

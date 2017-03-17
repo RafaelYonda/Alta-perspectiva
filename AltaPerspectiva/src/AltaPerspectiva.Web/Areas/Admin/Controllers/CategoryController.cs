@@ -44,108 +44,37 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         [HttpGet("sitemanagement/")]
         public IActionResult Index()
         {
-            return RedirectToAction("AddCategory");
+            return RedirectToAction("DeleteCategory");
         }
-        [HttpPost]
-        public IActionResult SaveTopic(Guid categoryId, String topicName)
-        {
-            AddTopicCommand cmd = new AddTopicCommand(topicName, categoryId);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid id = cmd.Id;
 
-            return Ok(topicName);
-        }
 
         [HttpGet("Admin/addcategory")]
         public IActionResult AddCategory()
         {
-            ViewData["Title"] = "Add category";
-            ViewData["Category"] = "Add category";
+           
             CategoryViewModel categoryViewModel = new CategoryViewModel();
             ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
-            ViewBag.Message = null;
+            
             return View(categoryViewModel);
         }
-        [HttpGet("Admin/addcategory/{id}")]
-        public IActionResult AddCategory(Guid id)
-        {
-
-            CategoryViewModel categoryViewModel = new CategoryViewModel();
-            Category model = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(id);
-            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-            String imageNameWithPath = String.Empty;
-            if (categoryViewModel.Image != null)
-            {
-                imageNameWithPath = azureFileUploadHelper.GetCategoryImage(categoryViewModel.Image.Name);
-            }
-
-            categoryViewModel = new CategoryViewModel
-            {
-                Id = model.Id,
-                Description = model.Description,
-                Name = model.Name,
-                ImagePath = imageNameWithPath,
-                Icon = model.Icon
-            };
-            ViewData["Title"] = "Add category of " + categoryViewModel.Name;
-            ViewData["Category"] = "Add category of " + categoryViewModel.Name;
-            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
-            return View("AddCategory", categoryViewModel);
-        }
-
-        [HttpPost("Admin/addcategory/{id}")]
-        public async Task<IActionResult> AddCategory(Guid id, CategoryViewModel categoryViewModel)
+        [HttpPost("Admin/addcategory")]
+        public async Task<IActionResult> AddCategory(CategoryViewModel categoryViewModel)
         {
             ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
             //Update 
             if (!ModelState.IsValid)
             {
                 // re-render the view when validation failed.
+                categoryViewModel.Icon = null;
                 return View("AddCategory", categoryViewModel);
             }
-
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-            if (User.Identity.IsAuthenticated)
+            bool isCategoryExists = queryFactory.ResolveQuery<ICategoriesQuery>().IsCategoryExists(categoryViewModel.Name);
+            if (isCategoryExists)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(loggedinUser.ToString());
-            }
-            String image = categoryViewModel.Image.FileName;
-            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-            await azureFileUploadHelper.SaveCategoryImage(categoryViewModel.Image);
-
-            UpdateCategoryCommand command = new UpdateCategoryCommand(loggedinUser, categoryViewModel.Id, categoryViewModel.Name, categoryViewModel.Description, image, categoryViewModel.Icon);
-            commandsFactory.ExecuteQuery(command);
-            ModelState.Clear();
-            ViewData["Title"] = "Add category";
-            ViewBag.Message = categoryViewModel.Name + " updated Successfully";
-            return RedirectToAction("AddKeyword");
-
-        }
-        //[HttpGet("Admin/category/IsCategoryNameExist")]
-
-        [AllowAnonymous]
-        [HttpPost]
-        public IActionResult IsCategoryNameExist(string Name)
-        {
-            bool isExist = queryFactory.ResolveQuery<ICategoriesQuery>().IsCategoryExists(Name);
-            return Ok(!isExist);
-        }
-
-        [HttpPost("Admin/addcategory")]
-        public async Task<IActionResult> AddCategory(CategoryViewModel categoryViewModel)
-        {
-
-            ViewData["Title"] = "Add category";
-            //Update 
-            if (!ModelState.IsValid)
-            { // re-render the view when validation failed.
-                ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
+                ModelState.AddModelError("Name", "Category name already exists");
+                categoryViewModel.Icon = null;
                 return View("AddCategory", categoryViewModel);
             }
-
-
             String image = categoryViewModel.Image.FileName;
 
             AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
@@ -164,32 +93,105 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             commandsFactory.ExecuteQuery(cmd);
             ModelState.Clear();
             ViewBag.Message = categoryViewModel.Name + " Added Successfully";
-            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
             return View(new CategoryViewModel());
         }
-
-
-        [HttpGet("Admin/addkeyword")]
-        public IActionResult AddKeyword()
+        [HttpGet]
+        public IActionResult EditCategory(Guid id)
         {
-            ViewData["Title"] = "Add keyword";
-            List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Where(x => x.Name != "Ver todas").ToList();
-            return View(categoriesList);
+            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
+            Category model = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(id);
+            if (model == null)
+            {
+                throw new Exception("Something wrong in your url");
+            }
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            String imageNameWithPath = String.Empty;
+            if (model.Image != null)
+            {
+                imageNameWithPath = azureFileUploadHelper.GetCategoryImage(model.Image);
+            }
+
+            var categoryViewModel = new CategoryViewModel
+            {
+                Id = model.Id,
+                Description = model.Description,
+                Name = model.Name,
+                ImagePath = imageNameWithPath,
+                Icon = model.Icon,
+                PreviousName = model.Name
+            };
+
+            return View("EditCategory", categoryViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditCategory(CategoryViewModel categoryViewModel)
+        {
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            
+            
+            ViewBag.CategoryIconList = CategoryList.GetCategoryIconViewModels(queryFactory);
+            if (categoryViewModel.IsPreviousImage || categoryViewModel.Image != null)
+            {
+                ModelState.Remove("Image");
+            }
+            else
+            {
+                ModelState.AddModelError("Image", "Please select a image");
+                return View("EditCategory", categoryViewModel);
+            }
+            //   string categoryName =
+            if (!ModelState.IsValid)
+            {
+                return View("EditCategory", categoryViewModel);
+            }
+            String catgeoryName = categoryViewModel.Name.Trim();
+            bool isCategoryExists = queryFactory.ResolveQuery<ICategoriesQuery>().IsCategoryExists(catgeoryName);
+            if (isCategoryExists &&categoryViewModel.PreviousName!=catgeoryName)
+            {
+                ModelState.AddModelError("Name", "Category name already exists");
+                return View("EditCategory", categoryViewModel);
+            }
+
+            if (String.IsNullOrWhiteSpace(catgeoryName))
+            {
+                ModelState.AddModelError("Name", "Name can not be empty");
+                return View("EditCategory", categoryViewModel);
+            }
+            String image=String.Empty	;
+            if (categoryViewModel.IsPreviousImage && categoryViewModel.Image == null)
+            {
+                image = String.Empty;
+            }
+            else
+            {
+                image = categoryViewModel.Image.FileName;
+
+                await azureFileUploadHelper.SaveCategoryImage(categoryViewModel.Image);
+            }
+           
+            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                loggedinUser = new Guid(loggedinUser.ToString());
+            }
+            UpdateCategoryCommand command = new UpdateCategoryCommand(loggedinUser, categoryViewModel.Id, categoryViewModel.Name, categoryViewModel.Description, image, categoryViewModel.Icon);
+            commandsFactory.ExecuteQuery(command);
+            ModelState.Clear();
+            ViewData["Title"] = "Add category";
+            ViewBag.Message = categoryViewModel.Name + " updated Successfully";
+            categoryViewModel.ImagePath = azureFileUploadHelper.GetCategoryImage(command.Image);
+            categoryViewModel.PreviousName = categoryViewModel.Name;
+            return View	("EditCategory",categoryViewModel);
         }
 
-
-        [HttpGet("Admin/QuestionReport")]
-        public IActionResult QuestionReport()
-        {
-            ViewData["Title"] = "QuestionReport";
-            return View();
-        }
         [HttpGet("Admin/DeleteCategory")]
         public IActionResult DeleteCategory()
         {
             ViewData["Title"] = "Delete Category";
             //the 7639B416-8D1C-4119-B58E-143CB860E8A6 is General Vertodas
-            IEnumerable<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Where(x => x.Id != new Guid("7639B416-8D1C-4119-B58E-143CB860E8A6")).ToList();
+            IEnumerable<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Where(x => x.Sequence != 1).ToList();
             return View("DeleteCategory", categoriesList);
         }
         [HttpPost("Admin/DeleteCategory")]
@@ -210,9 +212,30 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
         #region Topic
         [HttpGet]
-        public IActionResult AddTopic(Guid Id)
+        public IActionResult EditTopic()
         {
-            TopicViewModel topicViewModel=new TopicViewModel();
+            TopicNKeywordViewModel topicNKeywordViewModel = new TopicNKeywordViewModel();
+            topicNKeywordViewModel.Categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Where(x => x.Sequence != 1).ToList();
+
+            return View(topicNKeywordViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditTopic(TopicNKeywordViewModel model)
+        {
+            model.Categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
+            model.Topics = queryFactory.ResolveQuery<ITopicQuery>().GetTopics(new Guid(model.CategoryId));
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            // At this stage the model is OK => do something with the selected category
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> AddTopic(Guid Id)
+        {
+            TopicViewModel topicViewModel = new TopicViewModel();
             topicViewModel.CategoryId = Id;
 
             Category category = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(Id);
@@ -224,19 +247,28 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             {
                 throw new Exception("Some thing wrong with your url");
             }
+
+            topicViewModel.Topics = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(Id);
+
+            topicViewModel.Topics = topicViewModel.Topics.OrderByDescending(x => x.CreatedOn).ToList();
             return View("AddTopic", topicViewModel);
         }
         [HttpPost]
-        public IActionResult AddTopic(TopicViewModel topicViewModel)
+        public async Task<IActionResult> AddTopic(TopicViewModel topicViewModel)
         {
+            var topics = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(topicViewModel.CategoryId);
+
+            topics = topics.OrderByDescending(x => x.CreatedOn).ToList();
             Category category = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(topicViewModel.CategoryId);
             if (category != null)
             {
+                
                 topicViewModel.CategoryName = category.Name;
             }
 
             if (!ModelState.IsValid)
             {
+                topicViewModel.Topics = topics;
                 return View("AddTopic", topicViewModel);
             }
             String topicName = topicViewModel.TopicName.Trim();
@@ -259,36 +291,14 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             Guid id = cmd.Id;
             ViewBag.Message = topicName + " Added Successfully";
 
-            
+           
             return View("AddTopic", new TopicViewModel
             {
                 CategoryId = topicViewModel.CategoryId,
-                CategoryName = topicViewModel.CategoryName
+                CategoryName = topicViewModel.CategoryName,
+                Topics =topics
             });
         }
-
-        //  [HttpGet("Admin/EditTopic")]
-        public IActionResult EditTopic()
-        {
-            TopicNKeywordViewModel topicNKeywordViewModel = new TopicNKeywordViewModel();
-            topicNKeywordViewModel.Categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
-
-            return View(topicNKeywordViewModel);
-        }
-        //  [HttpPost("Admin/EditTopic")]
-        [HttpPost]
-        public ActionResult EditTopic(TopicNKeywordViewModel model)
-        {
-            model.Categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
-            model.Topics = queryFactory.ResolveQuery<ITopicQuery>().GetTopics(new Guid(model.CategoryId));
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            // At this stage the model is OK => do something with the selected category
-            return View(model);
-        }
-
         [HttpPost]
         public IActionResult UpdateTopic(Guid id, String topicName)
         {
@@ -337,6 +347,25 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
         #region Keyword
         [HttpGet]
+        public IActionResult EditKeyword()
+        {
+            TopicNKeywordViewModel topicNKeywordViewModel = new TopicNKeywordViewModel();
+            topicNKeywordViewModel.Categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().Where(x=>x.Sequence!=1).ToList();
+
+            return View(topicNKeywordViewModel);
+        }
+        [HttpPost]
+        public ActionResult EditKeyword(TopicNKeywordViewModel model)
+        {
+            model.Categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
+            model.Keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(new Guid(model.CategoryId));
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return View(model);
+        }
+        [HttpGet]
         public IActionResult AddKeyword(Guid Id)
         {
             KeywordViewModel keywordViewModel = new KeywordViewModel();
@@ -351,11 +380,26 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             {
                 throw new Exception("Some thing wrong with your url");
             }
+
+            var keywords =
+                queryFactory.ResolveQuery<IKeywordsQuery>()
+                    .Execute(keywordViewModel.CategoryId)
+                    .OrderByDescending(x => x.Id)
+                    .ToList();
+            keywordViewModel.Keywords = keywords;
+
+
+
             return View("AddKeyword", keywordViewModel);
         }
         [HttpPost]
-        public IActionResult AddKeyword1(KeywordViewModel keywordViewModel)
+        public IActionResult AddKeyword(KeywordViewModel keywordViewModel)
         {
+            var keywords =
+              queryFactory.ResolveQuery<IKeywordsQuery>()
+                  .Execute(keywordViewModel.CategoryId)
+                  .OrderByDescending(x => x.Id)
+                  .ToList();
             Category category = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(keywordViewModel.CategoryId);
             if (category != null)
             {
@@ -364,6 +408,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
             if (!ModelState.IsValid)
             {
+                keywordViewModel.Keywords = keywords;
                 return View("AddKeyword", keywordViewModel);
             }
             String text = keywordViewModel.Text.Trim();
@@ -381,123 +426,54 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 return View("AddKeyword", keywordViewModel);
             }
 
-            AddKeywordCommand cmd = new AddKeywordCommand( keywordViewModel.CategoryId, text);
+            AddKeywordCommand cmd = new AddKeywordCommand(keywordViewModel.CategoryId, text);
             commandsFactory.ExecuteQuery(cmd);
             Guid id = cmd.Id;
             ViewBag.Message = text + " Added Successfully";
 
-
+           
             return View("AddKeyword", new KeywordViewModel
             {
                 CategoryId = keywordViewModel.CategoryId,
-                CategoryName = keywordViewModel.CategoryName
+                CategoryName = keywordViewModel.CategoryName,
+                Keywords = keywords
             });
         }
-
-        [HttpPost]
-        public IActionResult GetKeyWords(Guid Id)
-        {
-            //List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
-
-            List<Keyword> keywords =
-                queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).OrderByDescending(x => x.Id).ToList();
-            List<String> keywordString = keywords.Select(x => x.Text).ToList();
-            return Ok(keywordString);
-        }
-        [HttpPost]
-        public IActionResult SaveKeyWords(Guid categoryId, String newKeyword)
-        {
-            //List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
-            AddKeywordCommand cmd = new AddKeywordCommand(categoryId, newKeyword);
-            commandsFactory.ExecuteQuery(cmd);
-            return Ok();
-        }
-
-        [HttpGet]
-        public IEnumerable<String> GetTopics(Guid Id)
-        {
-            var topics = queryFactory.ResolveQuery<ITopicQuery>().GetTopics(Id).Select(x => x.TopicName).ToList();
-            return topics;
-        }
-
-     
-
-
-        //[HttpGet("Admin/EditKeyword")]
-        [HttpGet]
-        public IActionResult EditKeyword()
-        {
-            //var   = new TopicNKeywordViewModel
-            //{
-            //    Categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
-            //}
-
-            TopicNKeywordViewModel topicNKeywordViewModel = new TopicNKeywordViewModel();
-            topicNKeywordViewModel.Categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
-
-            return View(topicNKeywordViewModel);
-        }
-        [HttpPost("Admin/EditKeyword")]
-        //[HttpPost]
-        public ActionResult EditKeyword(TopicNKeywordViewModel model)
-        {
-            model.Categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
-            model.Keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(new Guid(model.CategoryId));
-            if (!ModelState.IsValid)
-            {
-                // there was a validation error =>
-                // rebind categories and redisplay view
-
-
-                return View(model);
-            }
-            // At this stage the model is OK => do something with the selected category
-            return View(model);
-        }
-
         [HttpPost]
         public IActionResult UpdateKeyword(long id, String Text)
         {
             String modifiedKeywordName = Text.TrimStart().TrimEnd().Trim();
             var isTopicExists =
                 queryFactory.ResolveQuery<IKeywordsQuery>().IsKeywordExists(modifiedKeywordName);
+            Boolean successResult = false;
             if (!isTopicExists)
             {
                 UpdateKeywordCommand command = new UpdateKeywordCommand(id, modifiedKeywordName, null);
                 commandsFactory.ExecuteQuery(command);
-
                 if (command.Id != Guid.Empty)
                 {
-                    return Ok(new
-                    {
-                        result = true
-                    });
+                    successResult = true;
                 }
             }
             return Ok(new
             {
-                result = false
+                result = successResult
             });
 
         }
         [HttpPost]
         public IActionResult DeleteKeyword(long id)
         {
-
-             UpdateKeywordCommand command = new UpdateKeywordCommand(id, null, true);
+            UpdateKeywordCommand command = new UpdateKeywordCommand(id, null, true);
             commandsFactory.ExecuteQuery(command);
-
+            Boolean successResult = false;
             if (command.Id != Guid.Empty)
             {
-                return Ok(new
-                {
-                    result = true
-                });
+                successResult = true;
             }
-
             return Ok(new
             {
-                result = false
+                result = successResult
             });
             //return Ok();
         }

@@ -17,14 +17,17 @@ namespace AltaPerspectiva.Web.Areas.Admin.Models
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Category Name cannot be longer than 100 characters and less than 2 characters")]
        // [Remote("IsCategoryNameExist", "Category","Admin", HttpMethod = "POST", ErrorMessage = "Category name already exist ")]
         public string Name { get; set; }
+        public string PreviousName { get; set; }
         [Required]
         public string Icon { get; set; }
-        // public string Active { get; set; }
+        //public bool IsPreviousIcon { get; set; }
         [Required]
         public string Description { get; set; }
         //  public int Sequence { get; set; }
         [ValidateFile(ErrorMessage = "Please select a jpeg/png format, smaller than 512 kb")]
         public IFormFile Image { get; set; }
+
+       public bool IsPreviousImage { get; set; }
 
         public String ImagePath { get; set; }
     }

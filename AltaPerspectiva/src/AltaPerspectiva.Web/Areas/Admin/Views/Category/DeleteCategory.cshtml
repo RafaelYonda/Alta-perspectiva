@@ -1,69 +1,86 @@
 ﻿@model IEnumerable<Questions.Domain.Category>
 @*<style>
-    .row {
-        margin-top: 58px;
-        margin-left: -434px;
-    }
+        .row {
+            margin-top: 58px;
+            margin-left: -434px;
+        }
 
-    .table {
-        margin-left: 244px;
-    }
+        .table {
+            margin-left: 244px;
+        }
 
-    /*.table-responsive {
-        overflow-x: hidden;
-        overflow-y: auto;
-        height: 349px;
-    }*/
-    .table-responsive {
-        width: 605px;
-    }
-</style>*@
-<h2>Delete Category</h2>
+        /*.table-responsive {
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 349px;
+        }*/
+        .table-responsive {
+            width: 605px;
+        }
+    </style>*@
+<h2> Categories</h2>
 
 <div class="row">
-    <div class="col-md-4">
-        .
+    <div class="col-md-3">
+
     </div>
     <div class="col-md-4">
         <div class="panel-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="myTable">
-                    <thead>
+            <table class="table  table-striped" id="myTable">
+                <thead>
+                    <tr>
+                        <td colspan="3">
+
+                            <a href="@Url.Action("AddCategory", "Category", new {Area = "Admin"})" class="btn">
+                                AddCategory
+                            </a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 1%">
+                            CategoryName
+                        </th>
+                        <th style="width: 10%">
+                            Delete
+                        </th>
+                        <th style="width: 10%">
+                            Edit
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
                         <tr>
-                            <th style="width:1%">
-                                CategoryName
-                            </th>
-                            <th style="width:10%">
-                                Action
-                            </th>
-
+                            <td>
+                                @Html.HiddenFor(modelItem => item.Id)
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <button id="btnDelete" type="button" class="btn btn-danger" onclick="DeleteCategory(this,'@item.Id')">
+                                    DeleteCategory
+                                </button>
+                            </td>
+                            <td>
+                                <button id="btnEdit" type="button" class="btn btn-danger" onclick="EditCategory(this,'@item.Id')">
+                                    Edit
+                                </button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.HiddenFor(modelItem => item.Id)
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    <button id="btnDelete" type="button" class="btn btn-danger" onclick="DeleteCategory(this,'@item.Id')">
-                                        DeleteCategory
-                                    </button>
-                                </td>
+                    }
+                </tbody>
 
-                            </tr>
-                        }
-                    </tbody>
-
-                </table>
-            </div>
+            </table>
 
         </div>
     </div>
 </div>
 <script>
+    function EditCategory(element, categoryId) {
+        window.location = "/Admin/Category/EditCategory/" + categoryId;
+    }
+
     function DeleteCategory(element, categoryId) {
 
         @*alertify.confirm("Do you really want to delete?", function () {
@@ -119,7 +136,7 @@
 
                 }
             });
-         }
+        }
 
     }
 </script>

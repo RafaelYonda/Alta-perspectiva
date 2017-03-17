@@ -1,0 +1,138 @@
+﻿@using AltaPerspectiva.Web.Areas.Admin.helpers
+@model AltaPerspectiva.Web.Areas.Admin.Models.CategoryViewModel
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<style>
+    .custom-textarea {
+        width: 467px;
+        min-height: 149px;
+    }
+
+    .form-group .dropdown {
+        width: 78%;
+        margin-left: 10%;
+    }
+
+    .open > .dropdown-menu {
+        overflow-y: scroll;
+        max-height: 300px;
+        width: 100%;
+        left: 5px;
+    }
+
+    .form-horizontal {
+        margin-top: 0px;
+    }
+    .custom {
+        min-height: 1500px
+    }
+</style>
+<div class="row custom body-minHeight">
+    <div class="col-md-8">
+        <h2>Edit Category</h2>
+        @using (Html.BeginForm("EditCategory", "Category", FormMethod.Post, new { area = "Admin", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.PreviousName)
+            @Html.HiddenFor(model => model.ImagePath)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "col-sm-offset-1 col-md-2" })
+                <div class="col-sm-offset-1 col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Input name", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, new { @class = "col-sm-offset-1 col-md-2" })
+                <div class="col-sm-offset-1 col-md-10">
+                    @Html.TextAreaFor(model => model.Description, new { placeholder = "Input description", @class = "form-control custom-textarea" })
+                    @Html.ValidationMessageFor(model => model.Description)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-offset-1 col-md-2">Icon</label>
+                <div class="col-sm-offset-1 col-md-10">
+                    @Html.TextBoxFor(model => model.Icon, new { @placeholder = "Input description", @class = "form-control", @readonly = "readonly" })
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-block dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                        <span class="pull-left" id="icon-select">Select Icon</span>
+                        <span id="icon-view" style="margin-left: 20px; float: left; margin-top: 3px;"></span>
+                        <span class="caret pull-right" style="margin-top:8px;"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                        @foreach (var item in ViewBag.CategoryIconList)
+                        {
+                            <li role="presentation"><a role="menuitem" href="#" onclick="selectIcon('@item.Icon')">@item.Icon <span class="@item.Icon pull-right"></span></a></li>
+                        }
+                    </ul>
+                </div>
+                @Html.HiddenFor(model => model.Icon)
+                @Html.ValidationMessageFor(model => model.Icon)
+            </div>
+            <div class="form-group">
+                <label class="col-sm-offset-1 col-md-4">Profile Image</label>
+                <div class="col-sm-offset-1 col-md-10">
+                    <img src="@Url.Content(Model.ImagePath)" alt="Image" class="img-rounded" width="233" height="147" />
+
+                    @Html.CheckBoxFor(model => model.IsPreviousImage)Previous file
+                </div>
+                <div class="col-sm-offset-1 col-md-10">
+                    @Html.TextBoxFor(model => model.Image, new { type = "file", @class = "form-control input-lg bottm-margin", @value = "Model.ScreenShotFileName" })
+                    @Html.ValidationMessageFor(model => model.Image)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-10 ">
+                    <input type="submit" value="Update" class="btn btn-default" />
+                </div>
+            </div>
+        }
+        @{
+            <br />
+
+            if (ViewBag.Message != null)
+            {
+                <h1 class="alert alert-danger">@ViewBag.Message</h1>
+                ViewData.Clear();
+            }
+
+        }
+    </div>
+
+</div>
+<script>
+    
+    var selectIcon = function (icon) {
+        console.log(icon);
+        $("#Icon").val(icon);
+        $("#icon-select").text(icon);
+        $("#icon-view").attr('class', icon);
+        console.log($("#Icon").val());
+    }
+    //$('#IsPreviousImage')
+    $('#IsPreviousImage').prop('checked', true);
+    $("input[type='file']").prop('disabled', true);
+
+    $('#IsPreviousImage').on('change', function () {
+        var checked = $(this).is(":checked");
+        if (checked) {
+            $("input[type='file']").prop('disabled', true);
+        } else {
+            $("input[type='file']").prop('disabled', false);
+        }
+    })
+
+    $('#IsPreviousIcon').on('change',
+        function () {
+            var checked = $(this).is(":checked");
+            alert(checked);
+            //if (checked) {
+            //    $("input[type='file']").prop('disabled', true);
+            //} else {
+            //    $("input[type='file']").prop('disabled', false);
+            //}
+        });
+</script>

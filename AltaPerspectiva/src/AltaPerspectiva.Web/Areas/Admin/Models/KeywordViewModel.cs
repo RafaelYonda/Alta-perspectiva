@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Questions.Domain;
 
 namespace AltaPerspectiva.Web.Areas.Admin.Models
 {
@@ -17,5 +18,6 @@ namespace AltaPerspectiva.Web.Areas.Admin.Models
         [Required]
         public Guid CategoryId { get; set; }
         public String CategoryName { get; set; }
+        public IEnumerable<Keyword> Keywords { get; set; }
     }
 }
