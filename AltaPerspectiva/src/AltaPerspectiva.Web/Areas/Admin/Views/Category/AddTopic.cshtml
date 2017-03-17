@@ -10,7 +10,14 @@
         margin-top: 22px;
     }
 
-  
+      .table-responsive {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 349px;
+    }
+      .panel-body {
+          padding: 0px
+      }
 </style>
 
 <div class="row">
@@ -57,29 +64,31 @@
     <div class="col-md-2">.</div>
     <div class="col-md-8">
         <div class="panel-body">
-            <table class="table table-bordered table-striped" id="myTable">
-                <thead>
-                    <tr>
-                        <th >
-                            TopicName
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Topics)
-                    {
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="myTable">
+                    <thead>
                         <tr>
-                            <td>
-                                
-                                @Html.DisplayFor(modelItem => item.TopicName)
-                            </td>
-                            
+                            <th>
+                                TopicName
+                            </th>
                         </tr>
-                    }
-                </tbody>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Topics)
+                        {
+                            <tr>
+                                <td>
 
-            </table>
+                                    @Html.DisplayFor(modelItem => item.TopicName)
+                                </td>
 
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
         </div>
     </div>
 </div>

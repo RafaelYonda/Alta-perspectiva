@@ -232,7 +232,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         public ActionResult EditTopic(TopicNKeywordViewModel model)
         {
             model.Categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
-            model.Topics = queryFactory.ResolveQuery<ITopicQuery>().GetTopics(new Guid(model.CategoryId));
+            model.Topics = queryFactory.ResolveQuery<ITopicQuery>().GetTopics(new Guid(model.CategoryId)).OrderByDescending(x => x.TopicName).ToList();
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -377,7 +377,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         public ActionResult EditKeyword(TopicNKeywordViewModel model)
         {
             model.Categories = queryFactory.ResolveQuery<ICategoriesQuery>().Execute();
-            model.Keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(new Guid(model.CategoryId));
+            model.Keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(new Guid(model.CategoryId)).OrderByDescending(x=>x.Text).ToList();
             if (!ModelState.IsValid)
             {
                 return View(model);

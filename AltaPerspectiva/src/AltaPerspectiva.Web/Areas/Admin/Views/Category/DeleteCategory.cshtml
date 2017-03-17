@@ -18,6 +18,13 @@
             width: 605px;
         }
     </style>*@
+<style>
+    /*.table-responsive {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 349px;
+    }*/
+</style>
 <h2> Categories</h2>
 
 <div class="row">
@@ -26,53 +33,55 @@
     </div>
     <div class="col-md-4">
         <div class="panel-body">
-            <table class="table  table-striped" id="myTable">
-                <thead>
-                    <tr>
-                        <td colspan="3">
-
-                            <a href="@Url.Action("AddCategory", "Category", new {Area = "Admin"})" class="btn">
-                                AddCategory
-                            </a>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="width: 1%">
-                            CategoryName
-                        </th>
-                        <th style="width: 10%">
-                            Delete
-                        </th>
-                        <th style="width: 10%">
-                            Edit
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+            <div class="table-responsive">
+                <table class="table  table-striped table-scroll" id="myTable">
+                    <thead>
                         <tr>
-                            <td>
-                                @Html.HiddenFor(modelItem => item.Id)
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                <button id="btnDelete" type="button" class="btn btn-danger" onclick="DeleteCategory(this,'@item.Id')">
-                                    DeleteCategory
-                                </button>
-                            </td>
-                            <td>
-                                <button id="btnEdit" type="button" class="btn btn-danger" onclick="EditCategory(this,'@item.Id')">
-                                    Edit
-                                </button>
+                            <td colspan="3">
+
+                                <a href="@Url.Action("AddCategory", "Category", new {Area = "Admin"})" class="btn">
+                                    AddCategory
+                                </a>
+
                             </td>
                         </tr>
-                    }
-                </tbody>
+                        <tr>
+                            <th style="width: 1%">
+                                CategoryName
+                            </th>
+                            <th style="width: 10%">
+                                Delete
+                            </th>
+                            <th style="width: 10%">
+                                Edit
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(modelItem => item.Id)
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    <button id="btnDelete" type="button" class="btn btn-danger" onclick="DeleteCategory(this, '@item.Id')">
+                                        DeleteCategory
+                                    </button>
+                                </td>
+                                <td>
+                                    <button id="btnEdit" type="button" class="btn btn-danger" onclick="EditCategory(this, '@item.Id')">
+                                        Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
 
-            </table>
+                </table>
 
+            </div>
         </div>
     </div>
 </div>

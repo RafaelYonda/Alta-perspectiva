@@ -10,7 +10,15 @@
         margin-top: 22px;
     }
 
-   
+    .table-responsive {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 349px;
+    }
+
+    .panel-body {
+        padding: 0px;
+    }
 </style>
 <div class="body-minHeight">
 
@@ -28,7 +36,7 @@
                 </div>
             </div>
             @using (Html.BeginForm("AddKeyword", "Category", FormMethod.Post, new { area = "Admin", @class = "form-horizontal", @role = "form" }))
-        {
+            {
                 <hr />
 
                 @Html.ValidationSummary(true)
@@ -47,17 +55,17 @@
                         <input type="submit" value="Create" class="btn btn-default" />
                     </div>
                 </div>
-        }
+            }
 
             @* =============== *@
             @{
                 <br />
 
-            if (ViewBag.Message != null)
-            {
+                if (ViewBag.Message != null)
+                {
                     <h1 class="alert alert-danger">@ViewBag.Message</h1>
-                ViewData.Clear();
-            }
+                    ViewData.Clear();
+                }
 
             }
 
@@ -72,29 +80,31 @@
         <div class="col-md-2">.</div>
         <div class="col-md-8">
             <div class="panel-body">
-                <table class="table table-bordered table-striped" id="myTable">
-                    <thead>
-                        <tr>
-                            <th>
-                                Keyword
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Keywords)
-                {
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="myTable">
+                        <thead>
                             <tr>
-                                <td>
-
-                                    @Html.DisplayFor(modelItem => item.Text)
-                                </td>
-
+                                <th>
+                                    Keyword
+                                </th>
                             </tr>
-                }
-                    </tbody>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Keywords)
+                            {
+                                <tr>
+                                    <td>
 
-                </table>
+                                        @Html.DisplayFor(modelItem => item.Text)
+                                    </td>
 
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
             </div>
         </div>
     </div>
