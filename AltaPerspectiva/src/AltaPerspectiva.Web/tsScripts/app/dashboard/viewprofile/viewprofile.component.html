@@ -59,7 +59,7 @@
 </div>
 <div class="row profile-xs">
 
-    <div class="alert alert-danger center-width" *ngIf="isOwner">
+    <div class="alert alert-danger center-width" *ngIf="isOwner && credential">
        <span *ngIf="!credential.id">Please add first name and last name to start.</span> 
     </div>
     <div class="col-md-9">

@@ -59,8 +59,6 @@ export class ProfileInfoComponent {
             this.getCredetialOnParentLoaded(this.credential);
         }
     }
-
-
     getCredetialOnParentLoaded(data: CredentialViewModel): CredentialViewModel {
         if (!data.userId) return;
 
