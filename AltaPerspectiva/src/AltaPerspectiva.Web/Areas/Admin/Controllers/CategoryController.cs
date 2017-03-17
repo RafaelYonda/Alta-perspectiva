@@ -152,7 +152,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             }
             String catgeoryName = categoryViewModel.Name.Trim();
             bool isCategoryExists = queryFactory.ResolveQuery<ICategoriesQuery>().IsCategoryExists(catgeoryName);
-            if (isCategoryExists &&categoryViewModel.PreviousName!=catgeoryName)
+            if (isCategoryExists &&categoryViewModel.PreviousName.Trim()!=catgeoryName)
             {
                 ModelState.AddModelError("Name", "Category name already exists");
                 return View("EditCategory", categoryViewModel);

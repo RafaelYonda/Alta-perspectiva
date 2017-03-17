@@ -52,8 +52,8 @@ export class ApBannerComponent {
 }
 var IMAGES: Image[] = [
     
-    { "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_1.png" },
-    { "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_2.png" },
-    { "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_3.png" },
-    { "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_4.png" }
+    { "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_1.png" }
+    //{ "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_2.png" },
+    //{ "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_3.png" },
+    //{ "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_4.png" }
 ];
