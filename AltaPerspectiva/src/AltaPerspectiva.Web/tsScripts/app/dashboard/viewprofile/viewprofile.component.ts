@@ -135,7 +135,7 @@ export class ViewProfileComponent {
 
         this.employmentExists = true;                
 
-        this.employmentHtml = " " + this.credential.employments[0].position.concat(" at ")
+        this.employmentHtml = " " + this.credential.employments[0].position.concat(" En ")
             .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/>").concat("&nbsp;&nbsp;&nbsp;&nbsp;")
                               .concat(this.credential.employments[0].startDate ? this.credential.employments[0].startDate.toString():"")
                               .concat(this.credential.employments[0].isCurrentlyWorking ? " present " : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
@@ -180,7 +180,6 @@ export class ViewProfileComponent {
         } else {
             this.educationHtml = primary.concat(" & ").concat(secondary).concat(degree).concat(graduationYear);
         }
-        
     }
     generatePlaceHtml() {
         this.placeExists = true;

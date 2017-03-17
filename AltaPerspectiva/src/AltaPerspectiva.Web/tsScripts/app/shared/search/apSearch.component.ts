@@ -135,7 +135,6 @@ export class ApSearchComponent {
         //==============
         this.showQuestion = true;
         var form = document.getElementById("question-end");
-        
             this.questionLeftposition = textWidth;
         form.style.left = this.questionLeftposition.toString() + 'px';
     }

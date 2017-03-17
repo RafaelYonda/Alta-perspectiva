@@ -161,7 +161,7 @@
     <div class="col-md-3">
         <div class="profile-image-center">
             <img class="profile-image" src="{{imageLink}}" />
-            <button type="button" name="documents" class="btn btn-default hidden-xs" (click)="onUploadClick()" *ngIf="isOwner">Upload Image</button>
+            <button type="button" name="documents" class="btn btn-default hidden-xs" (click)="onUploadClick()" *ngIf="isOwner"><!--Upload Image-->Foto de perfil</button>
         </div>
     </div>
     <div class="col-md-9">
@@ -189,7 +189,7 @@
                 <a id="credential-edit" *ngIf="isOwner" (click)="openCredentialDialogBox()"><span><i class="fa fa-edit"></i><!--Edit credential-->Editar credencial</span> </a>
             </div>
             <!-- description -->
-            <a *ngIf="!credential.description && isOwner" (click)="showDescription = false"> Write a description about yourself</a>
+            <a *ngIf="!credential.description && isOwner" (click)="showDescription = false"> <!--Write a description about yourself-->¿Cómo te describes?</a>
             <div id="description" [hidden]="(!showDescription)">
                 
                 <div [innerHTML]="credential.description"></div>

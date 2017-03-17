@@ -55,11 +55,11 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="email"><!--Position-->Cargo* :</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="position" placeholder="Enter Position" [(ngModel)]="employment.position" required name="position"
+                            <input type="text" class="form-control" id="position" placeholder="¿Qué haces?" [(ngModel)]="employment.position" required name="position"
                                    #position="ngModel">
                             <div [hidden]="position.valid || position.pristine"
                                  class="alert alert-danger">
-                                Position is required
+                                Es requerido
                             </div>
                          </div>
                     </div>
@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="profile-modal-button-container">
-                        <a (click)="DeleteEmployment()"><!--Delete-->Borrar</a>
+                        <a (click)="DeleteEmployment()"><!--Delete-->Eliminar</a>
                         <a (click)="onClickedExit()"><!--Cancel--> Cancelar</a>
                         <button type="submit" class="btn btn-success" [disabled]="!employmentForm.form.valid"><!--Save-->Guardar</button>
                     </div>
