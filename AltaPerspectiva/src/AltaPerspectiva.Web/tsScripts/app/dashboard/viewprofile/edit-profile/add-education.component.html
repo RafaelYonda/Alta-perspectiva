@@ -53,26 +53,22 @@
             <div class="profile-modal-body">
                 <form class="form-horizontal" (ngSubmit)="saveEducation()" #educationForm="ngForm">
                     <div class="form-group">
-                        <label class="control-label col-sm-4" for="email"><!--School Name-->Universidad o Colegio*</label>
+                        <label class="control-label col-sm-4" for="email"><!--School Name-->Institución*</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="SchoolName" placeholder="Enter SchoolName" [(ngModel)]="education.schoolName" required name="SchoolName"
+                            <input type="text" class="form-control" id="SchoolName" placeholder="¿Dónde estudiaste?" [(ngModel)]="education.schoolName" required name="SchoolName"
                                    #SchoolName="ngModel">
                             <div [hidden]="SchoolName.valid || SchoolName.pristine"
                                  class="alert alert-danger">
-                                SchoolName is required
+                                <!--SchoolName is required-->Es requerido
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="pwd"><!--Concentration-->Concentración</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="SchoolDegreeName" placeholder="Enter Concentration" [(ngModel)]="education.concentration" [ngModelOptions]="{standalone: true}">
+                            <input type="text" class="form-control" id="SchoolDegreeName" placeholder="¿Qué estudiaste?" [(ngModel)]="education.concentration" [ngModelOptions]="{standalone: true}">
                         </div>
                     </div>
-                   
-
-
-
                     <div class="profile-modal-button-container">
                         <a (click)="DeleteEducation()"><!--Delete-->Borrar</a>
                         <a (click)="onClickedExit()"><!--Cancel-->Cancelar</a>

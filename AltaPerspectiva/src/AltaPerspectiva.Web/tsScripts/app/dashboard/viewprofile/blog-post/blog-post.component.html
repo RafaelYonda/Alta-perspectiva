@@ -79,21 +79,21 @@
     <h4 *ngIf="!isEditTitle">{{blog?.title}}</h4>
     <div class="btn-blog-edit">
         <div *ngIf="!isEditTitle">
-            <a (click)="isEditTitle=true">edit</a>
+            <a (click)="isEditTitle=true">editar</a>
         </div>
         <div *ngIf="isEditTitle">
             <input placeholder="update title" [(ngModel)]="blog.title" type="text" />
-            <button class="btn btn-primary" (click)="updateTitle()">Update</button>
+            <button class="btn btn-primary" (click)="updateTitle()">actualizar</button>
         </div>
     </div>
     <h4 *ngIf="!isEditDescription">{{blog?.description}}</h4>
     <div class="btn-blog-edit">
         <div *ngIf="!isEditDescription">
-            <a (click)="isEditDescription=true">edit</a>
+            <a (click)="isEditDescription=true">editar</a>
         </div>
         <div *ngIf="isEditDescription">
             <input placeholder="update description" [(ngModel)]="blog.description" type="text" />
-            <button class="btn btn-primary" (click)="updateDescription()">Update</button>
+            <button class="btn btn-primary" (click)="updateDescription()">actualizar </button>
         </div>
 
     </div>

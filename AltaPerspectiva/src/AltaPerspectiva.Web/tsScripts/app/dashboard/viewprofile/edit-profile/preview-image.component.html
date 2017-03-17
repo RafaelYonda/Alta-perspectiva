@@ -66,13 +66,8 @@
                              [height]="200">
                     </div>
                     <div class="row">
-                        <div class="col-lg-2">
-                            <input (click)="onUpdate()" type="text" class="btn btn-info" value="Actualizar" />
-                        </div>
-                        <div class="col-lg-2">
-                            <input type="text" (click)="onClickedExit()" class="btn btn-danger" value="Cancelar" />
-                        </div>
-
+                        <button class="btn btn-info" (click)="onUpdate()">Actualizar</button>
+                        <button class="btn btn-danger" (click)="onClickedExit()">Cancelar</button>
                     </div>
                 </div>
             </div>

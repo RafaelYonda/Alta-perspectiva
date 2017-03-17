@@ -84,12 +84,12 @@
                     <li><a (click)="hideMenu()" class="route link-with-number" [routerLink]="['/dashboard/viewprofile',credential.userId,'user-answer']" routerLinkActive="active-link"><!--Answers-->Respuestas<span>{{profileParam?.answers}}</span> </a></li>
                     <li><a (click)="hideMenu()" class="route link-with-number" [routerLink]="['/dashboard/viewprofile',credential.userId,'follower']" routerLinkActive="active-link">Seguidores<!--Followers--> <span>{{profileParam?.followers}}</span></a></li>
                     <li><a (click)="hideMenu()" class="route link-with-number" [routerLink]="['/dashboard/viewprofile',credential.userId,'following']" routerLinkActive="active-link"><!--Followings-->Siguiendo <span>{{profileParam?.followings}}</span></a></li>
-                    <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'bookmark']" routerLinkActive="active-link"><!--Bookmarks-->Preguntas guardadas <span>{{profileParam?.bookmarks}}</span></a></li>
-                    <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'posted-question']" routerLinkActive="active-link"><!--Posted Question-->Preguntas fijadas</a></li>
+                    <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'bookmark']" routerLinkActive="active-link"><!--Bookmarks-->Guardadas <span>{{profileParam?.bookmarks}}</span></a></li>
+                    <!--<li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'posted-question']" routerLinkActive="active-link">Posted Question///Preguntas fijadas</a></li>-->
                     <li *ngIf="isOwner"><a class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'draft-answer']" routerLinkActive="active-link"><!--Draft Answers-->Borrador </a></li>
                     <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'blog-create']" routerLinkActive="active-link">Blogs<span>{{profileParam?.blogs}}</span></a></li>
-                    <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'direct-question']" routerLinkActive="active-link"><!--Direct Question-->Preguntas directas</a></li>
-                    <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'virtual-store']" routerLinkActive="active-link"><!--Virtual Store-->Productos y/o servicios</a></li>
+                    <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'direct-question']" routerLinkActive="active-link"><!--Direct Question-->Pregúntame</a></li>
+                    <li><a (click)="hideMenu()" class="route" [routerLink]="['/dashboard/viewprofile',credential.userId,'virtual-store']" routerLinkActive="active-link"><!--Virtual Store-->Mis servicios</a></li>
                 </ul>
             </div>
             <div class="col-md-9 border-top-grey">
@@ -115,7 +115,7 @@
                         <a *ngIf="isOwner" (click)='openEmploymentDialogAnchor()'  class='edit show-edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!employmentExists && isOwner" (click)="openEmploymentDialogAnchor()" class="edit">
-                        Add Employment
+                        ¿Cuál es tu labor?<!--Add Employment-->
                     </a>
                 </li>
                 <li>
@@ -126,7 +126,7 @@
                         <a *ngIf="isOwner" (click)='openEducationDialogAnchor()' class='edit show-edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!educationExists && isOwner" (click)="openEducationDialogAnchor()" class="edit">
-                        Add Education
+                        <!--Add Education-->¿Cuál es tu profesión?
                     </a>
                 </li>
                 <li>
@@ -137,18 +137,17 @@
                         <a *ngIf="isOwner" (click)='openPlaceDialogAnchor()' class='edit show-edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!placeExists && isOwner" (click)="openPlaceDialogAnchor()" class="edit">
-                        Add Place
+                        <!--Add Place-->¿Dónde vives?
                     </a>
                 </li>
                 <li>
                     <div *ngIf="otherExperienceExists" class="show"> 
                         <div class="mytooltip"><i class="fa fa-cog"></i><span class="mytooltiptext"><!--Other-->Otros</span></div>
-
                         <span title="Others" innerHTML="{{othersHtml}}"></span>
                         <a *ngIf="isOwner" (click)='openOtherexperienceDialogAnchor()' class='edit show-edit'><i class='fa fa-edit'></i></a>
                     </div>
                     <a *ngIf="!otherExperienceExists && isOwner" (click)="openOtherexperienceDialogAnchor()" class="edit">
-                        Add Others
+                        <!--Add Others-->¿Cuál es tu hobby?
                     </a>
                 </li>
             </ul>

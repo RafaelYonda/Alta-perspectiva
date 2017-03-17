@@ -5,7 +5,7 @@
             <div class="comment-input">
                 <img class="user-image" src="{{_logObj.imageUrl?_logObj.imageUrl:'../../images/avatar.png'}}" />
                 <input class="form-control" id="comment" [(ngModel)]="comment.commentText" [ngModelOptions]="{standalone: true}" />
-                <button type="button" class="btn btn-primary" (click)="submitComment(blogPost.id)">Comment</button>
+                <button type="button" class="btn btn-primary" (click)="submitComment(blogPost.id)">Comenta</button>
             </div>
         </form>
         <div class="card card-block">
