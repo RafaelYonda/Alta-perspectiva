@@ -15,6 +15,10 @@
     .panel-body {
         width: 678px;
     }
+
+    .btn-success {
+        margin-left: 15px;
+    }
 </style>
 <div class="row">
     <div class="col-md-8 alignFixed">
@@ -32,7 +36,7 @@
                     @Html.DropDownListFor(
                         x => x.CategoryId,
                         new SelectList(Model.Categories, "Id", "Name"),
-                        "-- Please select a category --", new { @class = "form-control" }
+                        "-- Please select a category --", new { @class = "form-control" ,@id="ddlCategory" }
                         )
                     @Html.ValidationMessageFor(x => x.CategoryId)
                 </div>
@@ -56,6 +60,14 @@
 
             </div>
         }
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-8">
+        <button class="btn btn-success" onclick="addTopic()">Add Topic</button>
+       
     </div>
 </div>
 <div class="row">
@@ -108,6 +120,19 @@
     </div>
 </div>
 <script>
+    function addTopic() {
+        var categoryDropdown = $('#ddlCategory').val();
+
+        console.log(categoryDropdown);
+        if (categoryDropdown == '') {
+            alert('Please Select a category');
+            return;
+        }
+
+        window.location="/Admin/Category/AddTopic/"+categoryDropdown;
+    }
+
+
     function Update(element, id, topicName) {
         // console.log(element);
         console.log('Id->' + id + ' topicName=' + topicName)

@@ -43,17 +43,7 @@ namespace UserProfile.Query.Queries
             UserInfoDetails userInfoDetails = new UserInfoDetails();
             String query = String.Format("SpUserInfoDetails '{0}'", userId);
             userInfoDetails = DataReaderToListHelper.DataReaderToObject<UserInfoDetails>(connectionString, query);
-            if (String.IsNullOrEmpty(userInfoDetails.FullName))
-            {
-                String fullNameQuery = String.Format(@"select UserName
-       from[Identity].[AspNetUsers] a
-
-        where a.Id = '{0}'", userId);
-                String fullName = DataReaderToListHelper.DataReaderToSingleColumn(connectionString, fullNameQuery,
-                    "UserName");
-
-                userInfoDetails.FullName = fullName;
-            }
+       
             return userInfoDetails;
         }
 

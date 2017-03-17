@@ -44,6 +44,10 @@ DECLARE @credentialId nvarchar(255);
 select top 1 @credentialId=Id, @ImageUrl=ImageUrl,@FullName=ISNULL(FirstName,'')+' '+ISNULL(LastName,''),@ProfileViewCount=ISNULL(ProfileViewCount,0)
 from  UserProfile.[Credentials] c 
 where c.UserId=@userId;
+if(@FullName='' or @FullName is null)
+BEGIN
+select @FullName=UserName from[Identity].[AspNetUsers] a where a.Id = @userId;
+END
 
 --
 set @Title=(select top 1 Position from UserProfile.Employments e where e.CredentialId=@credentialId);

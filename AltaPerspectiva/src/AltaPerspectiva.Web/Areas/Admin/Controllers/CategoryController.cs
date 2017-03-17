@@ -208,36 +208,66 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             return Ok();
         }
 
-        #region Keyword and Topic
-
-
-        [HttpPost]
-        public IActionResult GetKeyWords(Guid Id)
-        {
-            //List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
-
-            List<Keyword> keywords =
-                queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).OrderByDescending(x => x.Id).ToList();
-            List<String> keywordString = keywords.Select(x => x.Text).ToList();
-            return Ok(keywordString);
-        }
-        [HttpPost]
-        public IActionResult SaveKeyWords(Guid categoryId, String newKeyword)
-        {
-            //List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
-            AddKeywordCommand cmd = new AddKeywordCommand(categoryId, newKeyword);
-            commandsFactory.ExecuteQuery(cmd);
-            return Ok();
-        }
-
+        #region Topic
         [HttpGet]
-        public IEnumerable<String> GetTopics(Guid Id)
+        public IActionResult AddTopic(Guid Id)
         {
-            var topics = queryFactory.ResolveQuery<ITopicQuery>().GetTopics(Id).Select(x => x.TopicName).ToList();
-            return topics;
+            TopicViewModel topicViewModel=new TopicViewModel();
+            topicViewModel.CategoryId = Id;
+
+            Category category = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(Id);
+            if (category != null)
+            {
+                topicViewModel.CategoryName = category.Name;
+            }
+            else
+            {
+                throw new Exception("Some thing wrong with your url");
+            }
+            return View("AddTopic", topicViewModel);
+        }
+        [HttpPost]
+        public IActionResult AddTopic(TopicViewModel topicViewModel)
+        {
+            Category category = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(topicViewModel.CategoryId);
+            if (category != null)
+            {
+                topicViewModel.CategoryName = category.Name;
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("AddTopic", topicViewModel);
+            }
+            String topicName = topicViewModel.TopicName.Trim();
+            var isTopicExists =
+              queryFactory.ResolveQuery<ITopicQuery>().IsTopicExists(topicName);
+            if (isTopicExists)
+            {
+                ModelState.AddModelError("TopicName", "TopicName already exists");
+                return View("AddTopic", topicViewModel);
+            }
+
+            if (String.IsNullOrWhiteSpace(topicName))
+            {
+                ModelState.AddModelError("TopicName", "TopicName can not be empty");
+                return View("AddTopic", topicViewModel);
+            }
+
+            AddTopicCommand cmd = new AddTopicCommand(topicName, topicViewModel.CategoryId);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid id = cmd.Id;
+            ViewBag.Message = topicName + " Added Successfully";
+
+            
+            return View("AddTopic", new TopicViewModel
+            {
+                CategoryId = topicViewModel.CategoryId,
+                CategoryName = topicViewModel.CategoryName
+            });
         }
 
-      //  [HttpGet("Admin/EditTopic")]
+        //  [HttpGet("Admin/EditTopic")]
         public IActionResult EditTopic()
         {
             TopicNKeywordViewModel topicNKeywordViewModel = new TopicNKeywordViewModel();
@@ -245,7 +275,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
             return View(topicNKeywordViewModel);
         }
-      //  [HttpPost("Admin/EditTopic")]
+        //  [HttpPost("Admin/EditTopic")]
         [HttpPost]
         public ActionResult EditTopic(TopicNKeywordViewModel model)
         {
@@ -266,7 +296,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             var isTopicExists =
                 queryFactory.ResolveQuery<ITopicQuery>().IsTopicExists(modifiedTopicName);
 
-            Boolean successResult = false; 
+            Boolean successResult = false;
             if (!isTopicExists)
             {
                 UpdateTopicCommand command = new UpdateTopicCommand(id, modifiedTopicName, null);
@@ -274,9 +304,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
                 if (command.Id != Guid.Empty)
                 {
-
                     successResult = true;
-
                 }
             }
             return Ok(new
@@ -304,6 +332,95 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 result = false
             });
         }
+
+        #endregion
+
+        #region Keyword
+        [HttpGet]
+        public IActionResult AddKeyword(Guid Id)
+        {
+            KeywordViewModel keywordViewModel = new KeywordViewModel();
+            keywordViewModel.CategoryId = Id;
+
+            Category category = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(Id);
+            if (category != null)
+            {
+                keywordViewModel.CategoryName = category.Name;
+            }
+            else
+            {
+                throw new Exception("Some thing wrong with your url");
+            }
+            return View("AddKeyword", keywordViewModel);
+        }
+        [HttpPost]
+        public IActionResult AddKeyword1(KeywordViewModel keywordViewModel)
+        {
+            Category category = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(keywordViewModel.CategoryId);
+            if (category != null)
+            {
+                keywordViewModel.CategoryName = category.Name;
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("AddKeyword", keywordViewModel);
+            }
+            String text = keywordViewModel.Text.Trim();
+            var isTopicExists =
+              queryFactory.ResolveQuery<IKeywordsQuery>().IsKeywordExists(text);
+            if (isTopicExists)
+            {
+                ModelState.AddModelError("Text", "Keyword already exists");
+                return View("AddKeyword", keywordViewModel);
+            }
+
+            if (String.IsNullOrWhiteSpace(text))
+            {
+                ModelState.AddModelError("Text", "Keyword can not be empty");
+                return View("AddKeyword", keywordViewModel);
+            }
+
+            AddKeywordCommand cmd = new AddKeywordCommand( keywordViewModel.CategoryId, text);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid id = cmd.Id;
+            ViewBag.Message = text + " Added Successfully";
+
+
+            return View("AddKeyword", new KeywordViewModel
+            {
+                CategoryId = keywordViewModel.CategoryId,
+                CategoryName = keywordViewModel.CategoryName
+            });
+        }
+
+        [HttpPost]
+        public IActionResult GetKeyWords(Guid Id)
+        {
+            //List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
+
+            List<Keyword> keywords =
+                queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).OrderByDescending(x => x.Id).ToList();
+            List<String> keywordString = keywords.Select(x => x.Text).ToList();
+            return Ok(keywordString);
+        }
+        [HttpPost]
+        public IActionResult SaveKeyWords(Guid categoryId, String newKeyword)
+        {
+            //List<String> keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(Id).Select(x => x.Text).ToList();
+            AddKeywordCommand cmd = new AddKeywordCommand(categoryId, newKeyword);
+            commandsFactory.ExecuteQuery(cmd);
+            return Ok();
+        }
+
+        [HttpGet]
+        public IEnumerable<String> GetTopics(Guid Id)
+        {
+            var topics = queryFactory.ResolveQuery<ITopicQuery>().GetTopics(Id).Select(x => x.TopicName).ToList();
+            return topics;
+        }
+
+     
 
 
         //[HttpGet("Admin/EditKeyword")]

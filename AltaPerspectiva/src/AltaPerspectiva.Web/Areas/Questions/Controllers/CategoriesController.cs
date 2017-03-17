@@ -68,8 +68,11 @@ namespace AltaPerspectiva.Web.Area.Questions
             {
                 category.Image = azureFileUploadHelper.GetCategoryImage(category.Image);
             }
-
-            cache.SetString("categories", JsonConvert.SerializeObject(categories));
+            DistributedCacheEntryOptions options=new DistributedCacheEntryOptions();
+            options.SlidingExpiration=TimeSpan.FromSeconds(300);//30
+            options.AbsoluteExpiration= DateTimeOffset.Now.AddMinutes(30);
+            
+            cache.SetString("categories", JsonConvert.SerializeObject(categories),options);
 
             return Ok(categories);
         }
@@ -145,8 +148,10 @@ namespace AltaPerspectiva.Web.Area.Questions
                 return Ok(keys);
             }
             var keywords = queryFactory.ResolveQuery<ICategoriesKeywordsAllQuery>().Execute();
-
-            cache.SetString("keywords", JsonConvert.SerializeObject(keywords));
+            DistributedCacheEntryOptions options = new DistributedCacheEntryOptions();
+            options.SlidingExpiration = TimeSpan.FromSeconds(300);//30
+            options.AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(30);
+            cache.SetString("keywords", JsonConvert.SerializeObject(keywords), options);
             return Ok(keywords);
         }
 

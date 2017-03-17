@@ -15,11 +15,14 @@
     .panel-body {
         width: 678px;
     }
+    .btn-success {
+        margin-left: 15px;
+    }
 </style>
 <div class="row">
     <div class="col-md-8 alignFixed">
 
-        @using (Html.BeginForm("EditKeyword", "Category", FormMethod.Post, new { area = "Admin", @class = "form-horizontal", @role = "form" }))
+        @using (Html.BeginForm("AddKeyword", "Category", FormMethod.Post, new { area = "Admin", @class = "form-horizontal", @role = "form" }))
         {
             <hr />
 
@@ -32,7 +35,7 @@
                     @Html.DropDownListFor(
                         x => x.CategoryId,
                         new SelectList(Model.Categories, "Id", "Name"),
-                        "-- Please select a category --", new { @class = "form-control" }
+                        "-- Please select a category --", new { @class = "form-control" ,@id= "ddlCategory" }
                         )
                     @Html.ValidationMessageFor(x => x.CategoryId)
                 </div>
@@ -56,6 +59,13 @@
 
             </div>
         }
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-8">
+        <button class="btn btn-success" onclick="addKeyword()">Add Keyword</button>
+
     </div>
 </div>
 <div class="row">
@@ -108,6 +118,17 @@
     </div>
 </div>
 <script>
+    function addKeyword() {
+        var categoryDropdown = $('#ddlCategory').val();
+
+        console.log(categoryDropdown);
+        if (categoryDropdown == '') {
+            alert('Please Select a category');
+            return;
+        }
+
+        window.location = "/Admin/Category/AddKeyword/" + categoryDropdown;
+    }
     function Update(element, id, Text) {
         // console.log(element);
         console.log('Id->' + id + ' Text=' + Text)

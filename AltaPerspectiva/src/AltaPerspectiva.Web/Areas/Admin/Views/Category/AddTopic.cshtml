@@ -1,42 +1,40 @@
-﻿@model AltaPerspectiva.Web.Areas.Admin.Models.KeywordViewModel
+﻿@model AltaPerspectiva.Web.Areas.Admin.Models.TopicViewModel
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 <style>
     .btn-default {
         margin-left: -50px;
     }
-
     .form-horizontal {
         margin-top: 22px;
     }
-
     .footer {
-        position: absolute;
-    }
+        position: absolute; 
+     }
 </style>
 
 <div class="row">
     <div class="col-md-2">.</div>
     <div class="col-md-8">
 
-        <h2>Add Keyword</h2>
+        <h2>Add Topic</h2>
         <div class="row">
             <div class="col-md-2">Catgeory</div>
             <div class="col-md-8">
                 @Model.CategoryName
             </div>
         </div>
-        @using (Html.BeginForm("AddKeyword1", "Category", FormMethod.Post, new { area = "Admin", @class = "form-horizontal", @role = "form" }))
+        @using (Html.BeginForm("AddTopic", "Category", FormMethod.Post, new { area = "Admin", @class = "form-horizontal", @role = "form" }))
         {
             <hr />
 
             @Html.ValidationSummary(true)
             @Html.HiddenFor(model => model.CategoryId)
             <div class="form-group">
-                @Html.LabelFor(model => model.Text, new { @class = "col-sm-offset-1 col-md-2" })
+                @Html.LabelFor(model => model.TopicName, new { @class = "col-sm-offset-1 col-md-2" })
                 <div class="col-sm-offset-1 col-md-10">
-                    @Html.EditorFor(model => model.Text, new { htmlAttributes = new { placeholder = "Input Keyword name", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Text)
+                    @Html.EditorFor(model => model.TopicName, new { htmlAttributes = new { placeholder = "Input topic name", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TopicName)
                 </div>
             </div>
 
@@ -66,4 +64,3 @@
 
 
 </div>
-
