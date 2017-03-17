@@ -27,6 +27,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
+        #region Ctor
         ICommandsFactory commandsFactory;
         IQueryFactory queryFactory;
         private readonly IConfigurationRoot configuration;
@@ -41,12 +42,17 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
         }
 
+
+        #endregion
+
+
         [HttpGet("sitemanagement/")]
         public IActionResult Index()
         {
             return RedirectToAction("DeleteCategory");
         }
 
+        #region Category
 
         [HttpGet("Admin/addcategory")]
         public IActionResult AddCategory()
@@ -209,6 +215,8 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             commandsFactory.ExecuteQuery(command);
             return Ok();
         }
+        #endregion
+
 
         #region Topic
         [HttpGet]
@@ -256,9 +264,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTopic(TopicViewModel topicViewModel)
         {
-            var topics = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(topicViewModel.CategoryId);
-
-            topics = topics.OrderByDescending(x => x.CreatedOn).ToList();
+            
             Category category = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(topicViewModel.CategoryId);
             if (category != null)
             {
@@ -268,6 +274,9 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
             if (!ModelState.IsValid)
             {
+                var topics = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(topicViewModel.CategoryId);
+
+                topics = topics.OrderByDescending(x => x.CreatedOn).ToList();
                 topicViewModel.Topics = topics;
                 return View("AddTopic", topicViewModel);
             }
@@ -277,12 +286,20 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             if (isTopicExists)
             {
                 ModelState.AddModelError("TopicName", "TopicName already exists");
+                var topics = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(topicViewModel.CategoryId);
+
+                topics = topics.OrderByDescending(x => x.CreatedOn).ToList();
+                topicViewModel.Topics = topics;
                 return View("AddTopic", topicViewModel);
             }
 
             if (String.IsNullOrWhiteSpace(topicName))
             {
                 ModelState.AddModelError("TopicName", "TopicName can not be empty");
+                var topics = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(topicViewModel.CategoryId);
+
+                topics = topics.OrderByDescending(x => x.CreatedOn).ToList();
+                topicViewModel.Topics = topics;
                 return View("AddTopic", topicViewModel);
             }
 
@@ -291,12 +308,14 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             Guid id = cmd.Id;
             ViewBag.Message = topicName + " Added Successfully";
 
-           
+            var topics2 = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(topicViewModel.CategoryId);
+
+            topics2 = topics2.OrderByDescending(x => x.CreatedOn).ToList();
             return View("AddTopic", new TopicViewModel
             {
                 CategoryId = topicViewModel.CategoryId,
                 CategoryName = topicViewModel.CategoryName,
-                Topics =topics
+                Topics =topics2
             });
         }
         [HttpPost]
@@ -395,11 +414,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AddKeyword(KeywordViewModel keywordViewModel)
         {
-            var keywords =
-              queryFactory.ResolveQuery<IKeywordsQuery>()
-                  .Execute(keywordViewModel.CategoryId)
-                  .OrderByDescending(x => x.Id)
-                  .ToList();
+           
             Category category = queryFactory.ResolveQuery<ICategoriesQuery>().GetCategoryById(keywordViewModel.CategoryId);
             if (category != null)
             {
@@ -408,6 +423,11 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
             if (!ModelState.IsValid)
             {
+                var keywords =
+             queryFactory.ResolveQuery<IKeywordsQuery>()
+                 .Execute(keywordViewModel.CategoryId)
+                 .OrderByDescending(x => x.Id)
+                 .ToList();
                 keywordViewModel.Keywords = keywords;
                 return View("AddKeyword", keywordViewModel);
             }
@@ -416,12 +436,24 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
               queryFactory.ResolveQuery<IKeywordsQuery>().IsKeywordExists(text);
             if (isTopicExists)
             {
+                var keywords =
+             queryFactory.ResolveQuery<IKeywordsQuery>()
+                 .Execute(keywordViewModel.CategoryId)
+                 .OrderByDescending(x => x.Id)
+                 .ToList();
+                keywordViewModel.Keywords = keywords;
                 ModelState.AddModelError("Text", "Keyword already exists");
                 return View("AddKeyword", keywordViewModel);
             }
 
             if (String.IsNullOrWhiteSpace(text))
             {
+                var keywords =
+             queryFactory.ResolveQuery<IKeywordsQuery>()
+                 .Execute(keywordViewModel.CategoryId)
+                 .OrderByDescending(x => x.Id)
+                 .ToList();
+                keywordViewModel.Keywords = keywords;
                 ModelState.AddModelError("Text", "Keyword can not be empty");
                 return View("AddKeyword", keywordViewModel);
             }
@@ -431,12 +463,16 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             Guid id = cmd.Id;
             ViewBag.Message = text + " Added Successfully";
 
-           
+            var keywords2 =
+             queryFactory.ResolveQuery<IKeywordsQuery>()
+                 .Execute(keywordViewModel.CategoryId)
+                 .OrderByDescending(x => x.Id)
+                 .ToList();
             return View("AddKeyword", new KeywordViewModel
             {
                 CategoryId = keywordViewModel.CategoryId,
                 CategoryName = keywordViewModel.CategoryName,
-                Keywords = keywords
+                Keywords = keywords2
             });
         }
         [HttpPost]
