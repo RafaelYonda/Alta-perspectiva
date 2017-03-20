@@ -172,7 +172,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             AddBlogCommentCommand command = new AddBlogCommentCommand(comment.CommentText,comment.BlogPostId, loggedinUser);
             commandsFactory.ExecuteQuery(command);
 
-            comment.User = new UserService().GetUserViewModel(queryFactory, comment.UserId,configuration);
+            comment.User = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);
             comment.Id = command.Id;
             return Ok(comment);
         }

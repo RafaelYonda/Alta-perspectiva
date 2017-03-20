@@ -188,7 +188,8 @@ export class QuestionBodyComponent {
         });
     }
     GetLatestQuestionByDate(categoryId: string) {
-        this.FilterParam = "The latest question";
+        //this.FilterParam = "The latest question";
+        this.FilterParam = "Preguntas más recientes";
         this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
@@ -203,7 +204,8 @@ export class QuestionBodyComponent {
         );
     }
     getbestquestionbytotallike(categoryId: string) {
-        this.FilterParam = "The best Question";
+        //this.FilterParam = "The best Question";
+        this.FilterParam = "Preguntas con más Me gusta";
         this.showLoader();
         var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
             res => {
@@ -218,7 +220,8 @@ export class QuestionBodyComponent {
         );
     }
     getmorequestionbyviewcount(categoryId: string) {
-        this.FilterParam = "The more views";
+        //this.FilterParam = "The more views";
+        this.FilterParam = "Preguntas más vistas";
         this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(

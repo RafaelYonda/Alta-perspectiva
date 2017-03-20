@@ -97,20 +97,20 @@
         </div>
 
     </div>
-    <div><img class="profile-image" src="{{_logObj?.imageUrl}}" /></div>
+    <!--<div><img class="profile-image" src="{{_logObj?.imageUrl}}" /></div>-->
     <h1>{{_logObj?.name}}</h1>
-    <div class="txt-small-grey">Write post</div>
+    <div class="txt-small-grey"><!--Write post-->Escribir artículo</div>
     <form (ngSubmit)="saveBlogPost()" #blogPostForm="ngForm">
         <div class="blog-post">
             <h1>
                 <input class="transparent-input" id="title" [(ngModel)]="blogPost.title" required name="title"
-                       #title="ngModel" placeholder="Add Title Post" />
+                       #title="ngModel" placeholder="Añadir Cargo Título" />
             </h1>
             <div>
-                <quill-editor [ngModelOptions]="{standalone: true}"
+                <quill-editor [ngModelOptions]="{standalone: true}" placeholder="Escríbe aquí"
                               [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link', 'image']]}"
                               id="description" [(ngModel)]="blogPost.description" name="description"></quill-editor>
-                <button class="btn btn-alta-primary pull-right margin-top-5 btn-sm" [disabled]="!blogPostForm.form.valid">Post Blog</button>
+                <button class="btn btn-alta-primary pull-right margin-top-5 btn-sm" [disabled]="!blogPostForm.form.valid"><!--Post Blog-->Publicar</button>
             </div>
         </div>
     </form>

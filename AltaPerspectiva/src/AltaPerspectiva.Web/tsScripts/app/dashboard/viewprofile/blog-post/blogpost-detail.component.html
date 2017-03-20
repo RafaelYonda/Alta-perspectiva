@@ -56,12 +56,12 @@
         <div class="postDetail-body">
             <div class="blog-header">
                 <h2>{{post?.title}}</h2>
-                <h4>{{post?.createdOn}}</h4>
+                <h4>{{post?.createdOn | date: 'dd MMM,yyyy'}}</h4>
             </div>
             <div>
                 <div class="article-details">
                     <div *ngIf="post?.description">
-                        <p [innerHTML]="post?.description"></p><span><a>Read more..</a></span>
+                        <p [innerHTML]="post?.description"></p>
                     </div>
                     <post-status [blogPost]="post"></post-status>
                     <blogpost-comment [blogPost]="post"></blogpost-comment>

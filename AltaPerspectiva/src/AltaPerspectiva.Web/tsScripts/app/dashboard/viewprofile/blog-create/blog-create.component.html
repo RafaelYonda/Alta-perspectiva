@@ -32,7 +32,9 @@
                        #blogName="ngModel">
                 <div [hidden]="blogName.valid || blogName.pristine"
                      class="alert alert-danger">
-                    Blog name required!
+                    <!--Blog name required!-->
+                    Nombre del blog requerido!
+
                 </div>
             </div>
         </div>
@@ -44,21 +46,22 @@
                        #url="ngModel">
                 <div [hidden]="url.valid || url.pristine"
                      class="alert alert-danger">
-                    Url is required
+                    <!--Url is required-->
+                    Url es necesario!
                 </div>
             </div>
             <div class="col-sm-3 "><label class="control-label">altraperspectiva.com</label></div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-sm-3">Description</label>
+            <label class="control-label col-sm-3"><!--Description-->Descripción</label>
             <div class="col-sm-9">
-                <textarea class="form-control bottom-margin" rows="5" placeholder="Description (optional)" [(ngModel)]="blog.description" [ngModelOptions]="{standalone: true}"></textarea>
+                <textarea class="form-control bottom-margin" rows="5" placeholder="Descripción (Opcional)" [(ngModel)]="blog.description" [ngModelOptions]="{standalone: true}"></textarea>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-alta-primary pull-right" [disabled]="!blogForm.form.valid">Create Blog</button>
+                <button type="submit" class="btn btn-alta-primary pull-right" [disabled]="!blogForm.form.valid"><!--Create Blog-->Crear Blog</button>
             </div>
         </div>
     </div>
@@ -70,7 +73,7 @@
             <div class="col-md-4" *ngFor="let blog of blogs">
                 <div (click)="goToBlogPost(blog.id)" class="blog-list-panel">
                     <h2>{{blog?.title}}</h2>
-                    <a class="btn btn-primary" (click)="goToBlogPost(blog.id)">Create Post</a>
+                    <a class="btn btn-primary" (click)="goToBlogPost(blog.id)"><!--Create Post-->Crear artículo</a>
                 </div>
             </div>
            

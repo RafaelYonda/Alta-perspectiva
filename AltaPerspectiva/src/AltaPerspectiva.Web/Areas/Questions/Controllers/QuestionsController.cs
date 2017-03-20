@@ -1027,7 +1027,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (question.QuestionAskedToUser.Value != loggedinUser)
             {
                 string webRootPath = hostingEnvironment.WebRootPath;
-                await new SendEmailService().SendDirectQuestionEmailAsync(queryFactory, webRootPath, "Draft Question",question.Title,question.Body, loggedinUser, question.QuestionAskedToUser.Value);
+                await new SendEmailService().SendDirectQuestionEmailAsync(queryFactory, webRootPath, "Pregunta directa", question.Title,question.Body, loggedinUser, question.QuestionAskedToUser.Value);
             }
 
 

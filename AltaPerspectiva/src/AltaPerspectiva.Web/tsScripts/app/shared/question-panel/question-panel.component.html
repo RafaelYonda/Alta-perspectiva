@@ -49,8 +49,14 @@
                     <hr />
                     <textarea name="editBody" class="question-control" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="editBody" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
                     <div>
-                        <button type="submit" class="btn btn-success fixed-height" [disabled]="!questionVM.form.valid">Update</button>
-                        <button type="button" class="btn btn-info fixed-height" (click)="onQuestionDetailClicked(false)">Cancel</button>
+                        <button type="submit" class="btn btn-success fixed-height" [disabled]="!questionVM.form.valid">
+                            <!--Update-->
+                            Actualizar
+                        </button>
+                        <button type="button" class="btn btn-info fixed-height" (click)="onQuestionDetailClicked(false)">
+                            <!--Cancel-->
+                            Cancelar
+                        </button>
                     </div>
                 </form>
             </div>

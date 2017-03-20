@@ -6,13 +6,15 @@
     .enableFollowingImg {
         opacity: 1;
     }
-    .login-dialog{
-        text-align:center;
-        padding:30px;
+
+    .login-dialog {
+        text-align: center;
+        padding: 30px;
     }
-    .btn-lg{
-        padding:12px;
-        color:black;
+
+    .btn-lg {
+        padding: 12px;
+        color: black;
     }
 </style>
 
@@ -20,7 +22,10 @@
     <div class="dialog">
         <div class="login-dialog">
             <h1>Inicia sesión<!--You are not Logged in--></h1>
-            <a href="/signin" class="btn btn-primary btn-lg">Log in</a>
+            <a href="/signin" class="btn btn-primary btn-lg">
+                <!--Log in-->
+                Iniciar sesión
+            </a>
             <a (click)="onClickedExit()" class="btn-lg btn btn-default ">Ahora no<!--Not now--></a>
         </div>
     </div>
