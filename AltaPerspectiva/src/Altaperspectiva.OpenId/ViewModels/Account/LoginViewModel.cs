@@ -2,11 +2,11 @@
 
 namespace Altaperspectiva.OpenId.ViewModels.Account {
     public class LoginViewModel {
-        [Required]
+        [Required(ErrorMessage = "El campo Correo electrónico es obligatorio")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Contraseña es obligatorio.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
