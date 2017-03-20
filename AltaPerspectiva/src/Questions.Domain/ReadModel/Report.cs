@@ -45,32 +45,37 @@ namespace Questions.Domain.ReadModel
             List<Report> reports = new List<Report>();
             reports.Add(new Report
             {
-                Title = "Harassment",
+                //Title = "Harassment",
+                Title = "Información no apta",
                 Description = "Disparaging or adversarial towards a person or group",
                 Link = "#",
             });
             reports.Add(new Report
             {
-                Title = "Spam",
+               // Title = "Spam",
+                Title = "Información no deseada",
                 Description = "Undisclosed promotion for a link or product",
                 Link = "#",
             });
             reports.Add(new Report
             {
-                Title = "Insincere",
+               // Title = "Insincere",
+                Title = "Falso",
                 Description = " Not seeking genuine answers",
                 Link = "#",
             });
             reports.Add(new Report
             {
-                Title = "Poorly Written",
+                //Title = "Poorly Written",
+                Title = "Mal escrito",
                 Description = " Not in English or has very bad formatting, grammar, and spelling",
                 Link = "#",
             });
 
             reports.Add(new Report
             {
-                Title = "Incorrect Topics",
+               // Title = "Incorrect Topics",
+                Title = "Temática incorrecta",
                 Description = " Not in English or has very bad formatting, grammar, and spelling",
                 Link = "#",
             });
@@ -83,52 +88,60 @@ namespace Questions.Domain.ReadModel
 
             reports.Add(new Report
             {
-                Title = "Harassment",
+                //  Title = "Harassment",
+                Title = "Información no apta",
                 Description = "Disparaging or adversarial towards a person or group",
                 Link = "#",
             });
 
             reports.Add(new Report
             {
-                Title = "Spam",
+                //   Title = "Spam",
+                Title = "Información no deseada",
                 Description = "Undisclosed promotion for a link or product",
                 Link = "#",
             });
             reports.Add(new Report
             {
-                Title = "Joke Answer",
+               // Title = "Joke Answer",
+                Title = "Broma",
                 Description = "Not a sincere answer",
                 Link = "#",
             });
             reports.Add(new Report
             {
-                Title = "Plagiarism",
+               // Title = "Plagiarism",
+                Title = "Plagio",
                 Description = "Reusing content without attribution (link and blockquotes)",
                 Link = "#",
             });
 
             reports.Add(new Report
             {
-                Title = "Poorly Written",
+                //Title = "Poorly Written",
+                Title = "Mal escrito",
                 Description = "Not in English or has very bad formatting, grammar, and spelling",
                 Link = "#",
             });
 
             reports.Add(new Report
             {
-                Title = "Unhelpful Credential",
+                //Title = "Unhelpful Credential",
+                Title = "Inútil",
                 Description = " Author's credential is not credible, clear, and relevant",
                 Link = "#",
             });
 
             reports.Add(new Report
             {
-                Title = "Bad Image",
+               // Title = "Bad Image",
+                Title = "Mala imagen",
                 Description = "Content contains image that violates policyFactually ",
                 Link = "#",
             }); reports.Add(new Report
             {
-                Title = "Incorrect",
+               // Title = "Incorrect",
+                Title = "Incorrecto",
                 Description = " Substantially incorrect and/or incorrect primary conclusions   ",
                 Link = "#",
             });

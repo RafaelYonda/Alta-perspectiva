@@ -41,7 +41,11 @@
                             <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question?.bestAnswer" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"> </ap-status>
                             <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="question?.bestAnswer?.id"></ap-comment>
                             <br/>
-                            <button *ngIf="question.answerCount>1" class="btn btn-info" [routerLink]="['/question/detail',question.id]">View Other {{question?.answerCount-1}} answers</button>
+                            <button *ngIf="question.answerCount>1" class="btn btn-info" [routerLink]="['/question/detail',question.id]">
+
+                                <!--View Other {{question?.answerCount-1}} answers-->
+                                Ver  {{question?.answerCount-1}} Respuestas
+                            </button>
                         </div>
                     </div>
                 </div>

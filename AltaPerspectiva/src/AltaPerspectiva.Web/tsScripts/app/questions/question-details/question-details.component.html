@@ -1,16 +1,18 @@
 ﻿<style>
     .disabledFollowingImg {
-        height:25px;
+        height: 25px;
         opacity: .1;
     }
 
     .enableFollowingImg {
-        height:25px;
+        height: 25px;
         opacity: 1;
     }
-    .enableFollowingImg:hover{
-        height:30px;
-    }
+
+        .enableFollowingImg:hover {
+            height: 30px;
+        }
+
     .filter-panel {
         margin-left: 2px;
         margin-right: 15px;
@@ -51,12 +53,31 @@
             <ap-comment [isQuestion]='true' [questionId]="question?.id"></ap-comment>
         </div>
         <hr />
-        <button class="answer-button" (click)="answerDialogBox(question)">Answer</button>
+        <button class="answer-button" (click)="answerDialogBox(question)">
+            <!--Answer-->
+            Responder
+        </button>
         <div class="summery-panel">
-            <h4>{{question.answers?.length}} Answers</h4>
+            <h4>
+                {{question.answers?.length}} <!--Answers-->Respuestas
+            </h4>
             <div class="row filter-panel">
-                <div class="col-md-4"><a (click)="GetLatestAnswer(question.id)"><h4>The latest answers</h4></a></div>
-                <div class="col-md-4"><a (click)="GetBestAnswer(question.id)"><h4>The best answer</h4></a></div>
+                <div class="col-md-4">
+                    <a (click)="GetLatestAnswer(question.id)">
+                        <h4>
+                            <!--The latest answers-->
+                            Respuestas recientes
+                        </h4>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a (click)="GetBestAnswer(question.id)">
+                        <h4>
+                            <!--The best answer-->
+                            Las mejores respuestas
+                        </h4>
+                    </a>
+                </div>
                 <!--<div class="col-md-4"><h4>The more view answers</h4></div>-->
             </div>
             <hr />
@@ -93,8 +114,14 @@
             <hr />
             <textarea name="editBody" class="question-control" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="editBody" [ngModelOptions]="{standalone: true}" rows="6" cols="86"></textarea>
             <div>
-                <button type="submit" class="btn btn-success fixed-height" [disabled]="!questionVM.form.valid">Update</button>
-                <button type="button" class="btn btn-info fixed-height" (click)="onQuestionDetailClicked(false)">Cancel</button>
+                <button type="submit" class="btn btn-success fixed-height" [disabled]="!questionVM.form.valid">
+                    <!--Update-->
+                    Actualizar
+                </button>
+                <button type="button" class="btn btn-info fixed-height" (click)="onQuestionDetailClicked(false)">
+                    <!--Cancel-->
+                    Cancelar
+                </button>
             </div>
         </form>
     </div>

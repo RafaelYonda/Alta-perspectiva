@@ -80,9 +80,9 @@ export class StatusComponent {
         }
         this.questionService.postQuestionBlog(questionId).subscribe(res => {
             if (res.result == true) {
-                this.toastr.success('This question is posted on your profile', 'Success');
+                this.toastr.success('Esta pregunta está publicada en tu perfil.', '¡Perfecto!');
             } else {
-                this.toastr.warning('This question is already posted on your profile', 'Warning!!!');
+                this.toastr.warning('Esta pregunta ya está publicada en tu perfil.', 'Advertencia!!!');
             }
            
         });
@@ -99,9 +99,9 @@ export class StatusComponent {
         this.dataService.addBookMark(questionId).subscribe(res => {
             console.log(res);
              if (res.result == true) {
-                 this.toastr.success('Bookmark has been added successfully.', 'Success');
+                 this.toastr.success('El marcador se ha agregado correctamente.', '¡Perfecto!');
              } else {
-                 this.toastr.warning('You have already bookmarked this question.', 'Warning');
+                 this.toastr.warning('Ya has marcado esta pregunta.', 'Advertencia!!!');
              }
           });
     }
@@ -109,7 +109,7 @@ export class StatusComponent {
     questionDetailClicked()
     {
         if (this.loggedinUser.userId != this.questionObj.userViewModel.userId)
-            this.toastr.error("This is not your question to edit.");
+            this.toastr.error("Esta pregunta no la puedes editar.");
         else
             this.onQuestionDetailClicked.emit(true);
         var user = localStorage.getItem('auth_token');

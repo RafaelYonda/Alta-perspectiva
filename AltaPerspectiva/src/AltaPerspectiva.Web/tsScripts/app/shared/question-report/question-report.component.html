@@ -4,10 +4,13 @@
         <header>
             <div class="question-title">
                 <h3 *ngIf="answerId">
-                    Report Answer
+                    <!--Report Answer-->
+                    ¿Por qué quieres reportar esta información?
                 </h3>
                 <h3 *ngIf="!answerId">
-                    Report Question
+                    <!--Report Question-->
+                    ¿ Informe de preguntas?
+
                 </h3>
             </div>
         </header>
@@ -33,8 +36,14 @@
             <br/>
         </div>
         <footer>
-            <button type="button" class="btn btn-secondary" (click)="onClickedExit()">Close</button>
-            <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
+            <button type="button" class="btn btn-secondary" (click)="onClickedExit()">
+                <!--Close-->
+                Cerrar
+            </button>
+            <button type="button" class="btn btn-primary" (click)="save()">
+                <!--Save changes-->
+                Guardar
+            </button>
         </footer>
     </div>
 </div>

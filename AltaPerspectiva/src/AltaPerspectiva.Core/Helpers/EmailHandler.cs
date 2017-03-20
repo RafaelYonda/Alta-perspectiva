@@ -3,6 +3,7 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -30,7 +31,8 @@ namespace AltaPerspectiva.Core.Helpers
         private string FromMailAddress = "no-reply@altap.azurewebsites.net";
         public string ToMailAddress { get; set; }
 
-        private string MailTitle = "Team Alta Perspectiva";
+       // private string MailTitle = "Team Alta Perspectiva";
+        private string MailTitle = "Equipo Alta perspectiva";
 
         public EmailHandler(String sendGridApiKey)
         {
@@ -42,15 +44,19 @@ namespace AltaPerspectiva.Core.Helpers
 
             String AnswerLink= @"http://altap.azurewebsites.net/question/detail/" + QuestionId.ToString();
             /*  var apiKey = "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"*/
-           
+
             //string.Format("{0:f}", date)   // Friday, March 10, 2017 2:31 PM
+            var format = "dddd, MMMM dd, yyyy";
+            var spanishDate = DateTime.Now.ToString(format, new CultureInfo("es-ES"));
+
+
             String answerHtml = html
-                .Replace("#Title", Title)
+                .Replace("#Title", "Nueva respuesta")
                 .Replace("#QuestionTitle", QuestionTitle)
                 .Replace("#ImageUrl", ImageUrl)
                 .Replace("#AnswerUserName", AnswerUserName)
                 .Replace("#AnswerUserOccupation", AnswerUserOccupation)
-                .Replace("#date","Written at "+ string.Format("{0:f}", DateTime.Now))
+                .Replace("#date", "Escrito " + string.Format("{0:f}", spanishDate))
                 .Replace("#AnswerText", AnswerText)
                 .Replace("#AnswerLink", AnswerLink);
                 
@@ -76,13 +82,15 @@ namespace AltaPerspectiva.Core.Helpers
             //String path = "Views/EmailFormat/AnswerEmailFormat.html";
             //string html = File.ReadAllText(path);
             //string.Format("{0:f}", date)   // Friday, March 10, 2017 2:31 PM
+            var format = "dddd, MMMM dd, yyyy";
+            var spanishDate = DateTime.Now.ToString(format, new CultureInfo("es-ES"));
             String answerHtml = html
-                .Replace("#Title", Title)
+                .Replace("#Title", "Nueva respuesta")
                 .Replace("#QuestionTitle", QuestionTitle)
                 .Replace("#ImageUrl", ImageUrl)
                 .Replace("#AnswerUserName", AnswerUserName)
                 .Replace("#AnswerUserOccupation", AnswerUserOccupation)
-                .Replace("#date", "Written at " + string.Format("{0:f}", DateTime.Now))
+                .Replace("#date", "Escrito " + string.Format("{0:f}", spanishDate))
                 .Replace("#AnswerText", AnswerText)
                 .Replace("#AnswerLink", AnswerLink);
 
