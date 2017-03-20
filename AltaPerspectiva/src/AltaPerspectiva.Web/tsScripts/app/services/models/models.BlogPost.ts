@@ -11,6 +11,7 @@ export class BlogPost {
     createdOn: string;
     comments: BlogComment[];
     likes: BlogLike[];
+    shareUrl:string;
     constructor() {
         this.comments = new Array();
         this.likes = new Array();

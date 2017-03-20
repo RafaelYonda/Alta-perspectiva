@@ -13,13 +13,13 @@
         <a class="status-line hidden-xs" data-toggle="collapse" aria-expanded="false" attr.data-target="#postComment{{blogPost.id}}">Comentarios</a>
 
         <div class="social-icon">
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{blogpost.sharedUrl}}&title={{blogpost?.title}}&description={{blogText}}"
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{blogPost?.shareUrl}}&title={{blogPost?.title}}&description={{blogText}}"
                class="SHARE FACEBOOK"
                onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
                 <img class="social-image" id="img1" src="../images/facebooklogo.jpg" />
             </a>
 
-            <a href="https://twitter.com/intent/tweet?text={{blogpost?.title}}Check out:{{blogpost?.sharedUrl}}"
+            <a href="https://twitter.com/intent/tweet?text={{blogPost?.title}} Check out:{{blogPost?.shareUrl}}"
                class="SHARE TWITTER"
                onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
                 <img class="social-image" id="img2" src="../images/twitter.png" />
