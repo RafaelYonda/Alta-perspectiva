@@ -28,7 +28,7 @@
             <img class="user-image img-circle" src="{{topFiveUser?.imageUrl}}" (mouseover)='userover(topFiveUser?.id)' [popover]="userInfoDetailsPopoveruser" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" />
             <div class="top-user-info">
                 <a (click)="gotoProfile(topFiveUser?.userId)" for="contain" data-toggle="dropdown" class="padding-middle"> {{topFiveUser?.name}}</a>
-                <span *ngIf="topFiveUser.occupation">,{{topFiveUser.occupation}}</span>
+                <span *ngIf="topFiveUser.occupation">&nbsp;&nbsp;{{topFiveUser.occupation}}</span>
                 <div>{{topFiveUser.profileViewCount}} vistas</div>
             </div>
             <div class="clearfix"></div>
@@ -56,26 +56,32 @@
         <div class="topAlign">
             <ul class="fa-ul">
                 <li *ngIf="userInfoDetails?.answerCount!=0">
-                    <i class="fa-li fa fa-check-square"></i>Answers: {{userInfoDetails?.answerCount}}
+                    <i class="fa-li fa fa-check-square"></i><!--Answers:--> Respuestas:{{userInfoDetails?.answerCount}}
                 </li>
-                <li *ngIf="userInfoDetails?.questionCount!=0"><i class="fa-li fa fa-question"></i>Questions: {{userInfoDetails?.questionCount}}</li>
+                <li *ngIf="userInfoDetails?.questionCount!=0">
+                    <i class="fa-li fa fa-question"></i>
+                    <!--Questions:-->
+                    Preguntas:{{userInfoDetails?.questionCount}}
+                </li>
 
                 <li *ngIf="userInfoDetails?.education">
-                    <i class="fa-li fa fa-university"></i>Education: {{userInfoDetails?.education}}
+                    <i class="fa-li fa fa-university"></i><!--Education:-->
+                    Educación: {{userInfoDetails?.education}}
                 </li>
                 <li *ngIf="userInfoDetails?.employment">
-                    <i class="fa-li fa fa-info-circle"></i>Employment: {{userInfoDetails?.employment}}
+                    <i class="fa-li fa fa-info-circle"></i><!--Employment:--> Labor:{{userInfoDetails?.employment}}
                 </li>
                 <li *ngIf="userInfoDetails?.place">
-                    <i class="fa-li fa fa-home "></i>Place: {{userInfoDetails?.place}}
+                    <i class="fa-li fa fa-home "></i><!--Place:-->
+                    Lugar:{{userInfoDetails?.place}}
                 </li>
                 <li *ngIf="userInfoDetails?.otherExperience">
-                    <i class="fa-li fa fa-cog"></i>Others: {{userInfoDetails?.otherExperience}}
+                    <i class="fa-li fa fa-cog"></i>Otros:{{userInfoDetails?.otherExperience}}
                 </li>
 
                 <li *ngIf="userInfoDetails?.questionViewCount!=0">
                     <i class="fa-li fa fa-eye">
-                    </i>Views: {{userInfoDetails?.questionViewCount}}
+                    </i><!--Views:-->Vistas de perfil: {{userInfoDetails?.questionViewCount}}
                 </li>
             </ul>
         </div>
