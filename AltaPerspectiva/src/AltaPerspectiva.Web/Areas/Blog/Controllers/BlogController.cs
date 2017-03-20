@@ -66,12 +66,16 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
             AddBlogCommand command = new AddBlogCommand(model.UserId, model.Title, model.Url, model.Description);
             commandsFactory.ExecuteQuery(command);
             model.Id = command.Id;
-
-            if (model.Id == Guid.Empty)
+            bool sueccessResult = false;
+            if (model.Id != Guid.Empty)
             {
-                return Ok("Blog already created");
+                sueccessResult = true;
+                //return Ok("Blog already created");
             }
-            return Ok(model);
+            return Ok(new
+            {
+                result= sueccessResult
+            });
         }
         [HttpPost("blog/api/updateblog")]
         public IActionResult UpdateBlog([FromBody]BlogViewModel model)

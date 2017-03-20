@@ -7,6 +7,7 @@ import { loginModalComponent } from '../../../shared/login-modal/login-modal.com
 import { AuthenticationService } from '../../../services/authentication.service';
 import { BlogService } from '../../../services/blog.service';
 import { Router } from '@angular/router';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 @Component({
     templateUrl: 'js/app/dashboard/viewprofile/blog-create/blog-create.component.html',
     providers: [ProfileService, BlogService, AuthenticationService],
@@ -16,7 +17,7 @@ export class BlogCreateComponent {
     blog: Blog = new Blog();
     blogs: Blog[];
     userId: string;
-    constructor(private _route: ActivatedRoute, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private blogService: BlogService, private _authService: AuthenticationService,private router: Router) {
+    constructor(private _route: ActivatedRoute, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private blogService: BlogService, private _authService: AuthenticationService, private router: Router, public toastr: ToastsManager, vcr: ViewContainerRef) {
     }
     ngOnInit() {
         window.scrollTo(0, 0);
@@ -57,6 +58,10 @@ export class BlogCreateComponent {
         this.blog.userId = this.userId;
         this.profileService.SaveBlog(this.blog).subscribe(res => {
             console.log(res);
+            if (res.result == false) {
+                this.toastr.warning('El blog ya existe', 'Oops! ');
+                return;
+            }
             // this.blogList.push(res);
             this.profileService.GetBlogs(this.userId).subscribe(blist => {
                 this.blogs = blist;
