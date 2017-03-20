@@ -14,12 +14,13 @@
 
         <div class="social-icon">
             <a href="https://www.facebook.com/sharer/sharer.php?u={{blogpost?.sharedUrl}}"
+               href="https://www.facebook.com/sharer/sharer.php?u={{blogpost.shareUrl}}&title={{blogpost?.title}}&description={{blogText}}"
                class="SHARE FACEBOOK"
                onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
                 <img class="social-image" id="img1" src="../images/facebooklogo.jpg" />
             </a>
 
-            <a href="https://twitter.com/home?status={{blogpost?.shareUrl}}"
+            <a href="https://twitter.com/intent/tweet?text={{blogpost?.title}}Check out:{{blogpost?.shareUrl}}"
                class="SHARE TWITTER"
                onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
                 <img class="social-image" id="img2" src="../images/twitter.png" />

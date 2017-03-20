@@ -16,14 +16,17 @@ export class PostStatusComponent {
     CommentCount: number;
     like: BlogLike;
     likedUsers: any;
+    blogText: string;
+
     constructor(private blogService: BlogService, private componentFactoryResolver: ComponentFactoryResolver) {
     }
 
     ngOnInit() {
-        console.log(this.blogPost.likes.length);
-        //if (this.blogPost.comments) {
-        //    this.CommentCount = this.blogPost.comments.length;
-        //}     
+
+        if (this.blogPost.description)
+        {
+            this.blogText = this.blogPost.description.replace(/<\/?[^>]+(>|$)/g, "").substring(0,200);
+        }       
         this.blogService.IncreaseBlogPostViewCount(this.blogPost).subscribe(res => {
             if (this.blogPost.blogViewCount && res==true) {
                 this.blogPost.blogViewCount = this.blogPost.blogViewCount + 1;
