@@ -188,18 +188,23 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 Base64Image base64Image = Base64Image.Parse(file);
                 var byteArray = base64Image.FileContents;
 
+               // string ImgName = "Image.jpg";
+                int lastIndex = imageName.LastIndexOf('.');
+                var name = imageName.Substring(0, lastIndex);
+                var ext = imageName.Substring(lastIndex + 1);
 
+                string fullUpdateImageName = DateTime.Now.ToString("yyyyyhhmmssffffff") +"."+ext;
                 //String imageName = id.ToString() + base64Image.Extension;
 
                 AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
                 string fileLink = await azureFileUploadHelper.SaveProfileCroppedImageInAzure(base64Image.baseStream,
-                    imageName, base64Image.ContentType);
+                    fullUpdateImageName, base64Image.ContentType);
 
 
                 // answer.Text = answer.Text.Replace(imgTag, fileLink);
                 //AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
                 //await azureFileUploadHelper.SaveProfileImage(file);
-                UpdateUserImageCommand cmd = new UpdateUserImageCommand(userId, imageName);
+                UpdateUserImageCommand cmd = new UpdateUserImageCommand(userId, fullUpdateImageName);
                 commandsFactory.ExecuteQuery(cmd);
                 Guid createdId = cmd.Id;
                 Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(userId);

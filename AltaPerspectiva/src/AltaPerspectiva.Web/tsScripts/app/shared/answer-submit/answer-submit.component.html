@@ -54,7 +54,7 @@
        
     </div>
     <div class="modal-body">
-        <quill-editor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}"
+        <quill-editor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}" placeholder="Escríbe aquí"
                       [modules]="{  toolbar: [['bold', 'italic', 'underline'], ['link', 'image']] }"
                       required name="answerField" #answerField="ngModel"></quill-editor>
     </div>
