@@ -9,7 +9,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Models
 {
     public class TopicNKeywordViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please select a category")]
         public string CategoryId { get; set; }
 
         public IEnumerable<Category> Categories { get; set; }
