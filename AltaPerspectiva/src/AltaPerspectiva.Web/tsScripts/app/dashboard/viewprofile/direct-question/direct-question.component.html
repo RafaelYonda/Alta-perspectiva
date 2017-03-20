@@ -44,7 +44,7 @@
 
         <textarea class="form-control bottom-margin" rows="5" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="body" [ngModelOptions]="{standalone: true}"></textarea>
         <button type="submit" class="btn btn-primary pull-right" [disabled]="!titleName.valid" (click)="submitQuestion()">
-            Submit Question
+            <!--Submit Question-->Enviar pregunta
         </button>
     </div>
     <div class="clearfix"></div>
@@ -60,7 +60,7 @@
         <p class="answer-text" [innerHTML]="question.body"></p>
     </div>
     <hr />
-    <button class="answer-button" (click)="answerDialogBox(question)">Answer</button>
+    <button class="answer-button" (click)="answerDialogBox(question)"><!--Answer-->Responder</button>
     <!-- =========Answers============== -->
     <div *ngFor="let answer of question.answers">
         <div class="article-details direct-naswer" *ngIf="answer">

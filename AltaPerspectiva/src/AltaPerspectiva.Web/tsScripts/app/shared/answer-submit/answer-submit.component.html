@@ -47,8 +47,10 @@
             <div *ngIf="!isAnonymous" class="header-info">{{_logObj.user?.name}}  {{_logObj.user?.occupassion}} </div>
             <div *ngIf="isAnonymous" class="header-info">Anonymous</div>
             <div *ngIf="!isDraft" class="checkbox-container">
-                <input type="checkbox" #answerAnonymous [checked]=false (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar Anonimo</label>
-                <a *ngIf="!isFullScreen" [routerLink]="['/question/questionfullscreen',question.id]">Go full screen</a>
+                <input type="checkbox" #answerAnonymous [checked]=false (change)="onChange(answerAnonymous.checked)" /> <label>Preguntar anónimo </label>
+                <a *ngIf="!isFullScreen" [routerLink]="['/question/questionfullscreen',question.id]">
+                    <!--Go full screen-->Ver página completa
+                </a>
             </div>
         </div>
        
@@ -60,9 +62,16 @@
     </div>
     <div class="modal-footer">
         <div style="float:left;color:#737373;line-height: 34px;">
-            <button *ngIf="!isDraft" type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Submit</button>
-            <button *ngIf="!isDraft" type="button" (click)="submitAnswerAsDraft(question.id)" data-dismiss="modal" class="btn save-as-draft">Save As Draft</button>
-            <button *ngIf="isDraft" type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">Publish Answer</button>
+            <button *ngIf="!isDraft" type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">
+                <!--Submit-->Enviar
+            </button>
+            <button *ngIf="!isDraft" type="button" (click)="submitAnswerAsDraft(question.id)" data-dismiss="modal" class="btn save-as-draft">
+                <!--Save As Draft-->Guardar borrador
+            </button>
+            <button *ngIf="isDraft" type="button" (click)="submitAnswer(question.id)" data-dismiss="modal" class="btn btn-primary">
+                <!--Publish Answer-->
+                Publicar Respuesta
+            </button>
         </div>
         <div class="social-share">
             <a href="https://www.facebook.com/sharer/sharer.php?u={{question.shareUrl}}"
