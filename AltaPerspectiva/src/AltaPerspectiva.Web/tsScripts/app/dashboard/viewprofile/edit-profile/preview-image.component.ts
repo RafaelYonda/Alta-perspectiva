@@ -86,7 +86,7 @@ export class PreviewImageComponent {
             }
 
             if (extension == "") {
-                this.toastr.error('Please select jpg/png image', 'Oops!');
+                this.toastr.error('Selecciona una imagen jpg/png', '¡Oops!');
                 return;
             }
 
@@ -95,11 +95,11 @@ export class PreviewImageComponent {
             this._imgService
                 .uploadCroppedImage(img, this.userId, imageName)
                 .subscribe(res => {
-                    this.toastr.success('Image Chnaged successfully!', 'success');
+                    this.toastr.success('Imagen cambiada !', '¡Perfecto! ');
                     this.close.emit('event');
                 });
         } else {
-            this.toastr.error('Please select jpg/png image', 'Oops!');
+            this.toastr.error('Selecciona una imagen jpg/png', '¡Oops!');
             return;
         }
        
