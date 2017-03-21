@@ -107,6 +107,7 @@ a {
     padding-left: 15px;
     padding-right:15px;
     font-size:15px;
+    box-shadow:none;
 }
 
 .form-group {
