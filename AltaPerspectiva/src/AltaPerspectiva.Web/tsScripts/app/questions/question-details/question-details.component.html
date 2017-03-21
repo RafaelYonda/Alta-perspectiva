@@ -62,7 +62,7 @@
                 {{question.answers?.length}} <!--Answers-->Respuestas
             </h4>
             <div class="row filter-panel">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <a (click)="GetLatestAnswer(question.id)">
                         <h4>
                             <!--The latest answers-->
@@ -70,7 +70,7 @@
                         </h4>
                     </a>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <a (click)="GetBestAnswer(question.id)">
                         <h4>
                             <!--The best answer-->
@@ -100,7 +100,6 @@
             </div>
             <hr />
         </div>
-
     </div>
 </div>
 <div *ngIf="showQuestionEditForm">

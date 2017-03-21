@@ -40,8 +40,6 @@ and (min-width : 1224px) {
    .loginForm {
         opacity: .95;
         margin-top: 57px;
-        width: 577px;
-        margin-left: 102px;
     }
    .registrationForm {
         opacity: .95;
@@ -59,13 +57,6 @@ and (min-width : 1224px) {
 /* Large screens ----------- */
 @media only screen 
 and (min-width : 1824px) {
-  /* Styles */
-   .loginForm {
-        opacity: .95;
-        margin-top: 57px;
-        width: 577px;
-        margin-left: 102px;
-    }
    .registrationForm {
         opacity: .95;
         margin-top: 63px;

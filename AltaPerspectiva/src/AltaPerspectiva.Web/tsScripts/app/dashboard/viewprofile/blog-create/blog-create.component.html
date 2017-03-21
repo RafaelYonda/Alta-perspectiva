@@ -28,7 +28,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3"> Nombre del blog*</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" placeholder="My Blog" id="blogName" [(ngModel)]="blog.title" required name="blogName"
+                <input type="text" class="form-control" placeholder="Mi Blog" id="blogName" [(ngModel)]="blog.title" required name="blogName"
                        #blogName="ngModel">
                 <div [hidden]="blogName.valid || blogName.pristine"
                      class="alert alert-danger">
@@ -42,7 +42,7 @@
             <label class="control-label col-sm-3">URL*</label>
             <div class="col-sm-1"><label class="control-label">https://</label></div>
             <div class="col-sm-3">
-                <input type="text" class="form-control" placeholder="myblog" id="url" [(ngModel)]="blog.url" required name="url"
+                <input type="text" class="form-control" placeholder="miblog" id="url" [(ngModel)]="blog.url" required name="url"
                        #url="ngModel">
                 <div [hidden]="url.valid || url.pristine"
                      class="alert alert-danger">
