@@ -67,10 +67,10 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions")]
         public async Task<IActionResult> Get()
         {
-            IEnumerable<Question> questionList = null;          
+            IEnumerable<Question> questionList = null;
 
             questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-            
+
             List<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
 
             return Ok(questions);
@@ -81,21 +81,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             IEnumerable<Question> questionList = null;
 
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-                // if user is logged in, then fetch questions by user following a category
-                questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().GetQuestionByTopciNCategoryId(loggedinUser, topicId, categoryId);
-            }
-            else
-            {
-                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().GetQuestionByTopciNCategoryId(topicId, categoryId);
-            }
-
+            questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().GetQuestionByTopciNCategoryId(topicId, categoryId);
 
             var questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
 
@@ -134,7 +120,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(id);
 
-            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory,configuration);
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);
             return Ok(questionViewModel);
         }
 
@@ -199,19 +185,19 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost("/questions/api/question/{id}/answer")]
         public async Task<IActionResult> PostAnswer([FromBody]AddAnswerViewModel answer)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-           
+
             #region imageProcessing
 
 
 
-            string firstImageUrl = null;
+           string firstImageUrl = null;
             var imgTags = Base64Image.GetImagesInHTMLString(answer.Text);
 
             foreach (var imgTag in imgTags)
@@ -234,7 +220,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                         imageName, base64Image.ContentType);
                     if (firstImageUrl == null)
                     {
-                        firstImageUrl =  Regex.Match(fileLink, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase).Groups[1].Value;
+                        firstImageUrl = Regex.Match(fileLink, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase).Groups[1].Value;
                     }
                 }
                 catch (Exception e)
@@ -248,14 +234,14 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
             #endregion
 
-            if (answer.IsDrafted == null || answer.IsDrafted==false)
+            if (answer.IsDrafted == null || answer.IsDrafted == false)
             {
                 string webRootPath = hostingEnvironment.WebRootPath;
                 await new SendEmailService().SendAnswerEmailAsync(queryFactory, webRootPath, loggedinUser, answer.QuestionId, answer.Text, "New Answer");
             }
-          
 
-            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous,firstImageUrl);
+
+            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous, firstImageUrl);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 
@@ -265,7 +251,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost("/questions/api/question/{id}/comment")]
         public AddCommentViewModel PostQuestionComment([FromBody]AddCommentViewModel comment)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -277,7 +263,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
 
-            var userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser,configuration);
+            var userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);
             comment.UserViewModel = userViewModel;
             return comment;
 
@@ -287,7 +273,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost("/questions/api/question/answer/{answerId}/comment")]
         public AddCommentViewModel PostAnswerComment([FromBody]AddCommentViewModel comment)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -310,7 +296,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         public IActionResult GetQuestionAlreadyLiked(Guid questionId)
         {
 
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -326,7 +312,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         public IActionResult PostQuestionLike([FromBody]AddLikeViewModel like)
         {
 
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -347,7 +333,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/question/getansweralreadyliked/{answerId}")]
         public IActionResult GetAnswerAlreadyLiked(Guid answerId)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -362,7 +348,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost("/questions/api/question/answer/{answerId}/like")]
         public IActionResult PostAnswerLike([FromBody]AddLikeViewModel like)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;//= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -536,19 +522,20 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/getlevelname/{levelId}")]
         public IActionResult GetLevelName(Guid levelId)
         {
-            
+
             if (levelId != Guid.Empty)
             {
                 var level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId);
                 return Ok(
-                new {
-                  result=level?.LevelName
+                new
+                {
+                    result = level?.LevelName
                 }
                 );
             }
             return Ok(new
             {
-                result =String.Empty
+                result = String.Empty
             });
         }
 
@@ -587,7 +574,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost("/questions/api/{questionId}/addbookmark")]
         public IActionResult AddBookMark(Guid questionId)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;//= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -596,7 +583,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
 
             AddBookmarkCommand cmd = new AddBookmarkCommand(loggedinUser, questionId);
-            
+
             commandsFactory.ExecuteQuery(cmd);
             Boolean sueccessResult = false;
             if (cmd.Id == Guid.Empty)
@@ -604,20 +591,20 @@ namespace AltaPerspectiva.Web.Area.Questions
                 //Already added book mark
                 sueccessResult = true;
             }
-            return Ok(new {result = sueccessResult });
+            return Ok(new { result = sueccessResult });
             //  return Created($"/questions/api/{cmd.Id}/addbookmark", questionId);
         }
 
 
         #endregion
 
-        
+
 
         #region Question
         [HttpPost("/questions/api/savequestion")]
         public IActionResult SaveQuestion([FromBody]AddQuestionViewModel question)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;//= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -652,15 +639,15 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost("/questions/api/{questionId}/updatequestion")]
         public IActionResult UpdateQuestion([FromBody]AddQuestionViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser; //= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            QuestionService questionService=new QuestionService();
-            model.Title=  questionService.RemoveQuestionMark(model.Title);
+            QuestionService questionService = new QuestionService();
+            model.Title = questionService.RemoveQuestionMark(model.Title);
 
             UpdateQuestionCommand cmd = new UpdateQuestionCommand(model.Id, model.Title, model.Body, model.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);
@@ -672,7 +659,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost("/questions/api/{questionId}/addquestionfollowing")]
         public IActionResult AddQuestionFollowing([FromBody]QuestionFollowingViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -697,7 +684,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             IEnumerable<Question> questionList = null;
 
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;//= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -727,7 +714,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             IEnumerable<Question> questionList = null;
 
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -755,7 +742,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             IEnumerable<Question> questionList = null;
 
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;//= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
             if (User.Identity.IsAuthenticated)
             {
@@ -767,9 +754,9 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
             //else
             //{
-                questionList = await queryFactory.ResolveQuery<IQuestionsQuery>()
-                    .GetBestQuestionbyTotalLike(categoryId);
-           // }
+            questionList = await queryFactory.ResolveQuery<IQuestionsQuery>()
+                .GetBestQuestionbyTotalLike(categoryId);
+            // }
 
             List<QuestionViewModel> questions = new List<QuestionViewModel>();
 
@@ -783,14 +770,11 @@ namespace AltaPerspectiva.Web.Area.Questions
         public IActionResult GetLatestAnswer(Guid questionId)
         {
             var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
-            //if (question == null)
-            //{
-            //    return NotFound("The content you are looking for is not avaliable/Removed");
-            //}
+            
             question.Answers =
                 question.Answers.OrderByDescending(d => d.CreatedOn).ToList();
 
-            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory,configuration);
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);
             return Ok(questionViewModel);
         }
         [HttpGet("/questions/api/questions/{questionId}/getbestanswer")]
@@ -801,7 +785,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             question.Answers = question.Answers.OrderByDescending(l => l.Likes.Count).ToList();
 
 
-            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory,configuration);
+            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);
 
             return Ok(questionViewModel);
         }
@@ -1018,16 +1002,16 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
             question.Title = new QuestionService().RemoveQuestionMark(question.Title);
 
-           
+
 
             DirectQuestionCommand cmd = new DirectQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous, true, question.QuestionAskedToUser.Value);
             commandsFactory.ExecuteQuery(cmd);
-            
+
             Guid questionId = cmd.Id;
             if (question.QuestionAskedToUser.Value != loggedinUser)
             {
                 string webRootPath = hostingEnvironment.WebRootPath;
-                await new SendEmailService().SendDirectQuestionEmailAsync(queryFactory, webRootPath, "Pregunta directa", question.Title,question.Body, loggedinUser, question.QuestionAskedToUser.Value);
+                await new SendEmailService().SendDirectQuestionEmailAsync(queryFactory, webRootPath, "Pregunta directa", question.Title, question.Body, loggedinUser, question.QuestionAskedToUser.Value);
             }
 
 
@@ -1098,7 +1082,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok();
         }
 
-      
+
 
 
     }

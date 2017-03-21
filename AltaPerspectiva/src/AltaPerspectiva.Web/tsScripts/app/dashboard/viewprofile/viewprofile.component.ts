@@ -138,7 +138,7 @@ export class ViewProfileComponent {
         this.employmentHtml = " " + this.credential.employments[0].position.concat(" En ")
             .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/>").concat("&nbsp;&nbsp;&nbsp;&nbsp;")
                               .concat(this.credential.employments[0].startDate ? this.credential.employments[0].startDate.toString():"")
-                              .concat(this.credential.employments[0].isCurrentlyWorking ? " present " : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
+            .concat(this.credential.employments[0].isCurrentlyWorking ? " presente " : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
     }
     generateEducationHtml()
     {
@@ -186,10 +186,10 @@ export class ViewProfileComponent {
         let place = this.credential.places[0];
         var placeHtml = "";
         if (place.isCurrentyLiving) {
-            placeHtml = "lives at " + place.locationName ;
+            placeHtml = " Vive en " + place.locationName ;
         } else {
             if (place.locationName) {
-                placeHtml = " from " + place.locationName;
+                placeHtml = " de " + place.locationName;
             }
             
         }
