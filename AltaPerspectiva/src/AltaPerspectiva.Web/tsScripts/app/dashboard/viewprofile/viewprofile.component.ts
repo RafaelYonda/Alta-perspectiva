@@ -149,7 +149,7 @@ export class ViewProfileComponent {
 
         if (this.credential.educations[0].concentration) {
             if (this.credential.educations[0].concentration.length > 1) {
-               primary = " ".concat(primary.concat(this.credential.educations[0].concentration));
+                primary = primary.concat("&nbsp;").concat(this.credential.educations[0].concentration);
             }
         }
 
