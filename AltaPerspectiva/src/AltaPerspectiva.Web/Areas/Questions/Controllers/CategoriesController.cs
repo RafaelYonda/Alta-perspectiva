@@ -104,18 +104,23 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost("questions/api/categories/addfollowers/{categoryId}")]
         public IActionResult AddFollowers(Guid categoryId)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;
 
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+
+                FollowCategoryCommand cmd = new FollowCategoryCommand(categoryId, loggedinUser);
+                commandsFactory.ExecuteQuery(cmd);
+
+                return Created($"questions/api/categories/addfollowers/{cmd.Id}", cmd);
             }
-
-            FollowCategoryCommand cmd = new FollowCategoryCommand(categoryId, loggedinUser);
-            commandsFactory.ExecuteQuery(cmd);
-
-            return Created($"questions/api/categories/addfollowers/{cmd.Id}", cmd);
+            return Unauthorized();
 
         }
 
@@ -154,32 +159,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             cache.SetString("keywords", JsonConvert.SerializeObject(keywords), options);
             return Ok(keywords);
         }
-
-        // PUT questions/api/categories/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        
-
-       
-
-
-        /*Keyword added sccessfully*/
       
-
-        [HttpGet("questions/getlevel")]
-        public IActionResult GetLevel()
-        {
-            //AddLevelCommand cmd = new AddLevelCommand(1, "akash");
-
-            //commandsFactory.ExecuteQuery(cmd);
-
-            //List<Category> categoriesList = queryFactory.ResolveQuery<ICategoriesQuery>().Execute().ToList();
-
-            return View();
-        }
     }
 
 }

@@ -67,9 +67,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions")]
         public async Task<IActionResult> Get()
         {
-            IEnumerable<Question> questionList = null;
-
-            questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
 
             List<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
 
@@ -79,11 +77,9 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/{topicId}/questions/{categoryId}")]
         public async Task<IActionResult> GetQuestionByTopicNCategoryId(Guid topicId, Guid categoryId)
         {
-            IEnumerable<Question> questionList = null;
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().GetQuestionByTopciNCategoryId(topicId, categoryId);
 
-            questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().GetQuestionByTopciNCategoryId(topicId, categoryId);
-
-            var questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
+            IEnumerable<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
 
             return Ok(questions);
         }
@@ -91,26 +87,24 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/search")]
         public async Task<IActionResult> GetSearchQuestion()
         {
-            var questionList = await queryFactory.ResolveQuery<IQuestionsSearchQuery>().Execute();
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsSearchQuery>().Execute();
             return Ok(questionList);
         }
 
         [HttpGet("/questions/api/questions/notanswered/{id}")]
         public async Task<IActionResult> GetQuestyionsNotAnswered(Guid id)
         {
-            IEnumerable<Question> questionList = null;
-            questionList = await queryFactory.ResolveQuery<IQuestionsNotAnsweredQuery>().Execute(id);
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsNotAnsweredQuery>().Execute(id);
 
-            var questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
+            IEnumerable<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
             return Ok(questions);
         }
 
         [HttpGet("/questions/api/questions/answered/{id}")]
         public async Task<IActionResult> GetQuestyionsAnswered(Guid id)
         {
-            IEnumerable<Question> questionList = null;
-            questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(id);
-            var questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(id);
+            IEnumerable<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
             return Ok(questions);
         }
 
@@ -118,9 +112,9 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/{id}")]
         public IActionResult Get(Guid id)
         {
-            var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(id);
+            Question question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(id);
 
-            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);
+            QuestionViewModel questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);
             return Ok(questionViewModel);
         }
 
@@ -128,11 +122,9 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/category/{id}")]
         public async Task<IActionResult> GetQuestionsByCategoryId(Guid id)
         {
-            IEnumerable<Question> questionList = null;
-            questionList = await queryFactory.ResolveQuery<IQuestionsByCategoryIdQuery>().Execute(id);
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsByCategoryIdQuery>().Execute(id);
 
-            List<QuestionViewModel> questions = new List<QuestionViewModel>();
-            questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
+            List<QuestionViewModel> questions  = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
 
             return Ok(questions);
         }
@@ -141,20 +133,18 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/topic/{id}")]
         public async Task<IActionResult> GetQuestionsByTopicId(Guid id)
         {
-            IEnumerable<Question> questionList = null;
-            questionList = await queryFactory.ResolveQuery<IGetQuestionByTopicId>().Execute(id);
+            IEnumerable<Question> questions = await queryFactory.ResolveQuery<IGetQuestionByTopicId>().Execute(id);
 
-            List<QuestionViewModel> questions = new List<QuestionViewModel>();
-            questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
+            List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questions, queryFactory, configuration);
 
-            return Ok(questions);
+            return Ok(questionViewModels);
         }
 
         //get  /questions/api/questions/reatedquestions/{id}
         [HttpGet("/questions/api/questions/reatedquestions/{id}")]
         public async Task<IActionResult> GetRelatedQuestions(Guid id)
         {
-            var questions = await queryFactory.ResolveQuery<IRelatedQuestionsQuery>().Execute(id);
+            IEnumerable<Question> questions = await queryFactory.ResolveQuery<IRelatedQuestionsQuery>().Execute(id);
             foreach (var question in questions)
             {
                 question.Title = "¿" + question.Title + "?";
@@ -167,8 +157,8 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/{id}/comments")]
         public async Task<IActionResult> GetQuestionComments(Guid id)
         {
-            var comments = await queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);
-            var commentsVM = new QuestionService().GetComments(comments, queryFactory, configuration);
+            IEnumerable<Comment> comments = await queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);
+            IEnumerable<QuestionCommentViewModel> commentsVM = new QuestionService().GetComments(comments, queryFactory, configuration);
             return Ok(commentsVM);
         }
 
@@ -176,118 +166,114 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/answer/{id}/comments")]
         public async Task<IActionResult> GetAnswerComments(Guid id)
         {
-            var comments = await queryFactory.ResolveQuery<IAnswerCommentsQuery>().Execute(id);
-            var commentsVM = new QuestionService().GetComments(comments, queryFactory, configuration);
+            IEnumerable<Comment> comments = await queryFactory.ResolveQuery<IAnswerCommentsQuery>().Execute(id);
+            IEnumerable<QuestionCommentViewModel> commentsVM = new QuestionService().GetComments(comments, queryFactory, configuration);
             return Ok(commentsVM);
         }
 
-        // POST /questions/api/question/{id}/answer
         [HttpPost("/questions/api/question/{id}/answer")]
         public async Task<IActionResult> PostAnswer([FromBody]AddAnswerViewModel answer)
         {
-            Guid loggedinUser= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-
-            #region imageProcessing
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
 
+                #region imageProcessing
 
-           string firstImageUrl = null;
-            var imgTags = Base64Image.GetImagesInHTMLString(answer.Text);
+                string firstImageUrl = null;
+                var imgTags = Base64Image.GetImagesInHTMLString(answer.Text);
 
-            foreach (var imgTag in imgTags)
-            {
-                string fileLink = String.Empty;
-                try
+                foreach (var imgTag in imgTags)
                 {
-                    // String base64String = imgTag;
-
-                    Base64Image base64Image = Base64Image.Parse(imgTag);
-                    var byteArray = base64Image.FileContents;
-
-                    Answer ans = new Answer();
-                    ans.GenerateNewIdentity();
-                    Guid id = ans.Id;
-                    String imageName = id.ToString() + base64Image.Extension;
-
-                    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-                    fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
-                        imageName, base64Image.ContentType);
-                    if (firstImageUrl == null)
+                    string fileLink = String.Empty;
+                    string extension = Base64Image.GetExtension(imgTag);
+                    if (!String.IsNullOrEmpty(extension))
                     {
-                        firstImageUrl = Regex.Match(fileLink, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase).Groups[1].Value;
+                        Base64Image base64Image = Base64Image.Parse(imgTag);
+
+                        String imageName = Guid.NewGuid().ToString() + base64Image.Extension;
+
+                        AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                        fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
+                            imageName, base64Image.ContentType);
+                        if (firstImageUrl == null)
+                        {
+                            firstImageUrl = Regex.Match(fileLink, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase).Groups[1].Value;
+                        }
                     }
-                }
-                catch (Exception e)
-                {
-
-                }
-                finally
-                {
                     answer.Text = answer.Text.Replace(imgTag, fileLink);
+
                 }
+                #endregion
+
+                if (answer.IsDrafted != true)
+                {
+                    string webRootPath = hostingEnvironment.WebRootPath;
+                    
+                    //Nueva Respuesta=New Answer
+                    await new SendEmailService().SendAnswerEmailAsync(queryFactory, webRootPath, loggedinUser, answer.QuestionId, answer.Text, "Nueva Respuesta");
+                }
+
+
+                AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous, firstImageUrl);
+                commandsFactory.ExecuteQuery(cmd);
+                Guid createdId = cmd.Id;
+
+                return Created($"/questions/api/question/{answer.QuestionId}/answer/{answer.Id}", answer);
             }
-            #endregion
-
-            if (answer.IsDrafted == null || answer.IsDrafted == false)
-            {
-                string webRootPath = hostingEnvironment.WebRootPath;
-                await new SendEmailService().SendAnswerEmailAsync(queryFactory, webRootPath, loggedinUser, answer.QuestionId, answer.Text, "New Answer");
-            }
-
-
-            AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous, firstImageUrl);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-
-            return Created($"/questions/api/question/{answer.QuestionId}/answer/{answer.Id}", answer);
+            return Unauthorized();
         }
 
         [HttpPost("/questions/api/question/{id}/comment")]
-        public AddCommentViewModel PostQuestionComment([FromBody]AddCommentViewModel comment)
+        public IActionResult PostQuestionComment([FromBody]AddCommentViewModel comment)
         {
-            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+
+                AddCommentCommand cmd = new AddCommentCommand(comment.CommentText, comment.QuestionId, null,
+                    loggedinUser);
+                commandsFactory.ExecuteQuery(cmd);
+                Guid createdId = cmd.Id;
+
+                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser,
+                    configuration);
+                comment.UserViewModel = userViewModel;
+                return Ok(comment);
             }
-
-            AddCommentCommand cmd = new AddCommentCommand(comment.CommentText, comment.QuestionId, null, loggedinUser);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-
-            var userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);
-            comment.UserViewModel = userViewModel;
-            return comment;
-
+            return Unauthorized();
 
         }
 
         [HttpPost("/questions/api/question/answer/{answerId}/comment")]
-        public AddCommentViewModel PostAnswerComment([FromBody]AddCommentViewModel comment)
+        public IActionResult PostAnswerComment([FromBody]AddCommentViewModel comment)
         {
-            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+
+                AddCommentCommand cmd = new AddCommentCommand(comment.CommentText, comment.QuestionId, comment.AnswerId,
+                    loggedinUser);
+                commandsFactory.ExecuteQuery(cmd);
+                Guid createdId = cmd.Id;
+
+                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);
+                comment.UserViewModel = userViewModel;
+                return Ok(comment);
             }
-
-            AddCommentCommand cmd = new AddCommentCommand(comment.CommentText, comment.QuestionId, comment.AnswerId, loggedinUser);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-
-            var userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);
-            comment.UserViewModel = userViewModel;
-            return comment;
+            return Unauthorized();
         }
 
         #region Question and Answer Likes
@@ -295,37 +281,41 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/question/{questionId}/getqestionalreadyLiked")]
         public IActionResult GetQuestionAlreadyLiked(Guid questionId)
         {
-
-            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
+                    .GetQuestionBeforeLike(questionId, loggedinUser);
+                return Ok(new { result = alreadyLiked });
             }
-            Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
-               .GetQuestionBeforeLike(questionId, loggedinUser);
-            return Ok(new { result = alreadyLiked });
+            return Unauthorized();
         }
 
         [HttpPost("/questions/api/question/{id}/like")]
         public IActionResult PostQuestionLike([FromBody]AddLikeViewModel like)
         {
-
-            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                like.UserId = loggedinUser;
+
+                AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
+                commandsFactory.ExecuteQuery(cmd);
+                Guid createdId = cmd.Id;
+
+                return Created($"/questions/api/question/{like.QuestionId}/comment/{like.Id}", like);
             }
-            like.UserId = loggedinUser;
-
-            AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-
-            return Created($"/questions/api/question/{like.QuestionId}/comment/{like.Id}", like);
+            return Unauthorized();
 
 
         }
@@ -333,42 +323,50 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/question/getansweralreadyliked/{answerId}")]
         public IActionResult GetAnswerAlreadyLiked(Guid answerId)
         {
-            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
+                    .GetAnswerBeforeLike(answerId, loggedinUser);
+                return Ok(new { result = alreadyLiked });
             }
-            Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
-              .GetAnswerBeforeLike(answerId, loggedinUser);
-            return Ok(new { result = alreadyLiked });
+            return Unauthorized();
         }
 
         [HttpPost("/questions/api/question/answer/{answerId}/like")]
         public IActionResult PostAnswerLike([FromBody]AddLikeViewModel like)
         {
-            Guid loggedinUser;//= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
+            
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                like.UserId = loggedinUser;
+
+                AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);
+                commandsFactory.ExecuteQuery(cmd);
+                Guid createdId = cmd.Id;
+
+                return Created($"/questions/api/question/{like.QuestionId}/answer/{like.AnswerId}/comment/{like.Id}",
+                    like);
             }
-            like.UserId = loggedinUser;
-
-            AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
-
-            return Created($"/questions/api/question/{like.QuestionId}/answer/{like.AnswerId}/comment/{like.Id}", like);
+            return Unauthorized();
 
         }
 
         [HttpGet("/questions/api/question/{questionId}/questionlike")]
         public async Task<IActionResult> GetQuestionLike(Guid questionId)
         {
-            var likes = await queryFactory.ResolveQuery<ILikeQuery>().Execute(questionId);
+            IEnumerable<Like> likes = await queryFactory.ResolveQuery<ILikeQuery>().Execute(questionId);
 
             List<UserViewModel> userViewModels = new List<UserViewModel>();
             foreach (var like in likes)
@@ -383,7 +381,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/question/{answerId}/answerlike")]
         public async Task<IActionResult> GetAnswerLike(Guid answerId)
         {
-            var likes = await queryFactory.ResolveQuery<ILikeQuery>().GetLikeByAnswerId(answerId);
+            IEnumerable<Like> likes = await queryFactory.ResolveQuery<ILikeQuery>().GetLikeByAnswerId(answerId);
 
             List<UserViewModel> userViewModels = new List<UserViewModel>();
             foreach (var like in likes)
@@ -410,12 +408,11 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Created($"/questions/api/question/{cmd.Id}/viewcount/{cmd.Id}", cmd);
 
         }
-        //all like added 
 
         [HttpGet("/questions/api/answerlike/{answerId}")]
         public async Task<IActionResult> AnswerLike(Guid answerId)
         {
-            var likes = await queryFactory.ResolveQuery<ILikeQuery>().Answer(answerId);
+            IEnumerable<Like> likes = await queryFactory.ResolveQuery<ILikeQuery>().Answer(answerId);
 
             List<UserViewModel> userViewModels = new List<UserViewModel>();
             foreach (var like in likes)
@@ -434,23 +431,6 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         #region Top Five Region
-        //Questions
-        //[HttpGet("/questions/api/gettopfivequestion")]
-        //public async Task<IActionResult> GetTopFiveQuestion()
-        //{
-
-        //    var topFiveQuestion = await queryFactory.ResolveQuery<IQuestionsQuery>().GetTopFiveQuestion();
-
-        //    foreach (var question in topFiveQuestion)
-        //    {
-        //        question.Title = "¿" + question.Title + "?";
-        //    }
-
-
-        //    return Ok(topFiveQuestion);
-
-
-        //}
         [HttpGet("/questions/api/{categoryId}/gettopfivequestionbycategoryid")]
         public async Task<IActionResult> GetTopFiveQuestionByCategoryId(Guid categoryId)
         {
@@ -476,20 +456,16 @@ namespace AltaPerspectiva.Web.Area.Questions
         public async Task<IActionResult> GetTopFiveTopicsByCategoryId(Guid categoryId)
         {
             IEnumerable<Topic> topFiveTopics = new List<Topic>();
-            //  IEnumerable<Question> questions=new List<Question>();
+
             if (categoryId == Guid.Empty)
             {
                 topFiveTopics =
                     await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopics();
-
-
             }
             else
             {
                 topFiveTopics =
                     await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopicsByCategoryId(categoryId);
-
-
             }
 
 
@@ -499,13 +475,13 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/{categoryId}/gettopicbycategoryid")]
         public async Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId)
         {
-            var topicsByCategory = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(categoryId);
+            IEnumerable<Topic> topicsByCategory = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(categoryId);
             return topicsByCategory;
         }
         [HttpGet("/questions/api/{topicId}/getrelatedTopicsbytopicId")]
         public async Task<IEnumerable<Topic>> GetRelatedTopicsByTopicId(Guid topicId)
         {
-            var relatedTopicsByCategory = await queryFactory.ResolveQuery<ITopicQuery>().GetRelatedTopicsByTopicId(topicId);
+            IEnumerable<Topic> relatedTopicsByCategory = await queryFactory.ResolveQuery<ITopicQuery>().GetRelatedTopicsByTopicId(topicId);
             return relatedTopicsByCategory;
         }
 
@@ -516,46 +492,46 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/getlevel")]
         public async Task<IEnumerable<Level>> GetLevel()
         {
-            var levels = await queryFactory.ResolveQuery<ILevelQuery>().GetAllLevel();
+            IEnumerable<Level> levels = await queryFactory.ResolveQuery<ILevelQuery>().GetAllLevel();
             return levels;
         }
         [HttpGet("/questions/api/getlevelname/{levelId}")]
         public IActionResult GetLevelName(Guid levelId)
         {
-
+            string levelName = string.Empty;
             if (levelId != Guid.Empty)
             {
-                var level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId);
-                return Ok(
-                new
+                Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId);
+
+                if (level != null)
                 {
-                    result = level?.LevelName
+                    levelName = level.LevelName;
                 }
-                );
             }
             return Ok(new
             {
-                result = String.Empty
+                result = levelName
             });
         }
 
         [HttpGet("/questions/api/gettopicname/{topicId}")]
         public IActionResult GetTopicName(Guid topicId)
         {
+            string topicName = string.Empty;
             if (topicId != Guid.Empty)
             {
-                var topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId);
-                return Ok(
-                new
+                Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId);
+
+                if (topic != null)
                 {
-                    result = topic?.TopicName
+                    topicName = topic.TopicName;
                 }
-                );
+
             }
 
             return Ok(new
             {
-                result = String.Empty
+                result = topicName
             });
         }
 
@@ -564,35 +540,36 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/getbookmark/{userId}")]
         public async Task<IActionResult> GetBookmark(Guid userId)
         {
-            var questionByBookmarked = await queryFactory.ResolveQuery<IQuestionsQuery>().GetBookmark(userId);
-            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+            IEnumerable<Question> questionsByBookmarked = await queryFactory.ResolveQuery<IQuestionsQuery>().GetBookmark(userId);
 
-            questions = new QuestionService().GetQuestionViewModels(questionByBookmarked, queryFactory, configuration);
-            return Ok(questions);
+            List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questionsByBookmarked, queryFactory, configuration);
+
+            return Ok(questionViewModels);
         }
 
         [HttpPost("/questions/api/{questionId}/addbookmark")]
         public IActionResult AddBookMark(Guid questionId)
         {
-            Guid loggedinUser;//= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-            AddBookmarkCommand cmd = new AddBookmarkCommand(loggedinUser, questionId);
+                AddBookmarkCommand cmd = new AddBookmarkCommand(loggedinUser, questionId);
+                commandsFactory.ExecuteQuery(cmd);
 
-            commandsFactory.ExecuteQuery(cmd);
-            Boolean sueccessResult = false;
-            if (cmd.Id == Guid.Empty)
-            {
-                //Already added book mark
-                sueccessResult = true;
+                Boolean sueccessResult = false;
+                if (cmd.Id != Guid.Empty)
+                {
+                    //Already added book mark
+                    sueccessResult = true;
+                }
+                return Ok(new { result = sueccessResult });
             }
-            return Ok(new { result = sueccessResult });
-            //  return Created($"/questions/api/{cmd.Id}/addbookmark", questionId);
+            return Unauthorized();
         }
 
 
@@ -601,77 +578,93 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         #region Question
-        [HttpPost("/questions/api/savequestion")]
-        public IActionResult SaveQuestion([FromBody]AddQuestionViewModel question)
-        {
-            Guid loggedinUser;//= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
 
+        [HttpPost("/questions/api/savequestion")]
+        public IActionResult SaveQuestion([FromBody] AddQuestionViewModel question)
+        {
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            Guid? topicId;
-            Guid? levelId;
-            if (string.IsNullOrEmpty(question.TopicId))
-            {
-                topicId = null;
-            }
-            else
-            {
-                topicId = new Guid(question.TopicId);
-            }
-            if (string.IsNullOrEmpty(question.LevelId))
-            {
-                levelId = null;
-            }
-            else
-            {
-                levelId = new Guid(question.LevelId);
-            }
-            question.Title = new QuestionService().RemoveQuestionMark(question.Title);
-            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous);
-            commandsFactory.ExecuteQuery(cmd);
-            Guid questionId = cmd.Id;
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-            return Created($"questions/api/questions/{cmd.Id}", question);
+                Guid? topicId;
+                Guid? levelId;
+                if (string.IsNullOrEmpty(question.TopicId))
+                {
+                    topicId = null;
+                }
+                else
+                {
+                    topicId = new Guid(question.TopicId);
+                }
+                if (string.IsNullOrEmpty(question.LevelId))
+                {
+                    levelId = null;
+                }
+                else
+                {
+                    levelId = new Guid(question.LevelId);
+                }
+                question.Title = new QuestionService().RemoveQuestionMark(question.Title);
+                AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser,
+                    question.CategoryIds, topicId, levelId, question.IsAnonymous);
+                commandsFactory.ExecuteQuery(cmd);
+                Guid questionId = cmd.Id;
+
+                return Created($"questions/api/questions/{cmd.Id}", question);
+            }
+            return Unauthorized();
         }
         [HttpPost("/questions/api/{questionId}/updatequestion")]
         public IActionResult UpdateQuestion([FromBody]AddQuestionViewModel model)
         {
-            Guid loggedinUser; //= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+           
 
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            QuestionService questionService = new QuestionService();
-            model.Title = questionService.RemoveQuestionMark(model.Title);
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-            UpdateQuestionCommand cmd = new UpdateQuestionCommand(model.Id, model.Title, model.Body, model.IsAnonymous);
-            commandsFactory.ExecuteQuery(cmd);
-            model.Title = "¿" + model.Title + " ?";
-            return Ok(model);
+                QuestionService questionService = new QuestionService();
+                model.Title = questionService.RemoveQuestionMark(model.Title);
+
+                UpdateQuestionCommand cmd = new UpdateQuestionCommand(model.Id, model.Title, model.Body,
+                    model.IsAnonymous);
+                commandsFactory.ExecuteQuery(cmd);
+                model.Title = "¿" + model.Title + " ?";
+                return Ok(model);
+            }
+            return Unauthorized();
 
         }
 
         [HttpPost("/questions/api/{questionId}/addquestionfollowing")]
         public IActionResult AddQuestionFollowing([FromBody]QuestionFollowingViewModel model)
         {
-            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
+           
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                if (loggedinUser != model.FollowedUserId)
+                {
+                    AddQuestionFollowingCommand command = new AddQuestionFollowingCommand(loggedinUser,
+                        model.FollowedUserId, model.QuestionId, model.AnswerId);
+                    commandsFactory.ExecuteQuery(command);
+                }
+                return Ok();
             }
-            if (loggedinUser != model.FollowedUserId)
-            {
-                AddQuestionFollowingCommand command = new AddQuestionFollowingCommand(loggedinUser, model.FollowedUserId, model.QuestionId, model.AnswerId);
-                commandsFactory.ExecuteQuery(command);
-            }
-            return Ok();
+            return Unauthorized();
 
         }
 
@@ -679,16 +672,20 @@ namespace AltaPerspectiva.Web.Area.Questions
         #endregion
 
         #region  latest question Best Question and More Views Region
+
         [HttpGet("/questions/api/{categoryId}/getlatestquestionbydate")]
         public async Task<IActionResult> GetLatestQuestionByDate(Guid categoryId)
         {
             IEnumerable<Question> questionList = null;
 
-            Guid loggedinUser;//= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;
 
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
             if (categoryId == Guid.Empty)
@@ -699,27 +696,24 @@ namespace AltaPerspectiva.Web.Area.Questions
             else
             {
                 questionList = await queryFactory.ResolveQuery<IQuestionsQuery>()
-                .GetLatestQuestion(loggedinUser, categoryId);
+                    .GetLatestQuestion(loggedinUser, categoryId);
             }
 
-            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+            List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questionList, queryFactory,
+                configuration);
 
-            questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
-
-            return Ok(questions);
+            return Ok(questionViewModels);
         }
+    
 
         [HttpGet("/questions/api/{categoryId}/getmorequestionbyviewcount")]
         public async Task<IActionResult> GetMoreViewedQuestionByViewCount(Guid categoryId)
         {
-            IEnumerable<Question> questionList = null;
-
-            Guid loggedinUser;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
+            IEnumerable<Question> questionList;
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
                 /// if user is logged in, then fetch questions by user following a category
                 questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().GetMoreViewedQuestionByViewCountByCategoryFollowing(loggedinUser, categoryId);
@@ -730,62 +724,43 @@ namespace AltaPerspectiva.Web.Area.Questions
                     .GetMoreViewedQuestionByViewCount(categoryId);
             }
 
-            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+            List<QuestionViewModel> questionViewModels  = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
 
-            questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
-
-            return Ok(questions);
+            return Ok(questionViewModels);
         }
-        //not done with api
+
         [HttpGet("/questions/api/{categoryId}/bestquestionbytotallike")]
         public async Task<IActionResult> GetBestQuestionbyTotalLike(Guid categoryId)
         {
-            IEnumerable<Question> questionList = null;
-
-            Guid loggedinUser;//= new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-                /// if user is logged in, then fetch questions by user following a category
-                //questionList = await queryFactory.ResolveQuery<IQuestionsByUserFollowingQuery>().GetBestQuestionbyTotalLike(loggedinUser, categoryId);
-            }
-            //else
-            //{
-            questionList = await queryFactory.ResolveQuery<IQuestionsQuery>()
+            IEnumerable<Question> questionList  = await queryFactory.ResolveQuery<IQuestionsQuery>()
                 .GetBestQuestionbyTotalLike(categoryId);
-            // }
 
-            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+            List<QuestionViewModel> questionViewModels  = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
 
-            questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
-
-            return Ok(questions);
+            return Ok(questionViewModels);
         }
 
 
         [HttpGet("/questions/api/questions/{questionId}/getlatestanswer")]
         public IActionResult GetLatestAnswer(Guid questionId)
         {
-            var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
-            
+            Question question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
+
             question.Answers =
                 question.Answers.OrderByDescending(d => d.CreatedOn).ToList();
 
-            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);
+            QuestionViewModel questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);
             return Ok(questionViewModel);
         }
         [HttpGet("/questions/api/questions/{questionId}/getbestanswer")]
         public IActionResult GetBestAnswer(Guid questionId)
         {
-            var question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
+            Question question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
 
             question.Answers = question.Answers.OrderByDescending(l => l.Likes.Count).ToList();
 
 
-            var questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);
+            QuestionViewModel questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);
 
             return Ok(questionViewModel);
         }
@@ -871,9 +846,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                         .FilteredGeneralCategoryonly();
 
             }
-            List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
-
-            questionViewModels = new QuestionService().GetQuestionViewModels(questions, queryFactory, configuration);
+            List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questions, queryFactory, configuration);
 
             return Ok(questionViewModels);
         }
@@ -886,36 +859,40 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/getreport/{answerId}")]
         public IActionResult GetReport(Guid? answerId)
         {
-            List<Report> reports = new List<Report>();
+            var report = new Report();
+
+            List<Report> reports;
             if (answerId.HasValue)
             {
-                reports = new Report().GetAnswerReports();
+                reports = report.GetAnswerReports();
             }
             else
             {
-                reports = new Report().GetQuestionReports();
+                reports = report.GetQuestionReports();
             }
-
-
             return Ok(reports);
         }
 
         [HttpPost("/questions/api/savereport")]
         public IActionResult SaveReport([FromBody]QuestionReportViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
                 /// if user is logged in, then fetch questions by user following a category
-            }
-            QuestionReportCommand cmd = new QuestionReportCommand(model.QuestionId, model.Title, model.Comment, model.AnswerId, loggedinUser);
 
-            commandsFactory.ExecuteQuery(cmd);
-            return Ok();
+                QuestionReportCommand cmd = new QuestionReportCommand(model.QuestionId, model.Title, model.Comment,
+                    model.AnswerId, loggedinUser);
+
+                commandsFactory.ExecuteQuery(cmd);
+                return Ok();
+            }
+            return Unauthorized();
         }
 
         #region posted question
@@ -923,36 +900,37 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/getsharequestion/{userId}")]
         public async Task<IActionResult> GetShareQuestion(Guid userId)
         {
-            var questionByBookmarked = await queryFactory.ResolveQuery<IQuestionsQuery>().GetSharedQuestion(userId);
-            List<QuestionViewModel> questions = new List<QuestionViewModel>();
+            IEnumerable<Question> questionByBookmarked = await queryFactory.ResolveQuery<IQuestionsQuery>().GetSharedQuestion(userId);
 
-            questions = new QuestionService().GetQuestionViewModels(questionByBookmarked, queryFactory, configuration);
-            return Ok(questions);
+            List<QuestionViewModel> questionViewModels  = new QuestionService().GetQuestionViewModels(questionByBookmarked, queryFactory, configuration);
+            return Ok(questionViewModels);
         }
+
         [HttpPost("/questions/api/savesharequestion/{questionId}")]
         public IActionResult SaveShareQuestion(Guid questionId)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                AddShareQuestionCommand command = new AddShareQuestionCommand(loggedinUser, questionId);
+                commandsFactory.ExecuteQuery(command);
+                Boolean successResult = false;
+                if (command.Id != Guid.Empty)
+                {
+                    successResult = true;
+                }
+
+                return Ok(new
+                {
+                    result = successResult
+                });
             }
-            AddShareQuestionCommand command = new AddShareQuestionCommand(loggedinUser, questionId);
-            commandsFactory.ExecuteQuery(command);
-            Boolean successResult = false;
-            if (command.Id != Guid.Empty)
-            {
-                successResult = true;
-            }
-
-            return Ok(new
-            {
-                result = successResult
-            });
-
-
+            return Unauthorized();
 
         }
         #endregion
@@ -962,12 +940,11 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/getdirectquestion/{questionAskedToUser}")]
         public async Task<IActionResult> GetDirectQuestion(Guid questionAskedToUser)
         {
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteDirectQuestion(questionAskedToUser);
 
-            var questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteDirectQuestion(questionAskedToUser);
-
-            List<QuestionViewModel> questionViewModels = new QuestionService().GetDirectQuestionViewModels(questionList,
+            IEnumerable<QuestionViewModel> questionViewModels = new QuestionService().GetDirectQuestionViewModels(questionList,
                 queryFactory, configuration);
-            // var   questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+  
             return Ok(questionViewModels);
         }
 
@@ -975,116 +952,111 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpPost("/questions/api/savedirectquestion")]
         public async Task<IActionResult> SaveDirectQuestion([FromBody]AddQuestionViewModel question)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            Guid? topicId;
-            Guid? levelId;
-            if (string.IsNullOrEmpty(question.TopicId))
-            {
-                topicId = null;
-            }
-            else
-            {
-                topicId = new Guid(question.TopicId);
-            }
-            if (string.IsNullOrEmpty(question.LevelId))
-            {
-                levelId = null;
-            }
-            else
-            {
-                levelId = new Guid(question.LevelId);
-            }
-            question.Title = new QuestionService().RemoveQuestionMark(question.Title);
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
+                Guid? topicId;
+                Guid? levelId;
+                if (string.IsNullOrEmpty(question.TopicId))
+                {
+                    topicId = null;
+                }
+                else
+                {
+                    topicId = new Guid(question.TopicId);
+                }
+                if (string.IsNullOrEmpty(question.LevelId))
+                {
+                    levelId = null;
+                }
+                else
+                {
+                    levelId = new Guid(question.LevelId);
+                }
+                question.Title = new QuestionService().RemoveQuestionMark(question.Title);
 
+                DirectQuestionCommand cmd = new DirectQuestionCommand(question.Title, question.Body, DateTime.Now,
+                    loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous, true,
+                    question.QuestionAskedToUser.Value);
+                commandsFactory.ExecuteQuery(cmd);
 
-            DirectQuestionCommand cmd = new DirectQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous, true, question.QuestionAskedToUser.Value);
-            commandsFactory.ExecuteQuery(cmd);
-
-            Guid questionId = cmd.Id;
-            if (question.QuestionAskedToUser.Value != loggedinUser)
-            {
-                string webRootPath = hostingEnvironment.WebRootPath;
-                await new SendEmailService().SendDirectQuestionEmailAsync(queryFactory, webRootPath, "Pregunta directa", question.Title, question.Body, loggedinUser, question.QuestionAskedToUser.Value);
+                Guid questionId = cmd.Id;
+                if (question.QuestionAskedToUser.Value != loggedinUser)
+                {
+                    string webRootPath = hostingEnvironment.WebRootPath;
+                    await new SendEmailService().SendDirectQuestionEmailAsync(queryFactory, webRootPath,
+                        "Pregunta directa", question.Title, question.Body, loggedinUser,
+                        question.QuestionAskedToUser.Value);
+                }
+                return Ok();
             }
-
-
-            return Ok();
+            return Unauthorized();
         }
 
 
         [HttpGet("/questions/api/getdraftedquestions")]
         public IActionResult GetDraftedQuestions()
         {
-
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
-                var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
-            }
-            var questions = queryFactory.ResolveQuery<IQuestionsQuery>().DraftedQuestionAnswers(loggedinUser);
+                var currentUserId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
 
-            var questionViewModels = new QuestionService().GetQuestionViewModelsForDraftAnswer(questions, queryFactory, configuration);
-            return Ok(questionViewModels);
+                IEnumerable<Question> questions =
+                    queryFactory.ResolveQuery<IQuestionsQuery>().DraftedQuestionAnswers(loggedinUser);
+
+                IEnumerable<QuestionViewModel> questionViewModels =
+                    new QuestionService().GetQuestionViewModelsForDraftAnswer(questions, queryFactory, configuration);
+                return Ok(questionViewModels);
+            }
+            return Unauthorized();
         }
         [HttpPost("/questions/api/savedraftedanswers")]
         public async Task<IActionResult> SaveDraftedAnswers([FromBody]AddAnswerViewModel answer)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-
             if (User.Identity.IsAuthenticated)
             {
-                var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
-            }
-            var imgTags = Base64Image.GetImagesInHTMLString(answer.Text);
+                var currentUserId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
 
-            foreach (var imgTag in imgTags)
-            {
-                string fileLink = String.Empty;
-                try
+                List<String> imgTags = Base64Image.GetImagesInHTMLString(answer.Text);
+
+                foreach (String imgTag in imgTags)
                 {
-                    // String base64String = imgTag;
+                    string fileLink = String.Empty;
+                    string extension = Base64Image.GetExtension(imgTag);
+                    if (!String.IsNullOrEmpty(extension))
+                    {
+                        Base64Image base64Image = Base64Image.Parse(imgTag);
+                        var byteArray = base64Image.FileContents;
 
-                    Base64Image base64Image = Base64Image.Parse(imgTag);
-                    var byteArray = base64Image.FileContents;
+                        String imageName = Guid.NewGuid().ToString() + base64Image.Extension;
 
-                    Answer ans = new Answer();
-                    ans.GenerateNewIdentity();
-                    Guid id = ans.Id;
-                    String imageName = id.ToString() + base64Image.Extension;
-
-                    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-                    fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
-                        imageName, base64Image.ContentType);
-
-                }
-                catch (Exception e)
-                {
-
-                }
-                finally
-                {
+                        AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                        fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
+                            imageName, base64Image.ContentType);
+                    }
                     answer.Text = answer.Text.Replace(imgTag, fileLink);
+
                 }
+
+                DraftedAnswerCommand command = new DraftedAnswerCommand(answer.Id, answer.Text);
+                commandsFactory.ExecuteQuery(command);
+                return Ok();
             }
-
-            DraftedAnswerCommand command = new DraftedAnswerCommand(answer.Id, answer.Text);
-            commandsFactory.ExecuteQuery(command);
-            return Ok();
+            return Unauthorized();
         }
-
-
-
-
     }
 }
 

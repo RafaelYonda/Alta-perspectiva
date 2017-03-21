@@ -87,5 +87,30 @@ namespace AltaPerspectiva.Web.Areas.Admin.Helpers
 
             return images;
         }
+
+        public static string GetExtension(string imgString)
+        {
+            int indexOfSemiColon = imgString.IndexOf(";", StringComparison.OrdinalIgnoreCase);
+            string dataLabel = imgString.Substring(0, indexOfSemiColon);
+            string contentType = dataLabel.Split(':').Last();
+            String extension = String.Empty;
+            if (contentType == "image/x-icon")
+            {
+                extension = ".ico";
+            }
+            else if (contentType == "image/jpg")
+            {
+                extension = ".jpg";
+            }
+            else if (contentType == "image/jpeg")
+            {
+                extension = ".jpeg";
+            }
+            else if (contentType == "image/png")
+            {
+                extension = ".png";
+            }
+            return extension;
+        }
     }
 }
