@@ -104,7 +104,7 @@
         <div class="blog-post">
             <h1>
                 <input class="transparent-input" id="title" [(ngModel)]="blogPost.title" required name="title"
-                       #title="ngModel" placeholder="Añadir Cargo Título" />
+                       #title="ngModel" placeholder="Agregar título" />
             </h1>
             <div>
                 <quill-editor [ngModelOptions]="{standalone: true}" placeholder="Escríbe aquí"
@@ -130,7 +130,7 @@
         <div>
             <div class="article-details">
                 <div *ngIf="post?.description" (click)="openPostDetailDialog(post)">
-                    <p [innerHTML]="post?.description.substring(0, 200)"></p><span><a>Read more..</a></span>
+                    <p [innerHTML]="post?.description.substring(0, 200)"></p><span><a>Leer más..</a></span>
                 </div>
                 <div *ngIf="post">
                     <post-status [blogPost]="post"></post-status>
