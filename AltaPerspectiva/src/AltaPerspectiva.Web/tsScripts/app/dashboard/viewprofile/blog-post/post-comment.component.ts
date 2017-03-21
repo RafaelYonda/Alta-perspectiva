@@ -36,9 +36,9 @@ export class BlogpostCommentComponent {
         if (!this._logObj)
             this._logObj = new LogInObj();
         if (currentUserName != null) {
-            this.imageLink = localStorage.getItem('urrentUserImage');
+            this.imageLink = localStorage.getItem('currentUserImage');
         } else {
-            this.imageLink = '../../images/avatar.png';
+            this.imageLink = '../../profile/avatar.png';
         }
     }
 

@@ -21,32 +21,17 @@ export class BlogpostDetailComponent {
     }
     isEditDescription: boolean;
     isEditTitle: boolean;
-    //updateDescription() {
-
-    //    this.profileService.UpdateBlog(this.blog).subscribe(res => {
-    //        this.isEditDescription = false;
-    //    });
-    //}
-    //updateTitle() {
-    //    if (this.blog.title.trim() == "")
-    //        return;
-    //    this.profileService.UpdateBlog(this.blog).subscribe(res => {
-    //        this.isEditTitle = false;
-    //    });
-    //}
-    
-    //saveBlogPost() {
-    //    this.post.blogId = this.blogId;
-    //    console.log(this.post);
-    //    this.profileService.SaveBlogPost(this.post).subscribe(res => {
-    //        console.log(res);
-    //        this.profileService.GetBlogPostsByBlogId(this.blogId).subscribe(res => {
-    //            console.log(res);
-    //            this.blogposts = res;
-    //        });
-    //    });
-        
-    //}
+  
+    handleClick(event) {
+        //removel the modal on clicking out side the panel
+        //var idAttr = event.srcElement.attributes.id;
+        var target = event.target || event.srcElement;      //Firefox does not have srcElement
+        //removel the modal on clicking out side the panel
+        var idAttr = target['id'];
+        var value = idAttr ? idAttr.nodeValue : undefined;
+        if (value == 'dialogModal')
+            this.close.emit('event');
+    }
     onClickedExit() {
         this.close.emit('event');
     }
