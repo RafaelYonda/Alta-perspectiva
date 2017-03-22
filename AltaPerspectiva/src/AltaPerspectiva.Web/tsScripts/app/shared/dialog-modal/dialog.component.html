@@ -12,8 +12,9 @@
         height:30px;
     }
 </style>
+
 <div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
-    
+    <div #questionReport></div>
     
     <div *ngIf="!showQuestionEditForm">
         <div #logginAnchor></div>
@@ -38,7 +39,7 @@
                         </div>
                         <div>
                             <p class="answer-text" [innerHTML]="question.bestAnswer?.text"></p>
-                            <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question?.bestAnswer" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"> </ap-status>
+                            <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question?.bestAnswer" (onQuestionDetailClicked)="onQuestionDetailClicked($event)" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)"> </ap-status>
                             <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="question?.bestAnswer?.id"></ap-comment>
                             <br/>
                             <button *ngIf="question.answerCount>1" class="btn btn-info" [routerLink]="['/question/detail',question.id]">

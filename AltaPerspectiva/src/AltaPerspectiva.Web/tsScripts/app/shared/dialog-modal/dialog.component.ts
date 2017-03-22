@@ -1,10 +1,11 @@
 ﻿
 import { Component,Input, EventEmitter, Output, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
-import { Question, QuestionFollowing} from '../../services/models';
+import { Question, QuestionFollowing, QuestionReport} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { Router } from '@angular/router';
 import { loginModalComponent } from '../login-modal/login-modal.component';
-
+//QuestionReport
+import { QuestionReportComponent } from '../../shared/question-report/question-report.component';
 @Component({
     selector: 'dlg',
     templateUrl: 'js/app/shared/dialog-modal/dialog.component.html',
@@ -15,7 +16,7 @@ export class DialogComponent {
     close = new EventEmitter();
     question: Question;
     //QuestionEditModal
-
+    questionReports:QuestionReport[];
     //Edit question popup
     showQuestionEditForm: boolean
     isFollowing: boolean
@@ -94,6 +95,27 @@ export class DialogComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(loginModalComponent);
         let dialogComponentRef = this.logginAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }
+    @ViewChild('questionReport', { read: ViewContainerRef }) questionReport: ViewContainerRef;
+
+    onQuestionReportClicked(showQuestionReportModal: any) {
+
+        this.questionReport.clear();
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(QuestionReportComponent);
+        let dialogComponentRef = this.questionReport.createComponent(dialogComponentFactory);
+
+        this.dataService.GetReport(showQuestionReportModal.answerId).subscribe(res => {
+            this.questionReports = res;
+            dialogComponentRef.instance.questionReports = this.questionReports;
+            dialogComponentRef.instance.questionId = showQuestionReportModal.questionId;
+            dialogComponentRef.instance.answerId = showQuestionReportModal.answerId;
+
+        });
+
+
         dialogComponentRef.instance.close.subscribe(() => {
             dialogComponentRef.destroy();
         });

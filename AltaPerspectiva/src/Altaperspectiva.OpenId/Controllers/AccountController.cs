@@ -287,7 +287,7 @@ namespace Altaperspectiva.OpenId.Controllers {
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                 await _emailSender.SendEmailAsync(model.Email, "Reestablecer contraseña",
-                   "Reestablece tu contraseña aquí: <a href=\"" + callbackUrl + "\">enlazar</a>");
+                   "Reestablece tu contraseña aquí: <a href=\"" + callbackUrl + "\">Reestablecer</a>");
                 return View("ForgotPasswordConfirmation");
                 //string code = await _userManager.GeneratePasswordResetTokenAsync(user);
             }
