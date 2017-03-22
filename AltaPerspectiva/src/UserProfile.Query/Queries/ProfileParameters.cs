@@ -111,7 +111,7 @@ order by CreatedOn desc
         {
             String query = String.Format(@"select Id,Email,
 (select top 1 ImageUrl from UserProfile.Credentials where UserId = a.Id) ImageUrl,
-ISNULL((select top 1 FirstName + '' + LastName from UserProfile.Credentials where UserId = a.Id), UserName) UserName
+ISNULL((select top 1 FirstName + ' ' + LastName from UserProfile.Credentials where UserId = a.Id), UserName) UserName
        from[Identity].[AspNetUsers] a
         where a.Id = '{0}'", userId);
 
