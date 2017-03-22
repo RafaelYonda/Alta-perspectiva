@@ -9,7 +9,7 @@
 
 
 .slides {
-    max-height:320px;
+    max-height: 320px;
     list-style: none;
     position: relative;
     width: 400%; /* Number of panes * 100% */
@@ -21,9 +21,10 @@
 }
 
 /*====Indicator Style======*/
-.active{
-    background-color:#ccc5c5;
+.active {
+    background-color: #ccc5c5;
 }
+
 .carousel-indicators {
     top: 235px;
 }
@@ -37,6 +38,7 @@ ul {
     padding: 0;
     margin-bottom: 0;
 }
+
 .slide-item {
     position: relative;
     float: left;
@@ -49,6 +51,8 @@ ul {
     display: block;
     width: 100%;
     max-width: 100%;
+    padding-bottom: 62px;
+    padding-top: 65px;
 }
 
 .carousel h2 {
@@ -64,6 +68,7 @@ ul {
     font-family: myriadpro-regular;
     text-shadow: 2px 2px 5px black;
 }
-.carousel-indicators li{
-    border:1px solid #d0cece;
+
+.carousel-indicators li {
+    border: 1px solid #d0cece;
 }
