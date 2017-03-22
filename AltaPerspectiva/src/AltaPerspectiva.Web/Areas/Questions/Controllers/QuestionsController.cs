@@ -757,7 +757,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             Question question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
 
-            question.Answers = question.Answers.OrderByDescending(l => l.Likes.Count).ToList();
+            question.Answers = question.Answers.OrderByDescending(l => l.Likes.Count).ThenByDescending(x=>x.CreatedOn).ToList();
 
 
             QuestionViewModel questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);

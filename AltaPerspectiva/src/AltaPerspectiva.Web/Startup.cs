@@ -67,7 +67,7 @@ namespace AltaPerspectiva
 
             Configuration = builder.Build();
             ConnectionString = Configuration.GetValue<string>("Data:DefaultConnection:ConnectionString");
-            SendGridApiKey= Configuration.GetValue<string>("Data:SendGridApiKey");
+            SendGridApiKey = Configuration.GetValue<string>("Data:SendGridApiKey");
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -122,7 +122,7 @@ namespace AltaPerspectiva
             services.AddTransient<IRelatedQuestionsQuery, RelatedQuestionsQuery>();
             services.AddTransient<ICategoriesTotalQuestionsQuery, CategoriesTotalQuestionsQuery>();
             services.AddTransient<ICategoriesTotalUsersQuery, CategoriesTotalUsersQuery>();
-            services.AddTransient<IQuestionsByUserFollowingQuery, QuestionsByUserFollowingQuery>(); 
+            services.AddTransient<IQuestionsByUserFollowingQuery, QuestionsByUserFollowingQuery>();
             services.AddTransient<IQuestionsNotAnsweredQuery, QuestionsNotAnsweredQuery>();
             services.AddTransient<IQuestionsAnsweredQuery, QuestionsAnsweredQuery>();
             services.AddTransient<ICategoriesKeywordsAllQuery, CategoriesKeywordsAllQuery>();
@@ -163,7 +163,7 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddEmploymentCommand>, AddEmploymentCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateEmploymentCommand>, UpdateEmploymentCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteEmploymentCommand>, DeleteEmploymentCommandHandler>();
-           
+
 
             //Education
             services.AddTransient<IEducationQuery, EducationQuery>();
@@ -176,8 +176,8 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddPlaceCommand>, AddPlaceCommandHandler>();
             services.AddTransient<ICommandHandler<UpdatePlaceCommand>, UpdatePlaceCommandHandler>();
             services.AddTransient<ICommandHandler<DeletePlaceCommand>, DeletePlaceCommandHandler>();
-            
-            
+
+
             //OtherExperience
             services.AddTransient<IOtherExperienceQuery, OtherExperienceQuery>();
             services.AddTransient<ICommandHandler<AddOtherExperienceCommand>, AddOtherExperienceCommandHandler>();
@@ -186,7 +186,7 @@ namespace AltaPerspectiva
 
             //readmodels
             services.AddTransient<IProfileParameters, ProfileParameters>();
-         
+
             //Social Link
             services.AddTransient<ICommandHandler<UpdateSocialLinkCommand>, UpdateSocialLinkCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteSocialLinkCommand>, DeleteSocialLinkCommandHandler>();
@@ -206,7 +206,7 @@ namespace AltaPerspectiva
 
             //Get all like
             services.AddTransient<ILikeQuery, LikeQuery>();
-            
+
 
 
             //Add Topic and Level
@@ -285,31 +285,17 @@ namespace AltaPerspectiva
 
             app.UseDeveloperExceptionPage();
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
-            
+
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
                 LoginPath = new PathString("/signin"),
-                Events = new CookieAuthenticationEvents
-                {
-                    OnRedirectToLogin = ctx =>
-                    {
-                        if (ctx.Request.Path.StartsWithSegments("/api") &&
-                            ctx.Response.StatusCode == (int)HttpStatusCode.OK)
-                        {
-                            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                        }
-                        else
-                        {
-                            ctx.Response.Redirect(ctx.RedirectUri);
-                        }
-                        return Task.FromResult(0);
-                    }
-                }
-        });
-          
+                ExpireTimeSpan = TimeSpan.MaxValue
+
+            });
+
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 // Note: these settings must match the application details
@@ -366,7 +352,7 @@ namespace AltaPerspectiva
                 routes.MapRoute("AngularDeepLinkingRoute", "{*url}",
                     new { controller = "Home", action = "Index" });
             });
-            
+
         }
     }
 }
