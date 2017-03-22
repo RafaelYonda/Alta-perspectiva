@@ -48,6 +48,7 @@ using UserProfile.CommandHandler;
 using Questions.Query.Intefaces;
 using UserProfile.Command.Commands.Delete;
 using UserProfile.Command.CommandHandler.Delete;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AltaPerspectiva
 {
@@ -290,9 +291,25 @@ namespace AltaPerspectiva
             {
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
-                LoginPath = new PathString("/signin")
-            });
-
+                LoginPath = new PathString("/signin"),
+                Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToLogin = ctx =>
+                    {
+                        if (ctx.Request.Path.StartsWithSegments("/api") &&
+                            ctx.Response.StatusCode == (int)HttpStatusCode.OK)
+                        {
+                            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        }
+                        else
+                        {
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                        }
+                        return Task.FromResult(0);
+                    }
+                }
+        });
+          
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
                 // Note: these settings must match the application details
@@ -301,7 +318,7 @@ namespace AltaPerspectiva
                 ClientId = "localhost", // for localhost
 
 
-               // ClientId = "azure",       // for azure deploy 
+                //ClientId = "azure",       // for azure deploy 
 
                 ClientSecret = "aLtaseCreT!@#",
 
@@ -309,7 +326,7 @@ namespace AltaPerspectiva
 
                 PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
 
-               // PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
+                //PostLogoutRedirectUri = "http://altap.azurewebsites.net/",   //for azure
 
 
                 RequireHttpsMetadata = false,
@@ -324,9 +341,9 @@ namespace AltaPerspectiva
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
 
-                Authority = "http://localhost:54540",
+                //Authority = "http://localhost:54540",
 
-                //Authority = "http://altaauth.azurewebsites.net",
+                Authority = "http://altaauth.azurewebsites.net",
 
                 Scope = { "email", "roles", "offline_access" }
 
