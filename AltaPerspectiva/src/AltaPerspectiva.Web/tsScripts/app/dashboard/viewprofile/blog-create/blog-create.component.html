@@ -69,13 +69,12 @@
 <hr />
 <div *ngIf="blog">
     <div class="row">
-
-            <div class="col-md-4" *ngFor="let blog of blogs">
-                <div (click)="goToBlogPost(blog.id)" class="blog-list-panel">
-                    <h2>{{blog?.title}}</h2>
-                    <a class="btn btn-primary" (click)="goToBlogPost(blog.id)"><!--Create Post-->Crear artículo</a>
-                </div>
+        <div class="col-md-4" *ngFor="let blog of blogs">
+            <div (click)="goToBlogPost(blog.id)" class="blog-list-panel">
+                <h2>{{blog?.title}}</h2>
+                <a class="btn btn-primary" (click)="goToBlogPost(blog.id)"><!--Create Post-->Ver blog</a>
             </div>
-           
         </div>
+
+    </div>
 </div>

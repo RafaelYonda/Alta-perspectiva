@@ -3,7 +3,9 @@
         visibility: visible;
         color: #f6912b;
     }
-
+    .description-info{
+        min-height:60px;
+    }
     .profile-info input {
         font-family: "myriadpro-regular";
         font-size: 18px;
@@ -190,7 +192,7 @@
             </div>
             <!-- description -->
             <a *ngIf="!credential.description && isOwner" (click)="showDescription = false"> <!--Write a description about yourself-->¿Cómo te describes?</a>
-            <div id="description" [hidden]="(!showDescription)">
+            <div class="description-info" id="description" [hidden]="(!showDescription)">
                 
                 <div [innerHTML]="credential.description"></div>
                 <a id="description-edit" *ngIf="isOwner"><span (click)="showDescription = false"><i class="fa fa-edit"></i><!--edit description-->Editar descripción</span> </a>
@@ -204,18 +206,18 @@
                     <button class="btn btn-primary" (click)="updateDecription()"><!--Update-->Actualizar</button>
                 </div>
             </div>
-            <ul *ngIf="isOwner">
+            <ul>
                 <li>
                     <a (click)="twitter()"> Twitter</a>
-                    <a class="edit" (click)="opentwitterDialogBox()"><i class="fa fa-edit"></i></a>
+                    <a *ngIf="isOwner" class="edit" (click)="opentwitterDialogBox()"><i class="fa fa-edit"></i></a>
                 </li>
                 <li>
                     <a (click)="facebook()"> Facebook</a>
-                    <a class="edit" (click)="openfacebookDialogBox()"><i class="fa fa-edit"></i></a>
+                    <a *ngIf="isOwner" class="edit" (click)="openfacebookDialogBox()"><i class="fa fa-edit"></i></a>
                 </li>
                 <li>
                     <a (click)="linkedin()"> Linkedin</a>
-                    <a class="edit" (click)="openlinkedinDialogBox()"><i class="fa fa-edit"></i></a>
+                    <a *ngIf="isOwner" class="edit" (click)="openlinkedinDialogBox()"><i class="fa fa-edit"></i></a>
                 </li>
             </ul>
         </div>
