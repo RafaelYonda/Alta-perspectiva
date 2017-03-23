@@ -3,9 +3,23 @@
         <li data-target="#carousel-example-generic" *ngFor="let image of images;let i = index"  class="indicator" [ngClass]="{'active': i==movePosition }" (click)="slideImage(i)"></li>
     </ol>-->
     <ul class="slides">
-        <li class="slide-item" *ngFor="let image of images" [style.left]="moveValue">
-            <!--<h2>{{image.title}}</h2>-->
-            <img src="{{image.url}}" alt="">
+        <li class="slide-item" >
+            <img src="{{images[0].url}}" alt="">
+            <h2>{{images[0].title}}</h2>
+            <h3>{{images[0].desccription}}</h3>
+        </li>
+        <li class="slide-item" >
+            <img src="{{images[1].url}}" alt="">
+            <h2>{{images[1].title}}</h2>
+            <h3>{{images[1].desccription}}</h3>
+        </li>
+        <li class="slide-item" >
+            <img src="{{images[2].url}}" alt="">
+            <div style="padding-left:55px;">
+                <h2>{{images[2].title}}</h2>
+                <h3>{{images[2].desccription}}</h3>
+            </div>
+            
         </li>
     </ul>
 </div>

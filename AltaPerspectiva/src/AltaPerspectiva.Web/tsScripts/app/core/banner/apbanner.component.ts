@@ -52,8 +52,11 @@ export class ApBannerComponent {
 }
 var IMAGES: Image[] = [
     
-    { "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_1.jpg" }
-    //{ "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_2.png" },
-    //{ "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_3.png" },
+    {
+        "title": "¿Cuál es la etapa de tu negocio?", "desccription": "Ideación Start up Crecimiento Sostenimiento xpansión", "url": "../images/Backcground_1.png" },
+    {
+        "title": "¿Cuál es tu necesidad?", "desccription": "Comunicación gráfica Ideas de negocios Pensamiento estratégico Mercadeo Planeación financiera...", "url": "../images/Backcground_2.png" },
+    {
+        "title": "Conecta y comparte tu conocimiento", "desccription": "Conceptos Experiencias  Herramientas","url": "../images/Backcground_3.png" },
     //{ "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_4.png" }
 ];
