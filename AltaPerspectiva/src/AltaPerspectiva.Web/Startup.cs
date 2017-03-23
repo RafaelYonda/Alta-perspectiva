@@ -292,9 +292,23 @@ namespace AltaPerspectiva
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
                 LoginPath = new PathString("/signin"),
-                ExpireTimeSpan = TimeSpan.MaxValue
+                ExpireTimeSpan = TimeSpan.MaxValue,
+                Events = new CookieAuthenticationEvents()
+                {
+                    OnRedirectToLogin = context =>
+                    {
+                        if (context.Request.Path.Value.StartsWith("/questions/api"))
+                        {
+                            context.Response.Clear();
+                            context.Response.StatusCode = 401;
+                            return Task.FromResult(0);
+                        }
+                        context.Response.Redirect(context.RedirectUri);
+                        return Task.FromResult(0);
+                    }
+                }
 
-            });
+        });
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
