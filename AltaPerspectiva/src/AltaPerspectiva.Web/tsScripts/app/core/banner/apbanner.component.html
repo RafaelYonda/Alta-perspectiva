@@ -6,18 +6,18 @@
         <li class="slide-item" >
             <img src="{{images[0].url}}" alt="">
             <h2 class="hidden-xs">{{images[0].title}}</h2>
-            <h3 class="hidden-xs">{{images[0].desccription}}</h3>
+            <h3 class="hidden-xs" [innerHTML]="images[0].desccription"></h3>
         </li>
         <li class="slide-item" >
             <img src="{{images[1].url}}" alt="">
             <h2 class="hidden-xs">{{images[1].title}}</h2>
-            <h3 class="hidden-xs">{{images[1].desccription}}</h3>
+            <h3 class="hidden-xs" [innerHTML]="images[1].desccription"></h3>
         </li>
         <li class="slide-item" >
             <img src="{{images[2].url}}" alt="">
             <div style="padding-left:55px;">
                 <h2 class="hidden-xs">{{images[2].title}}</h2>
-                <h3 class="hidden-xs">{{images[2].desccription}}</h3>
+                <h3 class="hidden-xs" [innerHTML]="images[2].desccription"></h3>
             </div>
             
         </li>
