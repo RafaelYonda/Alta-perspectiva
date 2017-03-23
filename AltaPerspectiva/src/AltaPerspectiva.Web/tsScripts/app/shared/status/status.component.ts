@@ -39,7 +39,7 @@ export class StatusComponent {
         this._authService.getLoggedinObj().subscribe(res => {
             this.loggedinUser = res;
         });
-
+        this.questionObj.shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questionObj.id);
         if (this.questionObj.bestAnswer && this.questionObj.bestAnswer.text) {
             var temp = this.questionObj.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "");
             this.answerTagsRemoved = temp.replace("&nbsp;", " ");
@@ -52,7 +52,12 @@ export class StatusComponent {
         else
         {
             this.commentId = this.answerObj.id;
-            this.CommentCount = this.answerObj.comments? this.answerObj.comments.length:0;
+            this.CommentCount = this.answerObj.comments ? this.answerObj.comments.length : 0;
+            if (this.answerObj.text) {
+                var temp = this.answerObj.text.replace(/<\/?[^>]+(>|$)/g, "");
+                this.answerObj.answerTagsRemoved = temp.replace("&nbsp;", " ");
+            }
+           
         }
 
         this.communicationService.getCommentsCount().subscribe((eventArg: CommnetCountEventArg) => {

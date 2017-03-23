@@ -18,9 +18,17 @@
 
     <!--==========Right Side=====-->
     <div class="social-icon">
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{questionObj.shareUrl}}&title={{questionObj?.title}}&description={{answerTagsRemoved}}&picture={{questionObj?.bestAnswer?.firstImageUrl}}"
+        <a *ngIf="isQuestion" href="https://www.facebook.com/sharer/sharer.php?u={{questionObj.shareUrl}}&title={{questionObj?.title}}&description={{answerTagsRemoved}}&picture={{questionObj?.bestAnswer?.firstImageUrl}}"
            class="SHARE FACEBOOK"
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
+
+            <img class="social-image" id="img1" src="../images/facebooklogo.svg" />
+        </a>
+
+        <a *ngIf="!isQuestion" href="https://www.facebook.com/sharer/sharer.php?u={{questionObj.shareUrl}}&title={{questionObj?.title}}&description={{answerObj?.answerTagsRemoved}}&picture={{answerObj?.firstImageUrl}}"
+           class="SHARE FACEBOOK"
+           onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
+
             <img class="social-image" id="img1" src="../images/facebooklogo.svg" />
         </a>
 

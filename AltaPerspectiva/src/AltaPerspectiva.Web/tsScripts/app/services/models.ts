@@ -120,12 +120,13 @@ export class Answer {
     id: string;
     questionId: string;
     user: User;
-    answerText: string;
+    text: string;
     date: Date;
     isDrafted: boolean; //IsDrafted added 
     IsAnonymous: boolean; //IsAnonymouss added 
     likes: Like[];
     comments: Comment[];
+    answerTagsRemoved:string;
     constructor() {
 
         this.likes = new Array();
