@@ -75,3 +75,11 @@ ul {
 .carousel-indicators li {
     border: 1px solid #d0cece;
 }
+@media only screen and (max-width:767px){
+    .carousel img {
+        height: 172px;
+    }
+    .slides{
+        height:178px;
+    }
+}
