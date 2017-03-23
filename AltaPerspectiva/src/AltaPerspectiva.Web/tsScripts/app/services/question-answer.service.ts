@@ -286,6 +286,7 @@ export class QuestionAnswerService implements Resolve<Question> {
         } else {
             errMsg = error.message ? error.message : error.toString();
         }
+        window.location.replace("/signin");
         console.error(errMsg);
         return Observable.throw(errMsg);
     }

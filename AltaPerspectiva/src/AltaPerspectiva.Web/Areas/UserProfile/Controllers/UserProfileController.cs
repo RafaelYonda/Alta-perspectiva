@@ -27,6 +27,7 @@ using AltaPerspectiva.Web.Areas.Questions.Services;
 using UserProfile.Command.Commands.Delete;
 using UserProfile.Command.Commands.Update;
 using AltaPerspectiva.Web.Areas.Admin.helpers;
+using Microsoft.AspNetCore.Authorization;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -56,7 +57,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/getuser")]
         public IActionResult GetUser()
         {
-            Guid loggedinUser = Guid.Empty;// = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
+            Guid loggedinUser;
             if (User.Identity.IsAuthenticated)
             {
                 var userId =
@@ -141,6 +142,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(credential);
         }
+        [Authorize]
         [HttpPost("userprofile/api/credential/savefirstnamelastname")]
         public IActionResult SaveFirstNameLastName(String firstName, String lastName, Guid userId)
         {
@@ -148,20 +150,21 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             commandsFactory.ExecuteQuery(command);
             return Ok(command.Id);//CredentialId
         }
+        [Authorize]
         [HttpPost("userprofile/api/credential/update")]
         public IActionResult UpdateCredential([FromBody]CredentialViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            Guid loggedinUser;
 
-            }
-            UpdateCredentialCommand command = new UpdateCredentialCommand(model.UserId, model.FirstName, model.LastName, model.Title, model.Description, null);
+            var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+            loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+
+            UpdateCredentialCommand command = new UpdateCredentialCommand(loggedinUser, model.FirstName, model.LastName, model.Title, model.Description, null);
             commandsFactory.ExecuteQuery(command);
             return Ok(command.Id);
         }
+        [Authorize]
         [HttpPost("userprofile/api/credential/saveuserimage")]
         public async Task<IActionResult> SaveUserImage(IFormFile file, Guid userId)
         {
@@ -179,6 +182,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
             return Ok();
         }
+        [Authorize]
         [HttpPost("userprofile/api/credential/saveusercroppedimage")]
         public async Task<IActionResult> SaveUserCroppedImage(string file, Guid userId, String imageName)
         {
@@ -188,22 +192,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 Base64Image base64Image = Base64Image.Parse(file);
                 var byteArray = base64Image.FileContents;
 
-               // string ImgName = "Image.jpg";
+                // string ImgName = "Image.jpg";
                 int lastIndex = imageName.LastIndexOf('.');
                 var name = imageName.Substring(0, lastIndex);
-                var ext = imageName.Substring(lastIndex + 1);
+                var extension = imageName.Substring(lastIndex + 1);
 
-                string fullUpdateImageName = DateTime.Now.ToString("yyyyyhhmmssffffff") +"."+ext;
-                //String imageName = id.ToString() + base64Image.Extension;
+                string fullUpdateImageName = DateTime.Now.ToString("yyyyyhhmmssffffff") + "." + extension;
 
                 AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
                 string fileLink = await azureFileUploadHelper.SaveProfileCroppedImageInAzure(base64Image.baseStream,
                     fullUpdateImageName, base64Image.ContentType);
 
-
-                // answer.Text = answer.Text.Replace(imgTag, fileLink);
-                //AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-                //await azureFileUploadHelper.SaveProfileImage(file);
                 UpdateUserImageCommand cmd = new UpdateUserImageCommand(userId, fullUpdateImageName);
                 commandsFactory.ExecuteQuery(cmd);
                 Guid createdId = cmd.Id;
@@ -231,24 +230,20 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             var education = queryFactory.ResolveQuery<IEducationQuery>().GetEducationByUserId(userId);
             return Ok(education);
         }
-
+        [Authorize]
         [HttpPost("userprofile/api/education/addeducation")]
         public IActionResult AddEducation([FromBody]EducationViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-            }
+            var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             AddEducationCommand command = new AddEducationCommand(model.CredentialId, model.SchoolName, model.Concentration, model.SecondaryConcentration, model.DegreeType, model.GraduationYear);
             commandsFactory.ExecuteQuery(command);
 
             return Ok();
         }
-
+        [Authorize]
         [HttpPost("userprofile/api/education/deleteeducation")]
         public IActionResult DeleteEducation([FromBody]EducationViewModel model)
         {
@@ -275,6 +270,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(education);
         }
+        [Authorize]
         [HttpPost("userprofile/api/employment/addemployment")]
         public IActionResult AddEmployment([FromBody]EmploymentViewModel model)
         {
@@ -284,16 +280,15 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok();
         }
+        [Authorize]
         [HttpPost("userprofile/api/education/deleteemployment")]
         public IActionResult DeleteEducation([FromBody]EmploymentViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-            }
+            var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+
             DeleteEmploymentCommand command = new DeleteEmploymentCommand(model.CredentialId, model.Id);
             commandsFactory.ExecuteQuery(command);
 
@@ -317,7 +312,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(palce);
         }
-
+        [Authorize]
         [HttpPost("userprofile/api/place/addplace")]
         public IActionResult AddPlace([FromBody]PlaceViewModel model)
         {
@@ -326,7 +321,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok();
         }
-
+        [Authorize]
         [HttpPost("userprofile/api/place/deleteplace")]
         public IActionResult DeletePlace([FromBody]PlaceViewModel model)
         {
@@ -352,6 +347,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(education);
         }
+        [Authorize]
         [HttpPost("userprofile/api/OtherExperience/addOtherExperience")]
         public IActionResult AddOtherExperience([FromBody]OtherExperienceViewModel model)
         {
@@ -361,17 +357,14 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok();
         }
-
+        [Authorize]
         [HttpPost("userprofile/api/OtherExperience/deleteOtherExperience")]
         public IActionResult DeleteOtherExperience([FromBody]OtherExperienceViewModel model)
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-            }
+
             DeleteOtherExperienceCommand command = new DeleteOtherExperienceCommand(model.CredentialId, model.Id);
             commandsFactory.ExecuteQuery(command);
 
@@ -444,12 +437,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         //For Login username in admin
         public UserViewModel GetUserName()
         {
-            Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
+
+            var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
 
             //refractoring:My add from User Repository 
             var model = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);

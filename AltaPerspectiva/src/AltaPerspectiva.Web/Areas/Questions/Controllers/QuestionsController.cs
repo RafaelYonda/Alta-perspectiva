@@ -283,71 +283,64 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(new { result = commentAlreadyLiked });
 
         }
-
+        [Authorize]
         [HttpPost("/questions/api/question/{id}/like")]
         public IActionResult PostQuestionLike([FromBody]AddLikeViewModel like)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-                like.UserId = loggedinUser;
+            var userId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-                AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
-                commandsFactory.ExecuteQuery(cmd);
-                Guid createdId = cmd.Id;
+            like.UserId = loggedinUser;
 
-                return Created($"/questions/api/question/{like.QuestionId}/comment/{like.Id}", like);
-            }
-            return Unauthorized();
+            AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
+
+            return Created($"/questions/api/question/{like.QuestionId}/comment/{like.Id}", like);
+
 
 
         }
-
+        [Authorize]
         [HttpGet("/questions/api/question/getansweralreadyliked/{answerId}")]
         public IActionResult GetAnswerAlreadyLiked(Guid answerId)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-                Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
-                    .GetAnswerBeforeLike(answerId, loggedinUser);
-                return Ok(new { result = alreadyLiked });
-            }
-            return Unauthorized();
+            var userId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+            Boolean alreadyLiked = queryFactory.ResolveQuery<ILikeQuery>()
+                .GetAnswerBeforeLike(answerId, loggedinUser);
+            return Ok(new { result = alreadyLiked });
+
         }
-
+        [Authorize]
         [HttpPost("/questions/api/question/answer/{answerId}/like")]
         public IActionResult PostAnswerLike([FromBody]AddLikeViewModel like)
         {
 
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            var userId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-                like.UserId = loggedinUser;
+            like.UserId = loggedinUser;
 
-                AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);
-                commandsFactory.ExecuteQuery(cmd);
-                Guid createdId = cmd.Id;
+            AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid createdId = cmd.Id;
 
-                return Created($"/questions/api/question/{like.QuestionId}/answer/{like.AnswerId}/comment/{like.Id}",
-                    like);
-            }
-            return Unauthorized();
+            return Created($"/questions/api/question/{like.QuestionId}/answer/{like.AnswerId}/comment/{like.Id}",
+                like);
+
 
         }
 
@@ -534,30 +527,27 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return Ok(questionViewModels);
         }
-
+        [Authorize]
         [HttpPost("/questions/api/{questionId}/addbookmark")]
         public IActionResult AddBookMark(Guid questionId)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
+            var userId =
                     User.Claims.Where(
                             x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
                         .Select(x => x.Value);
-                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-                AddBookmarkCommand cmd = new AddBookmarkCommand(loggedinUser, questionId);
-                commandsFactory.ExecuteQuery(cmd);
+            AddBookmarkCommand cmd = new AddBookmarkCommand(loggedinUser, questionId);
+            commandsFactory.ExecuteQuery(cmd);
 
-                Boolean sueccessResult = false;
-                if (cmd.Id != Guid.Empty)
-                {
-                    //Already added book mark
-                    sueccessResult = true;
-                }
-                return Ok(new { result = sueccessResult });
+            Boolean sueccessResult = false;
+            if (cmd.Id != Guid.Empty)
+            {
+                //Already added book mark
+                sueccessResult = true;
             }
-            return Unauthorized();
+            return Ok(new { result = sueccessResult });
+
         }
 
 
@@ -566,93 +556,84 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         #region Question
-
+        [Authorize]
         [HttpPost("/questions/api/savequestion")]
         public IActionResult SaveQuestion([FromBody] AddQuestionViewModel question)
         {
-            if (User.Identity.IsAuthenticated)
+
+            var userId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+            Guid? topicId;
+            Guid? levelId;
+            if (string.IsNullOrEmpty(question.TopicId))
             {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-                Guid? topicId;
-                Guid? levelId;
-                if (string.IsNullOrEmpty(question.TopicId))
-                {
-                    topicId = null;
-                }
-                else
-                {
-                    topicId = new Guid(question.TopicId);
-                }
-                if (string.IsNullOrEmpty(question.LevelId))
-                {
-                    levelId = null;
-                }
-                else
-                {
-                    levelId = new Guid(question.LevelId);
-                }
-                question.Title = new QuestionService().RemoveQuestionMark(question.Title);
-                AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser,
-                    question.CategoryIds, topicId, levelId, question.IsAnonymous);
-                commandsFactory.ExecuteQuery(cmd);
-                Guid questionId = cmd.Id;
-
-                return Created($"questions/api/questions/{cmd.Id}", question);
+                topicId = null;
             }
-            return Unauthorized();
+            else
+            {
+                topicId = new Guid(question.TopicId);
+            }
+            if (string.IsNullOrEmpty(question.LevelId))
+            {
+                levelId = null;
+            }
+            else
+            {
+                levelId = new Guid(question.LevelId);
+            }
+            question.Title = new QuestionService().RemoveQuestionMark(question.Title);
+            AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser,
+                question.CategoryIds, topicId, levelId, question.IsAnonymous);
+            commandsFactory.ExecuteQuery(cmd);
+            Guid questionId = cmd.Id;
+
+            return Created($"questions/api/questions/{cmd.Id}", question);
+
         }
+        [Authorize]
         [HttpPost("/questions/api/{questionId}/updatequestion")]
         public IActionResult UpdateQuestion([FromBody]AddQuestionViewModel model)
         {
+            var userId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
+            QuestionService questionService = new QuestionService();
+            model.Title = questionService.RemoveQuestionMark(model.Title);
 
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            UpdateQuestionCommand cmd = new UpdateQuestionCommand(model.Id, model.Title, model.Body,
+                model.IsAnonymous);
+            commandsFactory.ExecuteQuery(cmd);
+            model.Title = "¿" + model.Title + " ?";
+            return Ok(model);
 
-                QuestionService questionService = new QuestionService();
-                model.Title = questionService.RemoveQuestionMark(model.Title);
-
-                UpdateQuestionCommand cmd = new UpdateQuestionCommand(model.Id, model.Title, model.Body,
-                    model.IsAnonymous);
-                commandsFactory.ExecuteQuery(cmd);
-                model.Title = "¿" + model.Title + " ?";
-                return Ok(model);
-            }
-            return Unauthorized();
 
         }
-
+        [Authorize]
         [HttpPost("/questions/api/{questionId}/addquestionfollowing")]
         public IActionResult AddQuestionFollowing([FromBody]QuestionFollowingViewModel model)
         {
 
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            var userId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-                if (loggedinUser != model.FollowedUserId)
-                {
-                    AddQuestionFollowingCommand command = new AddQuestionFollowingCommand(loggedinUser,
-                        model.FollowedUserId, model.QuestionId, model.AnswerId);
-                    commandsFactory.ExecuteQuery(command);
-                }
-                return Ok();
+            if (loggedinUser != model.FollowedUserId)
+            {
+                AddQuestionFollowingCommand command = new AddQuestionFollowingCommand(loggedinUser,
+                    model.FollowedUserId, model.QuestionId, model.AnswerId);
+                commandsFactory.ExecuteQuery(command);
             }
-            return Unauthorized();
+            return Ok();
+
 
         }
 
@@ -860,27 +841,25 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
             return Ok(reports);
         }
-
+        [Authorize]
         [HttpPost("/questions/api/savereport")]
         public IActionResult SaveReport([FromBody]QuestionReportViewModel model)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-                /// if user is logged in, then fetch questions by user following a category
+            var userId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
-                QuestionReportCommand cmd = new QuestionReportCommand(model.QuestionId, model.Title, model.Comment,
-                    model.AnswerId, loggedinUser);
+            /// if user is logged in, then fetch questions by user following a category
 
-                commandsFactory.ExecuteQuery(cmd);
-                return Ok();
-            }
-            return Unauthorized();
+            QuestionReportCommand cmd = new QuestionReportCommand(model.QuestionId, model.Title, model.Comment,
+                model.AnswerId, loggedinUser);
+
+            commandsFactory.ExecuteQuery(cmd);
+            return Ok();
+
         }
 
         #region posted question
@@ -893,32 +872,30 @@ namespace AltaPerspectiva.Web.Area.Questions
             List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questionByBookmarked, queryFactory, configuration);
             return Ok(questionViewModels);
         }
-
+        [Authorize]
         [HttpPost("/questions/api/savesharequestion/{questionId}")]
         public IActionResult SaveShareQuestion(Guid questionId)
         {
-            if (User.Identity.IsAuthenticated)
+
+            var userId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+            AddShareQuestionCommand command = new AddShareQuestionCommand(loggedinUser, questionId);
+            commandsFactory.ExecuteQuery(command);
+            Boolean successResult = false;
+            if (command.Id != Guid.Empty)
             {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-                AddShareQuestionCommand command = new AddShareQuestionCommand(loggedinUser, questionId);
-                commandsFactory.ExecuteQuery(command);
-                Boolean successResult = false;
-                if (command.Id != Guid.Empty)
-                {
-                    successResult = true;
-                }
-
-                return Ok(new
-                {
-                    result = successResult
-                });
+                successResult = true;
             }
-            return Unauthorized();
+
+            return Ok(new
+            {
+                result = successResult
+            });
+
 
         }
         #endregion
@@ -936,114 +913,107 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(questionViewModels);
         }
 
-
+        [Authorize]
         [HttpPost("/questions/api/savedirectquestion")]
         public async Task<IActionResult> SaveDirectQuestion([FromBody]AddQuestionViewModel question)
         {
-            if (User.Identity.IsAuthenticated)
+            var userId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+            Guid? topicId;
+            Guid? levelId;
+            if (string.IsNullOrEmpty(question.TopicId))
             {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-                Guid? topicId;
-                Guid? levelId;
-                if (string.IsNullOrEmpty(question.TopicId))
-                {
-                    topicId = null;
-                }
-                else
-                {
-                    topicId = new Guid(question.TopicId);
-                }
-                if (string.IsNullOrEmpty(question.LevelId))
-                {
-                    levelId = null;
-                }
-                else
-                {
-                    levelId = new Guid(question.LevelId);
-                }
-                question.Title = new QuestionService().RemoveQuestionMark(question.Title);
-
-                DirectQuestionCommand cmd = new DirectQuestionCommand(question.Title, question.Body, DateTime.Now,
-                    loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous, true,
-                    question.QuestionAskedToUser.Value);
-                commandsFactory.ExecuteQuery(cmd);
-
-                Guid questionId = cmd.Id;
-                if (question.QuestionAskedToUser.Value != loggedinUser)
-                {
-                    string webRootPath = hostingEnvironment.WebRootPath;
-                    await new SendEmailService().SendDirectQuestionEmailAsync(queryFactory, webRootPath,
-                        "Pregunta directa", question.Title, question.Body, loggedinUser,
-                        question.QuestionAskedToUser.Value);
-                }
-                return Ok();
+                topicId = null;
             }
-            return Unauthorized();
+            else
+            {
+                topicId = new Guid(question.TopicId);
+            }
+            if (string.IsNullOrEmpty(question.LevelId))
+            {
+                levelId = null;
+            }
+            else
+            {
+                levelId = new Guid(question.LevelId);
+            }
+            question.Title = new QuestionService().RemoveQuestionMark(question.Title);
+
+            DirectQuestionCommand cmd = new DirectQuestionCommand(question.Title, question.Body, DateTime.Now,
+                loggedinUser, question.CategoryIds, topicId, levelId, question.IsAnonymous, true,
+                question.QuestionAskedToUser.Value);
+            commandsFactory.ExecuteQuery(cmd);
+
+            Guid questionId = cmd.Id;
+            if (question.QuestionAskedToUser.Value != loggedinUser)
+            {
+                string webRootPath = hostingEnvironment.WebRootPath;
+                await new SendEmailService().SendDirectQuestionEmailAsync(queryFactory, webRootPath,
+                    "Pregunta directa", question.Title, question.Body, loggedinUser,
+                    question.QuestionAskedToUser.Value);
+            }
+            return Ok();
+
         }
 
-
+        [Authorize]
         [HttpGet("/questions/api/getdraftedquestions")]
         public IActionResult GetDraftedQuestions()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var currentUserId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                Guid loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
+            var currentUserId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
 
-                IEnumerable<Question> questions =
-                    queryFactory.ResolveQuery<IQuestionsQuery>().DraftedQuestionAnswers(loggedinUser);
+            IEnumerable<Question> questions =
+                queryFactory.ResolveQuery<IQuestionsQuery>().DraftedQuestionAnswers(loggedinUser);
 
-                IEnumerable<QuestionViewModel> questionViewModels =
-                    new QuestionService().GetQuestionViewModelsForDraftAnswer(questions, queryFactory, configuration);
-                return Ok(questionViewModels);
-            }
-            return Unauthorized();
+            IEnumerable<QuestionViewModel> questionViewModels =
+                new QuestionService().GetQuestionViewModelsForDraftAnswer(questions, queryFactory, configuration);
+            return Ok(questionViewModels);
+
         }
+        [Authorize]
         [HttpPost("/questions/api/savedraftedanswers")]
         public async Task<IActionResult> SaveDraftedAnswers([FromBody]AddAnswerViewModel answer)
         {
-            if (User.Identity.IsAuthenticated)
+
+            var currentUserId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
+
+            List<String> imgTags = Base64Image.GetImagesInHTMLString(answer.Text);
+
+            foreach (String imgTag in imgTags)
             {
-                var currentUserId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                Guid loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
-
-                List<String> imgTags = Base64Image.GetImagesInHTMLString(answer.Text);
-
-                foreach (String imgTag in imgTags)
+                string fileLink = String.Empty;
+                string extension = Base64Image.GetExtension(imgTag);
+                if (!String.IsNullOrEmpty(extension))
                 {
-                    string fileLink = String.Empty;
-                    string extension = Base64Image.GetExtension(imgTag);
-                    if (!String.IsNullOrEmpty(extension))
-                    {
-                        Base64Image base64Image = Base64Image.Parse(imgTag);
-                        var byteArray = base64Image.FileContents;
+                    Base64Image base64Image = Base64Image.Parse(imgTag);
+                    var byteArray = base64Image.FileContents;
 
-                        String imageName = Guid.NewGuid().ToString() + base64Image.Extension;
+                    String imageName = Guid.NewGuid().ToString() + base64Image.Extension;
 
-                        AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-                        fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
-                            imageName, base64Image.ContentType);
-                    }
-                    answer.Text = answer.Text.Replace(imgTag, fileLink);
-
+                    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                    fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
+                        imageName, base64Image.ContentType);
                 }
+                answer.Text = answer.Text.Replace(imgTag, fileLink);
 
-                DraftedAnswerCommand command = new DraftedAnswerCommand(answer.Id, answer.Text);
-                commandsFactory.ExecuteQuery(command);
-                return Ok();
             }
-            return Unauthorized();
+
+            DraftedAnswerCommand command = new DraftedAnswerCommand(answer.Id, answer.Text);
+            commandsFactory.ExecuteQuery(command);
+            return Ok();
+
         }
     }
 }
