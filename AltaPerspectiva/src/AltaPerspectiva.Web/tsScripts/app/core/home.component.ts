@@ -7,18 +7,13 @@ import { Http} from '@angular/http';
     providers: [QuestionAnswerService]
 })
 export class HomeComponent {
-    constructor(private questionServe: QuestionAnswerService ) {
-        var myVar = setInterval(this.myTimer(questionServe), 70000000);
+    constructor(private questionServe: QuestionAnswerService) {
+        setInterval(() => this.myTimer(questionServe), 70000000);
     }
-    //ngOninit() {
-        
-    //}
     myTimer(serv) {
-        
+        console.log('Test');
         serv.keepalive().subscribe(response => {
-            var z=setInterval(this.myTimer(serv), 70000000);
             console.log(response);
         });
-        console.log('Test');
     }
 }
