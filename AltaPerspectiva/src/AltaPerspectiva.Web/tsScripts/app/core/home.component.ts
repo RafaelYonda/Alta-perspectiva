@@ -8,7 +8,7 @@ import { Http} from '@angular/http';
 })
 export class HomeComponent {
     constructor(private questionServe: QuestionAnswerService) {
-        setInterval(() => this.myTimer(questionServe), 70000000);
+        setInterval(() => this.myTimer(questionServe), 1080000);
     }
     myTimer(serv) {
         console.log('Test');
