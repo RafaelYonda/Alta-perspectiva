@@ -9,6 +9,11 @@ import {QuestionMenu, Category, Question, User, Answer, AnswerViewModel, Comment
 @Injectable()
 export class QuestionAnswerService implements Resolve<Question> {
 
+    keepalive(): Observable<any> {
+        return this._http.get('/questions/api/keepalive')
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     QuestionFollowing(questionFollowing: QuestionFollowing): Observable<any> {
         return this._http.post('/questions/api/' + questionFollowing.questionId + '/addquestionfollowing', questionFollowing)
             .map(this.extractData)

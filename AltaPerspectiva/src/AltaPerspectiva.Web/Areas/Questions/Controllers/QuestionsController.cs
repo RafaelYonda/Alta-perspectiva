@@ -64,6 +64,11 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(config);
         }
         #endregion
+        [HttpGet("/questions/api/keepalive")]
+        public IActionResult keepalive()
+        {
+            return Ok();
+        }
         // GET: /questions/api/questions
         [HttpGet("/questions/api/questions")]
         public async Task<IActionResult> Get()
