@@ -509,7 +509,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 {
                     string answerText = qv.Answers[0].Text;
 
-                    string htmlDocument=String.Empty;
+                    string htmlDocument= answerText;
                     var imgTags = Base64Image.GetImagesInHTMLString(answerText);
 
                     foreach (var imgTag in imgTags)
