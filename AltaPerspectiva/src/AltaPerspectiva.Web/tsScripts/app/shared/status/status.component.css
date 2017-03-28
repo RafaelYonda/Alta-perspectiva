@@ -4,6 +4,10 @@
     font-family:myriadpro-regular;
     color:#a29996;
 }
+
+.status-panel a:hover, .status-line:hover{
+    color:#F6912B;
+}
 .social-image-linkedin{
     border-radius:3px;
 }

@@ -186,12 +186,12 @@ export class StatusComponent {
     @ViewChild('likeAnchor', { read: ViewContainerRef }) likeAnchor: ViewContainerRef;
     ShowLikeCount() {
         this.logginAnchor.clear();
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(LikeComponent);
+        let dialogComponentRef = this.likeAnchor.createComponent(dialogComponentFactory);
+        console.log('show like');
         if (this.isQuestion) {
             this.statusService.showLikeUserDetailsByQuestion(this.questionObj.id).subscribe(res => {
                 this.likedUsers = res;
-
-                let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(LikeComponent);
-                let dialogComponentRef = this.likeAnchor.createComponent(dialogComponentFactory);
                 dialogComponentRef.instance.likedUsers = this.likedUsers;
                 dialogComponentRef.instance.close.subscribe(() => {
                     dialogComponentRef.destroy();
@@ -202,8 +202,8 @@ export class StatusComponent {
             this.statusService.showLikeUserDetailsByAnswer(this.answerObj.id).subscribe(res => {
                 this.likedUsers = res;
 
-                let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(LikeComponent);
-                let dialogComponentRef = this.likeAnchor.createComponent(dialogComponentFactory);
+                //let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(LikeComponent);
+                //let dialogComponentRef = this.likeAnchor.createComponent(dialogComponentFactory);
                 dialogComponentRef.instance.likedUsers = this.likedUsers;
                 dialogComponentRef.instance.close.subscribe(() => {
                     dialogComponentRef.destroy();
