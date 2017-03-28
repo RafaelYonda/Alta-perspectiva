@@ -49,7 +49,7 @@
                              [closeOnClickOutside]="true">
                 <span></span>
                 <ul style="list-style-type: none;">
-                    <li style="list-style-type: none;width: 91px;">
+                    <li *ngIf="isQuestion" style="list-style-type: none;width: 91px;">
                         <a (click)="questionDetailClicked()">Editar</a>
                     </li>
                     <li style="list-style-type: none;">
