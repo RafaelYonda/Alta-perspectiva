@@ -42,14 +42,13 @@ console.log(imgPos);
             var length = this.question.bestAnswer.text.indexOf(">", imgPos)
             length = length;
             imgTag = this.question.bestAnswer.text.substring(imgPos, length);
-            imgTag = '<p><' + imgTag + '></p>'
+            //imgTag = '<p><' + imgTag + 'class="answer-img"'+'></p>';
+            imgTag = '<' + imgTag + 'class="answer-img"'+'>';
         }
         
         this.clippedAnswer = this.question.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 258);       
 
-     //   this.clippedAnswer = imgTag + this.clippedAnswer + '<span><a (click)="openDialogBox(question)">...(Ver más)</a></span>';
-this.clippedAnswer =this.question.bestAnswer.text ;
-       
+        this.clippedAnswer = imgTag + this.clippedAnswer + '<span><a (click)="openDialogBox(question)">...(Ver más)</a></span>';
     }
 
     onQuestionDetailClicked(showEditForm: boolean) {
