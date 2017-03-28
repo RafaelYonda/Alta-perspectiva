@@ -41,9 +41,9 @@
     "UserProfile.Query": "1.0.0-*",
     "Blog.Command": "1.0.0-*",
     "Blog.Query": "1.0.0-*",
-
     "System.ServiceModel.Primitives": "4.0.0",
     "WindowsAzure.Storage": "8.1.1",
+    "HtmlAgilityPack.NetCore": "1.5.0.1",
   },
 
   "tools": {

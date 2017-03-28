@@ -14,6 +14,9 @@ using Questions.Query.Queries;
 using Questions.Query.Intefaces;
 using UserProfile.Domain;
 using UserProfile.Query.Queries;
+using System.Text.RegularExpressions;
+using AltaPerspectiva.Web.Areas.Admin.Helpers;
+using HtmlAgilityPack;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
@@ -501,6 +504,53 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                                             FirstImageUrl = x.FirstImageUrl
 
                                         }).ToList();
+
+                if (qv.Answers.Any())
+                {
+                    string answerText = qv.Answers[0].Text;
+
+                    string htmlDocument=String.Empty;
+                    var imgTags = Base64Image.GetImagesInHTMLString(answerText);
+
+                    foreach (var imgTag in imgTags)
+                    {
+                        //string fileLink = String.Empty;
+                        //string extension = Base64Image.GetExtension(imgTag);
+                        //if (!String.IsNullOrEmpty(extension))
+                        //{
+                        //    Base64Image base64Image = Base64Image.Parse(imgTag);
+
+                        //    String imageName = Guid.NewGuid().ToString() + base64Image.Extension;
+
+                        //    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                        //    fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
+                        //        imageName, base64Image.ContentType);
+                        //    if (firstImageUrl == null)
+                        //    {
+                        //        firstImageUrl = Regex.Match(fileLink, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase).Groups[1].Value;
+                        //    }
+                        //}
+                        htmlDocument = answerText.Replace(imgTag, "");
+
+                    }
+                    HtmlDocument htmlDoc = new HtmlDocument();
+                    htmlDoc.LoadHtml(htmlDocument);
+                    string result = htmlDoc.DocumentNode.InnerText;
+                  //  String result = Regex.Replace(htmlDocument, @"<[^>]*>", String.Empty);
+
+                    string formatedImage = string.Empty;
+                    if (!string.IsNullOrEmpty(qv.Answers[0].FirstImageUrl))
+                    {
+                        formatedImage = @"<img src='" + qv.Answers[0].FirstImageUrl + "'  style='max-width:250px; max-height:250px; float:right; margin-right:20px;'> ";
+                    }
+
+                    string newHtml = "<p>" + formatedImage + result + "</p>";
+                    qv.Answers[0].Text = newHtml;
+
+
+
+                }
+
 
                 qv.Likes = q.Likes.Select(l => new QuestionLikeViewModel { Id = l.Id, QuestionId = l.QuestionId.Value, UserId = l.UserId }).ToList();
 
