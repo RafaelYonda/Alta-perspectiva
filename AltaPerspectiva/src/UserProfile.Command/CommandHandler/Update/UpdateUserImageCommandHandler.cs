@@ -26,6 +26,8 @@ namespace UserProfile.Command.CommandHandler
             {
                 credential.ImageUrl = command.ImageUrl;
                 DbContext.Credentials.Update(credential);
+                DbContext.SaveChanges();
+                command.Id = credential.Id;
             }
             else
             {
@@ -43,12 +45,11 @@ namespace UserProfile.Command.CommandHandler
                 };
                 DbContext.Credentials.Add(newcredential);
                 DbContext.SaveChanges();
-                
 
+                command.Id = newcredential.Id;
             }
             
-            DbContext.SaveChanges();
-            command.Id = credential.Id;
+            
 
         }
 

@@ -420,7 +420,9 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
 
-            List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x => new UserViewModel
+            List<Credential> models = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers);
+
+            List<UserViewModel> userViewModels = models.Select(x => new UserViewModel
             {
                 CredentialId = x.Id,
                 UserId = x.UserId,

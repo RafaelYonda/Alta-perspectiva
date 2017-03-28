@@ -118,7 +118,8 @@ export class ProfileService {
     //===========viewcount
     addProfileViewCount(userId: string): Observable<any> {
         return this._http.post('userprofile/api/profileviewcount/'+userId,userId)
-            .map(this.extractData).catch(this.handleError);
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
     AddEmployment(employment: Employment):Observable<any> {
