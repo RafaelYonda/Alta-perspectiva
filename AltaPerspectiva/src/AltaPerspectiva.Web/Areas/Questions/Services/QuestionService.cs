@@ -541,7 +541,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     string formatedImage = string.Empty;
                     if (!string.IsNullOrEmpty(qv.Answers[0].FirstImageUrl))
                     {
-                        formatedImage = @"<img src='" + qv.Answers[0].FirstImageUrl + "'  style='max-width:250px; max-height:250px; float:right; margin-right:20px;'> ";
+                        formatedImage = @"<img src='" + qv.Answers[0].FirstImageUrl + "'  style='max-width:250px; max-height:250px; float:right; margin-right:20px;' > ";
                     }
 
                     string newHtml = "<p>" + formatedImage + result + "</p>";

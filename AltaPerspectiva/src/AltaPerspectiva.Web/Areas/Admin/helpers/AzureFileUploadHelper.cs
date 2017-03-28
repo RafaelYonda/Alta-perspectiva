@@ -74,7 +74,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
             //Stream stream = file.OpenReadStream();
             Task.WaitAll(cloudBlockBlob.UploadFromStreamAsync(stream));
 
-            String fileLinkWithImageFormatting = String.Format(@"<img  alt='Altaperspectiva' src='{0}'>",
+            String fileLinkWithImageFormatting = String.Format(@"<img  alt='Altaperspectiva' src='{0}' >",
                         cloudBlockBlob.Uri.ToString());
             return fileLinkWithImageFormatting;
         }
