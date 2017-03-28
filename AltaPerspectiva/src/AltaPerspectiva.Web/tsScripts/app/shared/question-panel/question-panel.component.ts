@@ -48,7 +48,7 @@ console.log(imgPos);
         
         this.clippedAnswer = this.question.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 258);       
 
-        this.clippedAnswer = imgTag + this.clippedAnswer + '<span><a (click)="openDialogBox(question)">...(Ver más)</a></span>';
+        this.clippedAnswer = '<p>'+imgTag + this.clippedAnswer + '<span><a (click)="openDialogBox(question)">...(Ver más)</a></span>'+'</p>';
     }
 
     onQuestionDetailClicked(showEditForm: boolean) {
