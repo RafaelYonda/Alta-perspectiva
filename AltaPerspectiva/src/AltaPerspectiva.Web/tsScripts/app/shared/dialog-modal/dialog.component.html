@@ -31,7 +31,7 @@
             <div class="panel-article">
                 <div class="details-container">
                     <div class="article-details">
-                        <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate"></user-info>
+                        <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate" [isAnonymous]="question.bestAnswer?.isAnonymous"></user-info>
                         <div class="pull-right">
                             <a (click)="QuestionFollowing(question)">
                                 <img [ngClass]="{ 'disabledFollowingImg': !isFollowing, 'enableFollowingImg': isFollowing  }" src="../../images/FollowingImage.svg"/>
