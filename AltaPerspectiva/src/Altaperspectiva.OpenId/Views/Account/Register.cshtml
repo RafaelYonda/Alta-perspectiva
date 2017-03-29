@@ -67,7 +67,13 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-md-10">
-                        <button type="submit" class="btn btn-xm">@*Sign Up*@Regístrate</button>
+                        <input type="checkbox" id="accept" onclick="acceptTerms()"/>
+                        Accept Terms and conditions
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-md-10">
+                        <button type="submit" class="btn btn-xm" id="register" disabled >@*Sign Up*@Regístrate</button>
                     </div>
                 </div>
             </form>
@@ -77,10 +83,18 @@
     </div>
 </div>
 <script>
+    function acceptTerms() {
+        if (document.getElementById("accept").checked) {
+            document.getElementById("register").disabled = false;
+        }
+        else
+            document.getElementById("register").disabled = true;
+    }
     window.setTimeout(function () {
         document.getElementById('email').focus();
     }, 0);
 </script>
 @section Scripts {
+    
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
