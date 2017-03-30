@@ -49,6 +49,10 @@ export class AnswerSubmitComponent {
         });
         if (this.isDraft)
             this.showDraftedQuestion();
+
+        if (this.question) {
+            this.question.shareUrl = 'http://altap.azurewebsites.net/question/detail/' + this.question.id;
+        }
     }
     //anonymous checkbox
     onChange(event) {
