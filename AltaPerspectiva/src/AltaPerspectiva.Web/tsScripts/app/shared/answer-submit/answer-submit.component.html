@@ -77,7 +77,7 @@
             </button>
         </div>
         <div class="social-share">
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{question.shareUrl}}"
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{question.shareUrl}}&title={{question?.title}}"
                class="SHARE FACEBOOK"
                onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
                 <img class="social-image" id="img1" src="../images/facebooklogo.jpg" />
@@ -87,12 +87,12 @@
                onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
                 <img class="social-image" id="img1" src="../images/facebooklogo.jpg" />
             </a>-->
-            <a href="https://twitter.com/home?status={{question.shareUrl}}"
+            <a href="https://twitter.com/ntent/tweet?text={{questionObj?.title}}Check out:{{questionObj.shareUrl}}"
                class="SHARE TWITTER"
                onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
                 <img class="social-image" id="img2" src="../images/twitter.png" />
             </a>
-            <!--<a href="https://twitter.com/intent/tweet?text={{question?.title}}Check out:{{question.shareUrl}}"
+            <!--<a href="https://twitter.com/intent/tweet?text={{questionObj?.title}}Check out:{{questionObj.shareUrl}}"
                class="SHARE TWITTER"
                onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
                 <img class="social-image" id="img2" src="../images/twitter.png" />

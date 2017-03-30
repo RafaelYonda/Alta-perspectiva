@@ -30,13 +30,9 @@ export class QuestionPanelComponent {
             return;
             if (!this.question.bestAnswer.text)
                 return;
-
         
-            var imgPos = this.question.bestAnswer.text.indexOf("img");
-
-            var imgTag = "";
-console.log(this.question.bestAnswer.text);
-console.log(imgPos);
+        var imgPos = this.question.bestAnswer.text.indexOf("img");
+        var imgTag = "";
         if (imgPos >-1 && imgPos < 350)
         {
             var length = this.question.bestAnswer.text.indexOf(">", imgPos)
