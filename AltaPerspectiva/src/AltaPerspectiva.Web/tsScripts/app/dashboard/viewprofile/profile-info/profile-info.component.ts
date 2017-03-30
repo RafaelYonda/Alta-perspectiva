@@ -166,7 +166,7 @@ export class ProfileInfoComponent {
     }
     twitter() {
         if (!this.credential.twitterLink) {
-            this.toastr.error('No link for twitter!', 'error');
+            this.toastr.error('No tiene enlace!');
         } else {
             window.open(this.credential.twitterLink);
         }
@@ -186,7 +186,7 @@ export class ProfileInfoComponent {
     }
     facebook() {
         if (!this.credential.facebookLink) {
-            this.toastr.error('No link for facebook!', 'error');
+            this.toastr.error('No tiene enlace!');
         } else {
             window.open(this.credential.facebookLink);
         }
@@ -206,7 +206,7 @@ export class ProfileInfoComponent {
     }
     linkedin() {
         if (!this.credential.linkedinLink) {
-            this.toastr.error('No link for linkedin!', 'error');
+            this.toastr.error('No tiene enlace!');
         } else {
             window.open(this.credential.linkedinLink);
         }

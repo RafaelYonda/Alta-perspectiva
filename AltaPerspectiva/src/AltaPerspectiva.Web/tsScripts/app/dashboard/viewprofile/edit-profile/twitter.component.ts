@@ -33,7 +33,7 @@ export class TwitterComponent {
         credential.userId = this.useId;
         credential.twitterLink = this.title;
         this.profileService.SaveSocialLink(credential).subscribe(res => {
-            this.toastr.success('Updated successfully!', 'success');
+            this.toastr.success('Updated successfully!');
             this.close.emit('event');
             this.title = '';
         });
@@ -45,7 +45,7 @@ export class TwitterComponent {
         credential.userId = this.useId;
         credential.twitterLink = 'twitter';
         this.profileService.DeleteSocialLink(credential).subscribe(res => {
-            this.toastr.warning('Deleted successfully!', 'success');
+            this.toastr.warning('Deleted successfully!');
             this.close.emit('event');
             this.title = '';
         });
