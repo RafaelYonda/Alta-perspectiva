@@ -2,26 +2,26 @@ USE [AltaPerspectiva]
 GO
 drop proc [dbo].[SpCategoryWiseAnswer];
 GO
+/*Shifted to codebase for better maintenance*/
+--create proc [dbo].SpCategoryWiseAnswer
+--(
+--@userId nvarchar(255)
+--)
+--AS
+--BEGIN
 
-create proc [dbo].SpCategoryWiseAnswer
-(
-@userId nvarchar(255)
-)
-AS
-BEGIN
-
-select COUNT(*) AnswerCount,(select Name from Questions.Categories c where c.Id=qc.CategoryId) CategoryName,(select Image from Questions.Categories cc where cc.Id=qc.CategoryId) ImageUrl,qc.CategoryId
-from Questions.Answers a 
-inner join Questions.Questions q
-on a.QuestionId=q.Id
-inner join Questions.QuestionCategories qc
-on q.Id=qc.QuestionId
-where a.UserId=@userId
-group by qc.CategoryId
+--select COUNT(*) AnswerCount,(select Name from Questions.Categories c where c.Id=qc.CategoryId) CategoryName,(select Image from Questions.Categories cc where cc.Id=qc.CategoryId) ImageUrl,qc.CategoryId
+--from Questions.Answers a 
+--inner join Questions.Questions q
+--on a.QuestionId=q.Id
+--inner join Questions.QuestionCategories qc
+--on q.Id=qc.QuestionId
+--where a.UserId=@userId
+--group by qc.CategoryId
 
 
-END
-GO
+--END
+--GO
 
 
 DROP PROC [dbo].[SpUserInfoDetails];
@@ -84,9 +84,14 @@ order by CreatedOn desc
 
 --Dependes on userId
 DECLARE @AnswerCount int;
-set @AnswerCount=(select count(*) as TotalAnswer from Questions.Answers a where a.UserId=@userId)
+set @AnswerCount=(select count(*) as TotalAnswer from Questions.Answers a where a.UserId=@userId
+
+
+)
 DECLARE @QuestionCount int;
-set @QuestionCount=(select COUNT(*) QuestionCount from Questions.Questions q where q.UserId=@UserId);
+set @QuestionCount=(select COUNT(*) QuestionCount from Questions.Questions q where q.UserId=@UserId
+
+);
 DECLARE @QuestionViewCount int;
 set @QuestionViewCount=(select SUM(ISNULL(q.ViewCount,0)) QuestionViewCount from Questions.Questions q where q.UserId=@userId);
 
@@ -274,12 +279,13 @@ where a.UserId=@userId
 DECLARE @AnswerMadeThisMonth int;
 set @AnswerMadeThisMonth=(select COUNT(*) 
 from Questions.Answers a
-where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()) and a.IsDrafted=null) 
+where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()) and a.IsDrafted is null 
+) 
 
 DECLARE @QuestionMadeThisMonth int;
 set @QuestionMadeThisMonth=(select COUNT(*) 
-from Questions.Questions a
-where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()))
+from Questions.Questions q
+where q.UserId=@userId and MONTH(q.CreatedOn)=MONTH(GETDATE())  and q.IsDirectQuestion=0)
 
 
 DECLARE @Followings int;
@@ -290,6 +296,7 @@ DECLARE @Bookmarks int;
 select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
 DECLARE @Answers int;
 select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null
+and not exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=1)
 DECLARE @Questions int ;
 select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and q.IsDirectQuestion=0
 DECLARE @DirectQuestions int;

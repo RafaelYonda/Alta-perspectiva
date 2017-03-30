@@ -508,7 +508,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 commandsFactory.ExecuteQuery(command);
             }
 
-            return Ok();
+            return Ok(new
+            {
+                value=true
+            });
         }
         #endregion
 

@@ -46,7 +46,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         #endregion
 
         #region API
-
+        [AllowAnonymous]
         [HttpGet("admin/virtualstore/getitems")]
         public IActionResult GetAllItems()
         {
@@ -55,6 +55,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 new VirtualStoreService().GetAddVirtualStoreViewModel(queryFactory,virtualStores,configuration);
             return Ok(addVirtualStoreViewModels);
         }
+        [AllowAnonymous]
         [HttpGet("admin/virtualstore/getitembyid/{id}")]
         public IActionResult GetItemById(Guid id)
         {
@@ -67,6 +68,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
                 },configuration)[0];
             return Ok(model);
         }
+        [AllowAnonymous]
         [HttpPost("admin/virtualstore/saveproductcomment")]
         public IActionResult SaveProductComment([FromBody]AddProductCommentViewModel model)
         {
@@ -84,7 +86,7 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
         }
 
         #endregion
-
+        
         [HttpGet("Admin/VirtualStore/Index")]
         public IActionResult Index()
         {
