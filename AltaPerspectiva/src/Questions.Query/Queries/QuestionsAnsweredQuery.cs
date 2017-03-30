@@ -52,7 +52,7 @@ namespace Questions.Query
                                                 && q.Categories.Any(x =>  x.QuestionId == q.Id) && q.IsDeleted != true && q.IsDirectQuestion == false)
                                             .OrderByDescending(c => c.CreatedOn.Value.Date)
                                                 .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
-                                                    .Take(20)
+                                                   // .Take(20)
                                                         .ToListAsync();
         }
     }

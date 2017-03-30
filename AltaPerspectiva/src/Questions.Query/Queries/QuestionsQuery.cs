@@ -71,7 +71,7 @@ namespace Questions.Query
                                   .Where(q => q.IsDeleted != true && q.UserId==userId && q.IsDirectQuestion == false)
                                       .OrderByDescending(c => c.CreatedOn.Value.Date)
                                           .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
-                                              .Take(20)
+                                              //.Take(20)
                                                   .ToListAsync();
         }
         public async Task<IEnumerable<Question>> GetTopFiveQuestion()

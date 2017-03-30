@@ -286,9 +286,20 @@ where q.UserId=@userId and MONTH(q.CreatedOn)=MONTH(GETDATE())  and q.IsDirectQu
 -----------------end of month region-------------------
 
 DECLARE @Followings int;
-select @Followings=count(*) from Questions.QuestionUserFollowings qf where qf.UserId=@userId and qf.IsDeleted is null;
+--select @Followings=count(*) from Questions.QuestionUserFollowings qf where qf.UserId=@userId and qf.IsDeleted is null;
+select @Followings=count(DISTINCT FollowedUserId) 
+from Questions.QuestionUserFollowings qf 
+where qf.UserId=@userId
+and qf.IsDeleted is null
+group by qf.UserId
 DECLARE @Followers int;
-select @Followers=count(*) from Questions.QuestionUserFollowings qf where qf.FollowedUserId=@userId and qf.IsDeleted is null
+--select @Followers=count(*) from Questions.QuestionUserFollowings qf where qf.FollowedUserId=@userId and qf.IsDeleted is null
+select @Followers=count(Distinct userId) from 
+Questions.QuestionUserFollowings qf 
+where qf.FollowedUserId=@userId
+and qf.IsDeleted is null
+group by qf.FollowedUserId
+
 DECLARE @Bookmarks int;
 select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
 ----------------use same as UserInfoDetails---------------------
