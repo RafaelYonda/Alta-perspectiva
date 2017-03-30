@@ -2,26 +2,26 @@ USE [AltaPerspectiva]
 GO
 drop proc [dbo].[SpCategoryWiseAnswer];
 GO
+/*Shifted to codebase for better maintenance*/
+--create proc [dbo].SpCategoryWiseAnswer
+--(
+--@userId nvarchar(255)
+--)
+--AS
+--BEGIN
 
-create proc [dbo].SpCategoryWiseAnswer
-(
-@userId nvarchar(255)
-)
-AS
-BEGIN
-
-select COUNT(*) AnswerCount,(select Name from Questions.Categories c where c.Id=qc.CategoryId) CategoryName,(select Image from Questions.Categories cc where cc.Id=qc.CategoryId) ImageUrl,qc.CategoryId
-from Questions.Answers a 
-inner join Questions.Questions q
-on a.QuestionId=q.Id
-inner join Questions.QuestionCategories qc
-on q.Id=qc.QuestionId
-where a.UserId=@userId
-group by qc.CategoryId
+--select COUNT(*) AnswerCount,(select Name from Questions.Categories c where c.Id=qc.CategoryId) CategoryName,(select Image from Questions.Categories cc where cc.Id=qc.CategoryId) ImageUrl,qc.CategoryId
+--from Questions.Answers a 
+--inner join Questions.Questions q
+--on a.QuestionId=q.Id
+--inner join Questions.QuestionCategories qc
+--on q.Id=qc.QuestionId
+--where a.UserId=@userId
+--group by qc.CategoryId
 
 
-END
-GO
+--END
+--GO
 
 
 DROP PROC [dbo].[SpUserInfoDetails];
@@ -82,11 +82,14 @@ where o.CredentialId=@credentialId
 order by CreatedOn desc
 );
 
---Dependes on userId
-DECLARE @AnswerCount int;
-set @AnswerCount=(select count(*) as TotalAnswer from Questions.Answers a where a.UserId=@userId)
-DECLARE @QuestionCount int;
-set @QuestionCount=(select COUNT(*) QuestionCount from Questions.Questions q where q.UserId=@UserId);
+----------------use same as ProfileParameter---------------------
+DECLARE @Answers int;
+select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null
+and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=0 and q.Isdeleted is  null)
+
+DECLARE @Questions int ;
+select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and q.IsDirectQuestion=0 and q.IsDeleted is null
+-----------------end of usage-----------------------------------------------
 DECLARE @QuestionViewCount int;
 set @QuestionViewCount=(select SUM(ISNULL(q.ViewCount,0)) QuestionViewCount from Questions.Questions q where q.UserId=@userId);
 
@@ -118,8 +121,8 @@ select CONVERT(UNIQUEIDENTIFIER, @userId) UserId,
 @ImageUrl ImageUrl,
 @FullName FullName,
 @Title Title,
-@AnswerCount AnswerCount,
-@QuestionCount QuestionCount,
+@Answers AnswerCount,
+@Questions QuestionCount,
 ISNULL(@QuestionViewCount,0) QuestionViewCount,
 @Education Education,
 @Employment Employment,
@@ -270,28 +273,48 @@ select
 from Questions.Answers a
 where a.UserId=@userId
 ) X)
-
+---------------Month region-----------------
 DECLARE @AnswerMadeThisMonth int;
 set @AnswerMadeThisMonth=(select COUNT(*) 
 from Questions.Answers a
-where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()) and a.IsDrafted=null) 
+where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()) 
+and a.IsDrafted is null 
+and a.isDeleted is null
+and exists(select 1 from  Questions.Questions q where q.Id=a.questionId and q.isDeleted is null )
+) 
 
 DECLARE @QuestionMadeThisMonth int;
 set @QuestionMadeThisMonth=(select COUNT(*) 
-from Questions.Questions a
-where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()))
-
+from Questions.Questions q
+where q.UserId=@userId and MONTH(q.CreatedOn)=MONTH(GETDATE())  and q.IsDirectQuestion=0 and q.IsDeleted is null)
+-----------------end of month region-------------------
 
 DECLARE @Followings int;
-select @Followings=count(*) from Questions.QuestionUserFollowings qf where qf.UserId=@userId and qf.IsDeleted is null;
+--select @Followings=count(*) from Questions.QuestionUserFollowings qf where qf.UserId=@userId and qf.IsDeleted is null;
+select @Followings=count(DISTINCT FollowedUserId) 
+from Questions.QuestionUserFollowings qf 
+where qf.UserId=@userId
+and qf.IsDeleted is null
+group by qf.UserId
 DECLARE @Followers int;
-select @Followers=count(*) from Questions.QuestionUserFollowings qf where qf.FollowedUserId=@userId and qf.IsDeleted is null
+--select @Followers=count(*) from Questions.QuestionUserFollowings qf where qf.FollowedUserId=@userId and qf.IsDeleted is null
+select @Followers=count(Distinct userId) from 
+Questions.QuestionUserFollowings qf 
+where qf.FollowedUserId=@userId
+and qf.IsDeleted is null
+group by qf.FollowedUserId
+
 DECLARE @Bookmarks int;
 select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
+----------------use same as UserInfoDetails---------------------
 DECLARE @Answers int;
-select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null
+select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null
+and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=0 and q.Isdeleted is  null)
+
 DECLARE @Questions int ;
-select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and q.IsDirectQuestion=0
+select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and q.IsDirectQuestion=0 and q.IsDeleted is null
+-----------------end of usage-----------------------------------------------
+
 DECLARE @DirectQuestions int;
 select @DirectQuestions=COUNT(*) from Questions.DirectQuestions q where q.QuestionAskedToUser=@userId 
 DECLARE @Blogs int;

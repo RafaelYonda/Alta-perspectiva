@@ -18,7 +18,8 @@ namespace Questions.Query.Queries
 
         public IEnumerable<QuestionUserFollowing> GetFollowers(Guid userId)
         {
-            return DbContext.QuestionUserFollowings.Where(x => x.FollowedUserId == userId && x.IsDeleted==null).ToList();
+            var questionUserFollowings= DbContext.QuestionUserFollowings.Where(x => x.FollowedUserId == userId && x.IsDeleted==null).ToList();
+            return questionUserFollowings;
         }
 
         public IEnumerable<QuestionUserFollowing> GetFollowings(Guid userId)

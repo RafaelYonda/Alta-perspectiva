@@ -33,19 +33,19 @@ export class FacebookComponent {
         credential.userId = this.useId;
         credential.facebookLink = this.title;
         this.profileService.SaveSocialLink(credential).subscribe(res => {
-            this.toastr.success('Updated successfully!', 'success');
+            this.toastr.success('Updated successfully!');
             this.close.emit('event');
             this.title = '';
         });
     }
     DeleteTitle() {
-        console.log('Deleted with userId');
-        console.log(this.title);
+       // console.log('Deleted with userId');
+       // console.log(this.title);
         var credential = new CredentialViewModel();
         credential.userId = this.useId;
         credential.facebookLink = 'facebook';
         this.profileService.DeleteSocialLink(credential).subscribe(res => {
-            this.toastr.warning('Deleted successfully!', 'success');
+            this.toastr.warning('Deleted successfully!');
             this.close.emit('event');
             this.title = '';
         });

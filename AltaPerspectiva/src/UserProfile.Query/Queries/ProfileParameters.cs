@@ -23,7 +23,14 @@ namespace UserProfile.Query.Queries
         public List<CategoryWiseAnswer> CategoryWiseAnswerCount(Guid userId, string connectionString)
         {
             List<CategoryWiseAnswer> categoryWiseAnswers = new List<CategoryWiseAnswer>();
-            String query = String.Format("SpCategoryWiseAnswer '{0}'", userId);
+            String query = String.Format(@"select COUNT(*) AnswerCount,(select Name from Questions.Categories c where c.Id=qc.CategoryId) CategoryName,(select Image from Questions.Categories cc where cc.Id=qc.CategoryId) ImageUrl,qc.CategoryId
+from Questions.Answers a 
+inner join Questions.Questions q
+on a.QuestionId=q.Id
+inner join Questions.QuestionCategories qc
+on q.Id=qc.QuestionId
+where a.UserId='{0}'
+group by qc.CategoryId", userId);
             categoryWiseAnswers = DataReaderToListHelper.DataReaderToList<CategoryWiseAnswer>(connectionString, query);
             return categoryWiseAnswers;
         }

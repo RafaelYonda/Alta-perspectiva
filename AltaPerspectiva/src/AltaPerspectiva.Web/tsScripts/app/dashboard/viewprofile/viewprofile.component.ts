@@ -87,7 +87,7 @@ export class ViewProfileComponent {
             });
             //================ProfileViewCount
             this.profileService.addProfileViewCount(params['userId']).subscribe(res => {
-                
+                console.log(res);
             })
 
         });
