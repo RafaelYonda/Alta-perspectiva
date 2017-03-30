@@ -84,10 +84,11 @@ order by CreatedOn desc
 
 ----------------use same as ProfileParameter---------------------
 DECLARE @Answers int;
-select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null
-and not exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=1)
+select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null
+and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=0 and q.Isdeleted is  null)
+
 DECLARE @Questions int ;
-select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and q.IsDirectQuestion=0
+select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and q.IsDirectQuestion=0 and q.IsDeleted is null
 -----------------end of usage-----------------------------------------------
 DECLARE @QuestionViewCount int;
 set @QuestionViewCount=(select SUM(ISNULL(q.ViewCount,0)) QuestionViewCount from Questions.Questions q where q.UserId=@userId);
@@ -276,13 +277,16 @@ where a.UserId=@userId
 DECLARE @AnswerMadeThisMonth int;
 set @AnswerMadeThisMonth=(select COUNT(*) 
 from Questions.Answers a
-where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()) and a.IsDrafted is null 
+where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()) 
+and a.IsDrafted is null 
+and a.isDeleted is null
+and exists(select 1 from  Questions.Questions q where q.Id=a.questionId and q.isDeleted is null )
 ) 
 
 DECLARE @QuestionMadeThisMonth int;
 set @QuestionMadeThisMonth=(select COUNT(*) 
 from Questions.Questions q
-where q.UserId=@userId and MONTH(q.CreatedOn)=MONTH(GETDATE())  and q.IsDirectQuestion=0)
+where q.UserId=@userId and MONTH(q.CreatedOn)=MONTH(GETDATE())  and q.IsDirectQuestion=0 and q.IsDeleted is null)
 -----------------end of month region-------------------
 
 DECLARE @Followings int;
@@ -304,10 +308,11 @@ DECLARE @Bookmarks int;
 select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
 ----------------use same as UserInfoDetails---------------------
 DECLARE @Answers int;
-select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null
-and not exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=1)
+select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null
+and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=0 and q.Isdeleted is  null)
+
 DECLARE @Questions int ;
-select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and q.IsDirectQuestion=0
+select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and q.IsDirectQuestion=0 and q.IsDeleted is null
 -----------------end of usage-----------------------------------------------
 
 DECLARE @DirectQuestions int;
