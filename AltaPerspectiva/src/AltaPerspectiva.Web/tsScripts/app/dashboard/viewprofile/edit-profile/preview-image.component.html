@@ -28,9 +28,7 @@
             text-decoration: underline;
         }
 
-    canvas {
-        margin: 15px;
-    }
+
 
     .profile-modal-button-container {
         text-align: right;
@@ -47,12 +45,21 @@
     .modal-overlay {
         top: -209px;
     }
+
+    @media only screen and (max-width:1000px) {
+        .modal-overlay {
+            top: 0;
+        }
+        .credential-dialog{
+            max-width:85%;
+        }
+    }
 </style>
 
 <div class="modal-overlay z-modal" id="dialogModal" (click)="handleClick($event)">
     <div class="modal-content credential-dialog">
         <div class="exit-button" (click)="onClickedExit()">x</div>
-        <div class="modal-container" >
+        <div class="modal-container">
             <div class="modal-header">
                 <h3><!--Preview Images-->Imagen previa</h3>
                 <!--<p>Credentials also appear on answers you write.</p>-->
