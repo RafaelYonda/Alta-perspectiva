@@ -333,8 +333,70 @@ ISNULL(@DirectQuestions,0) DirectQuestions,
 ISNULL(@Blogs,0) Blogs
 ;
 END
-
 GO
+DROP PROC [dbo].[SpGetUsers]
+GO
+CREATE PROCEDURE [dbo].[SpGetUsers]
+  @userIds nvarchar(max)
+AS
+BEGIN
+
+   select CONVERT(uniqueidentifier,asp.Id) as UserId ,
+   ISNULL((select top 1 ISNULL(FirstName,'')+' '+ISNULL(LastName,'') from UserProfile.Credentials where UserId=asp.Id),asp.UserName) as Name,
+   CONVERT(uniqueidentifier,(select Id from UserProfile.Credentials where UserId=asp.Id)) CredentialId,
+   ISNULL((select ImageUrl from UserProfile.Credentials where UserId=asp.Id),'avatar.png') ImageUrl,
+   (
+   select Position
+   from UserProfile.Employments e
+   inner join UserProfile.Credentials c
+   on e.CredentialID=c.Id
+   where c.UserID=asp.Id
+
+   ) Occupation
+   from  [Identity].[AspNetUsers] asp 
+
+   
+   where asp.Id in (
+    select Data
+from dbo.Split
+(@userIds,',')
+	)
+END
+--[SpGetUsers] 'd2306cf5-ca88-4c32-82fb-10d020483b24,d11ee5fa-11f4-444f-b6bb-49e2eb6ac155,7c685a68-05d6-43f7-a213-d30649134169,d3f1ca2c-0f15-42af-9215-0baeabde1dba,d8068e0f-1b70-443f-8e4b-650004bb55bc,9f5b4ead-f9e7-49da-b0fa-1683195cfcba'
+GO
+CREATE FUNCTION dbo.Split
+(
+	@RowData nvarchar(2000),
+	@SplitOn nvarchar(5)
+)
+RETURNS @RtnValue table
+(
+	Id int identity(1,1),
+	Data nvarchar(100)
+)
+AS
+BEGIN
+	Declare @Cnt int
+	Set @Cnt = 1
+
+	While (Charindex(@SplitOn,@RowData)>0)
+	Begin
+		Insert Into @RtnValue (data)
+		Select
+			Data = ltrim(rtrim(Substring(@RowData,1,Charindex(@SplitOn,@RowData)-1)))
+
+		Set @RowData = Substring(@RowData,Charindex(@SplitOn,@RowData)+1,len(@RowData))
+		Set @Cnt = @Cnt + 1
+	End
+	
+	Insert Into @RtnValue (data)
+	Select Data = ltrim(rtrim(@RowData))
+
+	Return
+END
+GO
+
+
 
 
 

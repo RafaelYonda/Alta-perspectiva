@@ -33,7 +33,9 @@ namespace Questions.Query.Queries
 
         public async Task<IEnumerable<Topic>> GetTopFiveTopicsByCategoryId(Guid categoryId)
         {
-            return await DbContext.Topics.Where(x => x.CategoryId == categoryId).ToListAsync();
+            return await DbContext.Topics
+                .Where(x => x.CategoryId == categoryId && x.QuestionTopics.Any(t=>t.TopicId==x.Id))
+                .ToListAsync();
 
         }
 

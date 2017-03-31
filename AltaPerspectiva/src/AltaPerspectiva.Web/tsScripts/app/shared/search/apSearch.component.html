@@ -11,7 +11,7 @@
             </div>
             <div class="suggestions" id="suggestion" *ngIf="isOnModal">
                 <!-- Question Text -->
-                <search-dropdown [title]="title"></search-dropdown>
+                <search-dropdown [title]="title" [categories]="categories"></search-dropdown>
                 <!-- Question Suggestion -->
                 <div class="suggestion-container" *ngIf="(filteredQuestionList?.length>0) || (categoryMatched?.length > 0)">
                     <div class="arrow-container"></div>

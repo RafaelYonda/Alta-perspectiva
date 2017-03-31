@@ -10,6 +10,7 @@ using System.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using AltaPerspectiva.Core.Helpers;
+using UserProfile.Domain;
 
 namespace UserProfile.Query.Queries
 {
@@ -124,6 +125,24 @@ ISNULL((select top 1 FirstName + ' ' + LastName from UserProfile.Credentials whe
 
             UserEmailParameter userEmailParameter = DataReaderToListHelper.DataReaderToObject<UserEmailParameter>(connectionString,query);
             return userEmailParameter;
+
+        }
+
+        public List<UserReadModel> GetUserReadModels(String connectionString, List<Guid> userIds)
+        {
+            String userIdStrings= "'";
+            
+            foreach (Guid userId in userIds)
+            {
+
+                userIdStrings = userIdStrings +userId.ToString()+",";
+            }
+            userIdStrings=userIdStrings.TrimEnd(',')+"'";
+            String query=String.Format("[SpGetUsers] {0}",userIdStrings);
+
+
+            List<UserReadModel> userReadModels = DataReaderToListHelper.DataReaderToList<UserReadModel>(connectionString, query);
+            return userReadModels;
 
         }
     }

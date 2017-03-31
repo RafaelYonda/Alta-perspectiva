@@ -39,6 +39,7 @@ export class ApSearchComponent {
         });
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
+            this.categories = this.categories.filter(item => item.sequence != 1);
         });
         this.categoryService.getAllKeywords().subscribe(res => {
             this.keywords = res;
