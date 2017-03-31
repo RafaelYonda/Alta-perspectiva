@@ -87,7 +87,7 @@
                                     @Html.TextBoxFor(modelItem => item.TopicName, new { @class = "form-control" })
                                 </td>
                                 <td>
-                                    <button id="btnDelete" type="button" class="btn btn-success" onclick="Update(this,'@item.Id',$(this).closest('tr').find('input').val())">
+                                    <button id="btnUpdate" type="button" class="btn btn-success" onclick="Update(this,'@item.Id',$(this).closest('tr').find('input').val(),'@item.CategoryId')">
                                         Update
                                     </button>
 
@@ -122,7 +122,7 @@
     }
 
 
-    function Update(element, id, topicName) {
+    function Update(element, id, topicName,categoryId) {
         // console.log(element);
         console.log('Id->' + id + ' topicName=' + topicName)
 
@@ -136,6 +136,7 @@
             var obj = {};
             obj.id = id;
             obj.topicName = topicName;
+            obj.categoryId = categoryId;
             console.log(obj);
             $.ajax({
                 url: url,

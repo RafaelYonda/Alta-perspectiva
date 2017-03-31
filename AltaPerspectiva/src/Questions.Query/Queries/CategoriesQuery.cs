@@ -30,7 +30,9 @@ namespace Questions.Query
         public IEnumerable<Category> Execute()
         {
             //if category id deleted ..then it will not be shown anywhere
-            return DbContext.Categories.Where(d=>d.IsDeleted!=true).OrderBy(x=>x.Sequence); 
+            return DbContext.Categories
+                .Where(d=>d.IsDeleted!=true && d.Sequence!=1)
+                .OrderBy(x=>x.Sequence); 
         }
 
         public Category GetCategoryById(Guid categoryId)

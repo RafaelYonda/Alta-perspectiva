@@ -282,10 +282,10 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             }
             String topicName = topicViewModel.TopicName.Trim();
             var isTopicExists =
-              queryFactory.ResolveQuery<ITopicQuery>().IsTopicExists(topicName);
+              queryFactory.ResolveQuery<ITopicQuery>().IsTopicExists(topicName,topicViewModel.CategoryId);
             if (isTopicExists)
             {
-                ModelState.AddModelError("TopicName", "TopicName already exists");
+                ModelState.AddModelError("TopicName", "TopicName already exists in this category");
                 var topics = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(topicViewModel.CategoryId);
 
                 topics = topics.OrderByDescending(x => x.CreatedOn).ToList();
@@ -308,25 +308,25 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
             Guid id = cmd.Id;
             ViewBag.Message = topicName + " Added Successfully";
 
-            var topics2 = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(topicViewModel.CategoryId);
+            var topiecsToDisplay = await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsByCategoryId(topicViewModel.CategoryId);
 
-            topics2 = topics2.OrderByDescending(x => x.CreatedOn).ToList();
+            topiecsToDisplay = topiecsToDisplay.OrderByDescending(x => x.CreatedOn).ToList();
             return View("AddTopic", new TopicViewModel
             {
                 CategoryId = topicViewModel.CategoryId,
                 CategoryName = topicViewModel.CategoryName,
-                Topics =topics2
+                Topics =topiecsToDisplay
             });
         }
         [HttpPost]
-        public IActionResult UpdateTopic(Guid id, String topicName)
+        public IActionResult UpdateTopic(Guid id, String topicName,Guid categoryId)
         {
             String modifiedTopicName = topicName.TrimStart().TrimEnd().Trim();
-            var isTopicExists =
-                queryFactory.ResolveQuery<ITopicQuery>().IsTopicExists(modifiedTopicName);
+            var IsTopicExistsInCurrentCategory =
+                queryFactory.ResolveQuery<ITopicQuery>().IsTopicExists(modifiedTopicName,categoryId);
 
             Boolean successResult = false;
-            if (!isTopicExists)
+            if (!IsTopicExistsInCurrentCategory)
             {
                 UpdateTopicCommand command = new UpdateTopicCommand(id, modifiedTopicName, null);
                 commandsFactory.ExecuteQuery(command);

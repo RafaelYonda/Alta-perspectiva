@@ -27,7 +27,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
                 if (topicExists)
                 {
-                    topicViewModel.TopicName = topic.TopicName + "_" + topic.Category.Name;
+                    topicViewModel.TopicName = topic.TopicName + " (" + topic.Category.Name+")";
                 }
                 topicViewModels.Add(topicViewModel);
             }

@@ -40,7 +40,11 @@ namespace Questions.Query.Queries
         public async Task<IEnumerable<Topic>> GetTopFiveTopics()
         {
             return 
-                await DbContext.Topics.Include(x => x.Category).Take(20).OrderByDescending(x => x.TopicName).ToListAsync();
+                await DbContext.Topics
+                .Include(x => x.Category)
+                .Where(x=>x.QuestionTopics.Any(t=>t.TopicId==x.Id))
+                .OrderBy(x => x.TopicName)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Topic>> GetRelatedTopicsByTopicId(Guid topicId)
@@ -55,9 +59,9 @@ namespace Questions.Query.Queries
             return DbContext.Topics.ToList();
         }
 
-        public bool IsTopicExists(string topicName)
+        public bool IsTopicExists(string topicName, Guid categoryId)
         {
-            return DbContext.Topics.Where(x=>x.IsDeleted==null).Any(x => x.TopicName.ToLower() == topicName);
+            return DbContext.Topics.Where(x=>x.IsDeleted==null&&x.CategoryId==categoryId).Any(x => x.TopicName.ToLower() == topicName);
         }
     }
     

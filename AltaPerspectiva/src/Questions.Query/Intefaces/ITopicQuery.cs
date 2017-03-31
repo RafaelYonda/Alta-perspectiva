@@ -22,7 +22,7 @@ namespace Questions.Query.Queries
 
         List<Topic> GetAllTopics();
 
-        Boolean IsTopicExists(string topicName);
+        Boolean IsTopicExists(string topicName,Guid categoryId);
 
 
     }
