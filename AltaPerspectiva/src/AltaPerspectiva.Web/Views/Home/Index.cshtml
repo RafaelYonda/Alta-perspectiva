@@ -1,10 +1,11 @@
 ﻿<style>
-    .footer-container a{
-        color:white;
+    .footer-container a {
+        color: white;
     }
-    .footer-container a:hover{
-        color:wheat;
-    }
+
+        .footer-container a:hover {
+            color: wheat;
+        }
 </style>
 @model dynamic
 @{
@@ -17,17 +18,25 @@
     if (!string.IsNullOrEmpty(Model) && !string.IsNullOrEmpty(User.Identity.Name))
     {
         <div class="body-minHeight">
-            <app username="'@User.Identity.Name'" token="'@Model'">Loading ...</app>
+            <app username="'@User.Identity.Name'" token="'@Model'">
+                <div class="modal-overlay z-modal">
+                    <div class="loader"></div>
+                </div>
+            </app>
         </div>
     }
 }
 else
 {
     @*<div class="body-minHeight">
-        <app username="">Loading ...</app>
-    </div>*@
+            <app username="">Loading ...</app>
+        </div>*@
     <div class="body-minHeight">
-        <app>Loading ...</app>
+        <app>
+            <div class="modal-overlay z-modal">
+                <div class="loader"></div>
+            </div>
+        </app>
     </div>
 }
 
@@ -39,14 +48,14 @@ else
                     <i class="fa fa-facebook fa-2x">
                     </i>
                 </a>
-                
+
             </div>
             <div class="borrder-circle">
                 <a href="https://twitter.com/AltaPerspectiva">
                     <i class="fa fa-twitter fa-2x">
                     </i>
                 </a>
-                
+
             </div>
             <div class="borrder-circle">
                 <a href="https://www.instagram.com/altaperspectiva/">

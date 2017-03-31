@@ -1,6 +1,6 @@
 ﻿<div #logginAnchor></div>
 <div [ngClass]="placeBottom" class="search-xs"   id="search-box" (click)="handleClick($event)">
-    <div class="center-width" id="adv-search">
+    <div class="center-width search-responsive" id="adv-search">
         <form (ngSubmit)="submitQuestion()" #questionVM="ngForm" class="z-header" role="form" id="search-panel">
             <div class="icon-container">
                 <input type="text" class="search-input fixed-height " #searchText placeholder="Pregunta en Alta perspectiva" id="title" autocomplete="off" (click)="showModal()" (ngModelChange)="movequestionMark($event)"
@@ -32,8 +32,8 @@
             </div>
 
             <button type="submit" class="ask-button fixed-height" [disabled]="!titleName.valid">
-                <span class="glyphicon glyphicon-question-sign visible-xs" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-search hidden-xs" aria-hidden="true"></span><span class="ask-text hidden-xs">Enviar</span>
+                <span class="glyphicon glyphicon-question-sign  visible-tab" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-search hidden-xs hidden-tab" aria-hidden="true"></span><span class="ask-text hidden-xs hidden-tab">Enviar</span>
             </button>
         </form>
     </div>

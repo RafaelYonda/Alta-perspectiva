@@ -9,6 +9,7 @@
     color: #215ea7;
     font-size: 14px;
     list-style:none;
+    overflow:hidden;
 }
 .left-panel-list li{
     margin-bottom:5px;
