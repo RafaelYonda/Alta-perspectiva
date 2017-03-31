@@ -441,21 +441,24 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/{categoryId}/gettopfivetopicsbycategoryid")]
         public async Task<IActionResult> GetTopFiveTopicsByCategoryId(Guid categoryId)
         {
-            IEnumerable<Topic> topFiveTopics = new List<Topic>();
+            IEnumerable<Topic> topics = new List<Topic>();
             Guid generalCategoryId = new Guid("7639B416-8D1C-4119-B58E-143CB860E8A6");
             if (categoryId == Guid.Empty ||categoryId== generalCategoryId)
             {
-                topFiveTopics =
+                topics =
                     await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopics();
+                List<TopicViewModel> topicViewModels = new TopicService().GetTopicViewModels(topics);
+
+                return Ok(topicViewModels);
             }
             else
             {
-                topFiveTopics =
+                topics =
                     await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopicsByCategoryId(categoryId);
             }
 
 
-            return Ok(topFiveTopics);
+            return Ok(topics);
 
         }
         [HttpGet("/questions/api/{categoryId}/gettopicbycategoryid")]
