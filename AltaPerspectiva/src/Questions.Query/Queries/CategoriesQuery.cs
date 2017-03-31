@@ -31,7 +31,7 @@ namespace Questions.Query
         {
             //if category id deleted ..then it will not be shown anywhere
             return DbContext.Categories
-                .Where(d=>d.IsDeleted!=true && d.Sequence!=1)
+                .Where(d=>d.IsDeleted!=true)
                 .OrderBy(x=>x.Sequence); 
         }
 

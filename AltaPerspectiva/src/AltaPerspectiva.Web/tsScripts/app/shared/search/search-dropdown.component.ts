@@ -14,8 +14,9 @@ import { Category, Question, Keyword, AskQuestionViewModel,Topic,Level,QuestionS
 export class ApSearchDropDownComponent {
     submitEmitter= new  EventEmitter();
     @Input() title: string;
+    
     categoryID: string = '-1';
-    categories: Category[];
+    @Input() categories: Category[];
     topicID: string = '-1';
     topics: Topic[];
     levelID: string = '-1';
@@ -29,9 +30,7 @@ export class ApSearchDropDownComponent {
     constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService) {
     }
     ngOnInit() {
-        this.categoryService.getAllCategories().subscribe(res => {
-            this.categories = res;
-        });
+        
     }
 
     onCategoryChange(categoryId) {

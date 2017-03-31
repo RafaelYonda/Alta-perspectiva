@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AltaPerspectiva.Core;
+using UserProfile.Domain;
 using UserProfile.Domain.ReadModel;
 
 namespace UserProfile.Query.Interfaces
@@ -21,5 +22,7 @@ namespace UserProfile.Query.Interfaces
         Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId,string connectionString);
 
         UserEmailParameter GetUserEmailParameter(String connectionString, Guid userId);
+
+        List<UserReadModel> GetUserReadModels(String connectionString, List<Guid> userIds);
     }
 }

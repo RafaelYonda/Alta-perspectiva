@@ -17,6 +17,9 @@ using UserProfile.Query.Queries;
 using System.Text.RegularExpressions;
 using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using HtmlAgilityPack;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using UserProfile.Domain.ReadModel;
+using UserProfile.Query.Interfaces;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
@@ -394,9 +397,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
         }
         public List<QuestionViewModel> GetQuestionViewModels(IEnumerable<Question> questionList, IQueryFactory queryFactory, IConfigurationRoot configuration)
         {
-            #region UserPrefetchOptimization
-
             AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            #region UserPrefetchOptimization
             List<Guid> userList = new List<Guid>();
             foreach (var question in questionList)
             {
@@ -416,51 +418,47 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             userList = userList.Distinct().ToList();
             List<UserViewModel> userViewModels = new List<UserViewModel>();
 
-            List<Credential> credentials = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(userList);
+            string connectionStr = configuration.GetSection("Data")
+                .GetSection("DefaultConnection")
+                .GetSection("ConnectionString")
+                .Value;
+            List<UserReadModel> userReadModels =
+                queryFactory.ResolveQuery<IProfileParameters>()
+                    .GetUserReadModels(connectionStr
+                        , userList);
+
 
             foreach (Guid userId in userList)
             {
-                Credential credential = credentials.FirstOrDefault(x => x.UserId == userId);
-                if (credential != null)
+                UserReadModel userReadModel =
+                    userReadModels.FirstOrDefault(x=>x.UserId==userId);
+                if (userReadModel != null)
                 {
-                    var u = new UserViewModel
-                    {
-                        CredentialId = credential.Id,
-                        UserId = credential.UserId,
-                        // Name = credential.FirstName + "" + credential.LastName,
-                        ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl),
-                        Occupation = credential.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
-                    };
-                    if (credential.FirstName == null && credential.LastName == null)
-                    {
-                        String connectionString =
-                configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
-
-                        String Name = queryFactory.ResolveQuery<ICredentialQuery>()
-                            .GetUserNameAspNetUsers(userId, connectionString);
-                        u.Name = Name;
-                    }
-                    else
-                    {
-                        u.Name = credential.FirstName + " " + credential.LastName;
-                    }
-                    userViewModels.Add(u);
+                    var userViewModel= new UserViewModel
+                     {
+                         UserId = userReadModel.UserId,
+                         CredentialId = userReadModel.CredentialId,
+                         Name = userReadModel.Name,
+                         ImageUrl = azureFileUploadHelper.GetProfileImage(userReadModel.ImageUrl),
+                         Occupation = userReadModel.Occupation
+                     };
+                    userViewModels.Add(userViewModel);
                 }
                 else
                 {
-                    //No credential .Fetech from aspNetUser
-                    String connectionString =
-                configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
-                    userViewModels.Add(new UserViewModel
+                    var userViewModel = new UserViewModel
                     {
-                        Name = queryFactory.ResolveQuery<ICredentialQuery>().GetUserNameAspNetUsers(userId, connectionString),
-                        ImageUrl = azureFileUploadHelper.GetProfileImage(null),
-                        Occupation = "",
+                        UserId = userId,
                         CredentialId = Guid.Empty,
-                        UserId = userId
-                    });
-
+                        Name = "Guest",
+                        ImageUrl = azureFileUploadHelper.GetProfileImage(null),
+                        Occupation = ""
+                    };
+                    userViewModels.Add(userViewModel);
                 }
+
+                
+
             }
             #endregion
 
@@ -514,29 +512,11 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
                     foreach (var imgTag in imgTags)
                     {
-                        //string fileLink = String.Empty;
-                        //string extension = Base64Image.GetExtension(imgTag);
-                        //if (!String.IsNullOrEmpty(extension))
-                        //{
-                        //    Base64Image base64Image = Base64Image.Parse(imgTag);
-
-                        //    String imageName = Guid.NewGuid().ToString() + base64Image.Extension;
-
-                        //    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-                        //    fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
-                        //        imageName, base64Image.ContentType);
-                        //    if (firstImageUrl == null)
-                        //    {
-                        //        firstImageUrl = Regex.Match(fileLink, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase).Groups[1].Value;
-                        //    }
-                        //}
                         htmlDocument = answerText.Replace(imgTag, "");
-
                     }
                     HtmlDocument htmlDoc = new HtmlDocument();
                     htmlDoc.LoadHtml(htmlDocument);
                     string result = htmlDoc.DocumentNode.InnerText;
-                  //  String result = Regex.Replace(htmlDocument, @"<[^>]*>", String.Empty);
 
                     string formatedImage = string.Empty;
                     if (!string.IsNullOrEmpty(qv.Answers[0].FirstImageUrl))
@@ -546,8 +526,6 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
                     string newHtml = "<p>" + formatedImage + result + "</p>";
                     qv.Answers[0].Text = newHtml;
-
-
 
                 }
 
