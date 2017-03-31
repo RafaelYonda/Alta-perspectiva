@@ -3,6 +3,7 @@ import { QuestionAnswerService } from '../../services/question-answer.service';
 import { QuestionService } from '../../services/question.service';
 import { CategoryService } from '../../services/category.service';
 import { ConfigService } from '../../services/config.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Config, LogInObj, FilterParameter, Topic, User} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
 import { CommunicationService } from '../../services/communication.service';
@@ -54,7 +55,7 @@ export class QuestionBodyComponent {
     levelName:string;
 
     filterParameter: FilterParameter;
-    constructor(private questioAnswernService: QuestionAnswerService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private questionService: QuestionService) {
+    constructor(private questioAnswernService: QuestionAnswerService,private authService: AuthenticationService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private questionService: QuestionService) {
         this._router = router;
         this.route = route;
 
@@ -86,11 +87,22 @@ export class QuestionBodyComponent {
             this.showLoader();
             this.onQuestionSubmitted(res);
         });
-        if (currentUserName != null) {
-            this._logObj.user.name = currentUserName;
-            this._logObj.user.imageUrl = currentUserImage;
+//        if (currentUserName != null) {
+//            this._logObj.user.name = currentUserName;
+//            this._logObj.user.imageUrl = currentUserImage;
+//            this._logObj.isLoggedIn = true;
+//        }
+		this.authService.getLoggedinObj().subscribe(res => {
+            if (res && currentUserName != null) {
+                this._logObj = new LogInObj();
+            this._logObj.user = new User();
+            this._logObj.user.name = res.name;
+            this._logObj.user.imageUrl = res.imageUrl;
             this._logObj.isLoggedIn = true;
-        }
+            this._logObj.user.userId = res.userId;
+            }
+        });
+
         this.configService.getConfig().subscribe(r => {
             this.config = r;
         });

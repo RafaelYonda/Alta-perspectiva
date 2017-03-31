@@ -191,7 +191,7 @@ export class ApSearchComponent {
         this.title = '';
 
         //CSS change==============
-        document.getElementById("search-box").className = this.placeBottom;
+        document.getElementById("search-box").className = this.placeBottom+" search-xs";
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
 
