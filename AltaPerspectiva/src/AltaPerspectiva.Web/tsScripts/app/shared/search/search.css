@@ -312,7 +312,7 @@ label {
 @media only screen and (min-width: 768px) and (max-width:900px) {
     .search-responsive {
         width: 40%;
-        margin-left: 250px;
+        margin-left: 265px;
     }
         .visible-tab {
         visibility: visible;
@@ -355,6 +355,10 @@ label {
         bottom: inherit;
         margin: 0;
         z-index: 9000;
+    }
+    .bottom-float{
+        padding-left:0;
+        padding-right:0;
     }
 
     .bottom-float .center-width {
