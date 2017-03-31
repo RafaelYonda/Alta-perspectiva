@@ -442,8 +442,8 @@ namespace AltaPerspectiva.Web.Area.Questions
         public async Task<IActionResult> GetTopFiveTopicsByCategoryId(Guid categoryId)
         {
             IEnumerable<Topic> topFiveTopics = new List<Topic>();
-
-            if (categoryId == Guid.Empty)
+            Guid generalCategoryId = new Guid("7639B416-8D1C-4119-B58E-143CB860E8A6");
+            if (categoryId == Guid.Empty ||categoryId== generalCategoryId)
             {
                 topFiveTopics =
                     await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopics();

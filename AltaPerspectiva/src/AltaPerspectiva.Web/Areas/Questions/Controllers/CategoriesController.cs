@@ -128,8 +128,8 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("questions/api/categories/keywords/{categoryId}")]
         public IActionResult GetKeywordsByCategoryId(Guid categoryId)
         {
-            var questionsList = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(categoryId);
-            return Ok(questionsList);
+            var keywords = queryFactory.ResolveQuery<IKeywordsQuery>().Execute(categoryId);
+            return Ok(keywords);
         }
 
         //questions/api/categories/category/{keyword}   
