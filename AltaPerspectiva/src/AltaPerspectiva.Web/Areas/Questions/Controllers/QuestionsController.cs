@@ -446,7 +446,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             if (categoryId == Guid.Empty ||categoryId== generalCategoryId)
             {
                 topics =
-                    await queryFactory.ResolveQuery<ITopicQuery>().GetTopFiveTopics();
+                    await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsWithQuestion();
                 List<TopicViewModel> topicViewModels = new TopicService().GetTopicViewModels(topics);
 
                 return Ok(topicViewModels);

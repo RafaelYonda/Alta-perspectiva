@@ -18,12 +18,14 @@ namespace Questions.Query.Queries
 
         public IEnumerable<Topic> GetTopics(Guid categoryId)
         {
-            return DbContext.Topics.Where(x => x.CategoryId == categoryId &&x.IsDeleted==null).ToList();
+            return DbContext.Topics
+                .Where(x => x.CategoryId == categoryId && x.IsDeleted==null)
+                .ToList();
         }
 
         public async Task<IEnumerable<Topic>> GetTopicsByCategoryId(Guid categoryId)
         {
-            return await DbContext.Topics.Where(x => x.CategoryId == categoryId).ToListAsync();
+            return await DbContext.Topics.Where(x => x.CategoryId == categoryId && x.IsDeleted == null).ToListAsync();
         }
 
         public Topic GetTopicByTopicId(Guid topicId)
@@ -34,17 +36,17 @@ namespace Questions.Query.Queries
         public async Task<IEnumerable<Topic>> GetTopFiveTopicsByCategoryId(Guid categoryId)
         {
             return await DbContext.Topics
-                .Where(x => x.CategoryId == categoryId && x.QuestionTopics.Any(t=>t.TopicId==x.Id))
+                .Where(x => x.CategoryId == categoryId && x.QuestionTopics.Any(t=>t.TopicId==x.Id) && x.IsDeleted == null)
                 .ToListAsync();
 
         }
 
-        public async Task<IEnumerable<Topic>> GetTopFiveTopics()
+        public async Task<IEnumerable<Topic>> GetTopicsWithQuestion()
         {
             return 
                 await DbContext.Topics
                 .Include(x => x.Category)
-                .Where(x=>x.QuestionTopics.Any(t=>t.TopicId==x.Id))
+                .Where(x=>x.QuestionTopics.Any(t=>t.TopicId==x.Id) && x.IsDeleted==null)
                 .OrderBy(x => x.TopicName)
                 .ToListAsync();
         }
@@ -53,7 +55,7 @@ namespace Questions.Query.Queries
         {
             var categoryId = DbContext.Topics.Where(x => x.Id == topicId).Select(y=>y.CategoryId).FirstOrDefault();
 
-            return await DbContext.Topics.Where(x => x.CategoryId == categoryId &&x.Id!=topicId).ToListAsync();
+            return await DbContext.Topics.Where(x => x.CategoryId == categoryId &&x.Id!=topicId && x.IsDeleted == null).ToListAsync();
         }
 
         public List<Topic> GetAllTopics()
@@ -63,7 +65,9 @@ namespace Questions.Query.Queries
 
         public bool IsTopicExists(string topicName, Guid categoryId)
         {
-            return DbContext.Topics.Where(x=>x.IsDeleted==null&&x.CategoryId==categoryId).Any(x => x.TopicName.ToLower() == topicName);
+            return DbContext.Topics
+                .Where(x=>x.IsDeleted==null && x.CategoryId==categoryId)
+                .Any(x => x.TopicName.ToLower() == topicName);
         }
     }
     
