@@ -24,5 +24,6 @@ namespace UserProfile.Query.Interfaces
         UserEmailParameter GetUserEmailParameter(String connectionString, Guid userId);
 
         List<UserReadModel> GetUserReadModels(String connectionString, List<Guid> userIds);
+        UserReadModel GetUserReadModel(String connectionString, Guid userId);
     }
 }
