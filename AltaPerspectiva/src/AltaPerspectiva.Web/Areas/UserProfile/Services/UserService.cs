@@ -18,11 +18,6 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
 {
     public class UserService
     {
-        //public List<UserViewModel> GetUserViewModels(IQueryFactory queryFactory, List<Question> questions,List<Guid> userIds )
-        //{
-
-        //}
-
         public String GetUserFullName(IQueryFactory queryFactory, Guid loggedinUser, IConfigurationRoot configuration)
         {
             String fullName = String.Empty;
@@ -51,45 +46,6 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             string occupation = string.Empty;
             Guid credentialId = Guid.Empty;
             AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-            //var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(loggedinUser);
-
-            //if (credential != null)
-            //{
-            //    imageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
-            //    if (credential.FirstName == null && credential.LastName == null)
-            //    {
-            //        String connectionString =
-            //configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
-
-            //        String Name = queryFactory.ResolveQuery<ICredentialQuery>()
-            //            .GetUserNameAspNetUsers(loggedinUser, connectionString);
-            //        fullName = Name;
-            //    }
-            //    else
-            //    {
-            //        fullName = credential.FirstName + " " + credential.LastName;
-            //    }
-
-            //    occupation = credential.Employments.Select(x => x.Position).Take(1).FirstOrDefault();
-            //    if (occupation == null)
-            //    {
-            //        occupation = credential.Title;
-            //    }
-            //    credentialId = credential.Id;
-            //}
-            //el
-            //{
-            //    imageUrl = azureFileUploadHelper.GetProfileImage(null);
-            //    //No credential .Fetech from aspNetUser
-            //    String connectionString =
-            //configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
-
-            //    String Name = queryFactory.ResolveQuery<ICredentialQuery>()
-            //        .GetUserNameAspNetUsers(loggedinUser, connectionString);
-            //    fullName = Name;
-            //    occupation = " ";
-            //}
-
             String connectionString =
            configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
 
