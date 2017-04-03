@@ -70,7 +70,9 @@
         </div>
         <ul class="left-panel-list">
             <li class=""><a routerLink="/">Alta Perspectiva</a></li>
-            <li><a routerLink="/question/home/1">Questions</a></li>
+            <li><a routerLink="/question/home/1">Preguntas</a></li>
+            <li *ngIf="_logObj.isLoggedIn"><a href="/signout"> Cerrar sesión </a></li>
+            <li *ngIf="!_logObj.isLoggedIn"><a href="/signin">Iniciar sesión</a></li>
         </ul>
     </div>
 
