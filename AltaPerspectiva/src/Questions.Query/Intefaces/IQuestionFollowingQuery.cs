@@ -11,5 +11,8 @@ namespace Questions.Query.Intefaces
     {
         IEnumerable<QuestionUserFollowing> GetFollowings(Guid userId);
         IEnumerable<QuestionUserFollowing> GetFollowers(Guid userId);
+
+        bool IsLogginUserFollowingAnswer(Guid userId,Guid answerId);
+    //    bool IsLogginUserFollowingQuestion(Guid userId);
     }
 }
