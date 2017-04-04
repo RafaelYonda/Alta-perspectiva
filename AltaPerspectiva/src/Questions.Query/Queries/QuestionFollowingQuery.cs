@@ -26,5 +26,10 @@ namespace Questions.Query.Queries
         {
             return DbContext.QuestionUserFollowings.Where(x => x.UserId == userId && x.IsDeleted == null).ToList();
         }
+
+        public bool IsLogginUserFollowingAnswer(Guid userId,Guid answerId)
+        {
+            return DbContext.QuestionUserFollowings.Any(x => x.UserId == userId && x.AnswerId==answerId);
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿
-import { Component,Input, EventEmitter, Output, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { Question, QuestionFollowing, QuestionReport} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ export class DialogComponent {
     close = new EventEmitter();
     question: Question;
     //QuestionEditModal
-    questionReports:QuestionReport[];
+    questionReports: QuestionReport[];
     //Edit question popup
     showQuestionEditForm: boolean
     isFollowing: boolean
@@ -32,16 +32,20 @@ export class DialogComponent {
     ngOnInit() {
         //console.log('My question' + this.question);
         this.isFollowing = true;
+        var user = localStorage.getItem('auth_token');
+        if (user) {
+            this.isFollowing = !this.question.bestAnswer.isFollowing;
+        }
     }
     handleClick(event) {
         //removel the modal on clicking out side the panel
-       // var idAttr = event.srcElement.attributes.id;
+        // var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement
         //removel the modal on clicking out side the panel
         var idAttr = target['id'];
 
         var value = idAttr ? idAttr.nodeValue : undefined;
-        if (value =='dialogModal')
+        if (value == 'dialogModal')
             this.close.emit('event');
     }
     QuestionFollowing(question: Question) {
@@ -50,7 +54,7 @@ export class DialogComponent {
             this.ShowNotLoggedIn();
             return;
         }
-        
+
         let questionFollowing = new QuestionFollowing();
         questionFollowing.questionId = question.id;
         questionFollowing.answerId = question.bestAnswer.id;
@@ -59,7 +63,7 @@ export class DialogComponent {
         console.log(questionFollowing);
 
         this.dataService.QuestionFollowing(questionFollowing).subscribe(res => {
-            console.log('successfullt passed')
+            //console.log('successfullt passed')
             if (this.isFollowing == true) {
                 this.isFollowing = false;
             } else {
@@ -85,7 +89,7 @@ export class DialogComponent {
             this.question.body = this.editBody;
             this.showQuestionEditForm = false;
             this.editTitle = '';
-            this.editTitle='';
+            this.editTitle = '';
             this._router.navigateByUrl('question/home/1', { skipLocationChange: true })
         });
     }
@@ -121,5 +125,5 @@ export class DialogComponent {
         });
     }
 
-  
+
 }

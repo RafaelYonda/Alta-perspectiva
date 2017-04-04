@@ -389,7 +389,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(userId);
 
             List<QuestionViewModel> questionViewModels =
-                new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
+                new QuestionService().GetQuestionViewModelsForProfile(questionList, queryFactory, configuration,userId);
             return Ok(questionViewModels);
         }
 

@@ -75,7 +75,23 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
 
-            List<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
+            List<QuestionViewModel> questions;
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                questions = new QuestionService().GetQuestionViewModelForLoggedinUser(questionList, queryFactory, configuration,loggedinUser);
+
+            }
+            else
+            {
+                questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration);
+
+            }
 
             return Ok(questions);
         }
@@ -120,7 +136,22 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             Question question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(id);
 
-            QuestionViewModel questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);
+            QuestionViewModel questionViewModel = new QuestionViewModel();
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+                questionViewModel = new QuestionService().GetQuestionViewModelForLoggedinUser(question, queryFactory, configuration, loggedinUser);
+            }
+            else
+            {
+                questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration);
+            }
+
             return Ok(questionViewModel);
         }
 
@@ -443,7 +474,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             IEnumerable<Topic> topics = new List<Topic>();
             Guid generalCategoryId = new Guid("7639B416-8D1C-4119-B58E-143CB860E8A6");
-            if (categoryId == Guid.Empty ||categoryId== generalCategoryId)
+            if (categoryId == Guid.Empty || categoryId == generalCategoryId)
             {
                 topics =
                     await queryFactory.ResolveQuery<ITopicQuery>().GetTopicsWithQuestion();

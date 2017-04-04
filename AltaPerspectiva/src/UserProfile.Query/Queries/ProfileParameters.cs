@@ -145,5 +145,12 @@ ISNULL((select top 1 FirstName + ' ' + LastName from UserProfile.Credentials whe
             return userReadModels;
 
         }
+
+        public UserReadModel GetUserReadModel(string connectionString, Guid userId)
+        {
+            String query = String.Format("[SpGetUsers] '{0}'", userId);
+            UserReadModel userReadModel = DataReaderToListHelper.DataReaderToObject<UserReadModel>(connectionString,query);
+            return userReadModel;
+        }
     }
 }
