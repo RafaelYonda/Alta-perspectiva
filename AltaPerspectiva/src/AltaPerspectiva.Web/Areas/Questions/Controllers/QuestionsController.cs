@@ -208,7 +208,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         //get  /questions/api/questions/reatedquestions/{id}
-        [HttpGet("/questions/api/questions/reatedquestions/{id}")]
+        [HttpGet("/questions/api/questions/relatedquestions/{id}")]
         public async Task<IActionResult> GetRelatedQuestions(Guid id)
         {
             IEnumerable<Question> questions = await queryFactory.ResolveQuery<IRelatedQuestionsQuery>().Execute(id);

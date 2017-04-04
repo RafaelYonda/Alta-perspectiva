@@ -93,7 +93,7 @@ export class QuestionAnswerService implements Resolve<Question> {
     }
 
     getRelatedQuestions(questionId: string): Observable<Question[]> {
-        return this._http.get('/questions/api/questions/reatedquestions/' + questionId)
+        return this._http.get('/questions/api/questions/relatedquestions/' + questionId)
             .map(this.extractData)
             .catch(this.handleError);
     }
