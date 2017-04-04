@@ -2,26 +2,26 @@ USE [AltaPerspectiva]
 GO
 drop proc [dbo].[SpCategoryWiseAnswer];
 GO
-/*Shifted to codebase for better maintenance*/
---create proc [dbo].SpCategoryWiseAnswer
---(
---@userId nvarchar(255)
---)
---AS
---BEGIN
 
---select COUNT(*) AnswerCount,(select Name from Questions.Categories c where c.Id=qc.CategoryId) CategoryName,(select Image from Questions.Categories cc where cc.Id=qc.CategoryId) ImageUrl,qc.CategoryId
---from Questions.Answers a 
---inner join Questions.Questions q
---on a.QuestionId=q.Id
---inner join Questions.QuestionCategories qc
---on q.Id=qc.QuestionId
---where a.UserId=@userId
---group by qc.CategoryId
+create proc [dbo].SpCategoryWiseAnswer
+(
+@userId nvarchar(255)
+)
+AS
+BEGIN
+
+select COUNT(*) AnswerCount,(select Name from Questions.Categories c where c.Id=qc.CategoryId) CategoryName,(select Image from Questions.Categories cc where cc.Id=qc.CategoryId) ImageUrl,qc.CategoryId
+from Questions.Answers a 
+inner join Questions.Questions q
+on a.QuestionId=q.Id
+inner join Questions.QuestionCategories qc
+on q.Id=qc.QuestionId
+where a.UserId=@userId
+group by qc.CategoryId
 
 
---END
---GO
+END
+GO
 
 
 DROP PROC [dbo].[SpUserInfoDetails];
@@ -398,5 +398,52 @@ GO
 
 
 
+DROP PROC SpTopHundredUserSummary;
+GO
+CREATE PROC TopHundredUserSummary
+AS
+BEGIN
+;with CTE
+	as(
+	SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId,
+	ISNULL((select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc),[UserName]) Name,
+	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,
+	(select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id) TotalLike,
+	(select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) TotalComment,
+	(select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) TotalQuestion,
+	(select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) TotalAnswer,
+	(
+	 (select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id)*1+
+	 (select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) *2+
+	 (select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) *3+
+	 (select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) *4
+	) TotalCommulativePoint,
+	(
+	select top 1 e.Position from UserProfile.Employments e 
+where CredentialId=(select top 1 Id from UserProfile.Credentials c where c.UserId=u.Id)
+order by CreatedOn desc
+	) Occupation,
+	ISNULL((select top 1 ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
+	
+	FROM [Identity].AspNetUsers u
 
+	)
+	select  * from CTE order by TotalCommulativePoint desc
+END
+Go
+Drop PROC SpGetUserEmailParameter;
+GO
+CREATE PROC SpGetUserEmailParameter
+(
+@userId nvarchar(200)
+)
+AS
+BEGIN
+select Id,Email,
+(select top 1 ImageUrl from UserProfile.Credentials where UserId = a.Id) ImageUrl,
+ISNULL((select top 1 FirstName + ' ' + LastName from UserProfile.Credentials where UserId = a.Id), UserName) UserName
+       from[Identity].[AspNetUsers] a
+        where a.Id = @userId
 
+END
+GO
