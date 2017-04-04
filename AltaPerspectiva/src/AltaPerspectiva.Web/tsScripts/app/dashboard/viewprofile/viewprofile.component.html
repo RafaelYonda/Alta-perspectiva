@@ -79,6 +79,7 @@
                         <li><a routerLink="/question/home/1"><!--Questions-->Preguntas</a></li>
                         <li *ngIf="_logObj.isLoggedIn"><a href="/signout">Cerrar sesión</a></li>
                         <li *ngIf="!_logObj.isLoggedIn"><a href="/signin">Iniciar sesión</a></li>
+                        <li *ngIf="!_logObj.isLoggedIn"><a href="/signin">Regístrate <!--Register--></a></li>
                     </ul>
                 </div>
                 <ul id="profile-route" class="profile-leftmenu">
