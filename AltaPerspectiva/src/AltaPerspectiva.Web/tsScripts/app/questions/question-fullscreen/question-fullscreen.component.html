@@ -16,6 +16,7 @@
             <li *ngIf="_logObj.isLoggedIn"><a (click)="gotoProfile()"> Perfil</a></li>
             <li *ngIf="_logObj.isLoggedIn"><a href="/signout"> Cerrar sesión </a></li>
             <li *ngIf="!_logObj.isLoggedIn"><a href="/signin">Iniciar sesión</a></li>
+            <li *ngIf="!_logObj.isLoggedIn"><a href="/signin">Regístrate <!--Register--></a></li>
         </ul>
     </div>
 </div>
