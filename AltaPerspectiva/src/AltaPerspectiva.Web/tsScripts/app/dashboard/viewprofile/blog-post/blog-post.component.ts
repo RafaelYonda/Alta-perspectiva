@@ -1,6 +1,7 @@
 ﻿/// <reference path="../../../services/blog.service.ts" />
 import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
-import { Blog, BlogComment, BlogLike, BlogPost,UserViewModel } from '../../../services/models/models.blogpost';
+import { Blog, BlogComment, BlogLike, BlogPost, UserViewModel } from '../../../services/models/models.blogpost';
+import {LogInObj, User} from '../../../services/models';
 import {UserInfoDetails} from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 import { BlogService } from '../../../services/blog.service';
@@ -17,14 +18,24 @@ export class BlogPostComponent {
     blog: Blog;
     blogPost: BlogPost= new BlogPost();
     blogposts: BlogPost[];
-    userInfoDetails: UserInfoDetails
+    _logObj: LogInObj;
+    userInfoDetails: UserInfoDetails;
     constructor(private _route: ActivatedRoute, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private blogService: BlogService, private _authService: AuthenticationService) {
+        var user: User = new User();
+        user.userId = '-1';
+        this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
         window.scrollTo(0, 0);
         //this.blogPost.description
         //this.blogPost.title = "Add Title Post";
-        
+        var currentUserName = localStorage.getItem('auth_token');
+        var currentUserImage = localStorage.getItem('currentUserImage');
+        //console.log(currentUserName);
+        if (currentUserName != null) {
+            this._logObj.user.name = currentUserName;
+            this._logObj.user.imageUrl = currentUserImage;
+        }
         
         this.isEditDescription = false;
         this.isEditTitle = false;
