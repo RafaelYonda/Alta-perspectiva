@@ -828,16 +828,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/FilterbyCategoryTopicNLevel")]
         public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter)
         {
-            IEnumerable<Question> questions =new List<Question>();
-            try
-            {
-                questions = await new FilterService().GetFilteredQuestions(filterParameter, queryFactory);
-
-            }
-            catch (Exception e)
-            {
-
-            }
+            IEnumerable<Question> questions  = await new FilterService().GetFilteredQuestions(filterParameter, queryFactory);
 
             Guid loggedinUser = Guid.Empty;
             if (User.Identity.IsAuthenticated)
