@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -18,21 +16,12 @@ using Questions.Command.Commands;
 using Questions.Domain.ReadModel;
 using Questions.Query.Queries;
 using Questions.Commands;
-using UserProfile.Command.Commands;
-using UserProfile.Domain;
-using UserProfile.Query.Queries;
 using System.Text.RegularExpressions;
-using System.IO;
-using AltaPerspectiva.Core.Helpers;
 using AltaPerspectiva.Web.Areas.Admin.helpers;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using Microsoft.AspNetCore.Authorization;
-using UserProfile.Domain.ReadModel;
-using UserProfile.Query;
-using UserProfile.Query.Interfaces;
 using Microsoft.AspNetCore.Hosting;
+
 
 namespace AltaPerspectiva.Web.Area.Questions
 {
@@ -164,7 +153,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration,loggedinUser);
+            questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration, loggedinUser);
 
             return Ok(questionViewModel);
         }
@@ -183,7 +172,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            List<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration,loggedinUser);
+            List<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration, loggedinUser);
 
             return Ok(questions);
         }
@@ -202,7 +191,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questions, queryFactory, configuration,loggedinUser);
+            List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questions, queryFactory, configuration, loggedinUser);
 
             return Ok(questionViewModels);
         }
@@ -592,7 +581,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             IEnumerable<Question> questionsByBookmarked = await queryFactory.ResolveQuery<IQuestionsQuery>().GetBookmark(userId);
 
-            List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questionsByBookmarked, queryFactory, configuration,Guid.Empty);
+            List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questionsByBookmarked, queryFactory, configuration, Guid.Empty);
 
             return Ok(questionViewModels);
         }
@@ -716,7 +705,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         {
             IEnumerable<Question> questionList = null;
 
-            Guid loggedinUser=Guid.Empty; 
+            Guid loggedinUser = Guid.Empty;
 
             if (User.Identity.IsAuthenticated)
             {
@@ -726,7 +715,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            
+
             if (categoryId == Guid.Empty)
             {
                 //vertodas category soo let us fetch all category
@@ -738,9 +727,9 @@ namespace AltaPerspectiva.Web.Area.Questions
                     .GetLatestQuestion(loggedinUser, categoryId);
             }
 
-            
+
             List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questionList, queryFactory,
-                configuration,loggedinUser);
+                configuration, loggedinUser);
 
             return Ok(questionViewModels);
         }
@@ -750,7 +739,7 @@ namespace AltaPerspectiva.Web.Area.Questions
         public async Task<IActionResult> GetMoreViewedQuestionByViewCount(Guid categoryId)
         {
             IEnumerable<Question> questionList;
-            Guid loggedinUser=Guid.Empty;
+            Guid loggedinUser = Guid.Empty;
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
@@ -839,78 +828,17 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/FilterbyCategoryTopicNLevel")]
         public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter)
         {
-            // Guid emptyGuid=Guid.Empty;
-
-            var categoryId = filterParameter.CategoryId;
-            var topicId = filterParameter.TopicId;
-            var levelId = filterParameter.LevelId;
-            IEnumerable<Question> questions = new List<Question>();
-
-
-            //Filter by Category ,Topic   and level
-            if (categoryId.HasValue && topicId.HasValue && levelId.HasValue)
+            IEnumerable<Question> questions =new List<Question>();
+            try
             {
-                questions =
-                    await queryFactory.ResolveQuery<IQuestionsQuery>()
-                        .FilterbyCategoryTopicandlevel(categoryId.Value, topicId.Value, levelId.Value);
-            }
-            //Filter by category AND TOPIC
-            else if (categoryId.HasValue && topicId.HasValue && !levelId.HasValue)
-            {
-                questions =
-                    await queryFactory.ResolveQuery<IQuestionsQuery>()
-                        .FilterbycategoryANDTOPIC(categoryId.Value, topicId.Value);
+                questions = await new FilterService().GetFilteredQuestions(filterParameter, queryFactory);
 
             }
-            //Filter by category and level
-            else if (categoryId.HasValue && !topicId.HasValue && levelId.HasValue)
+            catch (Exception e)
             {
-                questions =
-                    await queryFactory.ResolveQuery<IQuestionsQuery>()
-                        .Filterbycategoryandlevel(categoryId.Value, levelId.Value);
-
-            }
-            //Filter by Topic and level
-            else if (!categoryId.HasValue && topicId.HasValue && levelId.HasValue)
-            {
-                questions =
-                    await queryFactory.ResolveQuery<IQuestionsQuery>()
-                        .FilterbyTopicAndLevel(topicId.Value, levelId.Value);
-
-            }
-            //Filter by category only
-            else if (categoryId.HasValue && !topicId.HasValue && !levelId.HasValue)
-            {
-                questions =
-                    await queryFactory.ResolveQuery<IQuestionsQuery>()
-                        .Filterbycategoryonly(categoryId.Value);
 
             }
 
-            //Filtered by topic only
-            else if (!categoryId.HasValue && topicId.HasValue && !levelId.HasValue)
-            {
-                questions =
-                     await queryFactory.ResolveQuery<IQuestionsQuery>()
-                         .Filteredbytopiconly(topicId.Value);
-
-            }
-            //Filtered by level only
-            else if (!categoryId.HasValue && !topicId.HasValue && levelId.HasValue)
-            {
-                questions =
-                     await queryFactory.ResolveQuery<IQuestionsQuery>()
-                         .Filteredbylevelonly(levelId.Value);
-
-            }
-            //Filtered General Category only
-            else //(categoryId == emptyGuid && topicId == emptyGuid && levelId == emptyGuid)
-            {
-                questions =
-                    await queryFactory.ResolveQuery<IQuestionsQuery>()
-                        .FilteredGeneralCategoryonly();
-
-            }
             Guid loggedinUser = Guid.Empty;
             if (User.Identity.IsAuthenticated)
             {

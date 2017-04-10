@@ -374,7 +374,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     if (topicId != null)
                     {
                         // Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId.Value);
-                        Topic topic = topics.FirstOrDefault(x => x.Id == topicId.Value);
+                        Topic topic = topics.FirstOrDefault(x => x.Id == topicId);
                         if (topic != null)
                         {
                             qv.QuestionTopicNames.Add(topic.TopicName);
@@ -388,7 +388,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     if (levelId != null)
                     {
                         //Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId.Value);
-                        Level level = levels.FirstOrDefault(x => x.Id == levelId.Value);
+                        Level level = levels.FirstOrDefault(x => x.Id == levelId);
                         if (level != null)
                         {
                             qv.QuestionLevelNames.Add(level.LevelName);
@@ -480,47 +480,15 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 qv.CreatedOn = q.CreatedOn;
                 qv.UserViewModel = userViewModels.Where(uv => uv.UserId == q.UserId).FirstOrDefault();
 
-                qv.Answers = q.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted != true).OrderByDescending(y => y.Likes.Count).Take(1).Select(x =>
-                                   new AnswerViewModel
-                                   {
-                                       Id = x.Id,
-                                       Text = x.Text,
-                                       AnswerDate = x.CreatedOn,
-                                       UserId = x.UserId,
-                                       QuestionId = x.QuestionId.Value,
-                                       CreatedOn = x.CreatedOn,
-                                       UserViewModel = userViewModels.Where(uv => uv.UserId == x.UserId).FirstOrDefault(),
-                                       Comments = x.Comments?.Select(y => new AnswerCommentViewModel
-                                       {
-                                           Id = y.Id,
-                                           AnswerId = y.AnswerId,
-                                           CommentText = y.CommentText,
-                                           UserId = y.UserID,
-                                           UserViewModel = userViewModels.Where(uv => uv.UserId == y.UserID).FirstOrDefault()
-                                       }).ToList(),
-                                       Likes = x.Likes?.Select(z => new AnswerLikeViewModel
-                                       {
-                                           UserViewModel = userViewModels.Where(uv => uv.UserId == z.UserId).FirstOrDefault(),
-                                           AnswerId = z.AnswerId,
-                                           Id = z.Id,
-                                           UserId = z.UserId
-                                       }).ToList(),
-                                       IsAnonymous = x.IsAnonymous,
-                                       FirstImageUrl = x.FirstImageUrl,
-                                       IsFollowing = loggedinUserId != Guid.Empty ?  queryFactory.ResolveQuery<IQuestionFollowingQuery>().IsLogginUserFollowingAnswer(loggedinUserId, x.Id):false
-
-                                   }).ToList();
-
-
-
-
+                qv.Answers = GetBestAnswerViewModels(q.BestAnswer, userViewModels, loggedinUserId, queryFactory);
 
                 if (qv.Answers.Any())
                 {
                     string answerText = qv.Answers[0].Text;
 
                     string htmlDocument = answerText;
-                    var imgTags = Base64Image.GetImagesInHTMLString(answerText);
+
+                    List<string> imgTags = Base64Image.GetImagesInHTMLString(answerText);
 
                     foreach (var imgTag in imgTags)
                     {
@@ -563,7 +531,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     if (topicId != null)
                     {
                         // Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId.Value);
-                        Topic topic = topics.FirstOrDefault(x => x.Id == topicId.Value);
+                        Topic topic = topics.FirstOrDefault(x => x.Id == topicId);
                         if (topic != null)
                         {
                             qv.QuestionTopicNames.Add(topic.TopicName);
@@ -577,7 +545,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     if (levelId != null)
                     {
                         //Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId.Value);
-                        Level level = levels.FirstOrDefault(x => x.Id == levelId.Value);
+                        Level level = levels.FirstOrDefault(x => x.Id == levelId);
                         if (level != null)
                         {
                             qv.QuestionLevelNames.Add(level.LevelName);
@@ -591,6 +559,48 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             return questions.ToList();
         }
 
+        private List<AnswerViewModel> GetBestAnswerViewModels(Answer bestAnswer, List<UserViewModel> userViewModels, Guid loggedinUserId, IQueryFactory queryFactory)
+        {
+            List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
+            if (bestAnswer != null)
+            {
+                var answerViewModel = new AnswerViewModel
+                {
+                    UserId = bestAnswer.UserId,
+                    UserViewModel = userViewModels.Where(uv => uv.UserId == bestAnswer.UserId).FirstOrDefault(),
+                    CreatedOn = bestAnswer.CreatedOn,
+                    Id = bestAnswer.Id,
+                    QuestionId = bestAnswer.QuestionId.Value,
+                    Text = bestAnswer.Text,
+                    AnswerDate = bestAnswer.CreatedOn,
+                    IsDrafted = bestAnswer.IsDrafted,
+                    Comments = bestAnswer.Comments?.Select(y => new AnswerCommentViewModel
+                    {
+                        Id = y.Id,
+                        AnswerId = y.AnswerId,
+                        CommentText = y.CommentText,
+                        UserId = y.UserID,
+                        UserViewModel = userViewModels.Where(uv => uv.UserId == y.UserID).FirstOrDefault()
+                    }).ToList(),
+                    Likes = bestAnswer.Likes?.Select(z => new AnswerLikeViewModel
+                    {
+                        UserViewModel = userViewModels.Where(uv => uv.UserId == z.UserId).FirstOrDefault(),
+                        AnswerId = z.AnswerId,
+                        Id = z.Id,
+                        UserId = z.UserId
+                    }).ToList(),
+                    IsAnonymous = bestAnswer.IsAnonymous,
+                    FirstImageUrl = bestAnswer.FirstImageUrl,
+                    IsFollowing =
+                       loggedinUserId != Guid.Empty
+                           ? queryFactory.ResolveQuery<IQuestionFollowingQuery>()
+                               .IsLogginUserFollowingAnswer(loggedinUserId, bestAnswer.Id)
+                           : false
+                };
+                answerViewModels.Add(answerViewModel);
+            }
+            return answerViewModels;
+        }
         public List<QuestionCommentViewModel> GetComments(IEnumerable<Comment> commentList, IQueryFactory queryFactory, IConfigurationRoot configuration)
         {
             List<QuestionCommentViewModel> commentVMs = new List<QuestionCommentViewModel>();
@@ -810,7 +820,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     if (topicId != null)
                     {
                         // Topic topic = queryFactory.ResolveQuery<ITopicQuery>().GetTopicByTopicId(topicId.Value);
-                        Topic topic = topics.FirstOrDefault(x => x.Id == topicId.Value);
+                        Topic topic = topics.FirstOrDefault(x => x.Id == topicId);
                         if (topic != null)
                         {
                             qv.QuestionTopicNames.Add(topic.TopicName);
@@ -824,7 +834,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                     if (levelId != null)
                     {
                         //Level level = queryFactory.ResolveQuery<ILevelQuery>().GetLevelByLevelId(levelId.Value);
-                        Level level = levels.FirstOrDefault(x => x.Id == levelId.Value);
+                        Level level = levels.FirstOrDefault(x => x.Id == levelId);
                         if (level != null)
                         {
                             qv.QuestionLevelNames.Add(level.LevelName);
