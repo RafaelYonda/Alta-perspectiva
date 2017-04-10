@@ -21,6 +21,7 @@ using AltaPerspectiva.Web.Areas.Admin.helpers;
 using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Questions.Query.Specifications;
 
 
 namespace AltaPerspectiva.Web.Area.Questions
@@ -828,7 +829,13 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/FilterbyCategoryTopicNLevel")]
         public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter)
         {
-            IEnumerable<Question> questions  = await new FilterService().GetFilteredQuestions(filterParameter, queryFactory);
+            Guid? categoryId = filterParameter.CategoryId;
+            Guid? topicId = filterParameter.TopicId;
+            Guid? levelId = filterParameter.LevelId;
+            QuestionFilterSpecification questionFilterSpecification=new QuestionFilterSpecification(categoryId,topicId,levelId);
+
+            IEnumerable<Question> questions =
+                await queryFactory.ResolveQuery<IQuestionsQuery>().Filter(questionFilterSpecification);
 
             Guid loggedinUser = Guid.Empty;
             if (User.Identity.IsAuthenticated)
