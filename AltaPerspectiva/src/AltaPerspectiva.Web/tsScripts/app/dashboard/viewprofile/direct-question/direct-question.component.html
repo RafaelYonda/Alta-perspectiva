@@ -30,7 +30,7 @@
 <div #answerAnchor></div>
 <form>
     <div class="form-group from-md">
-        <input type="text" class="form-control bottom-margin" placeholder="Haz tu pregunta aquí o busca tus preguntas aquí" id="title" autocomplete="off"
+        <input type="text" class="form-control bottom-margin" placeholder="Pregúntame aquí…" id="title" autocomplete="off"
                [(ngModel)]="title" required name="titleName" #titleName="ngModel" />
         <!--<div class="dropdown">
             <button class="btn btn-block dropdown-toggle btn-primary btn-select bottom-margin" type="button" data-toggle="dropdown">
@@ -42,7 +42,7 @@
             </ul>
         </div>-->
 
-        <textarea class="form-control bottom-margin" rows="5" placeholder="Agrega detalle de tu pregunta - Optional" [(ngModel)]="body" [ngModelOptions]="{standalone: true}"></textarea>
+        <textarea class="form-control bottom-margin" rows="5" placeholder="Agrega detalle de tu pregunta" [(ngModel)]="body" [ngModelOptions]="{standalone: true}"></textarea>
         <button type="submit" class="btn btn-primary pull-right" [disabled]="!titleName.valid" (click)="submitQuestion()">
             <!--Submit Question-->Enviar pregunta
         </button>

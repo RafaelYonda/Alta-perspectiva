@@ -153,7 +153,7 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
    
-    increaseQuestionViewCount(id: string): Observable<boolean> {
+    increaseQuestionViewCount(id: string): Observable<any> {
         return this._http.post('/questions/api/question/' + id + '/viewcount', null)
             .map(this.extractData)
             .catch(this.handleError);
