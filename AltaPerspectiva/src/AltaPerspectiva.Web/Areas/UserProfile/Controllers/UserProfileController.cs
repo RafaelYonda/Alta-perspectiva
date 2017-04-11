@@ -78,6 +78,19 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
               configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
             UserInfoDetails userInfoDetails =
                 queryFactory.ResolveQuery<IProfileParameters>().GetUserInfoDetails(userId, connectionString);
+            if(userInfoDetails!=null )
+            {
+                if(!string.IsNullOrEmpty(userInfoDetails.Education))
+                {
+                    userInfoDetails.Education = userInfoDetails.Education.Trim(' ').Trim(',');
+                }
+                if (!string.IsNullOrEmpty(userInfoDetails.Employment))
+                {
+                    userInfoDetails.Employment = userInfoDetails.Employment.Trim(' ').Trim(',');
+                }
+            }
+
+
             AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
 
             userInfoDetails.ImageUrl = azureFileUploadHelper.GetProfileImage(userInfoDetails.ImageUrl);
