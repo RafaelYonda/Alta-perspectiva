@@ -2,6 +2,7 @@ var path = require('path');
 
 var webpack = require('webpack');
 
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var helpers = require('./webpack.helpers');
@@ -15,11 +16,13 @@ module.exports = {
         hints: false
     },
     entry: {
+        'polyfills': './tsScripts/polyfills.ts',
+        'vendor': './tsScripts/vendor.ts',
         'app': './tsScripts/main.ts'
     },
 
     output: {
-        path: './wwwroot/',
+        path: __dirname + '/wwwroot/',
         filename: 'dist/[name].bundle.js',
         chunkFilename: 'dist/[id].chunk.js',
         publicPath: '/'
@@ -31,8 +34,11 @@ module.exports = {
 
     devServer: {
         historyApiFallback: true,
-        stats: 'minimal',
-        outputPath: path.join(__dirname, 'wwwroot/')
+        contentBase: path.join(__dirname, '/wwwroot/'),
+        watchOptions: {
+            aggregateTimeout: 300,
+            poll: 1000
+        }
     },
 
     module: {
@@ -42,7 +48,7 @@ module.exports = {
                 loaders: [
                     'awesome-typescript-loader',
                     'angular-router-loader',
-                    'angular2-template-loader',        
+                    'angular2-template-loader',
                     'source-map-loader',
                     'tslint-loader'
                 ]
@@ -72,24 +78,24 @@ module.exports = {
         exprContextCritical: false
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({ name: ['app', 'polyfills']}),
+        new webpack.optimize.CommonsChunkPlugin({ name: ['vendor', 'polyfills'] }),
 
         new CleanWebpackPlugin(
             [
-                './wwwroot/dist'
-                //'./wwwroot/assets'
+                './wwwroot/dist',
+                './wwwroot/assets'
             ]
-        )//,
+        ),
 
-        //new HtmlWebpackPlugin({
-        //    filename: 'index.html',
-        //    inject: 'body',
-        //    template: 'angular2App/index.html'
-        //}),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            inject: 'body',
+            template: 'angularApp/index.html'
+        }),
 
-        //new CopyWebpackPlugin([
-        //    { from: './angular2App/images/*.*', to: 'assets/', flatten: true }
-        //])
+        new CopyWebpackPlugin([
+            { from: './angularApp/images/*.*', to: 'assets/', flatten: true }
+        ])
     ]
 
 };

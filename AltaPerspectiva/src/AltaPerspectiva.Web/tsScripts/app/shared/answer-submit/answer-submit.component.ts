@@ -9,7 +9,7 @@ import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 
 @Component({
     selector: 'answer-submit',
-    templateUrl: 'js/app/shared/answer-submit/answer-submit.component.html',
+    templateUrl: 'answer-submit.component.html',
     providers: [QuestionAnswerService, ProfileService]
 })
 export class AnswerSubmitComponent {
@@ -55,7 +55,7 @@ export class AnswerSubmitComponent {
         }
     }
     //anonymous checkbox
-    onChange(event) {
+    onChange(event: boolean) {
         this.isAnonymous = event;
     }
     showDraftedQuestion() {

@@ -5,8 +5,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { loginModalComponent } from '../../../shared/login-modal/login-modal.component';
 @Component({
     selector: 'post-status',
-    templateUrl: 'js/app/dashboard/viewprofile/blog-post/post-status.component.html',
-    styleUrls: ['js/app/dashboard/viewprofile/blog-post/post-status.component.css'],
+    templateUrl: 'post-status.component.html',
+    styleUrls: ['post-status.component.css'],
     providers: [BlogService]
 })
 export class PostStatusComponent {

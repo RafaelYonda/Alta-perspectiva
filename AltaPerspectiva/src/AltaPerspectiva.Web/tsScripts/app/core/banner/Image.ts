@@ -1,5 +1,5 @@
-﻿interface Image {
-    title: string;
-    desccription: string;
-    url: string;
-}
+﻿//interface Image {
+//    title: string;
+//    desccription: string;
+//    url: string;
+//}

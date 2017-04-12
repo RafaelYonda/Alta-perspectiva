@@ -4,7 +4,7 @@ import { ProfileService } from '../../../services/profile.service';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 @Component({
     selector: 'facebook',
-    templateUrl: 'js/app/dashboard/viewprofile/edit-profile/facebook.component.html',
+    templateUrl: 'facebook.component.html',
     providers: [ProfileService],
 })
 export class FacebookComponent {
@@ -17,7 +17,7 @@ export class FacebookComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    handleClick(event) {
+    handleClick(event: any) {
         //removel the modal on clicking out side the panel
         //var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

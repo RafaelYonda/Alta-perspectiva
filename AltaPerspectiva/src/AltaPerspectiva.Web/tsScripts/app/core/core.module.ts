@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {HttpModule  } from '@angular/http';
 import { CommunicationService } from '../services/communication.service';
+import { WindowRefService } from '../services/window-ref.service';
 
 //====core components============
 import { HomeComponent } from './home.component';
@@ -25,7 +26,7 @@ import {PopoverModule} from "ngx-popover";
     imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing, PopoverModule
     ],
     providers: [
-        { provide: 'Window', useValue: window }, CommunicationService
+       CommunicationService, WindowRefService
     ],
     declarations: [
         //Core Components

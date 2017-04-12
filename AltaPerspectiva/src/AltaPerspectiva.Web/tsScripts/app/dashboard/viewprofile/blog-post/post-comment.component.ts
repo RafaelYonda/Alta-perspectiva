@@ -7,8 +7,8 @@ import { loginModalComponent } from '../../../shared/login-modal/login-modal.com
 import { CredentialViewModel }     from '../../../services/models/models.profile';
 @Component({
     selector: 'blogpost-comment',
-    templateUrl: 'js/app/dashboard/viewprofile/blog-post/post-comment.component.html',
-    styleUrls: ['js/app/dashboard/viewprofile/blog-post/post-comment.component.css'],
+    templateUrl: 'post-comment.component.html',
+    styleUrls: ['post-comment.component.css'],
     providers: [BlogService]
 })
 export class BlogpostCommentComponent {

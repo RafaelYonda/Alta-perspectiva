@@ -5,8 +5,8 @@ import { Level } from '../../services/models';
 
 @Component({
     selector: 'level',
-    templateUrl: 'js/app/shared/left-menu/level.component.html',
-    styleUrls: ['js/app/shared/styles/left-menu.css'],
+    templateUrl: 'level.component.html',
+    styleUrls: ['left-menu.css'],
     providers: [QuestionService]
 })
 export class LevelComponent {

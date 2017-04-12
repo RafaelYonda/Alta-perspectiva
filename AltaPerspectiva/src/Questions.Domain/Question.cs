@@ -31,6 +31,17 @@
         public virtual ICollection<Bookmark> Bookmarks { get; set; }
         public int? ViewCount { get; set; }
         public bool IsDirectQuestion { get; set; }
+
+        public virtual Answer BestAnswer
+        {
+            get
+            {
+                return
+                    this.Answers.Where(drafted => drafted.IsDrafted != true && drafted.IsDeleted != true)
+                        .OrderByDescending(y => y.Likes.Count).Take(1).FirstOrDefault();
+
+            }
+        }
         public Question() {
 
             Categories = new List<QuestionCategory>();

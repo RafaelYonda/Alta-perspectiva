@@ -4,7 +4,7 @@ import { Education } from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     selector: 'add-education',
-    templateUrl: 'js/app/dashboard/viewprofile/edit-profile/add-education.component.html',
+    templateUrl: 'add-education.component.html',
     providers: [ProfileService],
 })
 export class AddEducationComponent {
@@ -16,7 +16,7 @@ export class AddEducationComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    handleClick(event) {
+    handleClick(event: any) {
         //removel the modal on clicking out side the panel
         //var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

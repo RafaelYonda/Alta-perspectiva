@@ -4,15 +4,14 @@ import { QuestionResolver } from '../../services/resolve.services/question.resol
 import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName, LogInObj, User, QuestionReport, QuestionFollowing} from '../../services/models';
 import { AuthenticationService } from '../../services/authentication.service';
 import { QuestionAnswerService } from '../../services/question-answer.service';
-import { RelatedQuestionMenu } from '../question-left-menu/related-question-left-menu.component';
+//import { RelatedQuestionMenu } from '../question-left-menu/related-question-left-menu.component';
 import { AnswerDialogComponent } from '../../shared/answer-dialog/answer-dialog.component';
 import { loginModalComponent } from '../../shared/login-modal/login-modal.component';
 //QuestionReport
 import { QuestionReportComponent } from '../../shared/question-report/question-report.component';
 @Component({
     selector: "question-details",
-    templateUrl: 'js/app/questions/question-details/question-details.component.html',
-    styleUrls: ['js/app/questions/question-details/question-details.css'],
+    templateUrl: 'question-details.component.html',
     providers: [QuestionResolver, QuestionAnswerService, AuthenticationService]
 })
 export class QuestionDetailComponent {
@@ -65,10 +64,10 @@ export class QuestionDetailComponent {
             this._logObj.user.imageUrl = currentUserImage;
         }
         this.route.data
-            .subscribe(res => {
+            .subscribe((res:any) => {
                 this.question = res.question;
                 // save number of views of question
-                this.dataService.increaseQuestionViewCount(this.question.id).subscribe(res => {
+                this.dataService.increaseQuestionViewCount(this.question.id).subscribe((res:any) => {
                     this.question.viewCount += 1;
                 });
             });
@@ -87,7 +86,7 @@ export class QuestionDetailComponent {
 
         console.log(questionFollowing);
 
-        this.dataService.QuestionFollowing(questionFollowing).subscribe(res => {
+        this.dataService.QuestionFollowing(questionFollowing).subscribe((res:any) => {
             console.log('successfullt passed')
 
             var isFollowing= this.question.answers.find(x=>x.id==answer.id).isFollowing
@@ -100,7 +99,7 @@ export class QuestionDetailComponent {
         })
     }
     //anonymous checkbox
-    onChange(event) {
+    onChange(event:boolean) {
         this.isAnonymous = event;
     }
     submitAnswer(_id: string) {

@@ -3,6 +3,7 @@ using AltaPerspectiva.Core;
 using Questions.Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AltaPerspectiva.Core.SpecificationPattern;
 
 namespace Questions.Query
 {
@@ -26,35 +27,7 @@ namespace Questions.Query
         Task<IEnumerable<Question>> GetMoreViewedQuestionByViewCount(Guid categoryId);
 
         Task<IEnumerable<Question>> GetBestQuestionbyTotalLike(Guid categoryId);
-
-        /*Filter !!!!!!*/
-
-        //Filter by Category ,Topic   and level
-         //if (categoryId != emptyGuid && topicId != emptyGuid && levelId != emptyGuid)
-        Task<IEnumerable<Question>> FilterbyCategoryTopicandlevel(Guid categoryId,Guid topicId,Guid levelId);
-        //Filter by category AND TOPIC
-        //else if (categoryId != emptyGuid && topicId != emptyGuid && levelId == emptyGuid)
-        Task<IEnumerable<Question>> FilterbycategoryANDTOPIC(Guid categoryId, Guid topicId);
-
-         //Filter by category and level
-         // else if (categoryId != emptyGuid && topicId == emptyGuid && levelId != emptyGuid)
-        Task<IEnumerable<Question>> Filterbycategoryandlevel(Guid categoryId, Guid levelId);
-        //Filter by level and topic
-        //else if (categoryId == emptyGuid && topicId != emptyGuid && levelId != emptyGuid)
-        Task<IEnumerable<Question>> FilterbyTopicAndLevel( Guid topicId, Guid levelId);
-        //Filter by category only
-        //    else if (categoryId != emptyGuid && topicId == emptyGuid && levelId == emptyGuid)
-        Task<IEnumerable<Question>> Filterbycategoryonly(Guid categoryId);
-        //Filtered by topic only
-       // else if (categoryId == emptyGuid && topicId != emptyGuid && levelId == emptyGuid)
-        Task<IEnumerable<Question>> Filteredbytopiconly(Guid topicId);
-        //Filtered by level only
-       //else if (categoryId == emptyGuid && topicId == emptyGuid && levelId != emptyGuid)
-        Task<IEnumerable<Question>> Filteredbylevelonly( Guid levelId);
-        //Filtered General Category only
-        //    else //(categoryId == emptyGuid && topicId == emptyGuid && levelId == emptyGuid)
-        Task<IEnumerable<Question>> FilteredGeneralCategoryonly();
-
+        
         //Drafted Questions
         IEnumerable<Question> DraftedQuestionAnswers(Guid userId);
 
@@ -63,5 +36,7 @@ namespace Questions.Query
 
         //GEt postedQuestion Aka Shared Question
         Task<IEnumerable<Question>> GetSharedQuestion(Guid userId);
+
+        Task<IEnumerable<Question>> Filter(Specification<Question> specification );
     }
 }

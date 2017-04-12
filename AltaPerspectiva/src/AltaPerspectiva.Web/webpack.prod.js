@@ -18,9 +18,9 @@ module.exports = {
     },
 
     output: {
-        path: './wwwroot/',
-        filename: 'dist/[name].[hash].bundle.js',
-        chunkFilename: 'dist/[id].[hash].chunk.js',
+        path: __dirname + '/wwwroot/',
+        filename: 'dist/[name].bundle.js',
+        chunkFilename: 'dist/[id].chunk.js',
         publicPath: '/'
     },
 
@@ -40,7 +40,8 @@ module.exports = {
                 test: /\.ts$/,
                 loaders: [
                     'awesome-typescript-loader',
-                    'angular-router-loader?aot=true&genDir=aot/'
+                    'angular-router-loader?aot=true&genDir=aot/',
+                    'angular2-template-loader'
                 ]
             },
             {
@@ -88,10 +89,16 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin(
             {
                 name: ['vendor', 'polyfills']
-            }),       
+            }),
+
+        //new HtmlWebpackPlugin({
+        //    filename: 'index.html',
+        //    inject: 'body',
+        //    template: 'angularApp/index.html'
+        //}),
 
         new CopyWebpackPlugin([
-            { from: './angular2App/images/*.*', to: 'assets/', flatten: true }
+            { from: './angularApp/images/*.*', to: 'assets/', flatten: true }
         ])
     ]
 };

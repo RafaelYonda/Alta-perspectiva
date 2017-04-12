@@ -7,7 +7,7 @@ import { ImageUploadService } from '../../../services/image-upload.service';
 
 @Component({
     selector: 'preview-image',
-    templateUrl: 'js/app/dashboard/viewprofile/edit-profile/preview-image.component.html',
+    templateUrl: 'preview-image.component.html',
     providers: [ProfileService],
 })
 
@@ -54,7 +54,7 @@ export class PreviewImageComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    handleClick(event) {
+    handleClick(event: any) {
         var target = event.target || event.srcElement;      //Firefox does not have srcElement
         //removel the modal on clicking out side the panel
         var idAttr = target['id'];
@@ -106,7 +106,7 @@ export class PreviewImageComponent {
 
 
     }
-    fileChangeListener($event) {
+    fileChangeListener($event:any) {
         var image: any = new Image();
         var file: File = $event.target.files[0];
         var myReader: FileReader = new FileReader();

@@ -3,16 +3,16 @@ import { QuestionAnswerService } from '../services/question-answer.service';
 import { Http} from '@angular/http';
 
 @Component({
-    templateUrl: 'js/app/core/home.component.html',
+    templateUrl: 'home.component.html',
     providers: [QuestionAnswerService]
 })
 export class HomeComponent {
     constructor(private questionServe: QuestionAnswerService) {
         setInterval(() => this.myTimer(questionServe), 1080000);
     }
-    myTimer(serv) {
+    myTimer(serv:any) {
         console.log('Test');
-        serv.keepalive().subscribe(response => {
+        serv.keepalive().subscribe((response:any) => {
             console.log(response);
         });
     }

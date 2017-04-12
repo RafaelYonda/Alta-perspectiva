@@ -9,8 +9,8 @@ import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input
     selector: 'nav-bar',
     encapsulation: ViewEncapsulation.None,
     providers: [AuthenticationService],
-    templateUrl: 'js/app/shared/nav-bar/nav-bar.component.html',
-    styleUrls: ['js/app/shared/nav-bar/nav-bar.css'],
+    templateUrl: 'nav-bar.component.html',
+    styleUrls: ['nav-bar.component.css'],
 })
 export class NavBarComponent {
     @Input() className: string;

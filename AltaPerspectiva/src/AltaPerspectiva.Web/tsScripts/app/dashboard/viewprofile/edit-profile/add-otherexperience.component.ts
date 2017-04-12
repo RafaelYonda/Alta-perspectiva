@@ -6,7 +6,7 @@ import { ProfileService } from '../../../services/profile.service';
 import { CategoryService } from '../../../services/category.service';
 @Component({
     selector: 'add-otherexperience',
-    templateUrl: 'js/app/dashboard/viewprofile/edit-profile/add-otherexperience.component.html',
+    templateUrl: 'add-otherexperience.component.html',
     providers: [ProfileService, CategoryService],
 })
 export class AddOtherExperienceComponent {
@@ -27,7 +27,7 @@ export class AddOtherExperienceComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    handleClick(event) {
+    handleClick(event: any) {
         //removel the modal on clicking out side the panel
        // var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

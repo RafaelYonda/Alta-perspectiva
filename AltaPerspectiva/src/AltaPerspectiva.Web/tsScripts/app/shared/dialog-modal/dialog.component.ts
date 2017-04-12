@@ -8,8 +8,8 @@ import { loginModalComponent } from '../login-modal/login-modal.component';
 import { QuestionReportComponent } from '../../shared/question-report/question-report.component';
 @Component({
     selector: 'dlg',
-    templateUrl: 'js/app/shared/dialog-modal/dialog.component.html',
-    styleUrls: ['js/app/shared/dialog-modal/dialog.component.css'],
+    templateUrl: 'dialog.component.html',
+    styleUrls: ['dialog.component.css'],
     providers: [QuestionAnswerService]
 })
 export class DialogComponent {
@@ -37,7 +37,7 @@ export class DialogComponent {
             this.isFollowing = !this.question.bestAnswer.isFollowing;
         }
     }
-    handleClick(event) {
+    handleClick(event: any) {
         //removel the modal on clicking out side the panel
         // var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

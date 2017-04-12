@@ -12,8 +12,8 @@ import { CommunicationService } from '../../services/communication.service';
     selector: 'ap-nav',
     encapsulation: ViewEncapsulation.None,
     providers: [AuthenticationService, ProfileService],
-    templateUrl: 'js/app/core/nav/apnav.html',
-    styleUrls: ['js/app/core/nav/apNav.css'],
+    templateUrl: 'apnav.html',
+    styleUrls: ['apNav.css'],
 })
 export class ApNav {
     @Input() className: string;    

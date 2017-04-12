@@ -7,8 +7,8 @@ import { Category, Question, Keyword, AskQuestionViewModel,Topic,Level,QuestionS
 
 @Component({
     selector: 'search-dropdown',
-    templateUrl: 'js/app/shared/search/search-dropdown.component.html',
-    styleUrls: ['js/app/shared/search/search.css'],
+    templateUrl: 'search-dropdown.component.html',
+    styleUrls: ['search.css'],
     providers: [CategoryService, QuestionAnswerService]
 })
 export class ApSearchDropDownComponent {
@@ -33,23 +33,23 @@ export class ApSearchDropDownComponent {
         
     }
 
-    onCategoryChange(categoryId) {
+    onCategoryChange(categoryId:string) {
         this.categoryID = categoryId;
         this.questionsService.getTopicByCategoryid(this.categoryID).subscribe(res => {
             this.topics = res;
         });
     }
-    onTopicChange(topicId) {
+    onTopicChange(topicId:string) {
         this.topicID = topicId;
         this.questionsService.getlevel().subscribe(res => {
             this.levels = res;
             this.levelID = this.levels[0].id;
         });
     }
-    onLevelChange(levelId) {
+    onLevelChange(levelId:string) {
         this.levelID = levelId;
     }
-    onChange(isChecked) {
+    onChange(isChecked:boolean) {
         this.isAnonymous = isChecked;
     }
 

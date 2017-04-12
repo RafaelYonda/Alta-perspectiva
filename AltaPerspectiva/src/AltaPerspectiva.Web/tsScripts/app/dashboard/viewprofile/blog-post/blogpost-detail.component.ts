@@ -4,7 +4,7 @@ import {UserInfoDetails} from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 import { ActivatedRoute } from '@angular/router';
 @Component({
-    templateUrl: 'js/app/dashboard/viewprofile/blog-post/blogpost-detail.component.html',
+    templateUrl: 'blogpost-detail.component.html',
     providers: [ProfileService],
 })
 export class BlogpostDetailComponent {
@@ -22,7 +22,7 @@ export class BlogpostDetailComponent {
     isEditDescription: boolean;
     isEditTitle: boolean;
   
-    handleClick(event) {
+    handleClick(event:any) {
         //removel the modal on clicking out side the panel
         //var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

@@ -11,8 +11,8 @@ import { CommunicationService } from '../../services/communication.service';
 @Component({
     selector: 'all-users',
     providers: [AuthenticationService, ProfileService],
-    templateUrl: 'js/app/questions/all-user/all-user.html',
-    styleUrls: ['js/app/questions/all-user/all-user.css'],
+    templateUrl: 'all-user.html',
+    styleUrls: ['all-user.css'],
 })
 export class AllUserComponent {
     loader = true;

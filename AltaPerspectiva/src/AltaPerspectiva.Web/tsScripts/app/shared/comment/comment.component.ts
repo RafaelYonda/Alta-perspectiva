@@ -6,8 +6,8 @@ import { CommunicationService, CommnetCountEventArg } from '../../services/commu
 
 @Component({
     selector: 'ap-comment',
-    templateUrl: 'js/app/shared/comment/comment.component.html',
-    styleUrls: ['js/app/shared/comment/comment.component.css'],
+    templateUrl: 'comment.component.html',
+    styleUrls: ['comment.component.css'],
     providers: [CommentService]
 })
 export class CommentComponent {
@@ -54,7 +54,7 @@ export class CommentComponent {
         }
     }
 
-    pushComment(result) {
+    pushComment(result: Comment) {
         this.commentText = "";
         this.comment = result;
         this.comments.push(this.comment);

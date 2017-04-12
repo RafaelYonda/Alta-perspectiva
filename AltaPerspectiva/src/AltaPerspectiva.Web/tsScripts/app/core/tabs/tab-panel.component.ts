@@ -10,7 +10,7 @@ import { QuestionResolver } from '../../services/resolve.services/question.resol
 import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName} from '../../services/models';
 @Component({
     selector: 'ap-tab-panel',
-    templateUrl: 'js/app/core/tabs/tab-panel.component.html',
+    templateUrl: 'tab-panel.component.html',
 
     providers: [QuestionResolver, QuestionAnswerService, AuthenticationService]
 })
@@ -39,7 +39,7 @@ export class TabPanelComponent {
     
     ngOnInit() {
         var currentUser = localStorage.getItem('auth_token');
-        this.authService.getLoggedinObj().subscribe(res => {
+        this.authService.getLoggedinObj().subscribe((res:any) => {
             if (res && currentUser != null) {
                 this._logObj = new LogInObj();
             this._logObj.user = new User();
@@ -50,7 +50,7 @@ export class TabPanelComponent {
             }
         });
 
-        this.sub = this.route.params.subscribe(params => {
+        this.sub = this.route.params.subscribe((params:any) => {
             this.showLoader();
 
             this.id = params['id']; // (+) converts string 'id' to a number 
@@ -74,7 +74,7 @@ export class TabPanelComponent {
         });
     }
 
-    ShowModal(questionId) {
+    ShowModal(questionId:string) {
         console.log(questionId);
     }
 

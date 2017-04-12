@@ -4,8 +4,8 @@ import { QuestionAnswerService } from '../../services/question-answer.service';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 @Component({
     selector: 'question-report',
-    templateUrl: 'js/app/shared/question-report/question-report.component.html',
-    styleUrls: ['js/app/shared/question-report/question-report.component.css'],
+    templateUrl: 'question-report.component.html',
+    styleUrls: ['question-report.component.css'],
     providers: [QuestionAnswerService]
 })
 export class QuestionReportComponent {
@@ -27,7 +27,7 @@ export class QuestionReportComponent {
     ngOnInit() {
        // console.log('My question' + this.question);
     }
-    handleClick(event) {
+    handleClick(event: any) {
         //removel the modal on clicking out side the panel
         //var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

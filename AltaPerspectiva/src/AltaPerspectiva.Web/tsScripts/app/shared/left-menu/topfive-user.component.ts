@@ -7,8 +7,8 @@ import { CredentialViewModel } from '../../services/models/models.profile';
 import { Router } from '@angular/router';
 @Component({
     selector: 'topfive-user',
-    templateUrl: 'js/app/shared/left-menu/topfive-user.component.html',
-    styleUrls: ['js/app/shared/styles/left-menu.css'],
+    templateUrl: 'topfive-user.component.html',
+    styleUrls: ['left-menu.css'],
     providers: [ProfileService]
 })
 export class TopFiveUserComponent {

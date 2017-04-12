@@ -3,7 +3,7 @@ import { Employment } from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     selector: 'add-employment',
-    templateUrl: 'js/app/dashboard/viewprofile/edit-profile/add-employment.component.html',
+    templateUrl: 'add-employment.component.html',
     providers: [ProfileService],
 })
 export class AddEmploymentComponent {
@@ -15,7 +15,7 @@ export class AddEmploymentComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    handleClick(event) {
+    handleClick(event: any) {
         //removel the modal on clicking out side the panel
         //var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

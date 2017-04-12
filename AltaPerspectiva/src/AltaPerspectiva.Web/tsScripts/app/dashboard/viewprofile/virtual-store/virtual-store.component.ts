@@ -6,7 +6,7 @@ import { ConfigService } from '../../../services/config.service';
 import { VirtualStore } from '../../../services/models/models.profile';
 import { ActivatedRoute } from '@angular/router';
 @Component({
-    templateUrl: 'js/app/dashboard/viewprofile/virtual-store/virtual-store.component.html',
+    templateUrl: 'virtual-store.component.html',
     providers: [ConfigService],
 })
 export class VirtualStoreComponent {

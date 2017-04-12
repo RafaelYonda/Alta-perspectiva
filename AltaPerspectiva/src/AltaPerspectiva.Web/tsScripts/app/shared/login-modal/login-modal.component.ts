@@ -4,8 +4,8 @@ import { QuestionAnswerService } from '../../services/question-answer.service';
 import { Router } from '@angular/router';
 @Component({
     selector: 'dlg',
-    templateUrl: 'js/app/shared/login-modal/login-modal.component.html',
-    styleUrls: ['js/app/shared/login-modal/login-modal.component.css'],
+    templateUrl: 'login-modal.component.html',
+    styleUrls: ['login-modal.component.css'],
     providers: [QuestionAnswerService]
 })
 export class loginModalComponent {
@@ -29,7 +29,7 @@ export class loginModalComponent {
         //console.log('My question' + this.question);
         this.isFollowing = true;
     }
-    handleClick(event) {
+    handleClick(event: any) {
         //removel the modal on clicking out side the panel
         //var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

@@ -12,7 +12,7 @@ import { QuestionHomeComponent } from './question-home.component';
 import { AllUserComponent } from './all-user/all-user';
 import { QuestionDetailComponent } from './question-details/question-details.component';
 import { QuestionBodyComponent } from './question-body/question-body.component';
-import { QuestionMenuPanelComponent } from './question-left-menu/question-left-menu.component'; 
+//import { QuestionMenuPanelComponent } from './question-left-menu/question-left-menu.component'; 
 import { QuestionFullscreenComponent } from './question-fullscreen/question-fullscreen.component'; 
 import { SharedModule } from '../shared/shared.module';
 import { CommunicationService } from '../services/communication.service';
@@ -51,9 +51,9 @@ import { QuestionResolver } from '../services/resolve.services/question.resolver
     )],
     declarations: [
         //Core Components
-        QuestionBodyComponent, QuestionHomeComponent, QuestionMenuPanelComponent, QuestionDetailComponent, QuestionFullscreenComponent, AllUserComponent
+        QuestionBodyComponent, QuestionHomeComponent, QuestionDetailComponent, QuestionFullscreenComponent, AllUserComponent
     ],
-    exports: [QuestionMenuPanelComponent
+    exports: [
     ]
 })
 export class QuestionModule {

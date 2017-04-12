@@ -5,7 +5,7 @@ import { ProfileService } from '../../services/profile.service';
 import {PopoverModule} from "ngx-popover";
 @Component({
     selector: 'user-info',
-    templateUrl: 'js/app/shared/user-info/user-info.component.html',
+    templateUrl: 'user-info.component.html',
     providers: [ProfileService]
 })
 export class UserInfoComponent implements OnInit {

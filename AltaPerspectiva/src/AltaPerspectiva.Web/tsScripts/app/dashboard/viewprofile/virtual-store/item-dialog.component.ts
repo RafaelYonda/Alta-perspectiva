@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { loginModalComponent } from '../../../shared/login-modal/login-modal.component';
 import { AuthenticationService } from '../../../services/authentication.service';
 @Component({
-    templateUrl: 'js/app/dashboard/viewprofile/virtual-store/item-dialog.component.html',
+    templateUrl: 'item-dialog.component.html',
     providers: [AuthenticationService]
 })
 export class ItemDialogComponent {
@@ -28,7 +28,7 @@ export class ItemDialogComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    handleClick(event) {
+    handleClick(event:any) {
         //removel the modal on clicking out side the panel
        // var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

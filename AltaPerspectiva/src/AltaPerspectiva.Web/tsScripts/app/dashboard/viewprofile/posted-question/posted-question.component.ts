@@ -4,7 +4,7 @@ import { ProfileService } from '../../../services/profile.service';
 import { ActivatedRoute } from '@angular/router';
 import {Question} from '../../../services/models';
 @Component({
-    templateUrl: 'js/app/dashboard/viewprofile/posted-question/posted-question.component.html',
+    templateUrl: 'posted-question.component.html',
     providers: [QuestionService]
 })
 export class PostedQuestionComponent {

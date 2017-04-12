@@ -46,7 +46,7 @@ import { ProfileResolver } from '../services/resolve.services/profile.resolver';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { QuillModule } from 'ngx-quill';
 import {PopoverModule} from "ngx-popover";
-import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+import {ImageCropperModule,ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
 import { PreviewImageComponent } from './viewprofile/edit-profile/preview-image.component';
 //Twitter
@@ -84,14 +84,14 @@ const DashBoardroutes: Routes = [
 export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBoardroutes);
 @NgModule({
     providers: [ProfileResolver],
-    imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule, QuillModule, SharedModule, PopoverModule
+    imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule, QuillModule, SharedModule, PopoverModule, ImageCropperModule
     ],
     declarations: [
         DashBoardComponent, NavDashboard,
         ViewProfileComponent,
         ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, VirtualStoreComponent, PostStatusComponent, BlogpostCommentComponent, BlogpostDetailComponent, PostedQuestionComponent, DraftAnswerComponent,
         //Edit Profile
-        AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, ItemDialogComponent, PreviewImageComponent, ImageCropperComponent, TwitterComponent, FacebookComponent, LinkedinComponent
+        AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, ItemDialogComponent, PreviewImageComponent, TwitterComponent, FacebookComponent, LinkedinComponent
     ],
     exports: [DashBoardComponent],
     entryComponents: [AddCredentialComponent, AddEmploymentComponent, AddEducationComponent, AddOtherExperienceComponent, AddPlaceComponent, BlogpostDetailComponent, ItemDialogComponent, PreviewImageComponent, TwitterComponent, FacebookComponent, LinkedinComponent]

@@ -5,8 +5,8 @@ import { Topic } from '../../services/models';
 
 @Component({
     selector: 'related-topic',
-    templateUrl: 'js/app/shared/left-menu/related-topic.component.html',
-    styleUrls: ['js/app/shared/styles/left-menu.css'],
+    templateUrl: 'related-topic.component.html',
+    styleUrls: ['left-menu.css'],
     providers: [QuestionService]
 })
 export class RelatedTopicComponent {

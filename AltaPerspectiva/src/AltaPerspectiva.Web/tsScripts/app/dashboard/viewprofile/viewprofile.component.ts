@@ -18,7 +18,7 @@ import { AddOtherExperienceComponent } from './edit-profile/add-otherexperience.
 import { AddPlaceComponent } from './edit-profile/add-place.component';
 import { AuthenticationService } from '../../services/authentication.service';
 @Component({
-    templateUrl: 'js/app/dashboard/viewprofile/viewprofile.component.html',
+    templateUrl: 'viewprofile.component.html',
     providers: [ProfileService, ConfigService, AuthenticationService]
 })
 export class ViewProfileComponent {
@@ -92,7 +92,7 @@ export class ViewProfileComponent {
 
         });
     }   
-    onUpdatedProfile(updated)
+    onUpdatedProfile(updated:any)
     {
         if (updated)
             this.refreshData();
@@ -136,7 +136,7 @@ export class ViewProfileComponent {
         this.employmentExists = true;                
 
         this.employmentHtml = " " + this.credential.employments[0].position.concat(" En ")
-            .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat(" <br/>").concat("&nbsp;&nbsp;&nbsp;&nbsp;")
+            .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat("&nbsp")
                               .concat(this.credential.employments[0].startDate ? this.credential.employments[0].startDate.toString():"")
             .concat(this.credential.employments[0].isCurrentlyWorking ? " presente " : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
     }

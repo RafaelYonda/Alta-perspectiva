@@ -9,13 +9,13 @@ import { Category, Question, Keyword, AskQuestionViewModel,Topic,Level,QuestionS
 
 @Component({
     selector: 'ap-search',
-    templateUrl: 'js/app/shared/search/apSearch.component.html',
-    styleUrls: ['js/app/shared/search/search.css'],
+    templateUrl: 'apSearch.component.html',
+    styleUrls: ['search.css'],
     providers: [CategoryService, QuestionAnswerService]
 })
 export class ApSearchComponent {
     @ViewChild(ApSearchDropDownComponent) searchDropDown: ApSearchDropDownComponent
-    public elementRef;
+    public elementRef: ElementRef;
     title: string='';
     //body: string;
     result: string;
@@ -31,7 +31,7 @@ export class ApSearchComponent {
     }
     ngOnInit() {
         this.questionsService.getQuestionsForSearch().subscribe(res => {
-            var resList = [];
+            var resList = new Array<Question>();
             res.forEach(function (el) {
                 resList.push(el);
             });
@@ -46,7 +46,7 @@ export class ApSearchComponent {
         });
     }
 
-    handleClick(event: Event) {
+    handleClick(event: any) {
         var target = event.target || event.srcElement;      //Firefox does not have srcElement
         //removel the modal on clicking out side the panel
         var idAttr = target['id'];
@@ -103,12 +103,12 @@ export class ApSearchComponent {
         });
     }
 
-    public selectCategory = (icon) => {
+    public selectCategory = (icon:string) => {
         this.icon = icon;
         this.visible = true;
     }
     //=============Question show=============
-    public questionList = [];
+    public questionList:Question[];
     searchClass: string;
     //placeBottom: string;
     public filteredQuestionList: any = [];
@@ -116,7 +116,7 @@ export class ApSearchComponent {
     showDetailsQuestionsPanel(input: HTMLInputElement) {
         this.removeModal();
     }
-    selectQuestionDetails(item) {
+    selectQuestionDetails(item:any) {
         this.filteredQuestionList = [];
         this.categoryMatched = "";
         this.removeModal();
@@ -126,7 +126,7 @@ export class ApSearchComponent {
     showQuestion = false;
     questionLeftposition = 20;
     
-    movequestionMark(event) {
+    movequestionMark(event:any) {
         var textWidth = document.getElementById('temp-text').clientWidth;
         var maxWidth = document.getElementById('title').clientWidth;
         //var key = event.keyCode || event.charCode;
@@ -154,7 +154,7 @@ export class ApSearchComponent {
         }
         console.log(this.title);
     }
-    filterQuestions(event) {
+    filterQuestions(event:Event) {
         this.movequestionMark(event);
         var tempTitle = this.title;
         this.showMatchedCatogries(this.title);

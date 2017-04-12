@@ -4,7 +4,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 @Component({
     selector: 'app',
-    templateUrl: 'js/app/app.component.html',
+    templateUrl: 'app.component.html',
     providers: [AuthenticationService]
 
 })

@@ -9,7 +9,7 @@ import { BlogService } from '../../../services/blog.service';
 import { Router } from '@angular/router';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 @Component({
-    templateUrl: 'js/app/dashboard/viewprofile/blog-create/blog-create.component.html',
+    templateUrl: 'blog-create.component.html',
     providers: [ProfileService, BlogService, AuthenticationService],
 })
 export class BlogCreateComponent {

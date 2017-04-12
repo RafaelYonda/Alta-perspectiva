@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 //import { loginModalComponent } from '../login-modal/login-modal.component';
 @Component({
     selector: 'like',
-    templateUrl: 'js/app/shared/like-modal/like.component.html',
+    templateUrl: 'like.component.html',
    // styleUrls: ['js/app/shared/dialog-modal/dialog.component.css'],
     providers: [QuestionAnswerService]
 })
@@ -15,7 +15,7 @@ export class LikeComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    handleClick(event) {
+    handleClick(event: any) {
         //removel the modal on clicking out side the panel
        // var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

@@ -12,7 +12,7 @@ export class AppCkEditorComponent {
     constructor() {
         this.ckeditorContent = "<p>Question details</p>";
     }
-    onChange(value) {
+    onChange(value:Event) {
         console.log(value);
         console.log(this.ckeditorContent);
     }

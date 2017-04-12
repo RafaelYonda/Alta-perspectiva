@@ -9,7 +9,7 @@ import { QuestionAnswerService } from '../../services/question-answer.service';
 import { QuestionReportComponent } from '../../shared/question-report/question-report.component';
 @Component({
     selector: 'question-panel',
-    templateUrl: 'js/app/shared/question-panel/question-panel.component.html',
+    templateUrl: 'question-panel.component.html',
     providers: [QuestionAnswerService]
 })
 export class QuestionPanelComponent {

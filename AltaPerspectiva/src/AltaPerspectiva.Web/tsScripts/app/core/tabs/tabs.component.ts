@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'ap-tabs',
-    templateUrl: 'js/app/core/tabs/tabs.component.html',
-    styleUrls: ['js/app/core/tabs/tabs.css'],
+    templateUrl: 'tabs.component.html',
+    styleUrls: ['tabs.css'],
     providers: [CategoryService]
 })
 export class TabsComponent {
@@ -36,7 +36,7 @@ export class TabsComponent {
         //this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
     }
     //anonymous checkbox
-    onChange(event) {      
+    onChange(event:boolean) {      
         this.isAnonymous = event;
     }
 
@@ -60,13 +60,13 @@ export class TabsComponent {
     getTransform() {
         return this.translate;
     }
-    selectTab(id,sequence) {
+    selectTab(id:string,sequence:number) {
         this.categories.forEach(element => {
             if (element.id == id) {
                 element.active = 'active';
                
                 if (sequence == 1)
-                    id = 1; /// to get all latest question
+                    id = "1"; /// to get all latest question
             }
             else element.active = '';
         });

@@ -3,8 +3,8 @@ import {Question } from '../../services/models';
 import { Router } from '@angular/router';
 @Component({
     selector: 'question-header',
-    templateUrl: 'js/app/shared/question-header/question-header.component.html',
-    styleUrls: ['js/app/shared/question-header/question-header.component.css'],
+    templateUrl: 'question-header.component.html',
+    styleUrls: ['question-header.component.css'],
 })
 export class QuestionHeaderComponent {
     @Input() question: Question;

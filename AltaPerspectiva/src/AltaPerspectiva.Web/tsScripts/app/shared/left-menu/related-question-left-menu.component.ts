@@ -7,8 +7,8 @@ import { Router, ActivatedRoute, Resolve } from '@angular/router';
 
 @Component({
     selector: 'related-question-left-menu',
-    templateUrl: 'js/app/shared/left-menu/related-question-left-menu.component.html',
-    styleUrls: ['js/app/shared/styles/left-menu.css'],
+    templateUrl: 'related-question-left-menu.component.html',
+    styleUrls: ['left-menu.css'],
     providers: [QuestionAnswerService, CategoryService]
 })
     export class RelatedQuestionMenu {
@@ -29,7 +29,7 @@ import { Router, ActivatedRoute, Resolve } from '@angular/router';
 
     ngOnInit() {
 
-        this.route.params.subscribe(params => {
+        this.route.params.subscribe((params:any) => {
            
             this.id = params['id']; // (+) converts string 'id' to a number 
             var subs: any;
@@ -38,7 +38,7 @@ import { Router, ActivatedRoute, Resolve } from '@angular/router';
                 subs = this.questionService.getQuestions();        
             else 
                 subs = this.questionService.getRelatedQuestions(this.id);
-            subs.subscribe(res => {
+            subs.subscribe((res:any) => {
                 this.questions = res;
             });
         }); 

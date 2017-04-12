@@ -1,11 +1,20 @@
-﻿// Entry point for AoT compilation.
+﻿/// <reference path="../aot/tsscripts/app.module.ngfactory.ts" />
+//// Entry point for AoT compilation.
 
-declare var System: any;
+//declare var System: any;
+
+//import {platformBrowser} from '@angular/platform-browser';
+//import { enableProdMode } from '@angular/core';
+//import {MyAppModuleNgFactory } from './app.ngfactory'; // generated code
+
+
+//enableProdMode();
+
+//platformBrowser().bootstrapModuleFactory(MyAppModuleNgFactory);
+
 
 import { platformBrowser } from '@angular/platform-browser';
-import { enableProdMode } from '@angular/core';
-//import { AppModuleNgFactory } from '../aot/tsScripts/app.module.ngfactory';
+import { AppModuleNgFactory } from '../aot/tsscripts/app.module.ngfactory';
+//import { AboutModuleNgFactory } from "./app/about/about.module.ngfactory";
 
-enableProdMode();
-
-//platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);
+platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);

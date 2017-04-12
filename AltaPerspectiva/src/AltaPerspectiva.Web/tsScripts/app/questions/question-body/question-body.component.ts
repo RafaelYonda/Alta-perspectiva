@@ -14,7 +14,7 @@ export interface ILoader {
 
 @Component({
     selector: "question-body",
-    templateUrl: 'js/app/questions/question-body/question-body.component.html',
+    templateUrl: 'question-body.component.html',
     providers: [QuestionAnswerService, CategoryService, ConfigService, QuestionService]
 })
 export class QuestionBodyComponent {
@@ -60,7 +60,7 @@ export class QuestionBodyComponent {
         this.route = route;
 
         //this.answerList = questionService.getAnswersByQuestion(2);        
-        this.questions = [];
+        this.questions = new Array<Question>();
 
         /// load spinner for when  component initialize
         this.loader.isLoading = true;
@@ -69,10 +69,10 @@ export class QuestionBodyComponent {
         this._logObj = { isLoggedIn: false, user: user };
 
     }
-    onQuestionSubmitted(event) {
-        console.log("Submit on question");
+    onQuestionSubmitted(even:any) {
+        //console.log("Submit on question");
         var subs = this.questioAnswernService.getQuestions();
-        subs.subscribe(res => {
+        subs.subscribe((res:any) => {
             this.commServ.setCategory(this.categoryId);
             this.questions = res;
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
@@ -83,7 +83,7 @@ export class QuestionBodyComponent {
         window.scrollTo(0, 0);
         var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
-        this.commServ.informQuestionSubmit().subscribe(res => {
+        this.commServ.informQuestionSubmit().subscribe((res:any) => {
             this.showLoader();
             this.onQuestionSubmitted(res);
         });
@@ -92,7 +92,7 @@ export class QuestionBodyComponent {
 //            this._logObj.user.imageUrl = currentUserImage;
 //            this._logObj.isLoggedIn = true;
 //        }
-		this.authService.getLoggedinObj().subscribe(res => {
+		this.authService.getLoggedinObj().subscribe((res:any) => {
             if (res && currentUserName != null) {
                 this._logObj = new LogInObj();
             this._logObj.user = new User();
@@ -103,14 +103,14 @@ export class QuestionBodyComponent {
             }
         });
 
-        this.configService.getConfig().subscribe(r => {
+        this.configService.getConfig().subscribe((r:any) => {
             this.config = r;
         });
 
         this.loadCategories();
 
         //get questions by route param using category id.
-        this.route.params.subscribe(params => {
+        this.route.params.subscribe((params:any) => {
 
             // this.id = params['id']; //For the First time it will be 1
             this.topicId = params['topicId'];
@@ -174,8 +174,8 @@ export class QuestionBodyComponent {
                 this.loadCategories();
             }
 
-            subs.subscribe(res => {
-                this.questionService.getTopFiveTopicsByCategoryId(this.categoryId).subscribe(res => {
+            subs.subscribe((res:any) => {
+                this.questionService.getTopFiveTopicsByCategoryId(this.categoryId).subscribe((res:any) => {
                     this.topics = res;
                     //  this.topFiveTopics = this.topics;
                     this.topFiveTopics = new Array<Topic>();
@@ -205,7 +205,7 @@ export class QuestionBodyComponent {
         this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
-            res => {
+            (res:any) => {
 
                 this.questions = res;
 
@@ -220,7 +220,7 @@ export class QuestionBodyComponent {
         this.FilterParam = "Preguntas con más Me gusta";
         this.showLoader();
         var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
-            res => {
+            (res:any) => {
 
                 this.questions = res;
 
@@ -237,7 +237,7 @@ export class QuestionBodyComponent {
         this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(
-            res => {
+            (res:any) => {
                 console.log(res);
                 this.questions = res;
                 this.hideLoader();
@@ -249,7 +249,7 @@ export class QuestionBodyComponent {
 
     loadCategories() {
 
-        this.categoryService.getAllCategories().subscribe(res => {
+        this.categoryService.getAllCategories().subscribe((res:any) => {
 
             this.categories = res;
 
@@ -268,14 +268,14 @@ export class QuestionBodyComponent {
     }
 
     addFollower(categoryId: string) {
-        this.categoryService.addAddFollower(categoryId).subscribe(res => {
+        this.categoryService.addAddFollower(categoryId).subscribe((res:any) => {
             this.totalCount.totalUsers += 1;
         });
     }
 
     getQuestionNotAnswered(categoryId: string) {
         this.showLoader();
-        this.questioAnswernService.getQuestionsNotAnswered(categoryId).subscribe(res => {
+        this.questioAnswernService.getQuestionsNotAnswered(categoryId).subscribe((res: any) => {
             this.questions = res;
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             this.hideLoader();
@@ -284,7 +284,7 @@ export class QuestionBodyComponent {
 
     getQuestionsAnswered(categoryId: string) {
         this.showLoader();
-        this.questioAnswernService.getQuestyionsAnswered(categoryId).subscribe(res => {
+        this.questioAnswernService.getQuestyionsAnswered(categoryId).subscribe((res: any) => {
             this.questions = res;
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             this.hideLoader();
@@ -342,7 +342,7 @@ export class QuestionBodyComponent {
         this.like = new Like();
         this.like.questionId = questionId;
 
-        this.questioAnswernService.addQuestionLike(this.like).subscribe(res => {
+        this.questioAnswernService.addQuestionLike(this.like).subscribe((res: any) => {
             this.questions.find(x => x.id == questionId).likes.push(this.like);
         });
     }

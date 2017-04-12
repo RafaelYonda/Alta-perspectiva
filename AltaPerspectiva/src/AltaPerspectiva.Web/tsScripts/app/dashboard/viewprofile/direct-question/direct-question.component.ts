@@ -8,7 +8,7 @@ import { Category, Question, QuestionSaveViewModel } from '../../../services/mod
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 
 @Component({
-    templateUrl: 'js/app/dashboard/viewprofile/direct-question/direct-question.component.html',
+    templateUrl: 'direct-question.component.html',
     providers: [CategoryService, QuestionService]
 })
 export class DirectQuestionComponent {

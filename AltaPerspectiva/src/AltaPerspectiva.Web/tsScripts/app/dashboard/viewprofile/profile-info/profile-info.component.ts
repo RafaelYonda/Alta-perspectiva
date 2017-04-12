@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 // this.toastr.sucess('This toast will dismiss in 10 seconds.', null, { toastLife: 10000 });
 @Component({
     selector: 'profile-info',
-    templateUrl: 'js/app/dashboard/viewprofile/profile-info/profile-info.component.html',
+    templateUrl: 'profile-info.component.html',
     providers: [ImageUploadService, ConfigService, AuthenticationService],
 })
 export class ProfileInfoComponent {

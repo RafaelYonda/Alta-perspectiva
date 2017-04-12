@@ -3,7 +3,7 @@ import { ProfileService } from '../../../services/profile.service';
 import { User } from '../../../services/models';
 import { ActivatedRoute } from '@angular/router';
 @Component({
-    templateUrl: 'js/app/dashboard/viewprofile/follower/follower.component.html'
+    templateUrl: 'follower.component.html'
 })
 export class FollowerComponent {
     private sub: any;

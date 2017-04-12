@@ -16,9 +16,12 @@
     ]
   },
   "files": [
-    "angular2App/app/app.module.ts",
-    "angular2App/app/modules/about/about.module.ts",
-    "angular2App/main-aot.ts"
+    "tsScripts/app.module.ts",
+    "tsScripts/app/core/core.module.ts",
+    "tsScripts/app/dashboard/dashboard.module.ts",
+    "tsScripts/app/questions/question.module.ts",
+    "tsScripts/app/shared/shared.module.ts",
+    "tsScripts/main-aot.ts"
   ],
   "angularCompilerOptions": {
     "genDir": "aot",

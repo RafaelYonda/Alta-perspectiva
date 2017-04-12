@@ -1,18 +1,18 @@
 ﻿import { Component, HostListener, ElementRef, Inject} from '@angular/core';
-
+import { WindowRefService } from '../../services/window-ref.service';
 
 @Component({
     selector: 'ap-banner',
-    templateUrl: 'js/app/core/banner/apbanner.component.html',
+    templateUrl: 'apbanner.component.html',
     //Styles for the tag
-    styleUrls: ['js/app/core/banner/carousel.css'],
+    styleUrls: ['carousel.css'],
 })
 export class ApBannerComponent {
     public images = IMAGES;
     private bannerHeight: Number = 200;
-    _window: any;
-    constructor(private _el: ElementRef, @Inject('Window') window: Window) {
-        this._window = window;
+    _window: Window;
+    constructor(private _el: ElementRef, windowRef: WindowRefService) {
+        this._window = windowRef.nativeWindow;
     }
 
     moveValue: string;
@@ -23,7 +23,7 @@ export class ApBannerComponent {
     }
 
     @HostListener('window:scroll', ['$event'])
-    track(event) {
+    track(event: Event) {
         var width = window.innerWidth;
         if (width < 767)
             return false;
@@ -50,13 +50,28 @@ export class ApBannerComponent {
         // see http://juristr.com/blog/2016/01/learning-ng2-dynamic-styles/
     }
 }
-var IMAGES: Image[] = [
+interface Image {
+    title: string;
+    desccription: string;
+    url: string;
+}
+var IMAGES: Image[] = new Array<Image>();
+IMAGES=[
     
     {
-        "title": "¿Cuál es la etapa de tu negocio?", "desccription": "Ideación<br/>Start up<br/>Crecimiento<br/>Sostenimiento<br/>Expansión", "url": "../images/Backcground_1.png" },
+        title: "¿Cuál es la etapa de tu negocio?",
+        desccription: "Ideación<br/>Start up<br/>Crecimiento<br/>Sostenimiento<br/>Expansión",
+        url: "../images/Backcground_1.png"
+    },
     {
-        "title": "¿Cuál es tu necesidad?", "desccription": "Comunicación gráfica<br/>Ideas de negocios<br/>Pensamiento estratégico<br/>Mercadeo<br/>Planeación financiera...", "url": "../images/Backcground_2.png" },
+        title: "¿Cuál es tu necesidad?",
+        desccription: "Comunicación gráfica<br/>Ideas de negocios<br/>Pensamiento estratégico<br/>Mercadeo<br/>Planeación financiera...",
+        url: "../images/Backcground_2.png"
+    },
     {
-        "title": "Conecta y comparte tu conocimiento", "desccription": "Conceptos <br/>Experiencias<br/>Herramientas","url": "../images/Backcground_3.png" },
+        title: "Conecta y comparte tu conocimiento",
+        desccription: "Conceptos <br/>Experiencias<br/>Herramientas",
+        url: "../images/Backcground_3.png"
+    },
     //{ "title": "iHaz preguntas sobre negocios!", "url": "../images/Backcground_4.png" }
 ];

@@ -4,8 +4,8 @@ import {AnswerSubmitComponent } from '../answer-submit/answer-submit.component';
 
 @Component({
     selector: 'answer-dialog',
-    templateUrl: 'js/app/shared/answer-dialog/answer-dialog.component.html',
-    styleUrls: ['js/app/shared/answer-dialog/answer-dialog.component.css'],
+    templateUrl: 'answer-dialog.component.html',
+    styleUrls: ['answer-dialog.component.css'],
 })
 export class AnswerDialogComponent {
     isDetail: boolean;
@@ -20,7 +20,7 @@ export class AnswerDialogComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    handleClick(event) {
+    handleClick(event: any) {
         //removel the modal on clicking out side the panel
         //var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

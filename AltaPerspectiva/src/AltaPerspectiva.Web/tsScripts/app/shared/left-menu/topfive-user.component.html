@@ -29,7 +29,7 @@
             <div class="top-user-info">
                 <a (click)="gotoProfile(topFiveUser?.userId)" for="contain" data-toggle="dropdown" class="padding-middle"> {{topFiveUser?.name}}</a>
                 <span *ngIf="topFiveUser.occupation">&nbsp;&nbsp;{{topFiveUser.occupation}}</span>
-                <div>{{topFiveUser.profileViewCount}} vistas</div>
+                <div>{{topFiveUser.profileViewCount}} visitas</div>
             </div>
             <div class="clearfix"></div>
         </li>
@@ -82,7 +82,7 @@
 
                 <li *ngIf="userInfoDetails?.questionViewCount!=0">
                     <i class="fa-li fa fa-eye">
-                    </i><!--Views:-->Leídos: {{userInfoDetails?.questionViewCount}}
+                    </i><!--Views:-->Veces leído: {{userInfoDetails?.questionViewCount}}
                 </li>
             </ul>
         </div>

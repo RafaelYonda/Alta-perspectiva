@@ -3,7 +3,7 @@ import { Place } from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     selector: 'add-place',
-    templateUrl: 'js/app/dashboard/viewprofile/edit-profile/add-place.component.html',
+    templateUrl: 'add-place.component.html',
     providers: [ProfileService],
 })
 export class AddPlaceComponent {
@@ -15,7 +15,7 @@ export class AddPlaceComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    handleClick(event) {
+    handleClick(event: any) {
         //removel the modal on clicking out side the panel
         //var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement

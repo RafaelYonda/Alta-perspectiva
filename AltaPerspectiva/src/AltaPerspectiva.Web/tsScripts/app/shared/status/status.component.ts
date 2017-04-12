@@ -11,8 +11,8 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 @Component({
     selector: 'ap-status',
-    templateUrl: 'js/app/shared/status/status.component.html',
-    styleUrls: ['js/app/shared/status/status.component.css'],
+    templateUrl: 'status.component.html',
+    styleUrls: ['status.component.css'],
     providers: [StatusService, QuestionService]
 })
 export class StatusComponent {

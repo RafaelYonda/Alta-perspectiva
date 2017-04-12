@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import {Question, LogInObj, AnswerViewModel} from '../../../services/models';
 import { Router } from '@angular/router';
 @Component({
-    templateUrl: 'js/app/dashboard/viewprofile/draft-answer/draft-answer.component.html',
+    templateUrl: 'draft-answer.component.html',
     providers: [ProfileService]
 })
 export class DraftAnswerComponent {

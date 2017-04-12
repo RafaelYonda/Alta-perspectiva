@@ -69,19 +69,19 @@
 
           
             /*Topics and Level added s*/
-            if (command.TopicId != null)
+            if (command.TopicId.HasValue)
             {
                 QuestionTopic questionTopic = new QuestionTopic();
                 questionTopic.QuestionId = question.Id;
-                questionTopic.TopicId = command.TopicId;
+                questionTopic.TopicId = command.TopicId.Value;
 
                 DbContext.QuestionTopics.Add(questionTopic);
             }
-            if (command.LevelId != null)
+            if (command.LevelId.HasValue)
             {
                 QuestionLevel questionLevel = new QuestionLevel();
                 questionLevel.QuestionId = question.Id;
-                questionLevel.LevelId = command.LevelId;
+                questionLevel.LevelId = command.LevelId.Value;
 
                 DbContext.QuestionLevels.Add(questionLevel);
             }

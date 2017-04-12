@@ -3,7 +3,7 @@ import { CredentialViewModel } from '../../../services/models/models.profile';
 import { ProfileService } from '../../../services/profile.service';
 @Component({
     selector: 'add-credential',
-    templateUrl: 'js/app/dashboard/viewprofile/edit-profile/add-credential.component.html',
+    templateUrl: 'add-credential.component.html',
     providers: [ProfileService],
 })
 export class AddCredentialComponent {
@@ -15,7 +15,7 @@ export class AddCredentialComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    handleClick(event) {
+    handleClick(event:any) {
         //removel the modal on clicking out side the panel
        // var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement
