@@ -12,14 +12,8 @@
     padding-top: 5px;
 }
 
-/*.user-image {
-        height: 30px;
-        width: 30px;
-        border-radius: 20px;
-    }*/
 
 .badge {
-    /*display: block;*/
     position: absolute;
     top: 7px;
     right: 7px;

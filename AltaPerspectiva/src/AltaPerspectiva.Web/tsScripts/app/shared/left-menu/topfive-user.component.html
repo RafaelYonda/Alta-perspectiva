@@ -27,7 +27,7 @@
         <li *ngFor="let topFiveUser of topFiveUsers">
             <img class="user-image img-circle" src="{{topFiveUser?.imageUrl}}" (mouseover)='userover(topFiveUser?.id)' [popover]="userInfoDetailsPopoveruser" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" />
             <div class="top-user-info">
-                <a (click)="gotoProfile(topFiveUser?.userId)" for="contain" data-toggle="dropdown" class="padding-middle"> {{topFiveUser?.name}}</a>
+                <a (click)="gotoProfile(topFiveUser?.userId)" for="contain" data-toggle="dropdown" > {{topFiveUser?.name}}</a>
                 <span *ngIf="topFiveUser.occupation">&nbsp;&nbsp;{{topFiveUser.occupation}}</span>
                 <div>{{topFiveUser.profileViewCount}} visitas</div>
             </div>

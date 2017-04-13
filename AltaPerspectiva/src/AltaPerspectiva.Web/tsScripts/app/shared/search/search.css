@@ -78,7 +78,7 @@ hr, ul {
     margin: 0;
 }
 
-a {
+suggestion-container a {
     cursor: pointer;
     color: #706f6f;
     text-decoration: none;
