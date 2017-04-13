@@ -1,16 +1,11 @@
 ﻿/*======set back ground for question home page.=======*/
 .backgroundset {
     min-height: 66px !important;
-    background-image: url(../images/background.png);
+    background-image: url('background.png');
 }
 
 .navbar-right {
     padding-right: 10px;
-}
-
-.backgroundset {
-    min-height: 66px !important;
-    background-image: url(../images/background.png);
 }
 
 .notification-font {

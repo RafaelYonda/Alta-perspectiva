@@ -37,12 +37,12 @@ import { QuillModule } from 'ngx-quill';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 //import { ClipboardModule } from 'ngx-clipboard';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-
+import { WindowRefService } from '../services/window-ref.service';
 
 @NgModule({
     imports: [BrowserModule, ToastModule, FormsModule, RouterModule, PopoverModule, QuillModule, CKEditorModule/*, ClipboardModule*/],
     providers: [
-        { provide: 'Window', useValue: window }, CommunicationService
+        WindowRefService, CommunicationService
     ],
     declarations: [
         ApSearchComponent, ApSearchDropDownComponent, AppCkEditorComponent, CommentComponent, StatusComponent, UserInfoComponent, QuestionHeaderComponent, CategoryMenuPanelComponent, TopFiveUserComponent, TopFiveQuestionLeftMenuComponent, RelatedQuestionMenu, TopFiveTopicComponent, RelatedTopicComponent, LevelComponent, DialogComponent, loginModalComponent, AnswerDialogComponent, AnswerSubmitComponent, QuestionPanelComponent, QuestionReportComponent, NavBarComponent, LikeComponent

@@ -6,7 +6,7 @@ import { CommunicationService } from '../../services/communication.service';
 import { CategoryService } from '../../services/category.service';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { Category, Question, Keyword, AskQuestionViewModel,Topic,Level,QuestionSaveViewModel } from '../../services/models';
-
+import { WindowRefService } from '../../services/window-ref.service';
 @Component({
     selector: 'ap-search',
     templateUrl: 'apSearch.component.html',
@@ -24,10 +24,13 @@ export class ApSearchComponent {
     @Output() onQuestionSubmit = new EventEmitter<boolean>();
     //topics:Topic[];
     //levels:Level[];
+    window: Window;
     questionSaveViewModel: QuestionSaveViewModel;
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver,private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private commServ: CommunicationService , private myElement: ElementRef) {
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private commServ: CommunicationService, private myElement: ElementRef, private windowRef: WindowRefService) {
         this.elementRef = myElement;
+        this.window = windowRef.nativeWindow;
+
     }
     ngOnInit() {
         this.questionsService.getQuestionsForSearch().subscribe(res => {

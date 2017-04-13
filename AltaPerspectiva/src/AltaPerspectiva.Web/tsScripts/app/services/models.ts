@@ -22,7 +22,8 @@ export class TotalCount {
     totalUsers: number;
     totalQuestions: number;
     totalAnsweredQuestion:number;
-    totalUnAnsweredQuestion:number;
+    totalUnAnsweredQuestion: number;
+    totalFollowers:number;
 }
 
 export class Category {
@@ -77,6 +78,9 @@ export class Question {
     comments: Comment[];
     date: Date;
     userViewModel: User;
+    categories: Category[];
+    questionTopics: Topic[];
+    questionLevels:Level[];
     answers: AnswerViewModel[];
     bestAnswer: AnswerViewModel;
     shareUrl: string;
@@ -246,6 +250,7 @@ export class DateName {
 //====Topic class
 
 export class Topic {
+    topicId:string;
     topicName: string;
     id: string;
     categoryId: string;

@@ -1,5 +1,5 @@
 ﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import { NgForm} from '@angular/forms';
 import { Blog, BlogComment, BlogLike, BlogPost } from '../../../services/models/models.blogpost';
 import { ProfileService } from '../../../services/profile.service';
 import { ActivatedRoute } from '@angular/router';
@@ -45,7 +45,7 @@ export class BlogCreateComponent {
         
         //this.router.navigateByUrl('/dashboard/blog-post/' + blogId, { skipLocationChange: true });
     }
-    saveBlog(form: FormGroup) {
+    saveBlog(form: NgForm) {
         console.log(form);
         var token = localStorage.getItem('auth_token');
         if (!token) {

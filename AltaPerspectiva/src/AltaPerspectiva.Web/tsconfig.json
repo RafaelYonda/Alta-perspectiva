@@ -18,9 +18,12 @@
     ]
   },
   "files": [
-    "tsScripts/app.module.ts",
-    // "angularApp/app/about/about.module.ts",
-    "tsScripts/main.ts"
+    "tsscripts/app.module.ts",
+    "tsscripts/app/core/core.module.ts",
+    "tsscripts/app/dashboard/dashboard.module.ts",
+    "tsscripts/app/questions/question.module.ts",
+    "tsscripts/app/shared/shared.module.ts",
+    "tsscripts/main.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "useWebpackText": true

@@ -16,12 +16,13 @@
     ]
   },
   "files": [
-    "tsScripts/app.module.ts",
-    "tsScripts/app/core/core.module.ts",
-    "tsScripts/app/dashboard/dashboard.module.ts",
-    "tsScripts/app/questions/question.module.ts",
-    "tsScripts/app/shared/shared.module.ts",
-    "tsScripts/main-aot.ts"
+    "tsscripts/app/app.module.ts",
+    "tsscripts/app/core/core.module.ts",
+    "tsscripts/app/dashboard/dashboard.module.ts",
+    "tsscripts/app/questions/question.module.ts",
+    "tsscripts/app/shared/shared.module.ts",
+    "tsscripts/main-aot.ts"
+    
   ],
   "angularCompilerOptions": {
     "genDir": "./",

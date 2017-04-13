@@ -12,9 +12,9 @@ console.log('@@@@@@@@@ USING PRODUCTION @@@@@@@@@@@@@@@');
 module.exports = {
 
     entry: {
-        'vendor': './tsScripts/vendor.ts',
-        'polyfills': './tsScripts/polyfills.ts',
-        'app': './tsScripts/main-aot.ts' // AoT compilation
+        'vendor': './tsscripts/vendor.ts',
+        'polyfills': './tsscripts/polyfills.ts',
+        'app': './tsscripts/main-aot.ts' // AoT compilation
     },
 
     output: {
@@ -40,7 +40,7 @@ module.exports = {
                 test: /\.ts$/,
                 loaders: [
                     'awesome-typescript-loader',
-                    'angular-router-loader?aot=true&genDir=aot/',
+                    'angular-router-loader?aot=true&genDir=./',
                     'angular2-template-loader'
                 ]
             },
