@@ -14,7 +14,7 @@
 
 
 import { platformBrowser } from '@angular/platform-browser';
-import { AppModuleNgFactory } from '../aot/tsscripts/app.module.ngfactory';
+import { AppModuleNgFactory } from './tsscripts/app.module.ngfactory';
 //import { AboutModuleNgFactory } from "./app/about/about.module.ngfactory";
 
 platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);
