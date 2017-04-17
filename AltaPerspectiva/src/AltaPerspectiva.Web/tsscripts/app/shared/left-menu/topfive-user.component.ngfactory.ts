@@ -568,7 +568,7 @@ class View_TopFiveUserComponent2 extends import1.AppView<any> {
     this._text_3 = this.renderer.createText(this._el_0,'\n            ',(null as any));
     this._el_4 = import3.createRenderElement(this.renderer,this._el_0,'div',new import3.InlineArray2(2,'class','top-user-info'),(null as any));
     this._text_5 = this.renderer.createText(this._el_4,'\n                ',(null as any));
-    this._el_6 = import3.createRenderElement(this.renderer,this._el_4,'a',new import3.InlineArray8(6,'class','padding-middle','data-toggle','dropdown','for','contain'),(null as any));
+    this._el_6 = import3.createRenderElement(this.renderer,this._el_4,'a',new import3.InlineArray4(4,'data-toggle','dropdown','for','contain'),(null as any));
     this._text_7 = this.renderer.createText(this._el_6,'',(null as any));
     this._text_8 = this.renderer.createText(this._el_4,'\n                ',(null as any));
     this._anchor_9 = this.renderer.createTemplateAnchor(this._el_4,(null as any));

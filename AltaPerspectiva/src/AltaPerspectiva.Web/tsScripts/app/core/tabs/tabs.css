@@ -75,7 +75,7 @@ ul {
     padding: 0;
 }
 
-a {
+.tab a {
     color: #706f6f;
     text-decoration: none;
     cursor: pointer;

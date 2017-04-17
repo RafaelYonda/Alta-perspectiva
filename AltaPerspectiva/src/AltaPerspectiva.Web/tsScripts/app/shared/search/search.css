@@ -296,13 +296,15 @@ label {
     }
 
 .visible-tab {
-    visibility: hidden;
+    display:none;
 }
 
 .hidden-tab {
     visibility: visible;
 }
-
+.search-responsive{
+    width:53%;
+}
 @media only screen and (min-width: 901px) and (max-width:1280px) {
     .search-responsive {
         width: 50%;
@@ -315,7 +317,7 @@ label {
         margin-left: 265px;
     }
         .visible-tab {
-        visibility: visible;
+        display:block;
         font-size: 20px;
         margin-top: 8px;
     }
@@ -335,7 +337,7 @@ label {
     }*/
 
     .visible-tab {
-        visibility: visible;
+        display:block;
     }
 
     .search-input {
