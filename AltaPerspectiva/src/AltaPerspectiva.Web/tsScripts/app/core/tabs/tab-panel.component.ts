@@ -9,7 +9,7 @@ import { QuestionResolver } from '../../services/resolve.services/question.resol
 import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName} from '../../services/models';
 @Component({
     selector: 'ap-tab-panel',
-    templateUrl: 'js/app/core/tabs/tab-panel.component.html',
+    templateUrl: 'tab-panel.component.html',
 
     providers: [QuestionResolver, QuestionAnswerService, AuthenticationService]
 })

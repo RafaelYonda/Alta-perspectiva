@@ -19,8 +19,7 @@
             <li><a routerLink="/question/home/2">My Bookmarks</a></li>-->
 
         </ul>
-        <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
-            <li><a routerLink="/dashboard" for="contain" data-toggle="dropdown" (click)="goToDashBoard" class="padding-middle"> Profile </a></li>
+        <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">       
             <li><a href="/signin">Log in</a></li>
             <li><a href="/signin">Register</a></li>
         </ul>
@@ -37,7 +36,7 @@
                             
                         </div>                        
                         <div class="form-group">
-                            <div class="lef-column padding-middle"><span class="fa fa-sign-out"></span> <a href="/questions/getcategory" for="contain" class="padding-middle" > Manage Categories </a></div>
+                            <div class="lef-column padding-middle"><span class="fa fa-sign-out"></span> <a href="/Admin/addcategory" for="contain" class="padding-middle" > Manage Categories </a></div>
 
                         </div>
                         <div class="form-group">

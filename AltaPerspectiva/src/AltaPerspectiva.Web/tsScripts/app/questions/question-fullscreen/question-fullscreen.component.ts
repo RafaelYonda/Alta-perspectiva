@@ -11,7 +11,7 @@ import { AnswerDialogComponent } from '../../shared/answer-dialog/answer-dialog.
 
 @Component({
     //selector: "question-body",
-    templateUrl: 'js/app/questions/question-fullscreen/question-fullscreen.component.html',
+    templateUrl: 'question-fullscreen.component.html',
     //styleUrls: ['js/app/questions/question-fullscreen/question-fullscreen.css'],
     providers: [QuestionResolver]
 })

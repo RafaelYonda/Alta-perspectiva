@@ -3,8 +3,8 @@ import { QuestionReport} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 @Component({
     selector: 'question-report',
-    templateUrl: 'js/app/shared/question-report/question-report.component.html',
-    styleUrls: ['js/app/shared/question-report/question-report.component.css'],
+    templateUrl: 'question-report.component.html',
+    styleUrls: ['question-report.component.css'],
     providers: [QuestionAnswerService]
 })
 export class QuestionReportComponent {

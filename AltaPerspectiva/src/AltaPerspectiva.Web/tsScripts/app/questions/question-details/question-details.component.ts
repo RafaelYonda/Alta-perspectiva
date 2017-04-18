@@ -10,8 +10,8 @@ import { AnswerDialogComponent } from '../../shared/answer-dialog/answer-dialog.
 import { QuestionReportComponent } from '../../shared/question-report/question-report.component';
 @Component({
     selector: "question-details",
-    templateUrl: 'js/app/questions/question-details/question-details.component.html',
-    styleUrls: ['js/app/questions/question-details/question-details.css'],
+    templateUrl: 'question-details.component.html',
+    styleUrls: ['question-details.css'],
     providers: [QuestionResolver, QuestionAnswerService, AuthenticationService]
 })
 export class QuestionDetailComponent {

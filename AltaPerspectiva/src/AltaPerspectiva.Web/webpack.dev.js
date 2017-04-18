@@ -1,38 +1,23 @@
-var path = require('path');
-
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
-
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
-var helpers = require('./webpack.helpers');
 
 console.log('@@@@@@@@@ USING DEVELOPMENT @@@@@@@@@@@@@@@');
-
 module.exports = {
-
+    entry: {
+        'app': './tsScripts/main.ts'
+    },
     devtool: 'source-map',
     performance: {
         hints: false
     },
-    entry: {
-        'app': './tsScripts/main.ts'
-    },
-
-    output: {
-        path: './wwwroot/',
-        filename: 'dist/[name].bundle.js',
-        chunkFilename: 'dist/[id].chunk.js',
-        publicPath: '/'
-    },
-
     resolve: {
         extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html']
     },
-
-    devServer: {
-        historyApiFallback: true,
-        stats: 'minimal',
-        outputPath: path.join(__dirname, 'wwwroot/')
+    output: {
+        path: './wwwroot',
+        filename: 'js/dist/[name].bundle.js'
     },
 
     module: {
@@ -41,56 +26,47 @@ module.exports = {
                 test: /\.ts$/,
                 loaders: [
                     'awesome-typescript-loader',
-                    'angular-router-loader',
-                    'angular2-template-loader',        
-                    'source-map-loader',
-                    'tslint-loader'
+                    'angular2-template-loader'
                 ]
             },
             {
-                test: /\.(png|jpg|gif|woff|woff2|ttf|svg|eot)$/,
-                loader: 'file-loader?name=assets/[name]-[hash:6].[ext]'
+                test: /\.html$/,
+                loader: 'html-loader'
             },
             {
-                test: /favicon.ico$/,
-                loader: 'file-loader?name=/[name].[ext]'
+                test: /\.(png|jpg|gif|ico|woff|woff2|ttf|svg|eot)$/,
+                loader: 'file-loader?name=assets/[name].[ext]',
             },
+
+            // Load css files which are required in vendor.ts
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader'
-            },
-            {
-                test: /\.scss$/,
-                exclude: /node_modules/,
-                loaders: ['style-loader', 'css-loader', 'sass-loader']
-            },
-            {
-                test: /\.html$/,
-                loader: 'raw-loader'
+                loader: ExtractTextPlugin.extract({
+                    fallbackLoader: "style-loader",
+                    loader: "css-loader"
+                })
             }
-        ],
-        exprContextCritical: false
+        ]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({ name: ['app', 'polyfills']}),
-
+        new ExtractTextPlugin('css/[name].bundle.css'),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['app', 'vendor', 'polyfills']
+        }),
         new CleanWebpackPlugin(
             [
-                './wwwroot/dist'
-                //'./wwwroot/assets'
+                './wwwroot/js/dist'                
             ]
-        )//,
-
-        //new HtmlWebpackPlugin({
-        //    filename: 'index.html',
-        //    inject: 'body',
-        //    template: 'angular2App/index.html'
-        //}),
-
-        //new CopyWebpackPlugin([
-        //    { from: './angular2App/images/*.*', to: 'assets/', flatten: true }
-        //])
-    ]
-
+        ),
+        new webpack.ProvidePlugin({
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery'
+        })
+    ],
+    devServer: {
+        historyApiFallback: true,
+        stats: 'minimal'
+    }
 };
 

@@ -4,7 +4,7 @@ declare var System: any;
 
 import { platformBrowser } from '@angular/platform-browser';
 import { enableProdMode } from '@angular/core';
-//import { AppModuleNgFactory } from '../aot/tsScripts/app.module.ngfactory';
+import { AppModuleNgFactory } from '../aot/tsScripts/app.module.ngfactory';
 
 enableProdMode();
 

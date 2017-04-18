@@ -6,13 +6,13 @@ import { ProfileService } from '../../services/profile.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
-    templateUrl: 'js/app/dashboard/eidtprofile/editprofile.component.html',
-    styleUrls: ['js/app/dashboard/eidtprofile/editprofile.component.css',
-        'js/app/dashboard/styles/dashboard.buttons.css',
-        'js/app/dashboard/styles/dashboard.forms.css',
-        'js/app/dashboard/styles/dashboard.profile.css',
-        'js/app/dashboard/styles/dashboard.progress.css',
-        'js/app/dashboard/styles/dashboard.status.css'],
+    templateUrl: 'editprofile.component.html',
+    styleUrls: ['tsScripts/app/dashboard/eidtprofile/editprofile.component.css',
+        'tsScripts/app/dashboard/styles/dashboard.buttons.css',
+        'tsScripts/app/dashboard/styles/dashboard.forms.css',
+        'tsScripts/app/dashboard/styles/dashboard.profile.css',
+        'tsScripts/app/dashboard/styles/dashboard.progress.css',
+        'tsScripts/app/dashboard/styles/dashboard.status.css'],
     providers: [ImageUploadService, ConfigService, ProfileService]
 })
 export class EditProfileComponent {

@@ -6,8 +6,8 @@ import { Http, Headers, Response } from '@angular/http';
     selector: 'dash-tab',
     encapsulation: ViewEncapsulation.None,
     providers: [AuthenticationService],
-    templateUrl: 'js/app/dashboard/dashtab/dashtab.component.html',
-    styleUrls: ['js/app/dashboard/dashtab/dashtab.component.css'],
+    templateUrl: 'dashtab.component.html',
+    styleUrls: ['dashtab.component.css'],
 })
 export class DashTab {
     @Input() className: string;

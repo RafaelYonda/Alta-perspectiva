@@ -4,8 +4,8 @@ import {LogInObj, Comment } from '../../services/models';
 
 @Component({
     selector: 'ap-comment',
-    templateUrl: 'js/app/shared/comment/comment.component.html',
-    styleUrls: ['js/app/shared/comment/comment.component.css'],
+    templateUrl: 'comment.component.html',
+    styleUrls: ['comment.component.css'],
     providers: [CommentService]
 })
 export class CommentComponent {

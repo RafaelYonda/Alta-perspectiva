@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
     selector: 'ap-nav',
     encapsulation: ViewEncapsulation.None,
     providers: [AuthenticationService],
-    templateUrl: 'js/app/core/nav/apnav.html',
-    styleUrls: ['js/app/core/nav/apNav.css'],
+    templateUrl: 'apnav.html',
+    styleUrls: ['apNav.css'],
 })
 export class ApNav {
     @Input() className: string;

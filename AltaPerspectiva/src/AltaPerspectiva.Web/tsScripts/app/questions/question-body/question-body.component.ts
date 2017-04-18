@@ -13,7 +13,7 @@ export interface ILoader {
 
 @Component({
     selector: "question-body",
-    templateUrl: 'js/app/questions/question-body/question-body.component.html',
+    templateUrl: 'question-body.component.html',
     //styleUrls: ['js/app/questions/question-body/question-body.css'],
     providers: [QuestionAnswerService, CategoryService, ConfigService, QuestionService]
 })
@@ -94,46 +94,20 @@ export class QuestionBodyComponent {
             this.levelId = params['levelId'];
             this.description = this._router.url;
 
-            this.filterParameter = new FilterParameter();
-            this.filterParameter.categoryId = this.categoryId;
-            //this.filterParameter.topicId = this.topicId;
-            //this.filterParameter.levelId = this.levelId;
-
-            if (this.topicId) {
-                this.commServ.setTopicId(this.topicId);
-                this.filterParameter.topicId = this.topicId;
-            }
-            else {
-                this.filterParameter.topicId = '0';
-            }
-
-
-            if (this.levelId) {
-                this.commServ.setLevelId(this.levelId);
-                this.filterParameter.levelId = this.levelId;
-            } else {
-                this.filterParameter.levelId = '0';
-            }
-                
+            this.filterParameter = this.buildFilterParameter();                            
 
             this.showLoader();
             var subs: any;
-
-          //  this.id = params['id'];
+         
 
             // param id = 0, default route, it is ver tidas
             if (this.categoryId == '1') {
+
                 subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
-
-                // questions loaded by latest, without categoryId
-               // subs = this.questioAnswernService.getQuestions();
-
             }
 
             else {
-              //  this.filterParameter = this.commServ.getFilterParameter();
-                // questions loaded by category id
-                // subs = this.questioAnswernService.getQuestionsByCategory(this.id);
+             
                 subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
 
                 /// if page directly loads from url, then categories gets undefiend                
@@ -141,17 +115,51 @@ export class QuestionBodyComponent {
             }
 
             subs.subscribe(res => {
+
                 this.questionService.getTopFiveTopicsByCategoryId(this.categoryId).subscribe(res => {
                     this.topFiveTopics = res;
                 });
+
                 this.commServ.setCategory(this.categoryId);
+
                 this.questions = res;
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+
                 this.hideLoader();
             });
         });
 
     }
+
+    buildFilterParameter() {
+
+        var filterParameter = new FilterParameter();
+
+        // on route change set new category in filterparameter
+        filterParameter.categoryId = this.categoryId;
+
+        // if topic id is present in route url, then set to filterparameter topic
+        if (this.topicId) {
+            this.commServ.setTopicId(this.topicId);
+            filterParameter.topicId = this.topicId;
+        }
+        else {
+            filterParameter.topicId = '0';
+        }
+
+         // if level id is present in route url, then set to filterparameter level
+        if (this.levelId) {
+            this.commServ.setLevelId(this.levelId);
+            filterParameter.levelId = this.levelId;
+        } else {
+            filterParameter.levelId = '0';
+        }
+
+        return filterParameter;
+    }
+
+
+
     GetLatestQuestionByDate(categoryId: string) {
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
@@ -164,6 +172,8 @@ export class QuestionBodyComponent {
             }
         );
     }
+
+
     getbestquestionbytotallike(categoryId: string) {
 
         var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
@@ -177,6 +187,8 @@ export class QuestionBodyComponent {
             }
         );
     }
+
+
     getmorequestionbyviewcount(categoryId: string) {
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(

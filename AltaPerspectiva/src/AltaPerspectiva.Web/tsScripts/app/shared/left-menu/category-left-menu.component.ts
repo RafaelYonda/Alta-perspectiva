@@ -7,8 +7,8 @@ import {QuestionMenu, Answer, DateName} from '../../services/models';
 
 @Component({
     selector: 'category-left-menu',
-    templateUrl: 'js/app/shared/left-menu/category-left-menu.component.html',
-    styleUrls: ['js/app/shared/styles/left-menu.css'],
+    templateUrl: 'category-left-menu.component.html',
+    styleUrls: ['tsScripts/app/shared/styles/left-menu.css'],
     providers: [QuestionAnswerService, CategoryService]
 })
 export class CategoryMenuPanelComponent {

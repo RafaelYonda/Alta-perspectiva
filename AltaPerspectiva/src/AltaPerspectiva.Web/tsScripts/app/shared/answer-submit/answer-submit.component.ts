@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'answer-submit',
-    templateUrl: 'js/app/shared/answer-submit/answer-submit.component.html',
+    templateUrl: 'answer-submit.component.html',
     providers: [QuestionAnswerService]
 })
 export class AnswerSubmitComponent {

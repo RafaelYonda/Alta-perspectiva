@@ -3,9 +3,9 @@
 
 @Component({
     selector: 'ap-banner',
-    templateUrl: 'js/app/core/banner/apbanner.component.html',
+    templateUrl: 'apbanner.component.html',
     //Styles for the tag
-    styleUrls: ['js/app/core/banner/carousel.css'],
+    styleUrls: ['carousel.css'],
 })
 export class ApBannerComponent {
     public images = IMAGES;

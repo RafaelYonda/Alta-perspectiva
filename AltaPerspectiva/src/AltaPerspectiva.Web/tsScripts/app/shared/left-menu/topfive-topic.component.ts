@@ -5,8 +5,8 @@ import { Topic } from '../../services/models';
 
 @Component({
     selector: 'topfive-topic',
-    templateUrl: 'js/app/shared/left-menu/topfive-topic.component.html',
-    styleUrls: ['js/app/shared/styles/left-menu.css'],
+    templateUrl: 'topfive-topic.component.html',
+    styleUrls: ['tsScripts/app/shared/styles/left-menu.css'],
     providers: [QuestionService]
 })
 export class TopFiveTopicComponent {

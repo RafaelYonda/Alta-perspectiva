@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'ap-tabs',
-    templateUrl: 'js/app/core/tabs/tabs.component.html',
-    styleUrls: ['js/app/core/tabs/tabs.css'],
+    templateUrl: 'tabs.component.html',
+    styleUrls: ['tabs.css'],
     providers: [CategoryService]
 })
 export class TabsComponent {

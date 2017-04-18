@@ -9,8 +9,8 @@ import { Category, Question, Keyword, AskQuestionViewModel,Topic,Level,QuestionS
 
 @Component({
     selector: 'ap-search',
-    templateUrl: 'js/app/shared/search/apSearch.component.html',
-    styleUrls: ['js/app/shared/search/search.css'],
+    templateUrl: 'apSearch.component.html',
+    styleUrls: ['tsScripts/app/shared/search/search.css'],
     providers: [CategoryService, QuestionAnswerService]
 })
 export class ApSearchComponent {

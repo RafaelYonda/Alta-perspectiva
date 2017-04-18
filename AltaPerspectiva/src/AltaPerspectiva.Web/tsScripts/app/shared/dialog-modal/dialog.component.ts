@@ -4,8 +4,8 @@ import { QuestionAnswerService } from '../../services/question-answer.service';
 import { Router } from '@angular/router';
 @Component({
     selector: 'dlg',
-    templateUrl: 'js/app/shared/dialog-modal/dialog.component.html',
-    styleUrls: ['js/app/shared/dialog-modal/dialog.component.css'],
+    templateUrl: 'dialog.component.html',
+    styleUrls: ['dialog.component.css'],
     providers: [QuestionAnswerService]
 })
 export class DialogComponent {

@@ -6,8 +6,8 @@ import { Http, Headers, Response } from '@angular/http';
     selector: 'ap-navdashboard',
     encapsulation: ViewEncapsulation.None,
     providers: [AuthenticationService],
-    templateUrl: 'js/app/dashboard/navdashboard/navdashboard.component.html',
-    styleUrls: ['js/app/dashboard/navdashboard/navdashboard.component.css'],
+    templateUrl: 'navdashboard.component.html',
+    styleUrls: ['tsScripts/app/dashboard/navdashboard/navdashboard.component.css'],
 })
 export class NavDashboard {
     @Input() className: string;
