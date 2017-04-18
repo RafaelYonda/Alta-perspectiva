@@ -1,7 +1,8 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewContainerRef } from '@angular/core';
 import { ProfileService } from '../../../services/profile.service';
 import { CategoryService } from '../../../services/category.service';
 import { Contact } from '../../../services/models';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 @Component({
     templateUrl: 'js/app/dashboard/eidtprofile/profilesforms/contact.component.html',
     styleUrls: [
@@ -16,9 +17,10 @@ import { Contact } from '../../../services/models';
 export class ContactFormComponent {
     public _headerName: string = 'Contact Info';
     contact: Contact;
-    constructor(private service: ProfileService, private catServ: CategoryService) {
+    constructor(private service: ProfileService, private catServ: CategoryService, public toastr: ToastsManager, vRef: ViewContainerRef) {
         this.contact = new Contact();
         this.service.profile.contact = this.contact;
+        this.toastr.setRootViewContainerRef(vRef);
     }
     ngOnInit() {
         this.service.GetContact().subscribe(res => {
@@ -30,10 +32,15 @@ export class ContactFormComponent {
         if (this.contact.id)
             this.service.UpdateContact(this.contact).subscribe(res => {
                 console.log(res);
+                this.showSuccess();
             });
         else
             this.service.SaveContact(this.contact).subscribe(res => {
                 console.log(res);
+                this.showSuccess();
             });
+    }
+    showSuccess() {
+        this.toastr.success('Contact saved successfully!', 'Success!');
     }
 }
