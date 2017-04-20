@@ -96,146 +96,74 @@ var View_ApBannerComponent0 = (function (_super) {
     __extends(View_ApBannerComponent0, _super);
     function View_ApBannerComponent0(viewUtils, parentView, parentIndex, parentElement) {
         var _this = _super.call(this, View_ApBannerComponent0, renderType_ApBannerComponent, import5.ViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import6.ChangeDetectorStatus.CheckAlways) || this;
-        _this._expr_39 = import11.UNINITIALIZED;
-        _this._expr_40 = import11.UNINITIALIZED;
-        _this._expr_41 = import11.UNINITIALIZED;
-        _this._expr_42 = import11.UNINITIALIZED;
-        _this._expr_43 = import11.UNINITIALIZED;
-        _this._expr_44 = import11.UNINITIALIZED;
-        _this._expr_45 = import11.UNINITIALIZED;
-        _this._expr_46 = import11.UNINITIALIZED;
-        _this._expr_47 = import11.UNINITIALIZED;
+        _this._expr_27 = import11.UNINITIALIZED;
         return _this;
     }
     View_ApBannerComponent0.prototype.createInternal = function (rootSelector) {
         var parentRenderNode = this.renderer.createViewRoot(this.parentElement);
         this._el_0 = import3.createRenderElement(this.renderer, parentRenderNode, 'div', new import3.InlineArray2(2, 'class', 'carousel'), null);
         this._text_1 = this.renderer.createText(this._el_0, '\n    ', null);
-        this._text_2 = this.renderer.createText(this._el_0, '\n    ', null);
-        this._el_3 = import3.createRenderElement(this.renderer, this._el_0, 'ul', new import3.InlineArray2(2, 'class', 'slides'), null);
-        this._text_4 = this.renderer.createText(this._el_3, '\n        ', null);
-        this._el_5 = import3.createRenderElement(this.renderer, this._el_3, 'li', new import3.InlineArray2(2, 'class', 'slide-item'), null);
-        this._text_6 = this.renderer.createText(this._el_5, '\n            ', null);
-        this._el_7 = import3.createRenderElement(this.renderer, this._el_5, 'img', new import3.InlineArray2(2, 'alt', ''), null);
-        this._text_8 = this.renderer.createText(this._el_5, '\n            ', null);
-        this._el_9 = import3.createRenderElement(this.renderer, this._el_5, 'h2', new import3.InlineArray2(2, 'class', 'hidden-xs'), null);
-        this._text_10 = this.renderer.createText(this._el_9, '', null);
-        this._text_11 = this.renderer.createText(this._el_5, '\n            ', null);
-        this._el_12 = import3.createRenderElement(this.renderer, this._el_5, 'h3', new import3.InlineArray2(2, 'class', 'hidden-xs'), null);
-        this._text_13 = this.renderer.createText(this._el_5, '\n        ', null);
-        this._text_14 = this.renderer.createText(this._el_3, '\n        ', null);
-        this._el_15 = import3.createRenderElement(this.renderer, this._el_3, 'li', new import3.InlineArray2(2, 'class', 'slide-item'), null);
-        this._text_16 = this.renderer.createText(this._el_15, '\n            ', null);
-        this._el_17 = import3.createRenderElement(this.renderer, this._el_15, 'img', new import3.InlineArray2(2, 'alt', ''), null);
-        this._text_18 = this.renderer.createText(this._el_15, '\n            ', null);
-        this._el_19 = import3.createRenderElement(this.renderer, this._el_15, 'h2', new import3.InlineArray2(2, 'class', 'hidden-xs'), null);
-        this._text_20 = this.renderer.createText(this._el_19, '', null);
-        this._text_21 = this.renderer.createText(this._el_15, '\n            ', null);
-        this._el_22 = import3.createRenderElement(this.renderer, this._el_15, 'h3', new import3.InlineArray2(2, 'class', 'hidden-xs'), null);
-        this._text_23 = this.renderer.createText(this._el_15, '\n        ', null);
-        this._text_24 = this.renderer.createText(this._el_3, '\n        ', null);
-        this._el_25 = import3.createRenderElement(this.renderer, this._el_3, 'li', new import3.InlineArray2(2, 'class', 'slide-item'), null);
-        this._text_26 = this.renderer.createText(this._el_25, '\n            ', null);
-        this._el_27 = import3.createRenderElement(this.renderer, this._el_25, 'img', new import3.InlineArray2(2, 'alt', ''), null);
-        this._text_28 = this.renderer.createText(this._el_25, '\n            ', null);
-        this._el_29 = import3.createRenderElement(this.renderer, this._el_25, 'div', new import3.InlineArray2(2, 'style', 'padding-left:55px;'), null);
-        this._text_30 = this.renderer.createText(this._el_29, '\n                ', null);
-        this._el_31 = import3.createRenderElement(this.renderer, this._el_29, 'h2', new import3.InlineArray2(2, 'class', 'hidden-xs'), null);
-        this._text_32 = this.renderer.createText(this._el_31, '', null);
-        this._text_33 = this.renderer.createText(this._el_29, '\n                ', null);
-        this._el_34 = import3.createRenderElement(this.renderer, this._el_29, 'h3', new import3.InlineArray2(2, 'class', 'hidden-xs'), null);
-        this._text_35 = this.renderer.createText(this._el_29, '\n            ', null);
-        this._text_36 = this.renderer.createText(this._el_25, '\n            \n        ', null);
-        this._text_37 = this.renderer.createText(this._el_3, '\n    ', null);
-        this._text_38 = this.renderer.createText(this._el_0, '\n', null);
+        this._el_2 = import3.createRenderElement(this.renderer, this._el_0, 'ul', new import3.InlineArray2(2, 'class', 'slides'), null);
+        this._text_3 = this.renderer.createText(this._el_2, '\n        ', null);
+        this._el_4 = import3.createRenderElement(this.renderer, this._el_2, 'li', new import3.InlineArray2(2, 'class', 'slide-item'), null);
+        this._text_5 = this.renderer.createText(this._el_4, '\n            ', null);
+        this._el_6 = import3.createRenderElement(this.renderer, this._el_4, 'img', new import3.InlineArray4(4, 'alt', 'background', 'class', 'background-img'), null);
+        this._text_7 = this.renderer.createText(this._el_4, '\n            ', null);
+        this._el_8 = import3.createRenderElement(this.renderer, this._el_4, 'div', new import3.InlineArray2(2, 'class', 'hidden-xs banner-text'), null);
+        this._text_9 = this.renderer.createText(this._el_8, '\n                ', null);
+        this._el_10 = import3.createRenderElement(this.renderer, this._el_8, 'div', import3.EMPTY_INLINE_ARRAY, null);
+        this._text_11 = this.renderer.createText(this._el_10, 'Pregunta y comparte tu ', null);
+        this._el_12 = import3.createRenderElement(this.renderer, this._el_10, 'em', import3.EMPTY_INLINE_ARRAY, null);
+        this._text_13 = this.renderer.createText(this._el_12, 'conocimiento', null);
+        this._text_14 = this.renderer.createText(this._el_10, ' ', null);
+        this._text_15 = this.renderer.createText(this._el_8, '\n                ', null);
+        this._el_16 = import3.createRenderElement(this.renderer, this._el_8, 'div', new import3.InlineArray2(2, 'class', 'banner-arrow-container'), null);
+        this._text_17 = this.renderer.createText(this._el_16, 'sobre negocios\n                    ', null);
+        this._el_18 = import3.createRenderElement(this.renderer, this._el_16, 'img', new import3.InlineArray8(6, 'alt', 'arrow', 'class', 'banner-arrow', 'src', '../images/curved-arrow.png'), null);
+        this._text_19 = this.renderer.createText(this._el_16, '\n                ', null);
+        this._text_20 = this.renderer.createText(this._el_8, '\n                ', null);
+        this._el_21 = import3.createRenderElement(this.renderer, this._el_8, 'a', new import3.InlineArray4(4, 'class', 'btn-banner', 'href', 'http://altaperspectiva.com/conocemas'), null);
+        this._text_22 = this.renderer.createText(this._el_21, 'Conoce más', null);
+        this._text_23 = this.renderer.createText(this._el_8, '\n            ', null);
+        this._text_24 = this.renderer.createText(this._el_4, '\n        ', null);
+        this._text_25 = this.renderer.createText(this._el_2, '\n    ', null);
+        this._text_26 = this.renderer.createText(this._el_0, '\n', null);
         this.init(null, (this.renderer.directRenderer ? null : [
             this._el_0,
             this._text_1,
-            this._text_2,
-            this._el_3,
-            this._text_4,
-            this._el_5,
-            this._text_6,
-            this._el_7,
-            this._text_8,
-            this._el_9,
-            this._text_10,
+            this._el_2,
+            this._text_3,
+            this._el_4,
+            this._text_5,
+            this._el_6,
+            this._text_7,
+            this._el_8,
+            this._text_9,
+            this._el_10,
             this._text_11,
             this._el_12,
             this._text_13,
             this._text_14,
-            this._el_15,
-            this._text_16,
-            this._el_17,
-            this._text_18,
-            this._el_19,
+            this._text_15,
+            this._el_16,
+            this._text_17,
+            this._el_18,
+            this._text_19,
             this._text_20,
-            this._text_21,
-            this._el_22,
+            this._el_21,
+            this._text_22,
             this._text_23,
             this._text_24,
-            this._el_25,
-            this._text_26,
-            this._el_27,
-            this._text_28,
-            this._el_29,
-            this._text_30,
-            this._el_31,
-            this._text_32,
-            this._text_33,
-            this._el_34,
-            this._text_35,
-            this._text_36,
-            this._text_37,
-            this._text_38
+            this._text_25,
+            this._text_26
         ]), null);
         return null;
     };
     View_ApBannerComponent0.prototype.detectChangesInternal = function (throwOnChange) {
-        var currVal_39 = import3.inlineInterpolate(1, '', this.context.images[0].url, '');
-        if (import3.checkBinding(throwOnChange, this._expr_39, currVal_39)) {
-            this.renderer.setElementProperty(this._el_7, 'src', this.viewUtils.sanitizer.sanitize(import12.SecurityContext.URL, currVal_39));
-            this._expr_39 = currVal_39;
-        }
-        var currVal_40 = import3.inlineInterpolate(1, '', this.context.images[0].title, '');
-        if (import3.checkBinding(throwOnChange, this._expr_40, currVal_40)) {
-            this.renderer.setText(this._text_10, currVal_40);
-            this._expr_40 = currVal_40;
-        }
-        var currVal_41 = this.context.images[0].desccription;
-        if (import3.checkBinding(throwOnChange, this._expr_41, currVal_41)) {
-            this.renderer.setElementProperty(this._el_12, 'innerHTML', this.viewUtils.sanitizer.sanitize(import12.SecurityContext.HTML, currVal_41));
-            this._expr_41 = currVal_41;
-        }
-        var currVal_42 = import3.inlineInterpolate(1, '', this.context.images[1].url, '');
-        if (import3.checkBinding(throwOnChange, this._expr_42, currVal_42)) {
-            this.renderer.setElementProperty(this._el_17, 'src', this.viewUtils.sanitizer.sanitize(import12.SecurityContext.URL, currVal_42));
-            this._expr_42 = currVal_42;
-        }
-        var currVal_43 = import3.inlineInterpolate(1, '', this.context.images[1].title, '');
-        if (import3.checkBinding(throwOnChange, this._expr_43, currVal_43)) {
-            this.renderer.setText(this._text_20, currVal_43);
-            this._expr_43 = currVal_43;
-        }
-        var currVal_44 = this.context.images[1].desccription;
-        if (import3.checkBinding(throwOnChange, this._expr_44, currVal_44)) {
-            this.renderer.setElementProperty(this._el_22, 'innerHTML', this.viewUtils.sanitizer.sanitize(import12.SecurityContext.HTML, currVal_44));
-            this._expr_44 = currVal_44;
-        }
-        var currVal_45 = import3.inlineInterpolate(1, '', this.context.images[2].url, '');
-        if (import3.checkBinding(throwOnChange, this._expr_45, currVal_45)) {
-            this.renderer.setElementProperty(this._el_27, 'src', this.viewUtils.sanitizer.sanitize(import12.SecurityContext.URL, currVal_45));
-            this._expr_45 = currVal_45;
-        }
-        var currVal_46 = import3.inlineInterpolate(1, '', this.context.images[2].title, '');
-        if (import3.checkBinding(throwOnChange, this._expr_46, currVal_46)) {
-            this.renderer.setText(this._text_32, currVal_46);
-            this._expr_46 = currVal_46;
-        }
-        var currVal_47 = this.context.images[2].desccription;
-        if (import3.checkBinding(throwOnChange, this._expr_47, currVal_47)) {
-            this.renderer.setElementProperty(this._el_34, 'innerHTML', this.viewUtils.sanitizer.sanitize(import12.SecurityContext.HTML, currVal_47));
-            this._expr_47 = currVal_47;
+        var currVal_27 = import3.inlineInterpolate(1, '', this.context.images[0].url, '');
+        if (import3.checkBinding(throwOnChange, this._expr_27, currVal_27)) {
+            this.renderer.setElementProperty(this._el_6, 'src', this.viewUtils.sanitizer.sanitize(import12.SecurityContext.URL, currVal_27));
+            this._expr_27 = currVal_27;
         }
     };
     return View_ApBannerComponent0;

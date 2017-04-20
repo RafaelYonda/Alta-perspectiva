@@ -61,7 +61,7 @@ IMAGES=[
     {
         title: "¿Cuál es la etapa de tu negocio?",
         desccription: "Ideación<br/>Start up<br/>Crecimiento<br/>Sostenimiento<br/>Expansión",
-        url: "../images/Backcground_1.png"
+        url: "../images/BANNER-FINAL.png"
     },
     {
         title: "¿Cuál es tu necesidad?",

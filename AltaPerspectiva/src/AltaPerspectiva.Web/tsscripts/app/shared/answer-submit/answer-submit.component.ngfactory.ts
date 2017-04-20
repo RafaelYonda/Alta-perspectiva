@@ -381,12 +381,12 @@ export class View_AnswerSubmitComponent0 extends import2.AppView<import0.AnswerS
     this._text_41 = this.renderer.createText(this._el_40,'\n            ',(null as any));
     this._el_42 = import3.createRenderElement(this.renderer,this._el_40,'a',new import3.InlineArray8(6,'class','SHARE FACEBOOK','onclick','window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;','target','social'),(null as any));
     this._text_43 = this.renderer.createText(this._el_42,'\n                ',(null as any));
-    this._el_44 = import3.createRenderElement(this.renderer,this._el_42,'img',new import3.InlineArray8(6,'class','social-image','id','img1','src','../images/facebooklogo.jpg'),(null as any));
+    this._el_44 = import3.createRenderElement(this.renderer,this._el_42,'img',new import3.InlineArray8(6,'class','social-image','id','img1','src','../images/facebooklogo.svg'),(null as any));
     this._text_45 = this.renderer.createText(this._el_42,'\n            ',(null as any));
     this._text_46 = this.renderer.createText(this._el_40,'\n            \n            ',(null as any));
     this._el_47 = import3.createRenderElement(this.renderer,this._el_40,'a',new import3.InlineArray8(6,'class','SHARE TWITTER','onclick','window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;','target','social'),(null as any));
     this._text_48 = this.renderer.createText(this._el_47,'\n                ',(null as any));
-    this._el_49 = import3.createRenderElement(this.renderer,this._el_47,'img',new import3.InlineArray8(6,'class','social-image','id','img2','src','../images/twitter.png'),(null as any));
+    this._el_49 = import3.createRenderElement(this.renderer,this._el_47,'img',new import3.InlineArray8(6,'class','social-image','id','img2','src','../images/twitter.svg'),(null as any));
     this._text_50 = this.renderer.createText(this._el_47,'\n            ',(null as any));
     this._text_51 = this.renderer.createText(this._el_40,'\n          \n        ',(null as any));
     this._text_52 = this.renderer.createText(this._el_29,'\n    ',(null as any));
