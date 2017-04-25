@@ -133,7 +133,7 @@ export class View_ApBannerComponent0 extends import1.AppView<import0.ApBannerCom
     this._text_5 = this.renderer.createText(this._el_4,'\n            ',(null as any));
     this._el_6 = import3.createRenderElement(this.renderer,this._el_4,'img',new import3.InlineArray4(4,'alt','background','class','background-img'),(null as any));
     this._text_7 = this.renderer.createText(this._el_4,'\n            ',(null as any));
-    this._el_8 = import3.createRenderElement(this.renderer,this._el_4,'div',new import3.InlineArray2(2,'class','hidden-xs banner-text'),(null as any));
+    this._el_8 = import3.createRenderElement(this.renderer,this._el_4,'div',new import3.InlineArray2(2,'class','banner-text'),(null as any));
     this._text_9 = this.renderer.createText(this._el_8,'\n                ',(null as any));
     this._el_10 = import3.createRenderElement(this.renderer,this._el_8,'div',import3.EMPTY_INLINE_ARRAY,(null as any));
     this._text_11 = this.renderer.createText(this._el_10,'Pregunta y comparte tu ',(null as any));
