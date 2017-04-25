@@ -121,9 +121,6 @@ suggestion-container a {
 
 .form-group:hover {
     cursor: pointer;
-    background-color: #c7c7c7 !important;
-    border-top: 1px solid #9e9393;
-    border-bottom: 1px solid #9e9393;
 }
 
 .dropdown-menu-right {
