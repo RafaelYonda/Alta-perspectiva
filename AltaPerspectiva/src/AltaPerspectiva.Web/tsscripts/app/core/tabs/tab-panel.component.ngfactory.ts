@@ -649,7 +649,7 @@ class View_TabPanelComponent6 extends import1.AppView<any> {
     super(View_TabPanelComponent6,renderType_TabPanelComponent,import8.ViewType.EMBEDDED,viewUtils,parentView,parentIndex,parentElement,import9.ChangeDetectorStatus.CheckAlways,declaredViewContainer);
   }
   createInternal(rootSelector:string):import10.ComponentRef<any> {
-    this._el_0 = import3.createRenderElement(this.renderer,(null as any),'div',new import3.InlineArray2(2,'class','tab'),(null as any));
+    this._el_0 = import3.createRenderElement(this.renderer,(null as any),'div',import3.EMPTY_INLINE_ARRAY,(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'\n            ',(null as any));
     this._el_2 = import3.createRenderElement(this.renderer,this._el_0,'question-panel',import3.EMPTY_INLINE_ARRAY,(null as any));
     this.compView_2 = new import37.View_QuestionPanelComponent0(this.viewUtils,this,2,this._el_2);

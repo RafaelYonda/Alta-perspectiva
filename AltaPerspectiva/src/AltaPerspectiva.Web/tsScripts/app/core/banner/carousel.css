@@ -7,19 +7,55 @@
     margin-left: 3px;
 }
 
+.banner-text {
+    position: relative;
+    top: -175px;
+    margin: auto;
+    font-size: 30px;
+    font-family: myriadpro-regular;
+    color: white;
+    text-align: center;
+    line-height: 35px;
+}
+
+    .banner-text em {
+        font-style: normal;
+        color: #f6912b;
+        font-weight: bold;
+    }
+
+.btn-banner {
+    font-size: 17px;
+    color: #F6912B;
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+    border-radius: 5px;
+    border: 1px solid #f5f5f5;
+    font-style: italic;
+    padding: 5px;
+}
+
+.banner-arrow-container {
+    position: relative;
+}
+
+.banner-arrow {
+    position: absolute;
+    top: 14px;
+    margin-left: 10px;
+    height: 56px;
+}
+
 
 .slides {
-    height: 420px;
     list-style: none;
     position: relative;
     width: 100%;
-    padding-left: 10%;
-    /*width: 400%; /* Number of panes * 100% */
-    overflow: hidden; /* Clear floats */
-    /* Slide effect Animations*/
+    overflow: hidden;
     -moz-animation: carousel 10s infinite;
     -webkit-animation: carousel 10s infinite;
     animation: carousel 10s infinite;
+    max-height: 327px;
 }
 
     .slides h3 {
@@ -50,17 +86,19 @@ ul {
 .slide-item {
     position: relative;
     float: left;
-    width: 30%; /* 100 / number of panes */
+    width: 100%; /* 100 / number of panes */
     transition: 1s;
     left: 0;
+    margin-top: 64px;
 }
 
-.carousel img {
+.carousel .background-img {
     display: block;
     width: 100%;
     max-width: 100%;
-    padding-top: 65px;
-    height: 290px;
+}
+
+.banner-txt-img {
 }
 
 .carousel h2 {
@@ -74,11 +112,29 @@ ul {
 .carousel-indicators li {
     border: 1px solid #d0cece;
 }
-@media only screen and (max-width:767px){
+
+@media only screen and (max-width:767px) {
+    .banner-text {
+        top: 160px;
+        font-size: 12px;
+        line-height: 22px;
+    }
+
+    .btn-banner {
+        font-size: 10px;
+        padding: 3px;
+    }
+
     .carousel img {
         height: 172px;
     }
-    .slides{
-        height:178px;
+
+    .slides {
+        height: 178px;
+    }
+
+    .banner-arrow {
+        margin-left: 5px;
+        height: 25px;
     }
 }

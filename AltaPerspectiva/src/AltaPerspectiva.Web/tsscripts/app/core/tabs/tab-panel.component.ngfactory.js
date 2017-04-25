@@ -605,7 +605,7 @@ var View_TabPanelComponent6 = (function (_super) {
         return _super.call(this, View_TabPanelComponent6, renderType_TabPanelComponent, import8.ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import9.ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
     }
     View_TabPanelComponent6.prototype.createInternal = function (rootSelector) {
-        this._el_0 = import3.createRenderElement(this.renderer, null, 'div', new import3.InlineArray2(2, 'class', 'tab'), null);
+        this._el_0 = import3.createRenderElement(this.renderer, null, 'div', import3.EMPTY_INLINE_ARRAY, null);
         this._text_1 = this.renderer.createText(this._el_0, '\n            ', null);
         this._el_2 = import3.createRenderElement(this.renderer, this._el_0, 'question-panel', import3.EMPTY_INLINE_ARRAY, null);
         this.compView_2 = new import37.View_QuestionPanelComponent0(this.viewUtils, this, 2, this._el_2);

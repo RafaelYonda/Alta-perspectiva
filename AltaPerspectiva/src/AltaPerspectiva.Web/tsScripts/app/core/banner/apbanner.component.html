@@ -1,25 +1,14 @@
 ﻿<div class="carousel">
-    <!--<ol class="carousel-indicators" >
-        <li data-target="#carousel-example-generic" *ngFor="let image of images;let i = index"  class="indicator" [ngClass]="{'active': i==movePosition }" (click)="slideImage(i)"></li>
-    </ol>-->
     <ul class="slides">
         <li class="slide-item" >
-            <img src="{{images[0].url}}" alt="">
-            <h2 class="hidden-xs">{{images[0].title}}</h2>
-            <h3 class="hidden-xs" [innerHTML]="images[0].desccription"></h3>
-        </li>
-        <li class="slide-item" >
-            <img src="{{images[1].url}}" alt="">
-            <h2 class="hidden-xs">{{images[1].title}}</h2>
-            <h3 class="hidden-xs" [innerHTML]="images[1].desccription"></h3>
-        </li>
-        <li class="slide-item" >
-            <img src="{{images[2].url}}" alt="">
-            <div style="padding-left:55px;">
-                <h2 class="hidden-xs">{{images[2].title}}</h2>
-                <h3 class="hidden-xs" [innerHTML]="images[2].desccription"></h3>
+            <img class="background-img" src="{{images[0].url}}" alt="background">
+            <div class="banner-text">
+                <div>Pregunta y comparte tu <em>conocimiento</em> </div>
+                <div class="banner-arrow-container">sobre negocios
+                    <img class="banner-arrow" src="../images/curved-arrow.png" alt="arrow" />
+                </div>
+                <a href="http://altaperspectiva.com/conocemas" class="btn-banner">Conoce más</a>
             </div>
-            
         </li>
     </ul>
 </div>
