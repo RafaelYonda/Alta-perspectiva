@@ -442,7 +442,7 @@ var View_DraftAnswerComponent3 = (function (_super) {
         this._el_0 = import3.createRenderElement(this.renderer, null, 'div', new import3.InlineArray2(2, 'class', 'img-container'), null);
         this._text_1 = this.renderer.createText(this._el_0, '\n                    ', null);
         this._el_2 = import3.createRenderElement(this.renderer, this._el_0, 'img', new import3.InlineArray4(4, 'class', 'user-image ', 'src', '../../../../profile/Anonymous.png'), null);
-        this._text_3 = this.renderer.createText(this._el_0, '\n                ', null);
+        this._text_3 = this.renderer.createText(this._el_0, '\n\n                ', null);
         this.init(this._el_0, (this.renderer.directRenderer ? null : [
             this._el_0,
             this._text_1,

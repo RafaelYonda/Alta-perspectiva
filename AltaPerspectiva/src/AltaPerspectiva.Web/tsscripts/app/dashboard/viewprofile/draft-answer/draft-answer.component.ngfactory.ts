@@ -456,7 +456,7 @@ class View_DraftAnswerComponent3 extends import1.AppView<any> {
     this._el_0 = import3.createRenderElement(this.renderer,(null as any),'div',new import3.InlineArray2(2,'class','img-container'),(null as any));
     this._text_1 = this.renderer.createText(this._el_0,'\n                    ',(null as any));
     this._el_2 = import3.createRenderElement(this.renderer,this._el_0,'img',new import3.InlineArray4(4,'class','user-image ','src','../../../../profile/Anonymous.png'),(null as any));
-    this._text_3 = this.renderer.createText(this._el_0,'\n                ',(null as any));
+    this._text_3 = this.renderer.createText(this._el_0,'\n\n                ',(null as any));
     this.init(this._el_0,((<any>this.renderer).directRenderer? (null as any): [
       this._el_0,
       this._text_1,

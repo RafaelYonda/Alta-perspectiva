@@ -8,14 +8,16 @@
 }
 
 .banner-text {
-    position: relative;
-    top: -200px;
+    position: absolute;
+    top: 25px;
     margin: auto;
     font-size: 30px;
     font-family: myriadpro-regular;
     color: white;
     text-align: center;
     line-height: 35px;
+    left: 0;
+    right: 0;
 }
 
     .banner-text em {
@@ -112,10 +114,21 @@ ul {
 .carousel-indicators li {
     border: 1px solid #d0cece;
 }
-
-@media only screen and (max-width:767px) {
+@media only screen and (max-width:1024px) {
+        .slide-item {
+        height:200px;
+    }
     .banner-text {
-        top: -235px;
+        line-height:25px;
+    }
+
+}
+@media only screen and (max-width:767px) {
+    .slide-item {
+        height:200px;
+    }
+    .banner-text {
+        line-height:11px;
         font-size: 12px;
         line-height: 22px;
     }
