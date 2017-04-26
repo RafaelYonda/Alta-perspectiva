@@ -4,27 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Altaperspectiva.OpenId</title>
-    <link href="~/css/alta-font/css/alta-fonts.css" rel="stylesheet" />
+    <link href="~/css/alta-font/alta-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-touch-carousel/dist/css/bootstrap-touch-carousel.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-
-    @*<environment names="Development">
-               <style>
-            .form-horizontal {
-            border-radius: 10px;
-            /*height: 355px;*/
-        }
-            </environment>
-            <environment names="Staging,Production">
-                <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.0.0/css/bootstrap.min.css"
-                      asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-                      asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
-                <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap-touch-carousel/0.8.0/css/bootstrap-touch-carousel.css"
-                      asp-fallback-href="~/lib/bootstrap-touch-carousel/css/bootstrap-touch-carousel.css"
-                      asp-fallback-test-class="carousel-caption" asp-fallback-test-property="display" asp-fallback-test-value="none" />
-                <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-            </environment>*@
+    
     <style>
         .nav-shadow {
             background-color: white;
@@ -81,9 +65,11 @@
 
         .logo {
             float: left;
-            width: 61px;
+            width: 55px;
             height: auto;
             background: url('../../images/logo cuadrado.png');
+            margin-left:10px;
+            height:55px;
         }
         /*=============Log in  CSS*/
         h2 {
@@ -132,7 +118,12 @@
         }
 
         .navbar-brand {
-            color: #0c0c0c;
+            color: black !important;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-family: typogroteskrounded;
+            font-size: 14px;
+            height: 40px;
         }
 
         .jumbotron {
@@ -147,21 +138,14 @@
 
 <body class="body-minHeight">
     <div class="navbar navbar-fixed-top nav-shadow">
-        <div class="navbar-header">
-            <a href="http://altap.azurewebsites.net"><img class="logo" src="../images/LOGO CUADRADO.png" /></a>
-            <a href="http://altap.azurewebsites.net" class="navbar-brand">
-                Alta Perspectiva
-            </a>
-        </div>
+        <a href="http://altap.azurewebsites.net"><img class="logo" src="../images/LOGO CUADRADO.png" /></a>
+        <a href="http://altap.azurewebsites.net" class="navbar-brand">
+            Alta Perspectiva
+        </a>
     </div>
     <div class="container body-content">
         @RenderBody()
 
-    </div>
-    <div class="footer">
-        <div class="footer-container">
-
-        </div>
     </div>
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
