@@ -19,7 +19,6 @@ export class UserAnswerComponent {
         this.sub = this._route.parent.params.subscribe(params => {
             this.questionService.getAnswerbyUserId(params['userId']).subscribe(res => {
                 this.questions = res;
-               
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             });
         });

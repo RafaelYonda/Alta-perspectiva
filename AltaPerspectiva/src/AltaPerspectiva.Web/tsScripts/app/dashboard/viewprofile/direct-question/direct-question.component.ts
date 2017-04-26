@@ -43,7 +43,6 @@ export class DirectQuestionComponent {
             return;
         }
         this.question.categoryIds.push(this.categories[0].id);
-       // console.log(this.questionAskedToUser);
         this.question.title = this.title;
         this.question.body = this.body;
         this.question.questionAskedToUser = this.questionAskedToUser;

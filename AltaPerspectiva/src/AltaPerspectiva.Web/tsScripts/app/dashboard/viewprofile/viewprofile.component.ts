@@ -10,9 +10,9 @@ import {LogInObj} from '../../services/models';
 
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { CategoryWiseAnswer } from '../../services/models/models.profile';
-//Modals
+//=========Modals=========
 import { AddEducationComponent } from './edit-profile/add-education.component';
-import { AddEmploymentComponent } from './edit-profile/add-employment.component';//done
+import { AddEmploymentComponent } from './edit-profile/add-employment.component';
 
 import { AddOtherExperienceComponent } from './edit-profile/add-otherexperience.component';
 import { AddPlaceComponent } from './edit-profile/add-place.component';
@@ -85,7 +85,7 @@ export class ViewProfileComponent {
                 this.categoryWiseAnswers = categoryWiseAnswer;
               
             });
-            //================ProfileViewCount
+            //================ProfileViewCount===
             this.profileService.addProfileViewCount(params['userId']).subscribe(res => {
                 console.log(res);
             })

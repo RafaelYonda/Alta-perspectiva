@@ -16,11 +16,9 @@ export class UserQuestionComponent {
     ngOnInit() {
         window.scrollTo(0, 0);
         this.sub = this._route.parent.params.subscribe(params => {
-            //console.log(params);
             this.questionService.getQuestionsbyUserId(params['userId']).subscribe(res => {
                 this.questions = res;
                 for (var q = 0; q < this.questions.length; q++) {
-                    // answers[0] is the best answer
                     this.questions[q].bestAnswer = this.questions[q].answers[0];
                     if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
                         this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
@@ -30,7 +28,6 @@ export class UserQuestionComponent {
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             });
         });
-        
     }
     ngOnDestroy() {
         this.sub.unsubscribe();

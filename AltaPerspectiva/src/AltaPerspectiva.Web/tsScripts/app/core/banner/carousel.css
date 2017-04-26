@@ -9,7 +9,7 @@
 
 .banner-text {
     position: relative;
-    top: -175px;
+    top: -200px;
     margin: auto;
     font-size: 30px;
     font-family: myriadpro-regular;
@@ -55,7 +55,7 @@
     -moz-animation: carousel 10s infinite;
     -webkit-animation: carousel 10s infinite;
     animation: carousel 10s infinite;
-    max-height: 327px;
+    max-height: 285px;
 }
 
     .slides h3 {
@@ -115,18 +115,19 @@ ul {
 
 @media only screen and (max-width:767px) {
     .banner-text {
-        top: 160px;
+        top: -235px;
         font-size: 12px;
         line-height: 22px;
+    }
+
+    .carousel .background-img {
+        width: auto;
+        max-width: none;
     }
 
     .btn-banner {
         font-size: 10px;
         padding: 3px;
-    }
-
-    .carousel img {
-        height: 172px;
     }
 
     .slides {

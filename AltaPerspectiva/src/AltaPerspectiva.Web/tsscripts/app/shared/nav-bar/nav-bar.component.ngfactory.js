@@ -122,10 +122,7 @@ var View_NavBarComponent_Host0 = (function (_super) {
     return View_NavBarComponent_Host0;
 }(import2.AppView));
 export var NavBarComponentNgFactory = new import9.ComponentFactory('nav-bar', View_NavBarComponent_Host0, import0.NavBarComponent);
-var styles_NavBarComponent = [
-    '\n    .background-img {\n        background-image: url(../images/Backcground_1.png);\n        width: 100%;\n        position: fixed;\n        max-height: 63px;\n        overflow: hidden;\n        top: 0;\n    }\n\n\n    /*.form-horizontal {\n        margin-left: 17px;\n    }*/\n',
-    import13.styles
-];
+var styles_NavBarComponent = [import13.styles];
 var renderType_NavBarComponent = import3.createRenderComponentType('', 0, import5.ViewEncapsulation.None, styles_NavBarComponent, {});
 var View_NavBarComponent0 = (function (_super) {
     __extends(View_NavBarComponent0, _super);
@@ -134,130 +131,118 @@ var View_NavBarComponent0 = (function (_super) {
     }
     View_NavBarComponent0.prototype.createInternal = function (rootSelector) {
         var parentRenderNode = this.renderer.createViewRoot(this.parentElement);
-        this._text_0 = this.renderer.createText(parentRenderNode, '\n', null);
-        this._text_1 = this.renderer.createText(parentRenderNode, '\n', null);
-        this._el_2 = import3.createRenderElement(this.renderer, parentRenderNode, 'div', new import3.InlineArray2(2, 'class', 'background-img z-header'), null);
-        this._text_3 = this.renderer.createText(this._el_2, '\n    ', null);
-        this._text_4 = this.renderer.createText(this._el_2, '\n', null);
-        this._text_5 = this.renderer.createText(parentRenderNode, '\n', null);
-        this._el_6 = import3.createRenderElement(this.renderer, parentRenderNode, 'div', new import3.InlineArray2(2, 'class', 'navbar navbar-inverse navbar-fixed-top z-header nav-shadow'), null);
-        this._NgClass_6_3 = new import14.Wrapper_NgClass(this.parentView.injectorGet(import22.IterableDiffers, this.parentIndex), this.parentView.injectorGet(import23.KeyValueDiffers, this.parentIndex), new import24.ElementRef(this._el_6), this.renderer);
-        this._text_7 = this.renderer.createText(this._el_6, '\n    ', null);
-        this._el_8 = import3.createRenderElement(this.renderer, this._el_6, 'ap-search', new import3.InlineArray2(2, 'placeBottom', 'top-fixed'), null);
-        this.compView_8 = new import18.View_ApSearchComponent0(this.viewUtils, this, 8, this._el_8);
-        this._CategoryService_8_3 = new import16.CategoryService(this.parentView.injectorGet(import10.Http, this.parentIndex));
-        this._QuestionAnswerService_8_4 = new import17.QuestionAnswerService(this.parentView.injectorGet(import10.Http, this.parentIndex));
-        this._ApSearchComponent_8_5 = new import18.Wrapper_ApSearchComponent(this.parentView.injectorGet(import11.ComponentFactoryResolver, this.parentIndex), this.parentView.injectorGet(import12.Router, this.parentIndex), this._CategoryService_8_3, this._QuestionAnswerService_8_4, this.parentView.injectorGet(import25.CommunicationService, this.parentIndex), new import24.ElementRef(this._el_8), this.parentView.injectorGet(import26.WindowRefService, this.parentIndex));
-        this.compView_8.create(this._ApSearchComponent_8_5.context);
-        this._text_9 = this.renderer.createText(this._el_6, '\n    ', null);
-        this._el_10 = import3.createRenderElement(this.renderer, this._el_6, 'div', new import3.InlineArray2(2, 'class', 'navbar-header'), null);
-        this._text_11 = this.renderer.createText(this._el_10, '\n        ', null);
-        this._el_12 = import3.createRenderElement(this.renderer, this._el_10, 'div', new import3.InlineArray8(8, 'asp-action', 'Index', 'asp-area', '', 'asp-controller', 'Home', 'class', 'navbar-brand logo'), null);
-        this._text_13 = this.renderer.createText(this._el_12, '\n            ', null);
-        this._el_14 = import3.createRenderElement(this.renderer, this._el_12, 'a', new import3.InlineArray2(2, 'routerLink', '/'), null);
-        this._RouterLinkWithHref_14_3 = new import19.Wrapper_RouterLinkWithHref(this.parentView.injectorGet(import12.Router, this.parentIndex), this.parentView.injectorGet(import27.ActivatedRoute, this.parentIndex), this.parentView.injectorGet(import28.LocationStrategy, this.parentIndex));
-        this._el_15 = import3.createRenderElement(this.renderer, this._el_14, 'img', new import3.InlineArray4(4, 'class', 'navbar-brand logo', 'src', '../images/LOGO CUADRADO.png'), null);
-        this._text_16 = this.renderer.createText(this._el_12, '\n        ', null);
-        this._text_17 = this.renderer.createText(this._el_10, '\n    ', null);
-        this._text_18 = this.renderer.createText(this._el_6, '\n    ', null);
-        this._el_19 = import3.createRenderElement(this.renderer, this._el_6, 'div', new import3.InlineArray2(2, 'class', 'navbar-collapse collapse'), null);
-        this._text_20 = this.renderer.createText(this._el_19, '\n        ', null);
-        this._el_21 = import3.createRenderElement(this.renderer, this._el_19, 'ul', new import3.InlineArray2(2, 'class', 'nav navbar-nav'), null);
-        this._text_22 = this.renderer.createText(this._el_21, '\n            ', null);
-        this._el_23 = import3.createRenderElement(this.renderer, this._el_21, 'li', new import3.InlineArray2(2, 'class', 'nav-home'), null);
-        this._el_24 = import3.createRenderElement(this.renderer, this._el_23, 'a', new import3.InlineArray2(2, 'routerLink', '/'), null);
-        this._RouterLinkWithHref_24_3 = new import19.Wrapper_RouterLinkWithHref(this.parentView.injectorGet(import12.Router, this.parentIndex), this.parentView.injectorGet(import27.ActivatedRoute, this.parentIndex), this.parentView.injectorGet(import28.LocationStrategy, this.parentIndex));
-        this._text_25 = this.renderer.createText(this._el_24, 'Alta Perspectiva', null);
-        this._text_26 = this.renderer.createText(this._el_21, '\n            ', null);
-        this._el_27 = import3.createRenderElement(this.renderer, this._el_21, 'li', import3.EMPTY_INLINE_ARRAY, null);
-        this._el_28 = import3.createRenderElement(this.renderer, this._el_27, 'a', new import3.InlineArray2(2, 'routerLink', '/question/home/1'), null);
-        this._RouterLinkWithHref_28_3 = new import19.Wrapper_RouterLinkWithHref(this.parentView.injectorGet(import12.Router, this.parentIndex), this.parentView.injectorGet(import27.ActivatedRoute, this.parentIndex), this.parentView.injectorGet(import28.LocationStrategy, this.parentIndex));
-        this._text_29 = this.renderer.createText(this._el_28, 'Responder', null);
-        this._text_30 = this.renderer.createText(this._el_21, '\n        ', null);
-        this._text_31 = this.renderer.createText(this._el_19, '\n        ', null);
-        this._anchor_32 = this.renderer.createTemplateAnchor(this._el_19, null);
-        this._vc_32 = new import20.ViewContainer(32, 19, this, this._anchor_32);
-        this._TemplateRef_32_5 = new import29.TemplateRef_(this, 32, this._anchor_32);
-        this._NgIf_32_6 = new import21.Wrapper_NgIf(this._vc_32.vcRef, this._TemplateRef_32_5);
-        this._text_33 = this.renderer.createText(this._el_19, '\n        ', null);
-        this._anchor_34 = this.renderer.createTemplateAnchor(this._el_19, null);
-        this._vc_34 = new import20.ViewContainer(34, 19, this, this._anchor_34);
-        this._TemplateRef_34_5 = new import29.TemplateRef_(this, 34, this._anchor_34);
-        this._NgIf_34_6 = new import21.Wrapper_NgIf(this._vc_34.vcRef, this._TemplateRef_34_5);
-        this._text_35 = this.renderer.createText(this._el_19, '\n    ', null);
-        this._text_36 = this.renderer.createText(this._el_6, '\n    ', null);
-        this._el_37 = import3.createRenderElement(this.renderer, this._el_6, 'button', new import3.InlineArray16(12, 'aria-controls', 'navbar', 'aria-expanded', 'false', 'class', 'navbar-toggle collapsed', 'data-target', '#navbar', 'data-toggle', 'collapse', 'type', 'button'), null);
-        this._text_38 = this.renderer.createText(this._el_37, '\n        ', null);
-        this._el_39 = import3.createRenderElement(this.renderer, this._el_37, 'span', new import3.InlineArray2(2, 'class', 'sr-only'), null);
-        this._text_40 = this.renderer.createText(this._el_39, 'Toggle navigation', null);
-        this._text_41 = this.renderer.createText(this._el_37, '\n        ', null);
-        this._el_42 = import3.createRenderElement(this.renderer, this._el_37, 'span', new import3.InlineArray2(2, 'class', 'icon-bar'), null);
-        this._text_43 = this.renderer.createText(this._el_37, '\n        ', null);
-        this._el_44 = import3.createRenderElement(this.renderer, this._el_37, 'span', new import3.InlineArray2(2, 'class', 'icon-bar'), null);
-        this._text_45 = this.renderer.createText(this._el_37, '\n        ', null);
-        this._el_46 = import3.createRenderElement(this.renderer, this._el_37, 'span', new import3.InlineArray2(2, 'class', 'icon-bar'), null);
-        this._text_47 = this.renderer.createText(this._el_37, '\n    ', null);
-        this._text_48 = this.renderer.createText(this._el_6, '\n', null);
-        this._text_49 = this.renderer.createText(parentRenderNode, '\n', null);
-        this._text_50 = this.renderer.createText(parentRenderNode, '\n', null);
-        this._el_51 = import3.createRenderElement(this.renderer, parentRenderNode, 'div', new import3.InlineArray2(2, 'style', 'margin-top:100px;'), null);
-        var disposable_0 = import3.subscribeToRenderElement(this, this._el_14, new import3.InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_14));
-        var disposable_1 = import3.subscribeToRenderElement(this, this._el_24, new import3.InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_24));
-        var disposable_2 = import3.subscribeToRenderElement(this, this._el_28, new import3.InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_28));
-        var disposable_3 = import3.subscribeToRenderElement(this, this._el_37, new import3.InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_37));
+        this._el_0 = import3.createRenderElement(this.renderer, parentRenderNode, 'div', new import3.InlineArray2(2, 'class', 'navbar navbar-inverse navbar-fixed-top z-header nav-shadow'), null);
+        this._NgClass_0_3 = new import14.Wrapper_NgClass(this.parentView.injectorGet(import22.IterableDiffers, this.parentIndex), this.parentView.injectorGet(import23.KeyValueDiffers, this.parentIndex), new import24.ElementRef(this._el_0), this.renderer);
+        this._text_1 = this.renderer.createText(this._el_0, '\n    ', null);
+        this._el_2 = import3.createRenderElement(this.renderer, this._el_0, 'ap-search', new import3.InlineArray2(2, 'placeBottom', 'top-fixed'), null);
+        this.compView_2 = new import18.View_ApSearchComponent0(this.viewUtils, this, 2, this._el_2);
+        this._CategoryService_2_3 = new import16.CategoryService(this.parentView.injectorGet(import10.Http, this.parentIndex));
+        this._QuestionAnswerService_2_4 = new import17.QuestionAnswerService(this.parentView.injectorGet(import10.Http, this.parentIndex));
+        this._ApSearchComponent_2_5 = new import18.Wrapper_ApSearchComponent(this.parentView.injectorGet(import11.ComponentFactoryResolver, this.parentIndex), this.parentView.injectorGet(import12.Router, this.parentIndex), this._CategoryService_2_3, this._QuestionAnswerService_2_4, this.parentView.injectorGet(import25.CommunicationService, this.parentIndex), new import24.ElementRef(this._el_2), this.parentView.injectorGet(import26.WindowRefService, this.parentIndex));
+        this.compView_2.create(this._ApSearchComponent_2_5.context);
+        this._text_3 = this.renderer.createText(this._el_0, '\n    ', null);
+        this._el_4 = import3.createRenderElement(this.renderer, this._el_0, 'div', new import3.InlineArray2(2, 'class', 'navbar-header'), null);
+        this._text_5 = this.renderer.createText(this._el_4, '\n        ', null);
+        this._el_6 = import3.createRenderElement(this.renderer, this._el_4, 'div', new import3.InlineArray8(8, 'asp-action', 'Index', 'asp-area', '', 'asp-controller', 'Home', 'class', 'navbar-brand logo'), null);
+        this._text_7 = this.renderer.createText(this._el_6, '\n            ', null);
+        this._el_8 = import3.createRenderElement(this.renderer, this._el_6, 'a', new import3.InlineArray2(2, 'routerLink', '/'), null);
+        this._RouterLinkWithHref_8_3 = new import19.Wrapper_RouterLinkWithHref(this.parentView.injectorGet(import12.Router, this.parentIndex), this.parentView.injectorGet(import27.ActivatedRoute, this.parentIndex), this.parentView.injectorGet(import28.LocationStrategy, this.parentIndex));
+        this._el_9 = import3.createRenderElement(this.renderer, this._el_8, 'img', new import3.InlineArray4(4, 'class', 'navbar-brand logo', 'src', '../images/LOGO CUADRADO.png'), null);
+        this._text_10 = this.renderer.createText(this._el_6, '\n        ', null);
+        this._text_11 = this.renderer.createText(this._el_4, '\n    ', null);
+        this._text_12 = this.renderer.createText(this._el_0, '\n    ', null);
+        this._el_13 = import3.createRenderElement(this.renderer, this._el_0, 'div', new import3.InlineArray2(2, 'class', 'navbar-collapse collapse'), null);
+        this._text_14 = this.renderer.createText(this._el_13, '\n        ', null);
+        this._el_15 = import3.createRenderElement(this.renderer, this._el_13, 'ul', new import3.InlineArray2(2, 'class', 'nav navbar-nav'), null);
+        this._text_16 = this.renderer.createText(this._el_15, '\n            ', null);
+        this._el_17 = import3.createRenderElement(this.renderer, this._el_15, 'li', new import3.InlineArray2(2, 'class', 'nav-home'), null);
+        this._el_18 = import3.createRenderElement(this.renderer, this._el_17, 'a', new import3.InlineArray2(2, 'routerLink', '/'), null);
+        this._RouterLinkWithHref_18_3 = new import19.Wrapper_RouterLinkWithHref(this.parentView.injectorGet(import12.Router, this.parentIndex), this.parentView.injectorGet(import27.ActivatedRoute, this.parentIndex), this.parentView.injectorGet(import28.LocationStrategy, this.parentIndex));
+        this._text_19 = this.renderer.createText(this._el_18, 'Alta Perspectiva', null);
+        this._text_20 = this.renderer.createText(this._el_15, '\n            ', null);
+        this._el_21 = import3.createRenderElement(this.renderer, this._el_15, 'li', import3.EMPTY_INLINE_ARRAY, null);
+        this._el_22 = import3.createRenderElement(this.renderer, this._el_21, 'a', new import3.InlineArray2(2, 'routerLink', '/question/home/1'), null);
+        this._RouterLinkWithHref_22_3 = new import19.Wrapper_RouterLinkWithHref(this.parentView.injectorGet(import12.Router, this.parentIndex), this.parentView.injectorGet(import27.ActivatedRoute, this.parentIndex), this.parentView.injectorGet(import28.LocationStrategy, this.parentIndex));
+        this._text_23 = this.renderer.createText(this._el_22, 'Responder', null);
+        this._text_24 = this.renderer.createText(this._el_15, '\n        ', null);
+        this._text_25 = this.renderer.createText(this._el_13, '\n        ', null);
+        this._anchor_26 = this.renderer.createTemplateAnchor(this._el_13, null);
+        this._vc_26 = new import20.ViewContainer(26, 13, this, this._anchor_26);
+        this._TemplateRef_26_5 = new import29.TemplateRef_(this, 26, this._anchor_26);
+        this._NgIf_26_6 = new import21.Wrapper_NgIf(this._vc_26.vcRef, this._TemplateRef_26_5);
+        this._text_27 = this.renderer.createText(this._el_13, '\n        ', null);
+        this._anchor_28 = this.renderer.createTemplateAnchor(this._el_13, null);
+        this._vc_28 = new import20.ViewContainer(28, 13, this, this._anchor_28);
+        this._TemplateRef_28_5 = new import29.TemplateRef_(this, 28, this._anchor_28);
+        this._NgIf_28_6 = new import21.Wrapper_NgIf(this._vc_28.vcRef, this._TemplateRef_28_5);
+        this._text_29 = this.renderer.createText(this._el_13, '\n    ', null);
+        this._text_30 = this.renderer.createText(this._el_0, '\n    ', null);
+        this._el_31 = import3.createRenderElement(this.renderer, this._el_0, 'button', new import3.InlineArray16(12, 'aria-controls', 'navbar', 'aria-expanded', 'false', 'class', 'navbar-toggle collapsed', 'data-target', '#navbar', 'data-toggle', 'collapse', 'type', 'button'), null);
+        this._text_32 = this.renderer.createText(this._el_31, '\n        ', null);
+        this._el_33 = import3.createRenderElement(this.renderer, this._el_31, 'span', new import3.InlineArray2(2, 'class', 'sr-only'), null);
+        this._text_34 = this.renderer.createText(this._el_33, 'Toggle navigation', null);
+        this._text_35 = this.renderer.createText(this._el_31, '\n        ', null);
+        this._el_36 = import3.createRenderElement(this.renderer, this._el_31, 'span', new import3.InlineArray2(2, 'class', 'icon-bar'), null);
+        this._text_37 = this.renderer.createText(this._el_31, '\n        ', null);
+        this._el_38 = import3.createRenderElement(this.renderer, this._el_31, 'span', new import3.InlineArray2(2, 'class', 'icon-bar'), null);
+        this._text_39 = this.renderer.createText(this._el_31, '\n        ', null);
+        this._el_40 = import3.createRenderElement(this.renderer, this._el_31, 'span', new import3.InlineArray2(2, 'class', 'icon-bar'), null);
+        this._text_41 = this.renderer.createText(this._el_31, '\n    ', null);
+        this._text_42 = this.renderer.createText(this._el_0, '\n', null);
+        this._text_43 = this.renderer.createText(parentRenderNode, '\n', null);
+        this._text_44 = this.renderer.createText(parentRenderNode, '\n', null);
+        this._el_45 = import3.createRenderElement(this.renderer, parentRenderNode, 'div', new import3.InlineArray2(2, 'style', 'margin-top:100px;'), null);
+        var disposable_0 = import3.subscribeToRenderElement(this, this._el_8, new import3.InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_8));
+        var disposable_1 = import3.subscribeToRenderElement(this, this._el_18, new import3.InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_18));
+        var disposable_2 = import3.subscribeToRenderElement(this, this._el_22, new import3.InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_22));
+        var disposable_3 = import3.subscribeToRenderElement(this, this._el_31, new import3.InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_31));
         this.init(null, (this.renderer.directRenderer ? null : [
-            this._text_0,
+            this._el_0,
             this._text_1,
             this._el_2,
             this._text_3,
-            this._text_4,
+            this._el_4,
             this._text_5,
             this._el_6,
             this._text_7,
             this._el_8,
-            this._text_9,
-            this._el_10,
+            this._el_9,
+            this._text_10,
             this._text_11,
-            this._el_12,
-            this._text_13,
-            this._el_14,
+            this._text_12,
+            this._el_13,
+            this._text_14,
             this._el_15,
             this._text_16,
-            this._text_17,
-            this._text_18,
-            this._el_19,
+            this._el_17,
+            this._el_18,
+            this._text_19,
             this._text_20,
             this._el_21,
-            this._text_22,
-            this._el_23,
-            this._el_24,
+            this._el_22,
+            this._text_23,
+            this._text_24,
             this._text_25,
-            this._text_26,
-            this._el_27,
-            this._el_28,
+            this._anchor_26,
+            this._text_27,
+            this._anchor_28,
             this._text_29,
             this._text_30,
-            this._text_31,
-            this._anchor_32,
-            this._text_33,
-            this._anchor_34,
+            this._el_31,
+            this._text_32,
+            this._el_33,
+            this._text_34,
             this._text_35,
-            this._text_36,
-            this._el_37,
-            this._text_38,
-            this._el_39,
-            this._text_40,
+            this._el_36,
+            this._text_37,
+            this._el_38,
+            this._text_39,
+            this._el_40,
             this._text_41,
-            this._el_42,
+            this._text_42,
             this._text_43,
-            this._el_44,
-            this._text_45,
-            this._el_46,
-            this._text_47,
-            this._text_48,
-            this._text_49,
-            this._text_50,
-            this._el_51
+            this._text_44,
+            this._el_45
         ]), [
             disposable_0,
             disposable_1,
@@ -267,109 +252,109 @@ var View_NavBarComponent0 = (function (_super) {
         return null;
     };
     View_NavBarComponent0.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
-        if (((token === import16.CategoryService) && (8 === requestNodeIndex))) {
-            return this._CategoryService_8_3;
+        if (((token === import16.CategoryService) && (2 === requestNodeIndex))) {
+            return this._CategoryService_2_3;
         }
-        if (((token === import17.QuestionAnswerService) && (8 === requestNodeIndex))) {
-            return this._QuestionAnswerService_8_4;
+        if (((token === import17.QuestionAnswerService) && (2 === requestNodeIndex))) {
+            return this._QuestionAnswerService_2_4;
         }
-        if (((token === import15.ApSearchComponent) && (8 === requestNodeIndex))) {
-            return this._ApSearchComponent_8_5.context;
+        if (((token === import15.ApSearchComponent) && (2 === requestNodeIndex))) {
+            return this._ApSearchComponent_2_5.context;
         }
-        if (((token === import30.RouterLinkWithHref) && ((14 <= requestNodeIndex) && (requestNodeIndex <= 15)))) {
-            return this._RouterLinkWithHref_14_3.context;
+        if (((token === import30.RouterLinkWithHref) && ((8 <= requestNodeIndex) && (requestNodeIndex <= 9)))) {
+            return this._RouterLinkWithHref_8_3.context;
         }
-        if (((token === import30.RouterLinkWithHref) && ((24 <= requestNodeIndex) && (requestNodeIndex <= 25)))) {
-            return this._RouterLinkWithHref_24_3.context;
+        if (((token === import30.RouterLinkWithHref) && ((18 <= requestNodeIndex) && (requestNodeIndex <= 19)))) {
+            return this._RouterLinkWithHref_18_3.context;
         }
-        if (((token === import30.RouterLinkWithHref) && ((28 <= requestNodeIndex) && (requestNodeIndex <= 29)))) {
-            return this._RouterLinkWithHref_28_3.context;
+        if (((token === import30.RouterLinkWithHref) && ((22 <= requestNodeIndex) && (requestNodeIndex <= 23)))) {
+            return this._RouterLinkWithHref_22_3.context;
         }
-        if (((token === import29.TemplateRef) && (32 === requestNodeIndex))) {
-            return this._TemplateRef_32_5;
+        if (((token === import29.TemplateRef) && (26 === requestNodeIndex))) {
+            return this._TemplateRef_26_5;
         }
-        if (((token === import31.NgIf) && (32 === requestNodeIndex))) {
-            return this._NgIf_32_6.context;
+        if (((token === import31.NgIf) && (26 === requestNodeIndex))) {
+            return this._NgIf_26_6.context;
         }
-        if (((token === import29.TemplateRef) && (34 === requestNodeIndex))) {
-            return this._TemplateRef_34_5;
+        if (((token === import29.TemplateRef) && (28 === requestNodeIndex))) {
+            return this._TemplateRef_28_5;
         }
-        if (((token === import31.NgIf) && (34 === requestNodeIndex))) {
-            return this._NgIf_34_6.context;
+        if (((token === import31.NgIf) && (28 === requestNodeIndex))) {
+            return this._NgIf_28_6.context;
         }
-        if (((token === import32.NgClass) && ((6 <= requestNodeIndex) && (requestNodeIndex <= 48)))) {
-            return this._NgClass_6_3.context;
+        if (((token === import32.NgClass) && ((0 <= requestNodeIndex) && (requestNodeIndex <= 42)))) {
+            return this._NgClass_0_3.context;
         }
         return notFoundResult;
     };
     View_NavBarComponent0.prototype.detectChangesInternal = function (throwOnChange) {
-        var currVal_6_0_0 = 'navbar navbar-inverse navbar-fixed-top z-header nav-shadow';
-        this._NgClass_6_3.check_klass(currVal_6_0_0, throwOnChange, false);
-        var currVal_6_0_1 = this.context.className;
-        this._NgClass_6_3.check_ngClass(currVal_6_0_1, throwOnChange, false);
-        this._NgClass_6_3.ngDoCheck(this, this._el_6, throwOnChange);
-        var currVal_8_0_0 = 'top-fixed';
-        this._ApSearchComponent_8_5.check_placeBottom(currVal_8_0_0, throwOnChange, false);
-        this._ApSearchComponent_8_5.ngDoCheck(this, this._el_8, throwOnChange);
-        var currVal_14_0_0 = '/';
-        this._RouterLinkWithHref_14_3.check_routerLink(currVal_14_0_0, throwOnChange, false);
-        this._RouterLinkWithHref_14_3.ngDoCheck(this, this._el_14, throwOnChange);
-        var currVal_24_0_0 = '/';
-        this._RouterLinkWithHref_24_3.check_routerLink(currVal_24_0_0, throwOnChange, false);
-        this._RouterLinkWithHref_24_3.ngDoCheck(this, this._el_24, throwOnChange);
-        var currVal_28_0_0 = '/question/home/1';
-        this._RouterLinkWithHref_28_3.check_routerLink(currVal_28_0_0, throwOnChange, false);
-        this._RouterLinkWithHref_28_3.ngDoCheck(this, this._el_28, throwOnChange);
-        var currVal_32_0_0 = !this.context._logObj.isLoggedIn;
-        this._NgIf_32_6.check_ngIf(currVal_32_0_0, throwOnChange, false);
-        this._NgIf_32_6.ngDoCheck(this, this._anchor_32, throwOnChange);
-        var currVal_34_0_0 = this.context._logObj.isLoggedIn;
-        this._NgIf_34_6.check_ngIf(currVal_34_0_0, throwOnChange, false);
-        this._NgIf_34_6.ngDoCheck(this, this._anchor_34, throwOnChange);
-        this._vc_32.detectChangesInNestedViews(throwOnChange);
-        this._vc_34.detectChangesInNestedViews(throwOnChange);
-        this._RouterLinkWithHref_14_3.checkHost(this, this, this._el_14, throwOnChange);
-        this._RouterLinkWithHref_24_3.checkHost(this, this, this._el_24, throwOnChange);
-        this._RouterLinkWithHref_28_3.checkHost(this, this, this._el_28, throwOnChange);
-        this.compView_8.internalDetectChanges(throwOnChange);
+        var currVal_0_0_0 = 'navbar navbar-inverse navbar-fixed-top z-header nav-shadow';
+        this._NgClass_0_3.check_klass(currVal_0_0_0, throwOnChange, false);
+        var currVal_0_0_1 = this.context.className;
+        this._NgClass_0_3.check_ngClass(currVal_0_0_1, throwOnChange, false);
+        this._NgClass_0_3.ngDoCheck(this, this._el_0, throwOnChange);
+        var currVal_2_0_0 = 'top-fixed';
+        this._ApSearchComponent_2_5.check_placeBottom(currVal_2_0_0, throwOnChange, false);
+        this._ApSearchComponent_2_5.ngDoCheck(this, this._el_2, throwOnChange);
+        var currVal_8_0_0 = '/';
+        this._RouterLinkWithHref_8_3.check_routerLink(currVal_8_0_0, throwOnChange, false);
+        this._RouterLinkWithHref_8_3.ngDoCheck(this, this._el_8, throwOnChange);
+        var currVal_18_0_0 = '/';
+        this._RouterLinkWithHref_18_3.check_routerLink(currVal_18_0_0, throwOnChange, false);
+        this._RouterLinkWithHref_18_3.ngDoCheck(this, this._el_18, throwOnChange);
+        var currVal_22_0_0 = '/question/home/1';
+        this._RouterLinkWithHref_22_3.check_routerLink(currVal_22_0_0, throwOnChange, false);
+        this._RouterLinkWithHref_22_3.ngDoCheck(this, this._el_22, throwOnChange);
+        var currVal_26_0_0 = !this.context._logObj.isLoggedIn;
+        this._NgIf_26_6.check_ngIf(currVal_26_0_0, throwOnChange, false);
+        this._NgIf_26_6.ngDoCheck(this, this._anchor_26, throwOnChange);
+        var currVal_28_0_0 = this.context._logObj.isLoggedIn;
+        this._NgIf_28_6.check_ngIf(currVal_28_0_0, throwOnChange, false);
+        this._NgIf_28_6.ngDoCheck(this, this._anchor_28, throwOnChange);
+        this._vc_26.detectChangesInNestedViews(throwOnChange);
+        this._vc_28.detectChangesInNestedViews(throwOnChange);
+        this._RouterLinkWithHref_8_3.checkHost(this, this, this._el_8, throwOnChange);
+        this._RouterLinkWithHref_18_3.checkHost(this, this, this._el_18, throwOnChange);
+        this._RouterLinkWithHref_22_3.checkHost(this, this, this._el_22, throwOnChange);
+        this.compView_2.internalDetectChanges(throwOnChange);
     };
     View_NavBarComponent0.prototype.destroyInternal = function () {
-        this._vc_32.destroyNestedViews();
-        this._vc_34.destroyNestedViews();
-        this.compView_8.destroy();
-        this._ApSearchComponent_8_5.ngOnDestroy();
-        this._RouterLinkWithHref_14_3.ngOnDestroy();
-        this._RouterLinkWithHref_24_3.ngOnDestroy();
-        this._RouterLinkWithHref_28_3.ngOnDestroy();
+        this._vc_26.destroyNestedViews();
+        this._vc_28.destroyNestedViews();
+        this.compView_2.destroy();
+        this._ApSearchComponent_2_5.ngOnDestroy();
+        this._RouterLinkWithHref_8_3.ngOnDestroy();
+        this._RouterLinkWithHref_18_3.ngOnDestroy();
+        this._RouterLinkWithHref_22_3.ngOnDestroy();
     };
     View_NavBarComponent0.prototype.createEmbeddedViewInternal = function (nodeIndex) {
-        if ((nodeIndex == 32)) {
-            return new View_NavBarComponent1(this.viewUtils, this, 32, this._anchor_32, this._vc_32);
+        if ((nodeIndex == 26)) {
+            return new View_NavBarComponent1(this.viewUtils, this, 26, this._anchor_26, this._vc_26);
         }
-        if ((nodeIndex == 34)) {
-            return new View_NavBarComponent2(this.viewUtils, this, 34, this._anchor_34, this._vc_34);
+        if ((nodeIndex == 28)) {
+            return new View_NavBarComponent2(this.viewUtils, this, 28, this._anchor_28, this._vc_28);
         }
         return null;
     };
-    View_NavBarComponent0.prototype.handleEvent_14 = function (eventName, $event) {
+    View_NavBarComponent0.prototype.handleEvent_8 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
-        result = (this._RouterLinkWithHref_14_3.handleEvent(eventName, $event) && result);
+        result = (this._RouterLinkWithHref_8_3.handleEvent(eventName, $event) && result);
         return result;
     };
-    View_NavBarComponent0.prototype.handleEvent_24 = function (eventName, $event) {
+    View_NavBarComponent0.prototype.handleEvent_18 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
-        result = (this._RouterLinkWithHref_24_3.handleEvent(eventName, $event) && result);
+        result = (this._RouterLinkWithHref_18_3.handleEvent(eventName, $event) && result);
         return result;
     };
-    View_NavBarComponent0.prototype.handleEvent_28 = function (eventName, $event) {
+    View_NavBarComponent0.prototype.handleEvent_22 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
-        result = (this._RouterLinkWithHref_28_3.handleEvent(eventName, $event) && result);
+        result = (this._RouterLinkWithHref_22_3.handleEvent(eventName, $event) && result);
         return result;
     };
-    View_NavBarComponent0.prototype.handleEvent_37 = function (eventName, $event) {
+    View_NavBarComponent0.prototype.handleEvent_31 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
         if ((eventName == 'click')) {

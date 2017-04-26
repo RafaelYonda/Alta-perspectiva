@@ -24,11 +24,9 @@ import { Router } from '@angular/router';
     providers: [ImageUploadService, ConfigService, AuthenticationService],
 })
 export class ProfileInfoComponent {
-    //@Input() userObj: User;    
     isUserHidden = true;
     showDescription = true;
     imageLink: string;
-    // profilePath: string = '../../../../profile/';
     hasCredential: boolean;
     hasDescription: boolean;
     credentialParent: CredentialViewModel;
@@ -71,8 +69,6 @@ export class ProfileInfoComponent {
             this.imageLink = this.credential.imageUrl;
         else this.imageLink = '../images/userAdd.png';
 
-        //this.getLoggedInUser(this.credential.userId);
-
         return data;
     }
 
@@ -90,18 +86,10 @@ export class ProfileInfoComponent {
     loadData() {
         this.profileService.GetUsercredentialByUserId(this.credential.userId).subscribe(usr => {
             this.credential = usr;
-            //this._configService.getConfig().subscribe(res => {      //Get config for image
-            //    this.imageLink = res.profileImage;                
-
             if (this.credential.imageUrl && (this.credential.imageUrl != '')) {
                 this.imageLink = this.credential.imageUrl;
-                //if (this.isImageUpdated == true) {
-                //    this.openpreviewImageDialogBox();
-
-                //}
             }
             else this.imageLink = '../images/userAdd.png';
-            //});
         });
 
     }
@@ -119,12 +107,10 @@ export class ProfileInfoComponent {
         });
     }
     updateDecription() {
-        //this.credential.description = description;
         this.profileService.saveDescription(this.credential).subscribe(res => {
             this.showDescription = true;
             this.loadData();
         });
-        //console.log(description);
     }
     @ViewChild('credentialDialogAnchor', { read: ViewContainerRef }) credentialDialogAnchor: ViewContainerRef;
     openCredentialDialogBox() {
@@ -142,8 +128,6 @@ export class ProfileInfoComponent {
         this.previewImageDialogAnchor.clear();
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(PreviewImageComponent);
         let dialogComponentRef = this.credentialDialogAnchor.createComponent(dialogComponentFactory);
-       // dialogComponentRef.instance.imageLink = img;
-       // dialogComponentRef.instance.croppedFile = this.croppedFile;
         dialogComponentRef.instance.userId = this.credential.userId;
         dialogComponentRef.instance.close.subscribe(() => {
             this.isImageUpdated = false;
