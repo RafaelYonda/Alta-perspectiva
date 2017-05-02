@@ -37,6 +37,10 @@
     font-weight: bold;
     padding: 8px;
 }
+.btn-banner:hover{
+    background-color:#e6e5e5;
+    border-color:#e6e5e5;
+}
 
 .banner-arrow-container {
     position: relative;
