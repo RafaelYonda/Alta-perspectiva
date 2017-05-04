@@ -64,7 +64,7 @@
             <div class="item-detail-container">
                 <img src="{{virtualStore.screenShotFileName}}" class="item-img-lg" />
                 <div class="item-info">
-                    <h1>{{virtualStore.price}}$</h1>
+                    <h1>{{virtualStore.price| currency:'USD':true}}</h1>
                     <h2>{{virtualStore.title}}</h2>
                     <p>{{virtualStore.description}}</p>
                     <button class="btn btn-item">Buy</button>

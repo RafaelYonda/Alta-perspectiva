@@ -24,7 +24,7 @@
             <img src="{{virtualStore.screenShotFileName}}" class="item-img" />
         </a>
         <div class="img-tag">
-            <h3>{{virtualStore.price}}$</h3>
+            <h3>{{virtualStore.price|currency:'USD':true}}</h3>
             <div>{{virtualStore.title}}</div>
         </div>
     </div>
