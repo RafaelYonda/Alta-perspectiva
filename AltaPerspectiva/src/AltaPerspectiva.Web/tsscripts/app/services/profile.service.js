@@ -93,8 +93,8 @@ var ProfileService = ProfileService_1 = (function () {
             .map(this.extractData)
             .catch(this.handleError);
     };
-    ProfileService.prototype.getVirtualStoreItems = function () {
-        return this._http.get('admin/virtualstore/getitems/')
+    ProfileService.prototype.getVirtualStoreItems = function (userId) {
+        return this._http.get('admin/virtualstore/getitems/' + userId)
             .map(this.extractData)
             .catch(this.handleError);
     };

@@ -13,26 +13,24 @@ export class VirtualStoreComponent {
     private sub: any;
     user: User[];
     virtualStores: VirtualStore[];
+    emptyMessage: string;
     screenShotPath: string;
     constructor(private _route: ActivatedRoute, private profileServ: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private _configService: ConfigService) {
     }
     ngOnInit() {
         window.scrollTo(0, 0);
-        this.profileServ.getVirtualStoreItems().subscribe(res => {
-            //this._configService.getConfig().subscribe(config => {
-            //    //Get config for image
-            //    this.screenShotPath = config.virtualStore;
-
-            //});
-            this.virtualStores = res;
-            console.log(res);
-        });
-        //this.sub = this._route.parent.params.subscribe(params => {
-        //    this.profileServ.GetFollowersByUserId(params['userId']).subscribe(usr => {     //Get User Image
-        //        this.user = usr;
-        //        console.log(this.user);
-        //    });
+        //this.profileServ.getVirtualStoreItems().subscribe(res => {
+        //    this.virtualStores = res;
+        //    console.log(res);
         //});
+
+        this.sub = this._route.parent.params.subscribe(params => {
+            this.profileServ.getVirtualStoreItems(params['userId']).subscribe(res => {     //Get User Image
+                this.emptyMessage = "¡Pronto podrás ofrecer tus productos y servicios de consultoría para emprendedores y microempresas!";
+                this.virtualStores = res;
+                console.log(res);
+            });
+        });
     }
 
     @ViewChild('itemDialog', { read: ViewContainerRef }) itemDialogAnchor: ViewContainerRef;

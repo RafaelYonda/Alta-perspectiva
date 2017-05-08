@@ -26,17 +26,19 @@ import * as import15 from '../../../../../node_modules/@angular/forms/src/direct
 import * as import16 from '../../../../../node_modules/@angular/forms/src/directives/ng_model.ngfactory';
 import * as import17 from '../../../../../node_modules/@angular/forms/src/directives/ng_control_status.ngfactory';
 import * as import18 from '../../../../../node_modules/@angular/common/src/directives/ng_for.ngfactory';
-import * as import19 from '@angular/core/src/change_detection/change_detection_util';
-import * as import20 from '@angular/core/src/linker/element_ref';
-import * as import21 from '@angular/core/src/linker/template_ref';
-import * as import22 from '@angular/core/src/change_detection/differs/iterable_differs';
-import * as import23 from '@angular/forms/src/directives/default_value_accessor';
-import * as import24 from '@angular/forms/src/directives/control_value_accessor';
-import * as import25 from '@angular/forms/src/directives/ng_model';
-import * as import26 from '@angular/forms/src/directives/ng_control';
-import * as import27 from '@angular/forms/src/directives/ng_control_status';
-import * as import28 from '@angular/common/src/directives/ng_for';
-import * as import29 from '@angular/core/src/security';
+import * as import19 from '@angular/common/src/pipes/number_pipe';
+import * as import20 from '@angular/core/src/change_detection/change_detection_util';
+import * as import21 from '@angular/core/src/linker/element_ref';
+import * as import22 from '@angular/core/src/linker/template_ref';
+import * as import23 from '@angular/core/src/change_detection/differs/iterable_differs';
+import * as import24 from '@angular/core/src/i18n/tokens';
+import * as import25 from '@angular/forms/src/directives/default_value_accessor';
+import * as import26 from '@angular/forms/src/directives/control_value_accessor';
+import * as import27 from '@angular/forms/src/directives/ng_model';
+import * as import28 from '@angular/forms/src/directives/ng_control';
+import * as import29 from '@angular/forms/src/directives/ng_control_status';
+import * as import30 from '@angular/common/src/directives/ng_for';
+import * as import31 from '@angular/core/src/security';
 var Wrapper_ItemDialogComponent = (function () {
     function Wrapper_ItemDialogComponent(p0, p1, p2, p3) {
         this._changed = false;
@@ -113,10 +115,10 @@ var View_ItemDialogComponent0 = (function (_super) {
     __extends(View_ItemDialogComponent0, _super);
     function View_ItemDialogComponent0(viewUtils, parentView, parentIndex, parentElement) {
         var _this = _super.call(this, View_ItemDialogComponent0, renderType_ItemDialogComponent, import6.ViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import7.ChangeDetectorStatus.CheckAlways) || this;
-        _this._expr_68 = import19.UNINITIALIZED;
-        _this._expr_69 = import19.UNINITIALIZED;
-        _this._expr_70 = import19.UNINITIALIZED;
-        _this._expr_71 = import19.UNINITIALIZED;
+        _this._expr_68 = import20.UNINITIALIZED;
+        _this._expr_69 = import20.UNINITIALIZED;
+        _this._expr_72 = import20.UNINITIALIZED;
+        _this._expr_73 = import20.UNINITIALIZED;
         return _this;
     }
     View_ItemDialogComponent0.prototype.createInternal = function (rootSelector) {
@@ -151,10 +153,10 @@ var View_ItemDialogComponent0 = (function (_super) {
         this._text_25 = this.renderer.createText(this._el_24, '', null);
         this._text_26 = this.renderer.createText(this._el_16, '\n                    ', null);
         this._el_27 = import3.createRenderElement(this.renderer, this._el_16, 'button', new import3.InlineArray2(2, 'class', 'btn btn-item'), null);
-        this._text_28 = this.renderer.createText(this._el_27, 'Buy', null);
+        this._text_28 = this.renderer.createText(this._el_27, 'Comprar', null);
         this._text_29 = this.renderer.createText(this._el_16, '\n                    ', null);
         this._el_30 = import3.createRenderElement(this.renderer, this._el_16, 'button', new import3.InlineArray2(2, 'class', 'btn btn-item'), null);
-        this._text_31 = this.renderer.createText(this._el_30, 'Download', null);
+        this._text_31 = this.renderer.createText(this._el_30, 'Descargar', null);
         this._text_32 = this.renderer.createText(this._el_16, '\n                ', null);
         this._text_33 = this.renderer.createText(this._el_12, '\n            ', null);
         this._text_34 = this.renderer.createText(this._el_10, '\n            ', null);
@@ -163,19 +165,19 @@ var View_ItemDialogComponent0 = (function (_super) {
         this._el_37 = import3.createRenderElement(this.renderer, this._el_10, 'div', new import3.InlineArray2(2, 'class', 'item-comment-container'), null);
         this._text_38 = this.renderer.createText(this._el_37, '\n                ', null);
         this._el_39 = import3.createRenderElement(this.renderer, this._el_37, 'h3', import3.EMPTY_INLINE_ARRAY, null);
-        this._text_40 = this.renderer.createText(this._el_39, 'Comment', null);
+        this._text_40 = this.renderer.createText(this._el_39, 'Comentar', null);
         this._text_41 = this.renderer.createText(this._el_37, '\n                ', null);
         this._el_42 = import3.createRenderElement(this.renderer, this._el_37, 'div', new import3.InlineArray2(2, 'class', 'comment-input-panel'), null);
         this._text_43 = this.renderer.createText(this._el_42, '\n                    ', null);
         this._el_44 = import3.createRenderElement(this.renderer, this._el_42, 'input', new import3.InlineArray2(2, 'class', 'form-control item-comment'), null);
-        this._DefaultValueAccessor_44_3 = new import15.Wrapper_DefaultValueAccessor(this.renderer, new import20.ElementRef(this._el_44));
+        this._DefaultValueAccessor_44_3 = new import15.Wrapper_DefaultValueAccessor(this.renderer, new import21.ElementRef(this._el_44));
         this._NG_VALUE_ACCESSOR_44_4 = [this._DefaultValueAccessor_44_3.context];
         this._NgModel_44_5 = new import16.Wrapper_NgModel(null, null, null, this._NG_VALUE_ACCESSOR_44_4);
         this._NgControl_44_6 = this._NgModel_44_5.context;
         this._NgControlStatus_44_7 = new import17.Wrapper_NgControlStatus(this._NgControl_44_6);
         this._text_45 = this.renderer.createText(this._el_42, '\n                    ', null);
         this._el_46 = import3.createRenderElement(this.renderer, this._el_42, 'button', new import3.InlineArray4(4, 'class', 'btn btn-item', 'type', 'button'), null);
-        this._text_47 = this.renderer.createText(this._el_46, 'Comment', null);
+        this._text_47 = this.renderer.createText(this._el_46, 'Comentar', null);
         this._text_48 = this.renderer.createText(this._el_42, '\n                ', null);
         this._text_49 = this.renderer.createText(this._el_37, '\n            ', null);
         this._text_50 = this.renderer.createText(this._el_10, '\n            ', null);
@@ -183,14 +185,16 @@ var View_ItemDialogComponent0 = (function (_super) {
         this._text_52 = this.renderer.createText(this._el_51, '\n                ', null);
         this._anchor_53 = this.renderer.createTemplateAnchor(this._el_51, null);
         this._vc_53 = new import14.ViewContainer(53, 51, this, this._anchor_53);
-        this._TemplateRef_53_5 = new import21.TemplateRef_(this, 53, this._anchor_53);
-        this._NgFor_53_6 = new import18.Wrapper_NgFor(this._vc_53.vcRef, this._TemplateRef_53_5, this.parentView.injectorGet(import22.IterableDiffers, this.parentIndex), this.ref);
+        this._TemplateRef_53_5 = new import22.TemplateRef_(this, 53, this._anchor_53);
+        this._NgFor_53_6 = new import18.Wrapper_NgFor(this._vc_53.vcRef, this._TemplateRef_53_5, this.parentView.injectorGet(import23.IterableDiffers, this.parentIndex), this.ref);
         this._text_54 = this.renderer.createText(this._el_51, '\n            ', null);
         this._text_55 = this.renderer.createText(this._el_10, '\n        ', null);
         this._text_56 = this.renderer.createText(this._el_3, '\n    ', null);
         this._text_57 = this.renderer.createText(this._el_1, '\n', null);
         var disposable_0 = import3.subscribeToRenderElement(this, this._el_1, new import3.InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_1));
         var disposable_1 = import3.subscribeToRenderElement(this, this._el_5, new import3.InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_5));
+        this._pipe_currency_0 = new import19.CurrencyPipe(this.parentView.injectorGet(import24.LOCALE_ID, this.parentIndex));
+        this._pipe_currency_0_0 = import3.pureProxy4(this._pipe_currency_0.transform.bind(this._pipe_currency_0));
         var disposable_2 = import3.subscribeToRenderElement(this, this._el_44, new import3.InlineArray8(6, 'ngModelChange', null, 'input', null, 'blur', null), this.eventHandler(this.handleEvent_44));
         this._NgModel_44_5.subscribe(this, this.eventHandler(this.handleEvent_44), true);
         var disposable_3 = import3.subscribeToRenderElement(this, this._el_46, new import3.InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_46));
@@ -264,30 +268,31 @@ var View_ItemDialogComponent0 = (function (_super) {
         return null;
     };
     View_ItemDialogComponent0.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
-        if (((token === import23.DefaultValueAccessor) && (44 === requestNodeIndex))) {
+        if (((token === import25.DefaultValueAccessor) && (44 === requestNodeIndex))) {
             return this._DefaultValueAccessor_44_3.context;
         }
-        if (((token === import24.NG_VALUE_ACCESSOR) && (44 === requestNodeIndex))) {
+        if (((token === import26.NG_VALUE_ACCESSOR) && (44 === requestNodeIndex))) {
             return this._NG_VALUE_ACCESSOR_44_4;
         }
-        if (((token === import25.NgModel) && (44 === requestNodeIndex))) {
+        if (((token === import27.NgModel) && (44 === requestNodeIndex))) {
             return this._NgModel_44_5.context;
         }
-        if (((token === import26.NgControl) && (44 === requestNodeIndex))) {
+        if (((token === import28.NgControl) && (44 === requestNodeIndex))) {
             return this._NgControl_44_6;
         }
-        if (((token === import27.NgControlStatus) && (44 === requestNodeIndex))) {
+        if (((token === import29.NgControlStatus) && (44 === requestNodeIndex))) {
             return this._NgControlStatus_44_7.context;
         }
-        if (((token === import21.TemplateRef) && (53 === requestNodeIndex))) {
+        if (((token === import22.TemplateRef) && (53 === requestNodeIndex))) {
             return this._TemplateRef_53_5;
         }
-        if (((token === import28.NgFor) && (53 === requestNodeIndex))) {
+        if (((token === import30.NgFor) && (53 === requestNodeIndex))) {
             return this._NgFor_53_6.context;
         }
         return notFoundResult;
     };
     View_ItemDialogComponent0.prototype.detectChangesInternal = function (throwOnChange) {
+        var valUnwrapper = new import20.ValueUnwrapper();
         this._DefaultValueAccessor_44_3.ngDoCheck(this, this._el_44, throwOnChange);
         var currVal_44_1_0 = this.context.comment.commentText;
         this._NgModel_44_5.check_model(currVal_44_1_0, throwOnChange, false);
@@ -300,23 +305,24 @@ var View_ItemDialogComponent0 = (function (_super) {
         this._vc_53.detectChangesInNestedViews(throwOnChange);
         var currVal_68 = import3.inlineInterpolate(1, '', this.context.virtualStore.screenShotFileName, '');
         if (import3.checkBinding(throwOnChange, this._expr_68, currVal_68)) {
-            this.renderer.setElementProperty(this._el_14, 'src', this.viewUtils.sanitizer.sanitize(import29.SecurityContext.URL, currVal_68));
+            this.renderer.setElementProperty(this._el_14, 'src', this.viewUtils.sanitizer.sanitize(import31.SecurityContext.URL, currVal_68));
             this._expr_68 = currVal_68;
         }
-        var currVal_69 = import3.inlineInterpolate(1, '', this.context.virtualStore.price, '$');
-        if (import3.checkBinding(throwOnChange, this._expr_69, currVal_69)) {
+        valUnwrapper.reset();
+        var currVal_69 = import3.inlineInterpolate(1, '', valUnwrapper.unwrap(import3.castByValue(this._pipe_currency_0_0, this._pipe_currency_0.transform)(this.context.virtualStore.price, 'USD', true, '1.3-3')), '');
+        if ((valUnwrapper.hasWrappedValue || import3.checkBinding(throwOnChange, this._expr_69, currVal_69))) {
             this.renderer.setText(this._text_19, currVal_69);
             this._expr_69 = currVal_69;
         }
-        var currVal_70 = import3.inlineInterpolate(1, '', this.context.virtualStore.title, '');
-        if (import3.checkBinding(throwOnChange, this._expr_70, currVal_70)) {
-            this.renderer.setText(this._text_22, currVal_70);
-            this._expr_70 = currVal_70;
+        var currVal_72 = import3.inlineInterpolate(1, '', this.context.virtualStore.title, '');
+        if (import3.checkBinding(throwOnChange, this._expr_72, currVal_72)) {
+            this.renderer.setText(this._text_22, currVal_72);
+            this._expr_72 = currVal_72;
         }
-        var currVal_71 = import3.inlineInterpolate(1, '', this.context.virtualStore.description, '');
-        if (import3.checkBinding(throwOnChange, this._expr_71, currVal_71)) {
-            this.renderer.setText(this._text_25, currVal_71);
-            this._expr_71 = currVal_71;
+        var currVal_73 = import3.inlineInterpolate(1, '', this.context.virtualStore.description, '');
+        if (import3.checkBinding(throwOnChange, this._expr_73, currVal_73)) {
+            this.renderer.setText(this._text_25, currVal_73);
+            this._expr_73 = currVal_73;
         }
         this._NgControlStatus_44_7.checkHost(this, this, this._el_44, throwOnChange);
     };
@@ -375,9 +381,9 @@ var View_ItemDialogComponent1 = (function (_super) {
     __extends(View_ItemDialogComponent1, _super);
     function View_ItemDialogComponent1(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
         var _this = _super.call(this, View_ItemDialogComponent1, renderType_ItemDialogComponent, import6.ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import7.ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
-        _this._expr_15 = import19.UNINITIALIZED;
-        _this._expr_16 = import19.UNINITIALIZED;
-        _this._expr_17 = import19.UNINITIALIZED;
+        _this._expr_15 = import20.UNINITIALIZED;
+        _this._expr_16 = import20.UNINITIALIZED;
+        _this._expr_17 = import20.UNINITIALIZED;
         return _this;
     }
     View_ItemDialogComponent1.prototype.createInternal = function (rootSelector) {
@@ -418,7 +424,7 @@ var View_ItemDialogComponent1 = (function (_super) {
     View_ItemDialogComponent1.prototype.detectChangesInternal = function (throwOnChange) {
         var currVal_15 = import3.inlineInterpolate(1, '', this.context.$implicit.userViewModel.imageUrl, '');
         if (import3.checkBinding(throwOnChange, this._expr_15, currVal_15)) {
-            this.renderer.setElementProperty(this._el_4, 'src', this.viewUtils.sanitizer.sanitize(import29.SecurityContext.URL, currVal_15));
+            this.renderer.setElementProperty(this._el_4, 'src', this.viewUtils.sanitizer.sanitize(import31.SecurityContext.URL, currVal_15));
             this._expr_15 = currVal_15;
         }
         var currVal_16 = import3.inlineInterpolate(1, '', this.context.$implicit.userViewModel.name, '');

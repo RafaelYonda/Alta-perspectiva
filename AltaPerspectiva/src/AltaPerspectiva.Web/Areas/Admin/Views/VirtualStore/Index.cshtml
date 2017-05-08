@@ -86,7 +86,7 @@
 
             </div>
             <div class="col-md-7">
-                @Html.TextBoxFor(model => model.Price, new { @placeholder = "Prize", @class = "form-control input-lg bottm-margin", @type = "number" })
+                @Html.TextBoxFor(model => model.Price, new { @placeholder = "Prize", @class = "form-control input-lg bottm-margin", @type = "number",@step="any" })
                 @Html.ValidationMessageFor(model => model.Price)
                 @Html.TextBoxFor(model => model.Title, new { @placeholder = "Title", @class = "form-control input-lg bottm-margin" })
                 @Html.ValidationMessageFor(model => model.Title)

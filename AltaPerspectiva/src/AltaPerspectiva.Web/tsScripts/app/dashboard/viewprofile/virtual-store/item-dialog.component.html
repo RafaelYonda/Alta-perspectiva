@@ -50,7 +50,7 @@
     }
     .comment-input-panel .form-control{
         display:inline-block;
-        width:85%;
+        width:75%;
     }
     .item-dialog .card-block{
         margin:10px;
@@ -64,19 +64,19 @@
             <div class="item-detail-container">
                 <img src="{{virtualStore.screenShotFileName}}" class="item-img-lg" />
                 <div class="item-info">
-                    <h1>{{virtualStore.price| currency:'USD':true}}</h1>
+                    <h1>{{virtualStore.price| currency:'USD':true:'1.3-3'}}</h1>
                     <h2>{{virtualStore.title}}</h2>
                     <p>{{virtualStore.description}}</p>
-                    <button class="btn btn-item">Buy</button>
-                    <button class="btn btn-item">Download</button>
+                    <button class="btn btn-item"><!--Buy-->Comprar</button>
+                    <button class="btn btn-item"><!--Download-->Descargar</button>
                 </div>
             </div>
             <hr />
             <div class="item-comment-container">
-                <h3>Comment</h3>
+                <h3><!--Comment-->Comentar</h3>
                 <div class="comment-input-panel">
                     <input class="form-control item-comment" [(ngModel)]="comment.commentText" />
-                    <button type="button" class="btn btn-item" (click)="postComment()">Comment</button>
+                    <button type="button" class="btn btn-item" (click)="postComment()"><!--Comment-->Comentar</button>
                 </div>
             </div>
             <div class="card card-block">

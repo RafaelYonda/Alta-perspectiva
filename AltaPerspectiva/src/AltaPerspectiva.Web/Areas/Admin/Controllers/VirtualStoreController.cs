@@ -47,14 +47,23 @@ namespace AltaPerspectiva.Web.Areas.Admin.Controllers
 
         #region API
         [AllowAnonymous]
-        [HttpGet("admin/virtualstore/getitems")]
-        public IActionResult GetAllItems()
+        [HttpGet("admin/virtualstore/getitems/{id}")]
+        public IActionResult GetAllItems(Guid id)
         {
-            List<VirtualStore> virtualStores = queryFactory.ResolveQuery<IVirtualStoreQuery>().GetVirtualStores();
-            List<AddVirtualStoreViewModel> addVirtualStoreViewModels =
-                new VirtualStoreService().GetAddVirtualStoreViewModel(queryFactory,virtualStores,configuration);
-            return Ok(addVirtualStoreViewModels);
+            Guid profileUserId = id;
+            String connectionString =
+             configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
+            Boolean isAdmin = queryFactory.ResolveQuery<IUserQuery>().IsUserAdmin(connectionString, profileUserId);
+            if (isAdmin)
+            {
+                List<VirtualStore> virtualStores = queryFactory.ResolveQuery<IVirtualStoreQuery>().GetVirtualStores();
+                List<AddVirtualStoreViewModel> addVirtualStoreViewModels =
+                    new VirtualStoreService().GetAddVirtualStoreViewModel(queryFactory, virtualStores, configuration);
+                return Ok(addVirtualStoreViewModels);
+            }
+            return Ok(new List<AddVirtualStoreViewModel>());
         }
+
         [AllowAnonymous]
         [HttpGet("admin/virtualstore/getitembyid/{id}")]
         public IActionResult GetItemById(Guid id)

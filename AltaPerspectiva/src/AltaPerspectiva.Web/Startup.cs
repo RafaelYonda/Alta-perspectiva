@@ -183,6 +183,9 @@ namespace AltaPerspectiva
             services.AddTransient<ICommandHandler<AddOtherExperienceCommand>, AddOtherExperienceCommandHandler>();
             services.AddTransient<ICommandHandler<UpdateOtherExperienceCommand>, UpdateOtherExperienceCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteOtherExperienceCommand>, DeleteOtherExperienceCommandHandler>();
+            //User
+            services.AddTransient<IUserQuery, UserQuery>();
+
 
             //readmodels
             services.AddTransient<IProfileParameters, ProfileParameters>();

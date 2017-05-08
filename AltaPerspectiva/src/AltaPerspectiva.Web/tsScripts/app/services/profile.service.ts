@@ -104,8 +104,8 @@ export class ProfileService {
             .catch(this.handleError);
     }
     //Virtual store
-    getVirtualStoreItems(): Observable<VirtualStore[]> {
-        return this._http.get('admin/virtualstore/getitems/')
+    getVirtualStoreItems(userId: string): Observable<VirtualStore[]> {
+        return this._http.get('admin/virtualstore/getitems/' + userId)
             .map(this.extractData)
             .catch(this.handleError);
     }

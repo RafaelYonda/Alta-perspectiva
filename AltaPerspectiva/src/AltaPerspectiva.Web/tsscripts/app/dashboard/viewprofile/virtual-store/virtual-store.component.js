@@ -22,9 +22,12 @@ var VirtualStoreComponent = (function () {
     VirtualStoreComponent.prototype.ngOnInit = function () {
         var _this = this;
         window.scrollTo(0, 0);
-        this.profileServ.getVirtualStoreItems().subscribe(function (res) {
-            _this.virtualStores = res;
-            console.log(res);
+        this.sub = this._route.parent.params.subscribe(function (params) {
+            _this.profileServ.getVirtualStoreItems(params['userId']).subscribe(function (res) {
+                _this.emptyMessage = "¡Pronto podrás ofrecer tus productos y servicios de consultoría para emprendedores y microempresas!";
+                _this.virtualStores = res;
+                console.log(res);
+            });
         });
     };
     VirtualStoreComponent.prototype.openItemDialogAnchor = function (virtualStore) {
