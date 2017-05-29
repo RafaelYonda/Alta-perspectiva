@@ -26,7 +26,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 answerUserOccupation = employment.Position;
                 if (!string.IsNullOrEmpty(employment.CompanyName))
                 {
-                    answerUserOccupation = answerUserOccupation + " at" + employment.CompanyName;
+                    answerUserOccupation = answerUserOccupation + " en" + employment.CompanyName;
                 }
             }
 
@@ -76,7 +76,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 answerUserOccupation = employment.Position;
                 if (!string.IsNullOrEmpty(employment.CompanyName))
                 {
-                    answerUserOccupation = answerUserOccupation + " at" + employment.CompanyName;
+                    answerUserOccupation = answerUserOccupation + " en" + employment.CompanyName;
                 }
             }
 

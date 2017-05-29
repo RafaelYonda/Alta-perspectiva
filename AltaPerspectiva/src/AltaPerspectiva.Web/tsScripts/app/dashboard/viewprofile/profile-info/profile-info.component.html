@@ -175,15 +175,15 @@
                     <a *ngIf="isOwner" id="userName-btn" class="display-hide" (click)="isUserHidden = false"><span><i class="fa fa-edit"></i><!--Edit Name-->Editar nombre</span> </a>
                 </div>
                 <div [hidden]="isUserHidden" *ngIf="isOwner">
-                    <input placeholder="First Name" [(ngModel)]="credential.firstName" type="text" />
-                    <input placeholder="Last Name" [(ngModel)]="credential.lastName" type="text" />
+                    <input placeholder="Nombre" [(ngModel)]="credential.firstName" type="text" />
+                    <input placeholder="Apellido" [(ngModel)]="credential.lastName" type="text" />
                     <a (click)="isUserHidden = true"><!--Cancel-->Cancelar</a>
                     <button class="btn btn-primary" (click)="UpdateUserName()"><!--Update-->Actualizar</button>
                 </div>
             </div>
             <!-- Credential -->
             <div *ngIf="!credential.title && isOwner">
-                <a (click)="openCredentialDialogBox()"> Add profile credential</a>
+                <a (click)="openCredentialDialogBox()"> Agrega tu profesión</a>
             </div>
             
             <div id="credential" *ngIf="credential.title">

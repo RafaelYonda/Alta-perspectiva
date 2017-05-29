@@ -42,7 +42,7 @@ var QuestionReportComponent = (function () {
             this.questionReport.answerId = this.answerId;
             this.questionService.SaveReport(this.questionReport).subscribe(function (res) {
                 _this.close.emit('event');
-                _this.toastr.success('Ok ..got it.we will look at it', 'success');
+                _this.toastr.success('Gracias, analizaremos tu reporte.', 'Aprobado');
             });
         }
     };

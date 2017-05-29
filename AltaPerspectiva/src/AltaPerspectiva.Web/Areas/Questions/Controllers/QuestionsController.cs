@@ -465,8 +465,6 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         }
 
-
-
         #region Top Five Region
         [HttpGet("/questions/api/{categoryId}/gettopfivequestionbycategoryid")]
         public async Task<IActionResult> GetTopFiveQuestionByCategoryId(Guid categoryId)
@@ -526,8 +524,6 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         #endregion
-
-
 
         [HttpGet("/questions/api/getlevel")]
         public async Task<IEnumerable<Level>> GetLevel()
@@ -611,8 +607,6 @@ namespace AltaPerspectiva.Web.Area.Questions
 
 
         #endregion
-
-
 
         #region Question
         [Authorize]
@@ -823,8 +817,6 @@ namespace AltaPerspectiva.Web.Area.Questions
 
         #endregion
 
-
-
         #region Filters
         [HttpGet("/questions/api/FilterbyCategoryTopicNLevel")]
         public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter)
@@ -851,8 +843,6 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(questionViewModels);
         }
         #endregion
-
-
 
         #region Popover
         //Depends on answerId.As answer not appread then that is question ...Load data according to

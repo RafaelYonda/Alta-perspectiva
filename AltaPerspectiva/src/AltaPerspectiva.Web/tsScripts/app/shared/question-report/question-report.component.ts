@@ -53,10 +53,8 @@ export class QuestionReportComponent {
             this.questionReport.answerId = this.answerId;
             this.questionService.SaveReport(this.questionReport).subscribe(res => {
                 this.close.emit('event');
-                this.toastr.success('Ok ..got it.we will look at it', 'success');
+                this.toastr.success('Gracias, analizaremos tu reporte.', 'Aprobado');
             })
-            
-
         }
     };
 }

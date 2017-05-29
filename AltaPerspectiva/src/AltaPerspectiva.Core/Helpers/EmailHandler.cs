@@ -17,7 +17,6 @@ namespace AltaPerspectiva.Core.Helpers
         public string Email { get; set; }
         public string Title { get; set; }
         public string QuestionUserName { get; set; }
-
         public Guid QuestionId { get; set; }
         public string QuestionTitle { get; set; }
         public string QuestionText { get; set; }
