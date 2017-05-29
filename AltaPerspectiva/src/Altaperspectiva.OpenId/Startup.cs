@@ -220,6 +220,15 @@ namespace Altaperspectiva.OpenId {
                         RedirectUri = "http://altap.azurewebsites.net/signin-oidc",
                         Type = OpenIddictConstants.ClientTypes.Confidential
                     });
+                    applications.Add(new OpenIddictApplication
+                    {
+                        ClientId = "altaperspectiva",
+                        ClientSecret = Crypto.HashPassword("aLtaseCreT!@#"),
+                        DisplayName = "Azure Application",
+                        LogoutRedirectUri = "http://www.altaperspectiva.com/",
+                        RedirectUri = "http://www.altaperspectiva.com/signin-oidc",
+                        Type = OpenIddictConstants.ClientTypes.Confidential
+                    });
 
 
                     context.SaveChanges();
