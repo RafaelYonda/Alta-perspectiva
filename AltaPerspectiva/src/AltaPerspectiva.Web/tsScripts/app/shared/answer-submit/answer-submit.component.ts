@@ -1,6 +1,7 @@
 ﻿import { Component, Input, EventEmitter, ViewContainerRef } from '@angular/core';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { ProfileService } from '../../services/profile.service';
+import { SITE_URL } from '../../../globals';
 import {LogInObj, Question, AnswerViewModel, User } from '../../services/models';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -13,6 +14,7 @@ import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
     providers: [QuestionAnswerService, ProfileService]
 })
 export class AnswerSubmitComponent {
+    site_url: string = SITE_URL;
     _logObj: LogInObj;
     @Input()
     question: Question;
@@ -51,7 +53,7 @@ export class AnswerSubmitComponent {
             this.showDraftedQuestion();
 
         if (this.question) {
-            this.question.shareUrl = 'http://altap.azurewebsites.net/question/detail/' + this.question.id;
+            this.question.shareUrl = this.site_url +'question/detail/' + this.question.id;
         }
     }
     //anonymous checkbox

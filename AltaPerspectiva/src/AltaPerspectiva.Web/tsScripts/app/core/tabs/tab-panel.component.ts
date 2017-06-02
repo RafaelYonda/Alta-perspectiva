@@ -1,4 +1,5 @@
 ﻿import { Component } from '@angular/core';
+import {SITE_URL} from '../../../globals'
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -65,7 +66,7 @@ export class TabPanelComponent {
                        // var temp = this.questions[q].bestAnswer.text.substring(0, 200);
                        // this.questions[q].bestAnswer.text = temp;
                         this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
-                        this.questions[q].shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questions[q].id);
+                        this.questions[q].shareUrl = encodeURI(SITE_URL+"/question/detail/" + this.questions[q].id);
                     }
                 }
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);

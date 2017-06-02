@@ -1,0 +1,9 @@
+========Web project==========
+1. Connection string on  appsettings.json
+2. ClientId = "azure" in Startup.cs in web project
+3. PostLogoutRedirectUri = "http://www.altaperspectiva.com/"  in Startup.cs in web project
+4. Authority = "http://altaauth.azurewebsites.net" in Startup.cs in web project
+
+==================OpenId Projects=============
+1. Connection string on  appsettings.json
+2. Check OpenIddictApplications table in DB

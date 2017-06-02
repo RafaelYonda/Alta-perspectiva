@@ -1,5 +1,6 @@
 ﻿import { Component, Input, ElementRef, EventEmitter, Output, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { StatusService } from '../../services/status.service';
+import { SITE_URL } from '../../../globals';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {  Question, Answer, Like,User} from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
@@ -39,7 +40,7 @@ export class StatusComponent {
         this._authService.getLoggedinObj().subscribe(res => {
             this.loggedinUser = res;
         });
-        this.questionObj.shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questionObj.id);
+        this.questionObj.shareUrl = encodeURI(SITE_URL+"/question/detail/" + this.questionObj.id);
         if (this.questionObj.bestAnswer && this.questionObj.bestAnswer.text) {
             var temp = this.questionObj.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "");
             this.answerTagsRemoved = temp.replace("&nbsp;", " ");
