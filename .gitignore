@@ -99,3 +99,8 @@ AltaPerspectiva/src/Altaperspectiva.OpenId/config.json
 AltaPerspectiva/src/Altaperspectiva.OpenId/appsettings.json
 AltaPerspectiva/src/RedisSaveInAspCore/
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/node_modules/
+AltaAuthentication/AltaAuthentication/AuthorizationServer/node_modules/
+AltaAuthentication/AltaAuthentication/AuthorizationServer/wwwroot/lib/jquery-validation/localization/messages_bg.js
+AltaAuthentication/AltaAuthentication/AuthorizationServer/wwwroot/lib/
+AltaAuthentication/AltaAuthentication/AuthorizationServer/bin/
+AltaAuthentication/AltaAuthentication/AuthorizationServer/obj/
