@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input, EventEmitter, Output, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { StatusService } from '../../services/status.service';
+import { SITE_URL } from '../../../globals';
 import { Question, Answer, Like } from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { QuestionService } from '../../services/question.service';
@@ -34,7 +35,7 @@ var StatusComponent = (function () {
         this._authService.getLoggedinObj().subscribe(function (res) {
             _this.loggedinUser = res;
         });
-        this.questionObj.shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questionObj.id);
+        this.questionObj.shareUrl = encodeURI(SITE_URL + "/question/detail/" + this.questionObj.id);
         if (this.questionObj.bestAnswer && this.questionObj.bestAnswer.text) {
             var temp = this.questionObj.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "");
             this.answerTagsRemoved = temp.replace("&nbsp;", " ");

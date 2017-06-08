@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, Input, EventEmitter, ViewContainerRef } from '@angular/core';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { ProfileService } from '../../services/profile.service';
+import { SITE_URL } from '../../../globals';
 import { Question, AnswerViewModel, User } from '../../services/models';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -21,6 +22,7 @@ var AnswerSubmitComponent = (function () {
         this.profileService = profileService;
         this._authService = _authService;
         this.toastr = toastr;
+        this.site_url = SITE_URL;
         this.isDraft = false;
         this.close = new EventEmitter();
         var user = new User();
@@ -37,7 +39,7 @@ var AnswerSubmitComponent = (function () {
         if (this.isDraft)
             this.showDraftedQuestion();
         if (this.question) {
-            this.question.shareUrl = 'http://altap.azurewebsites.net/question/detail/' + this.question.id;
+            this.question.shareUrl = this.site_url + 'question/detail/' + this.question.id;
         }
     };
     AnswerSubmitComponent.prototype.onChange = function (event) {
