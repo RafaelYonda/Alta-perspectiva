@@ -11,6 +11,17 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
+//====Delete aot files======
+var destPathAot = './tsScripts/app/**/*'
+gulp.task('cleanngfactory', function () {
+     gulp.src(destPathAot+'.ngfactory.ts')
+        .pipe(clean());
+     gulp.src(destPathAot+'.ngsummary.json')
+        .pipe(clean());
+     gulp.src(destPathAot+'.ngstyle.ts')
+        .pipe(clean());
+    return '';
+});
 gulp.task("scriptsNStyles", () => {
     gulp.src([
             'core-js/client/**',
