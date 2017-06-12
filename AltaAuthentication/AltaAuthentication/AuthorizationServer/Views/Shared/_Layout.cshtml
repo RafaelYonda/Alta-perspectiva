@@ -19,63 +19,171 @@
                   asp-fallback-test-class="carousel-caption" asp-fallback-test-property="display" asp-fallback-test-value="none" />
             <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         </environment>
+        <style>
+            .nav-shadow {
+                background-color: white;
+                box-shadow: 0px 3px 14px #888888;
+            }
+
+            .form-horizontal {
+                border-radius: 10px;
+            }
+
+            .body-minHeight {
+                min-height: 79vh;
+            }
+
+            .borrder-circle {
+                border: 2px solid white;
+                display: inline-block;
+                text-align: center;
+                height: 38px;
+                width: 38px;
+                padding: 4px;
+                border-radius: 18px;
+            }
+
+            .parent-padding {
+                padding-top: 135px;
+            }
+
+            .footer {
+                height: 63px;
+                width: 100%;
+                background-color: darkgray;
+                color: white;
+                position: absolute;
+                bottom: 0;
+            }
+
+            .footer-left {
+                float: left;
+                margin-top: 11px;
+            }
+
+            .footer-right {
+                float: right;
+                font-family: myriadpro-regular;
+                font-size: 14px;
+                text-align: right;
+            }
+
+            .footer-container {
+                width: 85%;
+                margin: 0 auto;
+            }
+
+            .logo {
+                float: left;
+                width: 55px;
+                height: auto;
+                background: url('../../images/logo cuadrado.png');
+                margin-left: 10px;
+                height: 55px;
+            }
+            /*=============Log in  CSS*/
+            h2 {
+                text-align: center;
+                margin-bottom: 25px;
+            }
+
+            input {
+                max-width: 100%;
+            }
+
+            .form-horizontal {
+                position: relative;
+                padding: 10px;
+                background-color: #ededed;
+                margin-top: 40px;
+                height: 305px;
+            }
+
+            .left-border {
+                background-image: url('../../images/border.png');
+                width: 4px;
+                margin-top: 40px;
+                position: absolute;
+                right: 0;
+                margin-right: -15px;
+                height: 305px;
+            }
+
+            .btn {
+                min-width: 100px;
+                background-color: #f7a30c;
+                color: white;
+            }
+
+            body {
+                background-image: url('../images/backgroudimage.jpg');
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            .navbar-inverse {
+                background-color: #f7f6f6;
+                opacity: .9;
+                border-color: #eeeeee;
+            }
+
+            .navbar-brand {
+                color: black !important;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-family: typogroteskrounded;
+                font-size: 14px;
+                height: 40px;
+            }
+
+            .jumbotron {
+                margin-top: 18px;
+            }
+
+            .form-control {
+                width: 346px;
+            }
+        </style>
     </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">AuthorizationServer</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    </ul>
-                    @await Html.PartialAsync("_LoginPartial")
-                </div>
-            </div>
-        </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; 2015 - AuthorizationServer</p>
-            </footer>
-        </div>
+<body class="body-minHeight">
+    <div class="navbar navbar-fixed-top nav-shadow">
+        <a href="http://altap.azurewebsites.net"><img class="logo" src="../images/LOGO CUADRADO.png" /></a>
+        <a href="http://altap.azurewebsites.net" class="navbar-brand">
+            Alta Perspectiva
+        </a>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
 
-        <environment names="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/lib/hammer.js/hammer.js"></script>
-            <script src="~/lib/bootstrap-touch-carousel/dist/js/bootstrap-touch-carousel.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment names="Staging,Production">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.0.0/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/hammer.js/2.0.4/hammer.min.js"
-                    asp-fallback-src="~/lib/hammer.js/hammer.js"
-                    asp-fallback-test="window.Hammer">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap-touch-carousel/0.8.0/js/bootstrap-touch-carousel.js"
-                    asp-fallback-src="~/lib/bootstrap-touch-carousel/dist/js/bootstrap-touch-carousel.js"
-                    asp-fallback-test="window.Hammer && window.Hammer.Instance">
-            </script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
+    </div>
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/hammer.js/hammer.js"></script>
+        <script src="~/lib/bootstrap-touch-carousel/dist/js/bootstrap-touch-carousel.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.0.0/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/hammer.js/2.0.4/hammer.min.js"
+                asp-fallback-src="~/lib/hammer.js/hammer.js"
+                asp-fallback-test="window.Hammer">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap-touch-carousel/0.8.0/js/bootstrap-touch-carousel.js"
+                asp-fallback-src="~/lib/bootstrap-touch-carousel/dist/js/bootstrap-touch-carousel.js"
+                asp-fallback-test="window.Hammer && window.Hammer.Instance">
+        </script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
 
-        @RenderSection("scripts", required: false)
-    </body>
+    @RenderSection("scripts", required: false)
+</body>
+
 </html>

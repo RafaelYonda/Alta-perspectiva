@@ -27,8 +27,45 @@ textarea {
         line-height: 1.4;
     }
 
-@media (min-width: 768px) {
+@media (min-width: 767px) {
     .carousel-caption {
         z-index: 10 !important;
+    }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+  /* Styles */
+   .loginForm {
+        opacity: .95;
+        margin-top: 57px;
+    }
+   .registrationForm {
+        opacity: .95;
+        margin-top: 63px;
+        width: 674px;
+        margin-left: -135px;
+    }
+    .form-control {
+        background-color: #cccccc;
+        height: 41px;
+        border-radius: 7px;
+    }
+}
+
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1824px) {
+   .registrationForm {
+        opacity: .95;
+        margin-top: 63px;
+        width: 674px;
+        margin-left: -135px;
+    }
+    .form-control {
+        background-color: #cccccc;
+        height: 41px;
+        border-radius: 7px;
     }
 }

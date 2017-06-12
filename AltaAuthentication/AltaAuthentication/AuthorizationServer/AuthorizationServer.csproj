@@ -13,6 +13,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\alta-font\alta-fonts.css" />
+    <Content Include="wwwroot\css\alta-font\arial.ttf" />
+    <Content Include="wwwroot\css\alta-font\font-icon.eot" />
+    <Content Include="wwwroot\css\alta-font\font-icon.svg" />
+    <Content Include="wwwroot\css\alta-font\font-icon.ttf" />
+    <Content Include="wwwroot\css\alta-font\font-icon.woff" />
+    <Content Include="wwwroot\css\alta-font\MyriadPro-Regular.otf" />
+    <Content Include="wwwroot\css\alta-font\MYRIADPROREGULAR.eot" />
+    <Content Include="wwwroot\css\alta-font\MYRIADPROREGULAR.ttf" />
+    <Content Include="wwwroot\css\alta-font\MYRIADPROREGULAR.woff" />
+    <Content Include="wwwroot\css\alta-font\TypoGroteskRounded.otf" />
+    <Content Include="wwwroot\css\alta-font\ufonts.com_futura-book.ttf" />
+    <Content Include="wwwroot\css\site.css" />
+    <Content Include="wwwroot\images\ASP-NET-Banners-01.png" />
+    <Content Include="wwwroot\images\ASP-NET-Banners-02.png" />
+    <Content Include="wwwroot\images\backgroudimage.jpg" />
+    <Content Include="wwwroot\images\background.png" />
+    <Content Include="wwwroot\images\Banner-01-Azure.png" />
+    <Content Include="wwwroot\images\Banner-02-VS.png" />
+    <Content Include="wwwroot\images\border.png" />
+    <Content Include="wwwroot\images\LOGO CUADRADO.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Certificate.pfx" />
 
     <None Include="config.json">
