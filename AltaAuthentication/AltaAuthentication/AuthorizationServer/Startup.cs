@@ -50,6 +50,11 @@ namespace AuthorizationServer
                 options.ClaimsIdentity.UserNameClaimType = OpenIdConnectConstants.Claims.Name;
                 options.ClaimsIdentity.UserIdClaimType = OpenIdConnectConstants.Claims.Subject;
                 options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
             });
 
             // Register the OpenIddict services.
