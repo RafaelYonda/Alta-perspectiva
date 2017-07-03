@@ -400,7 +400,7 @@ GO
 
 DROP PROC SpTopHundredUserSummary;
 GO
-CREATE PROC TopHundredUserSummary
+CREATE PROC SpTopHundredUserSummary
 AS
 BEGIN
 ;with CTE

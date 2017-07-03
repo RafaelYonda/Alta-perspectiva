@@ -3,7 +3,7 @@
   <Import Project="..\..\build\dependencies.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>net451;netcoreapp1.0</TargetFrameworks>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
@@ -65,6 +65,7 @@
     <PackageReference Include="OpenIddict" Version="$(OpenIddictVersion)" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="$(OpenIddictVersion)" />
     <PackageReference Include="OpenIddict.Mvc" Version="$(OpenIddictVersion)" />
+    <PackageReference Include="Sendgrid" Version="9.5.0" />
   </ItemGroup>
 
 </Project>

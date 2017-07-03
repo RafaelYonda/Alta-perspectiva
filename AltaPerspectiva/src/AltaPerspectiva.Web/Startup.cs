@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using AltaPerspectiva.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using AltaPerspectiva.Core;
@@ -16,20 +13,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.EntityFrameworkCore;
 using Questions.Command.DbContext;
-using System.IO;
-using System.Net;
-using System.Reflection;
 using Questions.Query;
 using Questions.Query.DbContext;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Caching.Distributed;
-using System.Text;
 using AltaPerspectiva.Web.Areas.UserProfile.Services;
 using Blog.Command.BlogDbContext;
 using Blog.Command.CommandHandler;
 using Blog.Command.Commands;
 using Blog.Query;
-using Microsoft.AspNetCore.Diagnostics;
 using UserProfile.Query.Queries;
 using UserProfile.Command.Commands;
 using UserProfile.Command.CommandHandler;
@@ -38,7 +30,6 @@ using UserProfile.Query;
 using Questions.Command.Commands;
 using Questions.Command.CommandHandler;
 using Questions.Commands;
-using Questions.Domain.ReadModel;
 using Questions.Query.Queries;
 using Blog.Query.Interfaces;
 using Blog.Query.Queries;
@@ -295,8 +286,6 @@ namespace AltaPerspectiva
                 AutomaticChallenge = true,
                 LoginPath = new PathString("/signin"),
                 ExpireTimeSpan = TimeSpan.MaxValue,
-
-
             });
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
@@ -304,19 +293,19 @@ namespace AltaPerspectiva
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
 
-                ClientId = "localhost", // for localhost
+                //ClientId = "localhost", // for localhost
 
 
-                //ClientId = "azure",       // for azure deploy  altaperspectiva
+                ClientId = "azure",       // for azure deploy  altaperspectiva
                 //ClientId = "altaperspectiva",       // for azure new deploy 
 
                 ClientSecret = "aLtaseCreT!@#",
 
 
 
-              PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+              //PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
 
-                 //PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
+                 PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
 
 
                 RequireHttpsMetadata = false,
@@ -332,9 +321,9 @@ namespace AltaPerspectiva
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
 
-                Authority = "http://localhost:54540",
+                //Authority = "http://localhost:54540",
 
-                //Authority = "http://altaauth.azurewebsites.net",
+                Authority = "http://altaauth.azurewebsites.net",
 
                 Scope = { "email", "roles"}
 

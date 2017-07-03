@@ -61,8 +61,6 @@ namespace UserProfile.Query.Queries
             List<UserSummary> userSummery = new List<UserSummary>();
             string query = String.Format(@"SpTopHundredUserSummary");
             return await Task.Run(() => userSummery = DataReaderToListHelper.DataReaderToList<UserSummary>(connectionString, query));
-
-
         }
 
         public async Task<UserSummary> GetUserSummary(Guid userId, string connectionString)

@@ -2,9 +2,10 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Primitives;
-using AuthorizationServer.Extensions;
+//using AuthorizationServer.Extensions;
 using AuthorizationServer.Models;
 using AuthorizationServer.Services;
+using OpenIddict;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -17,13 +18,16 @@ namespace AuthorizationServer
 {
     public class Startup
     {
+        public static string SendGridApiKey { get; private set; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables()
                 .Build();
-
+            
+            SendGridApiKey = configuration["Data:SendGridApiKey"];
             services.AddMvc();
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -87,6 +91,7 @@ namespace AuthorizationServer
 
                 // During development, you can disable the HTTPS requirement.
                 options.DisableHttpsRequirement();
+                options.SetAccessTokenLifetime(TimeSpan.FromHours(23));
 
                 // Note: to use JWT access tokens instead of the default
                 // encrypted format, the following lines are required:
@@ -98,13 +103,11 @@ namespace AuthorizationServer
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
         }
-
         public void Configure(IApplicationBuilder app)
         {
             app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();
-
             app.UseWhen(context => context.Request.Path.StartsWithSegments("/api"), branch =>
             {
                 // Add a middleware used to validate access
@@ -149,19 +152,29 @@ namespace AuthorizationServer
 
                 branch.UseIdentity();
 
-                branch.UseGoogleAuthentication(new GoogleOptions
-                {
-                    ClientId = "560027070069-37ldt4kfuohhu3m495hk2j4pjp92d382.apps.googleusercontent.com",
-                    ClientSecret = "n2Q-GEw9RQjzcRbU3qhfTj8f"
-                });
+                //branch.UseGoogleAuthentication(new GoogleOptions
+                //{
+                //    ClientId = "560027070069-37ldt4kfuohhu3m495hk2j4pjp92d382.apps.googleusercontent.com",
+                //    ClientSecret = "n2Q-GEw9RQjzcRbU3qhfTj8f"
+                //});
 
-                branch.UseTwitterAuthentication(new TwitterOptions
-                {
-                    ConsumerKey = "6XaCTaLbMqfj6ww3zvZ5g",
-                    ConsumerSecret = "Il2eFzGIrYhz6BWjYhVXBPQSfZuS4xoHpSSyD9PI"
-                });
+                //branch.UseTwitterAuthentication(new TwitterOptions
+                //{
+                //    ConsumerKey = "6XaCTaLbMqfj6ww3zvZ5g",
+                //    ConsumerSecret = "Il2eFzGIrYhz6BWjYhVXBPQSfZuS4xoHpSSyD9PI"
+                //});
             });
+            //app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
+            //{
+            //    // for demo purposes
+            //    AllowInsecureHttp = true,
 
+            //    TokenEndpointPath = new PathString(“token”),
+            //    AccessTokenExpireTimeSpan = TimeSpan.FromHours(1),
+
+            //    Provider = new SimpleAuthorizationServerProvider(),
+            //    RefreshTokenProvider = new SimpleRefreshTokenProvider()
+            //});
             app.UseOpenIddict();
 
             app.UseMvcWithDefaultRoute();
@@ -181,18 +194,18 @@ namespace AuthorizationServer
 
                 var manager = scope.ServiceProvider.GetRequiredService<OpenIddictApplicationManager<OpenIddictApplication>>();
 
-                if (await manager.FindByClientIdAsync("mvc", cancellationToken) == null)
-                {
-                    var application = new OpenIddictApplication
-                    {
-                        ClientId = "mvc",
-                        DisplayName = "MVC client application",
-                        LogoutRedirectUri = "http://localhost:53507/",
-                        RedirectUri = "http://localhost:53507/signin-oidc"
-                    };
+                //if (await manager.FindByClientIdAsync("mvc", cancellationToken) == null)
+                //{
+                //    var application = new OpenIddictApplication
+                //    {
+                //        ClientId = "mvc",
+                //        DisplayName = "MVC client application",
+                //        LogoutRedirectUri = "http://localhost:53507/",
+                //        RedirectUri = "http://localhost:53507/signin-oidc"
+                //    };
 
-                    await manager.CreateAsync(application, "901564A5-E7FE-42CB-B10D-61EF6A8F3654", cancellationToken);
-                }
+                //    await manager.CreateAsync(application, "901564A5-E7FE-42CB-B10D-61EF6A8F3654", cancellationToken);
+                //}
 
                 // To test this sample with Postman, use the following settings:
                 //
@@ -203,17 +216,17 @@ namespace AuthorizationServer
                 // * Scope: openid email profile roles
                 // * Grant type: authorization code
                 // * Request access token locally: yes
-                if (await manager.FindByClientIdAsync("postman", cancellationToken) == null)
-                {
-                    var application = new OpenIddictApplication
-                    {
-                        ClientId = "postman",
-                        DisplayName = "Postman",
-                        RedirectUri = "https://www.getpostman.com/oauth2/callback"
-                    };
+                //if (await manager.FindByClientIdAsync("postman", cancellationToken) == null)
+                //{
+                //    var application = new OpenIddictApplication
+                //    {
+                //        ClientId = "postman",
+                //        DisplayName = "Postman",
+                //        RedirectUri = "https://www.getpostman.com/oauth2/callback"
+                //    };
 
-                    await manager.CreateAsync(application, cancellationToken);
-                }
+                //    await manager.CreateAsync(application, cancellationToken);
+                //}
             }
         }
     }

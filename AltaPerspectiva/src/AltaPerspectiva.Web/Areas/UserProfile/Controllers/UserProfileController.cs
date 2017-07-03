@@ -582,8 +582,5 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
             return userViewModels.OrderBy(x => x.Name).ToList();
         }
-
-
-
     }
 }

@@ -16,9 +16,9 @@ namespace AuthorizationServer
             var host = new WebHostBuilder()
                 .ConfigureLogging(options => options.AddConsole())
                 .ConfigureLogging(options => options.AddDebug())
-                .UseConfiguration(configuration)
-                .UseIISIntegration()
+                .UseConfiguration(configuration)                
                 .UseKestrel()
+                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
 
