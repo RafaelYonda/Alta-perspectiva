@@ -23,7 +23,7 @@ export class PostStatusComponent {
 
     ngOnInit() {
 
-        this.blogPost.shareUrl = encodeURI("http://altap.azurewebsites.net/dashboard/blog-post/" + this.blogPost.id);
+        this.blogPost.shareUrl = encodeURI("http://www.altaperspectiva.com/dashboard/blog-post/" + this.blogPost.id);
         if (this.blogPost.description)
         {
             this.blogText = this.blogPost.description.replace(/<\/?[^>]+(>|$)/g, "").substring(0,200);

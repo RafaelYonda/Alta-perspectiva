@@ -364,6 +364,8 @@ from dbo.Split
 END
 --[SpGetUsers] 'd2306cf5-ca88-4c32-82fb-10d020483b24,d11ee5fa-11f4-444f-b6bb-49e2eb6ac155,7c685a68-05d6-43f7-a213-d30649134169,d3f1ca2c-0f15-42af-9215-0baeabde1dba,d8068e0f-1b70-443f-8e4b-650004bb55bc,9f5b4ead-f9e7-49da-b0fa-1683195cfcba'
 GO
+DROP FUNCTION dbo.Split
+GO
 CREATE FUNCTION dbo.Split
 (
 	@RowData nvarchar(2000),

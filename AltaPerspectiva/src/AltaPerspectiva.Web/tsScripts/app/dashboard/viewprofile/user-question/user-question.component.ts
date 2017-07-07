@@ -22,7 +22,7 @@ export class UserQuestionComponent {
                     this.questions[q].bestAnswer = this.questions[q].answers[0];
                     if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
                         this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
-                        this.questions[q].shareUrl = encodeURI("http://altap.azurewebsites.net//question/detail/" + this.questions[q].id);
+                        this.questions[q].shareUrl = encodeURI("http://www.altaperspectiva.com//question/detail/" + this.questions[q].id);
                     }
                 }
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
