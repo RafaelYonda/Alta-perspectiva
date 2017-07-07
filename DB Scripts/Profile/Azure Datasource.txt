@@ -1,0 +1,39 @@
+
+https://ppolyzos.com/2016/07/30/cross-database-queries-in-azure-sql-databases/
+
+--CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'Alta1@OpenIdKey'
+
+
+--create credential
+CREATE DATABASE SCOPED CREDENTIAL openid_credential
+WITH IDENTITY = 'altaperspectiva',
+SECRET = '*AltaP2016*';
+
+--create datasource
+CREATE EXTERNAL DATA SOURCE openid_source
+WITH (
+	TYPE=RDBMS,
+	LOCATION='servidoraltap.database.secure.windows.net',
+	DATABASE_NAME='OpenId',
+	CREDENTIAL = openid_credential
+);
+
+
+--Create table
+CREATE EXTERNAL TABLE [dbo].[AspNetUsers] (
+	[Id] [nvarchar](450) NOT NULL,
+	[AccessFailedCount] [int] NOT NULL,
+	[ConcurrencyStamp] [nvarchar](max) NULL,
+	[Email] [nvarchar](256) NULL,
+	[EmailConfirmed] [bit] NOT NULL,
+	[LockoutEnabled] [bit] NOT NULL,
+	[LockoutEnd] [datetimeoffset](7) NULL,
+	[NormalizedEmail] [nvarchar](256) NULL,
+	[NormalizedUserName] [nvarchar](256) NULL,
+	[PasswordHash] [nvarchar](max) NULL,
+	[PhoneNumber] [nvarchar](max) NULL,
+	[PhoneNumberConfirmed] [bit] NOT NULL,
+	[SecurityStamp] [nvarchar](max) NULL,
+	[TwoFactorEnabled] [bit] NOT NULL,
+	[UserName] [nvarchar](256) NULL
+) WITH ( DATA_SOURCE = openid_source )
