@@ -26,6 +26,7 @@
     <Content Include="wwwroot\css\alta-font\TypoGroteskRounded.otf" />
     <Content Include="wwwroot\css\alta-font\ufonts.com_futura-book.ttf" />
     <Content Include="wwwroot\css\site.css" />
+    <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\images\ASP-NET-Banners-01.png" />
     <Content Include="wwwroot\images\ASP-NET-Banners-02.png" />
     <Content Include="wwwroot\images\backgroudimage.jpg" />
