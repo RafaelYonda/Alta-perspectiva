@@ -103,6 +103,8 @@ AltaAuthentication/AltaAuthentication/AuthorizationServer/wwwroot/lib/jquery-val
 AltaAuthentication/AltaAuthentication/AuthorizationServer/wwwroot/lib/
 AltaAuthentication/AltaAuthentication/AuthorizationServer/bin/
 AltaAuthentication/AltaAuthentication/AuthorizationServer/obj/
-.ngfactory.ts
-.ngsummary.json
-.ngstyle.ts
+*.ngfactory.ts
+*.ngsummary.json
+*.ngstyle.ts
+*.ngfactory.js
+*.component.js

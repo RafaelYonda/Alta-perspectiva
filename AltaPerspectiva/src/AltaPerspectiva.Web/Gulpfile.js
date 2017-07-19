@@ -16,6 +16,8 @@ var destPathAot = './tsScripts/app/**/*'
 gulp.task('cleanngfactory', function () {
      gulp.src(destPathAot+'.ngfactory.ts')
         .pipe(clean());
+     gulp.src(destPathAot + '.ngfactory.js')
+         .pipe(clean());
      gulp.src(destPathAot+'.ngsummary.json')
         .pipe(clean());
      gulp.src(destPathAot+'.ngstyle.ts')
