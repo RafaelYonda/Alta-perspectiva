@@ -293,19 +293,19 @@ namespace AltaPerspectiva
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
 
-                //ClientId = "localhost", // for localhost
+                ClientId = "localhost", // for localhost
 
 
-                ClientId = "azure",       // for azure deploy  altaperspectiva
+                //ClientId = "azure",       // for azure deploy  altaperspectiva
                 //ClientId = "altaperspectiva",       // for azure new deploy 
 
                 ClientSecret = "aLtaseCreT!@#",
 
 
 
-              //PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+              PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
 
-                 PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
+                 //PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
 
 
                 RequireHttpsMetadata = false,

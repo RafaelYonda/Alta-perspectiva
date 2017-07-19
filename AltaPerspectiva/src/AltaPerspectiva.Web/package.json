@@ -14,7 +14,7 @@
     "watch-webpack-production": "npm run build-production --watch --color",
     "publish-for-iis": "npm run build-production && dotnet publish -c Release"
   },
-  "dependencies": {
+  "dependencies": { 
     "@angular/common": "2.4.0",
     "@angular/compiler": "2.4.0",
     "@angular/core": "2.4.0",
