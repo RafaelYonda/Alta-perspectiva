@@ -10,8 +10,6 @@
             <li class="nav-home"><a routerLink="/">Alta Perspectiva</a></li>
             <li><a routerLink="/question/home/1"><!--Questions-->Responder</a></li>
         </ul>
-        <span>{{_logObj.isLoggedIn}}</span>
-        
         <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
             <li><a href="/signin">Iniciar sesión <!--Log in--></a></li>
             <li><a href="/signin">Regístrate <!--Register--></a></li>
