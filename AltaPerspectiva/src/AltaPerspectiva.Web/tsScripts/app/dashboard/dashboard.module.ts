@@ -8,7 +8,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
 import { DashBoardComponent } from './dashboard.component';
-import { NavDashboard } from './navdashboard/navdashboard.component';
 
 import { ViewProfileComponent } from './viewprofile/viewprofile.component';
 import { ProfileInfoComponent } from './viewprofile/profile-info/profile-info.component';
@@ -87,7 +86,7 @@ export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBo
     imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule, QuillModule, SharedModule, PopoverModule, ImageCropperModule
     ],
     declarations: [
-        DashBoardComponent, NavDashboard,
+        DashBoardComponent,
         ViewProfileComponent,
         ProfileInfoComponent, ProfileStatComponent, ProfileCategoryComponent, UserAnswerComponent, UserQuestionComponent, DirectQuestionComponent, FollowingComponent, FollowerComponent, BookmarkComponent, BlogCreateComponent, BlogPostComponent, VirtualStoreComponent, PostStatusComponent, BlogpostCommentComponent, BlogpostDetailComponent, PostedQuestionComponent, DraftAnswerComponent,
         //Edit Profile

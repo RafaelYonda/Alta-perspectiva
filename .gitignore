@@ -108,3 +108,6 @@ AltaAuthentication/AltaAuthentication/AuthorizationServer/obj/
 *.ngstyle.ts
 *.ngfactory.js
 *.component.js
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/0.chunk.js
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/1.chunk.js
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/2.chunk.js
