@@ -55,6 +55,9 @@ export class ViewProfileComponent {
         this.userId = this._route.snapshot.params['userId'];
 
         document.getElementById('question-route').focus();
+        if (localStorage.getItem("userId") == this.userId) {
+            this.isOwner = true;
+        }
         //document.getElementById('question-link').focus();
         this._route.params.subscribe(params => {
             //===========Checkis owner  ==========
