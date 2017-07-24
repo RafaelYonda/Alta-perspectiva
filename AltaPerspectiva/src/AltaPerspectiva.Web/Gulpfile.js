@@ -22,6 +22,12 @@ gulp.task('cleanngfactory', function () {
         .pipe(clean());
      gulp.src(destPathAot+'.ngstyle.ts')
         .pipe(clean());
+    gulp.src(destPathAot + '.module.js')
+         .pipe(clean()); 
+    gulp.src(destPathAot + '.component.js')
+         .pipe(clean());
+    gulp.src(destPathAot + '.ngstyle.js')
+         .pipe(clean());
     return '';
 });
 gulp.task("scriptsNStyles", () => {

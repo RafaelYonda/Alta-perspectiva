@@ -1,5 +1,4 @@
-﻿/// <reference path="../left-menu/category-left-menu.component.ts" />
-import {LogInObj, User} from '../../services/models';
+﻿import {LogInObj, User} from '../../services/models';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
@@ -13,18 +12,21 @@ import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input
     styleUrls: ['nav-bar.component.css'],
 })
 export class NavBarComponent {
-    @Input() className: string;
+    @Input() className: string;    
+    @Input() hideSearch: boolean;
     isbackGround = false;
     _logObj: LogInObj;
     _authService: AuthenticationService;
 
     constructor(private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router) {
+        
         this._authService = authService;
         var user: User = new User();
         //user.userid = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
+        console.log(this._logObj);
         var currentUser = localStorage.getItem('auth_token');
         if (currentUser == null) {
             var user: User = new User();
