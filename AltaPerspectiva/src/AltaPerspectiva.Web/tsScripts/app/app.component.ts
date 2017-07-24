@@ -20,14 +20,16 @@ export class AppComponent {
             localStorage.setItem('currentUser', username);
             localStorage.setItem('auth_token', token);
             this._authService.getLoggedinObj().subscribe(res => {
-                localStorage.setItem('currentUserObject', res);
+                localStorage.setItem('currentUserId', res.userId);
+                localStorage.setItem('currentUserName', res.name);
                 localStorage.setItem('currentUserImage', res.imageUrl ? res.imageUrl : null);
             });
         }
         else {
             localStorage.removeItem('currentUser');
             localStorage.removeItem('auth_token');
-            localStorage.removeItem('currentUserObject');
+            localStorage.removeItem('currentUserId');
+            localStorage.removeItem('currentUserName');
             localStorage.removeItem('currentUserImage');
         }
     }

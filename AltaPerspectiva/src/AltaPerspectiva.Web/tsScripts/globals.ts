@@ -6,3 +6,10 @@ export const SITE_URL: string = 'http://www.altaperspectiva.com/';
 export class AppSettings {
     public static SITE_URL = 'http://www.altaperspectiva.com/';
 }
+export class LoggedInUser {
+    userId: string;
+    name: string;
+    occupassion: string;
+    imageUrl: string;
+    credentialId: string;
+}
