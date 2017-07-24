@@ -114,3 +114,4 @@ AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/2.chunk.js
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/app.bundle.js
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/polyfills.bundle.js
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/vendor.bundle.js
+*.ngstyle.js

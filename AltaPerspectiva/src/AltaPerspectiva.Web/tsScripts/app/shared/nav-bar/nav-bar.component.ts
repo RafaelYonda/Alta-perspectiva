@@ -26,7 +26,7 @@ export class NavBarComponent {
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
-        console.log(this._logObj);
+        
         var currentUser = localStorage.getItem('auth_token');
         if (currentUser == null) {
             var user: User = new User();
@@ -34,14 +34,23 @@ export class NavBarComponent {
             return;
         }
 
-        this._authService.getLoggedinObj().subscribe(res => {
+        else {
             this._logObj = new LogInObj();
             this._logObj.user = new User();
-            this._logObj.user.name = res.name;
-            this._logObj.user.imageUrl = res.imageUrl;
+            this._logObj.user.name = localStorage.getItem('currentUserName');
+            this._logObj.user.imageUrl = localStorage.getItem('currentUserImage');
             this._logObj.isLoggedIn = true;
-            this._logObj.user.userId = res.userId;
-        });
+            this._logObj.user.userId = localStorage.getItem('currentUserId');
+            console.log(this._logObj);
+        }
+        //this._authService.getLoggedinObj().subscribe(res => {
+        //    this._logObj = new LogInObj();
+        //    this._logObj.user = new User();
+        //    this._logObj.user.name = res.name;
+        //    this._logObj.user.imageUrl = res.imageUrl;
+        //    this._logObj.isLoggedIn = true;
+        //    this._logObj.user.userId = res.userId;
+        //});
     }
     gotoProfile() {
         this._router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
