@@ -25,7 +25,7 @@ namespace UserProfile.Query.Queries
         {
             List<CategoryWiseAnswer> categoryWiseAnswers = new List<CategoryWiseAnswer>();
             String query = String.Format(@"[SpCategoryWiseAnswer] '{0}'", userId);
-            categoryWiseAnswers = DataReaderToListHelper.DataReaderToList<CategoryWiseAnswer>(connectionString, query);
+            categoryWiseAnswers = new DataReaderToListHelper().DataReaderToList<CategoryWiseAnswer>(connectionString, query);
             return categoryWiseAnswers;
         }
 
@@ -34,7 +34,7 @@ namespace UserProfile.Query.Queries
             ProfileParameter profileParameter = new ProfileParameter();
             string query = String.Format("SpProfileParameterCount '" + userId + "'");
             profileParameter =
-                DataReaderToListHelper.DataReaderToObject<ProfileParameter>(connectionString, query);
+                new DataReaderToListHelper().DataReaderToObject<ProfileParameter>(connectionString, query);
 
             return profileParameter;
         }
@@ -43,7 +43,7 @@ namespace UserProfile.Query.Queries
         {
             UserInfoDetails userInfoDetails = new UserInfoDetails();
             String query = String.Format("SpUserInfoDetails '{0}'", userId);
-            userInfoDetails = DataReaderToListHelper.DataReaderToObject<UserInfoDetails>(connectionString, query);
+            userInfoDetails = new DataReaderToListHelper().DataReaderToObject<UserInfoDetails>(connectionString, query);
        
             return userInfoDetails;
         }
@@ -52,7 +52,7 @@ namespace UserProfile.Query.Queries
         {
             List<UserSummary> userSummery = new List<UserSummary>();
             string query = String.Format("SpTopUserCalculation");
-            return  await Task.Run(() => userSummery = DataReaderToListHelper.DataReaderToList<UserSummary>(connectionString, query));
+            return  await Task.Run(() => userSummery = new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
            
             
         }
@@ -60,14 +60,14 @@ namespace UserProfile.Query.Queries
         {
             List<UserSummary> userSummery = new List<UserSummary>();
             string query = String.Format(@"SpTopHundredUserSummary");
-            return await Task.Run(() => userSummery = DataReaderToListHelper.DataReaderToList<UserSummary>(connectionString, query));
+            return await Task.Run(() => userSummery = new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
         }
 
         public async Task<UserSummary> GetUserSummary(Guid userId, string connectionString)
         {
             UserSummary summary = new UserSummary();
             string query = String.Format("SpTopUserCalculation '" + userId + "'");
-            summary = await Task.Run(() => DataReaderToListHelper.DataReaderToObject<UserSummary>(connectionString, query));
+            summary = await Task.Run(() => new DataReaderToListHelper().DataReaderToObject<UserSummary>(connectionString, query));
            
             return summary;
         }
@@ -76,7 +76,7 @@ namespace UserProfile.Query.Queries
         {
             List<UserSummary> userSummery = new List<UserSummary>();
             string query = String.Format("SpTopUserCalculation null,'{0}'", categoryId);
-            userSummery = await Task.Run(() => DataReaderToListHelper.DataReaderToList<UserSummary>(connectionString, query));
+            userSummery = await Task.Run(() => new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
            
             return userSummery;
         }
@@ -85,7 +85,7 @@ namespace UserProfile.Query.Queries
         {
             String query = String.Format(@"SpGetUserEmailParameter '{0}'", userId);
 
-            UserEmailParameter userEmailParameter = DataReaderToListHelper.DataReaderToObject<UserEmailParameter>(connectionString,query);
+            UserEmailParameter userEmailParameter = new DataReaderToListHelper().DataReaderToObject<UserEmailParameter>(connectionString,query);
             return userEmailParameter;
 
         }
@@ -103,7 +103,7 @@ namespace UserProfile.Query.Queries
             String query=String.Format("[SpGetUsers] {0}",userIdStrings);
 
 
-            List<UserReadModel> userReadModels = DataReaderToListHelper.DataReaderToList<UserReadModel>(connectionString, query);
+            List<UserReadModel> userReadModels = new DataReaderToListHelper().DataReaderToList<UserReadModel>(connectionString, query);
             return userReadModels;
 
         }
@@ -111,7 +111,7 @@ namespace UserProfile.Query.Queries
         public UserReadModel GetUserReadModel(string connectionString, Guid userId)
         {
             String query = String.Format("[SpGetUsers] '{0}'", userId);
-            UserReadModel userReadModel = DataReaderToListHelper.DataReaderToObject<UserReadModel>(connectionString,query);
+            UserReadModel userReadModel = new DataReaderToListHelper().DataReaderToObject<UserReadModel>(connectionString,query);
             return userReadModel;
         }
     }

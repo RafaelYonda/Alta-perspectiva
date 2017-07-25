@@ -9,7 +9,7 @@ namespace AltaPerspectiva.Core.Helpers
 {
     public class DataReaderToListHelper
     {
-        public static string DataReaderToSingleColumn(string connectionString, string query,String columnName)
+        public  string DataReaderToSingleColumn(string connectionString, string query,String columnName)
         {
             String returnType=String.Empty;
             using (var connection = new SqlConnection(connectionString))
@@ -27,7 +27,7 @@ namespace AltaPerspectiva.Core.Helpers
             return returnType;
         }
 
-        public static T DataReaderToObject<T>(string connectionString, string query) where T : class, new()
+        public  T DataReaderToObject<T>(string connectionString, string query) where T : class, new()
         {
             
             T obj = new T();
@@ -57,7 +57,7 @@ namespace AltaPerspectiva.Core.Helpers
             }
             return obj;
         }
-        public static List<T> DataReaderToList<T>(string connectionString, string query) where T : class, new()
+        public  List<T> DataReaderToList<T>(string connectionString, string query) where T : class, new()
         {
             List<T> list = new List<T>();
 

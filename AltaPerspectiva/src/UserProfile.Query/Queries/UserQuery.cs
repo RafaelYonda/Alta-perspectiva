@@ -20,7 +20,7 @@ namespace UserProfile.Query.Queries
         {
             String query = String.Format(@"select 1 admin  from [Identity].[AspNetUserRoles] ur where  ur.roleId ='21B88305-93F1-4040-F789-08D4500A5910' and ur.UserId='{0}'", userId);
 
-            String admin = DataReaderToListHelper.DataReaderToSingleColumn(connectionString, query, "admin");
+            String admin = new  DataReaderToListHelper().DataReaderToSingleColumn(connectionString, query, "admin");
 
             return !String.IsNullOrEmpty(admin);
         }

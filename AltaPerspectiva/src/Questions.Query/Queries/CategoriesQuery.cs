@@ -42,7 +42,7 @@ namespace Questions.Query
 
         public List<CategoryIcon> GetCategoryIcons(string connectionString)
         {
-            return DataReaderToListHelper.DataReaderToList<CategoryIcon>(connectionString,
+            return new DataReaderToListHelper().DataReaderToList<CategoryIcon>(connectionString,
                 "select * from [Questions].[CategoryIcon];");
         }
     }
