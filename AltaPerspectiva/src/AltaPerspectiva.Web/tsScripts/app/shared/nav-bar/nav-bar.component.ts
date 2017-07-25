@@ -35,22 +35,30 @@ export class NavBarComponent {
         }
 
         else {
+            var userId = localStorage.getItem('currentUserId');
+            //Get the user if not loaded yet
+            if (!userId)
+                this.getUser();
+            else {
+                this._logObj = new LogInObj();
+                this._logObj.user = new User();
+                this._logObj.user.userId =
+                    this._logObj.user.name = localStorage.getItem('currentUserName');
+                this._logObj.user.imageUrl = localStorage.getItem('currentUserImage');
+                this._logObj.isLoggedIn = true;
+            }
+        }
+       
+    }
+    getUser() {
+         this._authService.getLoggedinObj().subscribe(res => {
             this._logObj = new LogInObj();
             this._logObj.user = new User();
-            this._logObj.user.name = localStorage.getItem('currentUserName');
-            this._logObj.user.imageUrl = localStorage.getItem('currentUserImage');
+            this._logObj.user.name = res.name;
+            this._logObj.user.imageUrl = res.imageUrl;
             this._logObj.isLoggedIn = true;
-            this._logObj.user.userId = localStorage.getItem('currentUserId');
-            console.log(this._logObj);
-        }
-        //this._authService.getLoggedinObj().subscribe(res => {
-        //    this._logObj = new LogInObj();
-        //    this._logObj.user = new User();
-        //    this._logObj.user.name = res.name;
-        //    this._logObj.user.imageUrl = res.imageUrl;
-        //    this._logObj.isLoggedIn = true;
-        //    this._logObj.user.userId = res.userId;
-        //});
+            this._logObj.user.userId = res.userId;
+        });
     }
     gotoProfile() {
         this._router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
