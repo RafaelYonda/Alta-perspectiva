@@ -11,6 +11,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
 {
     public class AnswerViewModel
     {
+        public Guid AnswerId { get; set; }
         public Guid Id { get; set; }
         public string Text { get; set; }        
         public DateTime? AnswerDate { get; set; }        
@@ -28,5 +29,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         //For follower
         //for only loggedin user
         public bool IsFollowing { get; set; }
+
+        public int LikeCount { get; set; }
+        public int CommentCount { get; set; }
     }
 }

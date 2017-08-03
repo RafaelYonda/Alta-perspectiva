@@ -44,10 +44,9 @@ export class QuestionDetailComponent {
     questionReports: QuestionReport[];
     //isFollowing: boolean;
     
-    constructor(private router: Router, private _route: ActivatedRoute, private questionService: QuestionResolver,
+    constructor(private router: Router, private _route: ActivatedRoute, private questionService: QuestionResolver, 
         private dataService: QuestionAnswerService, private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver) {
         this.route = _route;
-        //this.question = questionService.getFakeQuestion();
         this.date = new DateName();
         var user: User = new User();
         user.userId = '-1';
@@ -57,7 +56,7 @@ export class QuestionDetailComponent {
         window.scrollTo(0, 0);
         var currentUserName = localStorage.getItem('auth_token'); 
         var currentUserImage = localStorage.getItem('currentUserImage');
-        //console.log(currentUserName);
+        
         if (currentUserName != null)
         {
             this._logObj.user.name = currentUserName;
@@ -69,6 +68,12 @@ export class QuestionDetailComponent {
                 // save number of views of question
                 this.dataService.increaseQuestionViewCount(this.question.id).subscribe((res:any) => {
                     this.question.viewCount += 1;
+                });
+                //=======
+                this.dataService.GetAnswersByQuestionId(this.question.id).subscribe((res: any) => {
+                    console.log('Get Answer');
+                    console.log(res);
+                    this.question.answers = res;
                 });
             });
     }
@@ -84,10 +89,8 @@ export class QuestionDetailComponent {
         questionFollowing.answerId = answer.id;
         questionFollowing.followedUserId = answer.userId;
 
-        console.log(questionFollowing);
 
         this.dataService.QuestionFollowing(questionFollowing).subscribe((res:any) => {
-            console.log('successfullt passed')
 
             var isFollowing= this.question.answers.find(x=>x.id==answer.id).isFollowing
 
@@ -235,10 +238,7 @@ export class QuestionDetailComponent {
 
         this.dataService.addAnswerLike(this.like).subscribe(res => {
             this.like.userId = res.userId ;    
-             console.log(res);
-            console.log(this.question.answers.find(x => x.id == answerId).likes);
            var douplicateLike= this.question.answers.find(x => x.id == answerId).likes.find(x => x.userId == res.userId &&x.answerId==answerId);
-            console.log(douplicateLike);
            if (douplicateLike==undefined) {
                this.question.answers.find(x=>x.id==answerId).likes.push(this.like);
            }
@@ -292,7 +292,6 @@ export class QuestionDetailComponent {
     }
 
     GetLatestAnswer(questionId: string) {
-        console.log('GetLatestAnswer ' + questionId);
         this.dataService.GetLatestAnswer(questionId).subscribe(res => {
             this.question = res;
         })
@@ -305,7 +304,6 @@ export class QuestionDetailComponent {
         this.router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
     }
     GetBestAnswer(questionId: string) {
-        console.log('GetBestAnswer ' + questionId);
         this.dataService.GetBestAnswer(questionId).subscribe(res => {
             this.question = res;
         })

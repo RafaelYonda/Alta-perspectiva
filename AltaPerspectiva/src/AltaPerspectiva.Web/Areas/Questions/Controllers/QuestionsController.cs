@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +24,7 @@ using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Questions.Query.Specifications;
-
+using Dapper;
 
 namespace AltaPerspectiva.Web.Area.Questions
 {
@@ -61,22 +63,32 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
         // GET: /questions/api/questions
         [HttpGet("/questions/api/questions")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(int pageNumber = 0)
         {
-            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-            Guid loggedinUser = Guid.Empty;
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
+            int pageSize = 15;
+            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber, pageSize));
 
-            List<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration, loggedinUser);
+            //IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
+            //Guid loggedinUser = Guid.Empty;
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    var userId =
+            //        User.Claims.Where(
+            //                x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+            //            .Select(x => x.Value);
+            //    loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            //}
+
+            //List<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration, loggedinUser);
 
             return Ok(questions);
+        }
+
+        [HttpGet("/questions/api/questions/{questionId}/getanswers")]
+        public async Task<IActionResult> GetAnswers(Guid questionId)
+        {
+            var answers = await Task.Run(() => new QuestionServiceOptimized().GetAnswerViewModels(questionId));
+            return Ok(answers);
         }
 
         [HttpGet("/questions/api/{topicId}/questions/{categoryId}")]
@@ -142,6 +154,8 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/{id}")]
         public IActionResult Get(Guid id)
         {
+
+
             Question question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(id);
 
             QuestionViewModel questionViewModel = new QuestionViewModel();
@@ -154,9 +168,11 @@ namespace AltaPerspectiva.Web.Area.Questions
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration, loggedinUser);
+            var questionViewModel1 = new QuestionServiceOptimized().GetQuestionViewModel(id);
 
-            return Ok(questionViewModel);
+            //questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration, loggedinUser);
+
+            return Ok(questionViewModel1);
         }
 
         // GET /questions/api/questions/category/{id}
@@ -418,15 +434,39 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/question/{answerId}/answerlike")]
         public async Task<IActionResult> GetAnswerLike(Guid answerId)
         {
-            IEnumerable<Like> likes = await queryFactory.ResolveQuery<ILikeQuery>().GetLikeByAnswerId(answerId);
+            string connectionString = Startup.ConnectionString;
+            string query = String.Format(@"
+                select likedUser.*,cr.[FirstName]+' '+cr.[LastName] as Name,cr.[ImageUrl] from
+(select distinct UserId from [Questions].[Likes]
+where AnswerId='{0}') likedUser
 
+left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
+
+", answerId);
             List<UserViewModel> userViewModels = new List<UserViewModel>();
-            foreach (var like in likes)
+            using (IDbConnection db = new SqlConnection(connectionString))
             {
-                Guid userId = like.UserId;
-                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
-                userViewModels.Add(userViewModel);
+                userViewModels = await Task.Run(() => db.Query<UserViewModel>(query).ToList());
             }
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            foreach (var userViewModel in userViewModels)
+            {
+                if (String.IsNullOrEmpty(userViewModel.ImageUrl))
+                {
+                    userViewModel.ImageUrl = "avatar.png";
+                }
+                userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
+
+            }
+            //IEnumerable<Like> likes = await queryFactory.ResolveQuery<ILikeQuery>().GetLikeByAnswerId(answerId);
+
+            //List<UserViewModel> userViewModels = new List<UserViewModel>();
+            //foreach (var like in likes)
+            //{
+            //    Guid userId = like.UserId;
+            //    UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
+            //    userViewModels.Add(userViewModel);
+            //}
             return Ok(userViewModels);
 
         }
@@ -824,7 +864,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             Guid? categoryId = filterParameter.CategoryId;
             Guid? topicId = filterParameter.TopicId;
             Guid? levelId = filterParameter.LevelId;
-            QuestionFilterSpecification questionFilterSpecification=new QuestionFilterSpecification(categoryId,topicId,levelId);
+            QuestionFilterSpecification questionFilterSpecification = new QuestionFilterSpecification(categoryId, topicId, levelId);
 
             IEnumerable<Question> questions =
                 await queryFactory.ResolveQuery<IQuestionsQuery>().Filter(questionFilterSpecification);

@@ -54,6 +54,12 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
             QuestionLevelNames=new List<string>();
             QuestionTopicNames=new List<string>();
         }
-        
+
+        public int LikeCount { get; set; }
+        public int CommentCount { get; set; }
+        public Guid CategoryId { get; set; }
+        public Guid TopicId { get; set; }
+        public Guid LevelId { get; set; }
+
     }
 }

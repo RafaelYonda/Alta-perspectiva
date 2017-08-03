@@ -30,20 +30,21 @@
             Question question = null;          
 
             /// save comment for question
-            if (command.QuestionId.HasValue)
+            if (command.QuestionId != Guid.Empty)
             {
                 question = GetQuestionById(command.QuestionId.Value);
                 if(question.ViewCount == null)
                     question.ViewCount = 1;
                 else
                     question.ViewCount += 1;
-
+                DbContext.Questions.Update(question);
+                DbContext.SaveChanges();
+                command.Id = question.Id;
             }
 
-            DbContext.Questions.Update(question);
-            DbContext.SaveChanges();
+            
 
-			command.Id = question.Id;
+			
 		}
 
         private Question GetQuestionById(Guid id)

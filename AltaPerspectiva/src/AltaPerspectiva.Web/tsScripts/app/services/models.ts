@@ -129,8 +129,10 @@ export class Answer {
     isDrafted: boolean; //IsDrafted added 
     IsAnonymous: boolean; //IsAnonymouss added 
     likes: Like[];
+    firstImageUrl:string;
     comments: Comment[];
-    answerTagsRemoved:string;
+    answerTagsRemoved: string;
+    answerLikeCount:number;
     constructor() {
 
         this.likes = new Array();
@@ -149,7 +151,8 @@ export class AnswerViewModel {
     isDrafted: boolean;
     userId: string;
     isFollowing: boolean;
-    firstImageUrl:string;
+    firstImageUrl: string;
+    answerLikeCount: number;
     constructor() {
 
         this.likes = new Array();
