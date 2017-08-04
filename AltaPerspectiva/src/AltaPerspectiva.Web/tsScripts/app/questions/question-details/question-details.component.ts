@@ -65,6 +65,14 @@ export class QuestionDetailComponent {
         this.route.data
             .subscribe((res:any) => {
                 this.question = res.question;
+                //update meta tag description of facebook sharing
+                var metas = document.getElementsByTagName('meta');
+                for (var i = 0; i < metas.length; i++) {
+                    if (metas[i].getAttribute("property") == "og:description") {
+                        metas[i].setAttribute("content", this.question.title);
+                    }
+                } 
+
                 // save number of views of question
                 this.dataService.increaseQuestionViewCount(this.question.id).subscribe((res:any) => {
                     this.question.viewCount += 1;
