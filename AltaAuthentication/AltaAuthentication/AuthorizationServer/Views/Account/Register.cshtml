@@ -47,6 +47,15 @@
                 <h2 class="login-header">
                     @*Sign Up*@Regístrate
                 </h2>
+                @{
+                    if (ViewBag.Message != null)
+                    {
+                        <h4 class="col-md-offset-1">
+                            <span class="text-danger"> @ViewBag.Message </span>
+                        </h4>
+                        ViewBag.Message = null;
+                    }
+                }
                 @*<div asp-validation-summary="All" class="text-danger"></div>*@
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-md-10">

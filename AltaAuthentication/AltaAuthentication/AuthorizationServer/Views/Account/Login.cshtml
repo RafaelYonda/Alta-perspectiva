@@ -5,7 +5,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Iniciar sesión";
 }
 
 <style>
@@ -54,6 +54,16 @@
                 <h2 class="login-header">
                     @*Log in*@Iniciar sesión
                 </h2>
+                @{
+                    if (ViewBag.Message != null)
+                    {
+                        <h4 class="col-md-offset-1">
+                            <span class="text-danger"> @ViewBag.Message </span>
+                        </h4>
+                        ViewBag.Message = null;
+                    }
+                }
+
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-md-10">
                         <input asp-for="Email" placeholder="Ingresa tu correo electrónico" class="form-control" id="email" />

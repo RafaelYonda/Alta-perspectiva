@@ -2,7 +2,6 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Questions.Domain;
-
     using System.Linq;
 
     public class QuestionsQueryDbContext : DbContext

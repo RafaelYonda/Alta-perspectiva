@@ -2,7 +2,6 @@
 {
     using System;
     using AltaPerspectiva.Core.Infrastructure;
-    using AltaPerspectiva.Identity;
 
     public class Comment:Entity
     {

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Blog.Domain;
 using Blog = Blog.Domain.Blog;
-
 namespace Blog.Query
 {
     public class BlogQueryDbContext : DbContext
