@@ -18,7 +18,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                 var topicViewModel = new TopicViewModel
                 {
                     Id = topic.Id,
-                    CategoryId = topic.CategoryId,
+                    //CategoryId = topic.CategoryId,
                     TopicName = topic.TopicName,
                     //   CategoryName = topic.Category.Name
                 };

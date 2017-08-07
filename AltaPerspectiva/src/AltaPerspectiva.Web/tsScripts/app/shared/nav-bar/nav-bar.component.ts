@@ -15,6 +15,7 @@ export class NavBarComponent {
     @Input() className: string;    
     @Input() hideSearch: boolean;
     isbackGround = false;
+    showUserInfo=false;     //show right bar log in info only when data available
     _logObj: LogInObj;
     _authService: AuthenticationService;
 
@@ -29,6 +30,7 @@ export class NavBarComponent {
         
         var currentUser = localStorage.getItem('auth_token');
         if (currentUser == null) {
+            this.showUserInfo = true;
             var user: User = new User();
             this._logObj = { isLoggedIn: false, user: user };
             return;
@@ -51,7 +53,8 @@ export class NavBarComponent {
        
     }
     getUser() {
-         this._authService.getLoggedinObj().subscribe(res => {
+        this._authService.getLoggedinObj().subscribe(res => {
+            this.showUserInfo = true;
             this._logObj = new LogInObj();
             this._logObj.user = new User();
             this._logObj.user.name = res.name;

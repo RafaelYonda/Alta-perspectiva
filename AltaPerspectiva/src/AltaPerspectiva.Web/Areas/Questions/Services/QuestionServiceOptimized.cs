@@ -229,38 +229,49 @@ select * from Questions.Levels where id ='{2}';
         
         public List<QuestionViewModel> GetQuestionViewModels(int pageNumber,int pageCount)
         {
-            String query =String.Format( @"
-select   ques.* ,bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.Id as AnswerId,bestAns.userId as AnswerUserId,bestAns.CreatedOn as AnswerCreatedOn,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =ques.Id) AnswerCount,
+            String query =String.Format(@"
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
-(select top 1 CategoryId from Questions.QuestionCategories qc where qc.QuestionId=ques.id) CategoryId,
-(select TopicId from Questions.QuestionTopics qt where qt.QuestionId=ques.id) TopicId,
-(select LevelId from Questions.QuestionLevels ql where ql.QuestionId=ques.id) LevelId
-from [Questions].[Questions] ques
+bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
+from Questions.Questions q 
+INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+Questions.Levels l ON ql.LevelId = l.Id
 left join
 (select a.*
 from Questions.Questions q
 inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
 
 ) bestAns
-on bestAns.QuestionId=ques.Id
-where ques.IsDeleted is null and ques.IsDirectQuestion = 0
-
-order by ques.CreatedOn desc
+on bestAns.QuestionId=q.Id
+where q.IsDeleted is null and q.IsDirectQuestion=0
+order by q.CreatedOn desc
 OFFSET {0} ROWS -- skip 10 rows
 FETCH NEXT {1} ROWS ONLY; -- take 10 rows
-",pageNumber* pageCount,pageCount);
+", pageNumber* pageCount,pageCount);
             List<QuestionDbModel> questionDbModels = null;
             List<UserViewModel> userViewModels = null;
-            List<CategoryViewModel> categoryViewModels = null;
-            List<TopicViewModel> topics = null;
-            List<LevelViewModel> levels = null;
+           // List<CategoryViewModel> categoryViewModels = null;
+           // List<TopicViewModel> topics = null;
+           // List<LevelViewModel> levels = null;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 questionDbModels = db.Query<QuestionDbModel>(query).ToList();
 
-                String multipleQuery = String.Format(@"
+
+                List<Guid> userList = new List<Guid>();
+
+                userList.AddRange(questionDbModels.Select(x => x.UserId).ToList());
+                userList.AddRange(questionDbModels.Select(x=>x.AnswerUserId).ToList());
+
+               String userQuery = String.Format(@"
  select CONVERT(uniqueidentifier,asp.Id) as UserId ,
    ISNULL((select top 1 ISNULL(FirstName,'')+' '+ISNULL(LastName,'') from UserProfile.Credentials where UserId=asp.Id),asp.UserName) as Name,
    CONVERT(uniqueidentifier,(select Id from UserProfile.Credentials where UserId=asp.Id)) CredentialId,
@@ -273,21 +284,18 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
    where c.UserID=asp.Id
 
    ) Occupation
-   from   [AltaPerspectiva].[dbo].[AspNetUsers] asp  ;
-select * from [Questions].[Categories];
-select  * from Questions.Topics;
-select * from Questions.Levels;
-
+   from   [AltaPerspectiva].[dbo].[AspNetUsers] asp
+  where asp.Id in @ids
 ");
-                var multiple = db.QueryMultiple(multipleQuery);
-                userViewModels = multiple.Read<UserViewModel>().ToList();
+               
+                userViewModels = db.Query<UserViewModel>(userQuery,new { @ids = userList }).ToList();
                 foreach (var userViewModel in userViewModels)
                 {
                     userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
                 }
-                categoryViewModels = multiple.Read<CategoryViewModel>().ToList();
-                topics = multiple.Read<TopicViewModel>().ToList();
-                levels = multiple.Read<LevelViewModel>().ToList();
+               // categoryViewModels = multiple.Read<CategoryViewModel>().ToList();
+              //  topics = multiple.Read<TopicViewModel>().ToList();
+              //  levels = multiple.Read<LevelViewModel>().ToList();
 
             }
 
@@ -312,14 +320,22 @@ select * from Questions.Levels;
                 if (categoryId != Guid.Empty)
                 {
                     questionViewModel.Categories=new List<CategoryViewModel>();
-                    var categoryViewModel = categoryViewModels.FirstOrDefault(x => x.Id == categoryId);
+                    var categoryViewModel = new CategoryViewModel
+                    {
+                        Id = categoryId,
+                        Name = dbModel.CategoryName
+                    };
                     questionViewModel.Categories.Add(categoryViewModel);
 
                 }
                 if (topicId != Guid.Empty)
                 {
                     questionViewModel.QuestionTopics=new List<QuestionTopic>();
-                    var topicViewModel = topics.FirstOrDefault(x => x.Id == topicId);
+                    var topicViewModel = new TopicViewModel
+                    {
+                        Id = topicId,
+                        TopicName = dbModel.TopicName
+                    };
                     if (topicViewModel != null)
                     {
                         QuestionTopic questionTopic = new QuestionTopic
@@ -337,7 +353,11 @@ select * from Questions.Levels;
                 if (levelId != Guid.Empty)
                 {
                     questionViewModel.QuestionLevels=new List<QuestionLevel>();
-                    var levelViewModel = levels.FirstOrDefault(x => x.Id == levelId);
+                    var levelViewModel = new LevelViewModel
+                    {
+                        Id = levelId,
+                        LevelName = dbModel.LevelName
+                    };
                     if (levelViewModel != null)
                     {
                         QuestionLevel questionLevel = new QuestionLevel

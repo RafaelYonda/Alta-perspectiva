@@ -10,11 +10,11 @@
             <li class="nav-home"><a routerLink="/">Alta Perspectiva</a></li>
             <li><a routerLink="/question/home/1"><!--Questions-->Responder</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn">
+        <ul class="nav navbar-nav navbar-right" *ngIf="!_logObj.isLoggedIn && showUserInfo">
             <li><a href="/signin">Iniciar sesión <!--Log in--></a></li>
             <li><a href="/signin">Regístrate <!--Register--></a></li>
         </ul>
-        <div class="nav navbar-right" *ngIf="_logObj.isLoggedIn">
+        <div class="nav navbar-right" *ngIf="_logObj.isLoggedIn && showUserInfo">
             <a href="#" class="dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false">
                 <img class="user-image img-circle" src="{{_logObj.user.imageUrl}}" />
                 

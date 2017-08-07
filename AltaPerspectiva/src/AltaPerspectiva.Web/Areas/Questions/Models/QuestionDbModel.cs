@@ -44,9 +44,12 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         public bool IsDirectQuestion { get; set; }
 
         public Guid? QuestionAskedToUser { get; set; }
-
+        public String CategoryName { get; set; }
         public Guid CategoryId { get; set; }
+        public String TopicName { get; set; }
         public Guid TopicId { get; set; }
+
+        public String LevelName { get; set; }
         public Guid LevelId { get; set; }
         /*Answer*/
         public Guid AnswerId { get; set; }
