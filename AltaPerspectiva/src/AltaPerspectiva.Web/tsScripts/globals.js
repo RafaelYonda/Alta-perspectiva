@@ -8,3 +8,9 @@ var AppSettings = (function () {
 }());
 export { AppSettings };
 AppSettings.SITE_URL = 'http://www.altaperspectiva.com/';
+var LoggedInUser = (function () {
+    function LoggedInUser() {
+    }
+    return LoggedInUser;
+}());
+export { LoggedInUser };

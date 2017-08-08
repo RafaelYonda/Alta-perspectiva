@@ -175,12 +175,11 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(questionViewModel1);
         }
 
-        // GET /questions/api/questions/category/{id}
-        [HttpGet("/questions/api/questions/category/{id}/{pageNumber}")]
-        public async Task<IActionResult> GetQuestionsByCategoryId(Guid id ,int pageNumber)
+        [HttpGet("/questions/api/questions/category/{id}")]
+        public async Task<IActionResult> GetQuestionsByCategoryId(Guid id )
         {
             
-            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: pageNumber ,pageCount: 15 , filterParameter:new FilterParameter
+            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: 0 ,pageCount: 15 , filterParameter:new FilterParameter
             {
                 CategoryId = id
             }));

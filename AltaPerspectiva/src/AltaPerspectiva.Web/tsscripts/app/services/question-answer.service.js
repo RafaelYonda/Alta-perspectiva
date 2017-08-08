@@ -204,6 +204,11 @@ var QuestionAnswerService = (function () {
             .map(this.extractData)
             .catch(this.handleError);
     };
+    QuestionAnswerService.prototype.GetAnswersByQuestionId = function (questionId) {
+        return this._http.get('/questions/api/questions/' + questionId + '/getanswers', null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
     QuestionAnswerService.prototype.FilterbyCategoryTopicNLevel = function (filterParameter) {
         return this._http.get('/questions/api/FilterbyCategoryTopicNLevel?categoryId=' + filterParameter.categoryId + '&topicId=' + filterParameter.topicId + '&levelId=' + filterParameter.levelId, null)
             .map(this.extractData)

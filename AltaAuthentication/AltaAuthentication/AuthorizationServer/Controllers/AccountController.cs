@@ -76,6 +76,7 @@ namespace AuthorizationServer.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ViewBag.Message = "Intentos de inicio de sesión no válidos";
                     return View(model);
                 }
             }
@@ -130,7 +131,7 @@ namespace AuthorizationServer.Controllers
                 }
                 AddErrors(result);
             }
-
+            ViewBag.Message = "Nombre de usuario o correo electrónico ya ocupado";
             // If we got this far, something failed, redisplay form
             return View(model);
         }
