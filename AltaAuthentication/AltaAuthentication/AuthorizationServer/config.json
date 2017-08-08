@@ -2,7 +2,8 @@
   "Data": {
     "DefaultConnection": {
       //"ConnectionString": "Server=DESKTOP-T631FTK\\SQLEXPRESS;Database=OpennId;Trusted_Connection=True;MultipleActiveResultSets=true"
-      "ConnectionString": "Server=tcp:servidoraltap.database.windows.net,1433;Initial Catalog=OpenId;Persist Security Info=False;User ID=altaperspectiva;Password=*AltaP2016*;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+      "ConnectionString": "Server=tcp:servidoraltap.database.windows.net,1433;Initial Catalog=OpenId;Persist Security Info=False;User ID=altaperspectiva;Password=*AltaP2016*;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+      "AltaPerspectivaConnectionString": "Server=tcp:servidoraltap.database.windows.net,1433;Initial Catalog=AltaPerspectiva;Persist Security Info=False;User ID=altaperspectiva;Password=*AltaP2016*;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
     },
     "azure": "DefaultEndpointsProtocol=https;AccountName=altablob;AccountKey=ThRey0TjbkkV6vleW+k9tH/0vd9U5lGv9tlbICuTIkFAIXQjVD0zqcr2MToF2GLM4Q5m8h99zk+J4xlT+lPVhw==",
     "SendGridApiKey": "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"

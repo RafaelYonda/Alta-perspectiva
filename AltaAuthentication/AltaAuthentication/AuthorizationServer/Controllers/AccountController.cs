@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using AuthorizationServer.Helpers;
+using System;
+using System.Data.SqlClient;
 
 namespace AuthorizationServer.Controllers
 {
@@ -110,6 +112,7 @@ namespace AuthorizationServer.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    InsertIntoUserInfoCredential(user.Id, user.Email);
                     var configuration = new ConfigurationBuilder()
                     .AddJsonFile("config.json")
                     .AddEnvironmentVariables()
@@ -135,7 +138,22 @@ namespace AuthorizationServer.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        private void InsertIntoUserInfoCredential(String userId, String email)
+        {
+            String query = String.Format(@"insert into [AltaPerspectiva].[UserProfile].[Credentials](Id,CreatedOn,DTS,UserId,Email) values (NEWID(),GETDATE(),GETDATE(),'{0}','{1}')", userId, email);
+            string connectionString = new ConfigurationBuilder()
+                    .AddJsonFile("config.json")
+                    .AddEnvironmentVariables()
+                    .Build()["Data:DefaultConnection:AltaPerspectivaConnectionString"];
 
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(query, connection);
+                command.ExecuteNonQuery();
+
+            }
+        }
         //
         // POST: /Account/LogOff
         [HttpPost]
