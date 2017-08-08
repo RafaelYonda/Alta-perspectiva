@@ -186,6 +186,22 @@ namespace AltaPerspectiva.Web.Area.Questions
 
             return Ok(questions);
         }
+        [HttpGet("/questions/api/questions/{categoryId}/categorywithpagination/{pageNumber}")]
+        public async Task<IActionResult> CategoryWithPagination(Guid categoryId, int pageNumber)
+        {
+            Guid? catId = null;
+            if (categoryId != Guid.Empty)
+            {
+                catId = categoryId;
+            }
+
+            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: pageNumber, pageCount: 15, filterParameter: new FilterParameter
+            {
+                CategoryId = catId
+            }));
+
+            return Ok(questions);
+        }
 
         // GET /questions/api/questions/topic/{id}
         [HttpGet("/questions/api/questions/topic/{id}")]
