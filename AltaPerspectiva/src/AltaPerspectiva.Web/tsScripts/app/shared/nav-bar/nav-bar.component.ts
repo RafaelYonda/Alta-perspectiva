@@ -37,6 +37,7 @@ export class NavBarComponent {
         }
 
         else {
+            
             var userId = localStorage.getItem('currentUserId');
             //Get the user if not loaded yet
             if (!userId)
@@ -48,6 +49,7 @@ export class NavBarComponent {
                     this._logObj.user.name = localStorage.getItem('currentUserName');
                 this._logObj.user.imageUrl = localStorage.getItem('currentUserImage');
                 this._logObj.isLoggedIn = true;
+                this.showUserInfo = true;
             }
         }
        

@@ -72,7 +72,7 @@ export class TabPanelComponent {
     UpdateQuestionsByCategory() {
         this.questionAnswerService.getQuestionsByCategoryAndPage(this.id, this.questionPage).subscribe(res => {
             //if scroll page number is higher
-            if (this.questionPage > 0 && res && res.length > 0) {
+            if (this.questionPage > 0 && res && res.length > 0 && this.questions && this.questions) {
                 this.questions = this.questions.concat(res);
             }
             else if (res && res.length > 0)
