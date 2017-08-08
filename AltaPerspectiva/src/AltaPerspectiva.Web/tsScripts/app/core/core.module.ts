@@ -5,7 +5,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {HttpModule  } from '@angular/http';
 import { CommunicationService } from '../services/communication.service';
 import { WindowRefService } from '../services/window-ref.service';
-
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 //====core components============
 import { HomeComponent } from './home.component';
 import { ApBannerComponent } from './banner/apbanner.component';
@@ -22,7 +22,7 @@ import { routing } from './core.route';
 import {PopoverModule} from "ngx-popover";
 
 @NgModule({
-    imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing, PopoverModule
+    imports: [BrowserModule, HttpModule, SharedModule, QuestionModule, FormsModule, routing, PopoverModule, InfiniteScrollModule
     ],
     providers: [
        CommunicationService, WindowRefService

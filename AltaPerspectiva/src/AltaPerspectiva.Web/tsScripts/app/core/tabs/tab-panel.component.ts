@@ -16,6 +16,16 @@ import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName
     providers: [QuestionResolver, QuestionAnswerService, AuthenticationService]
 })
 export class TabPanelComponent {
+    //---------ng scroll-----
+    sum = 100;
+    throttle = 100;
+    scrollDistance = 1;
+    scrollUpDistance = 2;
+    questionPage = 0;  
+    
+    //===============
+
+
     isLoading = false;
     id: string;
     private sub: any;
@@ -55,24 +65,42 @@ export class TabPanelComponent {
             this.showLoader();
 
             this.id = params['id']; // (+) converts string 'id' to a number 
-
-            this.questionAnswerService.getQuestionsByCategory(this.id).subscribe(res => {
-                this.questions = res;
-                for (var q = 0; q < this.questions.length; q++) {
-                    // answers[0] is the best answer
-                    this.questions[q].bestAnswer = this.questions[q].answers[0];
-
-                    if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
-                       // var temp = this.questions[q].bestAnswer.text.substring(0, 200);
-                       // this.questions[q].bestAnswer.text = temp;
-                        this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
-                        this.questions[q].shareUrl = encodeURI(SITE_URL+"/question/detail/" + this.questions[q].id);
-                    }
-                }
-                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-                this.hideLoader();
-            });
+            this.UpdateQuestionsByCategory();
+            
         });
+    }
+    UpdateQuestionsByCategory() {
+        this.questionAnswerService.getQuestionsByCategoryAndPage(this.id, this.questionPage).subscribe(res => {
+            //if scroll page number is higher
+            if (this.questionPage > 0 && res && res.length > 0) {
+                this.questions = this.questions.concat(res);
+            }
+            else if (res && res.length > 0)
+            {
+                this.questions = res;
+            }
+                
+            for (var q = 0; q < this.questions.length; q++) {
+                // answers[0] is the best answer
+                this.questions[q].bestAnswer = this.questions[q].answers[0];
+
+                if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
+                    // var temp = this.questions[q].bestAnswer.text.substring(0, 200);
+                    // this.questions[q].bestAnswer.text = temp;
+                    this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
+                    this.questions[q].shareUrl = encodeURI(SITE_URL + "/question/detail/" + this.questions[q].id);
+                }
+            }
+            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+            this.hideLoader();
+        });
+    }
+
+    onScroll() {
+        this.questionPage = this.questionPage + 1;
+        this.UpdateQuestionsByCategory();
+        console.log('scrolled down!!');
+
     }
 
     ShowModal(questionId:string) {

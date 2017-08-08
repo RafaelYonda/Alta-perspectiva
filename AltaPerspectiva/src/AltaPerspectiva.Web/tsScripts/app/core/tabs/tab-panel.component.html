@@ -21,7 +21,7 @@
         </div>
         <div id="leftPanel">
             <topfive-question-left-menu> </topfive-question-left-menu>
-            <topfive-topic [isHomePage]="true" ></topfive-topic>
+            <topfive-topic [isHomePage]="true"></topfive-topic>
             <category-left-menu [caegoryId]="id"></category-left-menu>
         </div>
     </div>
@@ -33,8 +33,14 @@
         <div class="modal-overlay z-modal" *ngIf="isLoading">
             <div class="loader"></div>
         </div>
-        <div  *ngFor="let question of questions">
-            <question-panel [question]="question"></question-panel>
+        <div class="search-results"
+             infinite-scroll
+		    infiniteScrollDistance="1"
+		    infiniteScrollThrottle="100"
+		    (scrolled)="onScroll()">
+            <div *ngFor="let question of questions">
+                <question-panel [question]="question"></question-panel>
+            </div>
         </div>
         <!-- For Hover pop up get some space to show [isHomePage]="true" -->
         <div class="hidden-xs" style="height:200px;position:relative;"></div>

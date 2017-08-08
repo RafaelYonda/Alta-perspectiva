@@ -91,7 +91,12 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
         
     }
+    getQuestionsByCategoryAndPage(categoryId: string, pagenumber: number): Observable<Question[]> {
+            return this._http.get('/questions/api/questions/' + categoryId + '/categorywithpagination/' + pagenumber)
+                .map(this.extractData)
+                .catch(this.handleError);
 
+    }
     getRelatedQuestions(questionId: string): Observable<Question[]> {
         return this._http.get('/questions/api/questions/relatedquestions/' + questionId)
             .map(this.extractData)
