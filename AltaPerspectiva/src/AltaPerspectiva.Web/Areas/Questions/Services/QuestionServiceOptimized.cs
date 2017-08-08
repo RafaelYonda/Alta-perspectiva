@@ -18,10 +18,10 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
     {
         private string connectionString = Startup.ConnectionString;
         private AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-        private List<QuestionDbModel> QueryBuilderForQuestionDbModel(IDbConnection db,int pageNumber = 1, int pageCount = 15, FilterParameter filterParameter = null)
+        private List<QuestionDbModel> QueryBuilderForQuestionDbModel(IDbConnection db,int pageNumber = 0, int pageCount = 15, FilterParameter filterParameter = null)
         {
             string filterQuery = string.Empty;
-            if (filterParameter == null)
+            if (filterParameter == null || (filterParameter.CategoryId == null && filterParameter.TopicId == null && filterParameter.LevelId == null)) //1.ok
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
@@ -49,14 +49,9 @@ where q.IsDeleted is null and q.IsDirectQuestion =0
 order by q.CreatedOn desc
 OFFSET {0} ROWS -- skip 10 rows
 FETCH NEXT {1} ROWS ONLY; -- take 10 rows
-", pageNumber * pageCount, pageCount);
-
-                var questionDbModels = db.Query<QuestionDbModel>(filterQuery).ToList();
-                return questionDbModels;
+", pageNumber * pageCount, pageCount);          
             }
-
-
-            if (filterParameter.CategoryId.Value != Guid.Empty)
+            else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue && !filterParameter.LevelId.HasValue ) //2.filter only category
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
@@ -80,14 +75,208 @@ inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
 
 ) bestAns
 on bestAns.QuestionId=q.Id
-where q.IsDeleted is null and q.IsDirectQuestion =0 and qc.CategoryId = {2}
+where q.IsDeleted is null and q.IsDirectQuestion =0 and qc.CategoryId = '{2}'
 order by q.CreatedOn desc
 OFFSET {0} ROWS -- skip 10 rows
 FETCH NEXT {1} ROWS ONLY; -- take 10 rows
 
 ", pageNumber * pageCount, pageCount, filterParameter.CategoryId);
             }
-            return null;
+            else if (filterParameter.CategoryId.HasValue && filterParameter.TopicId.HasValue &&
+                     !filterParameter.LevelId.HasValue) //3.filter only category and topic
+            {
+                filterQuery = String.Format(@"
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
+(select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
+bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
+from Questions.Questions q 
+INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+left join
+(select a.*
+from Questions.Questions q
+inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
+
+) bestAns
+on bestAns.QuestionId=q.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0 and qc.CategoryId = '{2}' and qt.TopicId = '{3}'
+order by q.CreatedOn desc
+OFFSET {0} ROWS -- skip 10 rows
+FETCH NEXT {1} ROWS ONLY; -- take 10 rows
+
+", pageNumber * pageCount, pageCount, filterParameter.CategoryId,filterParameter.TopicId);
+            }
+            else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue &&
+                     filterParameter.LevelId.HasValue) // 4. filter by category and level 
+            {
+                filterQuery = String.Format(@"
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
+(select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
+bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
+from Questions.Questions q 
+INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+left join
+(select a.*
+from Questions.Questions q
+inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
+
+) bestAns
+on bestAns.QuestionId=q.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0 and qc.CategoryId = '{2}' and ql.LevelId = '{3}'
+order by q.CreatedOn desc
+OFFSET {0} ROWS -- skip 10 rows
+FETCH NEXT {1} ROWS ONLY; -- take 10 rows
+
+", pageNumber * pageCount, pageCount, filterParameter.CategoryId,filterParameter.LevelId);
+            }
+            else if (filterParameter.CategoryId.HasValue && filterParameter.TopicId.HasValue &&
+                     filterParameter.LevelId.HasValue) //5.filter only category ,topic and level
+            {
+                filterQuery = String.Format(@"
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
+(select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
+bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
+from Questions.Questions q 
+INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+left join
+(select a.*
+from Questions.Questions q
+inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
+
+) bestAns
+on bestAns.QuestionId=q.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0 and qc.CategoryId = '{2}' and qt.TopicId = '{3}' and ql.LevelId = '{4}'
+order by q.CreatedOn desc
+OFFSET {0} ROWS -- skip 10 rows
+FETCH NEXT {1} ROWS ONLY; -- take 10 rows
+
+", pageNumber * pageCount, pageCount, filterParameter.CategoryId,filterParameter.TopicId,filterParameter.LevelId);
+            }
+            
+            else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue &&
+                     filterParameter.LevelId.HasValue) // 6. filter by topic 
+            {
+                filterQuery = String.Format(@"
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
+(select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
+bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
+from Questions.Questions q 
+INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+left join
+(select a.*
+from Questions.Questions q
+inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
+
+) bestAns
+on bestAns.QuestionId=q.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0 and qt.TopicId = '{2}'
+order by q.CreatedOn desc
+OFFSET {0} ROWS -- skip 10 rows
+FETCH NEXT {1} ROWS ONLY; -- take 10 rows
+
+", pageNumber * pageCount, pageCount, filterParameter.TopicId);
+            }
+            else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue &&
+                     !filterParameter.LevelId.HasValue) //7.Topic and level only
+            {
+                filterQuery = String.Format(@"
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
+(select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
+bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
+from Questions.Questions q 
+INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+left join
+(select a.*
+from Questions.Questions q
+inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
+
+) bestAns
+on bestAns.QuestionId=q.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0 and qt.TopicId = '{2}' and ql.LevelId = '{3}'
+order by q.CreatedOn desc
+OFFSET {0} ROWS -- skip 10 rows
+FETCH NEXT {1} ROWS ONLY; -- take 10 rows
+
+", pageNumber * pageCount, pageCount, filterParameter.TopicId , filterParameter.LevelId);
+            }
+            else if (!filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue &&
+                     filterParameter.LevelId.HasValue) //8. level only
+            {
+                filterQuery = String.Format(@"
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
+(select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
+bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
+from Questions.Questions q 
+INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+left join
+(select a.*
+from Questions.Questions q
+inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
+
+) bestAns
+on bestAns.QuestionId=q.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0 and ql.LevelId = '{2}'
+order by q.CreatedOn desc
+OFFSET {0} ROWS -- skip 10 rows
+FETCH NEXT {1} ROWS ONLY; -- take 10 rows
+
+", pageNumber * pageCount, pageCount, filterParameter.LevelId);
+            }
+            var questionDbModels = db.Query<QuestionDbModel>(filterQuery).ToList();
+            return questionDbModels;
         }
 
         private UserViewModel UserViewModelFromUserId(IDbConnection db, Guid userId)
@@ -140,7 +329,26 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
             return userViewModels;
 
         }
+        private string BestAnswerTestWithFormattedImage(string answerText, string firstImageUrl)
+        {
+            string htmlDocument = answerText;
+            List<string> imgTags = Base64Image.GetImagesInHTMLString(answerText);
+            foreach (var imgTag in imgTags)
+            {
+                htmlDocument = answerText.Replace(imgTag, "");
+            }
+            HtmlDocument htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(htmlDocument);
+            string result = htmlDoc.DocumentNode.InnerText;
 
+            string formatedImage = string.Empty;
+            if (!string.IsNullOrEmpty(firstImageUrl))
+            {
+                formatedImage = @"<img src='" + firstImageUrl + "' > ";
+            }
+            string newHtml = "<p>" + formatedImage + result + "</p>";
+            return newHtml;
+        }
         public List<AnswerViewModel> GetAnswerViewModels(Guid questionId)
         {
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
@@ -347,7 +555,7 @@ select * from Questions.Levels where id ='{2}';
             // questionViewModel.Answers = answerViewModels;
             return questionViewModel;
         }
-        public List<QuestionViewModel> GetQuestionViewModels(int pageNumber, int pageCount)
+        public List<QuestionViewModel> GetQuestionViewModels(int pageNumber, int pageCount,FilterParameter filterParameter = null)
         {
           //  String query = QueryBuilder(pageNumber, pageCount);
             List<QuestionDbModel> questionDbModels = null;
@@ -355,7 +563,7 @@ select * from Questions.Levels where id ='{2}';
 
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                questionDbModels = QueryBuilderForQuestionDbModel(db);
+                questionDbModels = QueryBuilderForQuestionDbModel(db,pageNumber,pageCount,filterParameter);
 
                 List<Guid> userList = new List<Guid>();
                 userList.AddRange(questionDbModels.Select(x => x.UserId).ToList());
@@ -464,25 +672,6 @@ select * from Questions.Levels where id ='{2}';
             }
             return questionViewModels;
         }
-        private string BestAnswerTestWithFormattedImage(string answerText, string firstImageUrl)
-        {
-            string htmlDocument = answerText;
-            List<string> imgTags = Base64Image.GetImagesInHTMLString(answerText);
-            foreach (var imgTag in imgTags)
-            {
-                htmlDocument = answerText.Replace(imgTag, "");
-            }
-            HtmlDocument htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(htmlDocument);
-            string result = htmlDoc.DocumentNode.InnerText;
-
-            string formatedImage = string.Empty;
-            if (!string.IsNullOrEmpty(firstImageUrl))
-            {
-                formatedImage = @"<img src='" + firstImageUrl + "' > ";
-            }
-            string newHtml = "<p>" + formatedImage + result + "</p>";
-            return newHtml;
-        }
+        
     }
 }

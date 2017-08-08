@@ -176,20 +176,14 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         // GET /questions/api/questions/category/{id}
-        [HttpGet("/questions/api/questions/category/{id}")]
-        public async Task<IActionResult> GetQuestionsByCategoryId(Guid id)
+        [HttpGet("/questions/api/questions/category/{id}/{pageNumber}")]
+        public async Task<IActionResult> GetQuestionsByCategoryId(Guid id ,int pageNumber)
         {
-            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsByCategoryIdQuery>().Execute(id);
-            Guid loggedinUser = Guid.Empty;
-            if (User.Identity.IsAuthenticated)
+            
+            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: pageNumber ,pageCount: 15 , filterParameter:new FilterParameter
             {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            List<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration, loggedinUser);
+                CategoryId = id
+            }));
 
             return Ok(questions);
         }
@@ -861,24 +855,24 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
         [HttpGet("/questions/api/FilterbyCategoryTopicNLevel")]
         public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter)
         {
-            Guid? categoryId = filterParameter.CategoryId;
-            Guid? topicId = filterParameter.TopicId;
-            Guid? levelId = filterParameter.LevelId;
-            QuestionFilterSpecification questionFilterSpecification = new QuestionFilterSpecification(categoryId, topicId, levelId);
+            //Guid? categoryId = filterParameter.CategoryId;
+            //Guid? topicId = filterParameter.TopicId;
+            //Guid? levelId = filterParameter.LevelId;
+            //QuestionFilterSpecification questionFilterSpecification = new QuestionFilterSpecification(categoryId, topicId, levelId);
 
-            IEnumerable<Question> questions =
-                await queryFactory.ResolveQuery<IQuestionsQuery>().Filter(questionFilterSpecification);
+            //IEnumerable<Question> questions =
+            //    await queryFactory.ResolveQuery<IQuestionsQuery>().Filter(questionFilterSpecification);
 
-            Guid loggedinUser = Guid.Empty;
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questions, queryFactory, configuration, loggedinUser);
+            //Guid loggedinUser = Guid.Empty;
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    var userId =
+            //        User.Claims.Where(
+            //                x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+            //            .Select(x => x.Value);
+            //    loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            //}
+            List<QuestionViewModel> questionViewModels = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: 0 , pageCount: 15 ,filterParameter:filterParameter) );
 
             return Ok(questionViewModels);
         }
