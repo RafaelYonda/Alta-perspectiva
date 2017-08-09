@@ -11,9 +11,14 @@ export class UserQuestionComponent {
     questions: Question[];
     readMoreLink: string;
     private sub: any;
+    isLoading = false;
 
-    constructor(private questionService: QuestionService, private profileService: ProfileService, private _route: ActivatedRoute) { }
+    constructor(private questionService: QuestionService, private profileService: ProfileService, private _route: ActivatedRoute) {
+        
+        
+    }
     ngOnInit() {
+        this.showLoader();
         window.scrollTo(0, 0);
         this.sub = this._route.parent.params.subscribe(params => {
             this.questionService.getQuestionsbyUserId(params['userId']).subscribe(res => {
@@ -26,10 +31,18 @@ export class UserQuestionComponent {
                     }
                 }
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+                this.hideLoader();
             });
         });
     }
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+    
+    showLoader() {
+        this.isLoading = true;
+    }
+    hideLoader() {
+        this.isLoading = false;
     }
 }
