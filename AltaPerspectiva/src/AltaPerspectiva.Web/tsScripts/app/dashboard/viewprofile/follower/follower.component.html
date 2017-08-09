@@ -4,6 +4,9 @@
     }
     
 </style>
+<div class="modal-overlay-inside z-modal" *ngIf="isLoading">
+    <div class="loader"></div>
+</div>
 <div class="row row-fix ">
     <div class="col-md-4 row-gap width-xs" *ngFor="let usr of user">
         <user-info [userObj]="usr"></user-info>

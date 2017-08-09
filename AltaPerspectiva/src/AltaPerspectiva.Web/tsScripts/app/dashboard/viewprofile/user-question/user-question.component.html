@@ -1,3 +1,6 @@
-﻿<div *ngFor="let question of questions">
+﻿<div class="modal-overlay-inside z-modal" *ngIf="isLoading">
+    <div class="loader"></div>
+</div>
+<div *ngFor="let question of questions">
     <question-panel [question]="question"></question-panel>
 </div>
