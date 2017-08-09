@@ -117,3 +117,4 @@ AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/vendor.bundle.js
 *.ngstyle.js
 AltaPerspectiva/src/AltaPerspectiva.Web/packages/
 AltaPerspectiva/src/AltaPerspectiva.Web/tsScripts/**/*.js
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/
