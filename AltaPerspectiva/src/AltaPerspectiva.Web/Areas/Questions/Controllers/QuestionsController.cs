@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Questions.Query.Specifications;
 using Dapper;
+using Microsoft.Extensions.Logging;
 
 namespace AltaPerspectiva.Web.Area.Questions
 {
@@ -36,13 +37,15 @@ namespace AltaPerspectiva.Web.Area.Questions
         IQueryFactory queryFactory;
         private readonly IConfigurationRoot configuration;
         private readonly IHostingEnvironment hostingEnvironment;
+        ILogger<QuestionsController> _logger;
 
-        public QuestionsController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IConfigurationRoot _configuration, IHostingEnvironment _hostingEnvironment)
+        public QuestionsController(ICommandsFactory _commandsFactory, IQueryFactory _queryFactory, IConfigurationRoot _configuration, IHostingEnvironment _hostingEnvironment, ILogger<QuestionsController> logger)
         {
             commandsFactory = _commandsFactory;
             queryFactory = _queryFactory;
             configuration = _configuration;
             hostingEnvironment = _hostingEnvironment;
+            _logger = logger;
         }
 
 
@@ -65,22 +68,12 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions")]
         public async Task<IActionResult> Get(int pageNumber = 0)
         {
-            int pageSize = 15;
+            int pageSize = 10;
+            _logger.LogInformation($"#### log start url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
+
             List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber, pageSize));
 
-            //IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().Execute();
-            //Guid loggedinUser = Guid.Empty;
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    var userId =
-            //        User.Claims.Where(
-            //                x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-            //            .Select(x => x.Value);
-            //    loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            //}
-
-            //List<QuestionViewModel> questions = new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration, loggedinUser);
-
+            _logger.LogInformation($"#### log end url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
             return Ok(questions);
         }
 
@@ -154,35 +147,24 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/{id}")]
         public IActionResult Get(Guid id)
         {
-
-
-            Question question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(id);
-
-            QuestionViewModel questionViewModel = new QuestionViewModel();
-            Guid loggedinUser = Guid.Empty;
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
+            _logger.LogInformation($"#### log start url = "+ Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
             var questionViewModel1 = new QuestionServiceOptimized().GetQuestionViewModel(id);
-
-            //questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration, loggedinUser);
-
+            _logger.LogInformation($"#### log end url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
             return Ok(questionViewModel1);
         }
 
         [HttpGet("/questions/api/questions/category/{id}")]
         public async Task<IActionResult> GetQuestionsByCategoryId(Guid id )
         {
-            
-            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: 0 ,pageCount: 15 , filterParameter:new FilterParameter
+            _logger.LogInformation($"#### log start url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
+
+            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: 0, pageCount: 10, filterParameter: new FilterParameter
             {
                 CategoryId = id
             }));
+
+            _logger.LogInformation($"#### log end url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
+           
 
             return Ok(questions);
         }

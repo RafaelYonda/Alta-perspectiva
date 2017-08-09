@@ -48,7 +48,7 @@ on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion =0
 order by q.CreatedOn desc
 OFFSET {0} ROWS -- skip 10 rows
-FETCH NEXT {1} ROWS ONLY; -- take 10 rows
+FETCH NEXT 15 ROWS ONLY; -- take 10 rows
 ", pageNumber * pageCount, pageCount);          
             }
             else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue && !filterParameter.LevelId.HasValue ) //2.filter only category
@@ -570,8 +570,6 @@ select * from Questions.Levels where id ='{2}';
                 userList.AddRange(questionDbModels.Select(x => x.AnswerUserId).ToList());
                 userViewModels = UserViewModelsFromUserIds(db, userList);
             }
-
-
             List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
             foreach (var dbModel in questionDbModels)
             {

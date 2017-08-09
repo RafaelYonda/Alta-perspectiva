@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -273,7 +274,7 @@ namespace AltaPerspectiva
             app.UseStaticFiles();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
+            loggerFactory.AddFile(Path.Combine(env.WebRootPath, "logs/altaperspectiva-{Date}.txt"));
             app.UseApplicationInsightsRequestTelemetry();
 
             app.UseDeveloperExceptionPage();

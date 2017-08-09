@@ -27,7 +27,11 @@ using AltaPerspectiva.Web.Areas.Questions.Services;
 using UserProfile.Command.Commands.Delete;
 using UserProfile.Command.Commands.Update;
 using AltaPerspectiva.Web.Areas.Admin.helpers;
+using AltaPerspectiva.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -99,13 +103,15 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             return Ok(userInfoDetails);
         }
         [HttpGet("userprofile/api/getprofileparameter/{userId}")]
-        public IActionResult GetProfileParameter(Guid userId)
+        public async Task<IActionResult> GetProfileParameter(Guid userId)
         {
-            String connectionString =
-              configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
-            ProfileParameter profileParameter =
-                queryFactory.ResolveQuery<IProfileParameters>().GetProfileParameter(userId, connectionString);
+            String connectionString = Startup.ConnectionString;
 
+            //ProfileParameter profileParameter =
+            //    queryFactory.ResolveQuery<IProfileParameters>().GetProfileParameter(userId, connectionString);
+            string query = String.Format("SpProfileParameterCount '" + userId + "'");
+            IDbConnection db = new SqlConnection(connectionString);
+            ProfileParameter profileParameter = await Task.Run(() => db.Query<ProfileParameter>(query).FirstOrDefault());
             return Ok(profileParameter);
         }
         [HttpGet("userprofile/api/categorywiseanswer/{userId}")]

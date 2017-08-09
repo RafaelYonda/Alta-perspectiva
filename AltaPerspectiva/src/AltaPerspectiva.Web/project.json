@@ -45,7 +45,9 @@
     "System.ServiceModel.Primitives": "4.0.0",
     "UserProfile.Command": "1.0.0-*",
     "UserProfile.Query": "1.0.0-*",
-    "WindowsAzure.Storage": "8.1.1"
+    "WindowsAzure.Storage": "8.1.1",
+    "Serilog.Extensions.Logging.File": "1.1.0",
+    "Microsoft.Extensions.Logging.Filter": "1.1.2"
   },
 
   "tools": {
