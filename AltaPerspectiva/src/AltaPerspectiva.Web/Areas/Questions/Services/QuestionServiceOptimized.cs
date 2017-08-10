@@ -282,20 +282,12 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
         private UserViewModel UserViewModelFromUserId(IDbConnection db, Guid userId)
         {
             String userQuery = String.Format(@"
- select CONVERT(uniqueidentifier,asp.Id) as UserId ,
-   ISNULL((select top 1 ISNULL(FirstName,'')+' '+ISNULL(LastName,'') from UserProfile.Credentials where UserId=asp.Id),asp.UserName) as Name,
-   CONVERT(uniqueidentifier,(select Id from UserProfile.Credentials where UserId=asp.Id)) CredentialId,
-   ISNULL((select ImageUrl from UserProfile.Credentials where UserId=asp.Id),'avatar.png') ImageUrl,
-   (
-   select Position
-   from UserProfile.Employments e
-   inner join UserProfile.Credentials c
-   on e.CredentialID=c.Id
-   where c.UserID=asp.Id
-
-   ) Occupation
-   from   [AltaPerspectiva].[dbo].[AspNetUsers] asp
-  where asp.Id =@userId
+select UserId,
+ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
+ISNULL(ImageUrl,'avatar.png') ImageUrl,
+Occupation
+from AltaPerspectiva.UserProfile.Credentials
+  where userId =@userId
 ");
             var userViewModel = db.Query<UserViewModel>(userQuery,new { @userId = userId }).FirstOrDefault();
             userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
@@ -305,20 +297,12 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
         private List<UserViewModel> UserViewModelsFromUserIds(IDbConnection db, List<Guid> userIds)
         {
             String userQuery = String.Format(@"
- select CONVERT(uniqueidentifier,asp.Id) as UserId ,
-   ISNULL((select top 1 ISNULL(FirstName,'')+' '+ISNULL(LastName,'') from UserProfile.Credentials where UserId=asp.Id),asp.UserName) as Name,
-   CONVERT(uniqueidentifier,(select Id from UserProfile.Credentials where UserId=asp.Id)) CredentialId,
-   ISNULL((select ImageUrl from UserProfile.Credentials where UserId=asp.Id),'avatar.png') ImageUrl,
-   (
-   select Position
-   from UserProfile.Employments e
-   inner join UserProfile.Credentials c
-   on e.CredentialID=c.Id
-   where c.UserID=asp.Id
-
-   ) Occupation
-   from   [AltaPerspectiva].[dbo].[AspNetUsers] asp
-  where asp.Id in @ids
+ select UserId,
+ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
+ISNULL(ImageUrl,'avatar.png') ImageUrl,
+Occupation
+from AltaPerspectiva.UserProfile.Credentials
+  where UserId in @ids
 ");
 
             List<UserViewModel> userViewModels = db.Query<UserViewModel>(userQuery, new { @ids = userIds }).ToList();

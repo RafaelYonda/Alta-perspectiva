@@ -25,6 +25,8 @@ namespace UserProfile.Domain
         public string FacebookLink { get; set; }
         public string LinkedinLink { get; set; }
 
+        public string Email { get; set; }
+        public string Occupation { get; set; }
         public virtual ICollection<Education> Educations { get; set; }
         public virtual ICollection<Employment> Employments { get; set; }
         public virtual ICollection<Place> Places { get; set; }

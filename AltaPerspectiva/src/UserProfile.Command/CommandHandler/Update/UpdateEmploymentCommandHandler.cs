@@ -19,7 +19,6 @@ namespace UserProfile.Command.CommandHandler
         }
         public override void Execute(UpdateEmploymentCommand command)
         {
-            Debug.WriteLine("UpdateExperienceCommandHandler executed");
             Employment employment= DbContext.Employments.FirstOrDefault(x => x.CredentialId == command.CredentialId);
             if (employment != null)
             {
@@ -30,6 +29,12 @@ namespace UserProfile.Command.CommandHandler
                 if (!string.IsNullOrEmpty(command.Position))
                 {
                     employment.Position = command.Position;
+                    Credential credential = DbContext.Credentials.FirstOrDefault(x => x.Id == employment.CredentialId);
+                    if (credential != null)
+                    {
+                        credential.Occupation = command.Position;
+                        DbContext.Credentials.Update(credential);
+                    }
                 }
                 if (command.EndDate!=null)
                 {

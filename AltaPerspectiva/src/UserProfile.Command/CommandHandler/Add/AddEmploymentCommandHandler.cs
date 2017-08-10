@@ -19,8 +19,6 @@ namespace UserProfile.Command.CommandHandler
         }
         public override void Execute(AddEmploymentCommand command)
         {
-            Debug.WriteLine("AddEmploymentCommandHandler executed");
-
             Employment emp =
                 DbContext.Employments.Where(x => x.CredentialId == command.CredentialId).FirstOrDefault();
             if (emp == null)
@@ -38,6 +36,12 @@ namespace UserProfile.Command.CommandHandler
                 };
                 employment.GenerateNewIdentity();
                 DbContext.Employments.Add(employment);
+                Credential credential = DbContext.Credentials.FirstOrDefault(x => x.Id == employment.CredentialId);
+                if (credential != null)
+                {
+                    credential.Occupation = command.Position;
+                    DbContext.Credentials.Update(credential);
+                }
             }
             else
             {
@@ -48,23 +52,14 @@ namespace UserProfile.Command.CommandHandler
                 emp.IsCurrentlyWorking = command.IsCurrentlyWorking;
                 emp.Position = command.Position;
                 DbContext.Employments.Update(emp);
+                Credential credential = DbContext.Credentials.FirstOrDefault(x => x.Id == emp.CredentialId);
+                if (credential != null)
+                {
+                    credential.Occupation = command.Position;
+                    DbContext.Credentials.Update(credential);
+                }
             }
-
-
             DbContext.SaveChanges();
-            //Experience experience=new Experience();
-            //experience.UserId = command.UserId;
-            //experience.Employer = command.Employer;
-            //experience.PositionHeld = command.PositionHeld;
-            //experience.Location = command.Location;
-            //experience.CurrentlyWorkingHere = command.CurrentlyWorkingHere;
-            //experience.TimePeriodFrom=command.TimePeriodFrom;
-            //experience.TimePeriodTo = command.TimePeriodTo;
-            //experience.Description = experience.Description;
-
-            //DbContext.Experience.Add(experience);
-            //DbContext.SaveChanges();
-
         }
 
 

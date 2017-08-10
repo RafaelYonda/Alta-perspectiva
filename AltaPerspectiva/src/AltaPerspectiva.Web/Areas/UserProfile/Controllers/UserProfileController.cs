@@ -395,18 +395,22 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/questionbyuserid/{userId}")]
         public async Task<IActionResult> QuestionByCredentialId(Guid userId)
         {
-            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(userId);
-            Guid loggedinUser = Guid.Empty;
-            if (User.Identity.IsAuthenticated)
-            {
-                var uId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                loggedinUser = new Guid(uId?.ElementAt(0).ToString());
-            }
-            List<QuestionViewModel> questionViewModels =
-                new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration, loggedinUser);
+            //IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsQuery>().ExecuteByUserId(userId);
+            //Guid loggedinUser = Guid.Empty;
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    var uId =
+            //        User.Claims.Where(
+            //                x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+            //            .Select(x => x.Value);
+            //    loggedinUser = new Guid(uId?.ElementAt(0).ToString());
+            //}
+            //List<QuestionViewModel> questionViewModels =
+            //    new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration, loggedinUser);
+            var questionViewModels = await Task.Run(() => 
+            
+            new UserServiceOptimized().GetQuestionViewModelsByUserId(userId) 
+            );
             return Ok(questionViewModels);
         }
         [HttpGet("userprofile/api/answerbyuserid/{userId}")]
