@@ -305,7 +305,13 @@ and qf.IsDeleted is null
 group by qf.FollowedUserId
 
 DECLARE @Bookmarks int;
-select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
+--select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
+select @Bookmarks=COUNT(1)
+from Questions.Bookmarks b 
+inner join Questions.Questions q
+on b.QuestionId =q.Id
+where q.IsDeleted is null
+and b.UserId=@userId
 ----------------use same as UserInfoDetails---------------------
 DECLARE @Answers int;
 select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null
