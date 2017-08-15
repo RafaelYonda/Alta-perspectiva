@@ -30,13 +30,13 @@ select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, q
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
 from Questions.Questions q 
-INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
 
-INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
 Questions.Topics t ON t.Id=qt.TopicId
 
-INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
 Questions.Levels l ON ql.LevelId = l.Id
 left join
 (select a.*
@@ -60,13 +60,13 @@ select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, q
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
 from Questions.Questions q 
-INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
 
-INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
 Questions.Topics t ON t.Id=qt.TopicId
 
-INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
 Questions.Levels l ON ql.LevelId = l.Id
 left join
 (select a.*
@@ -92,13 +92,13 @@ select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, q
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
 from Questions.Questions q 
-INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
 
-INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
 Questions.Topics t ON t.Id=qt.TopicId
 
-INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
 Questions.Levels l ON ql.LevelId = l.Id
 left join
 (select a.*
@@ -124,13 +124,13 @@ select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, q
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
 from Questions.Questions q 
-INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
 
-INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
 Questions.Topics t ON t.Id=qt.TopicId
 
-INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
 Questions.Levels l ON ql.LevelId = l.Id
 left join
 (select a.*
@@ -156,13 +156,13 @@ select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, q
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
 from Questions.Questions q 
-INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
 
-INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
 Questions.Topics t ON t.Id=qt.TopicId
 
-INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
 Questions.Levels l ON ql.LevelId = l.Id
 left join
 (select a.*
@@ -179,8 +179,8 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
 ", pageNumber * pageCount, pageCount, filterParameter.CategoryId,filterParameter.TopicId,filterParameter.LevelId);
             }
             
-            else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue &&
-                     filterParameter.LevelId.HasValue) // 6. filter by topic 
+            else if (!filterParameter.CategoryId.HasValue && filterParameter.TopicId.HasValue &&
+                     !filterParameter.LevelId.HasValue) // 6. filter by topic 
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
@@ -189,13 +189,13 @@ select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, q
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
 from Questions.Questions q 
-INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
 
-INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
 Questions.Topics t ON t.Id=qt.TopicId
 
-INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
 Questions.Levels l ON ql.LevelId = l.Id
 left join
 (select a.*
@@ -211,8 +211,8 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
 
 ", pageNumber * pageCount, pageCount, filterParameter.TopicId);
             }
-            else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue &&
-                     !filterParameter.LevelId.HasValue) //7.Topic and level only
+            else if (!filterParameter.CategoryId.HasValue && filterParameter.TopicId.HasValue &&
+                     filterParameter.LevelId.HasValue) //7.Topic and level only
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
@@ -221,13 +221,13 @@ select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, q
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
 from Questions.Questions q 
-INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
 
-INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
 Questions.Topics t ON t.Id=qt.TopicId
 
-INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
 Questions.Levels l ON ql.LevelId = l.Id
 left join
 (select a.*
@@ -253,13 +253,13 @@ select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, q
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
 from Questions.Questions q 
-INNER JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id INNER  JOIN
+LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
 
-INNER JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
 Questions.Topics t ON t.Id=qt.TopicId
 
-INNER JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id INNER JOIN
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
 Questions.Levels l ON ql.LevelId = l.Id
 left join
 (select a.*
