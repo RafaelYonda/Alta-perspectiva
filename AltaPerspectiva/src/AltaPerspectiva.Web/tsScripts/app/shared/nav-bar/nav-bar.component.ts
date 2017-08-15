@@ -1,8 +1,8 @@
-﻿import {LogInObj, User} from '../../services/models';
+﻿import { LogInObj, User } from '../../services/models';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
-import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, ViewEncapsulation} from '@angular/core';
+import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'nav-bar',
@@ -12,22 +12,22 @@ import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input
     styleUrls: ['nav-bar.component.css'],
 })
 export class NavBarComponent {
-    @Input() className: string;    
+    @Input() className: string;
     @Input() hideSearch: boolean;
     isbackGround = false;
-    showUserInfo=false;     //show right bar log in info only when data available
+    showUserInfo = false;     //show right bar log in info only when data available
     _logObj: LogInObj;
     _authService: AuthenticationService;
 
     constructor(private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router) {
-        
+
         this._authService = authService;
         var user: User = new User();
         //user.userid = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
-        
+
         var currentUser = localStorage.getItem('auth_token');
         if (currentUser == null) {
             this.showUserInfo = true;
@@ -37,7 +37,7 @@ export class NavBarComponent {
         }
 
         else {
-            
+
             var userId = localStorage.getItem('currentUserId');
             //Get the user if not loaded yet
             if (!userId)
@@ -45,14 +45,15 @@ export class NavBarComponent {
             else {
                 this._logObj = new LogInObj();
                 this._logObj.user = new User();
-                this._logObj.user.userId =
-                    this._logObj.user.name = localStorage.getItem('currentUserName');
+                this._logObj.user.userId = localStorage.getItem('currentUserId');
+
+                this._logObj.user.name = localStorage.getItem('currentUserName');
                 this._logObj.user.imageUrl = localStorage.getItem('currentUserImage');
                 this._logObj.isLoggedIn = true;
                 this.showUserInfo = true;
             }
         }
-       
+
     }
     getUser() {
         this._authService.getLoggedinObj().subscribe(res => {
