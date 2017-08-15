@@ -63,7 +63,7 @@ export class ApSearchDropDownComponent {
         if (this.categoryID != '-1')
             this.question.categoryIds.push(this.categoryID);
         else
-            this.question.categoryIds.push(this.categories[0].id);
+            this.question.categoryIds.push('7639B416-8D1C-4119-B58E-143CB860E8A6');
 
         this.questionsService.saveQuestionSaveViewModel(this.question).subscribe(res => {
             this.question = res;
