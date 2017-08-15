@@ -21,6 +21,9 @@ using HtmlAgilityPack;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using UserProfile.Domain.ReadModel;
 using UserProfile.Query.Interfaces;
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
@@ -424,14 +427,26 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             userList = userList.Distinct().ToList();
             List<UserViewModel> userViewModels = new List<UserViewModel>();
 
-            string connectionStr = configuration.GetSection("Data")
-                .GetSection("DefaultConnection")
-                .GetSection("ConnectionString")
-                .Value;
-            List<UserReadModel> userReadModels =
-                queryFactory.ResolveQuery<IProfileParameters>()
-                    .GetUserReadModels(connectionStr
-                        , userList);
+
+            String userIdStrings = "'";
+
+            foreach (Guid userId in userList)
+            {
+
+                userIdStrings = userIdStrings + userId.ToString() + ",";
+            }
+            userIdStrings = userIdStrings.TrimEnd(',') + "'";
+            String query = String.Format("[SpGetUsers] {0}", userIdStrings);
+            List<UserReadModel> userReadModels = null;
+            string connectionString = Startup.ConnectionString;
+
+            using (IDbConnection dbConnection = new SqlConnection(connectionString))
+            {
+                userReadModels = dbConnection.Query<UserReadModel>(query).ToList();
+            }
+            //userReadModels = queryFactory.ResolveQuery<IProfileParameters>()
+            //        .GetUserReadModels(connectionStr
+            //            , userList);
 
 
             foreach (Guid userId in userList)
@@ -687,14 +702,22 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             userList = userList.Distinct().ToList();
             List<UserViewModel> userViewModels = new List<UserViewModel>();
 
-            string connectionStr = configuration.GetSection("Data")
-                .GetSection("DefaultConnection")
-                .GetSection("ConnectionString")
-                .Value;
-            List<UserReadModel> userReadModels =
-                queryFactory.ResolveQuery<IProfileParameters>()
-                    .GetUserReadModels(connectionStr
-                        , userList);
+            String userIdStrings = "'";
+
+            foreach (Guid userId in userList)
+            {
+
+                userIdStrings = userIdStrings + userId.ToString() + ",";
+            }
+            userIdStrings = userIdStrings.TrimEnd(',') + "'";
+            String query = String.Format("[SpGetUsers] {0}", userIdStrings);
+            List<UserReadModel> userReadModels = null;
+            string connectionString = Startup.ConnectionString;
+
+            using (IDbConnection dbConnection = new SqlConnection(connectionString))
+            {
+                userReadModels = dbConnection.Query<UserReadModel>(query).ToList();
+            }
 
 
             foreach (Guid userId in userList)

@@ -21,13 +21,13 @@ namespace UserProfile.Query.Queries
         {
         }
 
-        public List<CategoryWiseAnswer> CategoryWiseAnswerCount(Guid userId, string connectionString)
-        {
-            List<CategoryWiseAnswer> categoryWiseAnswers = new List<CategoryWiseAnswer>();
-            String query = String.Format(@"[SpCategoryWiseAnswer] '{0}'", userId);
-            categoryWiseAnswers = new DataReaderToListHelper().DataReaderToList<CategoryWiseAnswer>(connectionString, query);
-            return categoryWiseAnswers;
-        }
+        //public List<CategoryWiseAnswer> CategoryWiseAnswerCount(Guid userId, string connectionString)
+        //{
+        //    List<CategoryWiseAnswer> categoryWiseAnswers = new List<CategoryWiseAnswer>();
+        //    String query = String.Format(@"[SpCategoryWiseAnswer] '{0}'", userId);
+        //    categoryWiseAnswers = new DataReaderToListHelper().DataReaderToList<CategoryWiseAnswer>(connectionString, query);
+        //    return categoryWiseAnswers;
+        //}
 
         //public ProfileParameter GetProfileParameter(Guid userId, string connectionString)
         //{
@@ -48,20 +48,20 @@ namespace UserProfile.Query.Queries
         //    return userInfoDetails;
         //}
 
-        public async Task<List<UserSummary>> GetTopFiveUserSummary( string connectionString)
-        {
-            List<UserSummary> userSummery = new List<UserSummary>();
-            string query = String.Format("SpTopUserCalculation");
-            return  await Task.Run(() => userSummery = new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
+        //public async Task<List<UserSummary>> GetTopFiveUserSummary( string connectionString)
+        //{
+        //    List<UserSummary> userSummery = new List<UserSummary>();
+        //    string query = String.Format("SpTopUserCalculation");
+        //    return  await Task.Run(() => userSummery = new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
            
             
-        }
-        public async Task<List<UserSummary>> GetTopHundredUserSummary(string connectionString)
-        {
-            List<UserSummary> userSummery = new List<UserSummary>();
-            string query = String.Format(@"SpTopHundredUserSummary");
-            return await Task.Run(() => userSummery = new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
-        }
+        //}
+        //public async Task<List<UserSummary>> GetTopHundredUserSummary(string connectionString)
+        //{
+        //    List<UserSummary> userSummery = new List<UserSummary>();
+        //    string query = String.Format(@"SpTopHundredUserSummary");
+        //    return await Task.Run(() => userSummery = new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
+        //}
 
         //public async Task<UserSummary> GetUserSummary(Guid userId, string connectionString)
         //{
@@ -72,14 +72,14 @@ namespace UserProfile.Query.Queries
         //    return summary;
         //}
 
-        public async Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId, string connectionString)
-        {
-            List<UserSummary> userSummery = new List<UserSummary>();
-            string query = String.Format("SpTopUserCalculation null,'{0}'", categoryId);
-            userSummery = await Task.Run(() => new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
+        //public async Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId, string connectionString)
+        //{
+        //    List<UserSummary> userSummery = new List<UserSummary>();
+        //    string query = String.Format("SpTopUserCalculation null,'{0}'", categoryId);
+        //    userSummery = await Task.Run(() => new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
            
-            return userSummery;
-        }
+        //    return userSummery;
+        //}
 
         public UserEmailParameter GetUserEmailParameter(String connectionString,Guid userId)
         {
@@ -90,23 +90,23 @@ namespace UserProfile.Query.Queries
 
         }
 
-        public List<UserReadModel> GetUserReadModels(String connectionString, List<Guid> userIds)
-        {
-            String userIdStrings= "'";
+        //public List<UserReadModel> GetUserReadModels(String connectionString, List<Guid> userIds)
+        //{
+        //    String userIdStrings= "'";
             
-            foreach (Guid userId in userIds)
-            {
+        //    foreach (Guid userId in userIds)
+        //    {
 
-                userIdStrings = userIdStrings +userId.ToString()+",";
-            }
-            userIdStrings=userIdStrings.TrimEnd(',')+"'";
-            String query=String.Format("[SpGetUsers] {0}",userIdStrings);
+        //        userIdStrings = userIdStrings +userId.ToString()+",";
+        //    }
+        //    userIdStrings=userIdStrings.TrimEnd(',')+"'";
+        //    String query=String.Format("[SpGetUsers] {0}",userIdStrings);
 
 
-            List<UserReadModel> userReadModels = new DataReaderToListHelper().DataReaderToList<UserReadModel>(connectionString, query);
-            return userReadModels;
+        //    List<UserReadModel> userReadModels = new DataReaderToListHelper().DataReaderToList<UserReadModel>(connectionString, query);
+        //    return userReadModels;
 
-        }
+        //}
 
         public UserReadModel GetUserReadModel(string connectionString, Guid userId)
         {

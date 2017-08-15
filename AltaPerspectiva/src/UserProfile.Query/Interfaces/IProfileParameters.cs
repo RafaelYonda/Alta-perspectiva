@@ -14,16 +14,16 @@ namespace UserProfile.Query.Interfaces
 
       //  UserInfoDetails GetUserInfoDetails(Guid userId,String connectionString);
 
-        List<CategoryWiseAnswer> CategoryWiseAnswerCount(Guid userId, string connectionString);
-        Task<List<UserSummary>> GetTopFiveUserSummary( string connectionString);
-        Task<List<UserSummary>> GetTopHundredUserSummary( string connectionString);
+     //   List<CategoryWiseAnswer> CategoryWiseAnswerCount(Guid userId, string connectionString);
+       // Task<List<UserSummary>> GetTopFiveUserSummary( string connectionString);
+      //  Task<List<UserSummary>> GetTopHundredUserSummary( string connectionString);
       //  Task<UserSummary> GetUserSummary(Guid userId, string connectionString);
 
-        Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId,string connectionString);
+        //Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId,string connectionString);
 
         UserEmailParameter GetUserEmailParameter(String connectionString, Guid userId);
 
-        List<UserReadModel> GetUserReadModels(String connectionString, List<Guid> userIds);
+      //  List<UserReadModel> GetUserReadModels(String connectionString, List<Guid> userIds);
         UserReadModel GetUserReadModel(String connectionString, Guid userId);
     }
 }

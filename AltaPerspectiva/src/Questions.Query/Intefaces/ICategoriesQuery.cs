@@ -13,6 +13,6 @@ namespace Questions.Query
 
         bool IsCategoryExists(string categoryName);
 
-        List<CategoryIcon> GetCategoryIcons(string connectionString);
+        //List<CategoryIcon> GetCategoryIcons(string connectionString);
     }
 }

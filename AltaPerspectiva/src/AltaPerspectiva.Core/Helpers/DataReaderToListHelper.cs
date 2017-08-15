@@ -57,43 +57,43 @@ namespace AltaPerspectiva.Core.Helpers
             }
             return obj;
         }
-        public  List<T> DataReaderToList<T>(string connectionString, string query) where T : class, new()
-        {
-            List<T> list = new List<T>();
+        //public  List<T> DataReaderToList<T>(string connectionString, string query) where T : class, new()
+        //{
+        //    List<T> list = new List<T>();
 
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand(query, connection);
-                SqlDataReader reader;
-                reader = command.ExecuteReader();
-                var columns = new List<string>();
-                for (int i = 0; i < reader.FieldCount; i++)
-                {
-                    columns.Add(reader.GetName(i));
-                }
-                while (reader.Read())
-                {
-                    T obj = new T();
-                    foreach (var prop in obj.GetType().GetProperties())
-                    {
-                        try
-                        {
-                            PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
-                            propertyInfo.SetValue(obj,
-                                Convert.ChangeType(reader[prop.Name], propertyInfo.PropertyType), null);
-                        }
-                        catch
-                        {
-                            continue;
-                        }
-                    }
+        //    using (var connection = new SqlConnection(connectionString))
+        //    {
+        //        connection.Open();
+        //        SqlCommand command = new SqlCommand(query, connection);
+        //        SqlDataReader reader;
+        //        reader = command.ExecuteReader();
+        //        var columns = new List<string>();
+        //        for (int i = 0; i < reader.FieldCount; i++)
+        //        {
+        //            columns.Add(reader.GetName(i));
+        //        }
+        //        while (reader.Read())
+        //        {
+        //            T obj = new T();
+        //            foreach (var prop in obj.GetType().GetProperties())
+        //            {
+        //                try
+        //                {
+        //                    PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
+        //                    propertyInfo.SetValue(obj,
+        //                        Convert.ChangeType(reader[prop.Name], propertyInfo.PropertyType), null);
+        //                }
+        //                catch
+        //                {
+        //                    continue;
+        //                }
+        //            }
 
-                    list.Add(obj);
+        //            list.Add(obj);
 
-                }
-            }
-            return list;
-        }
+        //        }
+        //    }
+        //    return list;
+        //}
     }
 }

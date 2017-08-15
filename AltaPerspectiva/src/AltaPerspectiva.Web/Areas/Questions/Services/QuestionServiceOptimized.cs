@@ -559,7 +559,9 @@ select * from Questions.Levels where id ='{2}';
                     var topicViewModel = new TopicViewModel
                     {
                         Id = topicId,
-                        TopicName = dbModel.TopicName
+                        TopicName = dbModel.TopicName,
+                        CategoryId = categoryId
+                        
                     };
 
                     QuestionTopic questionTopic = new QuestionTopic

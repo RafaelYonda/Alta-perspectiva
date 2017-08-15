@@ -32,6 +32,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
+using Questions.Domain.ReadModel;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -80,17 +81,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/userinfodetails/{userId}")]
         public IActionResult UserInfoDetails(Guid userId)
         {
-            String connectionString =Startup.ConnectionString;
+            String connectionString = Startup.ConnectionString;
             String query = String.Format("SpUserInfoDetails '{0}'", userId);
             UserInfoDetails userInfoDetails = new UserInfoDetails();
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 userInfoDetails = connection.Query<UserInfoDetails>(query).FirstOrDefault();
             }
-        
-            if(userInfoDetails!=null )
+
+            if (userInfoDetails != null)
             {
-                if(!string.IsNullOrEmpty(userInfoDetails.Education))
+                if (!string.IsNullOrEmpty(userInfoDetails.Education))
                 {
                     userInfoDetails.Education = userInfoDetails.Education.Trim(' ').Trim(',');
                 }
@@ -99,7 +100,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                     userInfoDetails.Employment = userInfoDetails.Employment.Trim(' ').Trim(',');
                 }
             }
-        //    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            //    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
 
             userInfoDetails.ImageUrl = azureFileUploadHelper.GetProfileImage(userInfoDetails.ImageUrl);
 
@@ -114,18 +115,28 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             ProfileParameter profileParameter = null;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                profileParameter = await Task.Run(() =>  db.Query<ProfileParameter>(query).FirstOrDefault());
+                profileParameter = await Task.Run(() => db.Query<ProfileParameter>(query).FirstOrDefault());
             }
             return Ok(profileParameter);
         }
         [HttpGet("userprofile/api/categorywiseanswer/{userId}")]
         public IActionResult GetCategoryWiseAnswer(Guid userId)
         {
-            String connectionString =
-              configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
-            List<CategoryWiseAnswer> categoryWiseAnswers =
-                queryFactory.ResolveQuery<IProfileParameters>().CategoryWiseAnswerCount(userId, connectionString).OrderByDescending(x => x.AnswerCount).ThenByDescending(x => x.CategoryName).ToList();
-          //  AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            String connectionString = Startup.ConnectionString;
+
+            List<CategoryWiseAnswer> categoryWiseAnswers = null;
+
+
+            using (IDbConnection dbConnection = new SqlConnection(connectionString))
+            {
+                String query = String.Format(@"[SpCategoryWiseAnswer] '{0}'", userId);
+                categoryWiseAnswers = dbConnection.Query<CategoryWiseAnswer>(query).OrderByDescending(x => x.AnswerCount).ThenByDescending(x => x.CategoryName).ToList();
+            }
+            //categoryWiseAnswers =
+            //    queryFactory.ResolveQuery<IProfileParameters>().CategoryWiseAnswerCount(userId, connectionString).OrderByDescending(x => x.AnswerCount).ThenByDescending(x => x.CategoryName).ToList();
+
+
+
             foreach (var categoryWiseAnswer in categoryWiseAnswers)
             {
                 categoryWiseAnswer.ImageUrl = azureFileUploadHelper.GetCategoryImage(categoryWiseAnswer.ImageUrl);
@@ -141,7 +152,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             var credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentialForProfile(userId);
             if (credential != null)
             {
-               // AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                // AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
                 credential.ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
             }
 
@@ -160,7 +171,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             }
             Credential credential = queryFactory.ResolveQuery<ICredentialQuery>().GetCredential(userId);
-         //   AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            //   AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
             credential.ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
 
             return Ok(credential);
@@ -193,7 +204,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         {
             if (file != null)
             {
-              //  AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                //  AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
                 await azureFileUploadHelper.SaveProfileImage(file);
                 UpdateUserImageCommand cmd = new UpdateUserImageCommand(userId, file.FileName);
                 commandsFactory.ExecuteQuery(cmd);
@@ -222,7 +233,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
                 string fullUpdateImageName = DateTime.Now.ToString("yyyyyhhmmssffffff") + "." + extension;
 
-           //     AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                //     AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
                 string fileLink = await azureFileUploadHelper.SaveProfileCroppedImageInAzure(base64Image.baseStream,
                     fullUpdateImageName, base64Image.ContentType);
 
@@ -411,9 +422,9 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             //}
             //List<QuestionViewModel> questionViewModels =
             //    new QuestionService().GetQuestionViewModels(questionList, queryFactory, configuration, loggedinUser);
-            var questionViewModels = await Task.Run(() => 
-            
-            new UserServiceOptimized().GetQuestionViewModelsByUserId(userId) 
+            var questionViewModels = await Task.Run(() =>
+
+            new UserServiceOptimized().GetQuestionViewModelsByUserId(userId)
             );
             return Ok(questionViewModels);
         }
@@ -438,7 +449,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             List<Guid> followingUsers =
                 queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowers(userId).Select(x => x.UserId).Distinct().ToList();
-           // AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            // AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
             List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x => new UserViewModel
             {
                 CredentialId = x.Id,
@@ -456,7 +467,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             List<Guid> followingUsers =
                 queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowings(userId).Select(x => x.FollowedUserId).Distinct().ToList();
 
-           // AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            // AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
 
             List<Credential> models = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers);
 
@@ -492,13 +503,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         {
             List<UserSummary> summeries = new List<UserSummary>();
             String connectionString = Startup.ConnectionString;
-            String query =String.Empty;
+            String query = String.Empty;
             if (categoryId != Guid.Empty)
             {
-            //    List<UserSummary> userSummery = new List<UserSummary>();
+                //    List<UserSummary> userSummery = new List<UserSummary>();
                 query = String.Format("SpTopUserCalculation null,'{0}'", categoryId);
-            //    userSummery = await Task.Run(() => new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
-              //  summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetUserSummnaryByCategoryId(categoryId, connectionString);
+                //    userSummery = await Task.Run(() => new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
+                //  summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetUserSummnaryByCategoryId(categoryId, connectionString);
 
 
             }
@@ -510,9 +521,9 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 //summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetTopFiveUserSummary(connectionString);
                 //summeries = summeries.Take(5).ToList();
             }
-            using (IDbConnection db=new SqlConnection(connectionString))
+            using (IDbConnection db = new SqlConnection(connectionString))
             {
-                summeries = await Task.Run(() =>  db.Query<UserSummary>(query).ToList());
+                summeries = await Task.Run(() => db.Query<UserSummary>(query).ToList());
             }
             foreach (UserSummary summery in summeries)
             {
@@ -525,7 +536,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                     summery.ImageUrl = azureFileUploadHelper.GetProfileImage(summery.ImageUrl);
                 }
             }
-          //  summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries, queryFactory, configuration);
+            //  summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries, queryFactory, configuration);
             return summeries;
 
         }
@@ -535,8 +546,12 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             List<UserSummary> summeries = new List<UserSummary>();
             String connectionString = Startup.ConnectionString;
 
-            summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetTopHundredUserSummary(connectionString);
-            //summeries = summeries.Take(5).ToList();
+            using (IDbConnection dbConnection = new SqlConnection(connectionString))
+            {
+                string query = String.Format(@"SpTopHundredUserSummary");
+                summeries =  await Task.Run(() =>dbConnection.Query<UserSummary>(query).ToList());
+            }
+            //summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetTopHundredUserSummary(connectionString);
 
             summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries, queryFactory, configuration);
             return summeries;
@@ -546,7 +561,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         public async Task<UserSummary> GetUserSummary(Guid userId)
         {
             String connectionString = Startup.ConnectionString;
-            UserSummary summary =new UserSummary();
+            UserSummary summary = new UserSummary();
             string query = String.Format("SpTopUserCalculation '" + userId + "'");
 
             using (IDbConnection db = new SqlConnection(connectionString))
@@ -577,7 +592,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             return Ok(new
             {
-                value=true
+                value = true
             });
         }
         #endregion

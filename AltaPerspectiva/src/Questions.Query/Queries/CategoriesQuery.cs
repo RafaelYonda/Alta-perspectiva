@@ -40,10 +40,10 @@ namespace Questions.Query
             return DbContext.Categories.Where(x => x.Id == categoryId).FirstOrDefault();
         }
 
-        public List<CategoryIcon> GetCategoryIcons(string connectionString)
-        {
-            return new DataReaderToListHelper().DataReaderToList<CategoryIcon>(connectionString,
-                "select * from [Questions].[CategoryIcon];");
-        }
+        //public List<CategoryIcon> GetCategoryIcons(string connectionString)
+        //{
+        //    return new DataReaderToListHelper().DataReaderToList<CategoryIcon>(connectionString,
+        //        "select * from [Questions].[CategoryIcon];");
+        //}
     }
 }
