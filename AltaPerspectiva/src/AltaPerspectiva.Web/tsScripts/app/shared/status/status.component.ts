@@ -37,9 +37,10 @@ export class StatusComponent {
     }
 
     ngOnInit() {
-        this._authService.getLoggedinObj().subscribe(res => {
-            this.loggedinUser = res;
-        });
+        //this._authService.getLoggedinObj().subscribe(res => {
+        //    this.loggedinUser = res;
+        //});
+        this.getLoggedinObjct();
         this.questionObj.shareUrl = encodeURI(SITE_URL+"/question/detail/" + this.questionObj.id);
         if (this.questionObj.bestAnswer && this.questionObj.bestAnswer.text) {
             var temp = this.questionObj.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "");
@@ -75,6 +76,31 @@ export class StatusComponent {
 
         });
 
+    }
+    getLoggedinObjct() {
+        var currentUser = localStorage.getItem('auth_token');
+        if (currentUser == null) {
+            this.loggedinUser = null;
+            return;
+        }
+
+        else {
+            var userId = localStorage.getItem('currentUserId');
+            //Get the user if not loaded yet
+            if (!userId)
+                this.getUser();
+            else {
+                this.loggedinUser = new User();
+                this.loggedinUser.userId = userId;
+                    this.loggedinUser.name = localStorage.getItem('currentUserName');
+                this.loggedinUser.imageUrl = localStorage.getItem('currentUserImage');
+            }
+        }
+    }
+    getUser() {
+        this._authService.getLoggedinObj().subscribe(res => {
+            this.loggedinUser = res;
+        });
     }
     copyClipboard() {
     }
@@ -112,8 +138,13 @@ export class StatusComponent {
           });
     }
 
-    questionDetailClicked()
+    questionEditClicked()
     {
+        var user = localStorage.getItem('auth_token');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }
         if (this.loggedinUser.userId != this.questionObj.userViewModel.userId)
             this.toastr.error("Esta pregunta no la puedes editar.");
         else
@@ -122,8 +153,7 @@ export class StatusComponent {
         if (!user) {
             this.ShowNotLoggedIn();
             return;
-        }
-        
+        }        
     }
 
     submitLike(answerId: string, questionId: string) {   

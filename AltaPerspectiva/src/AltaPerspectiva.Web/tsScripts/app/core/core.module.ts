@@ -16,8 +16,6 @@ import { FormsModule } from '@angular/forms';
 //================
 import { SharedModule } from '../shared/shared.module';
 import { QuestionModule } from '../questions/question.module';
-import { LearnHome } from '../learning/learnHome';
-import { ProjectHome } from '../project/projectHome';
 import { routing } from './core.route';
 import {PopoverModule} from "ngx-popover";
 
@@ -36,8 +34,6 @@ import {PopoverModule} from "ngx-popover";
         TabPanelComponent,        
         //other app component
         //QuestionHomeComponent,
-        LearnHome,
-        ProjectHome,
         //question left menu
 
        //category
@@ -53,8 +49,6 @@ import {PopoverModule} from "ngx-popover";
         TabsComponent,
         TabPanelComponent,        
         //other app component
-        LearnHome,
-        ProjectHome,
         //question left menu
         //category
       //  QuestionMenuPanelComponent
