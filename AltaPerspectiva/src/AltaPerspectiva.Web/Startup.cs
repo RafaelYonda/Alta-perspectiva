@@ -296,17 +296,18 @@ namespace AltaPerspectiva
 
                 ClientId = "localhost", // for localhost
 
-
+                //ClientId = "staging",       // for staging server
                 //ClientId = "azure",       // for azure deploy  altaperspectiva
-                //ClientId = "altaperspectiva",       // for azure new deploy 
+
 
                 ClientSecret = "aLtaseCreT!@#",
 
 
 
               PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
-
-                 //PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
+              //  PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
+                                                                                          
+              //PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
 
 
                 RequireHttpsMetadata = false,

@@ -118,3 +118,6 @@ AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/vendor.bundle.js
 AltaPerspectiva/src/AltaPerspectiva.Web/packages/
 AltaPerspectiva/src/AltaPerspectiva.Web/tsScripts/**/*.js
 AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/logs/
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/app.bundle.js.map
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/polyfills.bundle.js.map
+AltaPerspectiva/src/AltaPerspectiva.Web/wwwroot/dist/vendor.bundle.js.map

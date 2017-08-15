@@ -29,24 +29,24 @@ namespace UserProfile.Query.Queries
             return categoryWiseAnswers;
         }
 
-        public ProfileParameter GetProfileParameter(Guid userId, string connectionString)
-        {
-            ProfileParameter profileParameter = new ProfileParameter();
-            string query = String.Format("SpProfileParameterCount '" + userId + "'");
-            profileParameter =
-                new DataReaderToListHelper().DataReaderToObject<ProfileParameter>(connectionString, query);
+        //public ProfileParameter GetProfileParameter(Guid userId, string connectionString)
+        //{
+        //    ProfileParameter profileParameter = new ProfileParameter();
+        //    string query = String.Format("SpProfileParameterCount '" + userId + "'");
+        //    profileParameter =
+        //        new DataReaderToListHelper().DataReaderToObject<ProfileParameter>(connectionString, query);
 
-            return profileParameter;
-        }
+        //    return profileParameter;
+        //}
 
-        public UserInfoDetails GetUserInfoDetails(Guid userId, string connectionString)
-        {
-            UserInfoDetails userInfoDetails = new UserInfoDetails();
-            String query = String.Format("SpUserInfoDetails '{0}'", userId);
-            userInfoDetails = new DataReaderToListHelper().DataReaderToObject<UserInfoDetails>(connectionString, query);
+        //public UserInfoDetails GetUserInfoDetails(Guid userId, string connectionString)
+        //{
+        //    UserInfoDetails userInfoDetails = new UserInfoDetails();
+        //    String query = String.Format("SpUserInfoDetails '{0}'", userId);
+        //    userInfoDetails = new DataReaderToListHelper().DataReaderToObject<UserInfoDetails>(connectionString, query);
        
-            return userInfoDetails;
-        }
+        //    return userInfoDetails;
+        //}
 
         public async Task<List<UserSummary>> GetTopFiveUserSummary( string connectionString)
         {
@@ -63,14 +63,14 @@ namespace UserProfile.Query.Queries
             return await Task.Run(() => userSummery = new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
         }
 
-        public async Task<UserSummary> GetUserSummary(Guid userId, string connectionString)
-        {
-            UserSummary summary = new UserSummary();
-            string query = String.Format("SpTopUserCalculation '" + userId + "'");
-            summary = await Task.Run(() => new DataReaderToListHelper().DataReaderToObject<UserSummary>(connectionString, query));
+        //public async Task<UserSummary> GetUserSummary(Guid userId, string connectionString)
+        //{
+        //    UserSummary summary = new UserSummary();
+        //    string query = String.Format("SpTopUserCalculation '" + userId + "'");
+        //    summary = await Task.Run(() => new DataReaderToListHelper().DataReaderToObject<UserSummary>(connectionString, query));
            
-            return summary;
-        }
+        //    return summary;
+        //}
 
         public async Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId, string connectionString)
         {

@@ -80,10 +80,14 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/userinfodetails/{userId}")]
         public IActionResult UserInfoDetails(Guid userId)
         {
-            String connectionString =
-              configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
-            UserInfoDetails userInfoDetails =
-                queryFactory.ResolveQuery<IProfileParameters>().GetUserInfoDetails(userId, connectionString);
+            String connectionString =Startup.ConnectionString;
+            String query = String.Format("SpUserInfoDetails '{0}'", userId);
+            UserInfoDetails userInfoDetails = new UserInfoDetails();
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                userInfoDetails = connection.Query<UserInfoDetails>(query).FirstOrDefault();
+            }
+        
             if(userInfoDetails!=null )
             {
                 if(!string.IsNullOrEmpty(userInfoDetails.Education))
@@ -416,11 +420,14 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/answerbyuserid/{userId}")]
         public async Task<IActionResult> AnswerByUserId(Guid userId)
         {
-            IEnumerable<Question> questionList =
-                await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(userId);
+            //IEnumerable<Question> questionList =
+            //    await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(userId);
 
-            List<QuestionViewModel> questionViewModels =
-                new QuestionService().GetQuestionViewModelsForProfile(questionList, queryFactory, configuration,userId);
+            //List<QuestionViewModel> questionViewModels =
+            //    new QuestionService().GetQuestionViewModelsForProfile(questionList, queryFactory, configuration,userId);
+            List<QuestionViewModel> questionViewModels = await Task.Run(() =>
+                new UserServiceOptimized().GetQuestionViewModelsForAnswers(userId)
+            );
             return Ok(questionViewModels);
         }
 
@@ -505,7 +512,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             }
             using (IDbConnection db=new SqlConnection(connectionString))
             {
-                await Task.Run(() => summeries = db.Query<UserSummary>(query).ToList());
+                summeries = await Task.Run(() =>  db.Query<UserSummary>(query).ToList());
             }
             foreach (UserSummary summery in summeries)
             {
@@ -539,8 +546,14 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         public async Task<UserSummary> GetUserSummary(Guid userId)
         {
             String connectionString = Startup.ConnectionString;
-            var summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetUserSummary(userId, connectionString);
-            return summeries;
+            UserSummary summary =new UserSummary();
+            string query = String.Format("SpTopUserCalculation '" + userId + "'");
+
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                summary = await Task.Run(() => db.Query<UserSummary>(query).FirstOrDefault());
+            }
+            return summary;
         }
         #endregion
 

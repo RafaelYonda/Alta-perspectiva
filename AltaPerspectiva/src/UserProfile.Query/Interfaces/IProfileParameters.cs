@@ -12,12 +12,12 @@ namespace UserProfile.Query.Interfaces
     {
         //ProfileParameter GetProfileParameter(Guid userId,string connectionString);
 
-        UserInfoDetails GetUserInfoDetails(Guid userId,String connectionString);
+      //  UserInfoDetails GetUserInfoDetails(Guid userId,String connectionString);
 
         List<CategoryWiseAnswer> CategoryWiseAnswerCount(Guid userId, string connectionString);
         Task<List<UserSummary>> GetTopFiveUserSummary( string connectionString);
         Task<List<UserSummary>> GetTopHundredUserSummary( string connectionString);
-        Task<UserSummary> GetUserSummary(Guid userId, string connectionString);
+      //  Task<UserSummary> GetUserSummary(Guid userId, string connectionString);
 
         Task<List<UserSummary>> GetUserSummnaryByCategoryId(Guid categoryId,string connectionString);
 
