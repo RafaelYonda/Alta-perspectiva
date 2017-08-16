@@ -285,6 +285,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
  select UserId,
 ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
 ISNULL(ImageUrl,'avatar.png') ImageUrl,
+Email,
 Occupation
 from UserProfile.Credentials
   where UserId in @ids
@@ -294,6 +295,10 @@ from UserProfile.Credentials
             foreach (var userViewModel in userViewModels)
             {
                 userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
+                if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
+                {
+                    userViewModel.Name = userViewModel.Email;
+                }
             }
             return userViewModels;
 
