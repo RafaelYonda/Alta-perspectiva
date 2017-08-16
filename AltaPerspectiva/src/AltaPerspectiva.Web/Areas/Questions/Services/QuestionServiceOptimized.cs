@@ -339,7 +339,8 @@ where QuestionId = '{0}'
  select UserId,
 ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
 ISNULL(ImageUrl,'avatar.png') ImageUrl,
-Occupation
+Occupation,
+Email
 from UserProfile.Credentials
   where userId  in @ids ;
 
@@ -356,6 +357,10 @@ from UserProfile.Credentials
                 foreach (var userViewModel in userViewModels)
                 {
                     userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
+                    if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
+                    {
+                        userViewModel.Name = userViewModel.Email;
+                    }
                 }
             }
 
@@ -418,11 +423,12 @@ where QuestionId = '{0}'
                 Guid topicId = questionViewModel.TopicId;
                 Guid levelId = questionViewModel.LevelId;
 
-                String userQuery = String.Format(@"
+                String multipleQuery = String.Format(@"
  select UserId,
 ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
 ISNULL(ImageUrl,'avatar.png') ImageUrl,
-Occupation
+Occupation,
+Email
 from UserProfile.Credentials
   where userId  in @ids ;
 select * from [Questions].[Categories] where id = '{0}';
@@ -430,11 +436,15 @@ select  * from Questions.Topics where id = '{1}';
 select * from Questions.Levels where id ='{2}';
 
 ", categoryId, topicId, levelId);
-                var multiple = db.QueryMultiple(userQuery, new { @ids = userIds });
+                var multiple = db.QueryMultiple(multipleQuery, new { @ids = userIds });
                 userViewModels = multiple.Read<UserViewModel>().ToList();
                 foreach (var userViewModel in userViewModels)
                 {
                     userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
+                    if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
+                    {
+                        userViewModel.Name = userViewModel.Email;
+                    }
                 }
                 questionViewModel.UserViewModel =
                     userViewModels.FirstOrDefault(x => x.UserId == questionViewModel.UserId);

@@ -47,7 +47,8 @@ from UserProfile.Credentials
  select UserId,
 ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
 ISNULL(ImageUrl,'avatar.png') ImageUrl,
-Occupation
+Occupation,
+Email
 from UserProfile.Credentials
   where UserId in @ids
 ");
@@ -56,6 +57,10 @@ from UserProfile.Credentials
             foreach (var userViewModel in userViewModels)
             {
                 userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
+                if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
+                {
+                    userViewModel.Name = userViewModel.Email;
+                }
             }
             return userViewModels;
 

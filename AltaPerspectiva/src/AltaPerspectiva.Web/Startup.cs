@@ -294,22 +294,19 @@ namespace AltaPerspectiva
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
 
-               ClientId = "localhost", // for localhost
-
-                //ClientId = "staging",       // for staging server
-                //ClientId = "azure",       // for azure deploy  altaperspectiva
-
+#if DEBUG
+                ClientId = "localhost", // for localhost
+                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+#else
+                ClientId = "staging",       // for staging server  
+                PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
+                
+                 //ClientId = "azure",       // for azure deploy  altaperspectiva
+                 //PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
+#endif
 
                 ClientSecret = "aLtaseCreT!@#",
-
-
-
-              PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
-              //  PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
-                                                                                          
-              //PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
-
-
+         
                 RequireHttpsMetadata = false,
                 GetClaimsFromUserInfoEndpoint = true,
                 SaveTokens = true,
@@ -327,7 +324,7 @@ namespace AltaPerspectiva
 
                 Authority = "http://altaauth.azurewebsites.net",
 
-                Scope = { "email", "roles"}
+                Scope = { "email", "roles" }
 
             });
 
