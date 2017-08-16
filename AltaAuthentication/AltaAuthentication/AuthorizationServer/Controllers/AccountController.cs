@@ -65,7 +65,7 @@ namespace AuthorizationServer.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return RedirectToLocal(returnUrl);
+                    return new RedirectResult(returnUrl, true);
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -130,7 +130,7 @@ namespace AuthorizationServer.Controllers
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Login",new { returnUrl= "http://www.altaperspectiva.com" });
                 }
                 AddErrors(result);
             }
@@ -140,7 +140,7 @@ namespace AuthorizationServer.Controllers
         }
         private void InsertIntoUserInfoCredential(String userId, String email)
         {
-            String query = String.Format(@"insert into [AltaPerspectiva].[UserProfile].[Credentials](Id,CreatedOn,DTS,UserId,Email) values (NEWID(),GETDATE(),GETDATE(),'{0}','{1}')", userId, email);
+            String query = String.Format(@"insert into [UserProfile].[Credentials](Id,CreatedOn,DTS,UserId,Email) values (NEWID(),GETDATE(),GETDATE(),'{0}','{1}')", userId, email);
             string connectionString = new ConfigurationBuilder()
                     .AddJsonFile("config.json")
                     .AddEnvironmentVariables()
