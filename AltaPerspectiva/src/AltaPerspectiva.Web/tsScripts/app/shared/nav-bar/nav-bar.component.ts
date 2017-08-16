@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, ViewEncapsulation } from '@angular/core';
+import { CommunicationService } from '../../services/communication.service';
 
 @Component({
     selector: 'nav-bar',
@@ -19,7 +20,7 @@ export class NavBarComponent {
     _logObj: LogInObj;
     _authService: AuthenticationService;
 
-    constructor(private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router) {
+    constructor(private authService: AuthenticationService, private commServ: CommunicationService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router) {
 
         this._authService = authService;
         var user: User = new User();
@@ -28,6 +29,9 @@ export class NavBarComponent {
     }
     ngOnInit() {
 
+        this.commServ.getuserUpdated().subscribe((res: any) => {
+            this.getUser();
+        });
         var currentUser = localStorage.getItem('auth_token');
         if (currentUser == null) {
             this.showUserInfo = true;

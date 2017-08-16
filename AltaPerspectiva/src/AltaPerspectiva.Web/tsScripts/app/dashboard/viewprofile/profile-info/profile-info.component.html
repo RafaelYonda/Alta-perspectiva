@@ -192,8 +192,7 @@
             </div>
             <!-- description -->
             <a *ngIf="!credential.description && isOwner" (click)="showDescription = false"> <!--Write a description about yourself-->¿Cómo te describes?</a>
-            <div class="description-info" id="description" [hidden]="(!showDescription)">
-                
+            <div class="description-info" id="description" [hidden]="(!showDescription)">                
                 <div [innerHTML]="credential.description"></div>
                 <a id="description-edit" *ngIf="isOwner"><span (click)="showDescription = false"><i class="fa fa-edit"></i><!--edit description-->Editar descripción</span> </a>
             </div>
@@ -221,6 +220,5 @@
                 </li>
             </ul>
         </div>
-
     </div>
 </div>

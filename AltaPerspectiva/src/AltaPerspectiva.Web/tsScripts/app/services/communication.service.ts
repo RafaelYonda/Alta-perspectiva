@@ -90,6 +90,14 @@ export class CommunicationService {
     getToggleClicked(): Observable<string> {
         return this.toggleClicked.asObservable();
     }
+    //==============User Name Updated=============
+    private userUpdated: Subject<string> = new Subject<string>();
+    setuserUpdated(): void {
+        this.userUpdated.next("False");
+    }
+    getuserUpdated(): Observable<string> {
+        return this.userUpdated.asObservable();
+    }
 }
 
 

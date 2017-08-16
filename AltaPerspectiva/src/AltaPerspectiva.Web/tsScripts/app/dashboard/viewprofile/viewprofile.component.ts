@@ -3,6 +3,7 @@ import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input
 import { Router, ActivatedRoute } from '@angular/router';
 import { ImageUploadService } from '../../services/image-upload.service';
 import { ProfileService } from '../../services/profile.service';
+import { CommunicationService } from '../../services/communication.service';
 
 import { ConfigService } from '../../services/config.service';
 import { CredentialViewModel, Employment, Education, Place, OtherExperience, ProfileParameter} from '../../services/models/models.profile';
@@ -45,7 +46,7 @@ export class ViewProfileComponent {
     othersHtml: string;
     isOwner = false;
 
-    constructor(private profileService: ProfileService, private _route: ActivatedRoute, private _configService: ConfigService, private _router: Router, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService) {
+    constructor(private profileService: ProfileService, private _route: ActivatedRoute, private commServ: CommunicationService, private _configService: ConfigService, private _router: Router, private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService) {
         this._logObj = new LogInObj();
         this.route = _route;
     }
@@ -98,7 +99,11 @@ export class ViewProfileComponent {
     onUpdatedProfile(updated:any)
     {
         if (updated)
+        {
+            this.commServ.setuserUpdated();
             this.refreshData();
+        }
+            
     }
     refreshData() {
         this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
