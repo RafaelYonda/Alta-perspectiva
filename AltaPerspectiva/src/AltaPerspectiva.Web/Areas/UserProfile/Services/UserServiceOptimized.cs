@@ -19,18 +19,25 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
         private string connectionString = Startup.ConnectionString;
         private AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
 
-        private UserViewModel UserViewModelFromUserId(IDbConnection db, Guid userId)
+        public UserViewModel UserViewModelFromUserId(IDbConnection db, Guid userId)
         {
             String userQuery = String.Format(@"
  select UserId,
 ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
+Email,
 ISNULL(ImageUrl,'avatar.png') ImageUrl,
 Occupation
 from UserProfile.Credentials
   where userId =@userId
 ");
             var userViewModel = db.Query<UserViewModel>(userQuery, new { @userId = userId }).FirstOrDefault();
+
             userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
+
+            if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
+            {
+                userViewModel.Name = userViewModel.Email;
+            }
             return userViewModel;
         }
 

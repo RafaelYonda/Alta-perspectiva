@@ -13,6 +13,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Models
         public string Occupation { get; set; }
         public string ImageUrl { get; set; }
         public Guid CredentialId { get; set; }
-       
+
+        public string Email { get; set; }
+
     }
 }

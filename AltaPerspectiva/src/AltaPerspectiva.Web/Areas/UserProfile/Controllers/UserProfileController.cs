@@ -72,7 +72,15 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                             x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-                var model = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);
+                UserViewModel model ;
+                
+                string connectionString = Startup.ConnectionString;
+                using (IDbConnection dbConnection = new SqlConnection(connectionString))
+                {
+                    model = new UserServiceOptimized().UserViewModelFromUserId(dbConnection, loggedinUser);
+                }
+                
+                
                 return Ok(model);
 
             }
