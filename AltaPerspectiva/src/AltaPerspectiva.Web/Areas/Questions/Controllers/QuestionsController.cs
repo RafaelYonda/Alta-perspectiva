@@ -110,9 +110,9 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpGet("/questions/api/questions/notanswered/{id}")]
-        public async Task<IActionResult> GetQuestyionsNotAnswered(Guid id)
+        public async Task<IActionResult> GetQuestyionsNotAnswered(Guid id , int pageNo = 0)
         {
-            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsNotAnsweredQuery>().Execute(id);
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsNotAnsweredQuery>().Execute(id , pageNo);
             Guid loggedinUser = Guid.Empty;
             if (User.Identity.IsAuthenticated)
             {
@@ -127,9 +127,9 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpGet("/questions/api/questions/answered/{id}")]
-        public async Task<IActionResult> GetQuestyionsAnswered(Guid id)
+        public async Task<IActionResult> GetQuestyionsAnswered(Guid id  , int pageNo = 0)
         {
-            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(id);
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(id , pageNo);
             Guid loggedinUser = Guid.Empty;
             if (User.Identity.IsAuthenticated)
             {

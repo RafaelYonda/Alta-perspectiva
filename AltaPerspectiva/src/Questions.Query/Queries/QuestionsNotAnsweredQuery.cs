@@ -9,20 +9,20 @@ using System;
 
 namespace Questions.Query
 {
-	public class QuestionsNotAnsweredQuery : EFQueryBase<QuestionsQueryDbContext>, IQuestionsNotAnsweredQuery
+    public class QuestionsNotAnsweredQuery : EFQueryBase<QuestionsQueryDbContext>, IQuestionsNotAnsweredQuery
     {
-		public QuestionsNotAnsweredQuery(QuestionsQueryDbContext context)
-			: base(context)
-		{
-		}
+        public QuestionsNotAnsweredQuery(QuestionsQueryDbContext context)
+            : base(context)
+        {
+        }
 
-        public async Task<IEnumerable<Question>> Execute(Guid CategoryId)
+        public async Task<IEnumerable<Question>> Execute(Guid CategoryId, int pageNo, int pageSize = 15)
         {
             var answeredQuestions = DbContext
                                             .Answers
                                             .Where(a => a.QuestionId != null && a.IsDeleted != true && a.IsDrafted != true)
                                             .Select(x => x.QuestionId.Value).ToList();
-            Guid general=new Guid("7639B416-8D1C-4119-B58E-143CB860E8A6");
+            Guid general = new Guid("7639B416-8D1C-4119-B58E-143CB860E8A6");
             if (general == CategoryId)
             {
                 return await DbContext.
@@ -30,22 +30,60 @@ namespace Questions.Query
                                 .Include(q => q.Categories)
                                     .ThenInclude(c => c.Category)
                                     .Where(q => !answeredQuestions.Contains(q.Id)
-                                            && q.Categories.Any(x =>x.QuestionId == q.Id) && q.IsDeleted != true && q.IsDirectQuestion == false)
+                                            && q.Categories.Any(x => x.QuestionId == q.Id) && q.IsDeleted != true && q.IsDirectQuestion == false)
                                         .OrderByDescending(c => c.CreatedOn.Value.Date)
                                             .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
-                                                .Take(20)
+                                            .Skip(pageNo * pageSize)
+                                            .Take(pageSize)
+
                                                     .ToListAsync();
             }
             return await DbContext.
                                 Questions
-                                    .Include(q=>q.Categories)
-                                        .ThenInclude(c=>c.Category)
-                                        .Where(q=>!answeredQuestions.Contains(q.Id) 
+                                    .Include(q => q.Categories)
+                                        .ThenInclude(c => c.Category)
+                                        .Where(q => !answeredQuestions.Contains(q.Id)
                                                 && q.Categories.Any(x => x.CategoryId == CategoryId && x.QuestionId == q.Id) && q.IsDeleted != true && q.IsDirectQuestion == false)
                                             .OrderByDescending(c => c.CreatedOn.Value.Date)
                                                 .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
-                                                    .Take(20)
+                                                   .Skip(pageNo * pageSize)
+                                            .Take(pageSize)
                                                         .ToListAsync();
+        }
+
+        public async Task<int> IQuestionsNotAnsweredCount(Guid CategoryId)
+        {
+            var answeredQuestions = DbContext
+                                           .Answers
+                                           .Where(a => a.QuestionId != null && a.IsDeleted != true && a.IsDrafted != true)
+                                           .Select(x => x.QuestionId.Value).ToList();
+            Guid general = new Guid("7639B416-8D1C-4119-B58E-143CB860E8A6");
+            if (general == CategoryId)
+            {
+                return await DbContext.
+                            Questions
+                                .Include(q => q.Categories)
+                                    .ThenInclude(c => c.Category)
+                                    .Where(q => !answeredQuestions.Contains(q.Id)
+                                            && q.Categories.Any(x => x.QuestionId == q.Id) && q.IsDeleted != true && q.IsDirectQuestion == false)
+                                        .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                            .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                             //.Skip(pageNo * pageSize)
+                                            //.Take(pageSize)
+
+                                                    .CountAsync();
+            }
+            return await DbContext.
+                                Questions
+                                    .Include(q => q.Categories)
+                                        .ThenInclude(c => c.Category)
+                                        .Where(q => !answeredQuestions.Contains(q.Id)
+                                                && q.Categories.Any(x => x.CategoryId == CategoryId && x.QuestionId == q.Id) && q.IsDeleted != true && q.IsDirectQuestion == false)
+                                            .OrderByDescending(c => c.CreatedOn.Value.Date)
+                                                .ThenByDescending(c => c.CreatedOn.Value.TimeOfDay)
+                                                        // .Skip(pageNo * pageSize)
+                                                        // .Take(pageSize)
+                                                        .CountAsync();
         }
     }
 }

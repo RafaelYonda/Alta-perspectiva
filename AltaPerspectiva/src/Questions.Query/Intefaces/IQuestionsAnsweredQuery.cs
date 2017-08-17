@@ -8,7 +8,8 @@ namespace Questions.Query
 {
     public interface IQuestionsAnsweredQuery : IQuery
     {
-        Task<IEnumerable<Question>> Execute(Guid CategoryId);
+        Task<IEnumerable<Question>> Execute(Guid CategoryId , int pageNo = 0 ,int pageSize =15);
+        Task<int> QuestionsAnsweredCount(Guid CategoryId);
         Task<IEnumerable<Question>> ExecuteByUserId(Guid userId);
     }
 }

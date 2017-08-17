@@ -84,17 +84,15 @@ namespace AltaPerspectiva.Web.Area.Questions
             categoriesSummary.Id = categoryId;
             //categoriesSummary.TotalQuestions = queryFactory.ResolveQuery<ICategoriesTotalQuestionsQuery>().Execute(categoryId);
             categoriesSummary.TotalFollowers = queryFactory.ResolveQuery<ICategoriesTotalUsersQuery>().Execute(categoryId);
-
-            IEnumerable<Question> questionList = null;
-            questionList = await queryFactory.ResolveQuery<IQuestionsNotAnsweredQuery>().Execute(categoryId);
             //[HttpGet("/questions/api/questions/notanswered/{id}")]
             categoriesSummary.TotalUnAnsweredQuestion =
-                questionList.Count();
+                await queryFactory.ResolveQuery<IQuestionsNotAnsweredQuery>().IQuestionsNotAnsweredCount(categoryId);
 
 
             // [HttpGet("/questions/api/questions/answered/{id}")]
-            questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(categoryId);
-            categoriesSummary.TotalAnsweredQuestion = questionList.Count();
+           // var questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(categoryId);
+            categoriesSummary.TotalAnsweredQuestion = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().QuestionsAnsweredCount(categoryId);
+
             categoriesSummary.TotalQuestions = categoriesSummary.TotalAnsweredQuestion +
                                                categoriesSummary.TotalUnAnsweredQuestion;
 
