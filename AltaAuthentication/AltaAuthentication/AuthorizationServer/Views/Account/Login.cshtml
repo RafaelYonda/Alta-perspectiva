@@ -48,12 +48,14 @@
     <div class="col-md-4 col-md-offset-4 loginForm">
 
         <section>
-
             <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
-                <div class="sign-up">@*Don't have an account?*@ ¿Aún no estás registrado?  <a href="/Account/Register">@*Sign up here*@Regístrate aquí</a></div>
+
+                <div class="sign-up">@*Don't have an account?*@ ¿Aún no estás registrado?  <a href='@Url.Action("Register", "Account", new { returnUrl=ViewData["ReturnUrl"]})'>@*Sign up here*@Regístrate aquí</a></div>
                 <h2 class="login-header">
                     @*Log in*@Iniciar sesión
                 </h2>
+
+                
                 @{
                     if (ViewBag.Message != null)
                     {

@@ -129,8 +129,9 @@ namespace AuthorizationServer.Controllers
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Context.Request.Scheme);
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Login",new { returnUrl= "http://www.altaperspectiva.com" });
+                    
+                     await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
+                    return new RedirectResult(returnUrl, true);
                 }
                 AddErrors(result);
             }
