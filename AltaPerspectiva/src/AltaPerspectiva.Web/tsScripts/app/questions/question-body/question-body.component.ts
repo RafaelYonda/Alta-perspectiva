@@ -18,11 +18,12 @@ export interface ILoader {
     providers: [QuestionAnswerService, CategoryService, ConfigService, QuestionService]
 })
 export class QuestionBodyComponent {
-    throttle:any;
-    scrollDistance:any;
+    throttle: any;
+    scrollDistance: any;
     FilterParam = "Filtra tus preguntas";// "Select a filter";
     showMoreTopic = false;
     topFiveTopics: Topic[] = new Array<Topic>();
+    questionPage = 0;
 
     topics: Topic[];
     // shortTopics: Topic[]=[];
@@ -51,17 +52,15 @@ export class QuestionBodyComponent {
     //categoryId
     categoryId: string;
     topicId: string;
-    topicName:string;
-    
+    topicName: string;
+
     levelId: string;
-    levelName:string;
+    levelName: string;
 
     filterParameter: FilterParameter;
-    constructor(private questioAnswernService: QuestionAnswerService,private authService: AuthenticationService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private questionService: QuestionService) {
+    constructor(private questioAnswernService: QuestionAnswerService, private authService: AuthenticationService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private questionService: QuestionService) {
         this._router = router;
         this.route = route;
-
-        //this.answerList = questionService.getAnswersByQuestion(2);        
         this.questions = new Array<Question>();
 
         /// load spinner for when  component initialize
@@ -71,10 +70,9 @@ export class QuestionBodyComponent {
         this._logObj = { isLoggedIn: false, user: user };
 
     }
-    onQuestionSubmitted(even:any) {
-        //console.log("Submit on question");
+    onQuestionSubmitted(even: any) {
         var subs = this.questioAnswernService.getQuestions();
-        subs.subscribe((res:any) => {
+        subs.subscribe((res: any) => {
             this.commServ.setCategory(this.categoryId);
             this.questions = res;
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
@@ -85,36 +83,29 @@ export class QuestionBodyComponent {
         window.scrollTo(0, 0);
         var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
-        this.commServ.informQuestionSubmit().subscribe((res:any) => {
+        this.commServ.informQuestionSubmit().subscribe((res: any) => {
             this.showLoader();
             this.onQuestionSubmitted(res);
         });
-//        if (currentUserName != null) {
-//            this._logObj.user.name = currentUserName;
-//            this._logObj.user.imageUrl = currentUserImage;
-//            this._logObj.isLoggedIn = true;
-//        }
-		this.authService.getLoggedinObj().subscribe((res:any) => {
+        this.authService.getLoggedinObj().subscribe((res: any) => {
             if (res && currentUserName != null) {
                 this._logObj = new LogInObj();
-            this._logObj.user = new User();
-            this._logObj.user.name = res.name;
-            this._logObj.user.imageUrl = res.imageUrl;
-            this._logObj.isLoggedIn = true;
-            this._logObj.user.userId = res.userId;
+                this._logObj.user = new User();
+                this._logObj.user.name = res.name;
+                this._logObj.user.imageUrl = res.imageUrl;
+                this._logObj.isLoggedIn = true;
+                this._logObj.user.userId = res.userId;
             }
         });
 
-        this.configService.getConfig().subscribe((r:any) => {
+        this.configService.getConfig().subscribe((r: any) => {
             this.config = r;
         });
 
         this.loadCategories();
 
         //get questions by route param using category id.
-        this.route.params.subscribe((params:any) => {
-
-            // this.id = params['id']; //For the First time it will be 1
+        this.route.params.subscribe((params: any) => {
             this.topicId = params['topicId'];
             this.categoryId = params['categoryId'];
             this.levelId = params['levelId'];
@@ -122,8 +113,6 @@ export class QuestionBodyComponent {
 
             this.filterParameter = new FilterParameter();
             this.filterParameter.categoryId = this.categoryId;
-            //this.filterParameter.topicId = this.topicId;
-            //this.filterParameter.levelId = this.levelId;
 
             if (this.topicId) {
                 this.commServ.setTopicId(this.topicId);
@@ -139,119 +128,52 @@ export class QuestionBodyComponent {
             else {
                 this.filterParameter.topicId = '0';
             }
-
-
             if (this.levelId) {
                 this.commServ.setLevelId(this.levelId);
                 this.filterParameter.levelId = this.levelId;
                 this.questioAnswernService.GetLevelName(this.levelId).subscribe(res => {
                     if (res.result != '') {
                         this.levelName = res.result
-                    }else {
+                    } else {
                         this.levelName = undefined;
                     }
                 })
             } else {
                 this.filterParameter.levelId = '0';
             }
-
-
-            this.showLoader();
-            var subs: any;
-
-            //  this.id = params['id'];
-
-            // param id = 0, default route, it is ver tidas
-            if (this.categoryId == '1') {
-                subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
-            }
-
-            else {
-                //  this.filterParameter = this.commServ.getFilterParameter();
-                // questions loaded by category id
-                // subs = this.questioAnswernService.getQuestionsByCategory(this.id);
-                subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
-
-                /// if page directly loads from url, then categories gets undefiend                
-                this.loadCategories();
-            }
-
-            subs.subscribe((res:any) => {
-                this.questionService.getTopFiveTopicsByCategoryId(this.categoryId).subscribe((res:any) => {
-                    this.topics = res;
-                    //  this.topFiveTopics = this.topics;
-                    this.topFiveTopics = new Array<Topic>();
-                    var count = 0;
-                    for (let item of this.topics) {
-                        this.topFiveTopics.push(item);
-                        count++;
-                        if (count > 4)
-                            break;
-                    }
-                    this.showMoreTopic = true;
-                });
-                this.loadCategories();
-                this.commServ.setCategory(this.categoryId);
-                this.questions = res;
-                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-                this.hideLoader();
-                //this.topicId = null;
-                //this.categoryId = null;
-                //this.levelId = null;
+            this.questionService.getTopFiveTopicsByCategoryId(this.categoryId).subscribe((res: any) => {
+                this.topics = res;
+                this.topFiveTopics = new Array<Topic>();
+                var count = 0;
+                for (let item of this.topics) {
+                    this.topFiveTopics.push(item);
+                    count++;
+                    if (count > 4)
+                        break;
+                }
+                this.showMoreTopic = true;
             });
+            this.LoadFilteredQuestions();
         });
     }
-    GetLatestQuestionByDate(categoryId: string) {
-        //this.FilterParam = "The latest question";
-        this.FilterParam = "Preguntas más recientes";
+    LoadFilteredQuestions() {
         this.showLoader();
-        this.categorySelected = this.categories.find(x => x.id == categoryId);
-        var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
-            (res:any) => {
-
-                this.questions = res;
-
-                //  this.loadCategories();
-                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-                this.hideLoader();
-            }
-        );
+        var subs: any;
+        if (this.categoryId == '1')
+            subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
+        else 
+            subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
+        subs.subscribe((res: any) => {
+            this.questions = res;
+            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+            this.hideLoader();
+            //==========Load Other dependencies after questions load==========
+            this.loadCategories();
+            this.commServ.setCategory(this.categoryId);
+        });
     }
-    getbestquestionbytotallike(categoryId: string) {
-        //this.FilterParam = "The best Question";
-        this.FilterParam = "Preguntas con más Me gusta";
-        this.showLoader();
-        var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
-            (res:any) => {
-
-                this.questions = res;
-
-                //   this.loadCategories();
-                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-                this.hideLoader();
-
-            }
-        );
-    }
-    getmorequestionbyviewcount(categoryId: string) {
-        //this.FilterParam = "The more views";
-        this.FilterParam = "Preguntas más vistas";
-        this.showLoader();
-        this.categorySelected = this.categories.find(x => x.id == categoryId);
-        var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(
-            (res:any) => {
-                console.log(res);
-                this.questions = res;
-                this.hideLoader();
-                //  this.loadCategories();
-                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-            }
-        );
-    }
-
     loadCategories() {
-
-        this.categoryService.getAllCategories().subscribe((res:any) => {
+        this.categoryService.getAllCategories().subscribe((res: any) => {
 
             this.categories = res;
 
@@ -269,12 +191,54 @@ export class QuestionBodyComponent {
         });
     }
 
-    addFollower(categoryId: string) {
-        this.categoryService.addAddFollower(categoryId).subscribe((res:any) => {
-            this.totalCount.totalUsers += 1;
-        });
-    }
+    // #region=======Button Clicked Functions===========
+    GetLatestQuestionByDate(categoryId: string) {
+        //this.FilterParam = "The latest question";
+        this.FilterParam = "Preguntas más recientes";
+        this.showLoader();
+        this.categorySelected = this.categories.find(x => x.id == categoryId);
+        var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
+            (res: any) => {
 
+                this.questions = res;
+
+                //  this.loadCategories();
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+                this.hideLoader();
+            }
+        );
+    }
+    getbestquestionbytotallike(categoryId: string) {
+        //this.FilterParam = "The best Question";
+        this.FilterParam = "Preguntas con más Me gusta";
+        this.showLoader();
+        var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
+            (res: any) => {
+
+                this.questions = res;
+
+                //   this.loadCategories();
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+                this.hideLoader();
+
+            }
+        );
+    }
+    getmorequestionbyviewcount(categoryId: string) {
+        //this.FilterParam = "The more views";
+        this.FilterParam = "Preguntas más vistas";
+        this.showLoader();
+        this.categorySelected = this.categories.find(x => x.id == categoryId);
+        var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(
+            (res: any) => {
+                console.log(res);
+                this.questions = res;
+                this.hideLoader();
+                //  this.loadCategories();
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+            }
+        );
+    }
     getQuestionNotAnswered(categoryId: string) {
         this.showLoader();
         this.questioAnswernService.getQuestionsNotAnswered(categoryId).subscribe((res: any) => {
@@ -283,38 +247,30 @@ export class QuestionBodyComponent {
             this.hideLoader();
         });
     }
-
     getQuestionsAnswered(categoryId: string) {
         this.showLoader();
-        this.questioAnswernService.getQuestyionsAnswered(categoryId).subscribe((res: any) => {
+        this.questioAnswernService.getQuestionsAnswered(categoryId).subscribe((res: any) => {
             this.questions = res;
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             this.hideLoader();
         });
     }
-    //showMoreTopics() {
-    //    this.showMoreTopic = true;
-    //    this.topFiveTopics = this.topics;
-    //}
-    //hideMoreTopics() {
-    //    this.showMoreTopic = false;
-    //    this.topFiveTopics = new Array<Topic>();
-    //    var count = 0;
-    //    for (let item of this.topics) {
-    //        this.topFiveTopics.push(item);
-    //        count++;
-    //        if (count > 4)
-    //            break;
-    //    }
 
-    //}
+    addFollower(categoryId: string) {
+        this.categoryService.addAddFollower(categoryId).subscribe((res: any) => {
+            this.totalCount.totalUsers += 1;
+        });
+    }
+    // #endregion
+
+
     toggleShowMoreTopic() {
         if (this.showMoreTopic == true) {
             this.showMoreTopic = false;
             this.topFiveTopics = this.topics;
         } else {
             this.showMoreTopic = true;
-            
+
             this.topFiveTopics = new Array<Topic>();
             var count = 0;
             for (let item of this.topics) {
@@ -335,19 +291,34 @@ export class QuestionBodyComponent {
         this.loader.isLoading = false;
     }
 
-    onScrollDown() {
-        // console.log('scrolled!!');
-        this.scrollPage = this.scrollPage + 1;
-        // console.log(this.scrollPage);
-    }
-    submitLike(questionId: string) {
-        this.like = new Like();
-        this.like.questionId = questionId;
+    onScroll() {
+        this.questionPage = this.questionPage + 1;
+        this.UpdateQuestionsByCategory();
+        console.log('scrolled down!!');
 
-        this.questioAnswernService.addQuestionLike(this.like).subscribe((res: any) => {
-            this.questions.find(x => x.id == questionId).likes.push(this.like);
+    }
+
+
+    UpdateQuestionsByCategory() {
+        this.questioAnswernService.getQuestionsByCategoryAndPage(this.categoryId, this.questionPage).subscribe(res => {
+            console.log(res);
+            //if scroll page number is higher
+            if (this.questionPage > 0 && res && res.length > 0 && this.questions && this.questions) {
+                this.questions = this.questions.concat(res);
+            }
+            else if (res && res.length > 0) {
+                this.questions = res;
+            }
+
+            for (var q = 0; q < this.questions.length; q++) {
+                this.questions[q].bestAnswer = this.questions[q].answers[0];
+            }
+            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+            this.hideLoader();
         });
     }
+
+
     hideMenu() {
         var leftMenu = document.getElementById('toggleMenu');
         leftMenu.classList.remove("expand");

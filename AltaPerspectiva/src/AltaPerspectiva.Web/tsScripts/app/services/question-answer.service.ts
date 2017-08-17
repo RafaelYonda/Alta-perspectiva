@@ -113,7 +113,7 @@ export class QuestionAnswerService implements Resolve<Question> {
             .refCount();
     }
 
-    getQuestyionsAnswered(categoryId: string): Observable<Question[]> {
+    getQuestionsAnswered(categoryId: string): Observable<Question[]> {
         return this._http.get('/questions/api/questions/answered/' + categoryId)
             .map(this.extractData)
             .catch(this.handleError)

@@ -21,8 +21,7 @@ export class TabPanelComponent {
     throttle = 100;
     scrollDistance = 1;
     scrollUpDistance = 2;
-    questionPage = 0;  
-    
+    questionPage = 0;    
     //===============
 
 

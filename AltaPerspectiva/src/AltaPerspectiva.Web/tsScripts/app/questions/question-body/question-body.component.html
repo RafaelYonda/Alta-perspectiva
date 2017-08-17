@@ -148,14 +148,16 @@
             </div>
         </div>
     </div>
-    <div infinite-scroll
-         [infiniteScrollDistance]="scrollDistance"
-         [infiniteScrollThrottle]="throttle"
-         (scrolled)="onScrollDown()">
+    <div class="search-results"
+         infinite-scroll
+         infiniteScrollDistance="1"
+         infiniteScrollThrottle="100"
+         (scrolled)="onScroll()">
+        <div *ngFor="let question of questions">
+            <question-panel [question]="question"></question-panel>
+        </div>
     </div>
-    <div *ngFor="let question of questions">
-        <question-panel [question]="question"></question-panel>
-    </div>
+    
     <!-- For Hover pop up get some space to show -->
     <div class="hidden-xs" style="height:200px;position:relative;"></div>
 </div>
