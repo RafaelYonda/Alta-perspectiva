@@ -849,8 +849,8 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
         #endregion
 
         #region Filters
-        [HttpGet("/questions/api/FilterbyCategoryTopicNLevel")]
-        public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter)
+        [HttpGet("/questions/api/{pageNumber}/FilterbyCategoryTopicNLevel")]
+        public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter,int pageNumber=0)
         {
             //Guid? categoryId = filterParameter.CategoryId;
             //Guid? topicId = filterParameter.TopicId;
@@ -869,7 +869,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
             //            .Select(x => x.Value);
             //    loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             //}
-            List<QuestionViewModel> questionViewModels = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: 0 , pageCount: 15 ,filterParameter:filterParameter) );
+            List<QuestionViewModel> questionViewModels = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: pageNumber, pageCount: 15 ,filterParameter:filterParameter) );
 
             return Ok(questionViewModels);
         }

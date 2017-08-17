@@ -153,18 +153,24 @@ export class QuestionBodyComponent {
                 }
                 this.showMoreTopic = true;
             });
+            this.showLoader();
+            this.questions = new Array<Question>();     // make the question list empty
             this.LoadFilteredQuestions();
         });
     }
     LoadFilteredQuestions() {
-        this.showLoader();
+        
         var subs: any;
-        if (this.categoryId == '1')
-            subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
-        else 
-            subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter);
+        subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter, this.questionPage);
         subs.subscribe((res: any) => {
-            this.questions = res;
+            //this.questions = res;
+            if (this.questionPage > 0 && res && res.length > 0 && this.questions && this.questions) {
+                this.questions = this.questions.concat(res);
+            }
+            else if (res && res.length > 0) {
+                this.questions = res;
+            }
+
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             this.hideLoader();
             //==========Load Other dependencies after questions load==========
@@ -293,30 +299,12 @@ export class QuestionBodyComponent {
 
     onScroll() {
         this.questionPage = this.questionPage + 1;
-        this.UpdateQuestionsByCategory();
+        this.LoadFilteredQuestions();
         console.log('scrolled down!!');
 
     }
 
 
-    UpdateQuestionsByCategory() {
-        this.questioAnswernService.getQuestionsByCategoryAndPage(this.categoryId, this.questionPage).subscribe(res => {
-            console.log(res);
-            //if scroll page number is higher
-            if (this.questionPage > 0 && res && res.length > 0 && this.questions && this.questions) {
-                this.questions = this.questions.concat(res);
-            }
-            else if (res && res.length > 0) {
-                this.questions = res;
-            }
-
-            for (var q = 0; q < this.questions.length; q++) {
-                this.questions[q].bestAnswer = this.questions[q].answers[0];
-            }
-            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-            this.hideLoader();
-        });
-    }
 
 
     hideMenu() {

@@ -252,8 +252,8 @@ export class QuestionAnswerService implements Resolve<Question> {
     }
 
     //Filtered parameter
-    FilterbyCategoryTopicNLevel(filterParameter:FilterParameter): Observable<Question[]> {
-        return this._http.get('/questions/api/FilterbyCategoryTopicNLevel?categoryId='+filterParameter.categoryId+'&topicId='+filterParameter.topicId+'&levelId='+filterParameter.levelId, null)
+    FilterbyCategoryTopicNLevel(filterParameter: FilterParameter, pageNumber: number): Observable<Question[]> {
+        return this._http.get('/questions/api/' + pageNumber+'/FilterbyCategoryTopicNLevel?categoryId='+filterParameter.categoryId+'&topicId='+filterParameter.topicId+'&levelId='+filterParameter.levelId, null)
             .map(this.extractData)
             .catch(this.handleError);
     }
