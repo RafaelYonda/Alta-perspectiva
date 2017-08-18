@@ -543,7 +543,8 @@ select q.Id,q.Title,q.Body,q.UserId,q.ViewCount,q.CreatedOn ,
 (select COUNT(*) from Questions.Comments c where c.QuestionId =q.Id) CommentCount,
 (select top 1 CategoryId from Questions.QuestionCategories qc where qc.QuestionId=q.id) CategoryId,
 (select TopicId from Questions.QuestionTopics qt where qt.QuestionId=q.id) TopicId,
-(select LevelId from Questions.QuestionLevels ql where ql.QuestionId=q.id) LevelId
+(select LevelId from Questions.QuestionLevels ql where ql.QuestionId=q.id) LevelId,
+q.IsAnonymous
 from Questions.Questions q
 where q.Id = '{0}'
 ", questionId);
@@ -648,23 +649,8 @@ select * from Questions.Levels where id ='{2}';
                         questionViewModel.QuestionLevelNames.Add(levelViewModel.LevelName);
                     }
                 }
-
-                //foreach (var answerViewModel in answerViewModels)
-                //{
-                //    answerViewModel.UserViewModel = userViewModels.FirstOrDefault(x => x.UserId == answerViewModel.UserId);
-                //    answerViewModel.Comments = new List<AnswerCommentViewModel>();
-                //    for (int i = 0; i < answerViewModel.CommentCount; i++)
-                //    {
-                //        answerViewModel.Comments.Add(new AnswerCommentViewModel());
-                //    }
-                //    answerViewModel.Likes = new List<AnswerLikeViewModel>();
-                //    for (int i = 0; i < answerViewModel.LikeCount; i++)
-                //    {
-                //        answerViewModel.Likes.Add(new AnswerLikeViewModel());
-                //    }
-                //}
             }
-            // questionViewModel.Answers = answerViewModels;
+
             return questionViewModel;
         }
         public List<QuestionViewModel> GetQuestionViewModels(int pageNumber, int pageCount,FilterParameter filterParameter = null)
