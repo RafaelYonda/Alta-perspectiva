@@ -69,6 +69,12 @@ export class QuestionBodyComponent {
         var user: User = new User();
         user.userId = '-1';
         this._logObj = { isLoggedIn: false, user: user };
+        this.filterParameter = new FilterParameter();
+        this.filterParameter.latestQuestion = false;
+        this.filterParameter.mostLikedQuestion = false;
+        this.filterParameter.questionWithAnswer = false;
+        this.filterParameter.questionWithoutAnswer = false;
+        this.filterParameter.mostLikedQuestion = false;
 
     }
     onQuestionSubmitted(even: any) {
@@ -112,7 +118,7 @@ export class QuestionBodyComponent {
             this.levelId = params['levelId'];
             this.description = this._router.url;
 
-            this.filterParameter = new FilterParameter();
+            
             this.filterParameter.categoryId = this.categoryId;
 
             if (this.topicId) {
@@ -200,67 +206,76 @@ export class QuestionBodyComponent {
 
     // #region=======Button Clicked Functions===========
     GetLatestQuestionByDate(categoryId: string) {
-        //this.FilterParam = "The latest question";
-        this.FilterParam = "Preguntas más recientes";
+        this.FilterParam = "Preguntas más recientes";   //"The latest question";
         this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
-        var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
-            (res: any) => {
+        this.filterParameter.latestQuestion = true;
+        this.LoadFilteredQuestions();
+        //var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
+        //    (res: any) => {
 
-                this.questions = res;
+        //        this.questions = res;
 
-                //  this.loadCategories();
-                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-                this.hideLoader();
-            }
-        );
+        //        //  this.loadCategories();
+        //        this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+        //        this.hideLoader();
+        //    }
+        //);
     }
     getbestquestionbytotallike(categoryId: string) {
         //this.FilterParam = "The best Question";
         this.FilterParam = "Preguntas con más Me gusta";
         this.showLoader();
-        var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
-            (res: any) => {
+        this.filterParameter.mostLikedQuestion = true;
+        this.LoadFilteredQuestions();
+        //var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
+        //    (res: any) => {
 
-                this.questions = res;
+        //        this.questions = res;
 
-                //   this.loadCategories();
-                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-                this.hideLoader();
+        //        //   this.loadCategories();
+        //        this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+        //        this.hideLoader();
 
-            }
-        );
+        //    }
+        //);
     }
     getmorequestionbyviewcount(categoryId: string) {
         //this.FilterParam = "The more views";
         this.FilterParam = "Preguntas más vistas";
         this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
-        var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(
-            (res: any) => {
-                console.log(res);
-                this.questions = res;
-                this.hideLoader();
-                //  this.loadCategories();
-                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-            }
-        );
+        this.filterParameter.mostViewedQuestion = true;
+        this.LoadFilteredQuestions();
+        //var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(
+        //    (res: any) => {
+        //        console.log(res);
+        //        this.questions = res;
+        //        this.hideLoader();
+        //        //  this.loadCategories();
+        //        this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+        //    }
+        //);
     }
     getQuestionNotAnswered(categoryId: string) {
         this.showLoader();
-        this.questioAnswernService.getQuestionsNotAnswered(categoryId).subscribe((res: any) => {
-            this.questions = res;
-            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-            this.hideLoader();
-        });
+        this.filterParameter.questionWithoutAnswer = true;
+        this.LoadFilteredQuestions();
+        //this.questioAnswernService.getQuestionsNotAnswered(categoryId).subscribe((res: any) => {
+        //    this.questions = res;
+        //    this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+        //    this.hideLoader();
+        //});
     }
     getQuestionsAnswered(categoryId: string) {
         this.showLoader();
-        this.questioAnswernService.getQuestionsAnswered(categoryId).subscribe((res: any) => {
-            this.questions = res;
-            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-            this.hideLoader();
-        });
+        this.filterParameter.questionWithAnswer = true;
+        this.LoadFilteredQuestions();
+        //this.questioAnswernService.getQuestionsAnswered(categoryId).subscribe((res: any) => {
+        //    this.questions = res;
+        //    this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+        //    this.hideLoader();
+        //});
     }
 
     addFollower(categoryId: string) {

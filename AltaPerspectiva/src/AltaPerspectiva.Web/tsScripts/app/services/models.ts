@@ -282,6 +282,11 @@ export class FilterParameter {
     categoryId: string;
     topicId: string;
     levelId: string;
+    questionWithAnswer: boolean;
+    questionWithoutAnswer: boolean;
+    mostViewedQuestion: boolean;
+    mostLikedQuestion: boolean;
+    latestQuestion:boolean;
 }
 //Question report added
 export class QuestionReport {
