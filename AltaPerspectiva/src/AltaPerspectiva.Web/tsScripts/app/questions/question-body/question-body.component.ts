@@ -1,8 +1,9 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { QuestionService } from '../../services/question.service';
 import { CategoryService } from '../../services/category.service';
 import { ConfigService } from '../../services/config.service';
+import { loginModalComponent } from '../../shared/login-modal/login-modal.component';
 import { AuthenticationService } from '../../services/authentication.service';
 import {QuestionMenu, Question, Answer, Category, Like, DateName, TotalCount, Config, LogInObj, FilterParameter, Topic, User} from '../../services/models';
 import { Router, ActivatedRoute, Resolve } from '@angular/router';
@@ -58,7 +59,7 @@ export class QuestionBodyComponent {
     levelName: string;
 
     filterParameter: FilterParameter;
-    constructor(private questioAnswernService: QuestionAnswerService, private authService: AuthenticationService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private questionService: QuestionService) {
+    constructor(private questioAnswernService: QuestionAnswerService, private componentFactoryResolver: ComponentFactoryResolver, private authService: AuthenticationService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private questionService: QuestionService) {
         this._router = router;
         this.route = route;
         this.questions = new Array<Question>();
@@ -263,12 +264,26 @@ export class QuestionBodyComponent {
     }
 
     addFollower(categoryId: string) {
+        var user = localStorage.getItem('auth_token');
+        if (!user) {
+            this.ShowNotLoggedIn();
+            return;
+        }  
         this.categoryService.addAddFollower(categoryId).subscribe((res: any) => {
             this.totalCount.totalUsers += 1;
         });
     }
     // #endregion
+    @ViewChild('logginAnchor', { read: ViewContainerRef }) logginAnchor: ViewContainerRef;
+    ShowNotLoggedIn() {
+        this.logginAnchor.clear();
 
+        let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(loginModalComponent);
+        let dialogComponentRef = this.logginAnchor.createComponent(dialogComponentFactory);
+        dialogComponentRef.instance.close.subscribe(() => {
+            dialogComponentRef.destroy();
+        });
+    }
 
     toggleShowMoreTopic() {
         if (this.showMoreTopic == true) {

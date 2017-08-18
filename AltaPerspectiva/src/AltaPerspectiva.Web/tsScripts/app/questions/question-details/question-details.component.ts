@@ -153,8 +153,13 @@ export class QuestionDetailComponent {
         dialogComponentRef.instance.isDetail = true;
         dialogComponentRef.instance.close.subscribe(() => {
             dialogComponentRef.destroy();
-            this.dataService.GetQuestion(this.question.id).subscribe(res => {
-                this.question = res;
+            //this.dataService.GetQuestion(this.question.id).subscribe(res => {
+            //    this.question = res;
+            //});
+            this.dataService.GetAnswersByQuestionId(this.question.id).subscribe((res: any) => {
+                console.log('Get Answer');
+                console.log(res);
+                this.question.answers = res;
             });
         });
     }
@@ -171,14 +176,12 @@ export class QuestionDetailComponent {
         this.answerVM.isDrafted = true;
 
         this.dataService.addAnswer(this.answerVM).subscribe(res => {
-
             this.answerVM = res;
             this.answerText = "";
             this.isAnonymous = false;
             this.dataService.GetQuestion(_id).subscribe(res => {
                 this.question = res;
             })
-
         });
     }
 
@@ -261,7 +264,7 @@ export class QuestionDetailComponent {
         this.editBody = this.question.body;    
     }
 
-    @ViewChild('questionReport', { read: ViewContainerRef }) questionReport: ViewContainerRef;   
+    @ViewChild('questionReport', { read: ViewContainerRef }) questionReport: ViewContainerRef;  
 
     onQuestionReportClicked(showQuestionReportModal: any) {      
        
