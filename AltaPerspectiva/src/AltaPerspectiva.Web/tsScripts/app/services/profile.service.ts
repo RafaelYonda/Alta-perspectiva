@@ -37,6 +37,8 @@ export class ProfileService {
 
     SaveUserName(firstName: string, lastName: string, userId: string) {
         let model = new FormData();
+        firstName = firstName ? firstName : '';
+        lastName = lastName ? lastName : '';
         model.append("firstName", firstName);
         model.append("lastName", lastName);
         model.append("userId", userId);
