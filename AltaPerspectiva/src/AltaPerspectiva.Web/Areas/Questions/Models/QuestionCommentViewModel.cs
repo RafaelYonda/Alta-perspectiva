@@ -1,4 +1,4 @@
-﻿using AltaPerspectiva.Identity;
+﻿
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
 using Questions.Command;
 using Questions.Domain;

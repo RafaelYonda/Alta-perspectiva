@@ -110,9 +110,9 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpGet("/questions/api/questions/notanswered/{id}")]
-        public async Task<IActionResult> GetQuestyionsNotAnswered(Guid id , int pageNo = 0)
+        public async Task<IActionResult> GetQuestyionsNotAnswered(Guid id, int pageNo = 0)
         {
-            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsNotAnsweredQuery>().Execute(id , pageNo);
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsNotAnsweredQuery>().Execute(id, pageNo);
             Guid loggedinUser = Guid.Empty;
             if (User.Identity.IsAuthenticated)
             {
@@ -127,9 +127,9 @@ namespace AltaPerspectiva.Web.Area.Questions
         }
 
         [HttpGet("/questions/api/questions/answered/{id}")]
-        public async Task<IActionResult> GetQuestyionsAnswered(Guid id  , int pageNo = 0)
+        public async Task<IActionResult> GetQuestyionsAnswered(Guid id, int pageNo = 0)
         {
-            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(id , pageNo);
+            IEnumerable<Question> questionList = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().Execute(id, pageNo);
             Guid loggedinUser = Guid.Empty;
             if (User.Identity.IsAuthenticated)
             {
@@ -147,14 +147,14 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/{id}")]
         public IActionResult Get(Guid id)
         {
-            _logger.LogInformation($"#### log start url = "+ Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
+            _logger.LogInformation($"#### log start url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
             var questionViewModel1 = new QuestionServiceOptimized().GetQuestionViewModel(id);
             _logger.LogInformation($"#### log end url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
             return Ok(questionViewModel1);
         }
 
         [HttpGet("/questions/api/questions/category/{id}")]
-        public async Task<IActionResult> GetQuestionsByCategoryId(Guid id )
+        public async Task<IActionResult> GetQuestionsByCategoryId(Guid id)
         {
             _logger.LogInformation($"#### log start url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
 
@@ -164,7 +164,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             }));
 
             _logger.LogInformation($"#### log end url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
-           
+
 
             return Ok(questions);
         }
@@ -221,8 +221,51 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/{id}/comments")]
         public async Task<IActionResult> GetQuestionComments(Guid id)
         {
-            IEnumerable<Comment> comments = await queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);
-            IEnumerable<QuestionCommentViewModel> commentsVM = new QuestionService().GetComments(comments, queryFactory, configuration);
+            //IEnumerable<Comment> comments = await queryFactory.ResolveQuery<IQuestionCommentsQuery>().Execute(id);
+            //IEnumerable<QuestionCommentViewModel> commentsVM = new QuestionService().GetComments(comments, queryFactory, configuration);
+
+            List<QuestionCommentViewModel> commentsVM = new List<QuestionCommentViewModel>();
+
+            List<CommentDbModel> commentDbModels = new List<CommentDbModel>();
+            using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
+            {
+                String commentQuery = String.Format(@"select c.Id , c.CommentText ,c.QuestionId, cre.FirstName +' ' +cre.LastName as Name, cre.Occupation ,cre.ImageUrl ,cre.Id CredentialId , cre.Email ,cre.UserId
+from [Questions].[Comments] c
+inner join [UserProfile].[Credentials] cre on c.UserId = cre.UserId
+where c.QuestionId = '{0}'", id);
+                commentDbModels = await Task.Run(() => connection.Query<CommentDbModel>(commentQuery).ToList());
+            }
+
+            foreach (var commentDbModel in commentDbModels)
+            {
+                QuestionCommentViewModel commentViewModel = new QuestionCommentViewModel();
+                commentViewModel.Id = commentDbModel.Id;
+                commentViewModel.CommentText = commentDbModel.CommentText;
+                commentViewModel.QuestionId = commentDbModel.QuestionId;
+                commentViewModel.UserId = commentDbModel.UserId;
+
+                UserViewModel userViewModel = new UserViewModel();
+                userViewModel.UserId = commentDbModel.UserId;
+                userViewModel.CredentialId = commentDbModel.CredentialId;
+                AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                if (string.IsNullOrEmpty(commentDbModel.ImageUrl))
+                {
+                    userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
+                }
+                else
+                {
+                    userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(commentDbModel.ImageUrl);
+                }
+                userViewModel.Email = commentDbModel.Email;
+                userViewModel.Occupation = commentDbModel.Occupation;
+                userViewModel.Name = commentDbModel.Name;
+
+                commentViewModel.UserViewModel = userViewModel;
+                commentsVM.Add(commentViewModel);
+
+            }
+
+
             return Ok(commentsVM);
         }
 
@@ -410,15 +453,34 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/question/{questionId}/questionlike")]
         public async Task<IActionResult> GetQuestionLike(Guid questionId)
         {
-            IEnumerable<Like> likes = await queryFactory.ResolveQuery<ILikeQuery>().Execute(questionId);
+            //IEnumerable<Like> likes = await queryFactory.ResolveQuery<ILikeQuery>().Execute(questionId);
 
             List<UserViewModel> userViewModels = new List<UserViewModel>();
-            foreach (var like in likes)
+
+            using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
             {
-                Guid userId = like.UserId;
-                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
-                userViewModels.Add(userViewModel);
+                String query = String.Format(@"select cre.*  ,cre.FirstName + ' '+cre.lastName as Name ,cre.Id as CredentialId
+from [Questions].[Likes] l
+inner join [UserProfile].[Credentials] cre on l.UserId = cre.UserId
+where l.QuestionId= '{0}'", questionId);
+
+                userViewModels = await Task.Run(() => connection.Query<UserViewModel>(query).ToList());
             }
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            foreach (var userViewModel in userViewModels)
+            {
+                userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
+                if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
+                {
+                    userViewModel.Name = userViewModel.Email;
+                }
+            }
+            //foreach (var like in likes)
+            //{
+            //    Guid userId = like.UserId;
+            //    UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
+            //    userViewModels.Add(userViewModel);
+            //}
             return Ok(userViewModels);
 
         }
@@ -850,12 +912,12 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
 
         #region Filters
         [HttpGet("/questions/api/{pageNumber}/FilterbyCategoryTopicNLevel")]
-        public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter,int pageNumber=0)
+        public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter, int pageNumber = 0)
         {
-            List<QuestionViewModel> questionViewModels =new List<QuestionViewModel>();
+            List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
             //Done
-            if (!filterParameter.CategoryId.HasValue && 
-                !filterParameter.TopicId.HasValue && 
+            if (!filterParameter.CategoryId.HasValue &&
+                !filterParameter.TopicId.HasValue &&
                 !filterParameter.LevelId.HasValue
                 )
             {
@@ -867,7 +929,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
                !filterParameter.LevelId.HasValue
                )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryIdOnly(filterParameter.CategoryId.Value , pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryIdOnly(filterParameter.CategoryId.Value, pageNumber));
             }
             //done
             if (filterParameter.CategoryId.HasValue &&
@@ -875,7 +937,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
               !filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopic(filterParameter.CategoryId.Value,filterParameter.TopicId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopic(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, pageNumber));
             }
 
             if (filterParameter.CategoryId.HasValue &&
@@ -891,9 +953,9 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
               filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopicAndLevel(filterParameter.CategoryId.Value, filterParameter.TopicId.Value,filterParameter.LevelId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopicAndLevel(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber));
             }
-            
+
             /////Upto this is ok
             if (!filterParameter.CategoryId.HasValue &&
               filterParameter.TopicId.HasValue &&
@@ -908,7 +970,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
               filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryLevel( filterParameter.LevelId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryLevel(filterParameter.LevelId.Value, pageNumber));
             }
             if (!filterParameter.CategoryId.HasValue &&
               filterParameter.TopicId.HasValue &&

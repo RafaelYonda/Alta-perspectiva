@@ -46,8 +46,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Services
             string occupation = string.Empty;
             Guid credentialId = Guid.Empty;
             AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-            String connectionString =
-           configuration.GetSection("Data").GetSection("DefaultConnection").GetSection("ConnectionString").Value;
+            String connectionString = Startup.ConnectionString;
 
             UserReadModel userReadModel =
                 queryFactory.ResolveQuery<IProfileParameters>().GetUserReadModel(connectionString, loggedinUser);

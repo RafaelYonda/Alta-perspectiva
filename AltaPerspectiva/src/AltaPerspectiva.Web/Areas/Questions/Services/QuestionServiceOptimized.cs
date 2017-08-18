@@ -550,13 +550,14 @@ where q.Id = '{0}'
 ", questionId);
                 questionViewModel = db.Query<QuestionViewModel>(questionQuery).FirstOrDefault();
 
-                String answerQuery = String.Format(@"
-select * ,
-(select COUNT(*) from Questions.Likes l where l.AnswerId =a.Id) LikeCount,
-(select COUNT(*) from Questions.Comments c where c.AnswerId =a.Id) CommentCount
-from Questions.Answers a 
-where QuestionId = '{0}'
-", questionId);
+//                String answerQuery = String.Format(@"
+
+//select * ,
+//(select COUNT(*) from Questions.Likes l where l.QuestionId =q.Id) LikeCount,
+//(select COUNT(*) from Questions.Comments c where c.QuestionId =q.Id) CommentCount
+//from Questions.Questions q 
+//where q.Id = '{0}'
+//", questionId);
                 // answerViewModels = db.Query<AnswerViewModel>(answerQuery).ToList();
 
                 List<Guid> userIds = new List<Guid>();
@@ -591,14 +592,15 @@ select * from Questions.Levels where id ='{2}';
                 }
                 questionViewModel.UserViewModel =
                     userViewModels.FirstOrDefault(x => x.UserId == questionViewModel.UserId);
+                questionViewModel.Comments = new List<QuestionCommentViewModel>();
                 for (int i = 0; i < questionViewModel.CommentCount; i++)
                 {
-                    questionViewModel.Comments = new List<QuestionCommentViewModel>();
                     questionViewModel.Comments.Add(new QuestionCommentViewModel());
                 }
+                questionViewModel.Likes = new List<QuestionLikeViewModel>();
                 for (int i = 0; i < questionViewModel.LikeCount; i++)
                 {
-                    questionViewModel.Likes = new List<QuestionLikeViewModel>();
+                    
                     questionViewModel.Likes.Add(new QuestionLikeViewModel());
                 }
 
