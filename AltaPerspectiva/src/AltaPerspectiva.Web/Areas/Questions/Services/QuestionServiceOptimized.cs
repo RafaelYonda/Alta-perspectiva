@@ -18,6 +18,148 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
     {
         private string connectionString = Startup.ConnectionString;
         private AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+
+        private string selectQuery =
+            @"select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
+(select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
+bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
+from Questions.Questions q ";
+
+        private string joinQuery = @"LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+left join
+(select a.*
+from Questions.Questions q
+inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
+
+) bestAns
+on bestAns.QuestionId=q.Id";
+        private string orderByQuery = "order by q.CreatedOn desc";
+
+
+        public  List<QuestionViewModel> FilterQuestionByGeneralCategory(int pageNumber)
+        {
+            string whereQuery = @"where q.IsDeleted is null and q.IsDirectQuestion =0 ";
+            QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
+                .WithSelectQuery(selectQuery)
+                            .WithJoinQuery(joinQuery)
+                .WithWhereQuery(whereQuery)
+                .WithOrderByQuery(orderByQuery)
+                .WithSkipTakeQuery(pageNumber: pageNumber);
+
+            List<QuestionViewModel> questionViewModels = builder.BuildQuery();
+            return questionViewModels;
+        }
+
+        public List<QuestionViewModel> FilterQuestionByCategoryIdOnly(Guid categoryId , int pageNumber)
+        {
+            string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' ", categoryId);
+            QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
+                .WithSelectQuery(selectQuery)
+                            .WithJoinQuery(joinQuery)
+                .WithWhereQuery(whereQuery)
+                .WithOrderByQuery(orderByQuery)
+                .WithSkipTakeQuery(pageNumber: pageNumber);
+
+            List<QuestionViewModel> questionViewModels = builder.BuildQuery();
+            return questionViewModels;
+
+        }
+        public List<QuestionViewModel> FilterQuestionByCategoryAndTopic(Guid categoryId ,Guid topicId, int pageNumber)
+        {
+            string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' and qt.TopicId = '{1}'", categoryId,topicId);
+            QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
+                .WithSelectQuery(selectQuery)
+                            .WithJoinQuery(joinQuery)
+                .WithWhereQuery(whereQuery)
+                .WithOrderByQuery(orderByQuery)
+                .WithSkipTakeQuery(pageNumber: pageNumber);
+
+            List<QuestionViewModel> questionViewModels = builder.BuildQuery();
+            return questionViewModels;
+
+        }
+
+
+        public List<QuestionViewModel> FilterQuestionByCategoryAndLevel(Guid categoryId, Guid levelId, int pageNumber)
+        {
+            string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' and ql.LevelId = '{1}'", categoryId, levelId);
+            QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
+                .WithSelectQuery(selectQuery)
+                            .WithJoinQuery(joinQuery)
+                .WithWhereQuery(whereQuery)
+                .WithOrderByQuery(orderByQuery)
+                .WithSkipTakeQuery(pageNumber: pageNumber);
+
+            List<QuestionViewModel> questionViewModels = builder.BuildQuery();
+            return questionViewModels;
+
+        }
+        public List<QuestionViewModel> FilterQuestionByCategoryAndTopicAndLevel(Guid categoryId,Guid topicId, Guid levelId, int pageNumber)
+        {
+            string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' and qt.TopicId = '{1}' and ql.LevelId = '{2}'", categoryId, topicId,levelId);
+            QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
+                .WithSelectQuery(selectQuery)
+                            .WithJoinQuery(joinQuery)
+                .WithWhereQuery(whereQuery)
+                .WithOrderByQuery(orderByQuery)
+                .WithSkipTakeQuery(pageNumber: pageNumber);
+
+            List<QuestionViewModel> questionViewModels = builder.BuildQuery();
+            return questionViewModels;
+
+        }
+        public List<QuestionViewModel> FilterQuestionByGeneralCategoryTopic(Guid topicId, int pageNumber)
+        {
+            string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and  qt.TopicId = '{0}' ", topicId);
+            QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
+                .WithSelectQuery(selectQuery)
+                            .WithJoinQuery(joinQuery)
+                .WithWhereQuery(whereQuery)
+                .WithOrderByQuery(orderByQuery)
+                .WithSkipTakeQuery(pageNumber: pageNumber);
+
+            List<QuestionViewModel> questionViewModels = builder.BuildQuery();
+            return questionViewModels;
+
+        }
+        public List<QuestionViewModel> FilterQuestionByGeneralCategoryLevel(Guid levelId, int pageNumber)
+        {
+            string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and   ql.LevelId = '{0}'", levelId);
+            QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
+                .WithSelectQuery(selectQuery)
+                            .WithJoinQuery(joinQuery)
+                .WithWhereQuery(whereQuery)
+                .WithOrderByQuery(orderByQuery)
+                .WithSkipTakeQuery(pageNumber: pageNumber);
+
+            List<QuestionViewModel> questionViewModels = builder.BuildQuery();
+            return questionViewModels;
+
+        }
+        public List<QuestionViewModel> FilterQuestionByGeneralCategoryTopicAndLevel( Guid topicId, Guid levelId, int pageNumber)
+        {
+            string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and  qt.TopicId = '{0}' and ql.LevelId = '{1}'", topicId, levelId);
+            QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
+                .WithSelectQuery(selectQuery)
+                            .WithJoinQuery(joinQuery)
+                .WithWhereQuery(whereQuery)
+                .WithOrderByQuery(orderByQuery)
+                .WithSkipTakeQuery(pageNumber: pageNumber);
+
+            List<QuestionViewModel> questionViewModels = builder.BuildQuery();
+            return questionViewModels;
+
+        }
+
         private List<QuestionDbModel> QueryBuilderForQuestionDbModel(IDbConnection db,int pageNumber = 0, int pageCount = 15, FilterParameter filterParameter = null)
         {
             string filterQuery = string.Empty;

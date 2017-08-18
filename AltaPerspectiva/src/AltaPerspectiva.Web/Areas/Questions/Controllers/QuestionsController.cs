@@ -852,24 +852,143 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
         [HttpGet("/questions/api/{pageNumber}/FilterbyCategoryTopicNLevel")]
         public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter,int pageNumber=0)
         {
-            //Guid? categoryId = filterParameter.CategoryId;
-            //Guid? topicId = filterParameter.TopicId;
-            //Guid? levelId = filterParameter.LevelId;
-            //QuestionFilterSpecification questionFilterSpecification = new QuestionFilterSpecification(categoryId, topicId, levelId);
+            List<QuestionViewModel> questionViewModels =new List<QuestionViewModel>();
+            //Done
+            if (!filterParameter.CategoryId.HasValue && 
+                !filterParameter.TopicId.HasValue && 
+                !filterParameter.LevelId.HasValue
+                )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategory(pageNumber));
+            }
+            //done
+            if (filterParameter.CategoryId.HasValue &&
+               !filterParameter.TopicId.HasValue &&
+               !filterParameter.LevelId.HasValue
+               )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryIdOnly(filterParameter.CategoryId.Value , pageNumber));
+            }
+            //done
+            if (filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              !filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopic(filterParameter.CategoryId.Value,filterParameter.TopicId.Value, pageNumber));
+            }
 
-            //IEnumerable<Question> questions =
-            //    await queryFactory.ResolveQuery<IQuestionsQuery>().Filter(questionFilterSpecification);
+            if (filterParameter.CategoryId.HasValue &&
+              !filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndLevel(filterParameter.CategoryId.Value, filterParameter.LevelId.Value, pageNumber));
+            }
 
-            //Guid loggedinUser = Guid.Empty;
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    var userId =
-            //        User.Claims.Where(
-            //                x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-            //            .Select(x => x.Value);
-            //    loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            //}
-            List<QuestionViewModel> questionViewModels = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: pageNumber, pageCount: 15 ,filterParameter:filterParameter) );
+            if (filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopicAndLevel(filterParameter.CategoryId.Value, filterParameter.TopicId.Value,filterParameter.LevelId.Value, pageNumber));
+            }
+            
+            /////Upto this is ok
+            if (!filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopicAndLevel
+                (filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber));
+            }
+            if (!filterParameter.CategoryId.HasValue &&
+              !filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryLevel( filterParameter.LevelId.Value, pageNumber));
+            }
+            if (!filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              !filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopic(filterParameter.TopicId.Value, pageNumber));
+            }
+
+            return Ok(questionViewModels);
+        }
+
+        [HttpGet("/questions/api/questions/countwithfilter")]
+        public async Task<IActionResult> CountWithFilter(FilterParameter filterParameter, int pageNumber = 0)
+        {
+            List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
+            //Done
+            if (!filterParameter.CategoryId.HasValue &&
+                !filterParameter.TopicId.HasValue &&
+                !filterParameter.LevelId.HasValue
+                )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategory(pageNumber));
+            }
+            //done
+            if (filterParameter.CategoryId.HasValue &&
+               !filterParameter.TopicId.HasValue &&
+               !filterParameter.LevelId.HasValue
+               )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryIdOnly(filterParameter.CategoryId.Value, pageNumber));
+            }
+            //done
+            if (filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              !filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopic(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, pageNumber));
+            }
+
+            if (filterParameter.CategoryId.HasValue &&
+              !filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndLevel(filterParameter.CategoryId.Value, filterParameter.LevelId.Value, pageNumber));
+            }
+
+            if (filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopicAndLevel(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber));
+            }
+
+            /////Upto this is ok
+            if (!filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopicAndLevel
+                (filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber));
+            }
+            if (!filterParameter.CategoryId.HasValue &&
+              !filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryLevel(filterParameter.LevelId.Value, pageNumber));
+            }
+            if (!filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              !filterParameter.LevelId.HasValue
+              )
+            {
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopic(filterParameter.TopicId.Value, pageNumber));
+            }
 
             return Ok(questionViewModels);
         }
