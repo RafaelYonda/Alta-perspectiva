@@ -559,9 +559,17 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 string query = String.Format(@"SpTopHundredUserSummary");
                 summeries =  await Task.Run(() =>dbConnection.Query<UserSummary>(query).ToList());
             }
-            //summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetTopHundredUserSummary(connectionString);
-
-            summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries, queryFactory, configuration);
+            foreach (UserSummary summery in summeries)
+            {
+                if (String.IsNullOrEmpty(summery.ImageUrl))
+                {
+                    summery.ImageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
+                }
+                else
+                {
+                    summery.ImageUrl = azureFileUploadHelper.GetProfileImage(summery.ImageUrl);
+                }
+            }
             return summeries;
 
         }

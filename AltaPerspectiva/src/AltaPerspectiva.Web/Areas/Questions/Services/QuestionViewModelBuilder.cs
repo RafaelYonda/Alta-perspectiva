@@ -50,7 +50,15 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 OFFSET {0} ROWS -- skip  rows
 FETCH NEXT {1} ROWS ONLY -- take rows ", pageNumber * pageCount, pageCount);
 
-            this.SkipTakeQuery = query;
+            if (pageNumber != -1)
+            {
+                this.SkipTakeQuery = query;
+            }
+            else
+            {
+                this.SkipTakeQuery = "";
+            }
+            
             return this;
         }
 

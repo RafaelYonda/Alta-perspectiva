@@ -1,4 +1,4 @@
-﻿using AltaPerspectiva.Identity;
+﻿
 using Questions.Command;
 using Questions.Domain;
 using System;

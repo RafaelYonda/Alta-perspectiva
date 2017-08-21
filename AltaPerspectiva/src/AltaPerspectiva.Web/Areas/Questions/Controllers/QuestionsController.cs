@@ -921,7 +921,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
                 !filterParameter.LevelId.HasValue
                 )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategory(pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategory(pageNumber,filterParameter.MostLikedQuestion,filterParameter.MostViewedQuestion));
             }
             //done
             if (filterParameter.CategoryId.HasValue &&
@@ -929,7 +929,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
                !filterParameter.LevelId.HasValue
                )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryIdOnly(filterParameter.CategoryId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryIdOnly(filterParameter.CategoryId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
             //done
             if (filterParameter.CategoryId.HasValue &&
@@ -937,7 +937,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
               !filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopic(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopic(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
 
             if (filterParameter.CategoryId.HasValue &&
@@ -945,7 +945,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
               filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndLevel(filterParameter.CategoryId.Value, filterParameter.LevelId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndLevel(filterParameter.CategoryId.Value, filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
 
             if (filterParameter.CategoryId.HasValue &&
@@ -953,7 +953,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
               filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopicAndLevel(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopicAndLevel(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
 
             /////Upto this is ok
@@ -963,29 +963,30 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
               )
             {
                 questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopicAndLevel
-                (filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber));
+                (filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
             if (!filterParameter.CategoryId.HasValue &&
               !filterParameter.TopicId.HasValue &&
               filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryLevel(filterParameter.LevelId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryLevel(filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
             if (!filterParameter.CategoryId.HasValue &&
               filterParameter.TopicId.HasValue &&
               !filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopic(filterParameter.TopicId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopic(filterParameter.TopicId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
 
             return Ok(questionViewModels);
         }
 
         [HttpGet("/questions/api/questions/countwithfilter")]
-        public async Task<IActionResult> CountWithFilter(FilterParameter filterParameter, int pageNumber = 0)
+        public async Task<IActionResult> CountWithFilter(FilterParameter filterParameter)
         {
+            int pageNumber = -1;
             List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
             //Done
             if (!filterParameter.CategoryId.HasValue &&
@@ -993,7 +994,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
                 !filterParameter.LevelId.HasValue
                 )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategory(pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategory(pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
             //done
             if (filterParameter.CategoryId.HasValue &&
@@ -1001,7 +1002,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
                !filterParameter.LevelId.HasValue
                )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryIdOnly(filterParameter.CategoryId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryIdOnly(filterParameter.CategoryId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
             //done
             if (filterParameter.CategoryId.HasValue &&
@@ -1009,7 +1010,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
               !filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopic(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopic(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
 
             if (filterParameter.CategoryId.HasValue &&
@@ -1017,7 +1018,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
               filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndLevel(filterParameter.CategoryId.Value, filterParameter.LevelId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndLevel(filterParameter.CategoryId.Value, filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
 
             if (filterParameter.CategoryId.HasValue &&
@@ -1025,7 +1026,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
               filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopicAndLevel(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopicAndLevel(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
 
             /////Upto this is ok
@@ -1035,24 +1036,40 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
               )
             {
                 questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopicAndLevel
-                (filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber));
+                (filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
             if (!filterParameter.CategoryId.HasValue &&
               !filterParameter.TopicId.HasValue &&
               filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryLevel(filterParameter.LevelId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryLevel(filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
             if (!filterParameter.CategoryId.HasValue &&
               filterParameter.TopicId.HasValue &&
               !filterParameter.LevelId.HasValue
               )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopic(filterParameter.TopicId.Value, pageNumber));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopic(filterParameter.TopicId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
 
-            return Ok(questionViewModels);
+            var categoriesSummary = new CategoriesSummary();
+            if (filterParameter.CategoryId.HasValue)
+            {
+                categoriesSummary.TotalFollowers =
+                    queryFactory.ResolveQuery<ICategoriesTotalUsersQuery>().Execute(filterParameter.CategoryId.Value);
+            }
+            else
+            {
+                categoriesSummary.TotalFollowers =
+                    queryFactory.ResolveQuery<ICategoriesTotalUsersQuery>().Execute(new Guid("7639B416-8D1C-4119-B58E-143CB860E8A6"));
+            }
+           
+            categoriesSummary.TotalQuestions = questionViewModels.Count();
+            categoriesSummary.TotalAnsweredQuestion = questionViewModels.Where(x => x.Answers.Count == 0).Count();
+            categoriesSummary.TotalUnAnsweredQuestion = categoriesSummary.TotalQuestions -
+                                                        categoriesSummary.TotalAnsweredQuestion;
+            return Ok(categoriesSummary);
         }
         #endregion
 

@@ -42,13 +42,27 @@ inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
 
 ) bestAns
 on bestAns.QuestionId=q.Id";
-        private string orderByQuery = "order by q.CreatedOn desc";
+        
 
 
-        public  List<QuestionViewModel> FilterQuestionByGeneralCategory(int pageNumber)
+        public  List<QuestionViewModel> FilterQuestionByGeneralCategory(int pageNumber, bool mostLikedQuestion,bool mostViewedQuestion)
         {
             string whereQuery = @"where q.IsDeleted is null and q.IsDirectQuestion =0 ";
-            QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
+
+            // bool mostLikedQuestion,bool mostViewedQuestion
+            //MostRecentQuestion (Default)
+            string orderByQuery = "";
+            orderByQuery = "order by q.CreatedOn desc";
+
+            if (mostLikedQuestion)
+            {
+                orderByQuery = "order by AnswerCount desc ";
+            }
+            if (mostViewedQuestion)
+            {
+                orderByQuery = "order by q.ViewCount desc ";
+            }
+        QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
                 .WithSelectQuery(selectQuery)
                             .WithJoinQuery(joinQuery)
                 .WithWhereQuery(whereQuery)
@@ -59,9 +73,22 @@ on bestAns.QuestionId=q.Id";
             return questionViewModels;
         }
 
-        public List<QuestionViewModel> FilterQuestionByCategoryIdOnly(Guid categoryId , int pageNumber)
+        public List<QuestionViewModel> FilterQuestionByCategoryIdOnly(Guid categoryId , int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
             string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' ", categoryId);
+            // bool mostLikedQuestion,bool mostViewedQuestion
+            //MostRecentQuestion (Default)
+            string orderByQuery = "";
+            orderByQuery = "order by q.CreatedOn desc";
+
+            if (mostLikedQuestion)
+            {
+                orderByQuery = "order by AnswerCount desc ";
+            }
+            if (mostViewedQuestion)
+            {
+                orderByQuery = "order by q.ViewCount desc ";
+            }
             QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
                 .WithSelectQuery(selectQuery)
                             .WithJoinQuery(joinQuery)
@@ -73,9 +100,22 @@ on bestAns.QuestionId=q.Id";
             return questionViewModels;
 
         }
-        public List<QuestionViewModel> FilterQuestionByCategoryAndTopic(Guid categoryId ,Guid topicId, int pageNumber)
+        public List<QuestionViewModel> FilterQuestionByCategoryAndTopic(Guid categoryId ,Guid topicId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
             string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' and qt.TopicId = '{1}'", categoryId,topicId);
+            // bool mostLikedQuestion,bool mostViewedQuestion
+            //MostRecentQuestion (Default)
+            string orderByQuery = "";
+            orderByQuery = "order by q.CreatedOn desc";
+
+            if (mostLikedQuestion)
+            {
+                orderByQuery = "order by AnswerCount desc ";
+            }
+            if (mostViewedQuestion)
+            {
+                orderByQuery = "order by q.ViewCount desc ";
+            }
             QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
                 .WithSelectQuery(selectQuery)
                             .WithJoinQuery(joinQuery)
@@ -89,9 +129,22 @@ on bestAns.QuestionId=q.Id";
         }
 
 
-        public List<QuestionViewModel> FilterQuestionByCategoryAndLevel(Guid categoryId, Guid levelId, int pageNumber)
+        public List<QuestionViewModel> FilterQuestionByCategoryAndLevel(Guid categoryId, Guid levelId, int pageNumber,bool mostLikedQuestion, bool mostViewedQuestion)
         {
             string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' and ql.LevelId = '{1}'", categoryId, levelId);
+            // bool mostLikedQuestion,bool mostViewedQuestion
+            //MostRecentQuestion (Default)
+            string orderByQuery = "";
+            orderByQuery = "order by q.CreatedOn desc";
+
+            if (mostLikedQuestion)
+            {
+                orderByQuery = "order by AnswerCount desc ";
+            }
+            if (mostViewedQuestion)
+            {
+                orderByQuery = "order by q.ViewCount desc ";
+            }
             QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
                 .WithSelectQuery(selectQuery)
                             .WithJoinQuery(joinQuery)
@@ -103,9 +156,22 @@ on bestAns.QuestionId=q.Id";
             return questionViewModels;
 
         }
-        public List<QuestionViewModel> FilterQuestionByCategoryAndTopicAndLevel(Guid categoryId,Guid topicId, Guid levelId, int pageNumber)
+        public List<QuestionViewModel> FilterQuestionByCategoryAndTopicAndLevel(Guid categoryId,Guid topicId, Guid levelId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
             string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' and qt.TopicId = '{1}' and ql.LevelId = '{2}'", categoryId, topicId,levelId);
+            // bool mostLikedQuestion,bool mostViewedQuestion
+            //MostRecentQuestion (Default)
+            string orderByQuery = "";
+            orderByQuery = "order by q.CreatedOn desc";
+
+            if (mostLikedQuestion)
+            {
+                orderByQuery = "order by AnswerCount desc ";
+            }
+            if (mostViewedQuestion)
+            {
+                orderByQuery = "order by q.ViewCount desc ";
+            }
             QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
                 .WithSelectQuery(selectQuery)
                             .WithJoinQuery(joinQuery)
@@ -117,9 +183,22 @@ on bestAns.QuestionId=q.Id";
             return questionViewModels;
 
         }
-        public List<QuestionViewModel> FilterQuestionByGeneralCategoryTopic(Guid topicId, int pageNumber)
+        public List<QuestionViewModel> FilterQuestionByGeneralCategoryTopic(Guid topicId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
             string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and  qt.TopicId = '{0}' ", topicId);
+            // bool mostLikedQuestion,bool mostViewedQuestion
+            //MostRecentQuestion (Default)
+            string orderByQuery = "";
+            orderByQuery = "order by q.CreatedOn desc";
+
+            if (mostLikedQuestion)
+            {
+                orderByQuery = "order by AnswerCount desc ";
+            }
+            if (mostViewedQuestion)
+            {
+                orderByQuery = "order by q.ViewCount desc ";
+            }
             QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
                 .WithSelectQuery(selectQuery)
                             .WithJoinQuery(joinQuery)
@@ -131,9 +210,22 @@ on bestAns.QuestionId=q.Id";
             return questionViewModels;
 
         }
-        public List<QuestionViewModel> FilterQuestionByGeneralCategoryLevel(Guid levelId, int pageNumber)
+        public List<QuestionViewModel> FilterQuestionByGeneralCategoryLevel(Guid levelId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
             string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and   ql.LevelId = '{0}'", levelId);
+            // bool mostLikedQuestion,bool mostViewedQuestion
+            //MostRecentQuestion (Default)
+            string orderByQuery = "";
+            orderByQuery = "order by q.CreatedOn desc";
+
+            if (mostLikedQuestion)
+            {
+                orderByQuery = "order by AnswerCount desc ";
+            }
+            if (mostViewedQuestion)
+            {
+                orderByQuery = "order by q.ViewCount desc ";
+            }
             QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
                 .WithSelectQuery(selectQuery)
                             .WithJoinQuery(joinQuery)
@@ -145,9 +237,22 @@ on bestAns.QuestionId=q.Id";
             return questionViewModels;
 
         }
-        public List<QuestionViewModel> FilterQuestionByGeneralCategoryTopicAndLevel( Guid topicId, Guid levelId, int pageNumber)
+        public List<QuestionViewModel> FilterQuestionByGeneralCategoryTopicAndLevel( Guid topicId, Guid levelId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
             string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and  qt.TopicId = '{0}' and ql.LevelId = '{1}'", topicId, levelId);
+            // bool mostLikedQuestion,bool mostViewedQuestion
+            //MostRecentQuestion (Default)
+            string orderByQuery = "";
+            orderByQuery = "order by q.CreatedOn desc";
+
+            if (mostLikedQuestion)
+            {
+                orderByQuery = "order by AnswerCount desc ";
+            }
+            if (mostViewedQuestion)
+            {
+                orderByQuery = "order by q.ViewCount desc ";
+            }
             QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
                 .WithSelectQuery(selectQuery)
                             .WithJoinQuery(joinQuery)
