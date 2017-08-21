@@ -267,6 +267,7 @@ export class QuestionBodyComponent {
     }
     getQuestionNotAnswered(categoryId: string) {
         this.showLoader();
+        this.filterParameter.questionWithAnswer = false;
         this.filterParameter.questionWithoutAnswer = true;
         this.LoadFilteredQuestions();
         //this.questioAnswernService.getQuestionsNotAnswered(categoryId).subscribe((res: any) => {
@@ -278,6 +279,7 @@ export class QuestionBodyComponent {
     getQuestionsAnswered(categoryId: string) {
         this.showLoader();
         this.filterParameter.questionWithAnswer = true;
+        this.filterParameter.questionWithoutAnswer = false;
         this.LoadFilteredQuestions();
         //this.questioAnswernService.getQuestionsAnswered(categoryId).subscribe((res: any) => {
         //    this.questions = res;
