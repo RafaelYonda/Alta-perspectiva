@@ -47,6 +47,7 @@ export class ProfileInfoComponent {
     ngOnInit() {
         console.log('title');
         console.log(this.credential);
+        this.getCredetialOnParentLoaded(this.credential);
         if (this.credential.title )
             this.credential.title = this.credential.title.trim() == '' ? null : this.credential.title.trim();
         if (this.credential.description)

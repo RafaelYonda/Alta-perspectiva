@@ -73,7 +73,7 @@ export class ViewProfileComponent {
                         this.isOwner = false;
                 }
             });
-            //=====
+            //=====Get user Credential=========
 
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
