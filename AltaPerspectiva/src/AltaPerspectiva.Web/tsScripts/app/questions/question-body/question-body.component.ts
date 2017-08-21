@@ -197,8 +197,11 @@ export class QuestionBodyComponent {
             if (this.categorySelected && this.categorySelected.image)
                 this.categorySelected.image = this.categorySelected.image;
 
-            this.categoryService.getTotalCount(this.categorySelected.id).subscribe(x => {
-                this.totalCount = x;
+            //this.categoryService.getTotalCount(this.categorySelected.id).subscribe(countResult => {
+            //    this.totalCount = x;
+            //});
+            this.questioAnswernService.FilterCountCategoryTopicNLevel(this.filterParameter).subscribe(countResult => {
+                this.totalCount = countResult;
             });
         });
     }

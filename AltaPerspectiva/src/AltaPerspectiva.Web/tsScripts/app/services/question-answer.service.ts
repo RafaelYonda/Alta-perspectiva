@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { Router, ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { TotalCount } from './models';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -267,7 +268,21 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
+    FilterCountCategoryTopicNLevel(filterParameter: FilterParameter): Observable<TotalCount> {
+        return this._http.get('/questions/api/questions/countwithfilter?categoryId=' + filterParameter.categoryId + '&topicId='
+            + filterParameter.topicId
+            + '&levelId=' + filterParameter.levelId
+            + '&questionWithAnswer='
+            + filterParameter.questionWithAnswer + '&questionWithoutAnswer='
+            + filterParameter.questionWithoutAnswer
+            + '&mostViewedQuestion='
+            + filterParameter.mostViewedQuestion
+            + '&mostLikedQuestion='
+            + filterParameter.mostLikedQuestion + '&mostLikedQuestion='
+            + filterParameter.mostLikedQuestion, null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     GetLevelName(levelId: string): Observable<any> {
         return this._http.get('/questions/api/getlevelname/'+levelId, null)
             .map(this.extractData)

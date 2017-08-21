@@ -45,6 +45,8 @@ export class ProfileInfoComponent {
         this.toastr.setRootViewContainerRef(vcr);
     }
     ngOnInit() {
+        console.log('title');
+        console.log(this.credential);
         if (this.credential.title )
             this.credential.title = this.credential.title.trim() == '' ? null : this.credential.title.trim();
         if (this.credential.description)
@@ -59,7 +61,6 @@ export class ProfileInfoComponent {
     }
     getCredetialOnParentLoaded(data: CredentialViewModel): CredentialViewModel {
         if (!data.userId) return;
-
         this.credential = data;
 
         if (!this.credential.firstName || !this.credential.lastName)

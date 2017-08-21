@@ -293,17 +293,19 @@ namespace AltaPerspectiva
             {
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
-
-#if DEBUG
                 ClientId = "localhost", // for localhost
-                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
-#else
-                ClientId = "staging",       // for staging server  
-                PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
+                PostLogoutRedirectUri = "http://localhost:5273/",
+
+//#if DEBUG
+//                ClientId = "localhost", // for localhost
+//                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+//#else
+//                ClientId = "staging",       // for staging server  
+//                PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
                 
                  //ClientId = "azure",       // for azure deploy  altaperspectiva
                  //PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
-#endif
+//#endif
 
                 ClientSecret = "aLtaseCreT!@#",
          
