@@ -74,7 +74,6 @@ export class QuestionBodyComponent {
         this.filterParameter.mostLikedQuestion = false;
         this.filterParameter.questionWithAnswer = false;
         this.filterParameter.questionWithoutAnswer = false;
-        this.filterParameter.mostLikedQuestion = false;
 
     }
     onQuestionSubmitted(even: any) {
@@ -210,6 +209,8 @@ export class QuestionBodyComponent {
         this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         this.filterParameter.latestQuestion = true;
+        this.filterParameter.mostLikedQuestion = false;
+        this.filterParameter.mostViewedQuestion = false;
         this.LoadFilteredQuestions();
         //var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
         //    (res: any) => {
@@ -227,6 +228,8 @@ export class QuestionBodyComponent {
         this.FilterParam = "Preguntas con más Me gusta";
         this.showLoader();
         this.filterParameter.mostLikedQuestion = true;
+        this.filterParameter.latestQuestion = false;
+        this.filterParameter.mostViewedQuestion = false;
         this.LoadFilteredQuestions();
         //var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
         //    (res: any) => {
@@ -246,6 +249,8 @@ export class QuestionBodyComponent {
         this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         this.filterParameter.mostViewedQuestion = true;
+        this.filterParameter.latestQuestion = false;
+        this.filterParameter.mostLikedQuestion = false;
         this.LoadFilteredQuestions();
         //var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(
         //    (res: any) => {
