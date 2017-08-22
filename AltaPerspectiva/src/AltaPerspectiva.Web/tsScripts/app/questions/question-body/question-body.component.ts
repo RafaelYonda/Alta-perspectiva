@@ -211,6 +211,7 @@ export class QuestionBodyComponent {
         this.FilterParam = "Preguntas más recientes";   //"The latest question";
         this.showLoader();
         this.categorySelected = this.categories.find(x => x.id == categoryId);
+        this.questionPage = 0;
         this.filterParameter.latestQuestion = true;
         this.filterParameter.mostLikedQuestion = false;
         this.filterParameter.mostViewedQuestion = false;
@@ -230,6 +231,7 @@ export class QuestionBodyComponent {
         //this.FilterParam = "The best Question";
         this.FilterParam = "Preguntas con más Me gusta";
         this.showLoader();
+        this.questionPage = 0;
         this.filterParameter.mostLikedQuestion = true;
         this.filterParameter.latestQuestion = false;
         this.filterParameter.mostViewedQuestion = false;
@@ -250,6 +252,7 @@ export class QuestionBodyComponent {
         //this.FilterParam = "The more views";
         this.FilterParam = "Preguntas más vistas";
         this.showLoader();
+        this.questionPage = 0;
         this.categorySelected = this.categories.find(x => x.id == categoryId);
         this.filterParameter.mostViewedQuestion = true;
         this.filterParameter.latestQuestion = false;
@@ -267,23 +270,15 @@ export class QuestionBodyComponent {
     }
     getQuestionNotAnswered(categoryId: string) {
         this.showLoader();
+        this.questionPage = 0;
         this.filterParameter.questionWithoutAnswer = true;
         this.LoadFilteredQuestions();
-        //this.questioAnswernService.getQuestionsNotAnswered(categoryId).subscribe((res: any) => {
-        //    this.questions = res;
-        //    this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-        //    this.hideLoader();
-        //});
     }
     getQuestionsAnswered(categoryId: string) {
         this.showLoader();
+        this.questionPage = 0;
         this.filterParameter.questionWithAnswer = true;
         this.LoadFilteredQuestions();
-        //this.questioAnswernService.getQuestionsAnswered(categoryId).subscribe((res: any) => {
-        //    this.questions = res;
-        //    this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-        //    this.hideLoader();
-        //});
     }
 
     addFollower(categoryId: string) {
