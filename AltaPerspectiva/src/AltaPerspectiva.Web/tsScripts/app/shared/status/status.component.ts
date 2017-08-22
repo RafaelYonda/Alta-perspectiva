@@ -32,6 +32,8 @@ export class StatusComponent {
     like: Like;
     likedUsers: User[];
     loggedinUser: User;
+    twitterShareTitle : string;
+
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService, public toastr: ToastsManager) {
         
     }
@@ -75,7 +77,11 @@ export class StatusComponent {
             }
 
         });
-
+        this.twitterShareTitle = this.questionObj.title;
+        if (this.twitterShareTitle.length > 134 ) {
+            this.twitterShareTitle = this.twitterShareTitle.substring(0, 134) + '...';
+        }
+        console.log(this.twitterShareTitle);
     }
     getLoggedinObjct() {
         var currentUser = localStorage.getItem('auth_token');
