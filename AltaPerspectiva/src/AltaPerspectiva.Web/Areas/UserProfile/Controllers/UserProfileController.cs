@@ -650,13 +650,38 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpPost("userprofile/api/getusers/{userName}")]
         public async Task<List<UserViewModel>> GetUsers(String userName)
         {
-            List<Guid> userIds = await queryFactory.ResolveQuery<ICredentialQuery>().GetAllUserIds(userName);
+            string connectionString = Startup.ConnectionString;
             List<UserViewModel> userViewModels = new List<UserViewModel>();
-            foreach (var userId in userIds)
+            String userQuery = String.Format(@" select UserId,
+ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
+ISNULL(ImageUrl,'avatar.png') ImageUrl,
+Occupation,
+Email
+from UserProfile.Credentials
+where FirstName like '%{0}%' or LastName like '%{0}%'",userName);
+            using (IDbConnection connection =new SqlConnection(connectionString))
             {
-                UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
-                userViewModels.Add(userViewModel);
+                userViewModels = await Task.Run(() => connection.Query<UserViewModel>(userQuery).ToList());
             }
+            foreach (var userViewModel in userViewModels)
+            {
+                if (String.IsNullOrEmpty(userViewModel.ImageUrl))
+                {
+                    userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
+                }
+                else
+                {
+                    userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
+                }
+            }
+
+            //List<Guid> userIds = await queryFactory.ResolveQuery<ICredentialQuery>().GetAllUserIds(userName);
+            //List<UserViewModel> userViewModels = new List<UserViewModel>();
+            //foreach (var userId in userIds)
+            //{
+            //    UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
+            //    userViewModels.Add(userViewModel);
+            //}
             return userViewModels.OrderBy(x => x.Name).ToList();
         }
     }
