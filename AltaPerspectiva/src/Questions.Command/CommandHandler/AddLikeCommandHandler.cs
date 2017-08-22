@@ -25,7 +25,6 @@
 
 		public override void Execute(AddLikeCommand command)
 		{
-			Debug.WriteLine("AddAnswerCommandHandler executed");
 
             Question question;
             Answer answer;
@@ -36,26 +35,45 @@
             /// save comment for question
             if (command.QuestionId.HasValue)
             {
-                question = GetQuestionById(command.QuestionId.Value);
-                like.QuestionId = question.Id;
+                var alreadyLiked =
+                DbContext.Likes.Any(x => x.UserId == command.UserId && x.QuestionId == command.QuestionId && x.AnswerId == null);
+                if (!alreadyLiked)
+                {
+                    question = GetQuestionById(command.QuestionId.Value);
+                    like.QuestionId = question.Id;
+                    like.UserId = command.UserId;
+                    like.CreatedOn = DateTime.Now;
+                    like.CreatedBy = command.UserId;
+                    like.DTS = DateTime.Now;
+
+                    DbContext.Likes.Add(like);
+                    DbContext.SaveChanges();
+                    command.Id = like.Id;
+                }
+                
             }
 
             // save comment for answer
             if (command.AnswerId.HasValue)
             {
-                answer = GetAnswerById(command.AnswerId.Value);
-                like.AnswerId = answer.Id;
+                var alreadyLiked =
+                DbContext.Likes.Any(x => x.UserId == command.UserId && x.QuestionId == null && x.AnswerId == command.AnswerId);
+                if (!alreadyLiked)
+                {
+                    answer = GetAnswerById(command.AnswerId.Value);
+                    like.AnswerId = answer.Id;
+                    like.UserId = command.UserId;
+                    like.CreatedOn = DateTime.Now;
+                    like.CreatedBy = command.UserId;
+                    like.DTS = DateTime.Now;
+
+                    DbContext.Likes.Add(like);
+                    DbContext.SaveChanges();
+                    command.Id = like.Id;
+                }
+               
             }
-
-            like.UserId = command.UserId;
-            like.CreatedOn = DateTime.Now;
-            like.CreatedBy = command.UserId;
-            like.DTS = DateTime.Now;             
-                        
-            DbContext.Likes.Add(like);
-            DbContext.SaveChanges();
-
-			command.Id = like.Id;
+			//command.Id = Guid.Empty;
 		}
 
         private Question GetQuestionById(Guid id)

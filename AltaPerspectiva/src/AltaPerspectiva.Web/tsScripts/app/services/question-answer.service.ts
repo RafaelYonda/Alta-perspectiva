@@ -153,7 +153,7 @@ export class QuestionAnswerService implements Resolve<Question> {
             .catch(this.handleError);
     }
 
-    addQuestionLike(like: Like): Observable<Like> {       
+    addQuestionLike(like: Like): Observable<any> {       
         return this._http.post('/questions/api/question/' + like.questionId + '/like', like)
             .map(this.extractData)
             .catch(this.handleError);
@@ -181,7 +181,7 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    addAnswerLike(like: Like): Observable<Like> {
+    addAnswerLike(like: Like): Observable<any> {
         return this._http.post('/questions/api/question/answer/' + like.answerId + '/like', like)
             .map(this.extractData)
             .catch(this.handleError);

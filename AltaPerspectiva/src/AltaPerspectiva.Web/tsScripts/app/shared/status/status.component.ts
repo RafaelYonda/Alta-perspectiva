@@ -2,7 +2,7 @@
 import { StatusService } from '../../services/status.service';
 import { SITE_URL } from '../../../globals';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {  Question, Answer, Like,User} from '../../services/models';
+import { Question, Answer, Like, User } from '../../services/models';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 import { QuestionService } from '../../services/question.service';
 import { loginModalComponent } from '../login-modal/login-modal.component';
@@ -32,10 +32,10 @@ export class StatusComponent {
     like: Like;
     likedUsers: User[];
     loggedinUser: User;
-    twitterShareTitle : string;
+    twitterShareTitle: string;
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService, public toastr: ToastsManager) {
-        
+
     }
 
     ngOnInit() {
@@ -43,25 +43,23 @@ export class StatusComponent {
         //    this.loggedinUser = res;
         //});
         this.getLoggedinObjct();
-        this.questionObj.shareUrl = encodeURI(SITE_URL+"/question/detail/" + this.questionObj.id);
+        this.questionObj.shareUrl = encodeURI(SITE_URL + "/question/detail/" + this.questionObj.id);
         if (this.questionObj.bestAnswer && this.questionObj.bestAnswer.text) {
             var temp = this.questionObj.bestAnswer.text.replace(/<\/?[^>]+(>|$)/g, "");
             this.answerTagsRemoved = temp.replace("&nbsp;", " ");
         }
-        if (this.isQuestion)
-        {
+        if (this.isQuestion) {
             this.commentId = this.questionObj.id;
             this.CommentCount = this.questionObj.comments.length;
         }
-        else
-        {
+        else {
             this.commentId = this.answerObj.id;
             this.CommentCount = this.answerObj.comments ? this.answerObj.comments.length : 0;
             if (this.answerObj.text) {
                 var temp = this.answerObj.text.replace(/<\/?[^>]+(>|$)/g, "");
                 this.answerObj.answerTagsRemoved = temp.replace("&nbsp;", " ");
             }
-           
+
         }
 
         this.communicationService.getCommentsCount().subscribe((eventArg: CommnetCountEventArg) => {
@@ -70,15 +68,14 @@ export class StatusComponent {
                 if (this.questionObj.id == eventArg.QuestionId)
                     this.CommentCount = eventArg.Count;
             }
-            else
-            {
+            else {
                 if (this.answerObj.id == eventArg.AnswerId)
                     this.CommentCount = eventArg.Count;
             }
 
         });
         this.twitterShareTitle = this.questionObj.title;
-        if (this.twitterShareTitle.length > 134 ) {
+        if (this.twitterShareTitle.length > 134) {
             this.twitterShareTitle = this.twitterShareTitle.substring(0, 134) + '...';
         }
         console.log(this.twitterShareTitle);
@@ -98,7 +95,7 @@ export class StatusComponent {
             else {
                 this.loggedinUser = new User();
                 this.loggedinUser.userId = userId;
-                    this.loggedinUser.name = localStorage.getItem('currentUserName');
+                this.loggedinUser.name = localStorage.getItem('currentUserName');
                 this.loggedinUser.imageUrl = localStorage.getItem('currentUserImage');
             }
         }
@@ -122,7 +119,7 @@ export class StatusComponent {
             } else {
                 this.toastr.warning('Esta pregunta ya está publicada en tu perfil.', 'Advertencia!!!');
             }
-           
+
         });
     }
     sendCommentCountToApStatus(param: any) {
@@ -136,16 +133,15 @@ export class StatusComponent {
         }
         this.dataService.addBookMark(questionId).subscribe(res => {
             console.log(res);
-             if (res.result == true) {
-                 this.toastr.success('El marcador se ha agregado correctamente.', '¡Perfecto!');
-             } else {
-                 this.toastr.warning('Ya has marcado esta pregunta.', 'Advertencia!!!');
-             }
-          });
+            if (res.result == true) {
+                this.toastr.success('El marcador se ha agregado correctamente.', '¡Perfecto!');
+            } else {
+                this.toastr.warning('Ya has marcado esta pregunta.', 'Advertencia!!!');
+            }
+        });
     }
 
-    questionEditClicked()
-    {
+    questionEditClicked() {
         var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
@@ -159,46 +155,54 @@ export class StatusComponent {
         if (!user) {
             this.ShowNotLoggedIn();
             return;
-        }        
+        }
     }
 
-    submitLike(answerId: string, questionId: string) {   
+    submitLike(answerId: string, questionId: string) {
         var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
-        }      
+        }
         this.like = new Like();
         this.like.answerId = answerId;
         this.like.questionId = questionId;
         //Question
-         if (answerId == null && questionId != null) {
-                    this.dataService.getQuestionAlreadyLiked(questionId).subscribe(res => {            
-                        if (res.result == true) return; 
-                        else {
-                            this.dataService.addQuestionLike(this.like).subscribe(res => {
-                                this.questionObj.likes.push(this.like);
-                            });
-                            
-                        }              
-                    });
+        if (answerId == null && questionId != null) {
+            //this.dataService.getQuestionAlreadyLiked(questionId).subscribe(res => {            
+            //    if (res.result == true) return; 
+            //    else {
+            this.dataService.addQuestionLike(this.like).subscribe(res => {
+                if (res.result == true) {
+                    this.questionObj.likes.push(this.like);
                 }
+
+            });
+
+            //    }              
+            //});
+        }
         ///Answer
         else if (answerId != null || questionId != null) {
-             this.dataService.getAnswerAlreadyLiked(answerId).subscribe(res => {
-                 if (res.result == true) return;
-                    else {
-                        this.dataService.addAnswerLike(this.like).subscribe(res => {
-                            this.questionObj.answers.find(x => x.id == answerId).likes.push(this.like);
-                        });
-                    }
+            //this.dataService.getAnswerAlreadyLiked(answerId).subscribe(res => {
+            //    if (res.result == true) return;
+            //    else {
+            //        this.dataService.addAnswerLike(this.like).subscribe(res => {
+            //            this.questionObj.answers.find(x => x.id == answerId).likes.push(this.like);
+            //        });
+            //    }
+            //}
+            this.dataService.addAnswerLike(this.like).subscribe(res => {
+                if (res.result == true) {
+                    this.questionObj.answers.find(x => x.id == answerId).likes.push(this.like);
                 }
-            );
+            });
+
         }
     }
 
     showLikeUserDetails(answerId: string, questionId: string) {
-        
+
     }
     questionReportClicked(questionId: string, answerId: string) {
         var user = localStorage.getItem('auth_token');
@@ -247,6 +251,6 @@ export class StatusComponent {
                 });
             });
         }
-        
+
     }
 }

@@ -404,9 +404,11 @@ where c.QuestionId = '{0}'", id);
 
             AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, null, loggedinUser);
             commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
 
-            return Created($"/questions/api/question/{like.QuestionId}/comment/{like.Id}", like);
+            return Ok(new
+            {
+                result = cmd.Id != Guid.Empty
+            });
 
 
 
@@ -440,12 +442,13 @@ where c.QuestionId = '{0}'", id);
 
             like.UserId = loggedinUser;
 
-            AddLikeCommand cmd = new AddLikeCommand(like.QuestionId, like.AnswerId, loggedinUser);
+            AddLikeCommand cmd = new AddLikeCommand(null, like.AnswerId, loggedinUser);
             commandsFactory.ExecuteQuery(cmd);
-            Guid createdId = cmd.Id;
 
-            return Created($"/questions/api/question/{like.QuestionId}/answer/{like.AnswerId}/comment/{like.Id}",
-                like);
+            return Ok(new
+            {
+                result = cmd.Id != Guid.Empty
+            });
 
 
         }
