@@ -273,8 +273,48 @@ where c.QuestionId = '{0}'", id);
         [HttpGet("/questions/api/questions/answer/{id}/comments")]
         public async Task<IActionResult> GetAnswerComments(Guid id)
         {
-            IEnumerable<Comment> comments = await queryFactory.ResolveQuery<IAnswerCommentsQuery>().Execute(id);
-            IEnumerable<QuestionCommentViewModel> commentsVM = new QuestionService().GetComments(comments, queryFactory, configuration);
+            List<QuestionCommentViewModel> commentsVM = new List<QuestionCommentViewModel>();
+
+            List<CommentDbModel> commentDbModels = new List<CommentDbModel>();
+            using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
+            {
+                String commentQuery = String.Format(@"select c.Id , c.CommentText ,c.QuestionId, cre.FirstName +' ' +cre.LastName as Name, cre.Occupation ,cre.ImageUrl ,cre.Id CredentialId , cre.Email ,cre.UserId
+from [Questions].[Comments] c
+inner join [UserProfile].[Credentials] cre on c.UserId = cre.UserId
+where c.AnswerId = '{0}'", id);
+                commentDbModels = await Task.Run(() => connection.Query<CommentDbModel>(commentQuery).ToList());
+            }
+
+            foreach (var commentDbModel in commentDbModels)
+            {
+                QuestionCommentViewModel commentViewModel = new QuestionCommentViewModel();
+                commentViewModel.Id = commentDbModel.Id;
+                commentViewModel.CommentText = commentDbModel.CommentText;
+                commentViewModel.QuestionId = commentDbModel.QuestionId;
+                commentViewModel.UserId = commentDbModel.UserId;
+
+                UserViewModel userViewModel = new UserViewModel();
+                userViewModel.UserId = commentDbModel.UserId;
+                userViewModel.CredentialId = commentDbModel.CredentialId;
+                AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                if (string.IsNullOrEmpty(commentDbModel.ImageUrl))
+                {
+                    userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
+                }
+                else
+                {
+                    userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(commentDbModel.ImageUrl);
+                }
+                userViewModel.Email = commentDbModel.Email;
+                userViewModel.Occupation = commentDbModel.Occupation;
+                userViewModel.Name = commentDbModel.Name;
+
+                commentViewModel.UserViewModel = userViewModel;
+                commentsVM.Add(commentViewModel);
+
+            }
+
+
             return Ok(commentsVM);
         }
         [Authorize]
