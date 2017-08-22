@@ -271,6 +271,7 @@ export class QuestionBodyComponent {
     getQuestionNotAnswered(categoryId: string) {
         this.showLoader();
         this.questionPage = 0;
+        this.filterParameter.questionWithAnswer = false;
         this.filterParameter.questionWithoutAnswer = true;
         this.LoadFilteredQuestions();
     }
@@ -278,6 +279,7 @@ export class QuestionBodyComponent {
         this.showLoader();
         this.questionPage = 0;
         this.filterParameter.questionWithAnswer = true;
+        this.filterParameter.questionWithoutAnswer = false;
         this.LoadFilteredQuestions();
     }
 

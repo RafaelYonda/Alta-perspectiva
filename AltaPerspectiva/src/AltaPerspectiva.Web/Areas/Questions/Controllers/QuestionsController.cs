@@ -922,6 +922,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
                 )
             {
                 questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategory(pageNumber,filterParameter.MostLikedQuestion,filterParameter.MostViewedQuestion));
+
             }
             //done
             if (filterParameter.CategoryId.HasValue &&
@@ -980,6 +981,16 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
                 questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopic(filterParameter.TopicId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
             }
 
+
+            if (filterParameter.QuestionWithAnswer)
+            {
+                questionViewModels = questionViewModels.Where(x => x.Answers.Count != 0).ToList();
+            }
+
+            if (filterParameter.QuestionWithoutAnswer)
+            {
+                questionViewModels = questionViewModels.Where(x => x.Answers.Count == 0).ToList();
+            }
             return Ok(questionViewModels);
         }
 
@@ -1066,7 +1077,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
             }
            
             categoriesSummary.TotalQuestions = questionViewModels.Count();
-            categoriesSummary.TotalAnsweredQuestion = questionViewModels.Where(x => x.Answers.Count == 0).Count();
+            categoriesSummary.TotalAnsweredQuestion = questionViewModels.Where(x => x.Answers.Count != 0).Count();
             categoriesSummary.TotalUnAnsweredQuestion = categoriesSummary.TotalQuestions -
                                                         categoriesSummary.TotalAnsweredQuestion;
             return Ok(categoriesSummary);
