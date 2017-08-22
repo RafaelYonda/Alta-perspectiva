@@ -155,11 +155,30 @@ export class ApSearchComponent {
             this.title = this.title.trim();
             //this.title += " ";
         }
+        //var tempTitle = this.title;
+        //if (this.title && this.title != '')
+        //    if (event.ctrlKey && event.keyCode == 86) {
+        //        console.log(this.title);
+        //        console.log('ctrl+V');
+
+        //        this.movequestionMark(event);
+        //        this.title += ' ';
+        //    }
         console.log(this.title);
     }
-    filterQuestions(event:Event) {
-        this.movequestionMark(event);
+    filterQuestions(event: KeyboardEvent) { 
+        //=======Ctrl+v=====
         var tempTitle = this.title;
+        var tempObj = this;
+        window.setTimeout(function () {
+            tempObj.movequestionMark(event);
+            //if (tempTitle && tempTitle != '')
+            //    if (event.ctrlKey && event.keyCode == 86) {
+            //        tempObj.movequestionMark(event);
+            //    }
+        },3);               
+        
+        
         this.showMatchedCatogries(this.title);
         //  search after 3rd letter
         if (tempTitle !== "" && tempTitle.length > 1) {
@@ -172,6 +191,8 @@ export class ApSearchComponent {
             this.filteredQuestionList = [];
             this.categoryMatched = "";
         }
+        
+        
     }
     addQuestionMark() {
         var input = document.getElementById("title");
