@@ -71,6 +71,18 @@ export class QuestionDetailComponent {
                     if (metas[i].getAttribute("property") == "og:description") {
                         metas[i].setAttribute("content", this.question.title);
                     }
+
+                    if (metas[i].getAttribute("name") == "twitter:title") {
+                        metas[i].setAttribute("content", this.question.title);
+                    }
+                    if (metas[i].getAttribute("name") == "twitter:description") {
+                        if (this.question.body) {
+                            metas[i].setAttribute("content", this.question.body);
+                        } else {
+                            metas[i].setAttribute("content", "More on altaperspectiva.com");
+                        }
+                        
+                    }
                 } 
 
                 // save number of views of question
