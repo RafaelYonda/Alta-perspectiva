@@ -68,10 +68,20 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions")]
         public async Task<IActionResult> Get(int pageNumber = 0)
         {
+            Guid loggedinUser = Guid.Empty;
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+
             int pageSize = 10;
             _logger.LogInformation($"#### log start url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
 
-            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber, pageSize));
+            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber, pageSize,userId:loggedinUser));
 
             _logger.LogInformation($"#### log end url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
             return Ok(questions);
@@ -80,7 +90,16 @@ namespace AltaPerspectiva.Web.Area.Questions
         [HttpGet("/questions/api/questions/{questionId}/getanswers")]
         public async Task<IActionResult> GetAnswers(Guid questionId)
         {
-            var answers = await Task.Run(() => new QuestionServiceOptimized().GetAnswerViewModels(questionId));
+            Guid loggedinUser = Guid.Empty;
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            var answers = await Task.Run(() => new QuestionServiceOptimized().GetAnswerViewModels(questionId, loggedinUser));
             return Ok(answers);
         }
 
@@ -157,8 +176,16 @@ namespace AltaPerspectiva.Web.Area.Questions
         public async Task<IActionResult> GetQuestionsByCategoryId(Guid id)
         {
             _logger.LogInformation($"#### log start url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
-
-            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: 0, pageCount: 10, filterParameter: new FilterParameter
+            Guid loggedinUser = Guid.Empty;
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: 0, pageCount: 10,userId:loggedinUser ,filterParameter: new FilterParameter
             {
                 CategoryId = id
             }));
@@ -176,11 +203,19 @@ namespace AltaPerspectiva.Web.Area.Questions
             {
                 catId = categoryId;
             }
-
-            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: pageNumber, pageCount: 15, filterParameter: new FilterParameter
+            Guid loggedinUser = Guid.Empty;
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
+            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: pageNumber, pageCount: 15,userId: loggedinUser, filterParameter: new FilterParameter
             {
                 CategoryId = catId
-            }));
+            }) );
 
             return Ok(questions);
         }

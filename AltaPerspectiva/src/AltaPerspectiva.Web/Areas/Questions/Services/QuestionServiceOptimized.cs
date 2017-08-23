@@ -265,7 +265,7 @@ on bestAns.QuestionId=q.Id";
 
         }
 
-        private List<QuestionDbModel> QueryBuilderForQuestionDbModel(IDbConnection db,int pageNumber = 0, int pageCount = 15, FilterParameter filterParameter = null)
+        private List<QuestionDbModel> QueryBuilderForQuestionDbModel(IDbConnection db, Guid userid, int pageNumber = 0, int pageCount = 15, FilterParameter filterParameter = null )
         {
             string filterQuery = string.Empty;
             if (filterParameter == null || (filterParameter.CategoryId == null && filterParameter.TopicId == null && filterParameter.LevelId == null)) //1.ok
@@ -275,7 +275,11 @@ select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, q
 (select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
-bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
+bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn,
+CASE 
+WHEN EXISTS (select 1 from [Questions].[QuestionUserFollowings] f where f.AnswerId = bestAns.Id and f.UserId ='{2}' and f.IsDeleted is null)  then 1
+else 0 
+END as IsFollowing
 from Questions.Questions q 
 LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
@@ -296,7 +300,7 @@ where q.IsDeleted is null and q.IsDirectQuestion =0
 order by q.CreatedOn desc
 OFFSET {0} ROWS -- skip 10 rows
 FETCH NEXT 15 ROWS ONLY; -- take 10 rows
-", pageNumber * pageCount, pageCount);          
+", pageNumber * pageCount, pageCount,userid);          
             }
             else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue && !filterParameter.LevelId.HasValue ) //2.filter only category
             {
@@ -570,17 +574,21 @@ from UserProfile.Credentials
             string newHtml = "<p>" + formatedImage + result + "</p>";
             return newHtml;
         }
-        public List<AnswerViewModel> GetAnswerViewModels(Guid questionId)
+        public List<AnswerViewModel> GetAnswerViewModels(Guid questionId , Guid userId)
         {
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
             List<UserViewModel> userViewModels = null;
             String answerQuery = String.Format(@"
 select * ,
 (select COUNT(*) from Questions.Likes l where l.AnswerId =a.Id) LikeCount,
-(select COUNT(*) from Questions.Comments c where c.AnswerId =a.Id) CommentCount
+(select COUNT(*) from Questions.Comments c where c.AnswerId =a.Id) CommentCount,
+CASE 
+WHEN EXISTS (select 1 from [Questions].[QuestionUserFollowings] f where f.AnswerId = a.Id and f.UserId ='{1}' and f.IsDeleted is null)  then 1
+else 0 
+END as IsFollowing
 from Questions.Answers a 
 where QuestionId = '{0}'
-", questionId);
+", questionId,userId);
 
             String multipleQuery = String.Format(@"
  select UserId,
@@ -760,7 +768,7 @@ select * from Questions.Levels where id ='{2}';
 
             return questionViewModel;
         }
-        public List<QuestionViewModel> GetQuestionViewModels(int pageNumber, int pageCount,FilterParameter filterParameter = null)
+        public List<QuestionViewModel> GetQuestionViewModels(int pageNumber, int pageCount, Guid userId, FilterParameter filterParameter = null)
         {
           //  String query = QueryBuilder(pageNumber, pageCount);
             List<QuestionDbModel> questionDbModels = null;
@@ -768,7 +776,7 @@ select * from Questions.Levels where id ='{2}';
 
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                questionDbModels = QueryBuilderForQuestionDbModel(db,pageNumber,pageCount,filterParameter);
+                questionDbModels = QueryBuilderForQuestionDbModel(db, userId, pageNumber,pageCount,  filterParameter);
 
                 List<Guid> userList = new List<Guid>();
                 userList.AddRange(questionDbModels.Select(x => x.UserId).ToList());
@@ -856,7 +864,8 @@ select * from Questions.Levels where id ='{2}';
                         FirstImageUrl = dbModel.FirstImageUrl,
                         Text = BestAnswerTestWithFormattedImage(dbModel.Text, dbModel.FirstImageUrl),
                         IsDrafted = dbModel.IsDrafted,
-                        AnswerDate = dbModel.AnswerCreatedOn
+                        AnswerDate = dbModel.AnswerCreatedOn,
+                        IsFollowing = dbModel.IsFollowing
                     };
                     answerViewModel.UserViewModel = userViewModels.FirstOrDefault(x => x.UserId == dbModel.AnswerUserId);
                     answerViewModel.Likes = new List<AnswerLikeViewModel>();
