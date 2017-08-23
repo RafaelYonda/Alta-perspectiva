@@ -49,9 +49,9 @@ export class ProfileInfoComponent {
         console.log(this.credential);
         this.getCredetialOnParentLoaded(this.credential);
         if (this.credential.title )
-            this.credential.title = this.credential.title.trim() == '' ? null : this.credential.title.trim();
+            this.credential.title = this.credential.title.trim();
         if (this.credential.description)
-            this.credential.description = this.credential.description.trim() == '' ? null : this.credential.description.trim();
+            this.credential.description = this.credential.description.trim();
         this.isImageUpdated = false;
     }
     ngOnChanges(changes: SimpleChanges) {

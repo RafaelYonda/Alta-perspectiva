@@ -262,10 +262,7 @@ where c.QuestionId = '{0}'", id);
 
                 commentViewModel.UserViewModel = userViewModel;
                 commentsVM.Add(commentViewModel);
-
             }
-
-
             return Ok(commentsVM);
         }
 

@@ -155,15 +155,7 @@ export class ApSearchComponent {
             this.title = this.title.trim();
             //this.title += " ";
         }
-        //var tempTitle = this.title;
-        //if (this.title && this.title != '')
-        //    if (event.ctrlKey && event.keyCode == 86) {
-        //        console.log(this.title);
-        //        console.log('ctrl+V');
-
-        //        this.movequestionMark(event);
-        //        this.title += ' ';
-        //    }
+        
         console.log(this.title);
     }
     filterQuestions(event: KeyboardEvent) { 

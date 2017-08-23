@@ -98,13 +98,10 @@ export class TabPanelComponent {
     onScroll() {
         this.questionPage = this.questionPage + 1;
         this.UpdateQuestionsByCategory();
-        console.log('scrolled down!!');
 
     }
 
-    ShowModal(questionId:string) {
-        console.log(questionId);
-    }
+   
 
     ngOnDestroy() {
         this.sub.unsubscribe();
