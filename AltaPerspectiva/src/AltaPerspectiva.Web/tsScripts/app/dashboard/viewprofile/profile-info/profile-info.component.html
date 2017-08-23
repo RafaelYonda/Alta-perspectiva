@@ -186,12 +186,12 @@
                 <a (click)="openCredentialDialogBox()"> Agrega tu profesión</a>
             </div>
             
-            <div id="credential" *ngIf="credential.title">
+            <div id="credential" *ngIf="credential.title || (credential.title!='')">
                 <div class="credential-text">{{credential.title}}</div>
                 <a id="credential-edit" *ngIf="isOwner" (click)="openCredentialDialogBox()"><span><i class="fa fa-edit"></i><!--Edit credential-->Editar credencial</span> </a>
             </div>
             <!-- description -->
-            <a *ngIf="!credential.description && isOwner" (click)="showDescription = false"> <!--Write a description about yourself-->¿Cómo te describes?</a>
+            <a *ngIf="(!credential.description && credential.description!='') && isOwner" (click)="showDescription = false"> <!--Write a description about yourself-->¿Cómo te describes?</a>
             <div class="description-info" id="description" [hidden]="(!showDescription)">                
                 <div [innerHTML]="credential.description"></div>
                 <a id="description-edit" *ngIf="isOwner"><span (click)="showDescription = false"><i class="fa fa-edit"></i><!--edit description-->Editar descripción</span> </a>

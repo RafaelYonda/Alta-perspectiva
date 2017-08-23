@@ -33,6 +33,7 @@ export class StatusComponent {
     likedUsers: User[];
     loggedinUser: User;
     twitterShareTitle: string;
+    isQuestionEditable = false;
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService, public toastr: ToastsManager) {
 
@@ -97,13 +98,21 @@ export class StatusComponent {
                 this.loggedinUser.userId = userId;
                 this.loggedinUser.name = localStorage.getItem('currentUserName');
                 this.loggedinUser.imageUrl = localStorage.getItem('currentUserImage');
+                this.setQuestionEditable();
             }
         }
     }
     getUser() {
-        this._authService.getLoggedinObj().subscribe(res => {
+        this._authService.getLoggedinObj().subscribe(res => {            
             this.loggedinUser = res;
+            this.setQuestionEditable();
         });
+    }
+    setQuestionEditable() {
+        //-----if logged in user id and question userId same then make question editable---
+        if (this.questionObj.userViewModel.userId)
+            if (this.questionObj.userViewModel.userId == this.loggedinUser.userId)
+                this.isQuestionEditable = true;
     }
     copyClipboard() {
     }
