@@ -37,6 +37,7 @@ namespace Questions.Query.Queries
         {
             return await DbContext.Topics
                 .Where(x => x.CategoryId == categoryId && x.QuestionTopics.Any(t=>t.TopicId==x.Id) && x.IsDeleted == null)
+                .OrderBy(x => x.TopicName)
                 .ToListAsync();
 
         }
