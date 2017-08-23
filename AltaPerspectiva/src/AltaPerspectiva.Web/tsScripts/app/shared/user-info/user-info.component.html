@@ -15,11 +15,10 @@
     }
 </style>
 
-
 <div class="row row-fix inline-display">
     <div *ngIf="!isAnonymous">
         <div *ngIf="userObj">
-            <img class="user-image " src="{{userObj?.imageUrl}}"
+            <img class="user-image" alt="{{userObj?.name}}" src="{{userObj?.imageUrl}}"
                  (mouseover)='over(userObj?.userId)' [popover]="userInfoDetailsPopover" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" />
             <div class="user-info">
                 <div class="user-detail">

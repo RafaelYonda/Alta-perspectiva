@@ -319,7 +319,11 @@ namespace AuthorizationServer.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                if(error.Description == "Incorrect password.")
+                {
+                    ModelState.AddModelError(string.Empty, "Incorrect current password.");
+                }
+                
             }
         }
 
