@@ -279,7 +279,8 @@ bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,b
 CASE 
 WHEN EXISTS (select 1 from [Questions].[QuestionUserFollowings] f where f.AnswerId = bestAns.Id and f.UserId ='{2}' and f.IsDeleted is null)  then 1
 else 0 
-END as IsFollowing
+END as IsFollowing,
+bestAns.IsAnonymous
 from Questions.Questions q 
 LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
@@ -585,7 +586,8 @@ select * ,
 CASE 
 WHEN EXISTS (select 1 from [Questions].[QuestionUserFollowings] f where f.AnswerId = a.Id and f.UserId ='{1}' and f.IsDeleted is null)  then 1
 else 0 
-END as IsFollowing
+END as IsFollowing,
+a.IsAnonymous
 from Questions.Answers a 
 where QuestionId = '{0}'
 ", questionId,userId);
@@ -865,7 +867,8 @@ select * from Questions.Levels where id ='{2}';
                         Text = BestAnswerTestWithFormattedImage(dbModel.Text, dbModel.FirstImageUrl),
                         IsDrafted = dbModel.IsDrafted,
                         AnswerDate = dbModel.AnswerCreatedOn,
-                        IsFollowing = dbModel.IsFollowing
+                        IsFollowing = dbModel.IsFollowing,
+                        IsAnonymous = dbModel.IsAnonymous
                     };
                     answerViewModel.UserViewModel = userViewModels.FirstOrDefault(x => x.UserId == dbModel.AnswerUserId);
                     answerViewModel.Likes = new List<AnswerLikeViewModel>();
