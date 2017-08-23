@@ -989,6 +989,11 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
         [HttpGet("/questions/api/{pageNumber}/FilterbyCategoryTopicNLevel")]
         public async Task<IActionResult> FilterbyCategoryTopicNLevel(FilterParameter filterParameter, int pageNumber = 0)
         {
+            if (filterParameter.CategoryId == new Guid("7639b416-8d1c-4119-b58e-143cb860e8a6"))
+            {
+                filterParameter.CategoryId = null;
+            }
+
             List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
             //Done
             if (!filterParameter.CategoryId.HasValue &&
@@ -1073,6 +1078,10 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
         public async Task<IActionResult> CountWithFilter(FilterParameter filterParameter)
         {
             int pageNumber = -1;
+            if (filterParameter.CategoryId == new Guid("7639b416-8d1c-4119-b58e-143cb860e8a6"))
+            {
+                filterParameter.CategoryId = null;
+            }
             List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
             //Done
             if (!filterParameter.CategoryId.HasValue &&
