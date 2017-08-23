@@ -161,6 +161,12 @@ export class QuestionBodyComponent {
             });
             this.showLoader();
             this.questions = new Array<Question>();     // make the question list empty
+            this.filterParameter.questionWithAnswer = false;
+            this.filterParameter.questionWithoutAnswer = false;
+            this.filterParameter.mostLikedQuestion = false;
+            this.filterParameter.latestQuestion = false;
+            this.filterParameter.mostViewedQuestion = false;
+            this.questionPage = 0;
             this.LoadFilteredQuestions();
         });
     }
