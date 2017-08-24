@@ -13,6 +13,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Properties\PublishProfiles\AuthorizationServer20170824011836 - Web Deploy.pubxml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\css\alta-font\alta-fonts.css" />
     <Content Include="wwwroot\css\alta-font\arial.ttf" />
     <Content Include="wwwroot\css\alta-font\font-icon.eot" />

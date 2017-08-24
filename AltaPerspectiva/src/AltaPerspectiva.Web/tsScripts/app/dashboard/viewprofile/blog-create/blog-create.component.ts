@@ -1,6 +1,7 @@
 ﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { Blog, BlogComment, BlogLike, BlogPost } from '../../../services/models/models.blogpost';
+import { CommunicationService } from '../../services/communication.service';
 import { ProfileService } from '../../../services/profile.service';
 import { ActivatedRoute } from '@angular/router';
 import { loginModalComponent } from '../../../shared/login-modal/login-modal.component';
@@ -17,7 +18,7 @@ export class BlogCreateComponent {
     blog: Blog = new Blog();
     blogs: Blog[];
     userId: string;
-    constructor(private _route: ActivatedRoute, private profileService: ProfileService, private componentFactoryResolver: ComponentFactoryResolver, private blogService: BlogService, private _authService: AuthenticationService, private router: Router, public toastr: ToastsManager, vcr: ViewContainerRef) {
+    constructor(private _route: ActivatedRoute, private profileService: ProfileService, private commServ: CommunicationService, private componentFactoryResolver: ComponentFactoryResolver, private blogService: BlogService, private _authService: AuthenticationService, private router: Router, public toastr: ToastsManager, vcr: ViewContainerRef) {
     }
     ngOnInit() {
         window.scrollTo(0, 0);

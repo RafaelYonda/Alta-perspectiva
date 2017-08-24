@@ -24,19 +24,22 @@ namespace AuthorizationServer.Controllers
         private readonly ISmsSender _smsSender;
         private readonly ApplicationDbContext _applicationDbContext;
         private static bool _databaseChecked;
-
+      
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ApplicationDbContext applicationDbContext)
+            ApplicationDbContext applicationDbContext
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _applicationDbContext = applicationDbContext;
+            
+
         }
 
         //
@@ -142,11 +145,8 @@ namespace AuthorizationServer.Controllers
         private void InsertIntoUserInfoCredential(String userId, String email)
         {
             String query = String.Format(@"insert into [UserProfile].[Credentials](Id,CreatedOn,DTS,UserId,Email) values (NEWID(),GETDATE(),GETDATE(),'{0}','{1}')", userId, email);
-            string connectionString = new ConfigurationBuilder()
-                    .AddJsonFile("config.json")
-                    .AddEnvironmentVariables()
-                    .Build()["Data:DefaultConnection:AltaPerspectivaConnectionString"];
 
+            string connectionString = Startup.ConnectionString;
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();

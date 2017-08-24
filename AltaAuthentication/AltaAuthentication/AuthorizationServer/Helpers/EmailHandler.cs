@@ -40,7 +40,7 @@ namespace AuthorizationServer.Helpers
         public async Task ExecuteEmailForAnswer(string html)
         {
 
-            String AnswerLink= @"http://www.altaperspectiva.com/question/detail/" + QuestionId.ToString();
+            String AnswerLink= Startup.Url+ @"/question/detail/" + QuestionId.ToString();
             /*  var apiKey = "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"*/
 
             //string.Format("{0:f}", date)   // Friday, March 10, 2017 2:31 PM
@@ -75,7 +75,7 @@ namespace AuthorizationServer.Helpers
         public async Task ExecuteEmailForDirectQuestion(String html,Guid questionAskedToUser)
         {
 
-            String AnswerLink = @"http://www.altaperspectiva.com/dashboard/viewprofile/" + questionAskedToUser.ToString() + "/direct-question";
+            String AnswerLink = Startup.Url + @"/dashboard/viewprofile/" + questionAskedToUser.ToString() + "/direct-question";
             /*  var apiKey = "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"*/
             //String path = "Views/EmailFormat/AnswerEmailFormat.html";
             //string html = File.ReadAllText(path);

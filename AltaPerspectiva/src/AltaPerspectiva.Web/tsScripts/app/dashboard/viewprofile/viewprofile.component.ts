@@ -59,7 +59,6 @@ export class ViewProfileComponent {
         if (localStorage.getItem("userId") == this.userId) {
             this.isOwner = true;
         }
-        //document.getElementById('question-link').focus();
         this._route.params.subscribe(params => {
             //===========Checkis owner  ==========
             var currentUser = localStorage.getItem('auth_token');
