@@ -173,7 +173,7 @@ export class ApSearchComponent {
         
         this.showMatchedCatogries(this.title);
         //  search after 3rd letter
-        if (tempTitle !== "" && tempTitle.length > 1) {
+        if (tempTitle && tempTitle !== "" && tempTitle.length > 1) {
             this.filteredQuestionList = this.questionList.filter(function (el) {
                 var indx = el.title.toLowerCase().indexOf(tempTitle.toLowerCase()) > -1;
                 return indx;

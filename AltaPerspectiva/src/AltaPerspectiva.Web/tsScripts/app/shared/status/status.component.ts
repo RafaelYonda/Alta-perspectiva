@@ -51,7 +51,7 @@ export class StatusComponent {
         }
         if (this.isQuestion) {
             this.commentId = this.questionObj.id;
-            this.CommentCount = this.questionObj.comments.length;
+            this.CommentCount = this.questionObj.comments ?this.questionObj.comments.length : 0;
         }
         else {
             this.commentId = this.answerObj.id;

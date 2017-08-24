@@ -1,5 +1,3 @@
-USE [AltaPerspectiva]
-GO
 drop proc [dbo].[SpCategoryWiseAnswer];
 GO
 
@@ -46,7 +44,7 @@ from  UserProfile.[Credentials] c
 where c.UserId=@userId;
 if(@FullName='' or @FullName is null)
 BEGIN
-select @FullName=UserName from [AltaPerspectiva].[dbo].[AspNetUsers] a where a.Id = @userId;
+select @FullName=UserName from [dbo].[AspNetUsers] a where a.Id = @userId;
 END
 
 --
@@ -167,7 +165,7 @@ order by CreatedOn desc
 	) Occupation,
 	ISNULL((select top 1 ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
 	
-	FROM  [AltaPerspectiva].[dbo].AspNetUsers u
+	FROM  [dbo].AspNetUsers u
 
 	)
 	select top 5 * from CTE order by TotalCommulativePoint desc
@@ -214,7 +212,7 @@ where CredentialId=(select top 1 Id from UserProfile.Credentials c where c.UserI
 order by CreatedOn desc
 	) Occupation,
 	ISNULL((select ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
-	FROM  [AltaPerspectiva].[dbo].AspNetUsers u
+	FROM  [dbo].AspNetUsers u
 
 )
 select top 5 * from TopFiveUserCTE order by TotalCommulativePoint desc 
@@ -243,7 +241,7 @@ order by CreatedOn desc
 	) Occupation,
 	ISNULL((select ProfileViewCount from UserProfile.Credentials where UserId=@userId),0) ProfileViewCount
 	
-	FROM  [AltaPerspectiva].[dbo].AspNetUsers u
+	FROM  [dbo].AspNetUsers u
 	where u.Id=@userId
 	END
 
@@ -318,7 +316,7 @@ select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and
 DECLARE @DirectQuestions int;
 select @DirectQuestions=COUNT(*) from Questions.DirectQuestions q where q.QuestionAskedToUser=@userId 
 DECLARE @Blogs int;
-SELECT @Blogs=count(*) FROM [AltaPerspectiva].[Blog].[Blogs] where UserId=@userId;
+SELECT @Blogs=count(*) FROM [Blog].[Blogs] where UserId=@userId;
 select 
 ISNULL(@ProfileViewCount,0) ProfileViewCount,
 ISNULL(@AnswerLikeCount,0) AnswerLikeCount,
@@ -353,7 +351,7 @@ BEGIN
    where c.UserID=asp.Id
 
    ) Occupation
-   from   [AltaPerspectiva].[dbo].[AspNetUsers] asp 
+   from   [dbo].[AspNetUsers] asp 
 
    
    where asp.Id in (
@@ -427,7 +425,7 @@ order by CreatedOn desc
 	) Occupation,
 	ISNULL((select top 1 ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
 	
-	FROM  [AltaPerspectiva].[dbo].AspNetUsers u
+	FROM  [dbo].AspNetUsers u
 
 	)
 	select  * from CTE order by TotalCommulativePoint desc
@@ -444,7 +442,7 @@ BEGIN
 select Id,Email,
 (select top 1 ImageUrl from UserProfile.Credentials where UserId = a.Id) ImageUrl,
 ISNULL((select top 1 FirstName + ' ' + LastName from UserProfile.Credentials where UserId = a.Id), UserName) UserName
-       from [AltaPerspectiva].[dbo].[AspNetUsers] a
+       from [dbo].[AspNetUsers] a
         where a.Id = @userId
 
 END
