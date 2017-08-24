@@ -7,7 +7,7 @@ namespace UserProfile.Domain.ReadModel
 {
     public class UserSummary
     {
-        public String Id { get; set; }
+       // public String Id { get; set; }
         public Guid UserId { get; set; }
         public String Name { get; set; }
         public String ImageUrl { get; set; }

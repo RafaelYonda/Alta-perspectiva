@@ -1,6 +1,6 @@
 drop proc [dbo].[SpCategoryWiseAnswer];
 GO
-
+-------Done
 create proc [dbo].SpCategoryWiseAnswer
 (
 @userId nvarchar(255)
@@ -16,8 +16,6 @@ inner join Questions.QuestionCategories qc
 on q.Id=qc.QuestionId
 where a.UserId=@userId
 group by qc.CategoryId
-
-
 END
 GO
 
@@ -246,204 +244,10 @@ order by CreatedOn desc
 	END
 
 END
-Go
-DROP proc [dbo].[SpProfileParameterCount];
 
-GO
 
-CREATE proc [dbo].[SpProfileParameterCount] --'3a3e773a-614f-48b6-af14-96be31589001'
-(
-@userId nvarchar(255)
-)
-AS
-BEGIN 
-DECLARE @ProfileViewCount int;
---Extra
-DECLARE @credentialId nvarchar(255);
-select top 1 @ProfileViewCount=ISNULL(ProfileViewCount,0)
-from  UserProfile.[Credentials] c 
-where c.UserId=@userId;
-
-DECLARE @AnswerLikeCount int ;
-set @AnswerLikeCount=(select SUM(X.LikeCount) AnswerLikeCount from (
-select 
-(select count(*) from Questions.Likes l where l.AnswerId= a.Id) LikeCount
-from Questions.Answers a
-where a.UserId=@userId
-) X)
----------------Month region-----------------
-DECLARE @AnswerMadeThisMonth int;
-set @AnswerMadeThisMonth=(select COUNT(*) 
-from Questions.Answers a
-where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()) 
-and a.IsDrafted is null 
-and a.isDeleted is null
-and exists(select 1 from  Questions.Questions q where q.Id=a.questionId and q.isDeleted is null )
-) 
-
-DECLARE @QuestionMadeThisMonth int;
-set @QuestionMadeThisMonth=(select COUNT(*) 
-from Questions.Questions q
-where q.UserId=@userId and MONTH(q.CreatedOn)=MONTH(GETDATE())  and q.IsDirectQuestion=0 and q.IsDeleted is null)
------------------end of month region-------------------
-
-DECLARE @Followings int;
---select @Followings=count(*) from Questions.QuestionUserFollowings qf where qf.UserId=@userId and qf.IsDeleted is null;
-select @Followings=count(DISTINCT FollowedUserId) 
-from Questions.QuestionUserFollowings qf 
-where qf.UserId=@userId
-and qf.IsDeleted is null
-group by qf.UserId
-DECLARE @Followers int;
---select @Followers=count(*) from Questions.QuestionUserFollowings qf where qf.FollowedUserId=@userId and qf.IsDeleted is null
-select @Followers=count(Distinct userId) from 
-Questions.QuestionUserFollowings qf 
-where qf.FollowedUserId=@userId
-and qf.IsDeleted is null
-group by qf.FollowedUserId
-
-DECLARE @Bookmarks int;
-select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
-----------------use same as UserInfoDetails---------------------
-DECLARE @Answers int;
-select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null
-and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=0 and q.Isdeleted is  null)
-
-DECLARE @Questions int ;
-select @Questions=COUNT(*) from Questions.Questions q where q.UserId=@userId and q.IsDirectQuestion=0 and q.IsDeleted is null
------------------end of usage-----------------------------------------------
-
-DECLARE @DirectQuestions int;
-select @DirectQuestions=COUNT(*) from Questions.DirectQuestions q where q.QuestionAskedToUser=@userId 
-DECLARE @Blogs int;
-SELECT @Blogs=count(*) FROM [Blog].[Blogs] where UserId=@userId;
-select 
-ISNULL(@ProfileViewCount,0) ProfileViewCount,
-ISNULL(@AnswerLikeCount,0) AnswerLikeCount,
-ISNULL(@AnswerMadeThisMonth,0) AnswerMadeThisMonth,
-ISNULL(@QuestionMadeThisMonth,0) QuestionMadeThisMonth,
-ISNULL(@Followings,0) [Followings],
-ISNULL(@Followers,0) Followers,
-ISNULL(@Bookmarks,0) Bookmarks,
-ISNULL(@Answers,0) Answers,
-ISNULL(@Questions,0) Questions,
-ISNULL(@DirectQuestions,0) DirectQuestions,
-ISNULL(@Blogs,0) Blogs
-;
-END
-GO
-DROP PROC [dbo].[SpGetUsers]
-GO
-CREATE PROCEDURE [dbo].[SpGetUsers]
-  @userIds nvarchar(max)
-AS
-BEGIN
-
-   select CONVERT(uniqueidentifier,asp.Id) as UserId ,
-   ISNULL((select top 1 ISNULL(FirstName,'')+' '+ISNULL(LastName,'') from UserProfile.Credentials where UserId=asp.Id),asp.UserName) as Name,
-   CONVERT(uniqueidentifier,(select Id from UserProfile.Credentials where UserId=asp.Id)) CredentialId,
-   ISNULL((select ImageUrl from UserProfile.Credentials where UserId=asp.Id),'avatar.png') ImageUrl,
-   (
-   select Position
-   from UserProfile.Employments e
-   inner join UserProfile.Credentials c
-   on e.CredentialID=c.Id
-   where c.UserID=asp.Id
-
-   ) Occupation
-   from   [dbo].[AspNetUsers] asp 
-
-   
-   where asp.Id in (
-    select Data
-from dbo.Split
-(@userIds,',')
-	)
-END
 --[SpGetUsers] 'd2306cf5-ca88-4c32-82fb-10d020483b24,d11ee5fa-11f4-444f-b6bb-49e2eb6ac155,7c685a68-05d6-43f7-a213-d30649134169,d3f1ca2c-0f15-42af-9215-0baeabde1dba,d8068e0f-1b70-443f-8e4b-650004bb55bc,9f5b4ead-f9e7-49da-b0fa-1683195cfcba'
-GO
-DROP FUNCTION dbo.Split
-GO
-CREATE FUNCTION dbo.Split
-(
-	@RowData nvarchar(2000),
-	@SplitOn nvarchar(5)
-)
-RETURNS @RtnValue table
-(
-	Id int identity(1,1),
-	Data nvarchar(100)
-)
-AS
-BEGIN
-	Declare @Cnt int
-	Set @Cnt = 1
-
-	While (Charindex(@SplitOn,@RowData)>0)
-	Begin
-		Insert Into @RtnValue (data)
-		Select
-			Data = ltrim(rtrim(Substring(@RowData,1,Charindex(@SplitOn,@RowData)-1)))
-
-		Set @RowData = Substring(@RowData,Charindex(@SplitOn,@RowData)+1,len(@RowData))
-		Set @Cnt = @Cnt + 1
-	End
-	
-	Insert Into @RtnValue (data)
-	Select Data = ltrim(rtrim(@RowData))
-
-	Return
-END
-GO
 
 
 
-DROP PROC SpTopHundredUserSummary;
-GO
-CREATE PROC SpTopHundredUserSummary
-AS
-BEGIN
-;with CTE
-	as(
-	SELECT  [Id],CONVERT(uniqueidentifier,Id) UserId,
-	ISNULL((select top 1 FirstName+' '+LastName as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc),[UserName]) Name,
-	(select top 1 ImageUrl as FullName from UserProfile.Credentials where UserId=u.Id order by Id desc) ImageUrl,
-	(select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id) TotalLike,
-	(select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) TotalComment,
-	(select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) TotalQuestion,
-	(select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) TotalAnswer,
-	(
-	 (select ISNULL(count(*),0) TotalLike from Questions.Likes where UserId=u.Id)*1+
-	 (select ISNULL(count(*),0) TotalComment from Questions.Comments  where UserId=u.Id) *2+
-	 (select ISNULL(count(*),0) TotalQuestion from Questions.Questions where UserId=u.Id) *3+
-	 (select ISNULL(count(*),0) TotalAnswer from Questions.Answers where UserId=u.Id) *4
-	) TotalCommulativePoint,
-	(
-	select top 1 e.Position from UserProfile.Employments e 
-where CredentialId=(select top 1 Id from UserProfile.Credentials c where c.UserId=u.Id)
-order by CreatedOn desc
-	) Occupation,
-	ISNULL((select top 1 ProfileViewCount from UserProfile.Credentials where UserId=u.Id),0) ProfileViewCount
-	
-	FROM  [dbo].AspNetUsers u
 
-	)
-	select  * from CTE order by TotalCommulativePoint desc
-END
-Go
-Drop PROC SpGetUserEmailParameter;
-GO
-CREATE PROC SpGetUserEmailParameter
-(
-@userId nvarchar(200)
-)
-AS
-BEGIN
-select Id,Email,
-(select top 1 ImageUrl from UserProfile.Credentials where UserId = a.Id) ImageUrl,
-ISNULL((select top 1 FirstName + ' ' + LastName from UserProfile.Credentials where UserId = a.Id), UserName) UserName
-       from [dbo].[AspNetUsers] a
-        where a.Id = @userId
-
-END
-GO

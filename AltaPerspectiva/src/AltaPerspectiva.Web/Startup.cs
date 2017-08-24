@@ -301,12 +301,13 @@ namespace AltaPerspectiva
                 PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
                 Authority = "http://alta-staging-auth.azurewebsites.net/",
 #else
-                //ClientId = "staging",       // for staging server  
-                //PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
-                
-                 ClientId = "azure",       // for azure deploy  altaperspectiva
-                 PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
-                Authority = "http://altaauth.azurewebsites.net",
+                ClientId = "staging",       // for staging server  
+                PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
+                Authority = "http://alta-staging-auth.azurewebsites.net/",
+
+              //   ClientId = "azure",       // for azure deploy  altaperspectiva
+                // PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
+               // Authority = "http://altaauth.azurewebsites.net",
 #endif
 
                 ClientSecret = "aLtaseCreT!@#",
