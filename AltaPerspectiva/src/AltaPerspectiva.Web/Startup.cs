@@ -299,12 +299,14 @@ namespace AltaPerspectiva
 #if DEBUG
                 ClientId = "localhost", // for localhost
                 PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+                Authority = "http://alta-staging-auth.azurewebsites.net/",
 #else
                 //ClientId = "staging",       // for staging server  
                 //PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
                 
                  ClientId = "azure",       // for azure deploy  altaperspectiva
                  PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
+                Authority = "http://altaauth.azurewebsites.net",
 #endif
 
                 ClientSecret = "aLtaseCreT!@#",
@@ -324,7 +326,7 @@ namespace AltaPerspectiva
 
                 //Authority = "http://localhost:54540",
 
-                Authority = "http://altaauth.azurewebsites.net",
+                
 
                 Scope = { "email", "roles" }
 

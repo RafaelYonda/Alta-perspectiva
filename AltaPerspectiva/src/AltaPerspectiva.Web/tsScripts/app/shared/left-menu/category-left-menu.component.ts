@@ -13,21 +13,13 @@ import {QuestionMenu, Answer, DateName} from '../../services/models';
 })
 export class CategoryMenuPanelComponent {
     @Input() caegoryId: string;
-    isbackGround = false;
-    date: DateName = new DateName();
-    questionMenuList: QuestionMenu[];
-    answerList: Answer[];
     questionService: QuestionAnswerService;
     categories: Category[];
     constructor(questionService: QuestionAnswerService, private categoryService: CategoryService, private commServ: CommunicationService) {
-        this.questionService = questionService;                      
+        //this.questionService = questionService;                      
     }
 
     ngOnInit() {
-        this.commServ.getCategory().subscribe((logged: string) => {
-           
-        });
-       
         this.categoryService.getAllCategories().subscribe(res => {
             this.categories = res;
         });

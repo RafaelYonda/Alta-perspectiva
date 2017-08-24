@@ -1,7 +1,7 @@
 ﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { Blog, BlogComment, BlogLike, BlogPost } from '../../../services/models/models.blogpost';
-import { CommunicationService } from '../../services/communication.service';
+import { CommunicationService } from '../../../services/communication.service';
 import { ProfileService } from '../../../services/profile.service';
 import { ActivatedRoute } from '@angular/router';
 import { loginModalComponent } from '../../../shared/login-modal/login-modal.component';

@@ -70,6 +70,15 @@ export class TabPanelComponent {
     }
     UpdateQuestionsByCategory() {
         this.questionAnswerService.getQuestionsByCategoryAndPage(this.id, this.questionPage).subscribe(res => {
+            console.log('tab panel');
+            console.log(res);
+            if (!res && res.length<1)
+            {
+                this.hideLoader();
+                return;
+            }
+                
+            
             //if scroll page number is higher
             if (this.questionPage > 0 && res && res.length > 0 && this.questions && this.questions) {
                 this.questions = this.questions.concat(res);
@@ -78,19 +87,22 @@ export class TabPanelComponent {
             {
                 this.questions = res;
             }
-                
-            for (var q = 0; q < this.questions.length; q++) {
-                // answers[0] is the best answer
-                this.questions[q].bestAnswer = this.questions[q].answers[0];
+            console.log('tab panel res' + res.length);
+            if (this.questions) {
+                for (var q = 0; q < this.questions.length; q++) {
+                    // answers[0] is the best answer
+                    this.questions[q].bestAnswer = this.questions[q].answers[0];
 
-                if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
-                    // var temp = this.questions[q].bestAnswer.text.substring(0, 200);
-                    // this.questions[q].bestAnswer.text = temp;
-                    this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
-                    this.questions[q].shareUrl = encodeURI(SITE_URL + "/question/detail/" + this.questions[q].id);
+                    if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
+                        this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
+                        this.questions[q].shareUrl = encodeURI(SITE_URL + "/question/detail/" + this.questions[q].id);
+                    }
                 }
+               // console.log('tab panel' + this.questions.length);
+                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             }
-            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+                
+          
             this.hideLoader();
         });
     }

@@ -1,10 +1,12 @@
 ﻿
 export const profilePath: string = '../../../../category/';
 export const categoryPath: string = '../../../../profile/'; 
-export const SITE_URL: string = 'http://www.altaperspectiva.com/'; 
+export const SITE_URL: string = 'http://alta-staging.azurewebsites.net'; 
+//export const SITE_URL: string = 'http://www.altaperspectiva.com/'; 
 
 export class AppSettings {
-    public static SITE_URL = 'http://www.altaperspectiva.com/';
+    public static SITE_URL = 'http://alta-staging.azurewebsites.net';
+    //public static SITE_URL = 'http://www.altaperspectiva.com/';
 }
 export class LoggedInUser {
     userId: string;
