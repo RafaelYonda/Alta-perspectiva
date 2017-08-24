@@ -1,7 +1,7 @@
 ﻿import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuestionResolver } from '../../services/resolve.services/question.resolver';
-import {QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName, LogInObj, User, QuestionReport, QuestionFollowing} from '../../services/models';
+import { QuestionMenu, Question, Answer, Comment, AnswerViewModel, Like, DateName, LogInObj, User, QuestionReport, QuestionFollowing } from '../../services/models';
 import { AuthenticationService } from '../../services/authentication.service';
 import { QuestionAnswerService } from '../../services/question-answer.service';
 //import { RelatedQuestionMenu } from '../question-left-menu/related-question-left-menu.component';
@@ -43,8 +43,8 @@ export class QuestionDetailComponent {
     //Question report
     questionReports: QuestionReport[];
     //isFollowing: boolean;
-    
-    constructor(private router: Router, private _route: ActivatedRoute, private questionService: QuestionResolver, 
+
+    constructor(private router: Router, private _route: ActivatedRoute, private questionService: QuestionResolver,
         private dataService: QuestionAnswerService, private authService: AuthenticationService, private componentFactoryResolver: ComponentFactoryResolver) {
         this.route = _route;
         this.date = new DateName();
@@ -54,39 +54,41 @@ export class QuestionDetailComponent {
     }
     ngOnInit() {
         window.scrollTo(0, 0);
-        var currentUserName = localStorage.getItem('auth_token'); 
+        var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
-        
-        if (currentUserName != null)
-        {
+
+        if (currentUserName != null) {
             this._logObj.user.name = currentUserName;
             this._logObj.user.imageUrl = currentUserImage;
         }
         this.route.data
-            .subscribe((res:any) => {
+            .subscribe((res: any) => {
                 this.question = res.question;
                 //update meta tag description of facebook sharing
                 var metas = document.getElementsByTagName('meta');
-                for (var i = 0; i < metas.length; i++) {
-                    if (metas[i].getAttribute("property") == "og:description") {
-                        metas[i].setAttribute("content", this.question.title);
-                    }
-
-                    if (metas[i].getAttribute("name") == "twitter:title") {
-                        metas[i].setAttribute("content", this.question.title);
-                    }
-                    if (metas[i].getAttribute("name") == "twitter:description") {
-                        if (this.question.body) {
-                            metas[i].setAttribute("content", this.question.body);
-                        } else {
-                            metas[i].setAttribute("content", "More on altaperspectiva.com");
+                if (metas) {
+                    for (var i = 0; i < metas.length; i++) {
+                        if (metas[i].getAttribute("property") == "og:description") {
+                            metas[i].setAttribute("content", this.question.title);
                         }
-                        
+
+                        if (metas[i].getAttribute("name") == "twitter:title") {
+                            metas[i].setAttribute("content", this.question.title);
+                        }
+                        if (metas[i].getAttribute("name") == "twitter:description") {
+                            if (this.question.body) {
+                                metas[i].setAttribute("content", this.question.body);
+                            } else {
+                                metas[i].setAttribute("content", "More on altaperspectiva.com");
+                            }
+
+                        }
                     }
-                } 
+                }
+
 
                 // save number of views of question
-                this.dataService.increaseQuestionViewCount(this.question.id).subscribe((res:any) => {
+                this.dataService.increaseQuestionViewCount(this.question.id).subscribe((res: any) => {
                     this.question.viewCount += 1;
                 });
                 //=======
@@ -110,9 +112,9 @@ export class QuestionDetailComponent {
         questionFollowing.followedUserId = answer.userId;
 
 
-        this.dataService.QuestionFollowing(questionFollowing).subscribe((res:any) => {
+        this.dataService.QuestionFollowing(questionFollowing).subscribe((res: any) => {
 
-            var isFollowing= this.question.answers.find(x=>x.id==answer.id).isFollowing
+            var isFollowing = this.question.answers.find(x => x.id == answer.id).isFollowing
 
             if (isFollowing == true) {
                 this.question.answers.find(x => x.id == answer.id).isFollowing = false;
@@ -122,7 +124,7 @@ export class QuestionDetailComponent {
         })
     }
     //anonymous checkbox
-    onChange(event:boolean) {
+    onChange(event: boolean) {
         this.isAnonymous = event;
     }
     submitAnswer(_id: string) {
@@ -144,7 +146,7 @@ export class QuestionDetailComponent {
             this.dataService.GetQuestion(_id).subscribe(res => {
                 this.question = res;
             });
-           
+
         });
     }
 
@@ -197,8 +199,7 @@ export class QuestionDetailComponent {
         });
     }
 
-    submitComment(questionId: string)
-    {
+    submitComment(questionId: string) {
         var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
@@ -211,8 +212,8 @@ export class QuestionDetailComponent {
         this.dataService.addQuestionComment(this.comment).subscribe(res => {
             this.commentText = "";
             this.comment = res;
-            this.question.comments.push(this.comment);     
-              
+            this.question.comments.push(this.comment);
+
         });
     }
 
@@ -222,7 +223,7 @@ export class QuestionDetailComponent {
             this.ShowNotLoggedIn();
             return;
         }
-        this.comment = new Comment();        
+        this.comment = new Comment();
         this.comment.answerId = answerId;
         this.comment.commentText = this.commentAnswerText;
 
@@ -234,15 +235,14 @@ export class QuestionDetailComponent {
         });
     }
 
-    submitLike(questionId: string)
-    {
+    submitLike(questionId: string) {
         var user = localStorage.getItem('auth_token');
         if (!user) {
             this.ShowNotLoggedIn();
             return;
         }
         this.like = new Like();
-        this.like.questionId = questionId;       
+        this.like.questionId = questionId;
 
         this.dataService.addQuestionLike(this.like).subscribe(res => {
             this.question.likes.push(this.like);
@@ -256,30 +256,29 @@ export class QuestionDetailComponent {
             return;
         }
         this.like = new Like();
-        this.like.questionId = questionId;  
+        this.like.questionId = questionId;
         this.like.answerId = answerId;
 
         this.dataService.addAnswerLike(this.like).subscribe(res => {
-            this.like.userId = res.userId ;    
-           var douplicateLike= this.question.answers.find(x => x.id == answerId).likes.find(x => x.userId == res.userId &&x.answerId==answerId);
-           if (douplicateLike==undefined) {
-               this.question.answers.find(x=>x.id==answerId).likes.push(this.like);
-           }
-            
+            this.like.userId = res.userId;
+            var douplicateLike = this.question.answers.find(x => x.id == answerId).likes.find(x => x.userId == res.userId && x.answerId == answerId);
+            if (douplicateLike == undefined) {
+                this.question.answers.find(x => x.id == answerId).likes.push(this.like);
+            }
+
         });
     }
 
-    onQuestionDetailClicked(showEditForm: boolean)
-    {
+    onQuestionDetailClicked(showEditForm: boolean) {
         this.showQuestionEditForm = showEditForm;
         this.editTitle = this.question.title;
-        this.editBody = this.question.body;    
+        this.editBody = this.question.body;
     }
 
-    @ViewChild('questionReport', { read: ViewContainerRef }) questionReport: ViewContainerRef;  
+    @ViewChild('questionReport', { read: ViewContainerRef }) questionReport: ViewContainerRef;
 
-    onQuestionReportClicked(showQuestionReportModal: any) {      
-       
+    onQuestionReportClicked(showQuestionReportModal: any) {
+
         this.questionReport.clear();
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(QuestionReportComponent);
         let dialogComponentRef = this.questionReport.createComponent(dialogComponentFactory);
@@ -292,15 +291,14 @@ export class QuestionDetailComponent {
 
         });
 
-        
+
         dialogComponentRef.instance.close.subscribe(() => {
             dialogComponentRef.destroy();
         });
     }
 
 
-    updateQuestion()
-    {
+    updateQuestion() {
         var qv = new Question();
         qv.title = this.editTitle;
         qv.body = this.editBody;

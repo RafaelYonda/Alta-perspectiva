@@ -25,17 +25,19 @@ export class TopFiveTopicComponent {
 
         this.commServ.getCategory().subscribe((catId: string) => {
             this.questionService.getTopFiveTopicsByCategoryId(catId).subscribe(res => {
-                this.topFiveTopics = [];
-                if (this.isHomePage) {
-                    for (var i = 0; i < res.length; i++) {
-                        this.topFiveTopics.push(res[i]);
-                        if (i == 4) {
-                            break;
-                        }
-                    }
-                } else {
-                    this.topFiveTopics = res;
-                }
+               if (res) {
+                   this.topFiveTopics = [];
+                   if (this.isHomePage) {
+                       for (var i = 0; i < res.length; i++) {
+                           this.topFiveTopics.push(res[i]);
+                           if (i == 4) {
+                               break;
+                           }
+                       }
+                   } else {
+                       this.topFiveTopics = res;
+                   }
+               }
                 
 
             });

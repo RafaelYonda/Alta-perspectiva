@@ -60,7 +60,7 @@ export class CommentComponent {
         this.comments.push(this.comment);
 
         this.eventArg = new CommnetCountEventArg();
-        this.eventArg.Count = this.comments.length;
+        this.eventArg.Count = this.comments ? this.comments.length : 0;
         if (this.isQuestion)
             this.eventArg.QuestionId = this.questionId;
         else
