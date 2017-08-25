@@ -2,6 +2,7 @@
 import { AuthenticationService } from '../../services/authentication.service';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
+import { AUTH_SITE_URL } from '../../../globals';
 import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, ViewEncapsulation } from '@angular/core';
 import { CommunicationService } from '../../services/communication.service';
 
@@ -19,6 +20,7 @@ export class NavBarComponent {
     showUserInfo = false;     //show right bar log in info only when data available
     _logObj: LogInObj;
     _authService: AuthenticationService;
+    authUrl = AUTH_SITE_URL;
 
     constructor(private authService: AuthenticationService, private commServ: CommunicationService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router) {
 
