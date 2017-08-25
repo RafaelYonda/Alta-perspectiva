@@ -48,6 +48,7 @@ namespace AltaPerspectiva
     {
         public static string ConnectionString { get; private set; }
         public static string SendGridApiKey { get; private set; }
+        public static string Url { get; private set; }
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -60,6 +61,13 @@ namespace AltaPerspectiva
             Configuration = builder.Build();
             ConnectionString = Configuration.GetValue<string>("Data:DefaultConnection:ConnectionString");
             SendGridApiKey = Configuration.GetValue<string>("Data:SendGridApiKey");
+#if DEBUG
+
+            Url = "http://alta-staging-auth.azurewebsites.net/"; 
+#else    
+            Url = "http://www.altaperspectiva.com/",   //for azure
+#endif
+
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -293,17 +301,18 @@ namespace AltaPerspectiva
             {
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
-             //   ClientId = "localhost", // for localhost
-              //  PostLogoutRedirectUri = "http://localhost:5273/",
+                //   ClientId = "localhost", // for localhost
+                //  PostLogoutRedirectUri = "http://localhost:5273/",
 
 #if DEBUG
                 ClientId = "localhost", // for localhost
                 PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
                 Authority = "http://alta-staging-auth.azurewebsites.net/",
+                //ClientId = "staging",       // for staging server  
+                //PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
+                //Authority = "http://alta-staging-auth.azurewebsites.net/",
 #else
-                ClientId = "staging",       // for staging server  
-                PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
-                Authority = "http://alta-staging-auth.azurewebsites.net/",
+               
 
               //   ClientId = "azure",       // for azure deploy  altaperspectiva
                 // PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure

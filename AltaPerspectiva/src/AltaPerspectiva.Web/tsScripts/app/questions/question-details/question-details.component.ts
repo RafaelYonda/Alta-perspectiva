@@ -68,10 +68,18 @@ export class QuestionDetailComponent {
                 var metas = document.getElementsByTagName('meta');
                 if (metas) {
                     for (var i = 0; i < metas.length; i++) {
-                        if (metas[i].getAttribute("property") == "og:description") {
+                        if (metas[i].getAttribute("property") == "og:title") {
                             metas[i].setAttribute("content", this.question.title);
                         }
-
+                        if (metas[i].getAttribute("property") == "og:description") {
+                            metas[i].setAttribute("content", this.question.body);
+                        }
+                        if (metas[i].getAttribute("name") == "title") {
+                            metas[i].setAttribute("content", this.question.title);
+                        }
+                        if (metas[i].getAttribute("name") == "description") {
+                            metas[i].setAttribute("content", this.question.body);
+                        }
                         if (metas[i].getAttribute("name") == "twitter:title") {
                             metas[i].setAttribute("content", this.question.title);
                         }
