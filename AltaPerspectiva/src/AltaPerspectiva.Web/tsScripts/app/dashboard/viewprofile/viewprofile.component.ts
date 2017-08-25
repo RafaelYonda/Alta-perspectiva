@@ -74,6 +74,7 @@ export class ViewProfileComponent {
             });
             //===========Get Blog updated==========
             this.commServ.getBlogUpdated().subscribe(res => {
+                console.log('blog Updated');
                 this.GetProfileStatisticsParam(params['userId']);
             });
             //=====Get user Credential=========
@@ -92,14 +93,14 @@ export class ViewProfileComponent {
             });
             //================ProfileViewCount===
             this.profileService.addProfileViewCount(params['userId']).subscribe(res => {
-                console.log(res);
-            })
-
+                
+            });
         });
     }   
 
     GetProfileStatisticsParam(userId: string) {
         this.profileService.getProfileStatistics(userId).subscribe(profileParam => {
+            console.log(profileParam);
             this.profileParam = profileParam;
         });}
     onUpdatedProfile(updated:any)
