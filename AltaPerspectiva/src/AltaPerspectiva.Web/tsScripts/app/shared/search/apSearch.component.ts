@@ -135,7 +135,7 @@ export class ApSearchComponent {
         //var key = event.keyCode || event.charCode;
         textWidth = (textWidth + 20) < 30 ? (textWidth + 10) : (textWidth + 7);
         if (textWidth > maxWidth-22)
-            return;
+            textWidth=maxWidth-22;
         //==============
         this.showQuestion = true;
         var form = document.getElementById("question-end");
