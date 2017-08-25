@@ -98,9 +98,10 @@ export class CommunicationService {
     getuserUpdated(): Observable<string> {
         return this.userUpdated.asObservable();
     }
-    //==================Blog Count Brodcast===========================
+    //==================Blog Count Brodcast=========================
     private blogAddCount: Subject<string> = new Subject<string>();
     setBlogUpdated(): void {
+        console.log('blog Updating');
         this.blogAddCount.next("False");
     }
     getBlogUpdated(): Observable<string> {

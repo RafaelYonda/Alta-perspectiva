@@ -69,7 +69,12 @@ namespace AltaPerspectiva
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromDays(3);
+                options.CookieHttpOnly = true;
+            });
             services.AddSingleton<IConfigurationRoot>(provider => Configuration);
 
             services.AddDistributedMemoryCache();
@@ -267,7 +272,7 @@ namespace AltaPerspectiva
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IDistributedCache cache)
         {
-
+            app.UseSession();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -284,7 +289,7 @@ namespace AltaPerspectiva
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
                 LoginPath = new PathString("/signin"),
-                ExpireTimeSpan = TimeSpan.FromHours(40),
+                ExpireTimeSpan = TimeSpan.FromDays(3),
             });
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
