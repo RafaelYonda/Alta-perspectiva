@@ -109,6 +109,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 }
             }
             //    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+           
 
             userInfoDetails.ImageUrl = azureFileUploadHelper.GetProfileImage(userInfoDetails.ImageUrl);
 

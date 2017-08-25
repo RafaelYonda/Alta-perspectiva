@@ -42,7 +42,7 @@ from  UserProfile.[Credentials] c
 where c.UserId=@userId;
 if(@FullName='' or @FullName is null)
 BEGIN
-select @FullName=UserName from [dbo].[AspNetUsers] a where a.Id = @userId;
+select @FullName=Email from [UserProfile].[Credentials] where UserId = @userId
 END
 
 --
@@ -111,7 +111,6 @@ DECLARE @QuestionMadeThisMonth int;
 set @QuestionMadeThisMonth=(select COUNT(*) 
 from Questions.Questions a
 where a.UserId=@userId and MONTH(a.CreatedOn)=MONTH(GETDATE()))
-
 
 select CONVERT(UNIQUEIDENTIFIER, @userId) UserId,
 @ImageUrl ImageUrl,
