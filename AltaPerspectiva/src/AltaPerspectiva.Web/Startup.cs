@@ -61,7 +61,7 @@ namespace AltaPerspectiva
             SendGridApiKey = Configuration.GetValue<string>("Data:SendGridApiKey");
 #if DEBUG
 
-            Url = "http://alta-staging-auth.azurewebsites.net/"; 
+            Url = "http://alta-staging.azurewebsites.net/"; 
 #else    
             Url = "http://www.altaperspectiva.com/",   //for azure
 #endif
@@ -308,12 +308,12 @@ namespace AltaPerspectiva
                 //  PostLogoutRedirectUri = "http://localhost:5273/",
 
 #if DEBUG
-                ClientId = "localhost", // for localhost
-                PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
-                Authority = "http://alta-staging-auth.azurewebsites.net/",
-                //ClientId = "staging",       // for staging server  
-                //PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
+                //ClientId = "localhost", // for localhost
+                //PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
                 //Authority = "http://alta-staging-auth.azurewebsites.net/",
+                ClientId = "staging",       // for staging server  
+                PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
+                Authority = "http://alta-staging-auth.azurewebsites.net/",
 #else
                
 

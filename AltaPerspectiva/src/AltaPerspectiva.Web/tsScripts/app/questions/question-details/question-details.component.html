@@ -92,7 +92,7 @@
                 <div id="{{answer?.id}}">
                     <user-info [userObj]="answer?.userViewModel" [viewDate]="answer?.createdOn" [isAnonymous]="answer?.isAnonymous"></user-info>
                     <div class="pull-right">
-                        <a (click)="QuestionFollowing(answer)">
+                        <a (click)="QuestionFollowing(answer)" *ngIf ="!(answer?.isAnonymous == true)">
                             <img [ngClass]="{ 'enableFollowingImg': !answer?.isFollowing, 'disabledFollowingImg': answer?.isFollowing  }" src="../../images/FollowingImage.svg" />
                         </a>
                     </div>

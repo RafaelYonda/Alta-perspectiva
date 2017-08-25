@@ -201,7 +201,8 @@ from UserProfile.Credentials
                         FirstImageUrl = dbModel.FirstImageUrl,
                         //Text = BestAnswerTestWithFormattedImage(dbModel.Text, dbModel.FirstImageUrl),
                         IsDrafted = dbModel.IsDrafted,
-                        AnswerDate = dbModel.AnswerCreatedOn
+                        AnswerDate = dbModel.AnswerCreatedOn,
+                        IsAnonymous = dbModel.IsAnonymous
                     };
 
                     #region BestAnswerTestWithFormattedImage(dbModel.Text, dbModel.FirstImageUrl)
