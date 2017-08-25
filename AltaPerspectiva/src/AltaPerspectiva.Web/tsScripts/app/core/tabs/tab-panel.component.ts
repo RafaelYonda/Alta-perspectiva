@@ -62,7 +62,7 @@ export class TabPanelComponent {
 
         this.sub = this.route.params.subscribe((params:any) => {
             this.showLoader();
-
+            this.questionPage = 0;
             this.id = params['id']; // (+) converts string 'id' to a number 
             this.UpdateQuestionsByCategory();
             
@@ -76,8 +76,7 @@ export class TabPanelComponent {
             {
                 this.hideLoader();
                 return;
-            }
-                
+            }               
             
             //if scroll page number is higher
             if (this.questionPage > 0 && res && res.length > 0 && this.questions && this.questions) {
@@ -112,8 +111,6 @@ export class TabPanelComponent {
         this.UpdateQuestionsByCategory();
 
     }
-
-   
 
     ngOnDestroy() {
         this.sub.unsubscribe();

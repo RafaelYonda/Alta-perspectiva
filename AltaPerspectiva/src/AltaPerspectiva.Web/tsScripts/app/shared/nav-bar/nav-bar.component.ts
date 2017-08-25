@@ -20,7 +20,7 @@ export class NavBarComponent {
     showUserInfo = false;     //show right bar log in info only when data available
     _logObj: LogInObj;
     _authService: AuthenticationService;
-    authUrl = AUTH_SITE_URL;
+    authUrl = AUTH_SITE_URL + '/Manage/ChangePassword';
 
     constructor(private authService: AuthenticationService, private commServ: CommunicationService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router) {
 
