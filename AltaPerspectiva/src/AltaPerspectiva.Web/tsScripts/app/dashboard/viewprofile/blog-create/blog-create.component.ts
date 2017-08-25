@@ -65,6 +65,7 @@ export class BlogCreateComponent {
             }
             // this.blogList.push(res);
             this.profileService.GetBlogs(this.userId).subscribe(blist => {
+                this.commServ.setBlogUpdated();
                 this.blogs = blist;
             });
             form.reset();

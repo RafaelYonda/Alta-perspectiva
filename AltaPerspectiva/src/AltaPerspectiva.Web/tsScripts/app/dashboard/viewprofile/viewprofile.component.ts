@@ -72,6 +72,10 @@ export class ViewProfileComponent {
                         this.isOwner = false;
                 }
             });
+            //===========Get Blog updated==========
+            this.commServ.getBlogUpdated().subscribe(res => {
+                this.GetProfileStatisticsParam(params['userId']);
+            });
             //=====Get user Credential=========
 
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
@@ -80,9 +84,7 @@ export class ViewProfileComponent {
                 this.credential.userId = params['userId'];      // in case credential is null then preserve the userId                              
             });
             //========Statistics=======
-            this.profileService.getProfileStatistics(params['userId']).subscribe(profileParam => {
-                this.profileParam = profileParam;               
-            });
+            this.GetProfileStatisticsParam(params['userId']);
             //========Category=======
             this.profileService.getCategoryWiseAnswer(params['userId']).subscribe(categoryWiseAnswer => {
                 this.categoryWiseAnswers = categoryWiseAnswer;
@@ -95,6 +97,11 @@ export class ViewProfileComponent {
 
         });
     }   
+
+    GetProfileStatisticsParam(userId: string) {
+        this.profileService.getProfileStatistics(userId).subscribe(profileParam => {
+            this.profileParam = profileParam;
+        });}
     onUpdatedProfile(updated:any)
     {
         if (updated)

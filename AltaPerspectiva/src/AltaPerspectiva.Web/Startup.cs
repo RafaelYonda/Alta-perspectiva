@@ -55,8 +55,6 @@ namespace AltaPerspectiva
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-
-
             Configuration = builder.Build();
             ConnectionString = Configuration.GetValue<string>("Data:DefaultConnection:ConnectionString");
             SendGridApiKey = Configuration.GetValue<string>("Data:SendGridApiKey");
@@ -286,7 +284,7 @@ namespace AltaPerspectiva
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
                 LoginPath = new PathString("/signin"),
-                ExpireTimeSpan = TimeSpan.MaxValue,
+                ExpireTimeSpan = TimeSpan.FromHours(40),
             });
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
