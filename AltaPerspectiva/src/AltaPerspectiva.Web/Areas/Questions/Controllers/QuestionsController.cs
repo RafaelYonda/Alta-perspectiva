@@ -81,7 +81,7 @@ namespace AltaPerspectiva.Web.Area.Questions
             int pageSize = 10;
             _logger.LogInformation($"#### log start url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
 
-            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber, pageSize,userId:loggedinUser));
+            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber, pageSize, userId: loggedinUser));
 
             _logger.LogInformation($"#### log end url = " + Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(Request));
             return Ok(questions);
@@ -101,6 +101,26 @@ namespace AltaPerspectiva.Web.Area.Questions
             }
             var answers = await Task.Run(() => new QuestionServiceOptimized().GetAnswerViewModels(questionId, loggedinUser));
             return Ok(answers);
+        }
+        [Authorize]
+        [HttpPost("/questions/api/{questionId}/addquestionfollowing")]
+        public IActionResult AddQuestionFollowing([FromBody]QuestionFollowingViewModel model)
+        {
+
+            var userId =
+                User.Claims.Where(
+                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(x => x.Value);
+            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+
+
+            AddQuestionFollowingCommand command = new AddQuestionFollowingCommand(loggedinUser,
+                model.FollowedUserId, model.QuestionId, model.AnswerId);
+            commandsFactory.ExecuteQuery(command);
+
+            return Ok();
+
+
         }
 
         [HttpGet("/questions/api/{topicId}/questions/{categoryId}")]
@@ -185,7 +205,7 @@ namespace AltaPerspectiva.Web.Area.Questions
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: 0, pageCount: 10,userId:loggedinUser ,filterParameter: new FilterParameter
+            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: 0, pageCount: 10, userId: loggedinUser, filterParameter: new FilterParameter
             {
                 CategoryId = id
             }));
@@ -212,10 +232,10 @@ namespace AltaPerspectiva.Web.Area.Questions
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
             }
-            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: pageNumber, pageCount: 15,userId: loggedinUser, filterParameter: new FilterParameter
+            List<QuestionViewModel> questions = await Task.Run(() => new QuestionServiceOptimized().GetQuestionViewModels(pageNumber: pageNumber, pageCount: 15, userId: loggedinUser, filterParameter: new FilterParameter
             {
                 CategoryId = catId
-            }) );
+            }));
 
             return Ok(questions);
         }
@@ -439,7 +459,7 @@ Email
 from UserProfile.Credentials
   where userId  = @id ");
                 UserViewModel userViewModel =
-                    connection.Query<UserViewModel>(userQuery, new {@id = loggedinUser}).FirstOrDefault();
+                    connection.Query<UserViewModel>(userQuery, new { @id = loggedinUser }).FirstOrDefault();
 
                 userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
                 if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
@@ -884,27 +904,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
 
 
         }
-        [Authorize]
-        [HttpPost("/questions/api/{questionId}/addquestionfollowing")]
-        public IActionResult AddQuestionFollowing([FromBody]QuestionFollowingViewModel model)
-        {
-
-            var userId =
-                User.Claims.Where(
-                        x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                    .Select(x => x.Value);
-            Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-            if (loggedinUser != model.FollowedUserId)
-            {
-                AddQuestionFollowingCommand command = new AddQuestionFollowingCommand(loggedinUser,
-                    model.FollowedUserId, model.QuestionId, model.AnswerId);
-                commandsFactory.ExecuteQuery(command);
-            }
-            return Ok();
-
-
-        }
+       
 
 
         #endregion
@@ -1049,7 +1049,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
                 !filterParameter.LevelId.HasValue
                 )
             {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategory(pageNumber,filterParameter.MostLikedQuestion,filterParameter.MostViewedQuestion));
+                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategory(pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
 
             }
             //done
@@ -1207,7 +1207,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
                 categoriesSummary.TotalFollowers =
                     queryFactory.ResolveQuery<ICategoriesTotalUsersQuery>().Execute(new Guid("7639B416-8D1C-4119-B58E-143CB860E8A6"));
             }
-           
+
             categoriesSummary.TotalQuestions = questionViewModels.Count();
             categoriesSummary.TotalAnsweredQuestion = questionViewModels.Where(x => x.Answers.Count != 0).Count();
             categoriesSummary.TotalUnAnsweredQuestion = categoriesSummary.TotalQuestions -

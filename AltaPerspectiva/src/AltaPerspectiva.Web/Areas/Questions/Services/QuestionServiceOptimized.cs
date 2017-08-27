@@ -584,7 +584,7 @@ select * ,
 (select COUNT(*) from Questions.Likes l where l.AnswerId =a.Id) LikeCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId =a.Id) CommentCount,
 CASE 
-WHEN EXISTS (select 1 from [Questions].[QuestionUserFollowings] f where f.AnswerId = a.Id and f.UserId ='{1}' and f.IsDeleted is null)  then 1
+WHEN EXISTS (select 1 from [Questions].[QuestionUserFollowings] f where  f.UserId ='{1}' and f.IsDeleted is null  and f.FollowedUserId = a.UserId)  then 1
 else 0 
 END as IsFollowing,
 a.IsAnonymous

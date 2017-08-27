@@ -29,7 +29,7 @@
 			Debug.WriteLine("AddQuestionFollowingCommandHandler executed");
             
 		    QuestionUserFollowing alreadyFollowing =
-		        DbContext.QuestionFollowings.Where(x => x.UserId == command.UserId &&x.FollowedUserId==command.FollowedUserId && x.IsDeleted==null && x.QuestionId==command.QuestionId).FirstOrDefault();
+		        DbContext.QuestionFollowings.Where(x => x.UserId == command.UserId &&x.FollowedUserId==command.FollowedUserId && x.IsDeleted==null).FirstOrDefault();
             //First time add
 		    if (alreadyFollowing == null)
 		    {
@@ -47,17 +47,17 @@
             }
 		    else
 		    {
-		        if (alreadyFollowing.IsDeleted == true)
-		        {
-                    alreadyFollowing.IsDeleted = null;
-                }
-		        else
-		        {
-                    alreadyFollowing.IsDeleted = true;
-                }
+		        //if (alreadyFollowing.IsDeleted == true)
+		        //{
+          //          alreadyFollowing.IsDeleted = null;
+          //      }
+		        //else
+		        //{
+          //          alreadyFollowing.IsDeleted = true;
+          //      }
 		        
 		       
-                DbContext.QuestionFollowings.Update(alreadyFollowing);
+                DbContext.QuestionFollowings.Remove(alreadyFollowing);
             }
             DbContext.SaveChanges();
 

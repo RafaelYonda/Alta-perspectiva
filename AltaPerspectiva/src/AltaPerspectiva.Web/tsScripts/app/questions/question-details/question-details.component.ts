@@ -122,13 +122,14 @@ export class QuestionDetailComponent {
 
         this.dataService.QuestionFollowing(questionFollowing).subscribe((res: any) => {
 
-            var isFollowing = this.question.answers.find(x => x.id == answer.id).isFollowing
-
-            if (isFollowing == true) {
-                this.question.answers.find(x => x.id == answer.id).isFollowing = false;
-            } else {
-                this.question.answers.find(x => x.id == answer.id).isFollowing = true;
+            var isFollowing = this.question.answers.find(x => x.id == answer.id).isFollowing;
+            for (var i = 0; i < this.question.answers.length; i++) {
+                if (this.question.answers[i].userId == questionFollowing.followedUserId) {
+                    this.question.answers[i].isFollowing = !(isFollowing == true);
+                }
             }
+
+
         })
     }
     //anonymous checkbox
