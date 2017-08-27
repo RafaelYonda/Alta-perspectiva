@@ -295,6 +295,11 @@ where c.QuestionId = '{0}'", id);
                 userViewModel.Occupation = commentDbModel.Occupation;
                 userViewModel.Name = commentDbModel.Name;
 
+                if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
+                {
+                    userViewModel.Name = userViewModel.Email;
+                }
+
                 commentViewModel.UserViewModel = userViewModel;
                 commentsVM.Add(commentViewModel);
             }
@@ -340,7 +345,10 @@ where c.AnswerId = '{0}'", id);
                 userViewModel.Email = commentDbModel.Email;
                 userViewModel.Occupation = commentDbModel.Occupation;
                 userViewModel.Name = commentDbModel.Name;
-
+                if (String.IsNullOrEmpty(commentDbModel.Name) || String.IsNullOrWhiteSpace(commentDbModel.Name))
+                {
+                    userViewModel.Name = commentDbModel.Email;
+                }
                 commentViewModel.UserViewModel = userViewModel;
                 commentsVM.Add(commentViewModel);
 
@@ -417,9 +425,30 @@ where c.AnswerId = '{0}'", id);
                 loggedinUser);
             commandsFactory.ExecuteQuery(cmd);
 
-            UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser,
-                configuration);
-            comment.UserViewModel = userViewModel;
+            //UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser,
+            //    configuration);
+            //comment.UserViewModel = userViewModel;
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
+            {
+                String userQuery = String.Format(@" select UserId,
+ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
+ISNULL(ImageUrl,'avatar.png') ImageUrl,
+Occupation,
+Email
+from UserProfile.Credentials
+  where userId  = @id ");
+                UserViewModel userViewModel =
+                    connection.Query<UserViewModel>(userQuery, new {@id = loggedinUser}).FirstOrDefault();
+
+                userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
+                if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
+                {
+                    userViewModel.Name = userViewModel.Email;
+                }
+
+                comment.UserViewModel = userViewModel;
+            }
             return Ok(comment);
 
 
@@ -439,8 +468,27 @@ where c.AnswerId = '{0}'", id);
                 loggedinUser);
             commandsFactory.ExecuteQuery(cmd);
 
-            UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);
-            comment.UserViewModel = userViewModel;
+            AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
+            {
+                String userQuery = String.Format(@" select UserId,
+ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
+ISNULL(ImageUrl,'avatar.png') ImageUrl,
+Occupation,
+Email
+from UserProfile.Credentials
+  where userId  = @id ");
+                UserViewModel userViewModel =
+                    connection.Query<UserViewModel>(userQuery, new { @id = loggedinUser }).FirstOrDefault();
+
+                userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
+                if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
+                {
+                    userViewModel.Name = userViewModel.Email;
+                }
+                comment.UserViewModel = userViewModel;
+
+            }
             return Ok(comment);
 
         }

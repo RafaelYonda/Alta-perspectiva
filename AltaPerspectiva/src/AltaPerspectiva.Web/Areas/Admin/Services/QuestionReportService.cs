@@ -32,7 +32,9 @@ namespace AltaPerspectiva.Web.Areas.Admin.Services
                     QuestionTitle = questionReport?.Question.Title,
                     QuestionBody = questionReport?.Question.Body
                 };
-                model.UserFullName = new UserService().GetUserFullName(queryFactory,model.UserId,configuration);
+
+                var userViewModel = new UserService().GetUserViewModel(queryFactory, model.UserId, configuration);
+                model.UserFullName = userViewModel != null ? userViewModel.Name : "Guest" ;
 
                 questionReportViewModels.Add(model);
             }
