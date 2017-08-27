@@ -115,10 +115,10 @@ export class ViewProfileComponent {
     refreshData() {
         this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
             console.log(usr);
-            localStorage.setItem('currentUserId', usr.userId);
-            localStorage.setItem('currentUserName', usr.firstName +' '+ usr.lastName);
-            localStorage.setItem('currentUserImage', usr.imageUrl ? usr.imageUrl : null);
-            localStorage.setItem('userId', usr.userId);
+            localStorage.setItem('currentUserId', usr.userId.toLocaleString());
+            localStorage.setItem('currentUserName', (usr.firstName + ' ' + usr.lastName).toLocaleString());
+            localStorage.setItem('currentUserImage', usr.imageUrl ? (usr.imageUrl).toLocaleString() : null);
+            localStorage.setItem('userId', usr.userId.toLocaleString());
             this.credential = usr;
             this.changeCredentialStatus();           
         });

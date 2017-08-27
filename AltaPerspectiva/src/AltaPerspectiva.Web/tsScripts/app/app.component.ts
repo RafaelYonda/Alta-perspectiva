@@ -25,10 +25,10 @@ export class AppComponent {
             localStorage.setItem('currentUser', this.username);
             localStorage.setItem('auth_token', this.token);
             this._authService.getLoggedinObj().subscribe(res => {
-                localStorage.setItem('currentUserId', res.userId);
-                localStorage.setItem('currentUserName', res.name);
-                localStorage.setItem('currentUserImage', res.imageUrl ? res.imageUrl : null);
-                localStorage.setItem('userId', res.userId);
+                localStorage.setItem('currentUserId', res.userId.toLocaleString());
+                localStorage.setItem('currentUserName', res.name.toLocaleString());
+                localStorage.setItem('currentUserImage', res.imageUrl ? res.imageUrl.toLocaleString() : null);
+                localStorage.setItem('userId', res.userId.toLocaleString());
             });
         }
         else {
