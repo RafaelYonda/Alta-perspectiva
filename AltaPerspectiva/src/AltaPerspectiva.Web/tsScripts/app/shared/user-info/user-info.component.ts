@@ -18,13 +18,14 @@ export class UserInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-       // this.userInfoDetails = null;
-      //  console.log(this.userObj);
         this.profileService.userInfoDetails(this.userObj.userId).subscribe(res => {
-            // console.log(res);
             this.userObj.userInfoDetails = res;
+            //-----check user Id is equal to logged in user--------
+            console.log(localStorage.getItem("userId"));
+            console.log(this.userObj.userId);
+            if (localStorage.getItem("userId") == this.userObj.userId)
+                this.isAnonymous = false;            
         });
-
     }
 
     over(userId: string) {

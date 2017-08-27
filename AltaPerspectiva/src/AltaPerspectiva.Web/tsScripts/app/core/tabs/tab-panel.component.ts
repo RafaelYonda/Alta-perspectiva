@@ -70,9 +70,8 @@ export class TabPanelComponent {
     }
     UpdateQuestionsByCategory() {
         this.questionAnswerService.getQuestionsByCategoryAndPage(this.id, this.questionPage).subscribe(res => {
-            console.log('tab panel');
-            console.log(res);
-            if (!res && res.length<1)
+            
+            if (!res)
             {
                 this.hideLoader();
                 return;
@@ -80,28 +79,25 @@ export class TabPanelComponent {
             
             //if scroll page number is higher
             if (this.questionPage > 0 && res && res.length > 0 && this.questions && this.questions) {
+                console.log('res >1 page >0');
+                console.log(res);
                 this.questions = this.questions.concat(res);
             }
-            else if (res && res.length > 0)
+            else if (res && res.length >= 0)
             {
                 this.questions = res;
             }
-            console.log('tab panel res' + res.length);
+            
             if (this.questions) {
                 for (var q = 0; q < this.questions.length; q++) {
-                    // answers[0] is the best answer
                     this.questions[q].bestAnswer = this.questions[q].answers[0];
-
                     if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
                         this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
                         this.questions[q].shareUrl = encodeURI(SITE_URL + "/question/detail/" + this.questions[q].id);
                     }
                 }
-               // console.log('tab panel' + this.questions.length);
                 this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             }
-                
-          
             this.hideLoader();
         });
     }
