@@ -76,15 +76,16 @@ export class TabPanelComponent {
                 this.hideLoader();
                 return;
             }               
-            
+            console.log(this.questionPage);
+            console.log(this.questions);
             //if scroll page number is higher
-            if (this.questionPage > 0 && res && res.length > 0 && this.questions && this.questions) {
-                console.log('res >1 page >0');
-                console.log(res);
+            if (this.questionPage > 0 && res && res.length > 0 ) {
+                console.log(this.questionPage);
                 this.questions = this.questions.concat(res);
             }
-            else if (res && res.length >= 0)
+            else if (res && res.length >= 0 && this.questionPage<1)
             {
+                console.log(this.questionPage);
                 this.questions = res;
             }
             
