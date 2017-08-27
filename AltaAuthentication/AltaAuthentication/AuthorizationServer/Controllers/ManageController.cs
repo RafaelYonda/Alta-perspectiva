@@ -213,9 +213,17 @@ namespace AuthorizationServer.Controllers
                 var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //await _signInManager.SignOutAsync();
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User changed their password successfully.");
-                    return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
+                    var redirectUrl = "";
+#if DEBUG
+                    redirectUrl = "http://alta-staging.azurewebsites.net/signout";
+#else
+                    redirectUrl = "http://www.altaperspectiva.com/signout";
+#endif
+                    return RedirectPermanent(redirectUrl);
+                    //return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
                 }
                 AddErrors(result);
                 return View(model);

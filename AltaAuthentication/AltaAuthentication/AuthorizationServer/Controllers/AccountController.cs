@@ -344,7 +344,7 @@ namespace AuthorizationServer.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignOutAsync();
-                return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+                return RedirectToAction(nameof(AccountController.LogOff), "Account");
             }
             AddErrors(result);
             return View();
