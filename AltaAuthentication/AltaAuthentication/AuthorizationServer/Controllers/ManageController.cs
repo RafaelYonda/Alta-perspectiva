@@ -38,6 +38,14 @@ namespace AuthorizationServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(ManageMessageId? message = null)
         {
+            var redirectUrl = "";
+#if DEBUG
+            redirectUrl = "http://alta-staging.azurewebsites.net/signout";
+#else
+                    redirectUrl = "http://www.altaperspectiva.com/signout";
+#endif
+            ViewBag.home = redirectUrl;
+
             ViewData["StatusMessage"] =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
@@ -222,8 +230,9 @@ namespace AuthorizationServer.Controllers
 #else
                     redirectUrl = "http://www.altaperspectiva.com/signout";
 #endif
-                    return RedirectPermanent(redirectUrl);
-                    //return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
+                    ViewBag.home = redirectUrl;
+                    //return RedirectPermanent(redirectUrl);
+                    return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
                 }
                 AddErrors(result);
                 return View(model);
