@@ -108,7 +108,7 @@ ISNULL(@QuestionViewCount,0) QuestionViewCount,
 
 ISNULL(@QuestionViewCount,0) QuestionViewCount
 END
-
+go
 DROP PROC [dbo].[SpTopUserCalculation];
 GO
 CREATE proc [dbo].[SpTopUserCalculation] --'476C56FF-D294-43A3-955D-8C7F3F22C512'
@@ -222,7 +222,7 @@ DECLARE @Bookmarks int;
 select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
 ----------------use same as UserInfoDetails---------------------
 DECLARE @Answers int;
-select @Answers=COUNT(*) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null
+select @Answers=COUNT(DISTINCT a.QuestionId) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null
 and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=0 and q.Isdeleted is  null)
 
 DECLARE @Questions int ;
