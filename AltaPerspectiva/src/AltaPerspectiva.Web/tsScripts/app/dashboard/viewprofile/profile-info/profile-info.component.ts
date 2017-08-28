@@ -48,10 +48,7 @@ export class ProfileInfoComponent {
         console.log('title');
         console.log(this.credential);
         this.getCredetialOnParentLoaded(this.credential);
-        if (this.credential.title )
-            this.credential.title = this.credential.title.trim();
-        if (this.credential.description)
-            this.credential.description = this.credential.description.trim();
+        
         this.isImageUpdated = false;
     }
     ngOnChanges(changes: SimpleChanges) {
@@ -67,7 +64,10 @@ export class ProfileInfoComponent {
         console.log(this.credential);
         if (!data.userId) return;
         this.credential = data;
-
+        if (this.credential.title)
+            this.credential.title = this.credential.title.trim();
+        if (this.credential.description)
+            this.credential.description = this.credential.description.trim();
         if (!this.credential.firstName || !this.credential.lastName)
             this.isUserHidden = false;
 
@@ -78,16 +78,16 @@ export class ProfileInfoComponent {
         return data;
     }
 
-    getLoggedInUser(userId: string) {
-        var currentUser = localStorage.getItem('auth_token');
-        this._authService.getLoggedinObj().subscribe(res => {
-            if (res && currentUser != "null") {
+    //getLoggedInUser(userId: string) {
+    //    var currentUser = localStorage.getItem('auth_token');
+    //    this._authService.getLoggedinObj().subscribe(res => {
+    //        if (res && currentUser != "null") {
 
-                if (userId == res.userId)
-                    this.isOwner = true;
-            }
-        });
-    }
+    //            if (userId == res.userId)
+    //                this.isOwner = true;
+    //        }
+    //    });
+    //}
 
     loadData() {
         this.profileService.GetUsercredentialByUserId(this.credential.userId).subscribe(usr => {
