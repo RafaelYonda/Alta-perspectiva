@@ -98,6 +98,8 @@ export class ProfileInfoComponent {
                 this.imageLink = this.credential.imageUrl;
             }
             else this.imageLink = '../images/userAdd.png';
+
+            window.location.reload(true);
         });
 
     }
