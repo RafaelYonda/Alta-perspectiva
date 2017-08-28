@@ -21,7 +21,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 
         private string selectQuery =
             @"select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn ,bestAns.IsAnonymous
@@ -39,7 +39,7 @@ left join
 (select a.*
 from Questions.Questions q
 inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
-
+where a.IsDrafted is null
 ) bestAns
 on bestAns.QuestionId=q.Id";
         
@@ -272,7 +272,7 @@ on bestAns.QuestionId=q.Id";
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn,
@@ -294,7 +294,7 @@ left join
 (select a.*
 from Questions.Questions q
 inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
-
+where a.IsDrafted is null
 ) bestAns
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion =0
@@ -307,7 +307,7 @@ FETCH NEXT 15 ROWS ONLY; -- take 10 rows
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
@@ -324,7 +324,7 @@ left join
 (select a.*
 from Questions.Questions q
 inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
-
+where a.IsDrafted is null
 ) bestAns
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion =0 and qc.CategoryId = '{2}'
@@ -339,7 +339,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
@@ -356,7 +356,7 @@ left join
 (select a.*
 from Questions.Questions q
 inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
-
+where a.IsDrafted is null
 ) bestAns
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion =0 and qc.CategoryId = '{2}' and qt.TopicId = '{3}'
@@ -371,7 +371,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
@@ -388,7 +388,7 @@ left join
 (select a.*
 from Questions.Questions q
 inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
-
+where a.IsDrafted is null
 ) bestAns
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion =0 and qc.CategoryId = '{2}' and ql.LevelId = '{3}'
@@ -403,7 +403,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
@@ -420,7 +420,7 @@ left join
 (select a.*
 from Questions.Questions q
 inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
-
+where a.IsDrafted is null
 ) bestAns
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion =0 and qc.CategoryId = '{2}' and qt.TopicId = '{3}' and ql.LevelId = '{4}'
@@ -436,7 +436,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
@@ -453,7 +453,7 @@ left join
 (select a.*
 from Questions.Questions q
 inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
-
+where a.IsDrafted is null
 ) bestAns
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion =0 and qt.TopicId = '{2}'
@@ -468,7 +468,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
@@ -485,7 +485,7 @@ left join
 (select a.*
 from Questions.Questions q
 inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
-
+where a.IsDrafted is null
 ) bestAns
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion =0 and qt.TopicId = '{2}' and ql.LevelId = '{3}'
@@ -500,7 +500,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
@@ -517,7 +517,7 @@ left join
 (select a.*
 from Questions.Questions q
 inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
-
+where a.IsDrafted is null
 ) bestAns
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion =0 and ql.LevelId = '{2}'
@@ -589,7 +589,7 @@ else 0
 END as IsFollowing,
 a.IsAnonymous
 from Questions.Answers a 
-where QuestionId = '{0}'
+where QuestionId = '{0}' and a.IsDrafted is null and a.IsDeleted is null
 ", questionId,userId);
 
             String multipleQuery = String.Format(@"

@@ -42,7 +42,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
                queryFactory.ResolveQuery<IProfileParameters>()
                    .GetUserEmailParameter(Startup.ConnectionString, question.UserId);
 
-            EmailHandler emailHandler = new EmailHandler(Startup.SendGridApiKey);
+            EmailHandler emailHandler = new EmailHandler(Startup.SendGridApiKey,Startup.Url);
 
             emailHandler.Title = title;
             emailHandler.QuestionId = questionId;
@@ -92,7 +92,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             //   queryFactory.ResolveQuery<IProfileParameters>()
             //       .GetUserEmailParameter(Startup.ConnectionString, question.UserId);
 
-            EmailHandler emailHandler = new EmailHandler(Startup.SendGridApiKey);
+            EmailHandler emailHandler = new EmailHandler(Startup.SendGridApiKey, Startup.Url);
             emailHandler.Title = title;
             //emailHandler.QuestionId = questionId;
             //emailHandler.QuestionUserName = questionUserEmailParamter.UserName;

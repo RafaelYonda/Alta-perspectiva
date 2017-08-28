@@ -22,7 +22,7 @@ namespace Blog.Command.CommandHandler
         {
             Debug.WriteLine("AddBlogCommandHandler executed");
 
-            Domain.Blog alreadyExist = DbContext.Blogs.Where(x => x.Url == command.Url).FirstOrDefault();
+            Domain.Blog alreadyExist = DbContext.Blogs.Where(x => x.Url == command.Url ||  (x.Title == command.Title && x.UserId == command.UserId)).FirstOrDefault();
             if (alreadyExist == null)
             {
                 Domain.Blog blog = new Domain.Blog

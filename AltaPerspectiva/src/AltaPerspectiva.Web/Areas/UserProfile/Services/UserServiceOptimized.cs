@@ -94,7 +94,7 @@ from UserProfile.Credentials
 
             String filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
@@ -111,7 +111,7 @@ left join
 (select a.*
 from Questions.Questions q
 inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
-
+where a.IsDrafted is null 
 ) bestAns
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion = 0 and q.UserId = '{0}'
@@ -235,7 +235,7 @@ order by q.CreatedOn desc
 
             String filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
+(select COUNT(*) from Questions.Answers a where a.QuestionId = q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
 bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
@@ -250,8 +250,11 @@ LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
 Questions.Levels l ON ql.LevelId = l.Id
 inner join
 (
-select a.* from Questions.Answers a where a.UserId='{0}' and a.IsDrafted is null and a.IsDeleted is null
+select * from (select * ,Row_number() OVER( partition BY a.questionId ORDER BY a.questionId) RowNumber
+from Questions.Answers a 
+where a.UserId='cc6ab4d8-ead2-40d5-a066-a22a6a614dc5' and a.IsDrafted is null and a.IsDeleted is null
 and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=0 and q.Isdeleted is  null)
+) X where X.RowNumber = 1
 
 ) bestAns
 on bestAns.QuestionId=q.Id
