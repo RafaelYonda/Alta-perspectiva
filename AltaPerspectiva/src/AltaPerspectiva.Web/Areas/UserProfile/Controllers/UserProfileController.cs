@@ -454,19 +454,26 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/followerbyuserid/{userId}")]
         public IActionResult Follower(Guid userId)
         {
-
-
             List<Guid> followingUsers =
                 queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowers(userId).Select(x => x.UserId).Distinct().ToList();
             // AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-            List<UserViewModel> userViewModels = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers).Select(x => new UserViewModel
+            var credentials = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers);
+            List<UserViewModel> userViewModels = new List<UserViewModel>();
+            foreach (Credential credential in credentials)
             {
-                CredentialId = x.Id,
-                UserId = x.UserId,
-                ImageUrl = azureFileUploadHelper.GetProfileImage(x.ImageUrl),
-                Name = x.FirstName + " " + x.LastName,
-                Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
-            }).OrderBy(x => x.Name).ToList();
+                UserViewModel userViewModel = new UserViewModel();
+                userViewModel.CredentialId = credential.Id;
+                userViewModel.UserId = credential.UserId;
+                userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
+                userViewModel.Name = credential.FirstName + " " + credential.LastName;
+                userViewModel.Occupation = credential.Occupation;
+
+                if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
+                {
+                    userViewModel.Name = credential.Email;
+                }
+                userViewModels.Add(userViewModel);
+            }
 
             return Ok(userViewModels);
         }
