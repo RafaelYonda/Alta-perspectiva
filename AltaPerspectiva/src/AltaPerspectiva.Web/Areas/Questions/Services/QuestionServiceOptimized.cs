@@ -20,7 +20,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
         private AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
 
         private string selectQuery =
-            @"select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+            @"select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
 (select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
@@ -271,7 +271,7 @@ on bestAns.QuestionId=q.Id";
             if (filterParameter == null || (filterParameter.CategoryId == null && filterParameter.TopicId == null && filterParameter.LevelId == null)) //1.ok
             {
                 filterQuery = String.Format(@"
-select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
 (select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
@@ -306,7 +306,7 @@ FETCH NEXT 15 ROWS ONLY; -- take 10 rows
             else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue && !filterParameter.LevelId.HasValue ) //2.filter only category
             {
                 filterQuery = String.Format(@"
-select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
 (select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
@@ -338,7 +338,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
                      !filterParameter.LevelId.HasValue) //3.filter only category and topic
             {
                 filterQuery = String.Format(@"
-select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
 (select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
@@ -370,7 +370,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
                      filterParameter.LevelId.HasValue) // 4. filter by category and level 
             {
                 filterQuery = String.Format(@"
-select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
 (select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
@@ -402,7 +402,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
                      filterParameter.LevelId.HasValue) //5.filter only category ,topic and level
             {
                 filterQuery = String.Format(@"
-select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
 (select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
@@ -435,7 +435,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
                      !filterParameter.LevelId.HasValue) // 6. filter by topic 
             {
                 filterQuery = String.Format(@"
-select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
 (select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
@@ -467,7 +467,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
                      filterParameter.LevelId.HasValue) //7.Topic and level only
             {
                 filterQuery = String.Format(@"
-select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
 (select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
@@ -499,7 +499,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
                      filterParameter.LevelId.HasValue) //8. level only
             {
                 filterQuery = String.Format(@"
-select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
 (select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,

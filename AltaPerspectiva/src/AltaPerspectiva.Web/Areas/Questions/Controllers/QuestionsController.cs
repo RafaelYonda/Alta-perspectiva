@@ -814,6 +814,12 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
         {
             IEnumerable<Question> questionsByBookmarked = await queryFactory.ResolveQuery<IQuestionsQuery>().GetBookmark(userId);
 
+            if (!questionsByBookmarked.Any())
+            {
+                return Ok(new List<QuestionViewModel>());
+            }
+
+
             List<QuestionViewModel> questionViewModels = new QuestionService().GetQuestionViewModels(questionsByBookmarked, queryFactory, configuration, Guid.Empty);
 
             return Ok(questionViewModels);

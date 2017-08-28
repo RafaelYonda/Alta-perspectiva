@@ -345,3 +345,20 @@ where UserId = @userId
 
 END
 GO
+DROP FUNCTION [dbo].[GetBestAnswerFromQuestionId]
+GO
+CREATE FUNCTION [dbo].[GetBestAnswerFromQuestionId]
+ (
+	@QuestionId nvarchar(255)
+)
+RETURNS nvarchar(255)
+BEGIN
+DECLARE @bestAnswer nvarchar(255);
+select top 1 @bestAnswer=ans.Id from (
+select *, (select COUNT(1) from Questions.Likes l where l.AnswerId=a.Id) as LikeCount
+from Questions.Answers a 
+where a.QuestionId = @QuestionId --and a.IsDrafted is null
+) ans
+ RETURN @bestAnswer
+END
+GO
