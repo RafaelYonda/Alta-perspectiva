@@ -296,7 +296,7 @@ export class QuestionBodyComponent {
             return;
         }  
         this.categoryService.addAddFollower(categoryId).subscribe((res: any) => {
-            this.totalCount.totalUsers += 1;
+            this.totalCount.totalFollowers += 1;
         });
     }
     // #endregion
