@@ -1,4 +1,4 @@
-﻿import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, Output, EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, Output, EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ImageUploadService } from '../../../services/image-upload.service';
 import { ConfigService } from '../../../services/config.service';
@@ -98,8 +98,6 @@ export class ProfileInfoComponent {
                 this.imageLink = this.credential.imageUrl;
             }
             else this.imageLink = '../images/userAdd.png';
-
-            window.location.reload(true);
         });
 
     }
