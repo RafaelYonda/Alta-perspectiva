@@ -2,7 +2,7 @@
 import { AuthenticationService } from '../../services/authentication.service';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
-import { AUTH_SITE_URL } from '../../../globals';
+import { AUTH_SITE_URL, isIE } from '../../../globals';
 import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, Input, ViewEncapsulation } from '@angular/core';
 import { CommunicationService } from '../../services/communication.service';
 
@@ -23,14 +23,13 @@ export class NavBarComponent {
     authUrl = AUTH_SITE_URL + '/Manage/ChangePassword';
 
     constructor(private authService: AuthenticationService, private commServ: CommunicationService, private componentFactoryResolver: ComponentFactoryResolver, private _router: Router) {
-
+        window.navigator.userAgent
         this._authService = authService;
         var user: User = new User();
         //user.userid = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
-
         this.commServ.getuserUpdated().subscribe((res: any) => {
             this.getUser();
         });
@@ -49,14 +48,14 @@ export class NavBarComponent {
             if (!userId)
                 this.getUser();
             else {
+                this.loadforIE();
                 this._logObj = new LogInObj();
                 this._logObj.user = new User();
                 this._logObj.user.userId = localStorage.getItem('currentUserId');
-
                 this._logObj.user.name = localStorage.getItem('currentUserName');
                 this._logObj.user.imageUrl = localStorage.getItem('currentUserImage');
                 this._logObj.isLoggedIn = true;
-                this.showUserInfo = true;
+                this.showUserInfo = true;                
             }
         }
 
@@ -70,7 +69,16 @@ export class NavBarComponent {
             this._logObj.user.imageUrl = res.imageUrl;
             this._logObj.isLoggedIn = true;
             this._logObj.user.userId = res.userId;
+            this.loadforIE();
         });
+    }
+    loadforIE() {
+        var reloadIE = localStorage.getItem('reloadIE');
+        if (reloadIE)
+        {
+            localStorage.setItem('reloadIE', '1');
+            window.location.reload();
+        }
     }
     gotoProfile() {
         this._router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');

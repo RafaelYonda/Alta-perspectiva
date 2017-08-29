@@ -66,7 +66,6 @@ export class QuestionPanelComponent {
         });
     }
     sendCommentCount(param:any) {
-        console.log('sendCommentCount');
         this.sendCommentCountToApStatus.emit(null);
     }
 
@@ -118,8 +117,6 @@ export class QuestionPanelComponent {
 
     @ViewChild('questionReport', { read: ViewContainerRef }) questionReport: ViewContainerRef;
     onQuestionReportClicked(showQuestionReportModal: any) {
-        //console.log('onQuestionReportClicked->onQuestionReportClicked->onQuestionReportClicked->onQuestionReportClicked');
-        console.log(showQuestionReportModal);
         this.questionReport.clear();
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(QuestionReportComponent);
         let dialogComponentRef = this.questionReport.createComponent(dialogComponentFactory);

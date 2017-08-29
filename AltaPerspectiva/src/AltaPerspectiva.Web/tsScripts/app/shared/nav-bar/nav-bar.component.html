@@ -16,8 +16,8 @@
         </ul>
         <div class="nav navbar-right" *ngIf="_logObj.isLoggedIn && showUserInfo">
             <a href="#" class="dropdown-toggle fixed-height" data-toggle="dropdown" aria-expanded="false">
-                <img class="user-image img-circle" src="{{_logObj.user.imageUrl}}" />                
-                <span class="nav-user-info">{{_logObj.user.name}}</span>
+                <img id="nav-user-image" class="user-image img-circle" src="{{_logObj.user.imageUrl}}" />                
+                <span id="nav-user-name" class="nav-user-info">{{_logObj.user.name}}</span>
             </a>
             <!-- ======= -->
             <div class="dropdown-menu dropdown-menu-right" role="menu">

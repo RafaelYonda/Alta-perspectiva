@@ -25,24 +25,30 @@ export class AppComponent {
             localStorage.setItem('currentUser', this.username);
             localStorage.setItem('auth_token', this.token);
             this._authService.getLoggedinObj().subscribe(res => {
+                console.log(res);
+                if (!res.userId)
+                    this.removeLocalStorage();
                 localStorage.setItem('currentUserId', res.userId.toLocaleString());
                 localStorage.setItem('currentUserName', res.name.toLocaleString());
                 localStorage.setItem('currentUserImage', res.imageUrl ? res.imageUrl.toLocaleString() : null);
                 localStorage.setItem('userId', res.userId.toLocaleString());
             });
         }
-        else {
-            localStorage.removeItem('currentUser');
-            localStorage.removeItem('auth_token');
-            localStorage.removeItem('currentUserId');
-            localStorage.removeItem('currentUserName');
-            localStorage.removeItem('currentUserImage');
-            localStorage.removeItem("userId");
-        }
+        else
+            this.removeLocalStorage();
         var componentObj = this;
         setTimeout(function () {
             componentObj.setLocalStorage();
         }, 20000);
+    }
+    removeLocalStorage() {
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('currentUserId');
+        localStorage.removeItem('currentUserName');
+        localStorage.removeItem('currentUserImage');
+        localStorage.removeItem("userId");
+        localStorage.removeItem("reloadIE");
     }
     ngOnInit() {
        
