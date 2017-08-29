@@ -325,7 +325,7 @@ BEGIN
 	FROM  [UserProfile].[Credentials] c
 
 	)
-	select top 100  * ,1*TotalLike + 2*TotalComment + 3*TotalQuestion + 4*TotalAnswer as TotalCommulativePoint   from CTE order by TotalCommulativePoint desc
+	select top 1000  * ,1*TotalLike + 2*TotalComment + 3*TotalQuestion + 4*TotalAnswer as TotalCommulativePoint   from CTE order by TotalCommulativePoint desc
 END
 Go
 
