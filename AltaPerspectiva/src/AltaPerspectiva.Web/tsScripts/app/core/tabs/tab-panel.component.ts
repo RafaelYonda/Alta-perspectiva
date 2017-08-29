@@ -28,7 +28,7 @@ export class TabPanelComponent {
     isLoading = false;
     id: string;
     private sub: any;
-    questions: Question[];
+    questions: Question[]=[];
     shareUrl: string;
     _logObj: LogInObj;
     readMoreLink: string;
@@ -45,8 +45,6 @@ export class TabPanelComponent {
         user.userId = '-1';
         this._logObj = { isLoggedIn: false, user: user };
     }
-
-    
     ngOnInit() {
         var currentUser = localStorage.getItem('auth_token');
         this.authService.getLoggedinObj().subscribe((res:any) => {
@@ -70,12 +68,12 @@ export class TabPanelComponent {
     }
     UpdateQuestionsByCategory() {
         this.questionAnswerService.getQuestionsByCategoryAndPage(this.id, this.questionPage).subscribe(res => {
-            
+            console.log(res);
             if (!res)
             {
                 this.hideLoader();
                 return;
-            }               
+            }
             //if scroll page number is higher
             if (this.questionPage > 0 && res && res.length > 0 ) {
                 this.questions = this.questions.concat(res);

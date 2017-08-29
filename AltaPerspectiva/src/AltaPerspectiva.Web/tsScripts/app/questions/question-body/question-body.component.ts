@@ -34,7 +34,7 @@ export class QuestionBodyComponent {
     route: any;
     //  id: string;
     private sub: any;
-    questions: Question[];
+    questions: Question[] = [];
     _logObj: LogInObj;
     answerList: Answer[];
     questionList: Question[];
