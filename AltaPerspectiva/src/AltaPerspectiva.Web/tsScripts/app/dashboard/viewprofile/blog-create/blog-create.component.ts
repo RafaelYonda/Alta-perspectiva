@@ -34,7 +34,6 @@ export class BlogCreateComponent {
             });
             ///========================Check Owner Blog===
             this.profileService.GetBlogs(params['userId']).subscribe(res => {
-                console.log(res);
                 this.userId = params['userId'];
                 this.blogs = res;
             });
@@ -42,23 +41,17 @@ export class BlogCreateComponent {
     }
     goToBlogPost(blogId: string) {
         window.open('/dashboard/blog-post/' + blogId, 'blank');
-        //console.log(this.router.url);
-        
-        //this.router.navigateByUrl('/dashboard/blog-post/' + blogId, { skipLocationChange: true });
     }
     saveBlog(form: NgForm) {
-        console.log(form);
         var token = localStorage.getItem('auth_token');
         if (!token) {
             this.ShowNotLoggedIn();
             return;
         }
-        console.log(this.blog);
         if ((this.blog.title.trim() == "") || (this.blog.url.trim() == ""))
             return;
         this.blog.userId = this.userId;
         this.profileService.SaveBlog(this.blog).subscribe(res => {
-            console.log(res);
             if (res.result == false) {
                 this.toastr.warning('El blog ya existe', 'Oops! ');
                 return;

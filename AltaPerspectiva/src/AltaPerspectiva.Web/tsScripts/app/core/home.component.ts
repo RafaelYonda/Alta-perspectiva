@@ -11,9 +11,7 @@ export class HomeComponent {
         setInterval(() => this.myTimer(questionServe), 1080000);
     }
     myTimer(serv:any) {
-        console.log('Test');
         serv.keepalive().subscribe((response:any) => {
-            console.log(response);
         });
     }
 }

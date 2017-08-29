@@ -101,7 +101,6 @@ export class ApSearchComponent {
             if (matched) {
                 var cat = this.categories.find(c => c.id == matched.categoryId);
                 this.categoryMatched += (cat == null ? "" : cat.name + " ");
-                console.log(this.categoryMatched);
             }
         });
     }
@@ -113,7 +112,6 @@ export class ApSearchComponent {
     //=============Question show=============
     public questionList:Question[];
     searchClass: string;
-    //placeBottom: string;
     public filteredQuestionList: any = [];
 
     showDetailsQuestionsPanel(input: HTMLInputElement) {
@@ -132,7 +130,6 @@ export class ApSearchComponent {
     movequestionMark(event:any) {
         var textWidth = document.getElementById('temp-text').clientWidth;
         var maxWidth = document.getElementById('title').clientWidth;
-        //var key = event.keyCode || event.charCode;
         textWidth = (textWidth + 20) < 30 ? (textWidth + 10) : (textWidth + 7);
         if (textWidth > maxWidth-22)
             textWidth=maxWidth-22;
@@ -153,10 +150,7 @@ export class ApSearchComponent {
         if (event.keyCode == 32)
         {
             this.title = this.title.trim();
-            //this.title += " ";
         }
-        
-        console.log(this.title);
     }
     filterQuestions(event: KeyboardEvent) { 
         //=======Ctrl+v=====
@@ -164,10 +158,6 @@ export class ApSearchComponent {
         var tempObj = this;
         window.setTimeout(function () {
             tempObj.movequestionMark(event);
-            //if (tempTitle && tempTitle != '')
-            //    if (event.ctrlKey && event.keyCode == 86) {
-            //        tempObj.movequestionMark(event);
-            //    }
         },3);               
         
         

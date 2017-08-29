@@ -76,16 +76,12 @@ export class TabPanelComponent {
                 this.hideLoader();
                 return;
             }               
-            console.log(this.questionPage);
-            console.log(this.questions);
             //if scroll page number is higher
             if (this.questionPage > 0 && res && res.length > 0 ) {
-                console.log(this.questionPage);
                 this.questions = this.questions.concat(res);
             }
             else if (res && res.length >= 0 && this.questionPage<1)
             {
-                console.log(this.questionPage);
                 this.questions = res;
             }
             
@@ -113,7 +109,6 @@ export class TabPanelComponent {
         this.sub.unsubscribe();
     }
     showLoader() {
-        // console.log('showloader started');
         this.isLoading = true;
     }
 

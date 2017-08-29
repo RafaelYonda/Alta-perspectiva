@@ -67,7 +67,6 @@ export class ApSearchDropDownComponent {
 
         this.questionsService.saveQuestionSaveViewModel(this.question).subscribe(res => {
             this.question = res;
-            console.log(this.router.url)
             if (this.router.url == "/question/home/1")
                 this.submitEmitter.emit("submitted");
             else

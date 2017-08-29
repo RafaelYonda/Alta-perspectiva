@@ -11,9 +11,6 @@ import { Router } from '@angular/router';
 export class loginModalComponent {
     close = new EventEmitter();
     question: Question;
-    //QuestionEditModal
-
-    //Edit question popup
     showQuestionEditForm: boolean
     isFollowing: boolean
     editTitle: string
@@ -26,32 +23,22 @@ export class loginModalComponent {
         this._router = router;
     }
     ngOnInit() {
-        //console.log('My question' + this.question);
         this.isFollowing = true;
     }
     handleClick(event: any) {
         //removel the modal on clicking out side the panel
-        //var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement
-        //removel the modal on clicking out side the panel
         var idAttr = target['id'];
-
         var value = idAttr ? idAttr.nodeValue : undefined;
         if (value =='dialogModal')
             this.close.emit('event');
     }
     QuestionFollowing(question: Question) {
-        
-        
         let questionFollowing = new QuestionFollowing();
         questionFollowing.questionId = question.id;
         questionFollowing.answerId = question.bestAnswer.id;
         questionFollowing.followedUserId = question.bestAnswer.userId;
-
-        console.log(questionFollowing);
-
         this.dataService.QuestionFollowing(questionFollowing).subscribe(res => {
-            console.log('successfullt passed')
             if (this.isFollowing == true) {
                 this.isFollowing = false;
             } else {
@@ -59,7 +46,6 @@ export class loginModalComponent {
             }
         })
     }
-    //<a (click)="QuestionFollowing(question?.id,question?.bestAnswer?.id)" > <img src="../images/FollowingImage.jpg" /></a>
     //Edit Question Popup
     onQuestionDetailClicked(showEditForm: boolean) {
         this.showQuestionEditForm = showEditForm;

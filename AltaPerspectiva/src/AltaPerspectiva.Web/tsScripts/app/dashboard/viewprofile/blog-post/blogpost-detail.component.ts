@@ -17,7 +17,6 @@ export class BlogpostDetailComponent {
     constructor(private _route: ActivatedRoute, private profileService: ProfileService) {
     }
     ngOnInit() {
-        console.log(this.post);
     }
     isEditDescription: boolean;
     isEditTitle: boolean;

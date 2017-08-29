@@ -169,8 +169,6 @@ export class QuestionBodyComponent {
         var subs: any;
         subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter, this.questionPage);
         subs.subscribe((res: any) => {
-            console.log(res);
-            console.log(this.questionPage);
             if (this.questionPage > 0 && res && res.length > 0 && this.questions ) {
                 this.questions = this.questions.concat(res);
             }
@@ -297,8 +295,6 @@ export class QuestionBodyComponent {
     onScroll() {
         this.questionPage = this.questionPage + 1;
         this.LoadFilteredQuestions();
-        console.log('scrolled down!!');
-
     }
     hideMenu() {
         var leftMenu = document.getElementById('toggleMenu');

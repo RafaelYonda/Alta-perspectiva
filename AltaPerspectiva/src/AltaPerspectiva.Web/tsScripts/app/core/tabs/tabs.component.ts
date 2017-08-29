@@ -30,10 +30,6 @@ export class TabsComponent {
         });
     }
     ngOnInit() {
-       
-
-        //console.log('on init');
-        //this._router.navigateByUrl('home/tab/1', { skipLocationChange: true });
     }
     //anonymous checkbox
     onChange(event:boolean) {      

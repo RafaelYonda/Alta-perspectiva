@@ -9,9 +9,6 @@
     "SendGridApiKey": "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"
   },
   "Url": "http://www.altaperspectiva.com",
-
-
-
   "StagingData": {
     "DefaultConnection": {
       //"ConnectionString": "Server=DESKTOP-T631FTK\\SQLEXPRESS;Database=OpennId;Trusted_Connection=True;MultipleActiveResultSets=true"

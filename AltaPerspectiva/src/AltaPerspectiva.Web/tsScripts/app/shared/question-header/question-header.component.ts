@@ -14,16 +14,7 @@ export class QuestionHeaderComponent {
     constructor(private _router: Router) {
         
     }
-    //constructor() {
-    //topic
-    // <!--<a[routerLink]="['/question/home',question?.categories[0]?.id,question?.questionTopics[0]?.topicId,question?.questionLevels[0]?.levelId]" > {{question ?.questionTopicNames[0]}}</a>-->
-    //level
-    //<a[routerLink]="['/question/home',question?.categories[0]?.id,question?.questionTopics[0]?.topicId,question?.questionLevels[0]?.levelId]" > {{question ?.questionLevelNames[0]}}</a>-->
-
-    //}
     topicRoute(categoryId: string, topicId: string) {
-        //  console.log(this.question);
-
         if (!topicId) {
             topicId = '0';
         }
@@ -31,8 +22,6 @@ export class QuestionHeaderComponent {
         this._router.navigateByUrl('/question/home/' + categoryId + '/' + topicId + '/' + 0);
     }
     levelRoute(categoryId: string, topicId: string,levelId: string){
-      //  console.log(this.question);
-
         if (!topicId) {
             topicId = '0';
         }
@@ -40,6 +29,5 @@ export class QuestionHeaderComponent {
         this._router.navigateByUrl('/question/home/' + categoryId + '/' + topicId+'/'+levelId);
     }
     ngOnInit() {
-       // console.log(this.question);
     }
 }

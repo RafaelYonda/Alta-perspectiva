@@ -101,8 +101,6 @@ export class QuestionDetailComponent {
                 });
                 //=======
                 this.dataService.GetAnswersByQuestionId(this.question.id).subscribe((res: any) => {
-                    console.log('Get Answer');
-                    console.log(res);
                     this.question.answers = res;
                 });
             });
@@ -180,8 +178,6 @@ export class QuestionDetailComponent {
             //    this.question = res;
             //});
             this.dataService.GetAnswersByQuestionId(this.question.id).subscribe((res: any) => {
-                console.log('Get Answer');
-                console.log(res);
                 this.question.answers = res;
             });
         });

@@ -74,7 +74,6 @@ export class ViewProfileComponent {
             });
             //===========Get Blog updated==========
             this.commServ.getBlogUpdated().subscribe(res => {
-                console.log('blog Updated');
                 this.GetProfileStatisticsParam(params['userId']);
             });
             //=====Get user Credential=========
@@ -100,7 +99,6 @@ export class ViewProfileComponent {
 
     GetProfileStatisticsParam(userId: string) {
         this.profileService.getProfileStatistics(userId).subscribe(profileParam => {
-            console.log(profileParam);
             this.profileParam = profileParam;
         });}
     onUpdatedProfile(updated:any)
@@ -114,7 +112,6 @@ export class ViewProfileComponent {
     }
     refreshData() {
         this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
-            console.log(usr);
             localStorage.setItem('currentUserId', usr.userId.toLocaleString());
             localStorage.setItem('currentUserName', (usr.firstName + ' ' + usr.lastName).toLocaleString());
             localStorage.setItem('currentUserImage', usr.imageUrl ? (usr.imageUrl).toLocaleString() : null);

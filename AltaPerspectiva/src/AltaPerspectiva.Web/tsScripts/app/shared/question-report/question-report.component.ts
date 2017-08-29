@@ -25,13 +25,10 @@ export class QuestionReportComponent {
         this.close.emit('event');
     }
     ngOnInit() {
-       // console.log('My question' + this.question);
     }
     handleClick(event: any) {
         //removel the modal on clicking out side the panel
-        //var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement
-        //removel the modal on clicking out side the panel
         var idAttr = target['id'];
 
         var value = idAttr ? idAttr.nodeValue : undefined;

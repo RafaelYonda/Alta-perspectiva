@@ -36,7 +36,6 @@ export class QuestionFullscreenComponent {
         this.route.data
             .subscribe((res: any) => {
                 this.question = res.question;
-                console.log(this.question);
                 });
     }
 

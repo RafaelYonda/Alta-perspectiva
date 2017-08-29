@@ -28,10 +28,8 @@ export class AddEducationComponent {
     }
     saveEducation() {
 
-        console.log(this.education);
         this.profileService.AddEducation(this.education).subscribe(res => {
             this.close.emit('event');
-            console.log(res);
         });
     }
     DeleteEducation() {

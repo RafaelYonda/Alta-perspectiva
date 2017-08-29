@@ -29,7 +29,6 @@ export class ApSearchComponent {
          });
     }
     onTopicChange(topicId) {
-        console.log(topicId);
         this.topicID = topicId;
          this.questionsService.getlevel().subscribe(res => {
             this.levels = res;
@@ -37,7 +36,6 @@ export class ApSearchComponent {
          });
     }
     onLevelChange(levelId) {
-        console.log(levelId);
         this.levelID = levelId;
     }
     constructor(private router: Router, private categoryService: CategoryService, private questionsService: QuestionAnswerService, private myElement: ElementRef) {
@@ -62,9 +60,7 @@ export class ApSearchComponent {
 
     handleClick(event) {
         //removel the modal on clicking out side the panel
-        //var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement
-        //removel the modal on clicking out side the panel
         var idAttr = target['id'];
 
         var value = idAttr ? idAttr.nodeValue : undefined;
@@ -72,9 +68,7 @@ export class ApSearchComponent {
             this.removeModal();
     }
     onChange(event) {
-        
         this.isAnonymous = event;
-        console.log(" : " + this.isAnonymous );
     }
     //=============Submit Question===========
     question: Question;
@@ -86,14 +80,12 @@ export class ApSearchComponent {
         this.question.topicId = this.topicID == '-1' ? '' : this.topicID;
         this.question.levelId = this.levelID=='-1'?'':this.levelID;
         this.question.isAnonymous = this.isAnonymous;
-        //CategoryID=-1 is for placeholder .So will not be added to question while savings
         if (this.categoryID != '-1')
             this.question.categoryIds.push(this.categoryID);
         else
             this.question.categoryIds.push(this.categories[0].id);
 
         this.questionsService.saveQuestionSaveViewModel(this.question).subscribe(res => {
-            console.log('in ok');
             this.question = res;
             this.router.navigate(['/question/home/1']);
 
@@ -106,13 +98,10 @@ export class ApSearchComponent {
     categoryID: string = '-1';
     topicID: string = '-1';
     levelID: string = '-1';
-   // body: string = '';
     public icon: string;
     public visible = true;
 
     showMatchedCatogries(title: string) {
-        //if (title.length < 3)
-        //    return;
         var keywordsInQuestionTitle = title.split(' '); //Get words from question to find keywords
         this.categoryMatched = "";
         keywordsInQuestionTitle.forEach(str => {
@@ -121,7 +110,6 @@ export class ApSearchComponent {
             if (matched) {
                 var cat = this.categories.find(c => c.id == matched.categoryId);
                 this.categoryMatched += (cat == null ? "" : cat.name + " ");
-                console.log(this.categoryMatched);
             }
         });
     }
@@ -133,7 +121,6 @@ export class ApSearchComponent {
     //=============Question show=============
     public questionList = [];
     searchClass: string;
-    //placeBottom: string;
     public filteredQuestionList: any = [];
 
     showDetailsQuestionsPanel(input: HTMLInputElement) {
@@ -152,7 +139,6 @@ export class ApSearchComponent {
         var form = document.getElementById("question-end");
         this.questionLeftposition = this.questionLeftposition+7;
         form.style.left = this.questionLeftposition.toString() + 'px';
-        console.log(form.style.left);
     }
     resetquestionMark() {
         this.showQuestion = false;
@@ -192,7 +178,6 @@ export class ApSearchComponent {
         this.filteredQuestionList = [];
         this.categoryMatched = "";
         document.getElementById("search-box").className = this.placeBottom +" z-header";
-        //document.getElementById("search-box").className = this.searchClass;
         var form = document.getElementById("search-panel");
         form.style.marginTop = '0';
         this.resetquestionMark();

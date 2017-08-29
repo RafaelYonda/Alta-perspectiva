@@ -18,7 +18,6 @@ export class FollowingComponent {
         this.sub = this._route.parent.params.subscribe(params => {
             this.profileServ.GetFollowingsByUserId(params['userId']).subscribe(usr => {     //Get User Image
                 this.user = usr;
-                console.log(this.user);
                 this.hideLoader();
             });
         });

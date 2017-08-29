@@ -28,7 +28,6 @@ export class FacebookComponent {
             this.close.emit('event');
     }
     saveTitle() {
-        console.log(this.title);
         var credential = new CredentialViewModel();
         credential.userId = this.useId;
         credential.facebookLink = this.title;
@@ -39,8 +38,6 @@ export class FacebookComponent {
         });
     }
     DeleteTitle() {
-       // console.log('Deleted with userId');
-       // console.log(this.title);
         var credential = new CredentialViewModel();
         credential.userId = this.useId;
         credential.facebookLink = 'facebook';

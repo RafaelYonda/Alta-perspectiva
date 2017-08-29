@@ -32,7 +32,6 @@ export class DirectQuestionComponent {
             this.categories = res;
         });
         this.questionsService.GetDirectQuestion(this.questionAskedToUser).subscribe(res => {
-            console.log(res);
             this.questions = res;
         });
     }
@@ -53,7 +52,6 @@ export class DirectQuestionComponent {
             this.body = '';
             //this.question = res;
             this.ngOnInit();
-            console.log(res);
         });
     }
     @ViewChild('logginAnchor', { read: ViewContainerRef }) logginAnchor: ViewContainerRef;

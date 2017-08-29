@@ -24,7 +24,6 @@ export class QuestionMenuPanelComponent {
 
     ngOnInit() {
         this.categoryService.getAllCategories().subscribe(res => {
-            console.log('question Left Menu');
             this.categories = res;
         });
     }

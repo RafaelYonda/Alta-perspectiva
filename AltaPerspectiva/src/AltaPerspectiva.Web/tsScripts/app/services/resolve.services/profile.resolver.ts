@@ -19,7 +19,6 @@ export class ProfileResolver implements Resolve<Profile> {
     }
     GetAllProfile(): Observable<any> {
         var url = 'userprofile/api/getuserprofile';
-        console.log(url);
         return this._http.get(url)
             .map(this.extractData)
             .catch(this.handleError);
@@ -28,7 +27,6 @@ export class ProfileResolver implements Resolve<Profile> {
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
         //let id = route.params['id'];
         var result = this.GetAllProfile();
-        console.log(result);
         return result;
     }
     

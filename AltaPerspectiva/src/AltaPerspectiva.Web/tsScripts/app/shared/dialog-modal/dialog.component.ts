@@ -30,7 +30,6 @@ export class DialogComponent {
         this._router = router;
     }
     ngOnInit() {
-        //console.log('My question' + this.question);
         this.isFollowing = true;
         var user = localStorage.getItem('auth_token');
         if (user) {
@@ -39,9 +38,7 @@ export class DialogComponent {
     }
     handleClick(event: any) {
         //removel the modal on clicking out side the panel
-        // var idAttr = event.srcElement.attributes.id;
         var target = event.target || event.srcElement;      //Firefox does not have srcElement
-        //removel the modal on clicking out side the panel
         var idAttr = target['id'];
 
         var value = idAttr ? idAttr.nodeValue : undefined;
@@ -59,11 +56,7 @@ export class DialogComponent {
         questionFollowing.questionId = question.id;
         questionFollowing.answerId = question.bestAnswer.id;
         questionFollowing.followedUserId = question.bestAnswer.userId;
-
-        console.log(questionFollowing);
-
         this.dataService.QuestionFollowing(questionFollowing).subscribe(res => {
-            //console.log('successfullt passed')
             if (this.isFollowing == true) {
                 this.isFollowing = false;
             } else {
@@ -71,7 +64,6 @@ export class DialogComponent {
             }
         })
     }
-    //<a (click)="QuestionFollowing(question?.id,question?.bestAnswer?.id)" > <img src="../images/FollowingImage.jpg" /></a>
     //Edit Question Popup
     onQuestionDetailClicked(showEditForm: boolean) {
         this.showQuestionEditForm = showEditForm;

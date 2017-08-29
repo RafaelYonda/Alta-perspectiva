@@ -28,14 +28,12 @@ export class AddEmploymentComponent {
     onEmploymentSubmit() {
          this.profileService.AddEmployment(this.employment).subscribe(res => {
             this.close.emit('event');
-            console.log(res);
          });
     }
     DeleteEmployment() {
         this.profileService.DeleteEmployment(this.employment).subscribe(res => {
             this.employment = new Employment();
             this.close.emit('event');
-            console.log(res);
         });
     }
 }

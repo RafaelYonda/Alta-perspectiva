@@ -19,16 +19,10 @@ export class VirtualStoreComponent {
     }
     ngOnInit() {
         window.scrollTo(0, 0);
-        //this.profileServ.getVirtualStoreItems().subscribe(res => {
-        //    this.virtualStores = res;
-        //    console.log(res);
-        //});
-
         this.sub = this._route.parent.params.subscribe(params => {
             this.profileServ.getVirtualStoreItems(params['userId']).subscribe(res => {     //Get User Image
                 this.emptyMessage = "¡Pronto podrás ofrecer tus productos y servicios de consultoría para emprendedores y microempresas!";
                 this.virtualStores = res;
-                console.log(res);
             });
         });
     }

@@ -42,7 +42,7 @@ namespace AuthorizationServer.Controllers
 #if DEBUG
             redirectUrl = "http://alta-staging.azurewebsites.net/signout";
 #else
-                    redirectUrl = "http://www.altaperspectiva.com/signout";
+            redirectUrl = "http://www.altaperspectiva.com/signout";
 #endif
             ViewBag.home = redirectUrl;
 

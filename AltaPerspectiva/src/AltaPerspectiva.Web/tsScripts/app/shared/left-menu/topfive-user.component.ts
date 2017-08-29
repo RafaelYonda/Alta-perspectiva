@@ -26,23 +26,12 @@ export class TopFiveUserComponent {
         this.commServ.getCategory().subscribe((catId: string) => {
             this.profileService.GetTopFiveUserByCategory(catId).subscribe(res => {
                 this.topFiveUsers = res;
-                //for (var i = 0; i < this.topFiveUsers.length; i++) {
-                //    this.profileService.userInfoDetails(this.topFiveUsers[i].userId).subscribe(res2 => {
-                //         console.log(res2);
-                //        this.topFiveUsers[i].userInfoDetails = res2;
-
-                //    });
-                //}
-                
             });
         });
     }
     userover(userId: string) {
         this.userInfoDetails = null;
-        //this.userInfoDetails = this.topFiveUsers.find(x => x.userId == userId).userInfoDetails;
-        console.log(userId);
         this.profileService.userInfoDetails(userId).subscribe(res => {
-            // console.log(res);
             this.userInfoDetails = res;
 
         });

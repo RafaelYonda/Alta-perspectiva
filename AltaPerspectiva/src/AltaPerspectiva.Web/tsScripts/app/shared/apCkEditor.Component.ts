@@ -13,7 +13,5 @@ export class AppCkEditorComponent {
         this.ckeditorContent = "<p>Question details</p>";
     }
     onChange(value:Event) {
-        console.log(value);
-        console.log(this.ckeditorContent);
     }
 }

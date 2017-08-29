@@ -31,7 +31,6 @@ export class StatusService  {
     }
 
     showLikeUserDetailsByQuestion(questionId: string): Observable<User[]> {
-        console.log(questionId +' in addLikeUserDetails');
         return this._http.get('/questions/api/question/' + questionId + '/questionlike', null)
             .map(this.extractData)
             .catch(this.handleError);
@@ -39,7 +38,6 @@ export class StatusService  {
     }
 
     showLikeUserDetailsByAnswer(answerId: string): Observable<User[]> {
-        console.log(answerId +' in addLikeUserDetails');
         return this._http.get('/questions/api/question/' + answerId + '/answerlike', null)
             .map(this.extractData)
             .catch(this.handleError);

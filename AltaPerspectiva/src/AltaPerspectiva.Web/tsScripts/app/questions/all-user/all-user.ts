@@ -37,7 +37,6 @@ export class AllUserComponent {
     }
     onKeyPress() {
         this.loader = true;
-        console.log(this.userName);
         if (this.userName) {
             this.profileService.GetUsers(this.userName).subscribe(res => {
                 this.user = [];

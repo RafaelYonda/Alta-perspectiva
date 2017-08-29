@@ -27,11 +27,8 @@ export class BlogPostComponent {
     }
     ngOnInit() {
         window.scrollTo(0, 0);
-        //this.blogPost.description
-        //this.blogPost.title = "Add Title Post";
         var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
-        //console.log(currentUserName);
         if (currentUserName != null) {
             this._logObj.user.name = currentUserName;
             this._logObj.user.imageUrl = currentUserImage;
@@ -54,12 +51,10 @@ export class BlogPostComponent {
             ///========================Check Owner Blog===
 
             this.profileService.GetBlogById(params['blogId']).subscribe(res => {
-                console.log(res);
                 this.blogId = params['blogId'];
                 this.blog = res;
                 this.profileService.GetBlogPostsByBlogId(this.blogId).subscribe(res => {
                     this.blogposts = res;
-                    console.log(this.blogposts);
                 });
                // this.SetBlogPosts(res.id);
             });
@@ -86,9 +81,7 @@ export class BlogPostComponent {
             return;
         this.blogPost.blogId = this.blogId;        
         this.profileService.SaveBlogPost(this.blogPost).subscribe(res => {
-            console.log(res);
             this.profileService.GetBlogPostsByBlogId(this.blogId).subscribe(res => {
-                console.log(res);
                 this.blogposts = res;
             });
         });
@@ -101,7 +94,6 @@ export class BlogPostComponent {
 
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(BlogpostDetailComponent);
         let dialogComponentRef = this.blogPostDetailDialogAnchor.createComponent(dialogComponentFactory);
-        console.log(post);
         dialogComponentRef.instance.post = post;
 
         //dialogComponentRef.instance.education.credentialId = this.credential.id;

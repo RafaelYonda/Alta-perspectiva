@@ -31,6 +31,5 @@ export class UserInfoComponent implements OnInit {
         this.userInfoDetails = this.userObj.userInfoDetails;
     }
     onfocus() {
-        console.log('HEllo focus');
     }
 }

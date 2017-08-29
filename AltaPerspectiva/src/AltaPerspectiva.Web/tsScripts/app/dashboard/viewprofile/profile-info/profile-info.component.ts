@@ -46,23 +46,17 @@ export class ProfileInfoComponent {
         this.toastr.setRootViewContainerRef(vcr);
     }
     ngOnInit() {
-        console.log('title');
-        console.log(this.credential);
         this.getCredetialOnParentLoaded(this.credential);
         
         this.isImageUpdated = false;
     }
     ngOnChanges(changes: SimpleChanges) {
-        console.log('Changes');
-        console.log(this.credential);
         // only run when property "data" changed
         if (changes['credential']) {
             this.getCredetialOnParentLoaded(this.credential);
         }
     }
     getCredetialOnParentLoaded(data: CredentialViewModel): CredentialViewModel {
-        console.log('GetparentCredential');
-        console.log(this.credential);
         if (!data.userId) return;
         this.credential = data;
         if (this.credential.title)
@@ -92,8 +86,6 @@ export class ProfileInfoComponent {
 
     loadData() {
         this.profileService.GetUsercredentialByUserId(this.credential.userId).subscribe(usr => {
-            console.log('load data');
-            console.log(this.credential);
             this.credential = usr;
             if (this.credential.imageUrl && (this.credential.imageUrl != '')) {
                 this.imageLink = this.credential.imageUrl;
