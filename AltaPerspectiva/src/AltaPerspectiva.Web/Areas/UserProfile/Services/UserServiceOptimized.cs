@@ -252,7 +252,7 @@ inner join
 (
 select * from (select * ,Row_number() OVER( partition BY a.questionId ORDER BY a.questionId) RowNumber
 from Questions.Answers a 
-where a.UserId='cc6ab4d8-ead2-40d5-a066-a22a6a614dc5' and a.IsDrafted is null and a.IsDeleted is null
+where a.UserId='{0}' and a.IsDrafted is null and a.IsDeleted is null
 and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=0 and q.Isdeleted is  null)
 ) X where X.RowNumber = 1
 
