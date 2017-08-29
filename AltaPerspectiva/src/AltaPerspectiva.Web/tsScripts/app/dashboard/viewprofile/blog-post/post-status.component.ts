@@ -24,7 +24,7 @@ export class PostStatusComponent {
 
     ngOnInit() {
 
-        this.blogPost.shareUrl = encodeURI(SITE_URL+"/dashboard/blog-post/" + this.blogPost.id);
+        this.blogPost.shareUrl = encodeURI(SITE_URL+"/dashboard/blog-post/" + this.blogPost.blogId);
         if (this.blogPost.description)
         {
             this.blogText = this.blogPost.description.replace(/<\/?[^>]+(>|$)/g, "").substring(0,200);

@@ -25,6 +25,7 @@ export class AppComponent {
             localStorage.setItem('currentUser', this.username);
             localStorage.setItem('auth_token', this.token);
             this._authService.getLoggedinObj().subscribe(res => {
+                console.log((new Date()).toLocaleString());
                 console.log(res);
                 if (!res.userId)
                     this.removeLocalStorage();

@@ -19,13 +19,25 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
         private string connectionString = Startup.ConnectionString;
         private AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
 
-        private string selectQuery =
-            @"select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+        //        private string selectQuery =
+        //            @"select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
+        //(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
+        //(select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
+        //(select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
+        //bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn ,bestAns.IsAnonymous
+        //from Questions.Questions q ";
+
+
+        private string selectQuery = @"
+
+select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
 (select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
-bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn ,bestAns.IsAnonymous
-from Questions.Questions q ";
+bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn ,bestAns.IsAnonymous,
+(select COUNT(*) from Questions.Likes l where l.QuestionId = q.Id) as QuestionLike
+from Questions.Questions q
+";
 
         private string joinQuery = @"LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
@@ -64,18 +76,9 @@ on bestAns.QuestionId=q.Id";
             }
 
 
-            string questionLikeSelectQuery = String.Format(@"
-select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
-(select COUNT(*) from Questions.Answers a where a.QuestionId =q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
-(select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
-(select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
-bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn ,bestAns.IsAnonymous,
-(select COUNT(*) from Questions.Likes l where l.QuestionId = q.Id) as QuestionLike
-from Questions.Questions q
-
-");
+   
         QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
-                .WithSelectQuery(questionLikeSelectQuery)
+                .WithSelectQuery(selectQuery)
                             .WithJoinQuery(joinQuery)
                 .WithWhereQuery(whereQuery)
                 .WithOrderByQuery(orderByQuery)
@@ -95,7 +98,7 @@ from Questions.Questions q
 
             if (mostLikedQuestion)
             {
-                orderByQuery = "order by AnswerCount desc ";
+                orderByQuery = "order by QuestionLike desc  ,q.CreatedOn desc  ";
             }
             if (mostViewedQuestion)
             {
@@ -122,7 +125,7 @@ from Questions.Questions q
 
             if (mostLikedQuestion)
             {
-                orderByQuery = "order by AnswerCount desc ";
+                orderByQuery = "order by QuestionLike desc  ,q.CreatedOn desc  ";
             }
             if (mostViewedQuestion)
             {
@@ -151,7 +154,7 @@ from Questions.Questions q
 
             if (mostLikedQuestion)
             {
-                orderByQuery = "order by AnswerCount desc ";
+                orderByQuery = "order by QuestionLike desc  ,q.CreatedOn desc  ";
             }
             if (mostViewedQuestion)
             {
@@ -178,7 +181,7 @@ from Questions.Questions q
 
             if (mostLikedQuestion)
             {
-                orderByQuery = "order by AnswerCount desc ";
+                orderByQuery = "order by QuestionLike desc  ,q.CreatedOn desc  ";
             }
             if (mostViewedQuestion)
             {
@@ -205,7 +208,7 @@ from Questions.Questions q
 
             if (mostLikedQuestion)
             {
-                orderByQuery = "order by AnswerCount desc ";
+                orderByQuery = "order by QuestionLike desc  ,q.CreatedOn desc  ";
             }
             if (mostViewedQuestion)
             {
@@ -232,7 +235,7 @@ from Questions.Questions q
 
             if (mostLikedQuestion)
             {
-                orderByQuery = "order by AnswerCount desc ";
+                orderByQuery = "order by QuestionLike desc  ,q.CreatedOn desc  ";
             }
             if (mostViewedQuestion)
             {
@@ -259,7 +262,7 @@ from Questions.Questions q
 
             if (mostLikedQuestion)
             {
-                orderByQuery = "order by AnswerCount desc ";
+                orderByQuery = "order by QuestionLike desc  ,q.CreatedOn desc  ";
             }
             if (mostViewedQuestion)
             {

@@ -63,7 +63,9 @@ namespace AltaPerspectiva
 
             Url = "http://alta-staging.azurewebsites.net/";
 #else
-             Url = "http://alta-staging.azurewebsites.net/"; 
+
+            Url = "http://alta-staging.azurewebsites.net/";
+            //Url = "http://www.altaperspectiva.com/"; 
 #endif
 
         }
@@ -319,9 +321,9 @@ namespace AltaPerspectiva
                 Authority = "http://alta-staging-auth.azurewebsites.net/",
 
 
-              //   ClientId = "azure",       // for azure deploy  altaperspectiva
+                // ClientId = "azure",       // for azure deploy  altaperspectiva
                 // PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
-               // Authority = "http://altaauth.azurewebsites.net",
+                //Authority = "http://altaauth.azurewebsites.net",
 #endif
 
                 ClientSecret = "aLtaseCreT!@#",

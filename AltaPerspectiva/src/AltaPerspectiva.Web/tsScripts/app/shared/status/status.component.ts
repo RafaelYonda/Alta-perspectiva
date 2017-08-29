@@ -76,8 +76,8 @@ export class StatusComponent {
 
         });
         this.twitterShareTitle = this.questionObj.title;
-        if (this.twitterShareTitle.length > 134) {
-            this.twitterShareTitle = this.twitterShareTitle.substring(0, 134) + '...';
+        if (this.twitterShareTitle.length > 36) {
+            this.twitterShareTitle = this.twitterShareTitle.substring(0, 36) + '...';
         } else {
             this.twitterShareTitle = this.twitterShareTitle + '...';
         }
