@@ -6,6 +6,7 @@ import { CredentialViewModel } from '../../../services/models/models.profile';
 import {User} from '../../../services/models';
 import { ProfileService } from '../../../services/profile.service';
 import { AuthenticationService } from '../../../services/authentication.service';
+import {  isIE } from '../../../../globals';
 //Modal
 import { AddCredentialComponent } from '../edit-profile/add-credential.component';
 import { PreviewImageComponent } from '../edit-profile/preview-image.component';
@@ -111,13 +112,19 @@ export class ProfileInfoComponent {
             return;
         this.profileService.SaveUserName(this.credential.firstName, this.credential.lastName, this.credential.userId).subscribe(res => {
             this.onUpdated.emit(true);
+            if (isIE) {
+                localStorage.setItem('currentUserName', this.credential.firstName + this.credential.lastName);
+                window.location.reload();
+            }
             this.loadData();
+            
         });
     }
     updateDecription() {
         this.profileService.saveDescription(this.credential).subscribe(res => {
             this.showDescription = true;
             this.loadData();
+
         });
     }
     @ViewChild('credentialDialogAnchor', { read: ViewContainerRef }) credentialDialogAnchor: ViewContainerRef;

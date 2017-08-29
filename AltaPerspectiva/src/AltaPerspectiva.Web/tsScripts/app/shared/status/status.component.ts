@@ -81,7 +81,6 @@ export class StatusComponent {
         } else {
             this.twitterShareTitle = this.twitterShareTitle + '...';
         }
-        console.log(this.twitterShareTitle);
     }
     getLoggedinObjct() {
         var currentUser = localStorage.getItem('auth_token');
@@ -134,7 +133,6 @@ export class StatusComponent {
         });
     }
     sendCommentCountToApStatus(param: any) {
-        console.log('sendCommentCountToApStatus');
     }
     bookmarkClicked(questionId: string) {
         var user = localStorage.getItem('auth_token');
@@ -143,7 +141,6 @@ export class StatusComponent {
             return;
         }
         this.dataService.addBookMark(questionId).subscribe(res => {
-            console.log(res);
             if (res.result == true) {
                 this.toastr.success('El marcador se ha agregado correctamente.', '¡Perfecto!');
             } else {
@@ -221,7 +218,6 @@ export class StatusComponent {
             this.ShowNotLoggedIn();
             return;
         }
-        console.log('questionReportClicked->' + questionId + '->' + answerId);
         this.onQuestionReportClicked.emit({ questionId: questionId, answerId: answerId });
     }
 
@@ -240,7 +236,6 @@ export class StatusComponent {
         this.logginAnchor.clear();
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(LikeComponent);
         let dialogComponentRef = this.likeAnchor.createComponent(dialogComponentFactory);
-        console.log('show like');
         if (this.isQuestion) {
             this.statusService.showLikeUserDetailsByQuestion(this.questionObj.id).subscribe(res => {
                 this.likedUsers = res;

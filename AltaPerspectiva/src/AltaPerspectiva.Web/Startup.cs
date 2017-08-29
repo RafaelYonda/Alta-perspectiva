@@ -82,6 +82,7 @@ namespace AltaPerspectiva
                 // Set a short timeout for easy testing.
                 options.IdleTimeout = TimeSpan.FromDays(3);
                 options.CookieHttpOnly = true;
+                options.CookieName = "Altaperspectiva";
             });
             services.AddSingleton<IConfigurationRoot>(provider => Configuration);
 
@@ -287,7 +288,6 @@ namespace AltaPerspectiva
             loggerFactory.AddDebug();
             loggerFactory.AddFile(Path.Combine(env.WebRootPath, "logs/altaperspectiva-{Date}.txt"));
             app.UseApplicationInsightsRequestTelemetry();
-
             app.UseDeveloperExceptionPage();
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 

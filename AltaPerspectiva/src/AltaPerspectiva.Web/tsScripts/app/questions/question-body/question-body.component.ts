@@ -54,10 +54,8 @@ export class QuestionBodyComponent {
     categoryId: string;
     topicId: string;
     topicName: string;
-
     levelId: string;
     levelName: string;
-
     filterParameter: FilterParameter;
     constructor(private questioAnswernService: QuestionAnswerService, private componentFactoryResolver: ComponentFactoryResolver, private authService: AuthenticationService, private categoryService: CategoryService, private configService: ConfigService, router: Router, route: ActivatedRoute, private commServ: CommunicationService, private questionService: QuestionService) {
         this._router = router;
@@ -74,7 +72,6 @@ export class QuestionBodyComponent {
         this.filterParameter.mostLikedQuestion = false;
         this.filterParameter.questionWithAnswer = false;
         this.filterParameter.questionWithoutAnswer = false;
-
     }
     onQuestionSubmitted(even: any) {
         var subs = this.questioAnswernService.getQuestions();
@@ -116,8 +113,6 @@ export class QuestionBodyComponent {
             this.categoryId = params['categoryId'];
             this.levelId = params['levelId'];
             this.description = this._router.url;
-
-            
             this.filterParameter.categoryId = this.categoryId;
 
             if (this.topicId) {
@@ -171,18 +166,17 @@ export class QuestionBodyComponent {
         });
     }
     LoadFilteredQuestions() {
-        
         var subs: any;
         subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter, this.questionPage);
         subs.subscribe((res: any) => {
-            //this.questions = res;
-            if (this.questionPage > 0 && res && res.length > 0 && this.questions && this.questions) {
+            console.log(res);
+            console.log(this.questionPage);
+            if (this.questionPage > 0 && res && res.length > 0 && this.questions ) {
                 this.questions = this.questions.concat(res);
             }
-            else if (res && res.length > 0) {
+            else if (res && res.length >= 0 && this.questionPage<1) {
                 this.questions = res;
             }
-
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             this.hideLoader();
             //==========Load Other dependencies after questions load==========
@@ -199,13 +193,8 @@ export class QuestionBodyComponent {
                 this.categorySelected = this.categories.find(x => x.sequence == 1);
             else
                 this.categorySelected = this.categories.find(x => x.id == this.categoryId);
-
             if (this.categorySelected && this.categorySelected.image)
                 this.categorySelected.image = this.categorySelected.image;
-
-            //this.categoryService.getTotalCount(this.categorySelected.id).subscribe(countResult => {
-            //    this.totalCount = x;
-            //});
             this.questioAnswernService.FilterCountCategoryTopicNLevel(this.filterParameter).subscribe(countResult => {
                 this.totalCount = countResult;
             });
@@ -222,19 +211,8 @@ export class QuestionBodyComponent {
         this.filterParameter.mostLikedQuestion = false;
         this.filterParameter.mostViewedQuestion = false;
         this.LoadFilteredQuestions();
-        //var subs = this.questioAnswernService.GetLatestQuestionByDate(categoryId).subscribe(
-        //    (res: any) => {
-
-        //        this.questions = res;
-
-        //        //  this.loadCategories();
-        //        this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-        //        this.hideLoader();
-        //    }
-        //);
     }
     getbestquestionbytotallike(categoryId: string) {
-        //this.FilterParam = "The best Question";
         this.FilterParam = "Preguntas con más Me gusta";
         this.showLoader();
         this.questionPage = 0;
@@ -242,20 +220,8 @@ export class QuestionBodyComponent {
         this.filterParameter.latestQuestion = false;
         this.filterParameter.mostViewedQuestion = false;
         this.LoadFilteredQuestions();
-        //var subs = this.questioAnswernService.getbestquestionbytotallike(categoryId).subscribe(
-        //    (res: any) => {
-
-        //        this.questions = res;
-
-        //        //   this.loadCategories();
-        //        this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-        //        this.hideLoader();
-
-        //    }
-        //);
     }
     getmorequestionbyviewcount(categoryId: string) {
-        //this.FilterParam = "The more views";
         this.FilterParam = "Preguntas más vistas";
         this.showLoader();
         this.questionPage = 0;
@@ -264,15 +230,6 @@ export class QuestionBodyComponent {
         this.filterParameter.latestQuestion = false;
         this.filterParameter.mostLikedQuestion = false;
         this.LoadFilteredQuestions();
-        //var subs = this.questioAnswernService.getmorequestionbyviewcount(categoryId).subscribe(
-        //    (res: any) => {
-        //        console.log(res);
-        //        this.questions = res;
-        //        this.hideLoader();
-        //        //  this.loadCategories();
-        //        this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-        //    }
-        //);
     }
     getQuestionNotAnswered(categoryId: string) {
         this.showLoader();
@@ -330,7 +287,6 @@ export class QuestionBodyComponent {
     }
 
     showLoader() {
-        // console.log('showloader started');
         this.loader.isLoading = true;
     }
 
@@ -344,10 +300,6 @@ export class QuestionBodyComponent {
         console.log('scrolled down!!');
 
     }
-
-
-
-
     hideMenu() {
         var leftMenu = document.getElementById('toggleMenu');
         leftMenu.classList.remove("expand");
