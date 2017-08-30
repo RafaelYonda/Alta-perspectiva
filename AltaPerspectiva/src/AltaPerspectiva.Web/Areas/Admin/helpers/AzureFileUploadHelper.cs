@@ -132,6 +132,11 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
             return url;
         }
 
+        public string GetQuestionAnswerImage(String imageName)
+        {
+            String url = _storageLink + ConfigClass.QuestionAnswer + "/" + imageName;
+            return url;
+        }
         public string GetVirtualStoreDocument(String imageName)
         {
             String url = _storageLink + ConfigClass.VirtualStoreDocument + "/" + imageName;
