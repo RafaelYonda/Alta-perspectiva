@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -73,6 +75,24 @@ namespace AltaPerspectiva.Web.Areas.Admin.helpers
             cloudBlockBlob.Properties.ContentType = contentType;
             //Stream stream = file.OpenReadStream();
             Task.WaitAll(cloudBlockBlob.UploadFromStreamAsync(stream));
+
+
+
+            string _imageName = ThumbnailHelper.ThumbnailImageName(imageName);
+            ThumbnailHelper thumbnailHelper = new ThumbnailHelper();
+
+            CloudBlockBlob cloudBlockBlobForThumbnail =
+                cloudBlobContainer.GetBlockBlobReference(_imageName);
+            cloudBlockBlobForThumbnail.Properties.ContentType = contentType;
+
+            Image thumbnailImage = thumbnailHelper.ThumbnailImageFromIFromFile(stream);
+            ImageFormat imageFormat = thumbnailHelper.ImageFormatFormContentType(contentType);
+
+            Stream thumbnailStream = thumbnailHelper.GetStream(thumbnailImage, imageFormat);
+
+            Task.WaitAll(cloudBlockBlobForThumbnail.UploadFromStreamAsync(thumbnailStream));
+
+
 
             String fileLinkWithImageFormatting = String.Format(@"<img  alt='Altaperspectiva' src='{0}' >",
                         cloudBlockBlob.Uri.ToString());

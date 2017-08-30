@@ -47,7 +47,8 @@
     "UserProfile.Query": "1.0.0-*",
     "WindowsAzure.Storage": "8.1.1",
     "Serilog.Extensions.Logging.File": "1.1.0",
-    "Microsoft.Extensions.Logging.Filter": "1.1.2"
+    "Microsoft.Extensions.Logging.Filter": "1.1.2",
+    "CoreCompat.System.Drawing": "1.0.0-beta006"
   },
 
   "tools": {

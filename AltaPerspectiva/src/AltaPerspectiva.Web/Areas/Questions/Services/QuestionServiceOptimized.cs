@@ -561,7 +561,8 @@ from UserProfile.Credentials
             List<UserViewModel> userViewModels = db.Query<UserViewModel>(userQuery, new { @ids = userIds }).ToList();
             foreach (var userViewModel in userViewModels)
             {
-                userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
+                string imageUrl = ThumbnailHelper.ThumbnailImageName(userViewModel.ImageUrl);
+                userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(imageUrl);
                 if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
                 {
                     userViewModel.Name = userViewModel.Email;
