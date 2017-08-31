@@ -21,21 +21,11 @@
            (click)='socialShare()' target="social">
             <img class="social-image" id="img1" src="../images/facebooklogo.svg" />
         </a>
-
-
-
-        <a href="https://twitter.com/share" class="SHARE TWITTER"
-           attr.data-text="Share from alta perspectiva"
-           attr.data-url="{{questionObj.shareUrl}}"
-           attr.data-via="{{loggedinUser?.name}}" attr.data-show-count="false">
+        <a href="https://twitter.com/intent/tweet?url={{shareurl}}"
+           class="SHARE TWITTER"
+           onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
             <img class="social-image" id="img2" src="../images/twitter.svg" />
         </a>
-        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-
-
-
 
         <!--<a href="https://twitter.com/intent/tweet?text={{this.twitterShareTitle}}&&Check out:{{shareurl}}"
            class="SHARE TWITTER"
