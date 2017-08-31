@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "";
+}
+<head>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="altaperspectiva.com" />
+    <meta property="og:title" content="@ViewBag.og_title" />
+    <meta property="og:description" content="@ViewBag.og_description" />
+    <meta property="og:url" content="@ViewBag.og_url" />
+    <meta property="og:image" content="@ViewBag.og_image" />
+    <meta property="og:image:type" content="png">
+    <meta property="og:image:width" content="786">
+    <meta property="og:image:height" content="600">
+    <meta property="fb:app_id" content="510199349333959">
+
+    <meta name="title" content="@ViewBag.og_title" />
+    <meta name="description" content="@ViewBag.og_description" />
+    <meta name="twitter:title" content="@ViewBag.og_title" />
+    <meta name="twitter:description" content="@ViewBag.og_description" />
+    <meta name="twitter:domain" content="@Startup.Url" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="@ViewBag.og_image" />
+
+</head>
+<body onload="myFunction()">
+
+
+    <script>
+        function myFunction() {
+            window.location.replace("@ViewBag.questionUrl");
+        }
+    </script>
+
+</body>

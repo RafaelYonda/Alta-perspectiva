@@ -17,25 +17,31 @@
 
     <!--==========Right Side=====-->
     <div class="social-icon">
-        <a *ngIf="isQuestion" href="https://www.facebook.com/sharer/sharer.php?u={{questionObj.shareUrl}}&title={{questionObj?.title}}&description={{answerTagsRemoved}}&picture={{questionObj?.bestAnswer?.firstImageUrl}}"
-           class="SHARE FACEBOOK"
-           onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
-
+        <a class="SHARE FACEBOOK"
+           (click)='socialShare()' target="social">
             <img class="social-image" id="img1" src="../images/facebooklogo.svg" />
         </a>
 
-        <a *ngIf="!isQuestion" href="https://www.facebook.com/sharer/sharer.php?u={{questionObj.shareUrl}}&title={{questionObj?.title}}&description={{answerObj?.answerTagsRemoved}}&picture={{answerObj?.firstImageUrl}}"
-           class="SHARE FACEBOOK"
-           onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
 
-            <img class="social-image" id="img1" src="../images/facebooklogo.svg" />
+
+        <a href="https://twitter.com/share" class="SHARE TWITTER"
+           attr.data-text="Share from alta perspectiva"
+           attr.data-url="{{questionObj.shareUrl}}"
+           attr.data-via="{{loggedinUser?.name}}" attr.data-show-count="false">
+            <img class="social-image" id="img2" src="../images/twitter.svg" />
         </a>
+        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-        <a href="https://twitter.com/intent/tweet?text={{this.twitterShareTitle}}Check out:{{questionObj.shareUrl}}"
+
+
+
+
+
+        <!--<a href="https://twitter.com/intent/tweet?text={{this.twitterShareTitle}}&&Check out:{{shareurl}}"
            class="SHARE TWITTER"
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
             <img class="social-image" id="img2" src="../images/twitter.svg" />
-        </a>
+        </a>-->
         <a href="http://www.linkedin.com/shareArticle?mini=true&url={{questionObj.shareUrl}}&title={{questionObj?.title}}&summary={{answerTagsRemoved}}&picture={{questionObj?.bestAnswer?.firstImageUrl}}"
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
             <img class="social-image social-image-linkedin" id="img3" src="../images/linkedin.svg" />

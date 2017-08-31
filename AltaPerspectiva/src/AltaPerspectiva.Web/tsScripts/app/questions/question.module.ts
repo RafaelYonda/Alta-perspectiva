@@ -7,6 +7,7 @@ import {HttpModule  } from '@angular/http';
 
 import { CKEditorModule } from 'ng2-ckeditor';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+
 //====question components============
 import { QuestionHomeComponent } from './question-home.component';
 import { AllUserComponent } from './all-user/all-user';

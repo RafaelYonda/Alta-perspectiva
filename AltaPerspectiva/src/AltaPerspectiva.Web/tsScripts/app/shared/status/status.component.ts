@@ -10,6 +10,7 @@ import { CommunicationService, CommnetCountEventArg } from '../../services/commu
 import { LikeComponent } from '../like-modal/like.component';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
+import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
 @Component({
     selector: 'ap-status',
     templateUrl: 'status.component.html',
@@ -33,13 +34,15 @@ export class StatusComponent {
     likedUsers: User[];
     loggedinUser: User;
     twitterShareTitle: string;
+    shareurl: string;
     isQuestionEditable = false;
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver, private _authService: AuthenticationService, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService, public toastr: ToastsManager) {
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private fb: FacebookService, private _authService: AuthenticationService, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService, public toastr: ToastsManager) {
 
     }
 
     ngOnInit() {
+        
         //this._authService.getLoggedinObj().subscribe(res => {
         //    this.loggedinUser = res;
         //});
@@ -60,7 +63,6 @@ export class StatusComponent {
                 var temp = this.answerObj.text.replace(/<\/?[^>]+(>|$)/g, "");
                 this.answerObj.answerTagsRemoved = temp.replace("&nbsp;", " ");
             }
-
         }
 
         this.communicationService.getCommentsCount().subscribe((eventArg: CommnetCountEventArg) => {
@@ -73,14 +75,41 @@ export class StatusComponent {
                 if (this.answerObj.id == eventArg.AnswerId)
                     this.CommentCount = eventArg.Count;
             }
-
         });
+        //share url=======
+        var API_URL = this.isQuestion ? '/SocialShare/ShareQuestionInSocialMedia/' : '/SocialShare/ShareAnswerInSocialMedia/';
+        var urlId = this.isQuestion ? this.questionObj.id.toString() : this.answerObj.id.toString();
+        this.shareurl = SITE_URL + API_URL + urlId
         this.twitterShareTitle = this.questionObj.title;
         if (this.twitterShareTitle.length > 36) {
             this.twitterShareTitle = this.twitterShareTitle.substring(0, 36) + '...';
         } else {
             this.twitterShareTitle = this.twitterShareTitle + '...';
         }
+    }
+    socialShare() {
+        console.log("share FB");
+        let initParams: InitParams = {
+            appId: '510199349333959',
+            xfbml: true,
+            cookie: true,
+            version: 'v2.10'
+        };
+        var API_URL = this.isQuestion ? '/SocialShare/ShareQuestionInSocialMedia/' :'/SocialShare/ShareAnswerInSocialMedia/'
+        this.fb.init(initParams);
+        var urlId = this.isQuestion ? this.questionObj.id.toString() : this.answerObj.id.toString();
+        let params: UIParams = {
+            //href: SITE_URL + "/question/detail/" + this.questionObj.id,
+            href: SITE_URL + API_URL + urlId,
+            method: 'share',
+            display: 'popup',
+            name: this.questionObj.title,
+            description: this.questionObj.title
+        };
+        console.log(params);
+        this.fb.ui(params)
+            .then((res: UIResponse) => console.log(res))
+            .catch((e: any) => console.error(e));
     }
     getLoggedinObjct() {
         var currentUser = localStorage.getItem('auth_token');

@@ -25,8 +25,10 @@ gulp.task('cleanngfactory', function () {
     gulp.src(destPathAot + '.module.js')
          .pipe(clean()); 
     gulp.src(destPathAot + '.component.js')
+         .pipe(clean()); 
+    gulp.src(destPathAot + '.service.js')
          .pipe(clean());
-    gulp.src(destPathAot + '.ngstyle.js')
+    gulp.src(destPathAot + '.resolver.js')
          .pipe(clean());
     return '';
 });

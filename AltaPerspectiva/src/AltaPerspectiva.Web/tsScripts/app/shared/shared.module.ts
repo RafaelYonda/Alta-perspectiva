@@ -35,12 +35,13 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import {QuestionReportComponent} from "./question-report/question-report.component";
 import { QuillModule } from 'ngx-quill';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { FacebookModule } from 'ngx-facebook';
 //import { ClipboardModule } from 'ngx-clipboard';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { WindowRefService } from '../services/window-ref.service';
 
 @NgModule({
-    imports: [BrowserModule, ToastModule, FormsModule, RouterModule, PopoverModule, QuillModule, CKEditorModule/*, ClipboardModule*/],
+    imports: [BrowserModule, ToastModule, FacebookModule.forRoot(), FormsModule, RouterModule, PopoverModule, QuillModule, CKEditorModule/*, ClipboardModule*/],
     providers: [
         WindowRefService, CommunicationService
     ],

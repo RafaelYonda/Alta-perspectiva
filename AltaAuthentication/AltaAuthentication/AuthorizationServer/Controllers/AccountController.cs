@@ -343,8 +343,7 @@ namespace AuthorizationServer.Controllers
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
-                await _signInManager.SignOutAsync();
-                return RedirectToAction(nameof(AccountController.LogOff), "Account");
+                return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
             }
             AddErrors(result);
             return View();
