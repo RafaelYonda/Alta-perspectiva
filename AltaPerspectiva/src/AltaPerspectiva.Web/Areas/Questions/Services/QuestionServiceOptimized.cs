@@ -11,6 +11,7 @@ using Questions.Domain;
 using AltaPerspectiva.Web.Areas.Admin.helpers;
 using HtmlAgilityPack;
 using AltaPerspectiva.Web.Areas.Admin.Helpers;
+using AltaPerspectiva.Web.Areas.UserProfile.Services;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
@@ -546,31 +547,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
             return questionDbModels;
         }
 
-        private List<UserViewModel> UserViewModelsFromUserIds(IDbConnection db, List<Guid> userIds)
-        {
-            String userQuery = String.Format(@"
- select UserId,
-ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
-ISNULL(ImageUrl,'avatar.png') ImageUrl,
-Email,
-Occupation
-from UserProfile.Credentials
-  where UserId in @ids
-");
-
-            List<UserViewModel> userViewModels = db.Query<UserViewModel>(userQuery, new { @ids = userIds }).ToList();
-            foreach (var userViewModel in userViewModels)
-            {
-                string imageUrl = ThumbnailHelper.ThumbnailImageName(userViewModel.ImageUrl);
-                userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(imageUrl);
-                if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
-                {
-                    userViewModel.Name = userViewModel.Email;
-                }
-            }
-            return userViewModels;
-
-        }
+       
         private string BestAnswerTestWithFormattedImage(string answerText, string firstImageUrl)
         {
             string htmlDocument = answerText;
@@ -608,33 +585,16 @@ from Questions.Answers a
 where QuestionId = '{0}' and a.IsDrafted is null and a.IsDeleted is null
 ", questionId,userId);
 
-            String multipleQuery = String.Format(@"
- select UserId,
-ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
-ISNULL(ImageUrl,'avatar.png') ImageUrl,
-Occupation,
-Email
-from UserProfile.Credentials
-  where userId  in @ids ;
-
-");
-
+  
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 answerViewModels = db.Query<AnswerViewModel>(answerQuery).ToList();
 
                 List<Guid> userIds = new List<Guid>();
                 userIds.AddRange(answerViewModels.Select(x => x.UserId).ToList());
-                var multiple = db.QueryMultiple(multipleQuery, new { @ids = userIds });
-                userViewModels = multiple.Read<UserViewModel>().ToList();
-                foreach (var userViewModel in userViewModels)
-                {
-                    userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
-                    if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
-                    {
-                        userViewModel.Name = userViewModel.Email;
-                    }
-                }
+
+                userViewModels = new UserService().GetUserViewModelsWithThumbnailImage(userIds);
+               
             }
 
             foreach (var answerViewModel in answerViewModels)
@@ -656,11 +616,7 @@ from UserProfile.Credentials
         public QuestionViewModel GetQuestionViewModel(Guid questionId)
         {
             QuestionViewModel questionViewModel = new QuestionViewModel();
-            //List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
 
-
-            //After question and answer thier will be only related topics category and level
-            List<UserViewModel> userViewModels = null;
             List<CategoryViewModel> categoryViewModels = null;
             List<TopicViewModel> topics = null;
             List<LevelViewModel> levels = null;
@@ -680,49 +636,21 @@ from Questions.Questions q
 where q.Id = '{0}'
 ", questionId);
                 questionViewModel = db.Query<QuestionViewModel>(questionQuery).FirstOrDefault();
-
-//                String answerQuery = String.Format(@"
-
-//select * ,
-//(select COUNT(*) from Questions.Likes l where l.QuestionId =q.Id) LikeCount,
-//(select COUNT(*) from Questions.Comments c where c.QuestionId =q.Id) CommentCount
-//from Questions.Questions q 
-//where q.Id = '{0}'
-//", questionId);
-                // answerViewModels = db.Query<AnswerViewModel>(answerQuery).ToList();
-
-                List<Guid> userIds = new List<Guid>();
-                userIds.Add(questionViewModel.UserId);
-                //  userIds.AddRange(answerViewModels.Select(x=>x.UserId).ToList());
+                
                 Guid categoryId = questionViewModel.CategoryId;
                 Guid topicId = questionViewModel.TopicId;
                 Guid levelId = questionViewModel.LevelId;
 
                 String multipleQuery = String.Format(@"
- select UserId,
-ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
-ISNULL(ImageUrl,'avatar.png') ImageUrl,
-Occupation,
-Email
-from UserProfile.Credentials
-  where userId  in @ids ;
 select * from [Questions].[Categories] where id = '{0}';
 select  * from Questions.Topics where id = '{1}';
 select * from Questions.Levels where id ='{2}';
 
 ", categoryId, topicId, levelId);
-                var multiple = db.QueryMultiple(multipleQuery, new { @ids = userIds });
-                userViewModels = multiple.Read<UserViewModel>().ToList();
-                foreach (var userViewModel in userViewModels)
-                {
-                    userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
-                    if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
-                    {
-                        userViewModel.Name = userViewModel.Email;
-                    }
-                }
+                var multiple = db.QueryMultiple(multipleQuery);
+
                 questionViewModel.UserViewModel =
-                    userViewModels.FirstOrDefault(x => x.UserId == questionViewModel.UserId);
+                    new UserService().GetUserViewModelWithThumbnailImage(questionViewModel.UserId);
                 questionViewModel.Comments = new List<QuestionCommentViewModel>();
                 for (int i = 0; i < questionViewModel.CommentCount; i++)
                 {
@@ -799,7 +727,7 @@ select * from Questions.Levels where id ='{2}';
                 List<Guid> userList = new List<Guid>();
                 userList.AddRange(questionDbModels.Select(x => x.UserId).ToList());
                 userList.AddRange(questionDbModels.Select(x => x.AnswerUserId).ToList());
-                userViewModels = UserViewModelsFromUserIds(db, userList);
+                userViewModels = new UserService().GetUserViewModelsWithThumbnailImage(userList);
             }
             List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
             foreach (var dbModel in questionDbModels)

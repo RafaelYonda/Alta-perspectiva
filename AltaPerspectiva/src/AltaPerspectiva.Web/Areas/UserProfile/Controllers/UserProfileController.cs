@@ -89,29 +89,29 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/userinfodetails/{userId}")]
         public IActionResult UserInfoDetails(Guid userId)
         {
-            String connectionString = Startup.ConnectionString;
-            String query = String.Format("SpUserInfoDetails '{0}'", userId);
-            UserInfoDetails userInfoDetails = new UserInfoDetails();
-            using (IDbConnection connection = new SqlConnection(connectionString))
-            {
-                userInfoDetails = connection.Query<UserInfoDetails>(query).FirstOrDefault();
-            }
+            //String connectionString = Startup.ConnectionString;
+            //String query = String.Format("SpUserInfoDetails '{0}'", userId);
+            UserInfoDetails userInfoDetails = new UserService().GetUserInfoDetails(userId);
+            //using (IDbConnection connection = new SqlConnection(connectionString))
+            //{
+            //    userInfoDetails = connection.Query<UserInfoDetails>(query).FirstOrDefault();
+            //}
 
-            if (userInfoDetails != null)
-            {
-                if (!string.IsNullOrEmpty(userInfoDetails.Education))
-                {
-                    userInfoDetails.Education = userInfoDetails.Education.Trim(' ').Trim(',');
-                }
-                if (!string.IsNullOrEmpty(userInfoDetails.Employment))
-                {
-                    userInfoDetails.Employment = userInfoDetails.Employment.Trim(' ').Trim(',');
-                }
-            }
-            //    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+            //if (userInfoDetails != null)
+            //{
+            //    if (!string.IsNullOrEmpty(userInfoDetails.Education))
+            //    {
+            //        userInfoDetails.Education = userInfoDetails.Education.Trim(' ').Trim(',');
+            //    }
+            //    if (!string.IsNullOrEmpty(userInfoDetails.Employment))
+            //    {
+            //        userInfoDetails.Employment = userInfoDetails.Employment.Trim(' ').Trim(',');
+            //    }
+            //}
+            ////    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
            
 
-            userInfoDetails.ImageUrl = azureFileUploadHelper.GetProfileImage(userInfoDetails.ImageUrl);
+            //userInfoDetails.ImageUrl = azureFileUploadHelper.GetProfileImage(userInfoDetails.ImageUrl);
 
 
             return Ok(userInfoDetails);
@@ -483,18 +483,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             List<Guid> followingUsers =
                 queryFactory.ResolveQuery<IQuestionFollowingQuery>().GetFollowings(userId).Select(x => x.FollowedUserId).Distinct().ToList();
 
-            // AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-
             List<Credential> credentials = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers);
-
-            //List<UserViewModel> userViewModels = models.Select(x => new UserViewModel
-            //{
-            //    CredentialId = x.Id,
-            //    UserId = x.UserId,
-            //    ImageUrl = azureFileUploadHelper.GetProfileImage(x.ImageUrl),
-            //    Name = x.FirstName + " " + x.LastName,
-            //    Occupation = x.Employments.Select(y => y.Position).Take(1).FirstOrDefault()
-            //}).OrderBy(x => x.Name).ToList();
 
             List<UserViewModel> userViewModels =new List<UserViewModel>();
             foreach (Credential credential in credentials)
@@ -502,7 +491,9 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 UserViewModel userViewModel=new UserViewModel();
                 userViewModel.CredentialId = credential.Id;
                 userViewModel.UserId = credential.UserId;
-                userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(credential.ImageUrl);
+                String imageUrl = ThumbnailHelper.ThumbnailImageName(userViewModel.ImageUrl);
+                
+                userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(imageUrl);
                 userViewModel.Name = credential.FirstName + " " + credential.LastName;
                 userViewModel.Occupation = credential.Occupation;
 
@@ -521,94 +512,30 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         //For Login username in admin
         public UserViewModel GetUserName()
         {
-
             var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
             Guid loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
-
-            //refractoring:My add from User Repository 
-            var model = new UserService().GetUserViewModel(queryFactory, loggedinUser, configuration);
-            return model;
+            var userViewModel = new UserService().GetUserViewModel(loggedinUser);
+            return userViewModel;
         }
         #region topFiveUser ,topFiveUserByCategoryId and UserSummary
         [HttpGet("userprofile/api/{categoryId}/gettopFiveUserbycategoryid")]
         public async Task<List<UserSummary>> GetTopFiveUserByCategoryId(Guid categoryId)
         {
-            List<UserSummary> summeries = new List<UserSummary>();
-            String connectionString = Startup.ConnectionString;
-            String query = String.Empty;
-            if (categoryId != Guid.Empty)
-            {
-                //    List<UserSummary> userSummery = new List<UserSummary>();
-                query = String.Format("SpTopUserCalculation null,'{0}'", categoryId);
-                //    userSummery = await Task.Run(() => new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
-                //  summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetUserSummnaryByCategoryId(categoryId, connectionString);
-
-
-            }
-            else
-            {
-                //List<UserSummary> userSummery = new List<UserSummary>();
-                query = String.Format("SpTopUserCalculation");
-                //return await Task.Run(() => userSummery = new DataReaderToListHelper().DataReaderToList<UserSummary>(connectionString, query));
-                //summeries = await queryFactory.ResolveQuery<IProfileParameters>().GetTopFiveUserSummary(connectionString);
-                //summeries = summeries.Take(5).ToList();
-            }
-            using (IDbConnection db = new SqlConnection(connectionString))
-            {
-                summeries = await Task.Run(() => db.Query<UserSummary>(query).ToList());
-            }
-            foreach (UserSummary summery in summeries)
-            {
-                if (String.IsNullOrEmpty(summery.ImageUrl))
-                {
-                    summery.ImageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
-                }
-                else
-                {
-                    summery.ImageUrl = azureFileUploadHelper.GetProfileImage(summery.ImageUrl);
-                }
-            }
-            //  summeries = new UserSummaryFilter().GetUserSummaryFilter(summeries, queryFactory, configuration);
+            List<UserSummary> summeries = await Task.Run(() => new UserService().GetUserSummary(categoryId));
             return summeries;
 
         }
         [HttpGet("userprofile/api/gettophundreduser")]
         public async Task<List<UserSummary>> GetTopHundredUser()
         {
-            List<UserSummary> summeries = new List<UserSummary>();
-            String connectionString = Startup.ConnectionString;
-
-            using (IDbConnection dbConnection = new SqlConnection(connectionString))
-            {
-                string query = String.Format(@"SpTopHundredUserSummary");
-                summeries =  await Task.Run(() =>dbConnection.Query<UserSummary>(query).ToList());
-            }
-            foreach (UserSummary summery in summeries)
-            {
-                if (String.IsNullOrEmpty(summery.ImageUrl))
-                {
-                    summery.ImageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
-                }
-                else
-                {
-                    summery.ImageUrl = azureFileUploadHelper.GetProfileImage(summery.ImageUrl);
-                }
-            }
+            List<UserSummary> summeries = await Task.Run(() => new UserService().GetAllUserSummaries());
             return summeries;
 
         }
         [HttpGet("userprofile/api/getusersummary/{userId}")]
         public async Task<UserSummary> GetUserSummary(Guid userId)
         {
-            String connectionString = Startup.ConnectionString;
-            UserSummary summary = new UserSummary();
-            string query = String.Format("SpTopUserCalculation '" + userId + "'");
-
-            using (IDbConnection db = new SqlConnection(connectionString))
-            {
-                summary = await Task.Run(() => db.Query<UserSummary>(query).FirstOrDefault());
-            }
+            UserSummary summary = await Task.Run(() => new UserService().GetUserSummaryFromUserId(userId));
             return summary;
         }
         #endregion
@@ -675,38 +602,9 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpPost("userprofile/api/getusers/{userName}")]
         public async Task<List<UserViewModel>> GetUsers(String userName)
         {
-            string connectionString = Startup.ConnectionString;
-            List<UserViewModel> userViewModels = new List<UserViewModel>();
-            String userQuery = String.Format(@" select UserId,
-ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
-ISNULL(ImageUrl,'avatar.png') ImageUrl,
-Occupation,
-Email
-from UserProfile.Credentials
-where FirstName like '%{0}%' or LastName like '%{0}%'",userName);
-            using (IDbConnection connection =new SqlConnection(connectionString))
-            {
-                userViewModels = await Task.Run(() => connection.Query<UserViewModel>(userQuery).ToList());
-            }
-            foreach (var userViewModel in userViewModels)
-            {
-                if (String.IsNullOrEmpty(userViewModel.ImageUrl))
-                {
-                    userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage("avatar.png");
-                }
-                else
-                {
-                    userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
-                }
-            }
+            List<UserViewModel> userViewModels =
+                await Task.Run(() => new UserService().GetUserViewModelsWithThumbnailImageFromUserName(userName));
 
-            //List<Guid> userIds = await queryFactory.ResolveQuery<ICredentialQuery>().GetAllUserIds(userName);
-            //List<UserViewModel> userViewModels = new List<UserViewModel>();
-            //foreach (var userId in userIds)
-            //{
-            //    UserViewModel userViewModel = new UserService().GetUserViewModel(queryFactory, userId, configuration);
-            //    userViewModels.Add(userViewModel);
-            //}
             return userViewModels.OrderBy(x => x.Name).ToList();
         }
     }

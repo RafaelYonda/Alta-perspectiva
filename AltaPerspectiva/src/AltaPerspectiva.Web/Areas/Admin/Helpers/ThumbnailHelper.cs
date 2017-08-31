@@ -18,6 +18,12 @@ namespace AltaPerspectiva.Web.Areas.Admin.Helpers
 
         public static string ThumbnailImageName(string imageName)
         {
+
+            if (String.IsNullOrEmpty(imageName))
+            {
+                return "avatar_thumbnail.png";
+            }
+
             string thumnailImageName = "";
             string[] array = imageName.Split('.');
             string name = array[0];

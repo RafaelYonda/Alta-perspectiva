@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
 using AltaPerspectiva.Web.Areas.Admin.helpers;
 using AltaPerspectiva.Web.Areas.Admin.Helpers;
+using AltaPerspectiva.Web.Areas.UserProfile.Services;
 using HtmlAgilityPack;
 using Questions.Domain;
 
@@ -100,25 +101,8 @@ FETCH NEXT {1} ROWS ONLY -- take rows ", pageNumber * pageCount, pageCount);
                 List<Guid> userIds = new List<Guid>();
                 userIds.AddRange(questionDbModels.Select(x => x.UserId).ToList());
                 userIds.AddRange(questionDbModels.Select(x => x.AnswerUserId).ToList());
-                String userQuery = String.Format(@"
- select UserId,
-ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
-ISNULL(ImageUrl,'avatar.png') ImageUrl,
-Email,
-Occupation
-from UserProfile.Credentials
-  where UserId in @ids
-");
-                userViewModels = connection.Query<UserViewModel>(userQuery, new { @ids = userIds }).ToList();
-                AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-                foreach (var userViewModel in userViewModels)
-                {
-                    userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(userViewModel.ImageUrl);
-                    if (String.IsNullOrEmpty(userViewModel.Name) || String.IsNullOrWhiteSpace(userViewModel.Name))
-                    {
-                        userViewModel.Name = userViewModel.Email;
-                    }
-                }
+                userViewModels = new UserService().GetUserViewModelsWithThumbnailImage(userIds);
+
                 #endregion
             }
             foreach (var dbModel in questionDbModels)
