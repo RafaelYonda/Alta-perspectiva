@@ -36,6 +36,8 @@ export class AllUserComponent {
         window.scroll(0,0);
     }
     onKeyPress() {
+        if (this.userName.trim() == '')
+            return;
         this.loader = true;
         if (this.userName) {
             this.profileService.GetUsers(this.userName).subscribe(res => {

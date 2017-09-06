@@ -36,6 +36,8 @@ var AllUserComponent = (function () {
     };
     AllUserComponent.prototype.onKeyPress = function () {
         var _this = this;
+        if (this.userName.trim() == '')
+            return;
         this.loader = true;
         if (this.userName) {
             this.profileService.GetUsers(this.userName).subscribe(function (res) {

@@ -85,7 +85,7 @@ namespace AltaPerspectiva.Web.Controllers
                 question = connection.Query<Question>(query).FirstOrDefault();
             }
             ViewBag.og_title = question.Title;
-            ViewBag.og_description = question.Body; 
+            ViewBag.og_description = question.Body ?? "Altaperspectiva"; 
             ViewBag.questionUrl = Startup.Url + "question/detail/"+question.Id.ToString();
             ViewBag.og_url = Startup.Url + "SocialShare/ShareQuestionInSocialMedia/" + question.Id.ToString(); ;
             ViewBag.og_image = "https://altablob.blob.core.windows.net:443/category/altaperspectiva-logo.png";

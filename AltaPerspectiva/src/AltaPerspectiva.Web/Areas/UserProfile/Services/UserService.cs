@@ -142,8 +142,8 @@ ISNULL(ISNULL(FirstName,'')+' '+ISNULL(LastName,''),Email) as Name,
 ISNULL(ImageUrl,'avatar.png') ImageUrl,
 Occupation,
 Email
-from UserProfile.Credentials
-where FirstName like '%{0}%' or LastName like '%{0}%'", userName);
+from UserProfile.Credentials cr
+where (cr.FirstName+cr.LastName) like '%{0}%'", userName);
             using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
             {
                 userViewModels = connection.Query<UserViewModel>(userQuery).ToList();
