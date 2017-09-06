@@ -13,9 +13,9 @@ export class FollowerComponent {
         
     }
     ngOnInit() {
-        this.showLoader();
         window.scrollTo(0, 0);
         this.sub = this._route.parent.params.subscribe(params => {
+            this.showLoader();  
             this.profileServ.GetFollowersByUserId(params['userId']).subscribe(usr => {     //Get User Image
                 this.user = usr;
                 this.hideLoader();
