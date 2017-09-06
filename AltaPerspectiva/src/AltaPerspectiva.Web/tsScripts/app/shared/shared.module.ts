@@ -2,8 +2,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
-
 import { CommentComponent } from './comment/comment.component';
 
 import { UserInfoComponent } from './user-info/user-info.component';
