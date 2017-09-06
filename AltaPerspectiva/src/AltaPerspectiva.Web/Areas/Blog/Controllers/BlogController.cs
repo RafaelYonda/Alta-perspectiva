@@ -14,6 +14,8 @@ using AltaPerspectiva.Web.Areas.Blog.Services;
 using Blog.Domain;
 using AltaPerspectiva.Web.Areas.UserProfile.Models;
 using AltaPerspectiva.Web.Areas.UserProfile.Services;
+using AltaPerspectiva.Web.Areas.Admin.Helpers;
+using AltaPerspectiva.Web.Areas.Admin.helpers;
 
 namespace AltaPerspectiva.Web.Areas.Blog.Controllers
 {
@@ -134,7 +136,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
         }
         //saves a blog post
         [HttpPost("blog/api/saveblogpost")]
-        public IActionResult SaveBlogPost([FromBody]BlogPostViewModel model)
+        public async Task<IActionResult> SaveBlogPost([FromBody]BlogPostViewModel model)
         {
             Guid loggedinUser = new Guid("9f5b4ead-f9e7-49da-b0fa-1683195cfcba");
             if (User.Identity.IsAuthenticated)
@@ -142,6 +144,27 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
                 var currentUserId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
                 loggedinUser = new Guid(currentUserId?.ElementAt(0).ToString());
             }
+
+            List<String> imgTags = Base64Image.GetImagesInHTMLString(model.Description);
+
+            foreach (String imgTag in imgTags)
+            {
+                string fileLink = String.Empty;
+                string extension = Base64Image.GetExtension(imgTag);
+                if (!String.IsNullOrEmpty(extension))
+                {
+                    Base64Image base64Image = Base64Image.Parse(imgTag);
+                    var byteArray = base64Image.FileContents;
+
+                    String imageName = Guid.NewGuid().ToString() + base64Image.Extension;
+
+                    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
+                    fileLink = await azureFileUploadHelper.SaveQuestionAnswerInAzure(base64Image.baseStream,
+                        imageName, base64Image.ContentType);
+                }
+                model.Description = model.Description.Replace(imgTag, fileLink);
+            }
+
             AddBlogPostCommand command = new AddBlogPostCommand(loggedinUser, model.Title, model.Description, model.BlogId);
             commandsFactory.ExecuteQuery(command);
             return Ok();
