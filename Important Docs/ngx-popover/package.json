@@ -1,8 +1,16 @@
 {
   "_args": [
     [
-      "ngx-popover@0.0.16",
-      "F:\\Alta Repo\\AltaPerspectiva\\src\\AltaPerspectiva.Web"
+      {
+        "raw": "ngx-popover@0.0.16",
+        "scope": null,
+        "escapedName": "ngx-popover",
+        "name": "ngx-popover",
+        "rawSpec": "0.0.16",
+        "spec": "0.0.16",
+        "type": "version"
+      },
+      "G:\\AltraRepo\\AltaPerspectiva\\src\\AltaPerspectiva.Web"
     ]
   ],
   "_from": "ngx-popover@0.0.16",
@@ -15,16 +23,17 @@
     "tmp": "tmp/ngx-popover-0.0.16.tgz_1484732191478_0.29758076602593064"
   },
   "_npmUser": {
-    "email": "zarrhost@gmail.com",
-    "name": "pleerock"
+    "name": "pleerock",
+    "email": "zarrhost@gmail.com"
   },
   "_npmVersion": "3.10.3",
   "_phantomChildren": {},
   "_requested": {
-    "name": "ngx-popover",
     "raw": "ngx-popover@0.0.16",
-    "rawSpec": "0.0.16",
     "scope": null,
+    "escapedName": "ngx-popover",
+    "name": "ngx-popover",
+    "rawSpec": "0.0.16",
     "spec": "0.0.16",
     "type": "version"
   },
@@ -35,10 +44,10 @@
   "_shasum": "b2c10923fb6988fbd3ad0088ae1ca4782fd4f5f3",
   "_shrinkwrap": null,
   "_spec": "ngx-popover@0.0.16",
-  "_where": "F:\\Alta Repo\\AltaPerspectiva\\src\\AltaPerspectiva.Web",
+  "_where": "G:\\AltraRepo\\AltaPerspectiva\\src\\AltaPerspectiva.Web",
   "author": {
-    "email": "pleerock.me@gmail.com",
-    "name": "Umed Khudoiberdiev"
+    "name": "Umed Khudoiberdiev",
+    "email": "pleerock.me@gmail.com"
   },
   "bugs": {
     "url": "https://github.com/pleerock/ngx-popover/issues"
@@ -85,7 +94,6 @@
     "tarball": "https://registry.npmjs.org/ngx-popover/-/ngx-popover-0.0.16.tgz"
   },
   "homepage": "https://github.com/pleerock/ngx-popover#readme",
-  "installable": true,
   "license": "MIT",
   "maintainers": [
     {
@@ -99,6 +107,7 @@
     "@angular/core": "^2.0.0"
   },
   "private": false,
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pleerock/ngx-popover.git"
@@ -107,10 +116,10 @@
     "tsc": "ngc -p tsconfig-aot.json"
   },
   "tags": [
-    "angular2",
-    "angular2-popover",
     "popover",
-    "typescript"
+    "angular2",
+    "typescript",
+    "angular2-popover"
   ],
   "version": "0.0.16"
 }

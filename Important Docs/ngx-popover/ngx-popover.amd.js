@@ -53,8 +53,8 @@ define("ngx-popover/PopoverContent", ["require", "exports", "@angular/core"], fu
             this.cdr.detectChanges();
         };
         PopoverContent.prototype.ngOnDestroy = function () {
-            if (this.closeOnClickOutside)
-                this.listenClickFunc();
+            //if (this.closeOnClickOutside)
+            //    this.listenClickFunc();
             if (this.closeOnMouseOutside)
                 this.listenMouseFunc();
         };

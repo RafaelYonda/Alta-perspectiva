@@ -45,8 +45,8 @@ var PopoverContent = (function () {
     }
     PopoverContent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        //if (this.closeOnClickOutside)
-        //    this.listenClickFunc = this.renderer.listenGlobal("document", "mousedown", function (event) { return _this.onDocumentMouseDown(event); });
+        if (this.closeOnClickOutside)
+            this.listenClickFunc = this.renderer.listenGlobal("document", "mousedown", function (event) { return _this.onDocumentMouseDown(event); });
         if (this.closeOnMouseOutside)
             this.listenMouseFunc = this.renderer.listenGlobal("document", "mouseover", function (event) { return _this.onDocumentMouseDown(event); });
         this.show();
