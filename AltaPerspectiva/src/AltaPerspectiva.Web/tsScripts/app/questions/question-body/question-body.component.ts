@@ -101,11 +101,11 @@ export class QuestionBodyComponent {
             }
         });
 
-        this.configService.getConfig().subscribe((r: any) => {
-            this.config = r;
-        });
+        //this.configService.getConfig().subscribe((r: any) => {
+        //    this.config = r;
+        //});
 
-        this.loadCategories();
+        //this.loadCategories();
 
         //get questions by route param using category id.
         this.route.params.subscribe((params: any) => {
@@ -166,9 +166,7 @@ export class QuestionBodyComponent {
         });
     }
     LoadFilteredQuestions() {
-        var subs: any;
-        subs = this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter, this.questionPage);
-        subs.subscribe((res: any) => {
+         this.questioAnswernService.FilterbyCategoryTopicNLevel(this.filterParameter, this.questionPage).subscribe((res: any) => {
             if (this.questionPage > 0 && res && res.length > 0 && this.questions ) {
                 this.questions = this.questions.concat(res);
             }
