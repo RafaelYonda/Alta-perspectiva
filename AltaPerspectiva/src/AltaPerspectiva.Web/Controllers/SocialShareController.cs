@@ -17,7 +17,64 @@ namespace AltaPerspectiva.Web.Controllers
         public SocialShareController()
         {
         }
-        public async Task<ActionResult> ShareQuestionInSocialMedia(Guid id)
+
+        //public IActionResult LinkedinShareQuestion(Guid id)
+        //{
+        //    string query = String.Format("select * from Questions.Questions  where Id = '{0}'", id);
+        //    Question question = new Question();
+        //    using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
+        //    {
+        //        question = connection.Query<Question>(query).FirstOrDefault();
+        //    }
+
+        //   // string defaultImageUrl = String.Format(@"http://alta-staging.azurewebsites.net/images/LOGO%20CUADRADO.png");
+        //    ViewBag.og_title = question.Title;
+
+            
+        //    ViewBag.og_url = "http://alta-staging.azurewebsites.net/SocialShare/LinkedinShareQuestion/" + question.Id.ToString();
+        //    ViewBag.og_image = "https://altablob.blob.core.windows.net:443/category/altaperspectiva-logo.png";
+
+        //    ViewBag.questionUrl = "http://alta-staging.azurewebsites.net/question/detail/" + question.Id.ToString();
+        //    return View();
+        //}
+        //public IActionResult LinkedinShareAnswer(Guid id)
+        //{
+        //    Answer answer = new Answer();
+        //    Question question = new Question();
+        //    using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
+        //    {
+        //        string answerQuery = String.Format("select * from Questions.Answers  where Id = '{0}'", id);
+        //        answer = connection.Query<Answer>(answerQuery).FirstOrDefault();
+
+        //        string questionQuery = String.Format("select * from Questions.Questions  where Id = '{0}'", answer.QuestionId);
+        //        question = connection.Query<Question>(questionQuery).FirstOrDefault();
+        //    }
+        //    if (answer != null)
+        //    {
+        //        string htmlDocument = answer.Text;
+        //        var imgTags = Base64Image.GetImagesInHTMLString(answer.Text);
+
+        //        foreach (var imgTag in imgTags)
+        //        {
+        //            htmlDocument = answer.Text.Replace(imgTag, "");
+        //        }
+        //        HtmlDocument htmlDoc = new HtmlDocument();
+        //        htmlDoc.LoadHtml(htmlDocument);
+        //        answer.Text = htmlDoc.DocumentNode.InnerText;
+        //    }
+        //    var file = new AzureFileUploadHelper();
+        //    var imageUrl = String.IsNullOrEmpty(answer.FirstImageUrl) ? "https://altablob.blob.core.windows.net:443/category/altaperspectiva-logo.png" : answer.FirstImageUrl;
+        //    ViewBag.og_title = question.Title;
+        //    ViewBag.og_description = answer.Text;
+            
+        //    ViewBag.og_url = "http://alta-staging.azurewebsites.net/SocialShare/LinkedinShareAnswer/" + question.Id.ToString();
+        //    ViewBag.og_image = imageUrl;
+
+        //    ViewBag.questionUrl = "http://alta-staging.azurewebsites.net/question/detail/" + question.Id.ToString();
+        //    return View();
+        //}
+
+        public ActionResult ShareQuestionInSocialMedia(Guid id)
         {
             string query = String.Format("select * from Questions.Questions  where Id = '{0}'", id);
 
@@ -28,12 +85,12 @@ namespace AltaPerspectiva.Web.Controllers
             }
             ViewBag.og_title = question.Title;
             ViewBag.og_description = question.Body; 
-            ViewBag.questionUrl= "http://alta-staging.azurewebsites.net/question/detail/"+question.Id.ToString();
-            ViewBag.og_url = "http://alta-staging.azurewebsites.net/SocialShare/ShareQuestionInSocialMedia" + question.Id.ToString(); ;
+            ViewBag.questionUrl = Startup.Url + "question/detail/"+question.Id.ToString();
+            ViewBag.og_url = Startup.Url + "SocialShare/ShareQuestionInSocialMedia/" + question.Id.ToString(); ;
             ViewBag.og_image = "https://altablob.blob.core.windows.net:443/category/altaperspectiva-logo.png";
             return View();
         }
-        public async Task<ActionResult> ShareAnswerInSocialMedia(Guid id)
+        public ActionResult ShareAnswerInSocialMedia(Guid id)
         {
             Answer answer = new Answer();
             Question question = new Question();
@@ -62,10 +119,12 @@ namespace AltaPerspectiva.Web.Controllers
             var imageUrl = String.IsNullOrEmpty(answer.FirstImageUrl) ? "https://altablob.blob.core.windows.net:443/category/altaperspectiva-logo.png" : answer.FirstImageUrl;
             ViewBag.og_title = question.Title;
             ViewBag.og_description = answer.Text;
-            ViewBag.questionUrl = "http://alta-staging.azurewebsites.net/question/detail/" + question.Id.ToString();
-            ViewBag.og_url = "http://alta-staging.azurewebsites.net/SocialShare/ShareAnswerInSocialMedia/" + answer.Id.ToString(); ;
+            ViewBag.questionUrl = Startup.Url + "question/detail/" + question.Id.ToString();
+            ViewBag.og_url = Startup.Url + "SocialShare/ShareAnswerInSocialMedia/" + answer.Id.ToString(); 
             ViewBag.og_image = imageUrl;
             return View();
         }
+
+      //  public IActionResult LinkedinShare
     }
 }

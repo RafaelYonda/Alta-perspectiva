@@ -32,14 +32,14 @@
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
             <img class="social-image" id="img2" src="../images/twitter.svg" />
         </a>-->
-        <!--<a href="http://www.linkedin.com/shareArticle?mini=true&url={{questionObj.shareUrl}}&title={{questionObj?.title}}&summary={{answerTagsRemoved}}&picture={{questionObj?.bestAnswer?.firstImageUrl}}"
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shareurl }}"
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
             <img class="social-image social-image-linkedin" id="img3" src="../images/linkedin.svg" />
-        </a>-->
-        <a 
-           (click)='socialShare()' target="social">
-            <img class="social-image social-image-linkedin" id="img3" src="../images/linkedin.svg" />
         </a>
+        <!--<a 
+           (click)='linkedinShare()' target="social">
+            <img class="social-image social-image-linkedin" id="img3" src="../images/linkedin.svg" />
+        </a>-->
 
         <div class="other-function hidden-xs" id="img4">
             <a [popover]="otherFunctionPop">...</a>

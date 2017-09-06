@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "";
 }
+<html prefix="og: http://ogp.me/ns#">
 <head>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="altaperspectiva.com" />
@@ -21,14 +22,22 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:image" content="@ViewBag.og_image" />
 
+
+    <meta prefix="og: http://ogp.me/ns#" property="og:title" content="@ViewBag.og_title" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:type" content="article" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="@ViewBag.og_image" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:url" content="@ViewBag.og_url" />
+
 </head>
 <body onload="myFunction()">
 
 
     <script>
-        function myFunction() {
-            window.location.replace("@ViewBag.questionUrl");
-        }
+    function myFunction() {
+        window.location.replace("@ViewBag.questionUrl");
+    }
     </script>
 
 </body>
+
+</html>

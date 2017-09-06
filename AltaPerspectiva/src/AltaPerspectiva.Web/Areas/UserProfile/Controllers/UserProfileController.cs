@@ -491,7 +491,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 UserViewModel userViewModel=new UserViewModel();
                 userViewModel.CredentialId = credential.Id;
                 userViewModel.UserId = credential.UserId;
-                String imageUrl = ThumbnailHelper.ThumbnailImageName(userViewModel.ImageUrl);
+                String imageUrl = ThumbnailHelper.ThumbnailImageName(credential.ImageUrl);
                 
                 userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(imageUrl);
                 userViewModel.Name = credential.FirstName + " " + credential.LastName;

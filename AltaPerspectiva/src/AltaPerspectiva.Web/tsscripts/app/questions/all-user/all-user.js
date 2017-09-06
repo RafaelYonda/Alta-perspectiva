@@ -37,7 +37,6 @@ var AllUserComponent = (function () {
     AllUserComponent.prototype.onKeyPress = function () {
         var _this = this;
         this.loader = true;
-        console.log(this.userName);
         if (this.userName) {
             this.profileService.GetUsers(this.userName).subscribe(function (res) {
                 _this.user = [];

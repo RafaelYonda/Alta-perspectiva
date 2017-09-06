@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <meta prefix="og: http://ogp.me/ns#" property="og:title" content="@ViewBag.og_title" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:type" content="article" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="@ViewBag.og_image" />
+    <meta prefix="og: http://ogp.me/ns#" property="og:url" content="@ViewBag.og_url" />
+</head>
+<body onload="myFunction()">
+
+
+    <script>
+        function myFunction() {
+            window.location.replace("@ViewBag.questionUrl");
+        }
+    </script>
+
+</body>
+</html>

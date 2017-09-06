@@ -36,7 +36,6 @@ export class StatusComponent {
     twitterShareTitle: string;
     shareurl: string;
     isQuestionEditable = false;
-
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private fb: FacebookService, private _authService: AuthenticationService, private statusService: StatusService, private dataService: QuestionAnswerService, private communicationService: CommunicationService, private questionService: QuestionService, public toastr: ToastsManager) {
 
     }
@@ -86,6 +85,7 @@ export class StatusComponent {
         } else {
             this.twitterShareTitle = this.twitterShareTitle + '...';
         }
+        //console.log('Sharer Url in status.component.ts = ' + this.shareurl);
     }
     socialShare() {
         console.log("share FB");
@@ -110,6 +110,10 @@ export class StatusComponent {
         this.fb.ui(params)
             .then((res: UIResponse) => console.log(res))
             .catch((e: any) => console.error(e));
+    }
+
+    linkedinShare() {
+        
     }
     getLoggedinObjct() {
         var currentUser = localStorage.getItem('auth_token');
