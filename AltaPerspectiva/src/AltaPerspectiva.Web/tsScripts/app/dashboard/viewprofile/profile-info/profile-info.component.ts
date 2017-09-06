@@ -46,8 +46,7 @@ export class ProfileInfoComponent {
         this.toastr.setRootViewContainerRef(vcr);
     }
     ngOnInit() {
-        this.getCredetialOnParentLoaded(this.credential);
-        
+        this.getCredetialOnParentLoaded(this.credential);        
         this.isImageUpdated = false;
     }
     ngOnChanges(changes: SimpleChanges) {
@@ -63,13 +62,13 @@ export class ProfileInfoComponent {
             this.credential.title = this.credential.title.trim();
         if (this.credential.description)
             this.credential.description = this.credential.description.trim();
-        if (!this.credential.firstName || !this.credential.lastName)
+        if (this.credential.firstName || this.credential.lastName)
+            this.isUserHidden = true;
+        else
             this.isUserHidden = false;
-
         if (this.credential.imageUrl && (this.credential.imageUrl != ''))
             this.imageLink = this.credential.imageUrl;
         else this.imageLink = '../images/userAdd.png';
-
         return data;
     }
 

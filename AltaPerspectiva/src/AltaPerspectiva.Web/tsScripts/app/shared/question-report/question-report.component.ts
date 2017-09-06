@@ -51,7 +51,7 @@ export class QuestionReportComponent {
             this.questionService.SaveReport(this.questionReport).subscribe(res => {
                 this.close.emit('event');
                 this.toastr.success('Gracias, analizaremos tu reporte.', 'Aprobado');
-            })
+            });
         }
     };
 }
