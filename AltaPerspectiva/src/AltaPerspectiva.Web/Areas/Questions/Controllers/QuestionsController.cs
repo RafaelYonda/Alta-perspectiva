@@ -1057,6 +1057,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
             {
                 questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategory(pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
 
+                
             }
             //done
             if (filterParameter.CategoryId.HasValue &&
@@ -1131,94 +1132,80 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
         [HttpGet("/questions/api/questions/countwithfilter")]
         public async Task<IActionResult> CountWithFilter(FilterParameter filterParameter)
         {
-            int pageNumber = -1;
-            if (filterParameter.CategoryId == new Guid("7639b416-8d1c-4119-b58e-143cb860e8a6"))
+            String query = "";
+            if (filterParameter.CategoryId == new Guid("7639b416-8d1c-4119-b58e-143cb860e8a6") || filterParameter.CategoryId == null)
             {
-                filterParameter.CategoryId = null;
-            }
-            List<QuestionViewModel> questionViewModels = new List<QuestionViewModel>();
-            //Done
-            if (!filterParameter.CategoryId.HasValue &&
-                !filterParameter.TopicId.HasValue &&
-                !filterParameter.LevelId.HasValue
-                )
-            {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategory(pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
-            }
-            //done
-            if (filterParameter.CategoryId.HasValue &&
-               !filterParameter.TopicId.HasValue &&
-               !filterParameter.LevelId.HasValue
-               )
-            {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryIdOnly(filterParameter.CategoryId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
-            }
-            //done
-            if (filterParameter.CategoryId.HasValue &&
-              filterParameter.TopicId.HasValue &&
-              !filterParameter.LevelId.HasValue
-              )
-            {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopic(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
-            }
+                query = String.Format(@"
+select SUM(X.Answered) as TotalAnsweredQuestion,
+ SUM(X.UnAnswered) as TotalUnAnsweredQuestion,
+(select SUM(1) from [Questions].[CategoryFollowers] 
 
-            if (filterParameter.CategoryId.HasValue &&
-              !filterParameter.TopicId.HasValue &&
-              filterParameter.LevelId.HasValue
-              )
-            {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndLevel(filterParameter.CategoryId.Value, filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
-            }
+where CategoryId='{0}' 
 
-            if (filterParameter.CategoryId.HasValue &&
-              filterParameter.TopicId.HasValue &&
-              filterParameter.LevelId.HasValue
-              )
-            {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByCategoryAndTopicAndLevel(filterParameter.CategoryId.Value, filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
-            }
+) as TotalFollowers , SUM(X.Answered) + SUM(X.UnAnswered) as TotalQuestions
+ from (
+select 
+CASE
+WHEN exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END Answered , 
+CASE
+WHEN not exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END UnAnswered 
+from Questions.Questions q
+ LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
 
-            /////Upto this is ok
-            if (!filterParameter.CategoryId.HasValue &&
-              filterParameter.TopicId.HasValue &&
-              filterParameter.LevelId.HasValue
-              )
-            {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopicAndLevel
-                (filterParameter.TopicId.Value, filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
-            }
-            if (!filterParameter.CategoryId.HasValue &&
-              !filterParameter.TopicId.HasValue &&
-              filterParameter.LevelId.HasValue
-              )
-            {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryLevel(filterParameter.LevelId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
-            }
-            if (!filterParameter.CategoryId.HasValue &&
-              filterParameter.TopicId.HasValue &&
-              !filterParameter.LevelId.HasValue
-              )
-            {
-                questionViewModels = await Task.Run(() => new QuestionServiceOptimized().FilterQuestionByGeneralCategoryTopic(filterParameter.TopicId.Value, pageNumber, filterParameter.MostLikedQuestion, filterParameter.MostViewedQuestion));
-            }
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
+Questions.Topics t ON t.Id=qt.TopicId
 
-            var categoriesSummary = new CategoriesSummary();
-            if (filterParameter.CategoryId.HasValue)
-            {
-                categoriesSummary.TotalFollowers =
-                    queryFactory.ResolveQuery<ICategoriesTotalUsersQuery>().Execute(filterParameter.CategoryId.Value);
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0  
+--and qc.CategoryId = '{0}' 
+--order by q.CreatedOn desc 
+) X", "7639B416-8D1C-4119-B58E-143CB860E8A6");
             }
             else
             {
-                categoriesSummary.TotalFollowers =
-                    queryFactory.ResolveQuery<ICategoriesTotalUsersQuery>().Execute(new Guid("7639B416-8D1C-4119-B58E-143CB860E8A6"));
-            }
+                query = String.Format(@"
+select SUM(X.Answered) as TotalAnsweredQuestion,
+ SUM(X.UnAnswered) as TotalUnAnsweredQuestion,
+(select SUM(1) from [Questions].[CategoryFollowers] where CategoryId='{0}' ) as TotalFollowers , SUM(X.Answered) + SUM(X.UnAnswered) as TotalQuestions
+ from (
+select 
+CASE
+WHEN exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END Answered , 
+CASE
+WHEN not exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END UnAnswered 
+from Questions.Questions q
+ LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
 
-            categoriesSummary.TotalQuestions = questionViewModels.Count();
-            categoriesSummary.TotalAnsweredQuestion = questionViewModels.Where(x => x.Answers.Count != 0).Count();
-            categoriesSummary.TotalUnAnsweredQuestion = categoriesSummary.TotalQuestions -
-                                                        categoriesSummary.TotalAnsweredQuestion;
-            return Ok(categoriesSummary);
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0  
+and qc.CategoryId = '{0}' 
+--order by q.CreatedOn desc 
+) X", filterParameter.CategoryId);
+
+            }
+            var summery = new CategoriesSummary();
+            using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
+            {
+                summery =  await Task.Run(() =>
+                connection.Query<CategoriesSummary>(query).FirstOrDefault() 
+                );
+            }
+            return Ok(summery);
         }
         #endregion
 
