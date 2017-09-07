@@ -9,11 +9,12 @@ import {Question} from '../../../services/models';
     providers: [QuestionService]
 })
 export class UserQuestionComponent {
-    questions: Question[];
+    questions: Question[]=[];
     readMoreLink: string;
     private sub: any;
     isLoading = false;
-
+    questionPage = 0;    
+    userId: string;
     constructor(private questionService: QuestionService, private profileService: ProfileService, private _route: ActivatedRoute) {
         
         
@@ -22,18 +23,28 @@ export class UserQuestionComponent {
         this.showLoader();
         window.scrollTo(0,0);
         this.sub = this._route.parent.params.subscribe(params => {
-            this.questionService.getQuestionsbyUserId(params['userId']).subscribe(res => {
-                this.questions = res;
-                for (var q = 0; q < this.questions.length; q++) {
-                    this.questions[q].bestAnswer = this.questions[q].answers[0];
-                    if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
-                        this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
-                        this.questions[q].shareUrl = encodeURI(SITE_URL + this.questions[q].id);
-                    }
+            this.userId = params['userId'];
+            this.UpdateQuestionsByUserId();
+        });
+    }
+    onScroll() {
+        console.log('scroll');
+        this.questionPage = this.questionPage + 1;
+        this.UpdateQuestionsByUserId();
+    }
+    UpdateQuestionsByUserId() {
+        this.questionService.getQuestionsbyUserId(this.userId, this.questionPage).subscribe(res => {
+            console.log(res);
+            this.questions = this.questions.concat(res);
+            for (var q = 0; q < this.questions.length; q++) {
+                this.questions[q].bestAnswer = this.questions[q].answers[0];
+                if (this.questions[q].bestAnswer && this.questions[q].bestAnswer.text) {
+                    this.readMoreLink = " <a href ='/question/detail/" + this.questions[q].id + "'>read more...</a>";
+                    this.questions[q].shareUrl = encodeURI(SITE_URL + this.questions[q].id);
                 }
-                this.questions.forEach(x => x.bestAnswer = x.answers[0]);
-                this.hideLoader();
-            });
+            }
+            this.questions.forEach(x => x.bestAnswer = x.answers[0]);
+            this.hideLoader();
         });
     }
     ngOnDestroy() {

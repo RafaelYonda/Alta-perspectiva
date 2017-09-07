@@ -61,8 +61,8 @@ export class QuestionService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getQuestionsbyUserId(credentialId: string) {
-        return this._http.get('/userprofile/api/questionbyuserid/' + credentialId)
+    getQuestionsbyUserId(userId: string, pagenumber: number) {
+        return this._http.get("userprofile/api/" + pagenumber + "/questionbyuserid/" + userId)
             .map(this.extractData)
             .catch(this.handleError);
     } 

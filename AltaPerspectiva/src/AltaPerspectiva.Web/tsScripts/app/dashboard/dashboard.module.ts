@@ -48,6 +48,7 @@ import {PopoverModule} from "ngx-popover";
 import {ImageCropperModule,ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
 import { PreviewImageComponent } from './viewprofile/edit-profile/preview-image.component';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 //Twitter
 import { TwitterComponent } from './viewprofile/edit-profile/twitter.component';
 import { FacebookComponent } from './viewprofile/edit-profile/facebook.component';
@@ -83,8 +84,7 @@ const DashBoardroutes: Routes = [
 export const dashboardRouting: ModuleWithProviders = RouterModule.forRoot(DashBoardroutes);
 @NgModule({
     providers: [ProfileResolver],
-    imports: [BrowserModule, FormsModule, dashboardRouting, ToastModule, QuillModule, SharedModule, PopoverModule, ImageCropperModule
-    ],
+    imports: [BrowserModule, FormsModule, dashboardRouting, InfiniteScrollModule, ToastModule, QuillModule, SharedModule, PopoverModule, ImageCropperModule],
     declarations: [
         DashBoardComponent,
         ViewProfileComponent,

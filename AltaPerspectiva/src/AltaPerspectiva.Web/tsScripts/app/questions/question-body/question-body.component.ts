@@ -27,8 +27,6 @@ export class QuestionBodyComponent {
     questionPage = 0;
 
     topics: Topic[];
-    // shortTopics: Topic[]=[];
-    //  fullTopics: Topic[];
     loader: ILoader = { isLoading: false };
     _router: any;
     route: any;
