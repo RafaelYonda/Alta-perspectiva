@@ -437,16 +437,11 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             );
             return Ok(questionViewModels);
         }
-        [HttpGet("userprofile/api/answerbyuserid/{userId}")]
-        public async Task<IActionResult> AnswerByUserId(Guid userId)
+        [HttpGet("userprofile/api/{pageNumber}/answerbyuserid/{userId}")]
+        public async Task<IActionResult> AnswerByUserId(int pageNumber, Guid userId)
         {
-            //IEnumerable<Question> questionList =
-            //    await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().ExecuteByUserId(userId);
-
-            //List<QuestionViewModel> questionViewModels =
-            //    new QuestionService().GetQuestionViewModelsForProfile(questionList, queryFactory, configuration,userId);
             List<QuestionViewModel> questionViewModels = await Task.Run(() =>
-                new UserServiceOptimized().GetQuestionViewModelsForAnswers(userId)
+                new UserServiceOptimized().GetQuestionViewModelsForAnswers(userId, pageNumber)
             );
             return Ok(questionViewModels);
         }

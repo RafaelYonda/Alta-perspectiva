@@ -228,7 +228,7 @@ order by q.CreatedOn desc
             return questionViewModels;
         }
 
-        public List<QuestionViewModel> GetQuestionViewModelsForAnswers(Guid userId)
+        public List<QuestionViewModel> GetQuestionViewModelsForAnswers(Guid userId,int pageNumber)
         {
             List<QuestionDbModel> questionDbModels = null;
             List<UserViewModel> userViewModels = null;
@@ -260,7 +260,9 @@ and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.Is
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion = 0 
 order by q.CreatedOn desc
-", userId);
+OFFSET {1} ROWS -- skip 10 rows
+FETCH NEXT 15 ROWS ONLY; -- take 10 rows
+", userId, pageNumber*15);
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 questionDbModels = db.Query<QuestionDbModel>(filterQuery).ToList();
