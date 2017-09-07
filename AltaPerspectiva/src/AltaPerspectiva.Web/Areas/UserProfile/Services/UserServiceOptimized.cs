@@ -87,7 +87,7 @@ from UserProfile.Credentials
             return newHtml;
         }
 
-        public List<QuestionViewModel> GetQuestionViewModelsByUserId(Guid userId)
+        public List<QuestionViewModel> GetQuestionViewModelsByUserId(Guid userId,int pageNumber)
         {
             List<QuestionDbModel> questionDbModels = null;
             List<UserViewModel> userViewModels = null;
@@ -116,7 +116,9 @@ where a.IsDrafted is null
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion = 0 and q.UserId = '{0}'
 order by q.CreatedOn desc
-", userId);
+OFFSET {1} ROWS -- skip 10 rows
+FETCH NEXT 15 ROWS ONLY; -- take 10 rows
+", userId,pageNumber);
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 questionDbModels = db.Query<QuestionDbModel>(filterQuery).ToList();
