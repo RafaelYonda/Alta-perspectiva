@@ -1133,7 +1133,19 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
         public async Task<IActionResult> CountWithFilter(FilterParameter filterParameter)
         {
             String query = "";
-            if (filterParameter.CategoryId == new Guid("7639b416-8d1c-4119-b58e-143cb860e8a6") || filterParameter.CategoryId == null)
+            if (filterParameter.CategoryId == new Guid("7639b416-8d1c-4119-b58e-143cb860e8a6"))
+            {
+                filterParameter.CategoryId = null;
+                
+            }
+
+            //var  questionViewModels = new List<QuestionViewModel>();
+            //int pageNumber = -1;
+            //Done
+            if (!filterParameter.CategoryId.HasValue &&
+                !filterParameter.TopicId.HasValue &&
+                !filterParameter.LevelId.HasValue
+                )
             {
                 query = String.Format(@"
 select SUM(X.Answered) as TotalAnsweredQuestion,
@@ -1166,8 +1178,14 @@ where q.IsDeleted is null and q.IsDirectQuestion =0
 --and qc.CategoryId = '{0}' 
 --order by q.CreatedOn desc 
 ) X", "7639B416-8D1C-4119-B58E-143CB860E8A6");
+
+
             }
-            else
+            //done
+            if (filterParameter.CategoryId.HasValue &&
+               !filterParameter.TopicId.HasValue &&
+               !filterParameter.LevelId.HasValue
+               )
             {
                 query = String.Format(@"
 select SUM(X.Answered) as TotalAnsweredQuestion,
@@ -1196,8 +1214,221 @@ where q.IsDeleted is null and q.IsDirectQuestion =0
 and qc.CategoryId = '{0}' 
 --order by q.CreatedOn desc 
 ) X", filterParameter.CategoryId);
-
             }
+            
+            if (filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              !filterParameter.LevelId.HasValue
+              )
+            {
+                query = String.Format(@"
+select SUM(X.Answered) as TotalAnsweredQuestion,
+ SUM(X.UnAnswered) as TotalUnAnsweredQuestion,
+(select SUM(1) from [Questions].[CategoryFollowers] where CategoryId='{0}' ) as TotalFollowers , SUM(X.Answered) + SUM(X.UnAnswered) as TotalQuestions
+ from (
+select 
+CASE
+WHEN exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END Answered , 
+CASE
+WHEN not exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END UnAnswered 
+from Questions.Questions q
+ LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0  
+and qc.CategoryId = '{0}'  and qt.TopicId = '{1}'
+--order by q.CreatedOn desc 
+) X", filterParameter.CategoryId,filterParameter.TopicId);
+            }
+
+            if (filterParameter.CategoryId.HasValue &&
+              !filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                query = String.Format(@"
+select SUM(X.Answered) as TotalAnsweredQuestion,
+ SUM(X.UnAnswered) as TotalUnAnsweredQuestion,
+(select SUM(1) from [Questions].[CategoryFollowers] where CategoryId='{0}' ) as TotalFollowers , SUM(X.Answered) + SUM(X.UnAnswered) as TotalQuestions
+ from (
+select 
+CASE
+WHEN exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END Answered , 
+CASE
+WHEN not exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END UnAnswered 
+from Questions.Questions q
+ LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0  
+and qc.CategoryId = '{0}'  and ql.LevelId = '{1}'
+--order by q.CreatedOn desc 
+) X", filterParameter.CategoryId, filterParameter.LevelId);
+            }
+
+            if (filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                query = String.Format(@"
+select SUM(X.Answered) as TotalAnsweredQuestion,
+ SUM(X.UnAnswered) as TotalUnAnsweredQuestion,
+(select SUM(1) from [Questions].[CategoryFollowers] where CategoryId='{0}' ) as TotalFollowers , SUM(X.Answered) + SUM(X.UnAnswered) as TotalQuestions
+ from (
+select 
+CASE
+WHEN exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END Answered , 
+CASE
+WHEN not exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END UnAnswered 
+from Questions.Questions q
+ LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0  
+and qc.CategoryId = '{0}'  
+and qt.TopicId = '{1}' 
+and ql.LevelId = '{2}'
+--order by q.CreatedOn desc 
+) X", filterParameter.CategoryId, filterParameter.TopicId , filterParameter.LevelId);
+            }
+
+            /////Upto this is ok
+            if (!filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                query = String.Format(@"
+select SUM(X.Answered) as TotalAnsweredQuestion,
+ SUM(X.UnAnswered) as TotalUnAnsweredQuestion,
+(select SUM(1) from [Questions].[CategoryFollowers] where CategoryId='{0}' ) as TotalFollowers , SUM(X.Answered) + SUM(X.UnAnswered) as TotalQuestions
+ from (
+select 
+CASE
+WHEN exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END Answered , 
+CASE
+WHEN not exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END UnAnswered 
+from Questions.Questions q
+ LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0  
+--and qc.CategoryId = '{0}'  
+and qt.TopicId = '{1}' 
+and ql.LevelId = '{2}'
+--order by q.CreatedOn desc 
+) X", filterParameter.CategoryId, filterParameter.TopicId, filterParameter.LevelId);
+            }
+            if (!filterParameter.CategoryId.HasValue &&
+              !filterParameter.TopicId.HasValue &&
+              filterParameter.LevelId.HasValue
+              )
+            {
+                query = String.Format(@"
+select SUM(X.Answered) as TotalAnsweredQuestion,
+ SUM(X.UnAnswered) as TotalUnAnsweredQuestion,
+(select SUM(1) from [Questions].[CategoryFollowers] where CategoryId='{0}' ) as TotalFollowers , SUM(X.Answered) + SUM(X.UnAnswered) as TotalQuestions
+ from (
+select 
+CASE
+WHEN exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END Answered , 
+CASE
+WHEN not exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END UnAnswered 
+from Questions.Questions q
+ LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0  
+--and qc.CategoryId = '{0}'  
+--and qt.TopicId = '{1}' 
+and ql.LevelId = '{2}'
+--order by q.CreatedOn desc 
+) X", filterParameter.CategoryId, filterParameter.TopicId, filterParameter.LevelId);
+            }
+            if (!filterParameter.CategoryId.HasValue &&
+              filterParameter.TopicId.HasValue &&
+              !filterParameter.LevelId.HasValue
+              )
+            {
+                query = String.Format(@"
+select SUM(X.Answered) as TotalAnsweredQuestion,
+ SUM(X.UnAnswered) as TotalUnAnsweredQuestion,
+(select SUM(1) from [Questions].[CategoryFollowers] where CategoryId='{0}' ) as TotalFollowers , SUM(X.Answered) + SUM(X.UnAnswered) as TotalQuestions
+ from (
+select 
+CASE
+WHEN exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END Answered , 
+CASE
+WHEN not exists(select 1 from Questions.Answers a where a.QuestionId = q.ID and a.IsDrafted is null and a.IsDeleted is null ) then 1
+ELSE 0
+END UnAnswered 
+from Questions.Questions q
+ LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
+Questions.Categories c ON c.Id = qc.CategoryId  
+
+LEFT JOIN Questions.QuestionTopics qt ON qt.QuestionId =q.Id LEFT JOIN
+Questions.Topics t ON t.Id=qt.TopicId
+
+LEFT JOIN Questions.QuestionLevels ql on ql.QuestionId =q.Id LEFT JOIN
+Questions.Levels l ON ql.LevelId = l.Id
+where q.IsDeleted is null and q.IsDirectQuestion =0  
+--and qc.CategoryId = '{0}'  
+and qt.TopicId = '{1}' 
+--and ql.LevelId = '{2}'
+--order by q.CreatedOn desc 
+) X", filterParameter.CategoryId, filterParameter.TopicId, filterParameter.LevelId);
+            }
+
+
+
             var summery = new CategoriesSummary();
             using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
             {
