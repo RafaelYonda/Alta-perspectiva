@@ -118,7 +118,7 @@ where q.IsDeleted is null and q.IsDirectQuestion = 0 and q.UserId = '{0}'
 order by q.CreatedOn desc
 OFFSET {1} ROWS -- skip 10 rows
 FETCH NEXT 15 ROWS ONLY; -- take 10 rows
-", userId,pageNumber);
+", userId,pageNumber*15);
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 questionDbModels = db.Query<QuestionDbModel>(filterQuery).ToList();
