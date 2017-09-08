@@ -109,7 +109,7 @@ namespace AuthorizationServer.Helpers
         {
             var text = @"<div style='width: 100 %'>
 
-    <div style = 'width: 66%;margin: 5px auto;' >
+    <div style = 'width: 66%;margin: 5px;' >
         
         
 		<br/>
