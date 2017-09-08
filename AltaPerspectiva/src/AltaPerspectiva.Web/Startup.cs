@@ -49,6 +49,7 @@ namespace AltaPerspectiva
         public static string ConnectionString { get; private set; }
         public static string SendGridApiKey { get; private set; }
         public static string Url { get; private set; }
+        public static string AuthUrl { get; private set; }
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -62,10 +63,13 @@ namespace AltaPerspectiva
 #if DEBUG
 
             Url = "http://alta-staging.azurewebsites.net/";
+            AuthUrl = "http://alta-staging-auth.azurewebsites.net/";
 #else
 
             Url = "http://alta-staging.azurewebsites.net/";
+            AuthUrl = "http://alta-staging-auth.azurewebsites.net/";
             //Url = "http://www.altaperspectiva.com/"; 
+            //AuthUrl = "http://altaauth.azurewebsites.net";
 #endif
 
         }

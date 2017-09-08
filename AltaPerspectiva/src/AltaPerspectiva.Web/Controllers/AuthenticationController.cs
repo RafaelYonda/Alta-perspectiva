@@ -33,19 +33,19 @@ namespace AltaPerspectiva.Controllers
         [HttpGet("~/signup")]
         public IActionResult SignUp()
         {
-            var redirectUrl = "";
-            var authUrl = "";
-#if DEBUG
-            authUrl = "http://alta-staging-auth.azurewebsites.net/";
-            redirectUrl = "http://alta-staging.azurewebsites/";
+            var redirectUrl = Startup.Url;
+            var authUrl = Startup.AuthUrl;
+//#if DEBUG
+//            authUrl = "http://alta-staging-auth.azurewebsites.net/";
+//            redirectUrl = "http://alta-staging.azurewebsites/";
 
-#else
+//#else
                
-            authUrl= "http://altaauth.azurewebsites.net";
-            redirectUrl= "http://www.altaperspectiva.com"
-#endif
+//            authUrl= "http://altaauth.azurewebsites.net";
+//            redirectUrl= "http://www.altaperspectiva.com";
+//#endif
 
-            return new RedirectResult("redirectUrl" + "Account/Register?returnUrl=" + "http://localhost:5273/");
+            return new RedirectResult("redirectUrl" + "Account/Register?returnUrl=" + redirectUrl);
         }
     }
 }
