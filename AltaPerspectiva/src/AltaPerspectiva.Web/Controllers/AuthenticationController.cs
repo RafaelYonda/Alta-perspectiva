@@ -25,5 +25,11 @@ namespace AltaPerspectiva.Controllers
             // Instruct the OpenID Connect middleware to redirect the user agent to the identity provider to sign out.
             await HttpContext.Authentication.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
+
+        [HttpGet("~/signup")]
+        public IActionResult SignUp()
+        {
+            return new RedirectResult("http://localhost:54540/" + "Account/Register?returnUrl=" + "http://localhost:5273/");
+        }
     }
 }
