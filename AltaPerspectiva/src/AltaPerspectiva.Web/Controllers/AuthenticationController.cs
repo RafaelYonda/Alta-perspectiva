@@ -45,7 +45,7 @@ namespace AltaPerspectiva.Controllers
 //            redirectUrl= "http://www.altaperspectiva.com";
 //#endif
 
-            return new RedirectResult("redirectUrl" + "Account/Register?returnUrl=" + redirectUrl);
+            return new RedirectResult(authUrl + "Account/Register?returnUrl=" + redirectUrl);
         }
     }
 }
