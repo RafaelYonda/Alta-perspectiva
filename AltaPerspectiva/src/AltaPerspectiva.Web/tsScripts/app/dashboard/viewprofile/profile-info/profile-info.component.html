@@ -200,7 +200,7 @@
             </div>
             <div class="description-panel" [hidden]="showDescription" *ngIf="isOwner">
                 <quill-editor placeholder="Escribe aquí" [(ngModel)]="credential.description" [ngModelOptions]="{standalone: true}"
-                              [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link', 'image']]}"
+                              [modules]="{toolbar: [['bold', 'italic', 'underline'], ['link']]}"
                               required name="answerField" #answerField="ngModel"></quill-editor>
                 <div class="btn-container">
                     <a (click)="showDescription = true"><!--Cancel-->Cancelar</a>

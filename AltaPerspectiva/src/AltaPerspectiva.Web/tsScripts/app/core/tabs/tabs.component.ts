@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component} from '@angular/core';
 import { CommunicationService } from '../../services/communication.service';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/models';
@@ -17,7 +17,7 @@ export class TabsComponent {
     translate: string;
     _router: Router;
     isAnonymous: boolean;//anonymous added to 
-    constructor(private categoryService: CategoryService, private commServ: CommunicationService ,route: Router) {
+    constructor(private categoryService: CategoryService, private commServ: CommunicationService, route: Router) {
         this._router = route;
         this.categoryService.getAllCategories().subscribe(res => {
 
@@ -25,7 +25,8 @@ export class TabsComponent {
             this.commServ.setCategory("1"); 
 
             this.categories = res;
-            this.tabLength = this.categories.length - 6;
+            //this.tabLength = this.categories.length - 6;
+            this.tabLength = this.categories.length-1;
             this.transform = 0;
         });
     }
@@ -35,23 +36,46 @@ export class TabsComponent {
     onChange(event:boolean) {      
         this.isAnonymous = event;
     }
-
+     firstTabPosition = 0;
     leftclick() {
-        //return tabs are at its left most position       
-        if (this.tabLength <= -2)
+        
+        if (this.firstTabPosition < this.categories.length-2) {
+            var elem = document.getElementById('tabsContainer').children[this.firstTabPosition];
+            this.transform = this.transform - elem.clientWidth-20;
+            console.log("Left");
+            console.log(this.transform);
+            console.log(this.firstTabPosition);
+            this.translate = 'translateX(' + this.transform + 'px)';
+            this.firstTabPosition++;
+        }
+        else
             return;
-        this.transform = this.transform - 170;
-        this.translate = 'translateX(' + this.transform + 'px)';
-        this.tabLength--;
+       
+        
     }
 
-    rightclick() {        
-        //return tabs are at its right most position
-        if (this.tabLength >= (this.categories.length - 6))
+    rightclick() {      
+        
+        if (this.firstTabPosition > 0) {
+            this.firstTabPosition--;
+            var elem = document.getElementById('tabsContainer').children[this.firstTabPosition];
+            this.transform = this.transform + elem.clientWidth+20;
+            console.log("Right");
+            console.log(this.transform);
+            console.log(this.firstTabPosition);
+            this.translate = 'translateX(' + this.transform + 'px)';
+            
+        }
+        else
             return;
-        this.transform = this.transform + 170;
-        this.translate = 'translateX(' + this.transform + 'px)';
-        this.tabLength++;
+        //return tabs are at its right most position
+        //if (this.tabLength >= this.categories.length)
+        //    return;
+        
+        //this.transform = this.transform + elem.clientWidth;
+        //this.translate = 'translateX(' + this.transform + 'px)';
+        //if (this.firstTabPosition > 0)
+        //    this.firstTabPosition--;
     }
     getTransform() {
         return this.translate;
