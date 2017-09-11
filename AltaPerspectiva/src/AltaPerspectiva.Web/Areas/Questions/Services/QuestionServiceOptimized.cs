@@ -15,7 +15,7 @@ using AltaPerspectiva.Web.Areas.UserProfile.Services;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
-    
+
     public class QuestionServiceOptimized
     {
         private string connectionString = Startup.ConnectionString;
@@ -46,10 +46,10 @@ inner join [Questions].[Answers] a on a.Id=dbo.GetBestAnswerFromQuestionId(q.Id)
 where a.IsDrafted is null
 ) bestAns
 on bestAns.QuestionId=q.Id";
-        
 
 
-        public  List<QuestionViewModel> FilterQuestionByGeneralCategory(int pageNumber, bool mostLikedQuestion,bool mostViewedQuestion)
+
+        public List<QuestionViewModel> FilterQuestionByGeneralCategory(int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
             string whereQuery = @"where q.IsDeleted is null and q.IsDirectQuestion =0 ";
 
@@ -68,19 +68,19 @@ on bestAns.QuestionId=q.Id";
             }
 
 
-   
-        QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
-                .WithSelectQuery(selectQuery)
-                            .WithJoinQuery(joinQuery)
-                .WithWhereQuery(whereQuery)
-                .WithOrderByQuery(orderByQuery)
-                .WithSkipTakeQuery(pageNumber: pageNumber);
+
+            QuestionViewModelBuilder builder = new QuestionViewModelBuilder()
+                    .WithSelectQuery(selectQuery)
+                                .WithJoinQuery(joinQuery)
+                    .WithWhereQuery(whereQuery)
+                    .WithOrderByQuery(orderByQuery)
+                    .WithSkipTakeQuery(pageNumber: pageNumber);
 
             List<QuestionViewModel> questionViewModels = builder.BuildQuery();
             return questionViewModels;
         }
 
-        public List<QuestionViewModel> FilterQuestionByCategoryIdOnly(Guid categoryId , int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
+        public List<QuestionViewModel> FilterQuestionByCategoryIdOnly(Guid categoryId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
             string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' ", categoryId);
             // bool mostLikedQuestion,bool mostViewedQuestion
@@ -107,9 +107,9 @@ on bestAns.QuestionId=q.Id";
             return questionViewModels;
 
         }
-        public List<QuestionViewModel> FilterQuestionByCategoryAndTopic(Guid categoryId ,Guid topicId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
+        public List<QuestionViewModel> FilterQuestionByCategoryAndTopic(Guid categoryId, Guid topicId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
-            string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' and qt.TopicId = '{1}'", categoryId,topicId);
+            string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' and qt.TopicId = '{1}'", categoryId, topicId);
             // bool mostLikedQuestion,bool mostViewedQuestion
             //MostRecentQuestion (Default)
             string orderByQuery = "";
@@ -136,7 +136,7 @@ on bestAns.QuestionId=q.Id";
         }
 
 
-        public List<QuestionViewModel> FilterQuestionByCategoryAndLevel(Guid categoryId, Guid levelId, int pageNumber,bool mostLikedQuestion, bool mostViewedQuestion)
+        public List<QuestionViewModel> FilterQuestionByCategoryAndLevel(Guid categoryId, Guid levelId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
             string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' and ql.LevelId = '{1}'", categoryId, levelId);
             // bool mostLikedQuestion,bool mostViewedQuestion
@@ -163,9 +163,9 @@ on bestAns.QuestionId=q.Id";
             return questionViewModels;
 
         }
-        public List<QuestionViewModel> FilterQuestionByCategoryAndTopicAndLevel(Guid categoryId,Guid topicId, Guid levelId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
+        public List<QuestionViewModel> FilterQuestionByCategoryAndTopicAndLevel(Guid categoryId, Guid topicId, Guid levelId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
-            string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' and qt.TopicId = '{1}' and ql.LevelId = '{2}'", categoryId, topicId,levelId);
+            string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and qc.CategoryId = '{0}' and qt.TopicId = '{1}' and ql.LevelId = '{2}'", categoryId, topicId, levelId);
             // bool mostLikedQuestion,bool mostViewedQuestion
             //MostRecentQuestion (Default)
             string orderByQuery = "";
@@ -244,7 +244,7 @@ on bestAns.QuestionId=q.Id";
             return questionViewModels;
 
         }
-        public List<QuestionViewModel> FilterQuestionByGeneralCategoryTopicAndLevel( Guid topicId, Guid levelId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
+        public List<QuestionViewModel> FilterQuestionByGeneralCategoryTopicAndLevel(Guid topicId, Guid levelId, int pageNumber, bool mostLikedQuestion, bool mostViewedQuestion)
         {
             string whereQuery = String.Format(@"where q.IsDeleted is null and q.IsDirectQuestion = 0 and  qt.TopicId = '{0}' and ql.LevelId = '{1}'", topicId, levelId);
             // bool mostLikedQuestion,bool mostViewedQuestion
@@ -272,7 +272,7 @@ on bestAns.QuestionId=q.Id";
 
         }
 
-        private List<QuestionDbModel> QueryBuilderForQuestionDbModel(IDbConnection db, Guid userid, int pageNumber = 0, int pageCount = 15, FilterParameter filterParameter = null )
+        private List<QuestionDbModel> QueryBuilderForQuestionDbModel(IDbConnection db, Guid userid, int pageNumber = 0, int pageCount = 15, FilterParameter filterParameter = null)
         {
             string filterQuery = string.Empty;
             if (filterParameter == null || (filterParameter.CategoryId == null && filterParameter.TopicId == null && filterParameter.LevelId == null)) //1.ok
@@ -308,9 +308,9 @@ where q.IsDeleted is null and q.IsDirectQuestion =0
 order by q.CreatedOn desc
 OFFSET {0} ROWS -- skip 10 rows
 FETCH NEXT 15 ROWS ONLY; -- take 10 rows
-", pageNumber * pageCount, pageCount,userid);          
+", pageNumber * pageCount, pageCount, userid);
             }
-            else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue && !filterParameter.LevelId.HasValue ) //2.filter only category
+            else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue && !filterParameter.LevelId.HasValue) //2.filter only category
             {
                 filterQuery = String.Format(@"
 select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn, qc.CategoryId ,c.Name as CategoryName ,qt.TopicId ,t.TopicName ,ql.LevelId,l.LevelName ,
@@ -371,7 +371,7 @@ order by q.CreatedOn desc
 OFFSET {0} ROWS -- skip 10 rows
 FETCH NEXT {1} ROWS ONLY; -- take 10 rows
 
-", pageNumber * pageCount, pageCount, filterParameter.CategoryId,filterParameter.TopicId);
+", pageNumber * pageCount, pageCount, filterParameter.CategoryId, filterParameter.TopicId);
             }
             else if (filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue &&
                      filterParameter.LevelId.HasValue) // 4. filter by category and level 
@@ -403,7 +403,7 @@ order by q.CreatedOn desc
 OFFSET {0} ROWS -- skip 10 rows
 FETCH NEXT {1} ROWS ONLY; -- take 10 rows
 
-", pageNumber * pageCount, pageCount, filterParameter.CategoryId,filterParameter.LevelId);
+", pageNumber * pageCount, pageCount, filterParameter.CategoryId, filterParameter.LevelId);
             }
             else if (filterParameter.CategoryId.HasValue && filterParameter.TopicId.HasValue &&
                      filterParameter.LevelId.HasValue) //5.filter only category ,topic and level
@@ -435,9 +435,9 @@ order by q.CreatedOn desc
 OFFSET {0} ROWS -- skip 10 rows
 FETCH NEXT {1} ROWS ONLY; -- take 10 rows
 
-", pageNumber * pageCount, pageCount, filterParameter.CategoryId,filterParameter.TopicId,filterParameter.LevelId);
+", pageNumber * pageCount, pageCount, filterParameter.CategoryId, filterParameter.TopicId, filterParameter.LevelId);
             }
-            
+
             else if (!filterParameter.CategoryId.HasValue && filterParameter.TopicId.HasValue &&
                      !filterParameter.LevelId.HasValue) // 6. filter by topic 
             {
@@ -500,7 +500,7 @@ order by q.CreatedOn desc
 OFFSET {0} ROWS -- skip 10 rows
 FETCH NEXT {1} ROWS ONLY; -- take 10 rows
 
-", pageNumber * pageCount, pageCount, filterParameter.TopicId , filterParameter.LevelId);
+", pageNumber * pageCount, pageCount, filterParameter.TopicId, filterParameter.LevelId);
             }
             else if (!filterParameter.CategoryId.HasValue && !filterParameter.TopicId.HasValue &&
                      filterParameter.LevelId.HasValue) //8. level only
@@ -538,7 +538,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
             return questionDbModels;
         }
 
-       
+
         private string BestAnswerTestWithFormattedImage(string answerText, string firstImageUrl)
         {
             string htmlDocument = answerText;
@@ -559,7 +559,7 @@ FETCH NEXT {1} ROWS ONLY; -- take 10 rows
             string newHtml = "<p>" + formatedImage + result + "</p>";
             return newHtml;
         }
-        public List<AnswerViewModel> GetAnswerViewModels(Guid questionId , Guid userId)
+        public List<AnswerViewModel> GetAnswerViewModels(Guid questionId, Guid userId)
         {
             List<AnswerViewModel> answerViewModels = new List<AnswerViewModel>();
             List<UserViewModel> userViewModels = null;
@@ -574,9 +574,9 @@ END as IsFollowing,
 a.IsAnonymous
 from Questions.Answers a 
 where QuestionId = '{0}' and a.IsDrafted is null and a.IsDeleted is null
-", questionId,userId);
+", questionId, userId);
 
-  
+
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 answerViewModels = db.Query<AnswerViewModel>(answerQuery).ToList();
@@ -585,7 +585,7 @@ where QuestionId = '{0}' and a.IsDrafted is null and a.IsDeleted is null
                 userIds.AddRange(answerViewModels.Select(x => x.UserId).ToList());
 
                 userViewModels = new UserService().GetUserViewModelsWithThumbnailImage(userIds);
-               
+
             }
 
             foreach (var answerViewModel in answerViewModels)
@@ -603,6 +603,50 @@ where QuestionId = '{0}' and a.IsDrafted is null and a.IsDeleted is null
                 }
             }
             return answerViewModels;
+        }
+
+        public AnswerViewModel GetBestAnswerViewModel(Guid questionId, Guid userId)
+        {
+            AnswerViewModel answerViewModel = null;
+            String answerQuery = String.Format(@"
+select * ,
+(select COUNT(*) from Questions.Likes l where l.AnswerId =a.Id) LikeCount,
+(select COUNT(*) from Questions.Comments c where c.AnswerId =a.Id) CommentCount,
+CASE 
+WHEN EXISTS (select 1 from [Questions].[QuestionUserFollowings] f where  f.UserId ='{1}' and f.IsDeleted is null  and f.FollowedUserId = a.UserId)  then 1
+else 0 
+END as IsFollowing,
+a.IsAnonymous
+from Questions.Answers a 
+where a.Id = dbo.GetBestAnswerFromQuestionId('{0}') and a.IsDrafted is null and a.IsDeleted is null
+", questionId, userId);
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                answerViewModel = db.Query<AnswerViewModel>(answerQuery).FirstOrDefault();
+
+
+            }
+            if (answerViewModel != null)
+            {
+                answerViewModel.AnswerId = answerViewModel.Id;
+                answerViewModel.UserViewModel = new UserService().GetUserViewModelWithThumbnailImage(answerViewModel.UserId);
+            }
+
+
+
+            answerViewModel.Comments = new List<AnswerCommentViewModel>();
+            for (int i = 0; i < answerViewModel.CommentCount; i++)
+            {
+                answerViewModel.Comments.Add(new AnswerCommentViewModel());
+            }
+            answerViewModel.Likes = new List<AnswerLikeViewModel>();
+            for (int i = 0; i < answerViewModel.LikeCount; i++)
+            {
+                answerViewModel.Likes.Add(new AnswerLikeViewModel());
+            }
+
+            return answerViewModel;
+
         }
         public QuestionViewModel GetQuestionViewModel(Guid questionId)
         {
@@ -651,7 +695,7 @@ select * from Questions.Levels where id ='{2}';
                 questionViewModel.Likes = new List<QuestionLikeViewModel>();
                 for (int i = 0; i < questionViewModel.LikeCount; i++)
                 {
-                    
+
                     questionViewModel.Likes.Add(new QuestionLikeViewModel());
                 }
 
@@ -708,13 +752,13 @@ select * from Questions.Levels where id ='{2}';
         }
         public List<QuestionViewModel> GetQuestionViewModels(int pageNumber, int pageCount, Guid userId, FilterParameter filterParameter = null)
         {
-          //  String query = QueryBuilder(pageNumber, pageCount);
+            //  String query = QueryBuilder(pageNumber, pageCount);
             List<QuestionDbModel> questionDbModels = null;
             List<UserViewModel> userViewModels = null;
 
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                questionDbModels = QueryBuilderForQuestionDbModel(db, userId, pageNumber,pageCount,  filterParameter);
+                questionDbModels = QueryBuilderForQuestionDbModel(db, userId, pageNumber, pageCount, filterParameter);
 
                 List<Guid> userList = new List<Guid>();
                 userList.AddRange(questionDbModels.Select(x => x.UserId).ToList());
@@ -757,7 +801,7 @@ select * from Questions.Levels where id ='{2}';
                         Id = topicId,
                         TopicName = dbModel.TopicName,
                         CategoryId = categoryId
-                        
+
                     };
 
                     QuestionTopic questionTopic = new QuestionTopic
@@ -825,6 +869,6 @@ select * from Questions.Levels where id ='{2}';
             }
             return questionViewModels;
         }
-        
+
     }
 }
