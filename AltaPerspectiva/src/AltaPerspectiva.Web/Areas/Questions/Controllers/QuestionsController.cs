@@ -87,22 +87,6 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(questions);
         }
 
-        [HttpGet("/questions/api/questions/{questionId}/getbestanswer")]
-        public async Task<IActionResult> GetBestAnswer(Guid questionId)
-        {
-            Guid loggedinUser = Guid.Empty;
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                        .Select(x => x.Value);
-                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            }
-            var bestAnswer = await Task.Run(() => new QuestionServiceOptimized().GetBestAnswerViewModel(questionId, loggedinUser));
-            return Ok(bestAnswer);
-        }
-
         [HttpGet("/questions/api/questions/{questionId}/getanswers")]
         public async Task<IActionResult> GetAnswers(Guid questionId)
         {
@@ -1031,26 +1015,26 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
             QuestionViewModel questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration, loggedinUser);
             return Ok(questionViewModel);
         }
-        //[HttpGet("/questions/api/questions/{questionId}/getbestanswer")]
-        //public IActionResult GetBestAnswer(Guid questionId)
-        //{
-        //    Question question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
+        [HttpGet("/questions/api/questions/{questionId}/getbestanswer")]
+        public IActionResult GetBestAnswer(Guid questionId)
+        {
+            Question question = queryFactory.ResolveQuery<IQuestionByIdQuery>().Execute(questionId);
 
-        //    question.Answers = question.Answers.OrderByDescending(l => l.Likes.Count).ThenByDescending(x => x.CreatedOn).ToList();
-        //    Guid loggedinUser = Guid.Empty;
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var userId =
-        //            User.Claims.Where(
-        //                    x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-        //                .Select(x => x.Value);
-        //        loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-        //    }
+            question.Answers = question.Answers.OrderByDescending(l => l.Likes.Count).ThenByDescending(x => x.CreatedOn).ToList();
+            Guid loggedinUser = Guid.Empty;
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                loggedinUser = new Guid(userId?.ElementAt(0).ToString());
+            }
 
-        //    QuestionViewModel questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration, loggedinUser);
+            QuestionViewModel questionViewModel = new QuestionService().GetQuestionViewModel(question, queryFactory, configuration, loggedinUser);
 
-        //    return Ok(questionViewModel);
-        //}
+            return Ok(questionViewModel);
+        }
 
 
         #endregion
