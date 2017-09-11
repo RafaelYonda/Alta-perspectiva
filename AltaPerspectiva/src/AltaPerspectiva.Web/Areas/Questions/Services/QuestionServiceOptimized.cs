@@ -15,6 +15,7 @@ using AltaPerspectiva.Web.Areas.UserProfile.Services;
 
 namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
+    
     public class QuestionServiceOptimized
     {
         private string connectionString = Startup.ConnectionString;
@@ -626,7 +627,8 @@ from Questions.Questions q
 where q.Id = '{0}'
 ", questionId);
                 questionViewModel = db.Query<QuestionViewModel>(questionQuery).FirstOrDefault();
-                
+
+                questionViewModel.Title = questionViewModel.Title.AddQuestionMarks();
                 Guid categoryId = questionViewModel.CategoryId;
                 Guid topicId = questionViewModel.TopicId;
                 Guid levelId = questionViewModel.LevelId;
@@ -724,7 +726,7 @@ select * from Questions.Levels where id ='{2}';
             {
                 QuestionViewModel questionViewModel = new QuestionViewModel();
                 questionViewModel.Id = dbModel.Id;
-                questionViewModel.Title = dbModel.Title;
+                questionViewModel.Title = dbModel.Title.AddQuestionMarks();
                 questionViewModel.Body = dbModel.Body;
                 questionViewModel.CreatedOn = dbModel.CreatedOn;
                 questionViewModel.AnswerCount = dbModel.AnswerCount;

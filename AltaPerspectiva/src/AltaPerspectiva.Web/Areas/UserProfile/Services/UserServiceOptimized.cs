@@ -133,7 +133,7 @@ FETCH NEXT 15 ROWS ONLY; -- take 10 rows
             {
                 QuestionViewModel questionViewModel = new QuestionViewModel();
                 questionViewModel.Id = dbModel.Id;
-                questionViewModel.Title = dbModel.Title;
+                questionViewModel.Title = dbModel.Title.AddQuestionMarks();
                 questionViewModel.Body = dbModel.Body;
                 questionViewModel.CreatedOn = dbModel.CreatedOn;
                 questionViewModel.AnswerCount = dbModel.AnswerCount;
@@ -279,7 +279,7 @@ order by q.CreatedOn desc
             {
                 QuestionViewModel questionViewModel = new QuestionViewModel();
                 questionViewModel.Id = dbModel.Id;
-                questionViewModel.Title = dbModel.Title;
+                questionViewModel.Title = dbModel.Title.AddQuestionMarks();
                 questionViewModel.Body = dbModel.Body;
                 questionViewModel.CreatedOn = dbModel.CreatedOn;
                 questionViewModel.AnswerCount = dbModel.AnswerCount;

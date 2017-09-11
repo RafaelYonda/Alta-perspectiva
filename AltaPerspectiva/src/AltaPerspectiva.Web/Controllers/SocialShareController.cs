@@ -29,7 +29,7 @@ namespace AltaPerspectiva.Web.Controllers
             {
                 question = connection.Query<Question>(query).FirstOrDefault();
             }
-            ViewBag.og_title = question.Title;
+            ViewBag.og_title = question.Title.AddQuestionMarks();
             ViewBag.og_description = string.IsNullOrEmpty(question.Body)?"Alta Perspectiva": question.Body; 
             ViewBag.questionUrl = Startup.Url + "question/detail/"+question.Id.ToString();
             ViewBag.og_url = Startup.Url + "SocialShare/ShareQuestionInSocialMedia/" + question.Id.ToString(); ;
@@ -39,7 +39,8 @@ namespace AltaPerspectiva.Web.Controllers
         public ActionResult ShareAnswerInSocialMedia(Guid id)
         {
             Answer answer = new Answer();
-            Question question = new Question();
+
+              Question question = null;
             using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
             {
                 string answerQuery = String.Format("select * from Questions.Answers  where Id = '{0}'", id);
@@ -47,6 +48,11 @@ namespace AltaPerspectiva.Web.Controllers
                
                 string questionQuery = String.Format("select * from Questions.Questions  where Id = '{0}'", answer.QuestionId);
                 question = connection.Query<Question>(questionQuery).FirstOrDefault();
+                
+            }
+            if (question != null)
+            {
+                question.Title = question.Title.AddQuestionMarks();
             }
             if (answer!=null)
             {

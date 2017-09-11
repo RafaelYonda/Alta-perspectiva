@@ -109,7 +109,7 @@ FETCH NEXT {1} ROWS ONLY -- take rows ", pageNumber * pageCount, pageCount);
             {
                 QuestionViewModel questionViewModel = new QuestionViewModel();
                 questionViewModel.Id = dbModel.Id;
-                questionViewModel.Title = dbModel.Title;
+                questionViewModel.Title = dbModel.Title.AddQuestionMarks();
                 questionViewModel.Body = dbModel.Body;
                 questionViewModel.CreatedOn = dbModel.CreatedOn;
                 questionViewModel.AnswerCount = dbModel.AnswerCount;
