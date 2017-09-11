@@ -33,7 +33,7 @@ namespace AltaPerspectiva.Web.Controllers
             ViewBag.og_description = string.IsNullOrEmpty(question.Body)?"Alta Perspectiva": question.Body; 
             ViewBag.questionUrl = Startup.Url + "question/detail/"+question.Id.ToString();
             ViewBag.og_url = Startup.Url + "SocialShare/ShareQuestionInSocialMedia/" + question.Id.ToString(); ;
-            ViewBag.og_image = "https://altablob.blob.core.windows.net:443/category/altaperspectiva-logo.png";
+            ViewBag.og_image = "https://altablob.blob.core.windows.net:443/category/altaperspectivafb.png";
             return View();
         }
         public ActionResult ShareAnswerInSocialMedia(Guid id)
@@ -62,7 +62,7 @@ namespace AltaPerspectiva.Web.Controllers
                 answer.Text = htmlDoc.DocumentNode.InnerText;
             }
             var file = new AzureFileUploadHelper();
-            var imageUrl = String.IsNullOrEmpty(answer.FirstImageUrl) ? "https://altablob.blob.core.windows.net:443/category/altaperspectiva-logo.png" : answer.FirstImageUrl;
+            var imageUrl = String.IsNullOrEmpty(answer.FirstImageUrl) ? "https://altablob.blob.core.windows.net:443/category/altaperspectivafb.png" : answer.FirstImageUrl;
             ViewBag.og_title = question.Title;
             ViewBag.og_description = answer.Text;
             ViewBag.questionUrl = Startup.Url + "question/detail/" + question.Id.ToString();
@@ -94,7 +94,7 @@ namespace AltaPerspectiva.Web.Controllers
                 blogPost.Description = htmlDoc.DocumentNode.InnerText;
             }
             var file = new AzureFileUploadHelper();
-            var imageUrl = "https://altablob.blob.core.windows.net:443/category/altaperspectiva-logo.png";
+            var imageUrl = "https://altablob.blob.core.windows.net:443/category/altaperspectivafb.png";
             ViewBag.og_title = blogPost.Title;
             ViewBag.og_description = blogPost.Description;
             ViewBag.questionUrl = Startup.Url + "dashboard/blog-post/" + blogPost.BlogId.ToString();
