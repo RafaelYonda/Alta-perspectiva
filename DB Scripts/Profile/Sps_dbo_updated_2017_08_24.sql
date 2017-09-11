@@ -1,4 +1,16 @@
 --GO
+--DROP INDEX ix_Questions on Questions.Questions
+--GO
+
+--CREATE NONCLUSTERED INDEX ix_Questions ON Questions.Questions (ID DESC, IsDirectQuestion, IsDeleted)
+--GO
+--DROP INDEX ix_Credentials on [UserProfile].[Credentials]
+--GO
+
+--CREATE NONCLUSTERED INDEX ix_Credentials ON Questions.Questions (ID ,UserId)
+--GO
+
+--GO
 --select * from [UserProfile].[Credentials] c
 --SpTopUserCalculation
 --GO
@@ -219,7 +231,14 @@ and qf.IsDeleted is null
 group by qf.FollowedUserId
 
 DECLARE @Bookmarks int;
-select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
+--select @Bookmarks=COUNT(*) from Questions.Bookmarks b where b.UserId=@userId
+select @Bookmarks=COUNT(*) 
+from Questions.Bookmarks b 
+inner join Questions.Questions q
+on b.QuestionId = q.Id
+where b.UserId=@userId
+and q.isDeleted is null
+
 ----------------use same as UserInfoDetails---------------------
 DECLARE @Answers int;
 select @Answers=COUNT(DISTINCT a.QuestionId) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null

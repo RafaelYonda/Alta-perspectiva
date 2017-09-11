@@ -116,10 +116,16 @@ namespace AltaPerspectiva.Web.Area.Questions
                 FollowCategoryCommand cmd = new FollowCategoryCommand(categoryId, loggedinUser);
                 commandsFactory.ExecuteQuery(cmd);
 
-                return Created($"questions/api/categories/addfollowers/{cmd.Id}", cmd);
+                return Ok(new
+                {
+                    count = cmd.Id != Guid.Empty ? 1 : 0
+                });
             }
-            return Unauthorized();
 
+            return Ok(new
+            {
+                count = 0
+            });
         }
 
         //questions/api/categories/totalcount

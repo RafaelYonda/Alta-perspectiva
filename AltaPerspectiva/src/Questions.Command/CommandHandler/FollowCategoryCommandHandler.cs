@@ -26,17 +26,31 @@
 		public override void Execute(FollowCategoryCommand command)
 		{
 			Debug.WriteLine("FollowCategoryCommandHandler executed");
-                        
-            CategoryFollower categoryFollower = new CategoryFollower();
 
-            categoryFollower.GenerateNewIdentity();
-            categoryFollower.CategoryId = command.CategoryId;
-            categoryFollower.UserId = command.UserId;           
-                        
-            DbContext.CategoryFollowers.Add(categoryFollower);
-            DbContext.SaveChanges();
+		    Boolean userAlreadyFollowing =
+		        DbContext.CategoryFollowers.Any(x => x.UserId == command.UserId && x.CategoryId == command.CategoryId);
 
-			command.Id = command.Id;
+		    if (!userAlreadyFollowing)
+		    {
+
+		        CategoryFollower categoryFollower = new CategoryFollower();
+
+		        categoryFollower.GenerateNewIdentity();
+		        categoryFollower.CategoryId = command.CategoryId;
+		        categoryFollower.UserId = command.UserId;
+
+		        DbContext.CategoryFollowers.Add(categoryFollower);
+		        DbContext.SaveChanges();
+
+		        command.Id = categoryFollower.Id;
+		    }
+		    else
+		    {
+		        command.Id = Guid.Empty;
+		    }
+
+            
+            
 		}
            
     }
