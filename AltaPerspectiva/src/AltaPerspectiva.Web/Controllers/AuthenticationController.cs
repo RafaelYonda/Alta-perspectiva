@@ -35,17 +35,27 @@ namespace AltaPerspectiva.Controllers
         {
             var redirectUrl = Startup.Url;
             var authUrl = Startup.AuthUrl;
-//#if DEBUG
-//            authUrl = "http://alta-staging-auth.azurewebsites.net/";
-//            redirectUrl = "http://alta-staging.azurewebsites/";
+#if DEBUG
+            authUrl = "http://alta-staging-auth.azurewebsites.net/";
+            //redirectUrl = "http://alta-staging.azurewebsites/";
+            //authUrl = "http://localhost:54540/";
+            redirectUrl = "http://localhost:5273/signupcallback";
 
-//#else
-               
-//            authUrl= "http://altaauth.azurewebsites.net";
-//            redirectUrl= "http://www.altaperspectiva.com";
-//#endif
+#else
 
+            authUrl= "http://altaauth.azurewebsites.net";
+            redirectUrl= "http://www.altaperspectiva.com/signupcallback";
+#endif
             return new RedirectResult(authUrl + "Account/Register?returnUrl=" + redirectUrl);
+        }
+        [HttpGet("~/signupcallback")]
+        public ActionResult SignUpCallBack()
+        {
+            //after signup go back authenetication page for sign in again
+            return new ChallengeResult(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties
+            {
+                RedirectUri = "/"
+            });
         }
     }
 }
