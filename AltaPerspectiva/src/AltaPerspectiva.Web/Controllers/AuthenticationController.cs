@@ -36,14 +36,13 @@ namespace AltaPerspectiva.Controllers
             var redirectUrl = Startup.Url;
             var authUrl = Startup.AuthUrl;
 #if DEBUG
-            authUrl = "http://alta-staging-auth.azurewebsites.net/";
-            redirectUrl = "http://alta-staging.azurewebsites/signupcallback";
-            //authUrl = "http://localhost:54540/";
-            //redirectUrl = "http://localhost:5273/signupcallback";
+           
+            authUrl = "http://localhost:54540/";
+            redirectUrl = "http://localhost:5273/signupcallback";
 
 #else
             authUrl = "http://alta-staging-auth.azurewebsites.net/";
-            redirectUrl = "http://alta-staging.azurewebsites/signupcallback";
+            redirectUrl = "http://alta-staging.azurewebsites.net/signupcallback";
             //authUrl= "http://altaauth.azurewebsites.net";
            // redirectUrl= "http://www.altaperspectiva.com/signupcallback";
 #endif

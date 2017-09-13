@@ -33,6 +33,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 using Questions.Domain.ReadModel;
+using HtmlAgilityPack;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -193,6 +194,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             commandsFactory.ExecuteQuery(command);
             return Ok(command.Id);//CredentialId
         }
+
         [Authorize]
         [HttpPost("userprofile/api/credential/update")]
         public IActionResult UpdateCredential([FromBody]CredentialViewModel model)
@@ -201,7 +203,20 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
             loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-
+            if (model.Description != null)
+            {
+                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(model.Description);
+                foreach (var a in doc.DocumentNode.Descendants("a"))
+                {
+                    var hrefVlaue = a.Attributes["href"].Value;
+                    if(!(hrefVlaue.Contains("http://") || hrefVlaue.Contains("https://")))
+                    {
+                        a.Attributes["href"].Value = "http://" + hrefVlaue;
+                    }
+                }
+                var newContent = doc.DocumentNode.OuterHtml;
+            }
 
             UpdateCredentialCommand command = new UpdateCredentialCommand(loggedinUser, model.FirstName, model.LastName, model.Title, model.Description, null);
             commandsFactory.ExecuteQuery(command);
