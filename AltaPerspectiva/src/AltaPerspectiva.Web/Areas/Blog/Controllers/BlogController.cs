@@ -165,6 +165,7 @@ namespace AltaPerspectiva.Web.Areas.Blog.Controllers
                 model.Description = model.Description.Replace(imgTag, fileLink);
             }
 
+            model.Description = Utilities.AddHttpToText(model.Description);
             AddBlogPostCommand command = new AddBlogPostCommand(loggedinUser, model.Title, model.Description, model.BlogId);
             commandsFactory.ExecuteQuery(command);
             return Ok();

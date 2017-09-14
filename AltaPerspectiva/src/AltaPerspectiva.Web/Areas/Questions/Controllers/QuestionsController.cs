@@ -422,7 +422,7 @@ where c.AnswerId = '{0}'", id);
                 await new SendEmailService().SendAnswerEmailAsync(queryFactory, webRootPath, loggedinUser, answer.QuestionId, answer.Text, "Nueva Respuesta");
             }
 
-
+            answer.Text = Utilities.AddHttpToText(answer.Text);
             AddAnswerCommand cmd = new AddAnswerCommand(answer.Text, answer.AnswerDate, answer.QuestionId, loggedinUser, answer.IsDrafted, answer.IsAnonymous, firstImageUrl);
             commandsFactory.ExecuteQuery(cmd);
             Guid createdId = cmd.Id;
@@ -881,6 +881,7 @@ left join [UserProfile].[Credentials] cr on cr.[UserId]= likedUser.UserId
                 levelId = new Guid(question.LevelId);
             }
             question.Title = new QuestionService().RemoveQuestionMark(question.Title);
+            //question.Body = Utilities.AddHttpToText(question.Body);
             AddQuestionCommand cmd = new AddQuestionCommand(question.Title, question.Body, DateTime.Now, loggedinUser,
                 question.CategoryIds, topicId, levelId, question.IsAnonymous);
             commandsFactory.ExecuteQuery(cmd);

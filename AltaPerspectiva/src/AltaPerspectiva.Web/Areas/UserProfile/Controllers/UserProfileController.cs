@@ -203,21 +203,9 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             var userId = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Select(x => x.Value);
             loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-            if (model.Description != null)
-            {
-                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-                doc.LoadHtml(model.Description);
-                foreach (var a in doc.DocumentNode.Descendants("a"))
-                {
-                    var hrefVlaue = a.Attributes["href"].Value;
-                    if(!(hrefVlaue.Contains("http://") || hrefVlaue.Contains("https://")))
-                    {
-                        a.Attributes["href"].Value = "http://" + hrefVlaue;
-                    }
-                }
-                var newContent = doc.DocumentNode.OuterHtml;
-                model.Description = newContent;
-            }
+
+            model.Description = Utilities.AddHttpToText(model.Description);
+            
 
             UpdateCredentialCommand command = new UpdateCredentialCommand(loggedinUser, model.FirstName, model.LastName, model.Title, model.Description, null);
             commandsFactory.ExecuteQuery(command);
@@ -577,7 +565,10 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             }
-            UpdateSocialLinkCommand command = new UpdateSocialLinkCommand(loggedinUser, model.TwitterLink, model.FacebookLink, model.LinkedinLink);
+
+            
+
+            UpdateSocialLinkCommand command = new UpdateSocialLinkCommand(loggedinUser, Utilities.AddHttpToSocialLink(model.TwitterLink), Utilities.AddHttpToSocialLink(model.FacebookLink), Utilities.AddHttpToSocialLink(model.LinkedinLink));
             commandsFactory.ExecuteQuery(command);
             return Ok(command.Id);
         }
