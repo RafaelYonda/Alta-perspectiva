@@ -88,7 +88,6 @@ namespace AltaPerspectiva
                 // Set a short timeout for easy testing.
                 options.IdleTimeout = TimeSpan.FromDays(3);
                 options.CookieHttpOnly = true;
-                options.CookieName = "Altaperspectiva";
             });
             services.AddSingleton<IConfigurationRoot>(provider => Configuration);
 
@@ -336,7 +335,7 @@ namespace AltaPerspectiva
                 GetClaimsFromUserInfoEndpoint = true,
                 SaveTokens = true,
 
-                // Use the authorization code flow.
+                // Use the authorization code flow. 
                 ResponseType = OpenIdConnectResponseType.Code,
                 AuthenticationMethod = OpenIdConnectRedirectBehavior.RedirectGet,
                 TokenValidationParameters = new TokenValidationParameters() { NameClaimType = "name" },
