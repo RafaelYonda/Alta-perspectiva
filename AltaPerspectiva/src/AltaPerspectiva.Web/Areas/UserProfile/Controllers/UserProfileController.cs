@@ -216,6 +216,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                     }
                 }
                 var newContent = doc.DocumentNode.OuterHtml;
+                model.Description = newContent;
             }
 
             UpdateCredentialCommand command = new UpdateCredentialCommand(loggedinUser, model.FirstName, model.LastName, model.Title, model.Description, null);
