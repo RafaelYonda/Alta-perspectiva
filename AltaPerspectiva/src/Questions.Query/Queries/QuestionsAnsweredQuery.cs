@@ -16,6 +16,13 @@ namespace Questions.Query
 		{
 		}
 
+        public Task<Answer> AnswerById(Guid answerId)
+        {
+            var z= DbContext.
+                                Answers.FirstOrDefaultAsync(i=>i.Id==answerId);
+            return z;
+        }
+
         public async Task<IEnumerable<Question>> Execute(Guid CategoryId , int pageNo , int pageSize = 15)
         {
             var answeredQuestions = DbContext

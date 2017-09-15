@@ -250,7 +250,11 @@ export class QuestionAnswerService implements Resolve<Question> {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
+    GetAnswersId(answerId: string): Observable<AnswerViewModel> {
+        return this._http.get('/questions/api/questions/answer/' + answerId, null)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     //Filtered parameter
     FilterbyCategoryTopicNLevel(filterParameter: FilterParameter, pageNumber: number): Observable<Question[]> {
         return this._http.get('/questions/api/' + pageNumber + '/FilterbyCategoryTopicNLevel?categoryId=' + filterParameter.categoryId + '&topicId='

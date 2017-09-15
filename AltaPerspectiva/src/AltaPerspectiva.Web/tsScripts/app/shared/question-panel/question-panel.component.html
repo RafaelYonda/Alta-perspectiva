@@ -29,7 +29,6 @@
                     <user-info [userObj]="question.bestAnswer?.userViewModel" [viewDate]="question.bestAnswer?.answerDate" [isAnonymous]="question.bestAnswer?.isAnonymous"></user-info>
                     <div *ngIf="question.bestAnswer?.text" (click)="openDialogBox(question)">
                         <p [innerHTML]="clippedAnswer"></p>
-                        <!--<span><a (click)="openDialogBox(question)">Read more..</a></span>-->
                     </div>
                     <div *ngIf="question.bestAnswer">
                         <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question.bestAnswer" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)" (onQuestionDetailClicked)="onQuestionDetailClicked($event)"></ap-status>

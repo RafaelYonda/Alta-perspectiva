@@ -240,6 +240,12 @@ namespace AltaPerspectiva.Web.Area.Questions
             return Ok(questions);
         }
 
+        [HttpGet("/questions/api/questions/answer/{id}")]
+        public async Task<IActionResult> GetAnswerById(Guid id)
+        {
+            Answer answer = await queryFactory.ResolveQuery<IQuestionsAnsweredQuery>().AnswerById(id);
+            return Ok(answer);
+        }
         // GET /questions/api/questions/topic/{id}
         [HttpGet("/questions/api/questions/topic/{id}")]
         public async Task<IActionResult> GetQuestionsByTopicId(Guid id)

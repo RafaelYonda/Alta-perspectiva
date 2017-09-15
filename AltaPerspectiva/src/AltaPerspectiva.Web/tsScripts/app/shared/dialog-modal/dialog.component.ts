@@ -15,6 +15,7 @@ import { QuestionReportComponent } from '../../shared/question-report/question-r
 export class DialogComponent {
     close = new EventEmitter();
     question: Question;
+    answerText: string;
     //QuestionEditModal
     questionReports: QuestionReport[];
     //Edit question popup
@@ -26,10 +27,14 @@ export class DialogComponent {
     onClickedExit() {
         this.close.emit('event');
     }
-    constructor(private dataService: QuestionAnswerService, router: Router, private componentFactoryResolver: ComponentFactoryResolver) {
+    constructor(private questionAnswerService: QuestionAnswerService, router: Router, private componentFactoryResolver: ComponentFactoryResolver) {
         this._router = router;
     }
     ngOnInit() {
+        this.questionAnswerService.GetAnswersId(this.question.bestAnswer.id).subscribe((res) => {
+            this.answerText = res.text;
+        });
+        console.log(this.question.bestAnswer.text);
         this.isFollowing = true;
         var user = localStorage.getItem('auth_token');
         if (user) {
@@ -56,7 +61,7 @@ export class DialogComponent {
         questionFollowing.questionId = question.id;
         questionFollowing.answerId = question.bestAnswer.id;
         questionFollowing.followedUserId = question.bestAnswer.userId;
-        this.dataService.QuestionFollowing(questionFollowing).subscribe(res => {
+        this.questionAnswerService.QuestionFollowing(questionFollowing).subscribe(res => {
             if (this.isFollowing == true) {
                 this.isFollowing = false;
             } else {
@@ -76,7 +81,7 @@ export class DialogComponent {
         qv.body = this.editBody;
         qv.id = this.question.id;
 
-        this.dataService.updateQuestion(qv).subscribe(res => {
+        this.questionAnswerService.updateQuestion(qv).subscribe(res => {
             this.question.title = this.editTitle;
             this.question.body = this.editBody;
             this.showQuestionEditForm = false;
@@ -103,7 +108,7 @@ export class DialogComponent {
         let dialogComponentFactory = this.componentFactoryResolver.resolveComponentFactory(QuestionReportComponent);
         let dialogComponentRef = this.questionReport.createComponent(dialogComponentFactory);
 
-        this.dataService.GetReport(showQuestionReportModal.answerId).subscribe(res => {
+        this.questionAnswerService.GetReport(showQuestionReportModal.answerId).subscribe(res => {
             this.questionReports = res;
             dialogComponentRef.instance.questionReports = this.questionReports;
             dialogComponentRef.instance.questionId = showQuestionReportModal.questionId;

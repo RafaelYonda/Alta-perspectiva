@@ -24,13 +24,18 @@ export class AppComponent {
         if (this.username && this.username != "") {
             localStorage.setItem('currentUser', this.username);
             localStorage.setItem('auth_token', this.token);
+            
             this._authService.getLoggedinObj().subscribe(res => {
                 if (!res.userId)
                     this.removeLocalStorage();
-                localStorage.setItem('currentUserId', res.userId.toLocaleString());
-                localStorage.setItem('currentUserName', res.name.toLocaleString());
-                localStorage.setItem('currentUserImage', res.imageUrl ? res.imageUrl.toLocaleString() : null);
-                localStorage.setItem('userId', res.userId.toLocaleString());
+                else
+                {
+                    console.log(res);
+                    localStorage.setItem('currentUserId', res.userId.toLocaleString());
+                    localStorage.setItem('currentUserName', res.name.toLocaleString());
+                    localStorage.setItem('currentUserImage', res.imageUrl ? res.imageUrl.toLocaleString() : null);
+                    localStorage.setItem('userId', res.userId.toLocaleString());
+                }
             });
         }
         else

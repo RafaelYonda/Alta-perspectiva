@@ -40,10 +40,6 @@ export class AnswerSubmitComponent {
         this._logObj = { isLoggedIn: false, user: user };
     }
     ngOnInit() {
-        //var userObj = localStorage.getItem('currentUserObject');
-        //var currentUserName = localStorage.getItem('currentUser');
-        //var currentUserImage = localStorage.getItem('currentUserImage');
-        
         this._authService.getLoggedinObj().subscribe(res => {
             this._logObj.user.name = res.name;
             this._logObj.user.imageUrl = res.imageUrl;
@@ -93,12 +89,8 @@ export class AnswerSubmitComponent {
     }
     submitAnswerAsDraft(_id: string) {
         if (this.answerText == null) {
-          // this.toastr.warning('Please some answer!!', 'Oops');
             return;
-
         }
-            
-
 
         this.answerVM = new AnswerViewModel();
         this.answerVM.questionId = _id;

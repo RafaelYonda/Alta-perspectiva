@@ -38,7 +38,7 @@
                             </a>
                         </div>
                         <div>
-                            <p class="answer-text" [innerHTML]="question.bestAnswer?.text"></p>
+                            <p class="answer-text" [innerHTML]="answerText"></p>
                             <ap-status [isQuestion]='false' [questionObj]="question" [answerObj]="question?.bestAnswer" (onQuestionDetailClicked)="onQuestionDetailClicked($event)" (onQuestionReportClicked)="onQuestionReportClicked($event,questionId,answerId)"> </ap-status>
                             <ap-comment [isQuestion]='false' [questionId]="question?.id" [answerId]="question?.bestAnswer?.id"></ap-comment>
                             <br/>
