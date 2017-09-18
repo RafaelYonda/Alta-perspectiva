@@ -60,6 +60,10 @@ export class NavBarComponent {
         }
 
     }
+    reload() {
+        console.log('reload');
+        window.location.replace('/');
+    }
     getUser() {
         this._authService.getLoggedinObj().subscribe(res => {
             this.showUserInfo = true;

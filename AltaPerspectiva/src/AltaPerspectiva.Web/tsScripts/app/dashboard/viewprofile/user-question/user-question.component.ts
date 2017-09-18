@@ -33,7 +33,7 @@ export class UserQuestionComponent {
         this.UpdateQuestionsByUserId();
     }
     UpdateQuestionsByUserId() {
-        this.questionService.getQuestionsbyUserId(this.userId, this.questionPage).subscribe(res => {
+        this.questionService.getQuestionsbyUserId(this.userId,this.questionPage).subscribe(res => {
             console.log(res);
             this.questions = this.questions.concat(res);
             for (var q = 0; q < this.questions.length; q++) {

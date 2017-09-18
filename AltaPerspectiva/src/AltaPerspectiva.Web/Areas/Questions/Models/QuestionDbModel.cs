@@ -72,5 +72,8 @@ namespace AltaPerspectiva.Web.Areas.Questions.Models
         //For follower
         //for only loggedin user
         public bool IsFollowing { get; set; }
+
+        //For anonymous answer
+        public bool? IsAnswerAnonymous { get; set; }
     }
 }

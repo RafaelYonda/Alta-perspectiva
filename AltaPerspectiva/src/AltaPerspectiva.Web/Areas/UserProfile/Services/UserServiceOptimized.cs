@@ -87,7 +87,11 @@ from UserProfile.Credentials
             return newHtml;
         }
 
-        public List<QuestionViewModel> GetQuestionViewModelsByUserId(Guid userId,int pageNumber)
+        public List<QuestionViewModel> GetQuestionViewModelsByUserId(Guid userId, int pageNumber)
+        {
+            return GetQuestionByUserId(userId, pageNumber);
+        }
+        private List<QuestionViewModel> GetQuestionByUserId(Guid userId, int pageNumber)
         {
             List<QuestionDbModel> questionDbModels = null;
             List<UserViewModel> userViewModels = null;
@@ -118,7 +122,7 @@ where q.IsDeleted is null and q.IsDirectQuestion = 0 and q.UserId = '{0}'
 order by q.CreatedOn desc
 OFFSET {1} ROWS -- skip 10 rows
 FETCH NEXT 15 ROWS ONLY; -- take 10 rows
-", userId,pageNumber*15);
+", userId, pageNumber * 15);
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 questionDbModels = db.Query<QuestionDbModel>(filterQuery).ToList();
@@ -135,6 +139,7 @@ FETCH NEXT 15 ROWS ONLY; -- take 10 rows
                 questionViewModel.Id = dbModel.Id;
                 questionViewModel.Title = dbModel.Title.AddQuestionMarks();
                 questionViewModel.Body = dbModel.Body;
+                questionViewModel.IsAnonymous = dbModel.IsAnonymous;
                 questionViewModel.CreatedOn = dbModel.CreatedOn;
                 questionViewModel.AnswerCount = dbModel.AnswerCount;
                 questionViewModel.Likes = new List<QuestionLikeViewModel>();
@@ -229,8 +234,8 @@ FETCH NEXT 15 ROWS ONLY; -- take 10 rows
             }
             return questionViewModels;
         }
-
-        public List<QuestionViewModel> GetQuestionViewModelsForAnswers(Guid userId,int pageNumber)
+        public List<QuestionViewModel> GetQuestionViewModelsForAnswersByUserId(Guid userId,
+        int pageNumber)
         {
             List<QuestionDbModel> questionDbModels = null;
             List<UserViewModel> userViewModels = null;
@@ -240,7 +245,7 @@ select q.Id , q.Title, q.Body ,q.UserId,q.ViewCount,q.CreatedOn,q.IsAnonymous, q
 (select COUNT(*) from Questions.Answers a where a.QuestionId = q.Id and a.IsDrafted is null and a.IsDeleted is null) AnswerCount,
 (select COUNT(*) from Questions.Comments c where c.AnswerId = bestAns.Id) AnswerCommentCount,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = bestAns.Id) AnswerLikeCount,
-bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn
+bestAns.Id as AnswerId ,bestAns.UserId as AnswerUserId , bestAns.FirstImageUrl,bestAns.Text,bestAns.IsDrafted,bestAns.AnswerDate as AnswerCreatedOn ,bestAns.IsAnonymous as IsAnswerAnonymous
 from Questions.Questions q 
 LEFT JOIN Questions.QuestionCategories qc ON qc.QuestionId = q.Id LEFT  JOIN
 Questions.Categories c ON c.Id = qc.CategoryId  
@@ -262,9 +267,9 @@ and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.Is
 on bestAns.QuestionId=q.Id
 where q.IsDeleted is null and q.IsDirectQuestion = 0 
 order by q.CreatedOn desc
---OFFSET {1} ROWS -- skip 10 rows
---FETCH NEXT 15 ROWS ONLY; -- take 10 rows
-", userId, pageNumber*15);
+OFFSET {1} ROWS -- skip 10 rows
+FETCH NEXT 15 ROWS ONLY; -- take 10 rows
+", userId, pageNumber * 15);
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 questionDbModels = db.Query<QuestionDbModel>(filterQuery).ToList();
@@ -353,7 +358,8 @@ order by q.CreatedOn desc
                         FirstImageUrl = dbModel.FirstImageUrl,
                         Text = BestAnswerTestWithFormattedImage(dbModel.Text, dbModel.FirstImageUrl),
                         IsDrafted = dbModel.IsDrafted,
-                        AnswerDate = dbModel.AnswerCreatedOn
+                        AnswerDate = dbModel.AnswerCreatedOn,
+                        IsAnonymous = dbModel.IsAnswerAnonymous
                     };
                     answerViewModel.UserViewModel = userViewModels.FirstOrDefault(x => x.UserId == dbModel.AnswerUserId);
                     answerViewModel.Likes = new List<AnswerLikeViewModel>();
@@ -374,6 +380,21 @@ order by q.CreatedOn desc
                 questionViewModels.Add(questionViewModel);
             }
             return questionViewModels;
+        }
+        public List<QuestionViewModel> GetQuestionViewModelsForAnswers(Guid userId, int pageNumber)
+        {
+            return GetQuestionViewModelsForAnswersByUserId(userId, pageNumber);
+        }
+        public List<QuestionViewModel> GetQuestionViewModelsByUserIdWithoutAnonymous(Guid userId, int pageNumber)
+        {
+            var questions = GetQuestionByUserId(userId, pageNumber);
+            return questions.Where(i => i.IsAnonymous != true).ToList();
+        }
+
+        internal List<QuestionViewModel> GetQuestionViewModelsForAnswersWithoutAnonymous(Guid userId, int pageNumber)
+        {
+            var questionsWithAnswer= GetQuestionViewModelsForAnswersByUserId(userId, pageNumber);
+            return questionsWithAnswer.Where(i => i.Answers[0].IsAnonymous != true).ToList();
         }
     }
 }

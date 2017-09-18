@@ -2,7 +2,7 @@
     <ap-search placeBottom="top-fixed" *ngIf="!hideSearch"></ap-search>
     <div class="navbar-header">
         <div asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand logo">
-            <a onclick="window.location.replace('/')"><img class="navbar-brand logo" src="../images/LOGO CUADRADO.png" /></a>
+            <a (click)="reload()"><img class="navbar-brand logo" src="../images/LOGO CUADRADO.png" /></a>
         </div>
     </div>
     <div class="navbar-collapse collapse">

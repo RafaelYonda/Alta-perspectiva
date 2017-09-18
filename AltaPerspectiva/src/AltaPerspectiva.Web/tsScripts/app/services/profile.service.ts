@@ -264,7 +264,7 @@ export class ProfileService {
         } else {
             errMsg = error.message ? error.message : error.toString();
         }
-        window.location.replace("/signin");
+        //window.location.replace("/signin");
         //console.error(errMsg);
         return Observable.throw(errMsg);
     }

@@ -252,6 +252,15 @@ DECLARE @DirectQuestions int;
 select @DirectQuestions=COUNT(*) from Questions.DirectQuestions q where q.QuestionAskedToUser=@userId 
 DECLARE @Blogs int;
 SELECT @Blogs=count(*) FROM [Blog].[Blogs] where UserId=@userId;
+declare @AnonymousQuestionCount int;
+
+select  @AnonymousQuestionCount=count(*) from Questions.Questions where isAnonymous is not null and isdeleted is  null
+and userId=@userId
+
+declare @AnonymousAnswerCount int;
+select @AnonymousAnswerCount=COUNT(DISTINCT a.QuestionId) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null and isAnonymous is not null
+and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=0 and q.Isdeleted is  null)
+
 select 
 ISNULL(@ProfileViewCount,0) ProfileViewCount,
 ISNULL(@AnswerLikeCount,0) AnswerLikeCount,
@@ -263,7 +272,9 @@ ISNULL(@Bookmarks,0) Bookmarks,
 ISNULL(@Answers,0) Answers,
 ISNULL(@Questions,0) Questions,
 ISNULL(@DirectQuestions,0) DirectQuestions,
-ISNULL(@Blogs,0) Blogs
+ISNULL(@Blogs,0) Blogs,
+ISNULL(@AnonymousQuestionCount,0) AnonymousQuestionCount,
+ISNULL(@AnonymousAnswerCount,0) AnonymousAnswerCount
 ;
 END
 

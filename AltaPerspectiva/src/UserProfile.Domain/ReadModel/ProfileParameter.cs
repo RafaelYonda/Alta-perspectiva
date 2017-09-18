@@ -20,6 +20,8 @@ namespace UserProfile.Domain.ReadModel
         public int AnswerLikeCount { get; set; }
         public int AnswerMadeThisMonth { get; set; }
         public int QuestionMadeThisMonth { get; set; }
+        public int AnonymousQuestionCount { get; set; }
+        public int AnonymousAnswerCount { get; set; }
 
     }
 }

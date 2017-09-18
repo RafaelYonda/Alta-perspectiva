@@ -73,15 +73,13 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                             x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
                         .Select(x => x.Value);
                 loggedinUser = new Guid(userId?.ElementAt(0).ToString());
-                UserViewModel model ;
-                
+                UserViewModel model;
+
                 string connectionString = Startup.ConnectionString;
                 using (IDbConnection dbConnection = new SqlConnection(connectionString))
                 {
                     model = new UserServiceOptimized().UserViewModelFromUserId(dbConnection, loggedinUser);
                 }
-                
-                
                 return Ok(model);
 
             }
@@ -110,7 +108,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             //    }
             //}
             ////    AzureFileUploadHelper azureFileUploadHelper = new AzureFileUploadHelper();
-           
+
 
             //userInfoDetails.ImageUrl = azureFileUploadHelper.GetProfileImage(userInfoDetails.ImageUrl);
 
@@ -120,6 +118,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/getprofileparameter/{userId}")]
         public async Task<IActionResult> GetProfileParameter(Guid userId)
         {
+
+
             String connectionString = Startup.ConnectionString;
             string query = String.Format("SpProfileParameterCount '" + userId + "'");
             ProfileParameter profileParameter = null;
@@ -127,6 +127,20 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             {
                 profileParameter = await Task.Run(() => db.Query<ProfileParameter>(query).FirstOrDefault());
             }
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var loggedInuserId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                var loggedinUser = new Guid(loggedInuserId?.ElementAt(0).ToString());
+                if (loggedinUser == userId)
+                    return Ok(profileParameter);
+            }
+           
+            profileParameter.Answers = profileParameter.Answers - profileParameter.AnonymousAnswerCount;
+            profileParameter.Questions = profileParameter.Questions - profileParameter.AnonymousQuestionCount;
             return Ok(profileParameter);
         }
         [HttpGet("userprofile/api/categorywiseanswer/{userId}")]
@@ -205,7 +219,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             loggedinUser = new Guid(userId?.ElementAt(0).ToString());
 
             model.Description = Utilities.AddHttpToText(model.Description);
-            
+
 
             UpdateCredentialCommand command = new UpdateCredentialCommand(loggedinUser, model.FirstName, model.LastName, model.Title, model.Description, null);
             commandsFactory.ExecuteQuery(command);
@@ -423,21 +437,57 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
         [HttpGet("userprofile/api/{pageNumber}/questionbyuserid/{userId}")]
         public async Task<IActionResult> QuestionByCredentialId(int pageNumber, Guid userId)
         {
-            var questionViewModels = await Task.Run(() =>
 
-            new UserServiceOptimized().GetQuestionViewModelsByUserId(userId,pageNumber)
-            );
-            return Ok(questionViewModels);
+            if (User.Identity.IsAuthenticated)
+            {
+                var loggedInuserId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                var loggedinUser = new Guid(loggedInuserId?.ElementAt(0).ToString());
+                if (loggedinUser == userId)
+                {
+                    var questionViewModels = await Task.Run(() =>
+
+                  new UserServiceOptimized().GetQuestionViewModelsByUserId(userId, pageNumber)
+                  );
+                    return Ok(questionViewModels);
+                }
+            }
+            var questionViewModelsWithoutAnonymous = await Task.Run(() =>
+
+        new UserServiceOptimized().GetQuestionViewModelsByUserIdWithoutAnonymous(userId, pageNumber)
+        );
+            return Ok(questionViewModelsWithoutAnonymous);
         }
-        // [HttpGet("userprofile/api/{pageNumber}/answerbyuserid/{userId}")]
-        [HttpGet("userprofile/api/answerbyuserid/{userId}")]
-        public async Task<IActionResult> AnswerByUserId( Guid userId)
+        [HttpGet("userprofile/api/{pageNumber}/answerbyuserid/{userId}")]
+        //[HttpGet("userprofile/api/answerbyuserid/{userId}")]
+        public async Task<IActionResult> AnswerByUserId(int pageNumber, Guid userId)
         {
-            int pageNumber = 999999;
-            List<QuestionViewModel> questionViewModels = await Task.Run(() =>
-                new UserServiceOptimized().GetQuestionViewModelsForAnswers(userId, pageNumber)
-            );
-            return Ok(questionViewModels);
+            if (User.Identity.IsAuthenticated)
+            {
+                   
+            }
+            if (User.Identity.IsAuthenticated)
+            {
+                var loggedInuserId =
+                    User.Claims.Where(
+                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                        .Select(x => x.Value);
+                var loggedinUser = new Guid(loggedInuserId?.ElementAt(0).ToString());
+                if (loggedinUser == userId)
+                {
+                        List<QuestionViewModel> questionViewModels = await Task.Run(() =>
+                       new UserServiceOptimized().GetQuestionViewModelsForAnswers(userId, pageNumber)
+                   );
+                        return Ok(questionViewModels);
+                }
+            }
+            List<QuestionViewModel> questionViewModelsWithoutAnonymous = await Task.Run(() =>
+                    new UserServiceOptimized().GetQuestionViewModelsForAnswersWithoutAnonymous(userId, pageNumber)
+                );
+            return Ok(questionViewModelsWithoutAnonymous);
+
         }
 
         [HttpGet("userprofile/api/followerbyuserid/{userId}")]
@@ -474,14 +524,14 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             List<Credential> credentials = queryFactory.ResolveQuery<ICredentialQuery>().GetCredentials(followingUsers);
 
-            List<UserViewModel> userViewModels =new List<UserViewModel>();
+            List<UserViewModel> userViewModels = new List<UserViewModel>();
             foreach (Credential credential in credentials)
             {
-                UserViewModel userViewModel=new UserViewModel();
+                UserViewModel userViewModel = new UserViewModel();
                 userViewModel.CredentialId = credential.Id;
                 userViewModel.UserId = credential.UserId;
                 String imageUrl = ThumbnailHelper.ThumbnailImageName(credential.ImageUrl);
-                
+
                 userViewModel.ImageUrl = azureFileUploadHelper.GetProfileImage(imageUrl);
                 userViewModel.Name = credential.FirstName + " " + credential.LastName;
                 userViewModel.Occupation = credential.Occupation;
@@ -566,7 +616,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
 
             }
 
-            
+
 
             UpdateSocialLinkCommand command = new UpdateSocialLinkCommand(loggedinUser, Utilities.AddHttpToSocialLink(model.TwitterLink), Utilities.AddHttpToSocialLink(model.FacebookLink), Utilities.AddHttpToSocialLink(model.LinkedinLink));
             commandsFactory.ExecuteQuery(command);
