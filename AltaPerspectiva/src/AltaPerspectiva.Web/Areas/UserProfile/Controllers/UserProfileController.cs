@@ -139,8 +139,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                     return Ok(profileParameter);
             }
            
-            profileParameter.Answers = profileParameter.Answers - profileParameter.AnonymousAnswerCount;
-            profileParameter.Questions = profileParameter.Questions - profileParameter.AnonymousQuestionCount;
+            profileParameter.Answers = profileParameter.Answers - profileParameter.AnonymousAnswerCount<0?0: profileParameter.Answers - profileParameter.AnonymousAnswerCount;
+            profileParameter.Questions = profileParameter.Questions - profileParameter.AnonymousQuestionCount<0?0: profileParameter.Questions - profileParameter.AnonymousQuestionCount;
             return Ok(profileParameter);
         }
         [HttpGet("userprofile/api/categorywiseanswer/{userId}")]

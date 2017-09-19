@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
+ 
 namespace AuthorizationServer.Controllers
 {
     [Authorize]
@@ -46,7 +46,7 @@ namespace AuthorizationServer.Controllers
 #endif
             ViewBag.home = redirectUrl;
 
-            ViewData["StatusMessage"] =
+            ViewData["Status"] =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
@@ -54,7 +54,7 @@ namespace AuthorizationServer.Controllers
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
-
+            ViewData["StatusMessage"] = ViewData["Status"];
             var user = await GetCurrentUserAsync();
             var model = new IndexViewModel
             {
@@ -283,6 +283,8 @@ namespace AuthorizationServer.Controllers
                 : message == ManageMessageId.AddLoginSuccess ? "The external login was added."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
+
+            ViewData["Status"] = ViewData["StatusMessage"];
             var user = await GetCurrentUserAsync();
             if (user == null)
             {
