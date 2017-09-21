@@ -349,6 +349,7 @@ FETCH NEXT 15 ROWS ONLY; -- take 10 rows
                 }
                 if (dbModel.AnswerId != Guid.Empty)
                 {
+                    AnswerViewModel model = FillAnswerViewModel(dbModel, userViewModels);
                     AnswerViewModel answerViewModel = new AnswerViewModel
                     {
                         Id = dbModel.AnswerId,
@@ -381,6 +382,35 @@ FETCH NEXT 15 ROWS ONLY; -- take 10 rows
             }
             return questionViewModels;
         }
+
+        private AnswerViewModel FillAnswerViewModel(QuestionDbModel dbModel,List<UserViewModel> userViewModels)
+        {
+            AnswerViewModel answerViewModel = new AnswerViewModel
+            {
+                Id = dbModel.AnswerId,
+                UserId = dbModel.AnswerUserId,
+                AnswerId = dbModel.AnswerId,
+                QuestionId = dbModel.Id,
+                FirstImageUrl = dbModel.FirstImageUrl,
+                Text = BestAnswerTestWithFormattedImage(dbModel.Text, dbModel.FirstImageUrl),
+                IsDrafted = dbModel.IsDrafted,
+                AnswerDate = dbModel.AnswerCreatedOn,
+                IsAnonymous = dbModel.IsAnswerAnonymous
+            };
+            answerViewModel.UserViewModel = userViewModels.FirstOrDefault(x => x.UserId == dbModel.AnswerUserId);
+            answerViewModel.Likes = new List<AnswerLikeViewModel>();
+            for (int i = 0; i < dbModel.AnswerLikeCount; i++)
+            {
+                answerViewModel.Likes.Add(new AnswerLikeViewModel());
+            }
+            answerViewModel.Comments = new List<AnswerCommentViewModel>();
+            for (int i = 0; i < dbModel.AnswerCommentCount; i++)
+            {
+                answerViewModel.Comments.Add(new AnswerCommentViewModel());
+            }
+            return answerViewModel;
+        }
+
         public List<QuestionViewModel> GetQuestionViewModelsForAnswers(Guid userId, int pageNumber)
         {
             return GetQuestionViewModelsForAnswersByUserId(userId, pageNumber);
@@ -394,6 +424,30 @@ FETCH NEXT 15 ROWS ONLY; -- take 10 rows
         internal List<QuestionViewModel> GetQuestionViewModelsForAnswersWithoutAnonymous(Guid userId, int pageNumber)
         {
             var questionsWithAnswer= GetQuestionViewModelsForAnswersByUserId(userId, pageNumber);
+            questionsWithAnswer.ForEach(question=> {
+                if (question.Answers[0].IsAnonymous == true) {
+                    using (IDbConnection db = new SqlConnection(connectionString))
+                    {
+                        // If a user have more answer other than anonymous then pick the top non-anonymous answer
+                        String filterQuery = String.Format(@"select ans.Id AnswerId,ans.UserId AnswerUserId,ans.QuestionId Id,ans.FirstImageUrl FirstImageUrl,
+ans.[Text] [Text],ans.IsDrafted IsDrafted,ans.AnswerDate AnswerCreatedOn,
+(select COUNT(*) from Questions.Comments c where c.AnswerId = ans.Id) AnswerCommentCount,
+(select COUNT(*) from Questions.Likes l where l.AnswerId = ans.Id) AnswerLikeCount from
+(select Top 1 * from [Questions].[Answers]
+where QuestionId='{0}'
+and IsAnonymous is null) ans",question.Id);
+                        var DbAnswerNonAnonymous = db.Query<QuestionDbModel>(filterQuery).FirstOrDefault();
+                        if (DbAnswerNonAnonymous !=null)
+                        {
+                            List<Guid> userList = new List<Guid>();
+                            userList.Add(DbAnswerNonAnonymous.AnswerUserId);
+                            var userViewModels = UserViewModelsFromUserIds(db, userList);
+                            question.Answers[0] = FillAnswerViewModel(DbAnswerNonAnonymous, userViewModels);
+
+                        }
+                    }
+                }
+            });
             return questionsWithAnswer.Where(i => i.Answers[0].IsAnonymous != true).ToList();
         }
     }

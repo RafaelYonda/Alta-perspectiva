@@ -88,6 +88,7 @@ namespace AltaPerspectiva
                 // Set a short timeout for easy testing.
                 options.IdleTimeout = TimeSpan.FromDays(3);
                 options.CookieHttpOnly = true;
+                options.CookieName = "Altaperspectiva";
             });
             services.AddSingleton<IConfigurationRoot>(provider => Configuration);
 
@@ -303,7 +304,7 @@ namespace AltaPerspectiva
                 AutomaticChallenge = true,
                 LoginPath = new PathString("/signin"),
                 ExpireTimeSpan = TimeSpan.FromDays(3),
-            });
+            }); 
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
@@ -318,11 +319,9 @@ namespace AltaPerspectiva
                 Authority = "http://alta-staging-auth.azurewebsites.net/",
 
 #else
-               
                 ClientId = "staging",       // for staging server  
                 PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
                 Authority = "http://alta-staging-auth.azurewebsites.net/",
-
 
                 // ClientId = "azure",       // for azure deploy  altaperspectiva
                 // PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure

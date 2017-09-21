@@ -261,6 +261,12 @@ declare @AnonymousAnswerCount int;
 select @AnonymousAnswerCount=COUNT(DISTINCT a.QuestionId) from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null and isAnonymous is not null
 and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=0 and q.Isdeleted is  null)
 
+declare @nonAnonymousAnswerCount int;
+select 
+@nonAnonymousAnswerCount=COUNT(DISTINCT a.QuestionId) 
+from Questions.Answers a where a.UserId=@userId and a.IsDrafted is null and a.IsDeleted is null and a.IsAnonymous is null
+and exists (select 1 from Questions.Questions q where q.Id=a.QuestionID and q.IsDirectQuestion=0 and q.Isdeleted is  null)
+
 select 
 ISNULL(@ProfileViewCount,0) ProfileViewCount,
 ISNULL(@AnswerLikeCount,0) AnswerLikeCount,
@@ -274,7 +280,8 @@ ISNULL(@Questions,0) Questions,
 ISNULL(@DirectQuestions,0) DirectQuestions,
 ISNULL(@Blogs,0) Blogs,
 ISNULL(@AnonymousQuestionCount,0) AnonymousQuestionCount,
-ISNULL(@AnonymousAnswerCount,0) AnonymousAnswerCount
+ISNULL(@AnonymousAnswerCount,0) AnonymousAnswerCount,
+ISNULL(@nonAnonymousAnswerCount,0) NonAnonymousAnswerCount
 ;
 END
 
