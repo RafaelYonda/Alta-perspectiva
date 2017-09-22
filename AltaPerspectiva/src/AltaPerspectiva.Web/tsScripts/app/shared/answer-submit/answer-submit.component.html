@@ -56,7 +56,6 @@
                 </a>
             </div>
         </div>
-       
     </div>
     <div class="modal-body">
         <quill-editor [(ngModel)]="answerText" [ngModelOptions]="{standalone: true}" placeholder="Escríbe aquí"
@@ -77,18 +76,16 @@
             </button>
         </div>
         <div class="social-share">
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{question?.shareUrl}}&title={{question?.title}}"
-               class="SHARE FACEBOOK"
-               onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
+            <a class="SHARE FACEBOOK"
+               (click)='socialShare()' target="social">
                 <img class="social-image" id="img1" src="../images/facebooklogo.svg" />
             </a>
             
-            <a href="https://twitter.com/intent/tweet?text={{question?.title}}Check out:{{question?.shareUrl}}"
+            <a href="https://twitter.com/intent/tweet?url={{shareurl}}"
                class="SHARE TWITTER"
                onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
                 <img class="social-image" id="img2" src="../images/twitter.svg" />
             </a>
-          
         </div>
     </div>
 </form>

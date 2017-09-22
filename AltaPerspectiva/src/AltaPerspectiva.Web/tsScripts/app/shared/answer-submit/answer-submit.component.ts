@@ -6,7 +6,7 @@ import {LogInObj, Question, AnswerViewModel, User } from '../../services/models'
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
-
+import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
 
 @Component({
     selector: 'answer-submit',
@@ -28,9 +28,11 @@ export class AnswerSubmitComponent {
     isAnonymous: boolean; //anonymous added to 
     answerVM: AnswerViewModel;
     answerText: string;
+    shareurl: string;
 
     constructor(private dataService: QuestionAnswerService,
         private _router: Router,
+        private fb: FacebookService,
         private profileService: ProfileService,
         private _authService: AuthenticationService, public toastr: ToastsManager, vcr: ViewContainerRef)
 
@@ -45,6 +47,8 @@ export class AnswerSubmitComponent {
             this._logObj.user.imageUrl = res.imageUrl;
             this._logObj.user.occupassion = res.occupation;
         });
+        var API_URL = '/SocialShare/ShareQuestionInSocialMedia/';
+        this.shareurl = SITE_URL + API_URL + this.question.id.toString();
         if (this.isDraft)
             this.showDraftedQuestion();
 
@@ -86,6 +90,29 @@ export class AnswerSubmitComponent {
             else
                 this.close.emit();
         });
+    }
+    socialShare() {
+        console.log("share FB");
+        let initParams: InitParams = {
+            appId: '510199349333959',
+            xfbml: true,
+            cookie: true,
+            version: 'v2.10'
+        };
+        var API_URL = '/SocialShare/ShareQuestionInSocialMedia/';
+        this.fb.init(initParams);
+        var urlId = this.question.id.toString();
+        let params: UIParams = {
+            href: SITE_URL + API_URL + urlId,
+            method: 'share',
+            display: 'popup',
+            name: this.question.title,
+            description: this.question.title
+        };
+        console.log(params);
+        this.fb.ui(params)
+            .then((res: UIResponse) => console.log(res))
+            .catch((e: any) => console.error(e));
     }
     submitAnswerAsDraft(_id: string) {
         if (this.answerText == null) {
