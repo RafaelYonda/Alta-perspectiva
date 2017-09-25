@@ -22,6 +22,7 @@ namespace UserProfile.Domain.ReadModel
         public int QuestionMadeThisMonth { get; set; }
         public int AnonymousQuestionCount { get; set; }
         public int AnonymousAnswerCount { get; set; }
+        public int NonAnonymousAnswerCount { get; set; }
 
     }
 }

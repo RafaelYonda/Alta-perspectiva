@@ -25,7 +25,6 @@ export class TabsComponent {
             this.commServ.setCategory("1"); 
 
             this.categories = res;
-            //this.tabLength = this.categories.length - 6;
             this.tabLength = this.categories.length-1;
             this.transform = 0;
         });
@@ -39,7 +38,7 @@ export class TabsComponent {
      firstTabPosition = 0;
     leftclick() {
         
-        if (this.firstTabPosition < this.categories.length-2) {
+        if (this.firstTabPosition < this.categories.length-3) {
             var elem = document.getElementById('tabsContainer').children[this.firstTabPosition];
             this.transform = this.transform - elem.clientWidth-20;
             console.log("Left");

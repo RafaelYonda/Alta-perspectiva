@@ -147,7 +147,7 @@ export class ApSearchComponent {
     }
     //=======/Question mark movment=====
     trimSpace(event: KeyboardEvent) {
-        if (event.keyCode == 32)
+        if (event.keyCode == 32 || event.charCode==32)
         {
             this.title = this.title.trim();
         }

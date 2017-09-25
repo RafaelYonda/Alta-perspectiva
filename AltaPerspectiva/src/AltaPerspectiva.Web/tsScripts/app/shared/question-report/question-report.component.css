@@ -10,10 +10,6 @@
     position:relative;
 }
 
-    .dialog p {
-        margin-bottom: 10px;
-    }
-
     .dialog header {
         border-bottom: 1px solid black;
         font-size: 12px;

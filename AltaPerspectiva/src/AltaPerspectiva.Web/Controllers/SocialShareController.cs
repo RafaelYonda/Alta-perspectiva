@@ -10,6 +10,7 @@ using AltaPerspectiva.Web.Areas.Admin.helpers;
 using AltaPerspectiva.Web.Areas.Admin.Helpers;
 using Blog.Domain;
 using HtmlAgilityPack;
+using System.Text.RegularExpressions;
 
 namespace AltaPerspectiva.Web.Controllers
 {
@@ -80,7 +81,6 @@ namespace AltaPerspectiva.Web.Controllers
             ViewBag.og_image = imageUrl;
             return View();
         }
-
         public IActionResult ShareBlog(Guid id)
         {
             BlogPost blogPost = null;
@@ -88,8 +88,8 @@ namespace AltaPerspectiva.Web.Controllers
             using (IDbConnection connection = new SqlConnection(Startup.ConnectionString))
             {
                 blogPost = connection.Query<BlogPost>(blogQuery).FirstOrDefault();
-
             }
+            var firstImageUrl = Regex.Match(blogPost.Description, "<img.+?src=[\"'](.+?)[\"'].+?>", RegexOptions.IgnoreCase).Groups[1].Value;
             if (blogPost != null)
             {
                 string htmlDocument = blogPost.Description;
@@ -103,13 +103,13 @@ namespace AltaPerspectiva.Web.Controllers
                 htmlDoc.LoadHtml(htmlDocument);
                 blogPost.Description = htmlDoc.DocumentNode.InnerText;
             }
-            var file = new AzureFileUploadHelper();
+            
             
             ViewBag.og_title = blogPost.Title;
             ViewBag.og_description = blogPost.Description;
             ViewBag.questionUrl = Startup.Url + "dashboard/blog-post/" + blogPost.BlogId.ToString();
             ViewBag.og_url = Startup.Url + "SocialShare/ShareBlog/" + blogPost.Id.ToString();
-            ViewBag.og_image = ImageUrl;
+            ViewBag.og_image =string.IsNullOrEmpty(firstImageUrl)? ImageUrl: firstImageUrl;
 
             return View();
         }

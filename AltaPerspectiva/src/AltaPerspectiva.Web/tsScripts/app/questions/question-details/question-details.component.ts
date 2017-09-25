@@ -56,7 +56,7 @@ export class QuestionDetailComponent {
         window.scrollTo(0, 0);
         var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
-
+        console.log();
         if (currentUserName != null) {
             this._logObj.user.name = currentUserName;
             this._logObj.user.imageUrl = currentUserImage;
@@ -64,42 +64,10 @@ export class QuestionDetailComponent {
         this.route.data
             .subscribe((res: any) => {
                 this.question = res.question;
-                //update meta tag description of facebook sharing
-                var metas = document.getElementsByTagName('meta');
-                if (metas) {
-                    for (var i = 0; i < metas.length; i++) {
-                        if (metas[i].getAttribute("property") == "og:title") {
-                            metas[i].setAttribute("content", this.question.title);
-                        }
-                        if (metas[i].getAttribute("property") == "og:description") {
-                            metas[i].setAttribute("content", this.question.body);
-                        }
-                        if (metas[i].getAttribute("name") == "title") {
-                            metas[i].setAttribute("content", this.question.title);
-                        }
-                        if (metas[i].getAttribute("name") == "description") {
-                            metas[i].setAttribute("content", this.question.body);
-                        }
-                        if (metas[i].getAttribute("name") == "twitter:title") {
-                            metas[i].setAttribute("content", this.question.title);
-                        }
-                        if (metas[i].getAttribute("name") == "twitter:description") {
-                            if (this.question.body) {
-                                metas[i].setAttribute("content", this.question.body);
-                            } else {
-                                metas[i].setAttribute("content", "More on altaperspectiva.com");
-                            }
-
-                        }
-                    }
-                }
-
-
                 // save number of views of question
                 this.dataService.increaseQuestionViewCount(this.question.id).subscribe((res: any) => {
                     this.question.viewCount += 1;
                 });
-                //=======
                 this.dataService.GetAnswersByQuestionId(this.question.id).subscribe((res: any) => {
                     this.question.answers = res;
                 });

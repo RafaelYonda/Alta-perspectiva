@@ -139,8 +139,8 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
                     return Ok(profileParameter);
             }
            
-            profileParameter.Answers = profileParameter.Answers - profileParameter.AnonymousAnswerCount;
-            profileParameter.Questions = profileParameter.Questions - profileParameter.AnonymousQuestionCount;
+            profileParameter.Answers = profileParameter.NonAnonymousAnswerCount;
+            profileParameter.Questions = profileParameter.Questions - profileParameter.AnonymousQuestionCount<0?0: profileParameter.Questions - profileParameter.AnonymousQuestionCount;
             return Ok(profileParameter);
         }
         [HttpGet("userprofile/api/categorywiseanswer/{userId}")]
@@ -441,8 +441,7 @@ namespace AltaPerspectiva.Web.Areas.UserProfile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var loggedInuserId =
-                    User.Claims.Where(
-                            x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
                         .Select(x => x.Value);
                 var loggedinUser = new Guid(loggedInuserId?.ElementAt(0).ToString());
                 if (loggedinUser == userId)

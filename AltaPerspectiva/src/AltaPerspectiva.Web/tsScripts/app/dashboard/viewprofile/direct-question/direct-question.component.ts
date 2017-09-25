@@ -47,7 +47,7 @@ export class DirectQuestionComponent {
         this.question.questionAskedToUser = this.questionAskedToUser;
         
         this.questionsService.saveDirectQuestion(this.question).subscribe(res => {
-            this.toastr.success('Answer saved successfully!', 'success');
+            this.toastr.success('Respuesta guardada correctamente!', 'éxito');
             this.title = '';
             this.body = '';
             //this.question = res;

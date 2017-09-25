@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using AuthorizationServer.Helpers;
 using System;
 using System.Data.SqlClient;
+using AuthorizationServer.ViewModels.Shared;
+using AspNet.Security.OpenIdConnect.Primitives;
 
 namespace AuthorizationServer.Controllers
 {
@@ -96,6 +98,13 @@ namespace AuthorizationServer.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
+            if (returnUrl==null) {
+                return View("Error", new ErrorViewModel
+                {
+                    Error = "",
+                    ErrorDescription = "Usted necesita venir a través de la página de inicio."
+                });
+            }
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }

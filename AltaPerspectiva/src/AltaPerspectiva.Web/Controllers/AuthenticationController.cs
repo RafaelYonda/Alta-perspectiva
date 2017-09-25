@@ -41,10 +41,10 @@ namespace AltaPerspectiva.Controllers
             redirectUrl = "http://localhost:5273/signupcallback";
 
 #else
-            authUrl = "http://alta-staging-auth.azurewebsites.net/";
-            redirectUrl = "http://alta-staging.azurewebsites.net/signupcallback";
-            //authUrl= "http://altaauth.azurewebsites.net";
-           // redirectUrl= "http://www.altaperspectiva.com/signupcallback";
+            //authUrl = "http://alta-staging-auth.azurewebsites.net/";
+            //redirectUrl = "http://alta-staging.azurewebsites.net/signupcallback";
+            authUrl = "http://altaauth.azurewebsites.net/";
+            redirectUrl = "http://www.altaperspectiva.com/signupcallback";
 #endif
             return new RedirectResult(authUrl + "Account/Register?returnUrl=" + redirectUrl);
         }
