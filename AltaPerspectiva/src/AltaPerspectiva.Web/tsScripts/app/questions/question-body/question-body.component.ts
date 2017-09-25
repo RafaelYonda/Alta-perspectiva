@@ -170,6 +170,7 @@ export class QuestionBodyComponent {
             }
             else if (res && res.length >= 0 && this.questionPage<1) {
                 this.questions = res;
+                this.ReloadByQuestionOrAnswerCount(res);
             }
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             this.hideLoader();
@@ -194,7 +195,23 @@ export class QuestionBodyComponent {
             });
         });
     }
-
+    ReloadByQuestionOrAnswerCount(questions: Question[]) {
+        //THis checking is for ensuring question load cause of pagination skipping
+        if (this.filterParameter.questionWithAnswer) {
+            if (this.totalCount.totalAnsweredQuestion > 0 && questions.length == 0)
+            {
+                this.questionPage = this.questionPage + 1;
+                this.LoadFilteredQuestions();
+            }
+        }
+        else if (this.filterParameter.questionWithoutAnswer) {
+            if (this.totalCount.totalUnAnsweredQuestion > 0 && questions.length == 0)
+            {
+                this.questionPage = this.questionPage + 1;
+                this.LoadFilteredQuestions();
+            }
+        }
+    }
     // #region=======Button Clicked Functions===========
     GetLatestQuestionByDate(categoryId: string) {
         this.FilterParam = "Preguntas más recientes";   //"The latest question";

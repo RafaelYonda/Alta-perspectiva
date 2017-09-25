@@ -435,7 +435,8 @@ ans.[Text] [Text],ans.IsDrafted IsDrafted,ans.AnswerDate AnswerCreatedOn,
 (select COUNT(*) from Questions.Likes l where l.AnswerId = ans.Id) AnswerLikeCount from
 (select Top 1 * from [Questions].[Answers]
 where QuestionId='{0}'
-and IsAnonymous is null) ans",question.Id);
+and UserId='{1}'
+and (IsAnonymous is null or IsAnonymous=0)) ans", question.Id,userId);
                         var DbAnswerNonAnonymous = db.Query<QuestionDbModel>(filterQuery).FirstOrDefault();
                         if (DbAnswerNonAnonymous !=null)
                         {
