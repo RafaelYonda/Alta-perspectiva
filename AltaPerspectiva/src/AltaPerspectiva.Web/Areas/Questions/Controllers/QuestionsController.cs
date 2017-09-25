@@ -425,7 +425,7 @@ where c.AnswerId = '{0}'", id);
                 string webRootPath = hostingEnvironment.WebRootPath;
 
                 //Nueva Respuesta=New Answer
-                await new SendEmailService().SendAnswerEmailAsync(queryFactory, webRootPath, loggedinUser, answer.QuestionId, answer.Text, "Nueva Respuesta");
+                await new SendEmailService().SendAnswerEmailAsync(queryFactory, webRootPath, loggedinUser, answer.QuestionId, answer.Text, "Nueva Respuesta",answer.IsAnonymous);
             }
 
             answer.Text = Utilities.AddHttpToText(answer.Text);

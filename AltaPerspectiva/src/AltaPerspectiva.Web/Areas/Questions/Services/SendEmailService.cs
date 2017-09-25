@@ -17,7 +17,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
 {
     public class SendEmailService
     {
-        public async Task SendAnswerEmailAsync( IQueryFactory queryFactory,String webRootPath, Guid loggedinUser,Guid questionId,string answerText,string title)
+        public async Task SendAnswerEmailAsync( IQueryFactory queryFactory,String webRootPath, Guid loggedinUser,Guid questionId,string answerText,string title,Boolean? isAnonymous)
         {
             Employment employment = queryFactory.ResolveQuery<IEmploymentQuery>().GetEmploymentByUserId(loggedinUser);
             String answerUserOccupation = String.Empty;
@@ -48,11 +48,25 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             emailHandler.QuestionId = questionId;
             emailHandler.QuestionUserName = questionUserEmailParamter.UserName;
             emailHandler.QuestionTitle = "¿ " + question.Title +" ?";
-            emailHandler.AnswerUserName = answerUserEmailParamter.UserName;
+            
             emailHandler.AnswerText = answerText;
-            emailHandler.ImageUrl = answerUserEmailParamter.ImageUrl;
+            
             emailHandler.ToMailAddress = questionUserEmailParamter.Email;
-            emailHandler.AnswerUserOccupation = answerUserOccupation;
+
+            if (isAnonymous.Value == true)
+            {
+                emailHandler.AnswerUserName = "Anonymous";
+                emailHandler.ImageUrl = "http://www.altaperspectiva.com/profile/Anonymous.png";
+                emailHandler.AnswerUserOccupation = "";
+            }
+            else
+            {
+                emailHandler.AnswerUserName = answerUserEmailParamter.UserName;
+                emailHandler.ImageUrl = answerUserEmailParamter.ImageUrl;
+                emailHandler.AnswerUserOccupation = answerUserOccupation;
+            }
+
+            
             String path = webRootPath+"/Views/EmailFormat/AnswerEmailFormat.html";
             string html = File.ReadAllText(path);
             try
