@@ -53,7 +53,7 @@ namespace AltaPerspectiva.Web.Areas.Questions.Services
             
             emailHandler.ToMailAddress = questionUserEmailParamter.Email;
 
-            if (isAnonymous.Value == true)
+            if (isAnonymous!=null && isAnonymous.Value == true)
             {
                 emailHandler.AnswerUserName = "Anonymous";
                 emailHandler.ImageUrl = "http://www.altaperspectiva.com/profile/Anonymous.png";

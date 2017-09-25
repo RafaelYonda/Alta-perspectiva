@@ -66,10 +66,10 @@ namespace AltaPerspectiva
             AuthUrl = "http://alta-staging-auth.azurewebsites.net/";
 #else
 
-            Url = "http://alta-staging.azurewebsites.net/";
-            AuthUrl = "http://alta-staging-auth.azurewebsites.net/";
-            //Url = "http://www.altaperspectiva.com/"; 
-            //AuthUrl = "http://altaauth.azurewebsites.net";
+            //Url = "http://alta-staging.azurewebsites.net/";
+            //AuthUrl = "http://alta-staging-auth.azurewebsites.net/";
+            Url = "http://www.altaperspectiva.com/";
+            AuthUrl = "http://altaauth.azurewebsites.net";
 #endif
 
         }
@@ -88,6 +88,7 @@ namespace AltaPerspectiva
                 // Set a short timeout for easy testing.
                 options.IdleTimeout = TimeSpan.FromDays(3);
                 options.CookieHttpOnly = true;
+                options.CookieName = "Altaperspectiva";
             });
             services.AddSingleton<IConfigurationRoot>(provider => Configuration);
 
@@ -303,7 +304,7 @@ namespace AltaPerspectiva
                 AutomaticChallenge = true,
                 LoginPath = new PathString("/signin"),
                 ExpireTimeSpan = TimeSpan.FromDays(3),
-            });
+            }); 
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
@@ -315,18 +316,16 @@ namespace AltaPerspectiva
 #if DEBUG
                 ClientId = "localhost", // for localhost
                 PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
-                //Authority = "http://alta-staging-auth.azurewebsites.net/",
+                Authority = "http://alta-staging-auth.azurewebsites.net/",
 
 #else
-               
-                ClientId = "staging",       // for staging server  
-                PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
+                //ClientId = "staging",       // for staging server  
+                //PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
                 //Authority = "http://alta-staging-auth.azurewebsites.net/",
 
-
-                // ClientId = "azure",       // for azure deploy  altaperspectiva
-                // PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
-                //Authority = "http://altaauth.azurewebsites.net",
+                ClientId = "azure",       // for azure deploy  altaperspectiva
+                PostLogoutRedirectUri = "http://www.altaperspectiva.com/",   //for azure
+                Authority = "http://altaauth.azurewebsites.net",
 #endif
 
                 ClientSecret = "aLtaseCreT!@#",
@@ -344,7 +343,7 @@ namespace AltaPerspectiva
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
 
-                Authority = "http://localhost:54540",
+                //Authority = "http://localhost:54540",
 
                 
 
