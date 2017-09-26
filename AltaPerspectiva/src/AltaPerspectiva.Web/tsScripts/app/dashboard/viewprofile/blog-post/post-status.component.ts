@@ -9,7 +9,6 @@ import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook'
 @Component({
     selector: 'post-status',
     templateUrl: 'post-status.component.html',
-    styleUrls: ['post-status.component.css'],
     providers: [BlogService]
 })
 export class PostStatusComponent {
