@@ -399,3 +399,23 @@ where a.QuestionId = @QuestionId and a.IsDrafted is null and a.IsDeleted is null
  RETURN @bestAnswer
 END
 GO
+DROP proc [dbo].[SpCategoryWiseAnswer]
+Go
+CREATE proc [dbo].[SpCategoryWiseAnswer]
+(
+@userId nvarchar(255)
+)
+AS
+BEGIN
+
+select COUNT(*) AnswerCount,(select Name from Questions.Categories c where c.Id=qc.CategoryId) CategoryName,(select Image from Questions.Categories cc where cc.Id=qc.CategoryId) ImageUrl,qc.CategoryId
+from Questions.Answers a 
+inner join Questions.Questions q
+on a.QuestionId=q.Id
+inner join Questions.QuestionCategories qc
+on q.Id=qc.QuestionId
+where a.UserId = @userId and a.IsDeleted is null and q.IsDeleted is null
+group by qc.CategoryId
+
+END
+GO
