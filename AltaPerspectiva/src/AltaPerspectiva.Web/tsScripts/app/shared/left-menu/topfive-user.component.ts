@@ -37,7 +37,7 @@ export class TopFiveUserComponent {
         });
     }
     gotoProfile(userId:string) {
-        this._router.navigateByUrl('/dashboard/viewprofile/' +userId + '/user-question');
+        this._router.navigateByUrl('/dashboard/viewprofile/' + userId + '/user-answer');
     }
     goToAllUser() {
         this._router.navigateByUrl('question/all-user');

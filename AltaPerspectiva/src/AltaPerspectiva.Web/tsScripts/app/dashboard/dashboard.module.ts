@@ -18,8 +18,6 @@ import { DirectQuestionComponent } from './viewprofile/direct-question/direct-qu
 import { AddCredentialComponent } from './viewprofile/edit-profile/add-credential.component';
 import { AddEducationComponent } from './viewprofile/edit-profile/add-education.component';
 import { AddEmploymentComponent } from './viewprofile/edit-profile/add-employment.component';
-
-
 import { AddOtherExperienceComponent } from './viewprofile/edit-profile/add-otherexperience.component';
 import { AddPlaceComponent } from './viewprofile/edit-profile/add-place.component';
 import { ItemDialogComponent } from './viewprofile/virtual-store/item-dialog.component';
@@ -63,7 +61,7 @@ const DashBoardroutes: Routes = [
             {
                 path: 'viewprofile/:userId', component: ViewProfileComponent,
                 children: [
-                    { path: '', redirectTo: 'user-question' },
+                    { path: '', redirectTo: 'user-answer' },
                     { path: 'user-question', component: UserQuestionComponent},
                     { path: 'user-answer', component: UserAnswerComponent},
                     { path: 'follower', component: FollowerComponent },
@@ -74,7 +72,6 @@ const DashBoardroutes: Routes = [
                     { path: 'direct-question', component: DirectQuestionComponent }, 
                     { path: 'virtual-store', component: VirtualStoreComponent }, 
                     { path: 'draft-answer', component: DraftAnswerComponent }, 
-                    //{ path: 'blog-post', component: PostedQuestionComponent }
                 ]
             }
             ,{ path: 'blog-post/:blogId', component: BlogPostComponent }

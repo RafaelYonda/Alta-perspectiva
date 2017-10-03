@@ -84,7 +84,6 @@ export class StatusComponent {
         } else {
             this.twitterShareTitle = this.twitterShareTitle + '...';
         }
-        //console.log('Sharer Url in status.component.ts = ' + this.shareurl);
     }
     socialShare() {
         console.log("share FB");

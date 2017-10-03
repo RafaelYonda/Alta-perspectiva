@@ -88,7 +88,6 @@ export class ViewProfileComponent {
             //========Category=======
             this.profileService.getCategoryWiseAnswer(params['userId']).subscribe(categoryWiseAnswer => {
                 this.categoryWiseAnswers = categoryWiseAnswer;
-              
             });
             //================ProfileViewCount===
             this.profileService.addProfileViewCount(params['userId']).subscribe(res => {

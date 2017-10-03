@@ -41,9 +41,6 @@ export class TabsComponent {
         if (this.firstTabPosition < this.categories.length-3) {
             var elem = document.getElementById('tabsContainer').children[this.firstTabPosition];
             this.transform = this.transform - elem.clientWidth-20;
-            console.log("Left");
-            console.log(this.transform);
-            console.log(this.firstTabPosition);
             this.translate = 'translateX(' + this.transform + 'px)';
             this.firstTabPosition++;
         }
@@ -59,9 +56,6 @@ export class TabsComponent {
             this.firstTabPosition--;
             var elem = document.getElementById('tabsContainer').children[this.firstTabPosition];
             this.transform = this.transform + elem.clientWidth+20;
-            console.log("Right");
-            console.log(this.transform);
-            console.log(this.firstTabPosition);
             this.translate = 'translateX(' + this.transform + 'px)';
             
         }

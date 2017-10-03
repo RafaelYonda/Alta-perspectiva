@@ -30,7 +30,6 @@ export class AppComponent {
                     this.removeLocalStorage();
                 else
                 {
-                    console.log(res);
                     localStorage.setItem('currentUserId', res.userId.toLocaleString());
                     localStorage.setItem('currentUserName', res.name.toLocaleString());
                     localStorage.setItem('currentUserImage', res.imageUrl ? res.imageUrl.toLocaleString() : null);
