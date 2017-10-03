@@ -28,13 +28,11 @@ export class UserQuestionComponent {
         });
     }
     onScroll() {
-        console.log('scroll');
         this.questionPage = this.questionPage + 1;
         this.UpdateQuestionsByUserId();
     }
     UpdateQuestionsByUserId() {
         this.questionService.getQuestionsbyUserId(this.userId,this.questionPage).subscribe(res => {
-            console.log(res);
             this.questions = this.questions.concat(res);
             for (var q = 0; q < this.questions.length; q++) {
                 this.questions[q].bestAnswer = this.questions[q].answers[0];

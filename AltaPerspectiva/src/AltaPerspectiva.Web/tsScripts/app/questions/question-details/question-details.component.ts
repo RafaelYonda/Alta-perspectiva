@@ -56,7 +56,6 @@ export class QuestionDetailComponent {
         window.scrollTo(0, 0);
         var currentUserName = localStorage.getItem('auth_token');
         var currentUserImage = localStorage.getItem('currentUserImage');
-        console.log();
         if (currentUserName != null) {
             this._logObj.user.name = currentUserName;
             this._logObj.user.imageUrl = currentUserImage;

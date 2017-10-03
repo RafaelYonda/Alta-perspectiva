@@ -68,8 +68,6 @@ export class QuestionService {
             .catch(this.handleError);
     }
     getAnswerbyUserId(userId: string, answerPage: number) {
-        console.log('Service');
-        console.log(answerPage);
         return this._http.get('userprofile/api/' + answerPage + '/answerbyuserid/' + userId)
             .map(this.extractData)
             .catch(this.handleError);

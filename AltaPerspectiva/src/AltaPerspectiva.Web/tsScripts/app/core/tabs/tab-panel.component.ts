@@ -68,7 +68,6 @@ export class TabPanelComponent {
     }
     UpdateQuestionsByCategory() {
         this.questionAnswerService.getQuestionsByCategoryAndPage(this.id, this.questionPage).subscribe(res => {
-            console.log(res);
             if (!res)
             {
                 this.hideLoader();

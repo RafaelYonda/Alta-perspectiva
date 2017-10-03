@@ -28,7 +28,6 @@ export class QuestionResolver implements Resolve<Question> {
     }
 
     GetQuestion(id: string): Observable<Question> {
-        console.log(id);
         return this._http.get('/questions/api/questions/' + id)
             .map(this.extractData)
             .catch(this.handleError);

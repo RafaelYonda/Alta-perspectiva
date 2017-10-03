@@ -37,7 +37,6 @@ export class PostStatusComponent {
             }
         })
         this.shareurl = this.blogPost.shareUrl;
-        console.log('Blog post share url = ' + this.shareurl);
     }
 
     submitLike(postId: string) {
@@ -65,7 +64,6 @@ export class PostStatusComponent {
         });
     }
     socialShare() {
-       // console.log("share FB");
         let initParams: InitParams = {
             appId: '510199349333959',
             xfbml: true,
@@ -76,14 +74,12 @@ export class PostStatusComponent {
         this.fb.init(initParams);
         var urlId =  this.blogPost.id.toString();
         let params: UIParams = {
-            //href: SITE_URL + "/question/detail/" + this.questionObj.id,
             href: SITE_URL + API_URL + urlId,
             method: 'share',
             display: 'popup',
             name: this.blogPost.title,
             description: this.blogPost.description
         };
-        console.log(params);
         this.fb.ui(params)
             .then((res: UIResponse) => console.log(res))
             .catch((e: any) => console.error(e));

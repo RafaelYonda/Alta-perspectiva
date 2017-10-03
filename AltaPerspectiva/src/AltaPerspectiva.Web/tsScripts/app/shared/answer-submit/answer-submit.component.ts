@@ -92,7 +92,6 @@ export class AnswerSubmitComponent {
         });
     }
     socialShare() {
-        console.log("share FB");
         let initParams: InitParams = {
             appId: '510199349333959',
             xfbml: true,

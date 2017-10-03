@@ -61,7 +61,6 @@ export class NavBarComponent {
 
     }
     reload() {
-        console.log('reload');
         window.location.replace('/');
     }
     getUser() {

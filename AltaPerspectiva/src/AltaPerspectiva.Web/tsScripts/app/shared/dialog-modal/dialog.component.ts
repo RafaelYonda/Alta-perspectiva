@@ -34,7 +34,6 @@ export class DialogComponent {
         this.questionAnswerService.GetAnswersId(this.question.bestAnswer.id).subscribe((res) => {
             this.answerText = res.text;
         });
-        console.log(this.question.bestAnswer.text);
         this.isFollowing = true;
         var user = localStorage.getItem('auth_token');
         if (user) {
