@@ -1,69 +1,79 @@
 ﻿<div #logginAnchor></div>
 <div #likeAnchor></div>
 <div class="status-panel">
-    <img *ngIf="questionObj?.answers[0]?.likes?.length<1" class="hidden-xs" (click)="submitLike(answerObj?.id,questionObj.id)" src='../images/fade-logo.png' onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
-    <img *ngIf="questionObj?.answers[0]?.likes?.length>0" class="hidden-xs" src='../images/like-logo.png' />
-    <a (click)="ShowLikeCount()" class="number-box status-line"> {{isQuestion?(questionObj.likes.length):(answerObj?.likes?.length)}}</a>
-    <a (click)="submitLike(answerObj?.id,questionObj.id)"><div class="status-line">{{questionObj.likes.length>1?'Me gusta':'Me gusta'}}</div></a>
-    <div class="status-line like-border "></div>
-    <div class="status-line number-box status-line hidden-xs">{{questionObj?.viewCount?questionObj?.viewCount:0}}</div>
-    <div class="status-line hidden-xs">Leidos</div>
-    <div class="number-box status-line">
-        {{CommentCount}}
-    </div>
-    <a class="status-line" data-toggle="collapse" aria-expanded="false" attr.data-target="#questionComment{{commentId}}">Comentarios</a>
-    <div class="status-line number-box status-line hidden-xs">{{questionObj?.answerCount}}</div>
-    <div class="status-line hidden-xs">Respuestas</div>
+    <ul class="status_bar">
+        <li>
+            <img *ngIf="questionObj?.answers[0]?.likes?.length<1" class="hidden-xs" (click)="submitLike(answerObj?.id,questionObj.id)" src='../images/fade-logo.png' onmouseover="this.src = '../images/like-logo.png';" onmouseout="this.src = '../images/fade-logo.png';" />
+            <img *ngIf="questionObj?.answers[0]?.likes?.length>0" class="hidden-xs" src='../images/like-logo.png' />
+            <a (click)="ShowLikeCount()" class="number-box status-line"> {{isQuestion?(questionObj.likes.length):(answerObj?.likes?.length)}}</a>
+            <a (click)="submitLike(answerObj?.id,questionObj.id)"><div class="status-line">{{questionObj.likes.length>1?'Me gusta':'Me gusta'}}</div></a>
+        </li>
+        <li>
+            <div class="status-line number-box status-line hidden-xs">{{questionObj?.viewCount?questionObj?.viewCount:0}}</div>
+            <div class="status-line hidden-xs">Leidos</div>
+        </li>
+        <li>
+            <div class="number-box status-line">
+                {{CommentCount}}
+            </div>
+            <a class="status-line" data-toggle="collapse" aria-expanded="false" attr.data-target="#questionComment{{commentId}}">Comentarios</a>
+        </li>
+        <li>
+            <div class="status-line number-box status-line hidden-xs">{{questionObj?.answerCount}}</div>
+            <div class="status-line hidden-xs">Respuestas</div>
+        </li>
+    </ul>
+    <div class="socialIcons">
+        <!--==========Right Side=====-->
+        <div class="social-icon">
+            <a class="SHARE FACEBOOK"
+               (click)='socialShare()' target="social">
+                <img class="social-image" id="img1" src="../images/facebooklogo.svg" />
+            </a>
+            <a href="https://twitter.com/intent/tweet?url={{shareurl}}"
+               class="SHARE TWITTER"
+               onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
+                <img class="social-image" id="img2" src="../images/twitter.svg" />
+            </a>
 
-    <!--==========Right Side=====-->
-    <div class="social-icon">
-        <a class="SHARE FACEBOOK"
-           (click)='socialShare()' target="social">
-            <img class="social-image" id="img1" src="../images/facebooklogo.svg" />
-        </a>
-        <a href="https://twitter.com/intent/tweet?url={{shareurl}}"
-           class="SHARE TWITTER"
-           onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
-            <img class="social-image" id="img2" src="../images/twitter.svg" />
-        </a>
-
-        <!--<a href="https://twitter.com/intent/tweet?text={{this.twitterShareTitle}}&&Check out:{{shareurl}}"
+            <!--<a href="https://twitter.com/intent/tweet?text={{this.twitterShareTitle}}&&Check out:{{shareurl}}"
            class="SHARE TWITTER"
            onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
             <img class="social-image" id="img2" src="../images/twitter.svg" />
         </a>-->
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shareurl }}"
-           onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
-            <img class="social-image social-image-linkedin" id="img3" src="../images/linkedin.svg" />
-        </a>
-        <!--<a 
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shareurl }}"
+               onclick='window.open(this.href, "popupwindow", "width=800,height=500,left=200,top=5,scrollbars,toolbar=0,resizable");return false;' target="social">
+                <img class="social-image social-image-linkedin" id="img3" src="../images/linkedin.svg" />
+            </a>
+            <!--<a
            (click)='linkedinShare()' target="social">
             <img class="social-image social-image-linkedin" id="img3" src="../images/linkedin.svg" />
         </a>-->
 
-        <div class="other-function hidden-xs" id="img4">
-            <a [popover]="otherFunctionPop">...</a>
-            <popover-content #otherFunctionPop
-                             placement="top"
-                             [closeOnClickOutside]="true">
-                <span></span>
-                <ul style="list-style-type: none;">
-                    <li *ngIf="isQuestion && isQuestionEditable" style="list-style-type: none;width: 91px;">
-                        <a (click)="questionEditClicked()">Editar</a>
-                    </li>
-                    <li style="list-style-type: none;">
-                        <a (click)="bookmarkClicked(questionObj?.id)">Guardar<!--Bookmark--></a>
-                    </li>
-                    <li style="list-style-type: none;">
-                        <a (click)="questionReportClicked(questionObj?.id,answerObj?.id)">Reportar<!--Report--></a>
-                    </li>
-                    <!--<li style="list-style-type: none;">
+            <div class="other-function hidden-xs" id="img4">
+                <a [popover]="otherFunctionPop">...</a>
+                <popover-content #otherFunctionPop
+                                 placement="top"
+                                 [closeOnClickOutside]="true">
+                    <span></span>
+                    <ul style="list-style-type: none;">
+                        <li *ngIf="isQuestion && isQuestionEditable" style="list-style-type: none;width: 91px;">
+                            <a (click)="questionEditClicked()">Editar</a>
+                        </li>
+                        <li style="list-style-type: none;">
+                            <a (click)="bookmarkClicked(questionObj?.id)">Guardar<!--Bookmark--></a>
+                        </li>
+                        <li style="list-style-type: none;">
+                            <a (click)="questionReportClicked(questionObj?.id,answerObj?.id)">Reportar<!--Report--></a>
+                        </li>
+                        <!--<li style="list-style-type: none;">
                         <a (click)="postClikced(questionObj?.id)">Guardar///Post</a>
                     </li>-->
-                </ul>
-            </popover-content>
+                    </ul>
+                </popover-content>
+            </div>
         </div>
     </div>
 </div>
-
+<div style="clear: both;"></div>
 

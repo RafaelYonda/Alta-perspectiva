@@ -14,7 +14,6 @@ import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook'
 @Component({
     selector: 'ap-status',
     templateUrl: 'status.component.html',
-    styleUrls: ['status.component.css'],
     providers: [StatusService, QuestionService]
 })
 export class StatusComponent {
