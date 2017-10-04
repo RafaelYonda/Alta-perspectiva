@@ -17,8 +17,8 @@ export class UserAnswerComponent {
     userId: string;
     constructor(private questionService: QuestionService, private _route: ActivatedRoute, private profileService: ProfileService) { }
     ngOnInit() {
-        this.showLoader();
         window.scrollTo(0, 0);
+        this.showLoader();
         this.sub = this._route.parent.params.subscribe(params => {
             this.userId = params['userId'];
             this.UpdateAnswerByUserId();

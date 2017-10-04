@@ -20,8 +20,8 @@ export class UserQuestionComponent {
         
     }
     ngOnInit() {
+        window.scrollTo(0, 0);
         this.showLoader();
-        window.scrollTo(0,0);
         this.sub = this._route.parent.params.subscribe(params => {
             this.userId = params['userId'];
             this.UpdateQuestionsByUserId();

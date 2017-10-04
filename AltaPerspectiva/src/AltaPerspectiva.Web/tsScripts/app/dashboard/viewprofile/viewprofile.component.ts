@@ -50,17 +50,12 @@ export class ViewProfileComponent {
         this._logObj = new LogInObj();
         this.route = _route;
     }
-    
     ngOnInit() {
-        
-        this.userId = this._route.snapshot.params['userId'];
-
-        document.getElementById('question-route').focus();
         if (localStorage.getItem("userId") == this.userId) {
             this.isOwner = true;
         }
         this._route.params.subscribe(params => {
-            console.log(params['userId']);
+            document.getElementById('question-route').focus();
             //===========Checkis owner  ==========
             var currentUser = localStorage.getItem('auth_token');
             this._authService.getLoggedinObj().subscribe(res => {
@@ -95,6 +90,7 @@ export class ViewProfileComponent {
                 
             });
         });
+        
     }   
 
     GetProfileStatisticsParam(userId: string) {
