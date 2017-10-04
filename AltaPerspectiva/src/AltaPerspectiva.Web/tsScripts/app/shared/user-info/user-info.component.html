@@ -24,7 +24,7 @@
                  (mouseover)='over(userObj?.userId)' [popover]="userInfoDetailsPopover" [popoverOnHover]="true" [popoverCloseOnClickOutside]="true" />
             <div class="user-info">
                 <div class="user-detail">
-                    <a [routerLink]="['/dashboard/viewprofile/',userObj?.userId,'user-question']"> {{userObj?.name}}</a>
+                    <a [routerLink]="['/dashboard/viewprofile/',userObj?.userId,'user-answer']"> {{userObj?.name}}</a>
                     <br />
                     <div style="font-size: 12px;"> {{userObj?.occupation}}</div>
                 </div>

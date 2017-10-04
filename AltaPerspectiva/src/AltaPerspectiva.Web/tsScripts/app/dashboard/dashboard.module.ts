@@ -62,8 +62,8 @@ const DashBoardroutes: Routes = [
                 path: 'viewprofile/:userId', component: ViewProfileComponent,
                 children: [
                     { path: '', redirectTo: 'user-answer' },
+                    { path: 'user-answer', component: UserAnswerComponent },
                     { path: 'user-question', component: UserQuestionComponent},
-                    { path: 'user-answer', component: UserAnswerComponent},
                     { path: 'follower', component: FollowerComponent },
                     { path: 'following', component: FollowingComponent },
                     { path: 'bookmark', component: BookmarkComponent },

@@ -60,6 +60,7 @@ export class ViewProfileComponent {
             this.isOwner = true;
         }
         this._route.params.subscribe(params => {
+            console.log(params['userId']);
             //===========Checkis owner  ==========
             var currentUser = localStorage.getItem('auth_token');
             this._authService.getLoggedinObj().subscribe(res => {
@@ -100,17 +101,16 @@ export class ViewProfileComponent {
         this.profileService.getProfileStatistics(userId).subscribe(profileParam => {
             this.profileParam = profileParam;
         });}
-    onUpdatedProfile(updated:any)
+    onUpdatedProfile(updatedObj:any)
     {
-        if (updated)
+        if (updatedObj.isUpdated)
         {
             this.commServ.setuserUpdated();
-            this.refreshData();
+            this.refreshData(updatedObj.userId);
         }
-            
     }
-    refreshData() {
-        this.profileService.GetUsercredentialByUserId(this.userId).subscribe(usr => {
+    refreshData(updatedUserId:any) {
+        this.profileService.GetUsercredentialByUserId(updatedUserId).subscribe(usr => {
             localStorage.setItem('currentUserId', usr.userId.toLocaleString());
             localStorage.setItem('currentUserName', (usr.firstName + ' ' + usr.lastName).toLocaleString());
             localStorage.setItem('currentUserImage', usr.imageUrl ? (usr.imageUrl).toLocaleString() : null);
@@ -235,7 +235,7 @@ export class ViewProfileComponent {
         dialogComponentRef.instance.education.credentialId = this.credential.id;
         dialogComponentRef.instance.close.subscribe(() => {
             dialogComponentRef.destroy();
-            this.refreshData();
+            this.refreshData(this.userId);
         });
     }
 
@@ -253,7 +253,7 @@ export class ViewProfileComponent {
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
-            this.refreshData();
+            this.refreshData(this.userId);
         });
     }
     @ViewChild('otherexperienceDialogAnchor', { read: ViewContainerRef }) otherexperienceDialogAnchor: ViewContainerRef;
@@ -270,7 +270,7 @@ export class ViewProfileComponent {
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
-            this.refreshData();
+            this.refreshData(this.userId);
         });
     }
     @ViewChild('placeDialogAnchor', { read: ViewContainerRef }) placeDialogAnchor: ViewContainerRef;
@@ -287,7 +287,7 @@ export class ViewProfileComponent {
         dialogComponentRef.instance.close.subscribe(() => {
             //this.loadData();
             dialogComponentRef.destroy();
-            this.refreshData();
+            this.refreshData(this.userId);
         });
     }
     

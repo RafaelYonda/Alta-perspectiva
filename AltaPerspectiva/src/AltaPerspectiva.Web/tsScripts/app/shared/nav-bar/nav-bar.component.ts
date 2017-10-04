@@ -84,7 +84,7 @@ export class NavBarComponent {
         }
     }
     gotoProfile() {
-        this._router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-question');
+        this._router.navigateByUrl('/dashboard/viewprofile/' + this._logObj.user.userId + '/user-answer');
     }
     togglemenu() {
         var leftMenu = document.getElementById('toggleMenu');

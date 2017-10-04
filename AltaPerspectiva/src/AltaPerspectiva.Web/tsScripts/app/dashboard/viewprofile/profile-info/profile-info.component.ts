@@ -35,7 +35,7 @@ export class ProfileInfoComponent {
 
     @Input() isOwner: boolean;
 
-    @Output() onUpdated = new EventEmitter<boolean>();
+    @Output() onUpdated = new EventEmitter<any>();
 
     private _CredentialData = new BehaviorSubject<CredentialViewModel>(null);
 
@@ -102,7 +102,11 @@ export class ProfileInfoComponent {
         if (this.credential && ((this.credential.firstName.trim() == "") && (this.credential.lastName.trim() == "")))
             return;
         this.profileService.SaveUserName(this.credential.firstName, this.credential.lastName, this.credential.userId).subscribe(res => {
-            this.onUpdated.emit(true);
+
+            this.onUpdated.emit({
+                isUpdated: true,
+                userId: this.credential.userId
+            });
             if (isIE) {
                 localStorage.setItem('currentUserName', this.credential.firstName + this.credential.lastName);
                 window.location.reload();
