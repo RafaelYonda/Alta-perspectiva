@@ -50,6 +50,8 @@ namespace AuthorizationServer.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
+            if (returnUrl == null)
+                return new RedirectResult(Startup.Url + "/signupcallback", true);
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -61,6 +63,8 @@ namespace AuthorizationServer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
+            if (returnUrl == null)
+                return new RedirectResult(Startup.Url+ "/signupcallback", true);
             EnsureDatabaseCreated(_applicationDbContext);
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -98,13 +102,8 @@ namespace AuthorizationServer.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
-            if (returnUrl==null) {
-                return View("Error", new ErrorViewModel
-                {
-                    Error = "",
-                    ErrorDescription = "Usted necesita venir a través de la página de inicio."
-                });
-            }
+            if (returnUrl == null)
+                return new RedirectResult(Startup.Url + "/signupcallback", true);
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -161,7 +160,6 @@ namespace AuthorizationServer.Controllers
                 connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);
                 command.ExecuteNonQuery();
-
             }
         }
         //
