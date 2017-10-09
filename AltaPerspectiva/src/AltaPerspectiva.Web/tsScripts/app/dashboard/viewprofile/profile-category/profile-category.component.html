@@ -1,32 +1,5 @@
-﻿<style>
-    .profile-cat-img {
-        float: left;
-        height: 35px;
-        width: 35px;
-        border-radius: 10%;
-        margin-right: 12px;
-    }
-
-    .statistic-panel ul {
-        list-style: none;
-    }
-
-    .profile-rightmenu a {
-        font-size: 12px;
-        font-weight: 700;
-    }
-    .profile-rightmenu h3{
-        line-height:10px;
-    }
-    .profile-rightmenu div{
-        font-size:10px;
-    }
-    .profile-rightmenu li{
-        margin-bottom:20px;
-    }
-</style>
-<div class="statistic-panel">
-    <h3><!--category-->Etapas de mi negocio</h3>
+﻿<div class="statistic-panel">
+    <h2><!--category-->Etapas de mi negocio</h2>
     <ul class="profile-rightmenu" *ngFor="let categoryWiseAnswer of categoryWiseAnswers">
         <li>
             <img class="profile-cat-img" src="{{categoryWiseAnswer?.imageUrl}}" [routerLink]="['/question/home',categoryWiseAnswer?.categoryId]" />

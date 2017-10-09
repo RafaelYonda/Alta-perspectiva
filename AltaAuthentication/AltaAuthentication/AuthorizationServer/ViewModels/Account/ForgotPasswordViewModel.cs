@@ -4,8 +4,8 @@ namespace AuthorizationServer.ViewModels.Account
 {
     public class ForgotPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "El campo Correo electrónico es obligatorio.")]
+        [EmailAddress(ErrorMessage = "El campo Correo electrónico no es una dirección de correo electrónico válida.")]
         public string Email { get; set; }
     }
 }
