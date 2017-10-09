@@ -15,7 +15,7 @@ import { QuestionReportComponent } from '../../shared/question-report/question-r
 export class DialogComponent {
     close = new EventEmitter();
     question: Question;
-    answerText: string;
+    answerText: string="";
     //QuestionEditModal
     questionReports: QuestionReport[];
     //Edit question popup

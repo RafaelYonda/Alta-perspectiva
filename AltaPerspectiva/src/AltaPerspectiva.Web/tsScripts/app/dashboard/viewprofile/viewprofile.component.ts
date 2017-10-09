@@ -51,9 +51,7 @@ export class ViewProfileComponent {
         this.route = _route;
     }
     ngOnInit() {
-        if (localStorage.getItem("userId") == this.userId) {
-            this.isOwner = true;
-        }
+       
         this._route.params.subscribe(params => {
             document.getElementById('question-route').focus();
             //===========Checkis owner  ==========
@@ -62,6 +60,7 @@ export class ViewProfileComponent {
                 if (res && currentUser != "null") {
                     this._logObj.isLoggedIn = true;
                     this._logObj.isLoggedIn = true;
+                    this.userId = res.userId;
                     if (params['userId'] == res.userId)
                         this.isOwner = true;
                     else
@@ -76,7 +75,7 @@ export class ViewProfileComponent {
 
             this.profileService.GetUsercredentialByUserId(params['userId']).subscribe(usr => {
                 this.credential = usr;
-                this.changeCredentialStatus();                
+                this.changeCredentialStatus();
                 this.credential.userId = params['userId'];      // in case credential is null then preserve the userId                              
             });
             //========Statistics=======
@@ -87,45 +86,44 @@ export class ViewProfileComponent {
             });
             //================ProfileViewCount===
             this.profileService.addProfileViewCount(params['userId']).subscribe(res => {
-                
+
             });
         });
-        
-    }   
+
+    }
 
     GetProfileStatisticsParam(userId: string) {
         this.profileService.getProfileStatistics(userId).subscribe(profileParam => {
             this.profileParam = profileParam;
-        });}
-    onUpdatedProfile(updatedObj:any)
-    {
-        if (updatedObj.isUpdated)
-        {
+        });
+    }
+    onUpdatedProfile(updatedObj: any) {
+        if (updatedObj.isUpdated) {
             this.commServ.setuserUpdated();
             this.refreshData(updatedObj.userId);
         }
     }
-    refreshData(updatedUserId:any) {
+    refreshData(updatedUserId: any) {
         this.profileService.GetUsercredentialByUserId(updatedUserId).subscribe(usr => {
+            console.log(usr);
             localStorage.setItem('currentUserId', usr.userId.toLocaleString());
-            localStorage.setItem('currentUserName', (usr.firstName + ' ' + usr.lastName).toLocaleString());
+            var userName = usr.firstName ? (usr.firstName + ' ' + (usr.lastName ? usr.lastName : '')) : usr.email;
+            localStorage.setItem('currentUserName', (userName).toLocaleString());
             localStorage.setItem('currentUserImage', usr.imageUrl ? (usr.imageUrl).toLocaleString() : null);
             localStorage.setItem('userId', usr.userId.toLocaleString());
             this.credential = usr;
-            this.changeCredentialStatus();           
+            this.changeCredentialStatus();
         });
     }
 
-    changeCredentialStatus()
-    {
-        
+    changeCredentialStatus() {
+
         if (this.credential.educations && this.credential.educations.length > 0) {
             this.generateEducationHtml();
         } else {
-            this.educationExists = false;         
+            this.educationExists = false;
         }
-        if (this.credential.employments && this.credential.employments.length > 0)
-        {
+        if (this.credential.employments && this.credential.employments.length > 0) {
             this.generateEmploymentHtml();
         } else {
             this.employmentExists = false;
@@ -135,25 +133,23 @@ export class ViewProfileComponent {
         } else {
             this.placeExists = false;
         }
-           
+
         if (this.credential.otherExperiences && this.credential.otherExperiences.length > 0) {
-              this.generateOtherHtml();
+            this.generateOtherHtml();
         } else {
             this.otherExperienceExists = false;
         }
     }
 
     generateEmploymentHtml() {
-
-        this.employmentExists = true;                
+        this.employmentExists = true;
 
         this.employmentHtml = " " + this.credential.employments[0].position.concat(" En ")
             .concat(this.credential.employments[0].companyName ? this.credential.employments[0].companyName : "").concat("&nbsp")
-                              .concat(this.credential.employments[0].startDate ? this.credential.employments[0].startDate.toString():"")
-            .concat(this.credential.employments[0].isCurrentlyWorking ? " presente " : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString():"");
+            .concat(this.credential.employments[0].startDate ? this.credential.employments[0].startDate.toString() : "")
+            .concat(this.credential.employments[0].isCurrentlyWorking ? " presente " : this.credential.employments[0].endDate ? this.credential.employments[0].endDate.toString() : "");
     }
-    generateEducationHtml()
-    {
+    generateEducationHtml() {
         /// set education flag to make it visible
         this.educationExists = true;
 
@@ -165,7 +161,7 @@ export class ViewProfileComponent {
             }
         }
 
-        var secondary = "";   
+        var secondary = "";
 
         if (this.credential.educations[0].secondaryConcentration) {
             if (this.credential.educations[0].secondaryConcentration.length > 1) {
@@ -187,7 +183,7 @@ export class ViewProfileComponent {
         }
 
         var editHtml = "<a (click)='openEmploymentDialogAnchor()' class='edit'><i class='fa fa-edit'></i></a>"
-        if (secondary == "" && degree == "" && graduationYear=="") {
+        if (secondary == "" && degree == "" && graduationYear == "") {
             this.educationHtml = primary;
         } else {
             this.educationHtml = primary.concat(" & ").concat(secondary).concat(degree).concat(graduationYear);
@@ -198,12 +194,12 @@ export class ViewProfileComponent {
         let place = this.credential.places[0];
         var placeHtml = "";
         if (place.isCurrentyLiving) {
-            placeHtml = " Vive en " + place.locationName ;
+            placeHtml = " Vive en " + place.locationName;
         } else {
             if (place.locationName) {
                 placeHtml = " de " + place.locationName;
             }
-            
+
         }
         this.placeHtml = placeHtml;
     }
@@ -213,7 +209,7 @@ export class ViewProfileComponent {
         var placeHtml = "";
         if (otherExperience.description) {
             placeHtml = otherExperience.description;
-        } 
+        }
         this.othersHtml = placeHtml;
     }
 
@@ -286,7 +282,7 @@ export class ViewProfileComponent {
             this.refreshData(this.userId);
         });
     }
-    
+
     scrolToCredentials() {
         var leftMenu = document.getElementById('toggleMenu');
         leftMenu.classList.remove("expand");
@@ -297,5 +293,5 @@ export class ViewProfileComponent {
         leftMenu.classList.remove("expand");
         document.getElementById('profile-info').scrollIntoView();
     }
-   
+
 }

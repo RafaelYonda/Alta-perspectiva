@@ -10,13 +10,12 @@
         </form>
         <div style="clear: both;"></div>
         <div class="card card-block">
-            <div *ngFor="let comment of comments" class="clearfix">
+            <div *ngFor="let comment of comments" class="clearfix comment-block">
                 <div *ngIf="comment">
                     <img class="user-image comment-img" src="{{comment?.userViewModel?.imageUrl}}" />
                     <div class="header-info">{{comment?.userViewModel?.name}}</div>
                     <p class="answer-text">{{comment.commentText}}</p>
                 </div>
-                <hr />
             </div>
         </div>
     </div>

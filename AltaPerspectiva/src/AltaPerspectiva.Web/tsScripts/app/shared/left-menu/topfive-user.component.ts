@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'topfive-user',
     templateUrl: 'topfive-user.component.html',
-    styleUrls: ['left-menu.css'],
     providers: [ProfileService]
 })
 export class TopFiveUserComponent {

@@ -8,7 +8,6 @@ import { Router, ActivatedRoute, Resolve } from '@angular/router';
 @Component({
     selector: 'related-question-left-menu',
     templateUrl: 'related-question-left-menu.component.html',
-    styleUrls: ['left-menu.css'],
     providers: [QuestionAnswerService, CategoryService]
 })
     export class RelatedQuestionMenu {

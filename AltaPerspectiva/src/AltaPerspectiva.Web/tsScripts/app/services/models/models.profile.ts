@@ -8,6 +8,7 @@ export class CredentialViewModel {
     title: string
     description: string
     imageUrl: string
+    email: string;
     profileViewCount: string;
     twitterLink:string;
     facebookLink:string;

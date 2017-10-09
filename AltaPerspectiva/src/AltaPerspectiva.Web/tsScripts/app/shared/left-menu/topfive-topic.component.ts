@@ -6,7 +6,6 @@ import { Topic } from '../../services/models';
 @Component({
     selector: 'topfive-topic',
     templateUrl: 'topfive-topic.component.html',
-    styleUrls: ['left-menu.css'],
     providers: [QuestionService]
 })
 export class TopFiveTopicComponent {

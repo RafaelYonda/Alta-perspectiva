@@ -6,7 +6,6 @@ import { Level } from '../../services/models';
 @Component({
     selector: 'level',
     templateUrl: 'level.component.html',
-    styleUrls: ['left-menu.css'],
     providers: [QuestionService]
 })
 export class LevelComponent {

@@ -71,19 +71,8 @@ export class ProfileInfoComponent {
         else this.imageLink = '../images/userAdd.png';
         return data;
     }
-
-    //getLoggedInUser(userId: string) {
-    //    var currentUser = localStorage.getItem('auth_token');
-    //    this._authService.getLoggedinObj().subscribe(res => {
-    //        if (res && currentUser != "null") {
-
-    //            if (userId == res.userId)
-    //                this.isOwner = true;
-    //        }
-    //    });
-    //}
-
     loadData() {
+        console.log(this.credential.userId);
         this.profileService.GetUsercredentialByUserId(this.credential.userId).subscribe(usr => {
             this.credential = usr;
             if (this.credential.imageUrl && (this.credential.imageUrl != '')) {
@@ -91,7 +80,6 @@ export class ProfileInfoComponent {
             }
             else this.imageLink = '../images/userAdd.png';
         });
-
     }
     onUploadClick() {     
                 this.openpreviewImageDialogBox();

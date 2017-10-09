@@ -7,7 +7,6 @@ import { CommunicationService, CommnetCountEventArg } from '../../services/commu
 @Component({
     selector: 'ap-comment',
     templateUrl: 'comment.component.html',
-    styleUrls: ['comment.component.css'],
     providers: [CommentService]
 })
 export class CommentComponent {

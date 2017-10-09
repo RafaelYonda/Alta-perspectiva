@@ -323,7 +323,6 @@ namespace AltaPerspectiva
                 //ClientId = "staging",       // for staging server  
                 //PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
                 //Authority = "http://alta-staging-auth.azurewebsites.net/",
-
 #else
                 //ClientId = "staging",       // for staging server  
                 //PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
