@@ -21,6 +21,7 @@ export class UserAnswerComponent {
         this.showLoader();
         this.sub = this._route.parent.params.subscribe(params => {
             this.userId = params['userId'];
+            this.questions = [];
             this.UpdateAnswerByUserId();
         });
     }
@@ -30,7 +31,10 @@ export class UserAnswerComponent {
         this.UpdateAnswerByUserId();
     }
     UpdateAnswerByUserId() {
+        console.log(this.userId);
+        
         this.questionService.getAnswerbyUserId(this.userId, this.answerPage).subscribe(res => {
+            console.log(res);
             this.questions = this.questions.concat(res);
             this.questions.forEach(x => x.bestAnswer = x.answers[0]);
             this.hideLoader();
