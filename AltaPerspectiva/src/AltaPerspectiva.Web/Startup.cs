@@ -65,6 +65,8 @@ namespace AltaPerspectiva
             Url = "http://alta-staging.azurewebsites.net/";
             AuthUrl = "http://alta-staging-auth.azurewebsites.net/";
 #else
+
+  
             Url = "http://www.altaperspectiva.com/";
             AuthUrl = "http://altaauth.azurewebsites.net";
 #endif
@@ -309,11 +311,19 @@ namespace AltaPerspectiva
                 // inserted in the database at the server level.
                 //   ClientId = "localhost", // for localhost
                 //  PostLogoutRedirectUri = "http://localhost:5273/",
-
+                //ClientId = "localhost", // for localhost
+                //PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
+                //Authority = "http://alta-staging-auth.azurewebsites.net/",
+                //ClientId = "staging",       // for staging server  
+                //PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
+                //Authority = "http://alta-staging-auth.azurewebsites.net/",
 
 #if DEBUG
                 //ClientId = "staging",       // for staging server  
                 //PostLogoutRedirectUri = "http://alta-staging.azurewebsites.net/",  //for Staging
+                //Authority = "http://alta-staging-auth.azurewebsites.net/",
+                //ClientId = "localhost", // for localhost
+                //PostLogoutRedirectUri = "http://localhost:5273/",         //for localhost
                 //Authority = "http://alta-staging-auth.azurewebsites.net/",
 #else
                 //ClientId = "staging",       // for staging server  
